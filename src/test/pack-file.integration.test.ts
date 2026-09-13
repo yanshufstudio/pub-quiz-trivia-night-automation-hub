@@ -6,8 +6,42 @@ import { POST as importPack } from "@/app/api/packs/import/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { DEMO_PACK, DEMO_PACK_PROMPT } from "@/lib/demo-pack";
 import { db } from "@/lib/db";
+import { MAX_MEDIA_PER_PACK } from "@/lib/media";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION } from "@/lib/pack-file";
 import { parseOptions } from "@/lib/question-types";
+import { REAL_PNG_1X1, realPngBytes } from "@/test/image-fixtures";
+
+function packWithMediaInput(questionCount: number) {
+  return {
+    ...DEMO_PACK,
+    title: `Export Media Pack ${Math.random().toString(36).slice(2)}`,
+    rounds: [
+      {
+        title: "Picture Round",
+        category: "General",
+        questions: Array.from({ length: questionCount }, (_, i) => ({
+          text: `Which landmark ${i + 1}?`,
+          answer: `Landmark ${i + 1}`,
+          points: 1,
+          type: "TEXT" as const,
+        })),
+      },
+    ],
+  };
+}
+
+async function packWithQuestionMedia(pack: Awaited<ReturnType<typeof createPackFromGenerated>>) {
+  await db.questionMedia.create({
+    data: {
+      questionId: pack.rounds[0].questions[0].id,
+      mime: "image/png",
+      bytes: REAL_PNG_1X1,
+      byteSize: REAL_PNG_1X1.length,
+      width: 1,
+      height: 1,
+    },
+  });
+}
 
 const BASE = "http://localhost:3000";
 
@@ -117,5 +151,107 @@ describe("pack export / import", () => {
       })
     );
     expect(res.status).toBe(400);
+  });
+
+  describe("version 2: embedded images", () => {
+    it("exports a question's image as base64 and re-imports it as stored media", async () => {
+      const pack = await createPackFromGenerated(packWithMediaInput(2), "media export test");
+      await packWithQuestionMedia(pack);
+
+      const res = await exportPack(new NextRequest(`${BASE}/api/packs/${pack.id}/export`), {
+        params: Promise.resolve({ id: pack.id }),
+      });
+      expect(res.status).toBe(200);
+      const file = await res.json();
+      expect(file.version).toBe(2);
+      const [withImage, withoutImage] = file.rounds[0].questions;
+      expect(withImage.image).toMatchObject({ mime: "image/png" });
+      expect(Buffer.from(withImage.image.data, "base64").length).toBeGreaterThan(0);
+      // A question with no attached image has no `image` key at all — not
+      // `null`, not an empty object — matching every other optional file field.
+      expect(withoutImage.image).toBeUndefined();
+
+      const imported = await importPack(jsonRequest(`${BASE}/api/packs/import`, file));
+      expect(imported.status).toBe(201);
+      const { pack: copyRef } = await imported.json();
+
+      const copy = await db.quizPack.findUniqueOrThrow({
+        where: { id: copyRef.id },
+        include: {
+          rounds: {
+            orderBy: { index: "asc" },
+            include: { questions: { orderBy: { index: "asc" }, include: { media: true } } },
+          },
+        },
+      });
+      expect(copy.rounds[0].questions[0].media).not.toBeNull();
+      expect(copy.rounds[0].questions[0].media!.mime).toBe("image/png");
+      // Re-encoded, not the byte-for-byte fixture — same guarantee as a
+      // direct upload (src/lib/media.ts's prepareImageForStorage).
+      expect(Buffer.from(copy.rounds[0].questions[0].media!.bytes)).not.toEqual(Buffer.from(REAL_PNG_1X1));
+      expect(copy.rounds[0].questions[1].media).toBeNull();
+    });
+
+    it("drops an image that fails validation rather than failing the whole import", async () => {
+      const file = {
+        format: PACK_FILE_FORMAT,
+        version: 2,
+        title: "Hostile image import",
+        rounds: [
+          {
+            title: "R",
+            category: "C",
+            questions: [
+              { text: "Fine on its own", answer: "A", image: { mime: "image/png", data: "not-a-real-png-at-all" } },
+              { text: "No image", answer: "B" },
+            ],
+          },
+        ],
+      };
+
+      const res = await importPack(jsonRequest(`${BASE}/api/packs/import`, file));
+      expect(res.status).toBe(201);
+      const { pack: copyRef } = await res.json();
+
+      const copy = await db.quizPack.findUniqueOrThrow({
+        where: { id: copyRef.id },
+        include: {
+          rounds: { include: { questions: { orderBy: { index: "asc" }, include: { media: true } } } },
+        },
+      });
+      expect(copy.rounds[0].questions).toHaveLength(2);
+      expect(copy.rounds[0].questions[0].media).toBeNull();
+      expect(copy.rounds[0].questions[1].media).toBeNull();
+    });
+
+    it("enforces the per-pack image cap on import, same as a direct upload", async () => {
+      const questionCount = MAX_MEDIA_PER_PACK + 2;
+      const imageBytes = await realPngBytes(10, 10);
+      const file = {
+        format: PACK_FILE_FORMAT,
+        version: 2,
+        title: "Cap test import",
+        rounds: [
+          {
+            title: "R",
+            category: "C",
+            questions: Array.from({ length: questionCount }, (_, i) => ({
+              text: `Q${i}`,
+              answer: `A${i}`,
+              image: { mime: "image/png", data: imageBytes.toString("base64") },
+            })),
+          },
+        ],
+      };
+
+      const res = await importPack(jsonRequest(`${BASE}/api/packs/import`, file));
+      expect(res.status).toBe(201);
+      const { pack: copyRef } = await res.json();
+
+      const mediaCount = await db.questionMedia.count({
+        where: { question: { round: { packId: copyRef.id } } },
+      });
+      expect(mediaCount).toBe(MAX_MEDIA_PER_PACK);
+    });
   });
 });
