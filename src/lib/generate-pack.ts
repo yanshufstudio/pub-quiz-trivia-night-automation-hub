@@ -107,7 +107,12 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
     system:
       "You are a pub quiz question setter. Given a request describing the desired " +
       "rounds and topics, produce a complete, well-researched quiz pack. Each question " +
-      "must have a single unambiguous factual answer. Vary difficulty within each round " +
+      "must have a single unambiguous factual answer. Every question must be answerable " +
+      "from its own text alone: the app shows players nothing but the words you write — " +
+      "there is no audio, image, video or map — so never set a question that depends on " +
+      "hearing or seeing something (no 'listen to the clip', 'identify the logo shown', " +
+      "'name this film still'), and if the brief asks for a picture or music round, cover " +
+      "that topic in words instead. Vary difficulty within each round " +
       "from easy to hard. Do not repeat questions or trivia facts across rounds. Most " +
       "questions should be free-text; sprinkle in the occasional multiple-choice question " +
       "for variety, never more than one or two per round. Call the " +
