@@ -14,6 +14,23 @@ function OptionsLine({ question }: { question: Question }) {
   );
 }
 
+/** Same-origin `<img>` at the question's own media route, matching the PDF
+ * documents (src/lib/pdf/documents.tsx) — this is a browser print preview,
+ * not the PDF renderer, so there's no SSRF surface here, but it's still the
+ * one bytes-in-the-DB route every surface shares. Renders nothing for a
+ * question with no attached image. */
+function PrintQuestionImage({ question }: { question: Question }) {
+  if (!question.hasMedia) return null;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
+    <img
+      src={`/api/questions/${question.id}/media`}
+      alt=""
+      className="mt-2 ml-6 max-h-40 max-w-xs rounded-md border border-line object-contain print:max-h-32"
+    />
+  );
+}
+
 const TABS = [
   { id: "script", label: "Presenter script", type: "script" },
   { id: "answers", label: "Answer sheet", type: "answers" },
@@ -110,6 +127,7 @@ function ScriptLayout({ pack }: { pack: Pack }) {
                   </span>
                 </div>
                 <OptionsLine question={question} />
+                <PrintQuestionImage question={question} />
                 <p className="mt-2 ml-6 rounded-md bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-900">
                   Answer: {question.answer}
                 </p>
@@ -146,7 +164,17 @@ function AnswerLayout({ pack }: { pack: Pack }) {
               {round.questions.map((question) => (
                 <tr key={question.id} className="border-b border-line align-top">
                   <td className="py-2.5 font-semibold">{question.index + 1}</td>
-                  <td className="py-2.5 pr-4 text-muted">{question.text}</td>
+                  <td className="py-2.5 pr-4 text-muted">
+                    {question.text}
+                    {question.hasMedia ? (
+                      // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
+                      <img
+                        src={`/api/questions/${question.id}/media`}
+                        alt=""
+                        className="mt-2 max-h-28 max-w-[10rem] rounded-md border border-line object-contain"
+                      />
+                    ) : null}
+                  </td>
                   <td className="py-2.5 font-semibold text-emerald-800">{question.answer}</td>
                   <td className="py-2.5 text-right tabular-nums">{question.points}</td>
                 </tr>
@@ -182,6 +210,7 @@ function QuestionLayout({ pack }: { pack: Pack }) {
                   </span>
                 </div>
                 <OptionsLine question={question} />
+                <PrintQuestionImage question={question} />
                 <div className="mt-2 ml-6 h-8 border-b border-line" />
               </li>
             ))}

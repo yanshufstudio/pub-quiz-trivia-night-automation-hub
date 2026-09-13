@@ -1,8 +1,10 @@
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import type { PackWithRounds } from "@/lib/session-state";
+import { Document, Image, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import type { PackWithRoundsAndMedia } from "@/lib/session-state";
 import { parseOptions, QUESTION_TYPE } from "@/lib/question-types";
+import { toDataUri } from "@/lib/media";
 
-type PdfQuestion = PackWithRounds["rounds"][number]["questions"][number];
+type PackWithMedia = PackWithRoundsAndMedia;
+type PdfQuestion = PackWithMedia["rounds"][number]["questions"][number];
 
 const styles = StyleSheet.create({
   page: { paddingTop: 40, paddingBottom: 48, paddingHorizontal: 44, fontSize: 11, fontFamily: "Times-Roman" },
@@ -52,9 +54,23 @@ const styles = StyleSheet.create({
   colAnswer: { flex: 1, color: "#14532d", fontFamily: "Times-Bold" },
   footer: { position: "absolute", bottom: 24, left: 44, right: 44, fontSize: 9, color: "#5c5348", textAlign: "center" },
   teamLine: { marginBottom: 12, fontSize: 11 },
+  // Fixed box regardless of the source photo's aspect ratio, so a very tall
+  // or very wide upload can never push a question's block taller than the
+  // page allows for — `objectFit: "contain"` letterboxes rather than crops
+  // or stretches.
+  questionImage: { width: 140, height: 105, objectFit: "contain", marginLeft: 22, marginTop: 2, marginBottom: 6 },
 });
 
-function Header({ pack, kicker }: { pack: PackWithRounds; kicker: string }) {
+/** Bytes straight from the row, inlined as a `data:` URI — never a URL. See
+ * src/lib/media.ts and src/test/pdf-media-offline.integration.test.ts: the
+ * renderer resolves an `<Image src>` with its own unguarded `fetch`, so this
+ * is the only form a question's image may ever take here. */
+function QuestionImage({ question }: { question: PdfQuestion }) {
+  if (!question.media) return null;
+  return <Image style={styles.questionImage} src={toDataUri(question.media)} />;
+}
+
+function Header({ pack, kicker }: { pack: PackWithMedia; kicker: string }) {
   return (
     <View style={styles.headerRule}>
       <Text style={styles.kicker}>{kicker}</Text>
@@ -99,7 +115,7 @@ function OptionsLine({ question }: { question: PdfQuestion }) {
  * taking the last questions of every round with it. A quizmaster printing
  * that walks into the room with an incomplete pack.
  */
-export function QuestionSheetDocument({ pack }: { pack: PackWithRounds }) {
+export function QuestionSheetDocument({ pack }: { pack: PackWithMedia }) {
   return (
     <Document title={`${pack.title} - Questions`}>
       <Page size="A4" style={styles.page} wrap>
@@ -119,6 +135,7 @@ export function QuestionSheetDocument({ pack }: { pack: PackWithRounds }) {
                   <Text style={styles.points}>{q.points} pt</Text>
                 </View>
                 <OptionsLine question={q} />
+                <QuestionImage question={q} />
                 <View style={styles.writeLine} />
               </View>
             ))}
@@ -130,7 +147,7 @@ export function QuestionSheetDocument({ pack }: { pack: PackWithRounds }) {
   );
 }
 
-export function AnswerSheetDocument({ pack }: { pack: PackWithRounds }) {
+export function AnswerSheetDocument({ pack }: { pack: PackWithMedia }) {
   return (
     <Document title={`${pack.title} - Answers`}>
       <Page size="A4" style={styles.page} wrap>
@@ -148,11 +165,14 @@ export function AnswerSheetDocument({ pack }: { pack: PackWithRounds }) {
               <Text style={styles.points}>Pts</Text>
             </View>
             {round.questions.map((q) => (
-              <View key={q.id} style={styles.tableRow} wrap={false}>
-                <Text style={styles.colNum}>{q.index + 1}</Text>
-                <Text style={styles.colQuestion}>{q.text}</Text>
-                <Text style={styles.colAnswer}>{q.answer}</Text>
-                <Text style={styles.points}>{q.points}</Text>
+              <View key={q.id} wrap={false}>
+                <View style={styles.tableRow}>
+                  <Text style={styles.colNum}>{q.index + 1}</Text>
+                  <Text style={styles.colQuestion}>{q.text}</Text>
+                  <Text style={styles.colAnswer}>{q.answer}</Text>
+                  <Text style={styles.points}>{q.points}</Text>
+                </View>
+                <QuestionImage question={q} />
               </View>
             ))}
           </View>
@@ -163,7 +183,7 @@ export function AnswerSheetDocument({ pack }: { pack: PackWithRounds }) {
   );
 }
 
-export function PresenterScriptDocument({ pack }: { pack: PackWithRounds }) {
+export function PresenterScriptDocument({ pack }: { pack: PackWithMedia }) {
   return (
     <Document title={`${pack.title} - Presenter Script`}>
       <Page size="A4" style={styles.page} wrap>
@@ -188,6 +208,7 @@ export function PresenterScriptDocument({ pack }: { pack: PackWithRounds }) {
                   <Text style={styles.points}>{q.points} pt</Text>
                 </View>
                 <OptionsLine question={q} />
+                <QuestionImage question={q} />
                 <Text style={styles.answerBox}>Answer: {q.answer}</Text>
               </View>
             ))}
