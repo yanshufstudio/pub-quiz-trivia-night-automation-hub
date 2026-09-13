@@ -17,14 +17,59 @@ unmerged**, and everything below lives on it.
   CI green (as of `0f3dcd3`), `mergeable_state: clean`.
   https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/3
 
-**Three commits are local-only, not on `origin`**: `e685124`, `2677222`,
-`7126412` (media phases 2-4 — see "What landed in the third 2026-09-13
-session"), on top of the `0f3dcd3` PR #3 already had. This session's git
-proxy still 403s on push ("not in this session's authorized repository
-set"); a bundle and patch series were handed to the user directly. Whoever
-picks this up next: `git log origin/claude/youthful-knuth-clvns7..claude/youthful-knuth-clvns7`
-to see them locally, or apply the delivered bundle/patches if working from a
+**Four commits are local-only, not on `origin`**: `e685124`, `2677222`,
+`7126412`, `eaa6fa1` (media phases 2-4 plus this handoff update — see "What
+landed in the third 2026-09-13 session"), on top of the `0f3dcd3` PR #3
+already had. Whoever picks this up next: `git log
+origin/claude/youthful-knuth-clvns7..claude/youthful-knuth-clvns7` to see
+them locally, or apply the delivered bundle/patches (below) if working from a
 fresh checkout.
+
+**Push tried four times this session, identical 403 every time**, on both
+the PR branch and a scratch ref (`refs/heads/claude/media-phases-2-4`) — same
+target repo, same failure, so it isn't branch-specific:
+
+```
+remote: access denied by the git proxy: yanshufstudio/pub-quiz-trivia-night-automation-hub
+is not in this session's authorized repository set, so the proxy will not
+inject a credential for it. To fix, add the repository to the session's sources.
+fatal: unable to access '...': The requested URL returned error: 403
+```
+
+Read that error text carefully before assuming it's fixed: it comes from
+**"the git proxy"** talking about **"this session's authorized repository
+set"** — that is Anthropic's own sandbox credential proxy, not a GitHub
+API/App-permissions error (which would come back GitHub-branded, e.g.
+"Permission to X denied"). A claim that the *GitHub App's* installation was
+switched to "All repositories" does not obviously fix *this* error, because
+they read as two different gates. Confirmed via the browser that the Claude
+GitHub App **is** listed as installed on this exact repo (Settings → GitHub
+Apps), which is consistent with "the App has repo access" and "this
+session's proxy still doesn't" being simultaneously true. If you're picking
+this up in a **new** session, the one actual test is a real `git push` — not
+`list_repos`/`can_push` (that reports the *user's* GitHub access, not the
+App's) and not assuming a fix applied without trying it. Read the literal
+output.
+
+**A git bundle and `git format-patch` series covering all 4 commits (based on
+`0f3dcd3`) were handed to the user directly** as the fallback delivery
+mechanism, confirmed delivered (not just sent) both times they were
+generated. If those commits still haven't landed on `origin` by the time you
+read this, ask the user whether they applied the bundle/patches themselves,
+rather than re-deriving the diff from scratch.
+
+**Unrelated stray branch, ignore it**: `claude/post-verification-pass`
+(head `b0b8b9c`) exists locally in this environment from an entirely
+different, earlier task, built on the stale `d0ced34` — it does **not**
+contain the `0f3dcd3` media phase-1 commit or anything in this handoff. Its
+last commit corrects a *false* "verified live against the real model" claim
+that an even earlier session was working from with no browser or API access.
+That correction does not apply here: the live-model verification recorded in
+"What landed in the third 2026-09-13 session" below was done for real, via
+the browser bridge, confirmed against Vercel's own deployment list (not
+inferred from timing). Don't let that old branch's corrective commit message
+cast doubt on this session's verification — they're unrelated events; just
+don't touch or build on that branch.
 
 ## What landed in the first 2026-09-13 session
 
@@ -186,16 +231,15 @@ point at this sandbox's installed `chromium` binary instead of the
 expects and that isn't installed here — a known sandbox/browser-build
 mismatch, not a suite problem; deleted before finishing).
 
-**Push access re-checked, still 403.** Same error as every prior session:
-"yanshufstudio/pub-quiz-trivia-night-automation-hub is not in this session's
-authorized repository set" — a session-level allowlist on Claude Code's own
-git proxy, confirmed via the browser to be a *different* thing from the
-GitHub App's own installation, which **is** listed on the repo's own
-Settings → GitHub Apps page. Installing the app on a repo and authorizing a
-Claude Code session to push to it are evidently two separate grants. The
-three phase commits above are local-only; a git bundle and a `git format-patch`
-series covering them (based on `0f3dcd3`, PR #3's current head) were handed
-to the user directly as the delivery mechanism.
+**Push access re-checked four times total this session, still 403 every
+time** — see "Where things stand" at the top for the full detail (exact
+error text, why it reads as a proxy-level block rather than a GitHub
+App-permissions one, the scratch-ref attempt, and the unrelated stale branch
+whose corrective commit does not apply to this session's verification). The
+four phase/handoff commits are local-only; a git bundle and a
+`git format-patch` series covering them (based on `0f3dcd3`, PR #3's current
+head) were handed to the user directly as the delivery mechanism, confirmed
+delivered.
 
 ## Verified, and not
 
