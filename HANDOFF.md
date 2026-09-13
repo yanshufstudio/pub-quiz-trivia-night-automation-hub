@@ -17,46 +17,31 @@ unmerged**, and everything below lives on it.
   CI green (as of `0f3dcd3`), `mergeable_state: clean`.
   https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/3
 
-**Four commits are local-only, not on `origin`**: `e685124`, `2677222`,
-`7126412`, `eaa6fa1` (media phases 2-4 plus this handoff update — see "What
-landed in the third 2026-09-13 session"), on top of the `0f3dcd3` PR #3
-already had. Whoever picks this up next: `git log
-origin/claude/youthful-knuth-clvns7..claude/youthful-knuth-clvns7` to see
-them locally, or apply the delivered bundle/patches (below) if working from a
-fresh checkout.
+**All five media commits are on `origin` as of the fourth 2026-09-13
+session**: `e685124`, `2677222`, `7126412`, `eaa6fa1`, `66b4539` (phases 2-4,
+two handoff updates), fast-forwarded onto `0f3dcd3`, pushed by the repo owner
+from his own machine from the delivered bundle (`0f3dcd3..66b4539`, verified
+by fetching origin afterwards). PR #3 is now 18 commits; Vercel built the
+`66b4539` preview and it is what the branch URL serves (read off the
+deployments list). See "What landed in the fourth 2026-09-13 session" for
+the live verification of phases 2-4 and the one bug it found.
 
-**Push tried four times this session, identical 403 every time**, on both
-the PR branch and a scratch ref (`refs/heads/claude/media-phases-2-4`) — same
-target repo, same failure, so it isn't branch-specific:
+**Pushing from a Claude sandbox session still 403s** — fifth identical
+failure this session, even on a no-op push with nothing to send, so it's a
+per-session repository-authorization gate and not about the commits:
 
 ```
 remote: access denied by the git proxy: yanshufstudio/pub-quiz-trivia-night-automation-hub
 is not in this session's authorized repository set, so the proxy will not
 inject a credential for it. To fix, add the repository to the session's sources.
-fatal: unable to access '...': The requested URL returned error: 403
 ```
 
-Read that error text carefully before assuming it's fixed: it comes from
-**"the git proxy"** talking about **"this session's authorized repository
-set"** — that is Anthropic's own sandbox credential proxy, not a GitHub
-API/App-permissions error (which would come back GitHub-branded, e.g.
-"Permission to X denied"). A claim that the *GitHub App's* installation was
-switched to "All repositories" does not obviously fix *this* error, because
-they read as two different gates. Confirmed via the browser that the Claude
-GitHub App **is** listed as installed on this exact repo (Settings → GitHub
-Apps), which is consistent with "the App has repo access" and "this
-session's proxy still doesn't" being simultaneously true. If you're picking
-this up in a **new** session, the one actual test is a real `git push` — not
-`list_repos`/`can_push` (that reports the *user's* GitHub access, not the
-App's) and not assuming a fix applied without trying it. Read the literal
-output.
-
-**A git bundle and `git format-patch` series covering all 4 commits (based on
-`0f3dcd3`) were handed to the user directly** as the fallback delivery
-mechanism, confirmed delivered (not just sent) both times they were
-generated. If those commits still haven't landed on `origin` by the time you
-read this, ask the user whether they applied the bundle/patches themselves,
-rather than re-deriving the diff from scratch.
+The GitHub API from the sandbox returns a related hint — "Use add_repo to
+request access ... call add_repo again with access:\"push\"" — but no
+`add_repo` tool existed in that session. The practical route that worked:
+the sandbox produces a bundle/patches, the owner applies and pushes from his
+own clone. Plan for that unless a session is started with this repo attached
+as a source.
 
 **Unrelated stray branch, ignore it**: `claude/post-verification-pass`
 (head `b0b8b9c`) exists locally in this environment from an entirely
@@ -240,6 +225,49 @@ four phase/handoff commits are local-only; a git bundle and a
 `git format-patch` series covering them (based on `0f3dcd3`, PR #3's current
 head) were handed to the user directly as the delivery mechanism, confirmed
 delivered.
+
+## What landed in the fourth 2026-09-13 session
+
+One fix, found by driving media phases 2-4 on the `66b4539` preview for real
+(built-in browser via the owner's linked computer, same route as the earlier
+live-model check).
+
+- **The print preview never showed images.** `src/app/packs/[id]/print/page.tsx`
+  loaded questions without `include: { media: { select: { id: true } } }`,
+  so `toQuestionView` — which turns the relation into the `hasMedia` flag
+  and, as its own doc comment warns, reports `false` when the relation isn't
+  included — hid every image from `PrintPreview`. The three PDFs load their
+  own rows through `session-state.ts` and were unaffected, which is why a
+  green suite didn't catch it: nothing exercises the print *page's* query.
+  Fixed with the one-line include. `tsc` and `eslint` clean.
+
+**Live verification of phases 2-4, on the `66b4539` preview** (pack
+"Landmarks of the World · Classic Rock", question 1; the upload was sent as
+raw bytes to `POST /api/questions/[id]/media` from the page via `fetch`,
+same-origin with the creator cookie — the native file chooser can't be driven
+from the browser bridge, so the `<input type=file>` wrapper itself is the one
+thing here not exercised by hand):
+
+| | |
+|---|---|
+| Upload 600x400 canvas PNG (11,015 B) | 201; stored as 4,015 B PNG 600x400 — sharp re-encode confirmed |
+| Editor after reload | thumbnail renders, "Replace image" + "Remove" appear, other 15 say "No image attached", no console errors |
+| Host dashboard, Q1 live | image renders under the question, no console errors |
+| Team portal, Q1 live | image renders, no console errors |
+| `pdf?type=script` / `questions` / `answers` | 200 each, each carries `/Subtype /Image` XObjects |
+| Print preview (before the fix) | **no image** — the bug above |
+| Replace with 800x300 JPEG (9,549 B) | 201, same media row id, GET returns 5,990 B `image/jpeg` |
+| Export | v2 file, `image: { mime, data }` on the one question |
+| Import of that file | 201, new pack has 16 questions, 1 with media, GET returns the JPEG |
+| Import with JPEG magic bytes corrupted | 201, image dropped, pack kept — the documented "degrade, don't reject" |
+| DELETE media | 200; GET → 404 "No image for this question"; second DELETE → 404 |
+| Editor after delete | back to 16 x "No image attached" |
+
+Both imported test packs were deleted afterwards; the test image was removed;
+session `6BPF4` was left in its natural state. **The print-preview fix itself
+has not been seen on a preview** — it was written after the run above and
+needs a push (from the owner's machine, see "Where things stand") and a
+reload of `/packs/<id>/print` with an image attached to confirm.
 
 ## Verified, and not
 

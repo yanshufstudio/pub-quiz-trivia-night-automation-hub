@@ -12,7 +12,11 @@ export default async function PrintPage({ params }: { params: Promise<{ id: stri
     include: {
       rounds: {
         orderBy: { index: "asc" },
-        include: { questions: { orderBy: { index: "asc" } } },
+        // `media: { select: { id: true } }` and never the bytes — without
+        // this include toQuestionView reports `hasMedia: false` for every
+        // question and PrintPreview silently renders no images (the PDFs
+        // load their own rows, so they were unaffected).
+        include: { questions: { orderBy: { index: "asc" }, include: { media: { select: { id: true } } } } },
       },
     },
   });
