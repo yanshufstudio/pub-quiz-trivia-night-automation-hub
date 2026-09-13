@@ -1,259 +1,302 @@
-# Handoff — 2026-09-09
+# Handoff — 2026-09-13
 
 Live: https://pub-quiz-trivia-night-automation-hu.vercel.app
-Repo: https://github.com/privlin-lgtm/pub-quiz-trivia-night-automation-hub (branch `master`, Vercel deploys on push)
+Repo: https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub
+(moved from `privlin-lgtm`; Vercel deploys `master` on push)
 
-## Update — 2026-09-10: PR #3 is open and green
-
-Everything below this section predates it and describes `master` at
-`beca9aa`; `master` has since moved to `d1b613d` (the visual redesign and
-the Paddle plan docs). Read this first.
-
-`claude/youthful-knuth-clvns7` → PR #3, seven commits, CI green on
-`f342325`, **not merged**. A second full production-readiness walk. Full
-write-up in `docs/portfolio-readiness.md`, "Production-readiness pass,
-2026-09-10". In short:
-
-- **The 502's fourth and last cause.** One `try/catch` in the generate
-  route was flattening four different failures into the same "Please try
-  again" 502, which is why `101a4c7` and `4e0ee66` each fixed a real cause
-  without ending the bug. The undiagnosed one: `max_tokens` was 8000, so
-  any brief bigger than the default (e.g. "eight rounds of fifteen
-  questions") truncated the tool call *deterministically* and strict
-  validation binned the whole pack. Now: 16000 tokens, partial packs are
-  salvaged question by question, and what can't be salvaged returns 422 /
-  503 / 502 by cause instead of one blanket 502.
-- **Auth.** Pack delete was already closed (`5eb1eba`/`c0f23d2`) — verified,
-  not assumed. But `isAuthorizedAdmin` was fail-open with `ADMIN_TOKEN`
-  unset (safe only because its one caller was careful), and
-  `POST /api/sessions` and `POST /api/sessions/[code]/join` had no ceiling
-  at all — 60 junk teams into a live quiz from one loop, from anyone who
-  can see the table QR. All three closed.
-- **Three regressions nobody had flagged**: the app serves no `theme-color`
-  meta tag (`be4967e` deleted the `viewport` export, and `e2e/pwa.spec.ts`
-  has been red on `master` ever since — that commit shipped without the e2e
-  suite being run); every PDF render of a full-size pack overflows its
-  rounds off the page; and `npm run db:seed` has crashed on every run since
-  the libSQL migration.
-
-**Before merging.** None of it was verified on production or against the
-live model — that session had no `ANTHROPIC_API_KEY` and its network policy
-blocked the Vercel hostname, so generation ran against a local stand-in.
-PR #3 has a Vercel preview with real env vars. Generate there from the
-default brief **and** from a deliberately oversized one, in a browser. The
-oversized case is the one this work targets and the one that has never been
-tested. A green suite is not evidence here; it has been twice before and
-the bug reopened both times.
-
-**Note for the open item below.** `e2e/tie-ending.spec.ts` exceeding its
-timeout "every run" did not reproduce: 7.1s locally, and green in CI.
-Whatever caused it was specific to that machine.
+Supersedes the 2026-09-09 handoff. Anything not repeated here is in git
+history — `git show 86069bd:HANDOFF.md` for the previous one, which still has
+the full record of the 2026-09-07→09 work.
 
 ## Where things stand
 
-Local `master` is in sync with `origin/master` at `beca9aa`. Production runs
-that commit; the last code change was `5eb1eba` (deployment `41ufcme5e`,
-2026-09-08 15:14), and `beca9aa` on top of it is docs only. `.env.local`
-(gitignored) holds the current `ADMIN_TOKEN`.
+`master` is at `d1b613d` and that is what production runs. **PR #3 is open and
+unmerged**, and everything below lives on it.
 
-The working tree is **not** clean, and neither item is from the session that
-wrote this file:
+- **PR #3** — branch `claude/youthful-knuth-clvns7`, head `eef4a77`, 11
+  commits, base `master` `d1b613d`. CI green, `mergeable_state: clean`.
+  https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/3
 
-- `docs/portfolio-readiness.md` has an uncommitted 38-line section, "Closed
-  again 2026-09-08 — verified by hand this time", written by the session that
-  restored the studio-site link. It records a hand-run of the default brief
-  (4 rounds, 40 questions, under 20s) and explains that the `2/2 free packs`
-  cap is per-visitor cookie, not global. It reads correctly against the
-  deployed code. Commit it as-is, or let that session do so.
-- `Favicon and branding mark options.zip` (125 KB, root of the repo, dated
-  2026-09-09 00:00) is untracked. This is the design icon pack that
-  `c5293de` already applied and whose first copy was deleted after
-  extraction. Nothing in the repo depends on it; delete it rather than
-  commit it.
+The working tree is clean and nothing is unpushed.
 
-Two or three Claude sessions have been committing to this repo at once over
-the last two days. Run `git fetch` and `git status` before assuming the tree
-matches what the last message in any one session said, and check `git diff`
-on any modified file before committing it as your own.
+## What landed this session (2026-09-13)
 
-## Shipped 2026-09-07 → 09, newest first
+Three commits on top of the eight PR #3 already had.
 
-All verified on production unless noted.
+- **`d6fc1b6` — free-tier cap is env-driven.** `FREE_LIMIT` in
+  `src/lib/creator.ts` now reads `FREE_PACK_LIMIT`, defaulting to 2. Set it
+  high on the **Vercel preview environment only**; production stays at 2 by
+  leaving it unset. Read once at module load, so a change needs a redeploy.
+  Anything that isn't a non-negative integer falls back to 2 — deliberately
+  not the literal `Number(process.env.FREE_PACK_LIMIT ?? 2)` that was asked
+  for, because `Number("")` is `0` and `Number("two")` is `NaN`, and `NaN`
+  loses every `<` comparison in `canGenerate`, so a typo'd env var would have
+  silently locked out every free creator instead of raising the cap.
+- **`1bd7f6e` — media guard in the generation prompt.** The system prompt in
+  `src/lib/generate-pack.ts` now requires every question to be answerable from
+  its own text, states there is no audio/image/video/map, and tells the model
+  to cover a picture-or-music-round brief *in words* rather than refuse it.
+  Nothing downstream enforces this — validation only checks fields are
+  non-empty, so "Listen to the clip. Which band is playing?" still validates
+  fine. **This narrows the odds; it does not close them.**
+- **`eef4a77` — the wizard's default brief no longer asks for a picture
+  round.** `src/app/create/page.tsx` used to end on "a picture-round-style
+  general knowledge closer", which is the brief every visitor generates from
+  unless they retype it. Now a plain general-knowledge closer. Four rounds
+  either way.
 
-- **Pack ownership** (`5eb1eba`). A pack is editable only by the holder of
-  the `pq_creator` cookie whose Creator id matches `QuizPack.creatorId`
-  (`src/lib/pack-access.ts`). `GET /api/packs` and `/packs` list ownerless
-  packs plus the visitor's own, never another creator's. `POST /api/questions`,
-  `PATCH`/`DELETE /api/questions/[id]`, `DELETE /api/rounds/[id]` and
-  `POST /api/rounds/[id]/move` return
-  `403 {"error":"You can only edit packs you created"}` for anyone else, after
-  the existing 404 check. `DELETE /api/packs/[id]` accepts the admin token or
-  the owner. Ownerless packs (`creatorId` null: the seeded demo pack, anything
-  older than the Creator model) are read-only for everyone; the editor shows
-  a note pointing at Export JSON → Import, and import now stamps the importer
-  as owner. Reads by id stay open so sessions, PDF, print and export keep
-  working for the demo path. Before this, any visitor could rewrite or delete
-  any pack. Verified on production: cookie-less list returns only the demo
-  pack; all four edit routes 403 on it; delete 401; `GET` and PDF 200; in the
-  browser the demo pack renders read-only and an owned pack renders with full
-  controls.
-- **Default-brief generation** (`9565e01`, `4e0ee66`). Three defects:
-  `maxDuration = 60` on the generate route (platform default was 10s, a
-  four-round generation takes 20–28s); the `/create` client checks
-  `content-type` before `res.json()`; and `generatedPackSchema` now derives
-  a pack title from the round titles when the model omits one (it did so
-  about two runs in five, sinking the whole 40-question pack). Verified 5/5
-  on production including a real browser click through the wizard. Evidence
-  in `docs/portfolio-readiness.md`, "Closed 2026-09-08 afternoon".
-- **Docs brought in line** (`6b9646d`, `49a2e1f`, `beca9aa`). README has the
-  function-timeout note, the two degrade-instead-of-reject validation rules,
-  and a pack-ownership security note. `claude/improvement-roadmap.md` has a
-  status block marking what has shipped since the review. The plan doc's
-  payments provider is Paddle (see "Next").
-- **Vercel build and Turso migration.** Build is
-  `prisma generate && prisma migrate deploy && next build`.
-- **Generation 502 for a bad multiple-choice option set** degrades that
-  question to free text instead of rejecting the pack (`101a4c7`).
-- **`ADMIN_TOKEN` set and rotated** via the Vercel CLI without printing it.
-- **QR join link**, **pack export/import** (`pub-quiz-pack` v1), **installable
-  PWA**, **brand mark and icon set** (`c5293de`), **team answer draft reset**
-  on advance (PR #2).
+### Caveat on `eef4a77`
+
+This is the commit the previous session recorded as `872c880`, handed over as
+a `.patch` that **did not survive the move to this repo** — no patch file
+anywhere on disk, and `git cat-file 872c880` is not a valid object. It was
+**reconstructed from its description, not applied.** The wording chosen is
+mine. The tree was swept for anything else the original may have touched (no
+test or e2e spec asserts the brief text); the two other copies of the old
+wording, in this file's predecessor and `docs/portfolio-readiness.md`, were
+left alone on purpose as dated records of a past bug. If the real patch turns
+up, diff it against `eef4a77`.
+
+## Verified, and not
+
+Run against `eef4a77`, all green:
+
+| | |
+|---|---|
+| `npx tsc --noEmit -p .` | clean |
+| `npx eslint src e2e scripts` | clean |
+| `npm test` | 117 passed |
+| `npm run test:integration` | 112 passed |
+| `npm run test:e2e` | 6/6 passed |
+| CI on `eef4a77` | green |
+
+**Nothing in PR #3 has been checked against production or the live model.**
+No `ANTHROPIC_API_KEY` has been available in any session that worked on it.
+The 502 fix reproduces-then-resolves locally, but the truncation was induced,
+not observed from the real model. The media guard is the weakest of the three
+in this respect: whether the model actually obeys a prompt instruction is
+precisely the thing a test suite cannot tell you.
+
+This bug has been closed twice on a green suite and reopened twice. **Do not
+call it fixed without a browser on a real deployment.**
+
+## Open items
+
+- **Production verification of PR #3.** The gate, in order: (1) default brief
+  from `/create` in a browser on a deployment, expect 201 in 20-30s and 4
+  rounds / ~40 questions; (2) an oversized brief — "eight rounds of fifteen
+  questions each" — expect a 201 with a salvaged short pack *or* a 422 that
+  says the brief is too big; a bare 502 saying "Please try again" is the
+  original bug; (3) read every generated question and count how many need
+  media they can't be shown. Generate at least three packs for (3) — one
+  clean run is weak evidence for a probabilistic guard.
+- **Test the PR #3 *preview*, not production.** Production is `master`, which
+  has none of these fixes. Testing production and finding it fine means
+  nothing.
+- **No Vercel preview has built for `d6fc1b6`, `1bd7f6e` or `eef4a77`.** The
+  last preview deployment recorded against this repo is `3bec323` from
+  2026-09-10 (`https://pub-quiz-trivia-night-automation-lm5s7afol-privlin.vercel.app`).
+  The GitHub→Vercel integration may need reconnecting after the repo moved to
+  the `yanshufstudio` org. Check before planning any verification session.
+- **Media support is scoped but not started.** See below.
+- **Paywall copy** — the free-cap screen still says "Upgrade to Pro for
+  unlimited packs, coming soon". Goes away with the Paddle work.
+- **`npm audit`** — 3 high findings in the dev-only
+  `prisma` → `@prisma/config` → `deepmerge-ts` chain; no fix without a
+  `prisma@8` RC.
+
+## Media support — scoped 2026-09-13, no code written
+
+The problem: a question like "Listen to the clip. Which band is playing?"
+passes every validation check and reaches the table unanswerable. `1bd7f6e`
+asks the model not to write them; nothing stops one getting through.
+
+### The SSRF trap, for whoever builds this
+
+`@react-pdf/renderer` resolves `<Image src>` **server-side during render**,
+inside the Vercel function. `node_modules/@react-pdf/image/lib/index.js:188`:
+
+```js
+const fetchRemoteFile = async (src) => {
+  const response = await fetch(src.uri, { method, headers, body, credentials });
+  ...
+```
+
+Bare `fetch`. No scheme restriction, no host allowlist, no timeout, no size
+limit, `redirect` defaulted to `follow`. Both ends of the chain are already
+unauthenticated: `POST /api/packs/import` (rate-limited 20 per 10 min, no
+auth) and `GET /api/packs/[id]/pdf` (**no ownership check** — reads by id are
+deliberately open so the demo pack, print and PDF work). So storing a remote
+image URL on a question would let anyone make the server fetch a URL of their
+choosing, and get the bytes back embedded in the returned PDF if they are a
+valid image — not blind SSRF. Invalid bytes still give a boolean oracle for
+internal port scanning, and the missing timeout burns the 60s `maxDuration`.
+
+`redirect: "follow"` is why a hostname allowlist does not work: an allowlisted
+host that 302s to a link-local address sails through.
+
+`data:` URIs are decoded locally (`index.js:152, 235`), no network at all.
+That is the escape hatch the design below is built on.
+
+### Decisions taken (by the repo owner, 2026-09-13)
+
+1. **Upload and store the bytes.** Not URL-paste-and-store-the-URL. (Note the
+   two converge: the safe version of URL paste is "fetch once at paste time,
+   validate, store the bytes" — the storage question is unavoidable either
+   way, so paste can be added later as a second ingest button into the same
+   pipeline.)
+2. **Pack owner only** — gated on the existing `pq_creator` ownership rule in
+   `src/lib/pack-access.ts`. Not Pro-gated, not open to anonymous visitors.
+3. **Pack file v2 embeds images as base64**, keeping files self-contained and
+   keeping the unauthenticated import route free of any network fetch.
+
+### Design
+
+Bytes in a **separate table**, so `GET /api/packs` and the editor don't carry
+image data in every payload — pack JSON carries `hasMedia`, nothing more:
+
+```
+model QuestionMedia {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String   @unique
+  mime       String   // "image/jpeg" | "image/png"
+  bytes      Bytes
+  byteSize   Int
+  width      Int
+  height     Int
+  createdAt  DateTime @default(now())
+}
+```
+
+**The invariant: no surface ever fetches the network to render an image.**
+
+| Surface | Source |
+|---|---|
+| Player / host / print | `<img src="/api/questions/[id]/media">`, same-origin |
+| PDF | bytes read from the DB in the same query, passed as a `data:` URI |
+| Export | base64-inlined into the v2 file |
+
+Upload (`POST /api/questions/[id]/media`, owner-gated, rate-limited):
+size cap first, then **sniff magic bytes** — never trust `content-type` or the
+filename — **JPEG and PNG only, SVG rejected**. `isValidFormat` accepts SVG
+but it can reference external resources and is a parser attack surface; a pub
+quiz does not need it. Dimension cap.
+
+**Format-version trap:** `src/lib/pack-file.ts` has
+`version: z.literal(PACK_FILE_VERSION)` and a comment about refusing
+mismatched files. Bumping to 2 naively **refuses every pack file already
+exported**. v2 must accept `1 | 2`, reading v1 as "no images". And imported
+base64 must go through the *identical* validator as upload — that is the
+boundary a hostile pack file walks in through.
+
+### Phasing
+
+1. Schema + upload/serve routes + validator + owner auth (backend only, fully
+   testable)
+2. Editor UI + player/host rendering
+3. PDF and print
+4. Export/import v2
+
+### The test that matters most
+
+Render a PDF for a pack with media with `globalThis.fetch` stubbed to throw;
+**fail the test if the render touches the network**. That pins the invariant
+permanently rather than trusting nobody later swaps a `data:` URI for a URL.
+
+### Still undecided
+
+1. Size cap — suggest 2 MB upload / ~1 MB stored.
+2. Re-encode with `sharp` (strips EXIF location data from uploaded photos,
+   neutralises polyglot files) vs sniff-only (lighter, weaker)?
+3. Which PDFs get images — question sheet yes, presenter script probably,
+   answer sheet probably not.
+4. Media cap per pack, so one pack can't put 40 × 1 MB into Turso.
+5. Does the free tier limit media, or is the per-pack cap enough?
+
+None of these block phase 1 except arguably the size cap.
+
+**`1bd7f6e` stays either way.** The model cannot upload images, so generated
+questions must still stand on their own text. Media is a human-editor feature
+layered on top, not a replacement for that rule.
 
 ## How to verify
 
 ```bash
-npm run test               # unit, 87 tests
-npm run test:integration   # 91 tests, throwaway prisma/test.db
-npm run test:e2e           # 6 specs, throwaway prisma/e2e.db, dev server on 4517 — see tie-ending below
+npx next typegen                       # REQUIRED before tsc on a fresh checkout
 npx tsc --noEmit -p . && npx eslint src e2e scripts
-npm run screenshots        # regenerates docs/screenshots/*.png
+npm run test                           # unit, 117
+npm run test:integration               # 112, throwaway prisma/test.db
+npm run test:e2e                       # 6 specs, dev server on 4517
 ```
 
-Production smoke (Git Bash or the Claude terminal, any folder):
+Production smoke (no cookie = the stranger's view):
 
 ```bash
 B=https://pub-quiz-trivia-night-automation-hu.vercel.app
 curl -s -o /dev/null -w "%{http_code}\n" $B/
-curl -s $B/api/packs                                                  # cookie-less: only "Friday Night Demo Pack"
-curl -s -o /dev/null -w "%{http_code}\n" -X DELETE $B/api/packs/x     # expect 401
-# default brief, spends a real Anthropic call, rate limit 5 per 10 min per IP:
-curl -s -o /dev/null -w "%{http_code} %{time_total}s\n" -X POST -H "Content-Type: application/json" \
-  -d '{"prompt":"A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a picture-round-style general knowledge closer. Keep answers short and pub-friendly."}' \
-  $B/api/packs/generate                                               # expect 201 in 20-30s
+curl -s $B/api/packs                                               # only "Friday Night Demo Pack"
+curl -s -o /dev/null -w "%{http_code}\n" -X DELETE $B/api/packs/x  # expect 401
 ```
 
-## Open items
+A generation costs real Anthropic credit. **429** = the per-IP limiter
+(5 per 10 min on `POST /api/packs/generate`, nothing bypasses it).
+**403** = the free-tier cap (`FREE_PACK_LIMIT`, default 2, per `pq_creator`
+cookie per 30 days). They are different things; don't conflate them.
 
-- **`e2e/tie-ending.spec.ts` exceeds the 30s test timeout, every run.** It
-  is not broken: with `--timeout 120000` it passes in 53.9s, and it fails the
-  same way on the code before the ownership change. But the 2026-09-08
-  morning handoff recorded it at about 5s, 10/10, so something made the
-  local e2e path roughly ten times slower in between. Ruled out: another dev
-  server on port 3000 (gone now, still fails), and the local DB (Playwright
-  pins `DATABASE_URL` to `prisma/e2e.db`; `.env` has no Upstash keys). Not
-  yet checked: the dev server's per-route Turbopack compile time on this
-  machine, and whether the other five specs got slower too (they pass, at
-  1.6 min for the suite). Find the cause before raising the timeout.
-- **Studio site** (`Projects/Yanshuf`): the user reported the live-demo
-  button was being restored on 2026-09-09. Confirm the Pub Quiz card says
-  "Live" and the link resolves. The button was restored once on the
-  2026-09-08 morning's premature all-clear and reverted within the hour.
-- **Uncommitted readiness-doc section and the stray zip** — see "Where things
-  stand".
-- **Paywall copy.** The free-cap screen says "Upgrade to Pro for unlimited
-  packs, coming soon". The other session flagged it as a portfolio tell.
-  Goes away with the Paddle work.
-- **Session `3SBV6`** sits in the production database in LOBBY from a QR
-  check. Harmless. No session or pack TTL exists.
-- **Verification packs** from the 2026-09-08 smoke runs (about ten, titled
-  "Friday Night Lights…" / "Friday Night Fever Quiz") are in the production
-  database. They are owned by throwaway curl creators, so nobody sees them
-  in `/packs` any more. Delete via `DELETE /api/packs/[id]` with
-  `x-admin-token` if the table needs tidying.
-- **`npm audit`** reports 3 high findings in the dev-only
-  `prisma` → `@prisma/config` → `deepmerge-ts` chain; no fix without
-  `prisma@8` RC.
-- **`.claude/worktrees/sad-brattain-23a4d3/`** is the cwd of the session that
-  wrote this file (its worktree registration is already gone, so git
-  commands there act on the main checkout). `rmdir` it from the main
-  checkout once that session is closed.
+## Gotchas
 
-## Gotchas learned across these sessions
+New this session:
 
-- **`next dev` refuses a second instance** in the same project directory,
-  even on a different port. Playwright's e2e server (4517) and a Browser
-  pane preview (3000) cannot run at the same time.
-- **Playwright reuses any server already on 4517** (`reuseExistingServer`
-  outside CI), so a stray dev server from another session silently tests old
-  code.
-- **Local `.env` has `DATABASE_URL="file:./dev.db"`** resolving against the
-  process cwd, so the root-level `dev.db` (gitignored) is the dev server's
-  DB, not `prisma/dev.db`. If `/packs` 500s with `no such table`, run
-  `npx prisma migrate deploy`.
-- **`ANTHROPIC_API_KEY` is empty locally and cannot be pulled.** Every Vercel
+- **`npx tsc` fails on a fresh checkout** with
+  `error TS2304: Cannot find name 'LayoutProps'` in `src/app/layout.tsx`.
+  `LayoutProps` is a Next-generated global that doesn't exist until
+  `.next/types` is written. Fix: **`npx next typegen`** (generates route types
+  without a full build). Costs an hour if you don't know it.
+- **Playwright's pinned browser may not match the sandbox.** `@playwright/test`
+  here wants Chromium build 1234; a cloud sandbox may only have 1194, and all
+  6 specs then fail with `Executable doesn't exist at .../chrome-headless-shell`
+  — an environment failure that looks exactly like a broken suite. Run against
+  the installed binary with a throwaway config setting
+  `launchOptions.executablePath`, and **do not commit it**.
+- **`cmd > log 2>&1; echo $?` in a backgrounded shell reports the wrapper's
+  exit code, not the command's.** This caused a false "e2e baseline passed"
+  in this session when all 6 were failing. Read the log, not the exit code.
+- **`e2e/tie-ending.spec.ts` ran in 5.8s** here (whole suite 38-54s). The
+  2026-09-09 handoff lists it as exceeding the 30s timeout on every run —
+  that was specific to that machine, not the repo. Don't go hunting for it.
+- **GitHub App repo scope vs permissions are different things.** Writes 403'd
+  from both git (`Claude doesn't have GitHub access...`) and the API
+  (`Resource not accessible by integration`) while *reads worked fine*. The
+  App's permissions were already Contents/PRs read-write; what was missing was
+  this repo being in the installation's **repository access** set. Fixed by
+  setting the `yanshufstudio` installation to **All repositories**.
+  `list_repos` reporting `can_push: true` is the *user's* access, not the
+  App's — it is not evidence the App can write.
+
+Still true from before:
+
+- **`next dev` refuses a second instance** in the same project directory, even
+  on a different port. Playwright's e2e server (4517) and a browser-pane
+  preview (3000) cannot both run.
+- **Playwright reuses any server already on 4517** outside CI, so a stray dev
+  server silently tests old code.
+- **`ANTHROPIC_API_KEY` is empty locally and cannot be pulled** — every Vercel
   secret here was added `--sensitive`, and `vercel env pull` writes a
-  placeholder for those. Anything that needs a real generation runs against
-  production (5 per 10 min per IP, real credit per call) or a preview deploy.
+  placeholder. Anything needing a real generation runs against a deployment.
+- **Local `.env` `DATABASE_URL` resolves against the process cwd.** If `/packs`
+  500s with `no such table`, run `npx prisma migrate deploy`.
+- **`vercel ls` prints its table to stderr** — use `2>&1`, not `2>/dev/null`.
 - **`vercel logs <url>` streams only from the moment it starts** — open it
-  in the background before firing the request whose error you want. Its
-  `--json` lines carry `level`, `message` and the route.
-- **`vercel ls` prints its table to stderr.** `2>/dev/null` hides it and a
-  polling loop never matches. Use `2>&1`.
-- **The Claude desktop Browser pane shares one profile across sessions.** The
-  `pq_creator` cookie in it is the same for every session, so packs generated
-  from it in one session show up as "yours" in another. Fine for checks;
-  do not treat it as a fresh visitor. Use curl (no cookie) for the
-  stranger's view.
-- **Claude Code's auto-mode classifier** blocked reading the Vercel CLI auth
-  token to call the REST API directly. `vercel project inspect`,
-  `vercel inspect <url>` and `vercel ls` cover most of what that was for.
-- **Vitest excludes `**/.claude/**`** so background-session worktrees do not
-  leak spec files into the root run.
-- **Claude Code's Bash heredocs on this machine collapse `\\` to `\`.** Use
-  the Edit/Write tools for anything with escaped backslashes.
-- **Ad-hoc TypeScript outside the repo tree** cannot resolve the repo's
-  `node_modules` and, as `.ts`, hits `Top-level await is currently not
-  supported with the "cjs" output format`. Use a `.mts` file, import repo
-  modules by `file:///` URL, run `node --env-file=<file> --import tsx
-  script.mts` from the repo root.
-- **Playwright `getByRole("alert")`** matches Next's dev overlay as well as
-  the app's alert; filter by text.
-- **A fresh git worktree has no `node_modules`, and a junction to the main
-  checkout's copy does not work** (Turbopack: `Symlink [project]/node_modules
-  is invalid`). Run `npm ci && npx prisma generate` inside it.
-- **A worktree cannot be removed while the session using it is open**
-  (`Permission denied` on the root directory). Prune and `rmdir` after.
-- **Vercel CLI** is logged in as `privlin-lgtm`, project linked (`.vercel/`,
-  gitignored). `vercel env add NAME production --force --sensitive < file`
-  rotates a secret without echoing it.
+  before firing the request you want to see fail.
+- **Vitest excludes `**/.claude/**`** so worktree spec files don't leak in.
 
-## Next per the plan
+## Next
 
-`claude/monetization-buildout-plan.md`, build order step 3: **Paddle**
-checkout, webhook, `/pricing` page (the plan doc's "Payments" section now
-says Paddle and carries the reasoning). Step 2, the `Creator` model and
-free-tier cap, is live; pack ownership (above) rides on the same cookie. No
-Paddle code, no `/pricing` page, and no `paddle:*` skill has been invoked
-yet; nothing to roll back.
-
-This is architectural (a new subsystem), so it starts with brainstorming and
-a spec. Two questions were asked and never answered; ask them first:
-
-1. **Paddle account scope** — reuse the HebCal Paddle seller account (new
-   product and price under it) or a separate account for this app?
-2. **Pricing interval(s)** at launch — monthly only (~$5), monthly + annual
-   (~$5/mo or ~$25/yr, the plan doc's framing), or annual only (~$25/yr)?
-
-Before calling any of it "live", follow the global `~/.claude/CLAUDE.md`
-checklist written after the Or Zarua payments incident: walk the real path
-on the production domain as a new user with DevTools open, grep the deployed
-bundle for every expected config value, use Vercel env type Config (not
-legacy Secret) for publishable values, add a CSP test per third-party host,
-never fail soft on a required integration, verify the schema in the
-production DB, and verify the webhook revoke path live the same day as the
-grant. The postmortem is at
-`HebCal_Companion/docs/postmortem-2026-09-09-web-purchases-never-worked.md`.
-
-After step 3: step 4, ad slots on the three non-live pages gated to
-`plan === FREE`. Then the roadmap's still-open items (pack and session TTL,
-round-by-round scores, team management, SSE for reveal latency).
+1. Verify PR #3 on a preview deployment, in a browser, against the live model
+   (above). Merge is the owner's call and nothing has been merged or approved.
+2. Media support phase 1, once the five open questions are answered.
+3. Then the plan's step 3: Paddle checkout, webhook, `/pricing`
+   (`claude/monetization-buildout-plan.md`). Two questions there have been
+   asked twice and never answered: reuse the HebCal Paddle seller account or
+   a separate one, and monthly / annual / both at launch.
