@@ -13,13 +13,13 @@ the full record of the 2026-09-07→09 work.
 `master` is at `d1b613d` and that is what production runs. **PR #3 is open and
 unmerged**, and everything below lives on it.
 
-- **PR #3** — branch `claude/youthful-knuth-clvns7`, head `eef4a77`, 11
-  commits, base `master` `d1b613d`. CI green, `mergeable_state: clean`.
+- **PR #3** — branch `claude/youthful-knuth-clvns7`, base `master` `d1b613d`.
+  CI green, `mergeable_state: clean`.
   https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/3
 
 The working tree is clean and nothing is unpushed.
 
-## What landed this session (2026-09-13)
+## What landed in the first 2026-09-13 session
 
 Three commits on top of the eight PR #3 already had.
 
@@ -57,18 +57,83 @@ wording, in this file's predecessor and `docs/portfolio-readiness.md`, were
 left alone on purpose as dated records of a past bug. If the real patch turns
 up, diff it against `eef4a77`.
 
+## What landed in the second 2026-09-13 session
+
+**Media support, phase 1** — schema, upload/serve routes, validator, owner
+auth. Backend only; no UI, no PDF, no export changes. Phases 2-4 are
+untouched.
+
+- **`QuestionMedia`** (`prisma/schema.prisma`, migration
+  `20260913190000_add_question_media`) — one optional image per question, in
+  its own table so a pack read never carries image bytes. As designed, plus
+  an `updatedAt` the design didn't call for: replacing an image reuses the
+  row, so without it a cached copy could never be told from a fresh one.
+- **`src/lib/media.ts`** — the one validator every image passes through,
+  whichever door it arrives by. Works on the bytes only: the request's
+  `Content-Type` and any filename are ignored. JPEG and PNG, sniffed by
+  magic number; SVG explicitly refused; dimensions parsed from the header
+  (PNG IHDR, a JPEG marker walk that steps over EXIF blocks) and capped
+  before anything could decode them. `toDataUri` is the PDF path's half of
+  the invariant.
+- **`POST`/`GET`/`DELETE /api/questions/[id]/media`.** Upload and delete are
+  owner-gated on `requirePackOwner` — the same `pq_creator` rule as every
+  other edit — and rate-limited (40 per 10 min per IP), the limiter ahead of
+  everything else so a flood is refused before 2 MB is read. `GET` is open,
+  matching every other read by id here: the team's phone and the print sheet
+  have no owner cookie and still have to render the image. It serves with
+  `nosniff`, `Content-Security-Policy: default-src 'none'; sandbox`, and an
+  ETag so a 40-image pack reloads as 40 cheap 304s.
+- **`hasMedia`** on the question view (`toQuestionView`) and on
+  `GET /api/packs/[id]`. The relation is *consumed* there rather than passed
+  through, so bytes cannot ride along in a pack payload even if a future
+  caller selects them.
+
+### The size cap: 2 MB, and why
+
+The one open question that arguably blocked phase 1. 2 MB per image, 4096px
+per side. Nothing re-encodes uploads (that question is still open), so 2 MB
+is both the upload and the stored size — a phone photo lands well inside it,
+and it is a number that can stay put if `sharp` is added later and the stored
+size drops beneath it. The dimension cap is the one that does security work:
+a 300-byte PNG can declare 50000x50000, so the header is checked and the file
+refused before any decoder sees it.
+
+### The test that matters most, written
+
+`src/test/pdf-media-offline.integration.test.ts`. Renders all three PDFs for
+a pack **with media attached** while `fetch` is replaced, and fails if the
+render reaches the network.
+
+Two things this turned up that the design did not anticipate:
+
+- **A blanket "fetch was never called" assertion cannot pass.** `yoga-layout`
+  loads its WASM through `fetch` on a `data:` URI. The stub therefore serves
+  `data:` URIs (no network by definition) and throws on everything else.
+- **The test needs a control, or it proves nothing.** PDFs don't render
+  images until phase 3, so the route case passes today no matter what the
+  stub does. Two controls keep it honest: one renders an image from a `data:`
+  URI and pins that the mechanism phase 3 must use really works with the
+  installed `@react-pdf/renderer`; the other renders `<Image src="http://...">`
+  and asserts the stub *does* see the fetch. If that second one ever stops
+  recording a call, every other assertion in the file has quietly become
+  worthless.
+
 ## Verified, and not
 
-Run against `eef4a77`, all green:
+Run against the media phase-1 commit, all green:
 
 | | |
 |---|---|
 | `npx tsc --noEmit -p .` | clean |
 | `npx eslint src e2e scripts` | clean |
-| `npm test` | 117 passed |
-| `npm run test:integration` | 112 passed |
-| `npm run test:e2e` | 6/6 passed |
+| `npm test` | 143 passed (was 117) |
+| `npm run test:integration` | 139 passed (was 112) |
+| `npm run test:e2e` | 6/6 passed, read from the report |
 | CI on `eef4a77` | green |
+
+The e2e run needed the sandbox Chromium workaround from Gotchas below
+(`@playwright/test` 1.62.1 wants build 1234; this sandbox has 1194). The
+throwaway config was deleted, not committed.
 
 **Nothing in PR #3 has been checked against production or the live model.**
 No `ANTHROPIC_API_KEY` has been available in any session that worked on it.
@@ -93,23 +158,33 @@ call it fixed without a browser on a real deployment.**
 - **Test the PR #3 *preview*, not production.** Production is `master`, which
   has none of these fixes. Testing production and finding it fine means
   nothing.
-- **No Vercel preview has built for `d6fc1b6`, `1bd7f6e` or `eef4a77`.** The
-  last preview deployment recorded against this repo is `3bec323` from
-  2026-09-10 (`https://pub-quiz-trivia-night-automation-lm5s7afol-privlin.vercel.app`).
-  The GitHub→Vercel integration may need reconnecting after the repo moved to
-  the `yanshufstudio` org. Check before planning any verification session.
-- **Media support is scoped but not started.** See below.
+- **Previews are building again.** The Vercel bot comment on PR #3
+  (`issuecomment-5620965612`, the one it keeps rewriting in place) went
+  Building → **Ready** at 18:51 UTC on 2026-09-13, against `d0ced34`. The
+  integration did not need reconnecting after all. The branch-alias preview
+  is
+  `https://pub-quiz-trivia-night-automation-hub-git-claude-7f580a-privlin.vercel.app`.
+  Two caveats: the bot comment carries no commit SHA and GitHub commit
+  statuses for the head are empty, so "it built the head" is inference from
+  the timing, not a fact read off the deployment; and **no session here has
+  been able to open it** — the sandbox egress proxy blocks `*.vercel.app`, so
+  every verification below is still a human-with-a-browser job.
+- **Media support: phase 1 is built, phases 2-4 are not.** See below.
 - **Paywall copy** — the free-cap screen still says "Upgrade to Pro for
   unlimited packs, coming soon". Goes away with the Paddle work.
 - **`npm audit`** — 3 high findings in the dev-only
   `prisma` → `@prisma/config` → `deepmerge-ts` chain; no fix without a
   `prisma@8` RC.
 
-## Media support — scoped 2026-09-13, no code written
+## Media support — scoped 2026-09-13, phase 1 built the same day
 
 The problem: a question like "Listen to the clip. Which band is playing?"
 passes every validation check and reaches the table unanswerable. `1bd7f6e`
 asks the model not to write them; nothing stops one getting through.
+
+Everything below is the original scoping, kept because it is still the design
+being built to. What has actually been written is in "What landed in the
+second 2026-09-13 session" above.
 
 ### The SSRF trap, for whoever builds this
 
@@ -137,6 +212,18 @@ host that 302s to a link-local address sails through.
 
 `data:` URIs are decoded locally (`index.js:152, 235`), no network at all.
 That is the escape hatch the design below is built on.
+
+**One more end of the same rope, found while building phase 1.** `fetch` is
+not the only thing `<Image src>` reaches for. `getAbsoluteLocalPath`
+(`index.js:152`) falls through to `path.resolve(src)` for anything without a
+URL scheme, and `fetchLocalFile` then `fs.readFile`s it. So a `src` of
+`/etc/passwd` — or a `file:` URL — is a **local file read** inside the
+function, on the same unauthenticated PDF route, with the bytes returned in
+the PDF if they parse as an image. Nothing stores such a string today and
+nothing should; it is recorded here because "only URLs are dangerous" is the
+wrong mental model to carry into phase 3. The invariant is narrower than "no
+URLs": **the only thing ever passed to `<Image src>` is a `data:` URI built
+from bytes we hold.**
 
 ### Decisions taken (by the repo owner, 2026-09-13)
 
@@ -192,29 +279,46 @@ boundary a hostile pack file walks in through.
 
 ### Phasing
 
-1. Schema + upload/serve routes + validator + owner auth (backend only, fully
-   testable)
-2. Editor UI + player/host rendering
-3. PDF and print
-4. Export/import v2
+1. ~~Schema + upload/serve routes + validator + owner auth (backend only,
+   fully testable)~~ — **done, 2026-09-13.**
+2. Editor UI + player/host rendering. The pieces are waiting: questions carry
+   `hasMedia`, and `/api/questions/[id]/media` serves the bytes same-origin.
+3. PDF and print. Read the bytes in the same query as the pack and pass
+   `toDataUri(media)` — never a URL, never a path. The test that fails if you
+   don't is already written.
+4. Export/import v2. The format-version trap above is still unsprung:
+   `PACK_FILE_VERSION` is still `1` and `pack-file.ts` is untouched. Imported
+   base64 must go through `validateImageBytes` — the same function the upload
+   route calls, not a second copy of it.
 
 ### The test that matters most
 
-Render a PDF for a pack with media with `globalThis.fetch` stubbed to throw;
-**fail the test if the render touches the network**. That pins the invariant
-permanently rather than trusting nobody later swaps a `data:` URI for a URL.
+Written: `src/test/pdf-media-offline.integration.test.ts`. See the notes on
+it above — in particular the `yoga-layout` WASM fetch, and why it carries two
+control cases.
 
 ### Still undecided
 
-1. Size cap — suggest 2 MB upload / ~1 MB stored.
+1. ~~Size cap~~ — **decided in code: 2 MB, 4096px per side**
+   (`MAX_MEDIA_BYTES` / `MAX_MEDIA_DIMENSION` in `src/lib/media.ts`). Change
+   the constants if you want different numbers; nothing else reads them.
 2. Re-encode with `sharp` (strips EXIF location data from uploaded photos,
-   neutralises polyglot files) vs sniff-only (lighter, weaker)?
+   neutralises polyglot files) vs sniff-only (lighter, weaker)? **Still
+   open — phase 1 shipped sniff-only.** Worth knowing what that means
+   concretely: an uploaded phone photo keeps its EXIF, GPS coordinates
+   included, and `GET /api/questions/[id]/media` is open to anyone holding
+   the question id. If a pack ever holds someone's personal photos, this is
+   the one of the five that matters most.
 3. Which PDFs get images — question sheet yes, presenter script probably,
-   answer sheet probably not.
-4. Media cap per pack, so one pack can't put 40 × 1 MB into Turso.
+   answer sheet probably not. Blocks phase 3, not before.
+4. Media cap per pack, so one pack can't put 40 × 2 MB into Turso. **Not
+   implemented.** What bounds it today is the rate limiter (40 uploads per
+   10 min per IP) and one-image-per-question uniqueness — a determined owner
+   can still fill a pack. Cheap to add once the number is chosen.
 5. Does the free tier limit media, or is the per-pack cap enough?
 
-None of these block phase 1 except arguably the size cap.
+Only the size cap arguably blocked phase 1, and it is now decided. The rest
+block phases 2-4 or nothing.
 
 **`1bd7f6e` stays either way.** The model cannot upload images, so generated
 questions must still stand on their own text. Media is a human-editor feature
@@ -246,7 +350,27 @@ cookie per 30 days). They are different things; don't conflate them.
 
 ## Gotchas
 
-New this session:
+New in the second 2026-09-13 session:
+
+- **Anything that asserts "`fetch` was never called" during a react-pdf
+  render will fail.** `yoga-layout` loads its WASM through `fetch` on a
+  `data:` URI, so the assertion has to be "no *network* fetch" — serve
+  `data:` through, throw on everything else. See
+  `src/test/pdf-media-offline.integration.test.ts`.
+- **`prisma migrate diff` cannot use a shadow database here.** With the
+  libSQL adapter in `prisma.config.ts` both `--shadow-database-url` and
+  `--from-migrations` fail (`SQLITE_ERROR: no such table`). To generate a
+  migration: diff **datamodel to datamodel** (`git show HEAD:prisma/schema.prisma`
+  against the working copy, both via `--from-schema-datamodel` /
+  `--to-schema-datamodel`), write the SQL by hand into
+  `prisma/migrations/<stamp>_<name>/migration.sql`, then apply it to a
+  throwaway `DATABASE_URL=file:...` and read `sqlite_master` back.
+- **`*.vercel.app` is blocked by the sandbox egress proxy** — both `curl`
+  and `WebFetch`. A preview deployment's *existence* can be read off the
+  Vercel bot's PR comment; its *behaviour* cannot be checked from here at
+  all.
+
+Still new from the first 2026-09-13 session:
 
 - **`npx tsc` fails on a fresh checkout** with
   `error TS2304: Cannot find name 'LayoutProps'` in `src/app/layout.tsx`.
@@ -294,8 +418,12 @@ Still true from before:
 ## Next
 
 1. Verify PR #3 on a preview deployment, in a browser, against the live model
-   (above). Merge is the owner's call and nothing has been merged or approved.
-2. Media support phase 1, once the five open questions are answered.
+   (above). Unchanged and still the blocker: a preview now exists, but no
+   session here can reach it. Merge is the owner's call and nothing has been
+   merged or approved.
+2. Media support phase 2 (editor UI, player/host rendering), then 3 (PDF and
+   print) and 4 (export/import v2). Open questions 2-5 above; only 3 blocks
+   phase 3.
 3. Then the plan's step 3: Paddle checkout, webhook, `/pricing`
    (`claude/monetization-buildout-plan.md`). Two questions there have been
    asked twice and never answered: reuse the HebCal Paddle seller account or

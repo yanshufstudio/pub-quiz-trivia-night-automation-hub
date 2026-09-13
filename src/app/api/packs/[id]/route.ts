@@ -10,14 +10,29 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
     include: {
       rounds: {
         orderBy: { index: "asc" },
-        include: { questions: { orderBy: { index: "asc" } } },
+        include: {
+          questions: { orderBy: { index: "asc" }, include: { media: { select: { id: true } } } },
+        },
       },
     },
   });
   if (!pack) {
     return NextResponse.json({ error: "Pack not found" }, { status: 404 });
   }
-  return NextResponse.json({ pack });
+  // An attached image is reported as a flag; the bytes are served separately
+  // by /api/questions/[id]/media so that a pack read stays a small JSON
+  // payload however many images the pack carries. The rest of the row is
+  // passed through unchanged — `options` and `acceptableAnswers` stay in
+  // their stored JSON-string form here, as they always have.
+  return NextResponse.json({
+    pack: {
+      ...pack,
+      rounds: pack.rounds.map((round) => ({
+        ...round,
+        questions: round.questions.map(({ media, ...question }) => ({ ...question, hasMedia: media !== null })),
+      })),
+    },
+  });
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {

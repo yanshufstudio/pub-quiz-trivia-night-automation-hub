@@ -92,6 +92,7 @@ describe("toPackFile", () => {
               type: "TEXT",
               options: [],
               acceptableAnswers: ["7"],
+              hasMedia: false,
             },
             {
               id: "q2",
@@ -102,6 +103,7 @@ describe("toPackFile", () => {
               type: "MULTIPLE_CHOICE",
               options: ["Mars", "Venus"],
               acceptableAnswers: [],
+              hasMedia: false,
             },
           ],
         },

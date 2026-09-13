@@ -17,7 +17,12 @@ export default async function PackEditorPage({ params }: { params: Promise<{ id:
       include: {
         rounds: {
           orderBy: { index: "asc" },
-          include: { questions: { orderBy: { index: "asc" } } },
+          include: {
+            // `media: { select: { id: true } }` and never the bytes —
+            // toQuestionView turns it into a `hasMedia` flag, and the image
+            // itself is fetched from /api/questions/[id]/media.
+            questions: { orderBy: { index: "asc" }, include: { media: { select: { id: true } } } },
+          },
         },
       },
     }),

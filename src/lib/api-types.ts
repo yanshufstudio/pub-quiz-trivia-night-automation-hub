@@ -20,6 +20,10 @@ export type Question = {
   /** Alternate spellings/nicknames the host has approved as also-correct,
    * checked alongside `answer` when scoring a submission. */
   acceptableAnswers: string[];
+  /** Whether an image is attached, to be fetched separately from
+   * `/api/questions/[id]/media`. The bytes are deliberately not inlined
+   * here — a pack payload carries the flag and nothing more. */
+  hasMedia: boolean;
 };
 
 export type Round = {

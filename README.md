@@ -104,7 +104,9 @@ Claude. There's also a CLI seed script: `npm run db:seed`.
    (retrying can't help — the message says what to change), **503** when the
    model API is rate-limiting or down, **502** for anything else.
 2. **Edit** — `/packs/[id]` lists rounds/questions for inline editing
-   (`PATCH /api/questions/[id]`) and links to PDF exports
+   (`PATCH /api/questions/[id]`), optionally with an image per question
+   (`POST`/`GET`/`DELETE /api/questions/[id]/media` — see Security notes),
+   and links to PDF exports
    (`GET /api/packs/[id]/pdf?type=questions|answers|script`). A pack can
    also be exported as a portable JSON file (`GET /api/packs/[id]/export`,
    format `pub-quiz-pack` v1, ids stripped, host-approved alternate answers
@@ -173,6 +175,25 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   (unlisted, cuid ids) so sessions, PDF and export keep working for the demo
   path. Losing the cookie loses edit access — the accepted trade-off of
   cookie identity over accounts, see `claude/monetization-buildout-plan.md`.
+- **Question images are stored, never linked** (`src/lib/media.ts`): a
+  question may carry one image, uploaded by the pack's owner to
+  `POST /api/questions/[id]/media` and served back from the same path. The
+  bytes are stored in the database and no surface ever renders an image from
+  a URL. That is a security property, not a storage preference:
+  `@react-pdf/renderer` resolves `<Image src>` server-side during render
+  with a bare `fetch` — no scheme restriction, host allowlist, timeout or
+  size limit, redirects followed — and `GET /api/packs/[id]/pdf` is
+  deliberately unauthenticated, so a question image held as a URL would let
+  any visitor make the server fetch an address of their choosing and read
+  the result out of the returned PDF. The PDF path is handed `data:` URIs,
+  which are decoded in-process. `src/test/pdf-media-offline.integration.test.ts`
+  renders with `fetch` stubbed and fails if a render reaches the network.
+  Uploads are validated on their bytes, never on the request's
+  `Content-Type` or a filename: JPEG and PNG only (SVG is refused — it can
+  reference external resources and is a parser attack surface), 2 MB and
+  4096x4096 maximum, with the dimensions read from the header so nothing
+  ever decodes a decompression bomb. Upload and delete are owner-gated and
+  rate-limited; `GET` is open, like every other read by id here.
 - **`ADMIN_TOKEN`** (optional, see `.env.example`): an operator override for
   `DELETE /api/packs/[id]`, supplied via an `x-admin-token` header. Without
   it, that route accepts only the pack's own creator cookie. The gate fails

@@ -40,14 +40,33 @@ export function isValidOptionSet(options: string[], answer: string): boolean {
  * shape) to the api-types.ts view: `type` narrowed, both list columns
  * parsed. `acceptableAnswers` is optional on the input so callers that
  * don't carry the column (older fixtures, tests) still type-check; it's
- * always present, parsed, on the output. */
-export function toQuestionView<T extends { type: string; options: string | null; acceptableAnswers?: string | null }>(
+ * always present, parsed, on the output.
+ *
+ * The `media` relation is *consumed* here rather than passed through: image
+ * bytes must never ride along in a pack payload, so this drops the relation
+ * and leaves a `hasMedia` flag in its place. A caller that doesn't
+ * `include` the relation gets `hasMedia: false` — include
+ * `media: { select: { id: true } }` on any query whose result is meant to
+ * answer that question. */
+export function toQuestionView<
+  T extends { type: string; options: string | null; acceptableAnswers?: string | null; media?: { id: string } | null },
+>(
   question: T
-): Omit<T, "options" | "acceptableAnswers"> & { type: QuestionType; options: string[]; acceptableAnswers: string[] } {
+): Omit<T, "options" | "acceptableAnswers" | "media"> & {
+  type: QuestionType;
+  options: string[];
+  acceptableAnswers: string[];
+  hasMedia: boolean;
+} {
+  const { media, ...rest } = question;
   return {
-    ...question,
+    // The cast only drops the two keys the object literal below replaces —
+    // TS narrows `rest` to Omit<T, "media"> and won't infer that overwriting
+    // `options`/`acceptableAnswers` removes their original types.
+    ...(rest as Omit<T, "options" | "acceptableAnswers" | "media">),
     type: question.type as QuestionType,
     options: parseOptions(question.options),
     acceptableAnswers: parseOptions(question.acceptableAnswers ?? null),
+    hasMedia: media != null,
   };
 }
