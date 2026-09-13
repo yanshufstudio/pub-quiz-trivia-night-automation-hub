@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { requirePackOwner } from "@/lib/pack-access";
 import { rateLimit } from "@/lib/rate-limit";
-import { formatBytes, MAX_MEDIA_BYTES, validateImageBytes } from "@/lib/media";
+import { formatBytes, MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
 
 /**
  * The image attached to one question.
@@ -47,12 +47,32 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     );
   }
 
-  const question = await db.question.findUnique({ where: { id }, select: { id: true } });
+  const question = await db.question.findUnique({
+    where: { id },
+    select: { id: true, round: { select: { packId: true } } },
+  });
   if (!question) {
     return NextResponse.json({ error: "Question not found" }, { status: 404 });
   }
   const forbidden = await requirePackOwner(req, { questionId: id });
   if (forbidden) return forbidden;
+
+  // The cap only applies to *new* images. Whether this question already has
+  // one decides that: replacing it (the upsert below) never changes how many
+  // images the pack holds, so a host reuploading a cropped version of an
+  // existing image can't be blocked by the pack's own cap.
+  const existing = await db.questionMedia.findUnique({ where: { questionId: id }, select: { id: true } });
+  if (!existing) {
+    const packMediaCount = await db.questionMedia.count({
+      where: { question: { round: { packId: question.round.packId } } },
+    });
+    if (packMediaCount >= MAX_MEDIA_PER_PACK) {
+      return NextResponse.json(
+        { error: `This pack already has the maximum of ${MAX_MEDIA_PER_PACK} images.` },
+        { status: 409 }
+      );
+    }
+  }
 
   const body = await req.arrayBuffer().catch(() => null);
   if (!body) {
@@ -60,18 +80,27 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   }
   const bytes = new Uint8Array(body);
 
-  const validated = validateImageBytes(bytes);
-  if (!validated.ok) {
-    return NextResponse.json({ error: validated.error }, { status: validated.status });
+  // Sniffs the bytes, then re-encodes with sharp (strips EXIF/GPS, and a
+  // decode-then-encode round trip is what neutralises a polyglot file) —
+  // see src/lib/media.ts. This is the exact function pack import also calls,
+  // so an uploaded image and an imported one are never held to different
+  // standards.
+  const prepared = await prepareImageForStorage(bytes);
+  if (!prepared.ok) {
+    return NextResponse.json({ error: prepared.error }, { status: prepared.status });
   }
-  const { mime, width, height, byteSize } = validated.info;
+  const { mime, width, height, byteSize, bytes: storedBytes } = prepared.info;
+  // sharp's toBuffer() returns a Node Buffer<ArrayBufferLike>; Prisma's field
+  // type wants a plain Uint8Array<ArrayBuffer>. Re-wrapping copies the bytes
+  // into a fresh, non-shared ArrayBuffer, which is what satisfies that.
+  const rowBytes = new Uint8Array(storedBytes);
 
   // One image per question: uploading again replaces it rather than
   // accumulating rows (QuestionMedia.questionId is unique).
   const media = await db.questionMedia.upsert({
     where: { questionId: id },
-    create: { questionId: id, mime, bytes, byteSize, width, height },
-    update: { mime, bytes, byteSize, width, height },
+    create: { questionId: id, mime, bytes: rowBytes, byteSize, width, height },
+    update: { mime, bytes: rowBytes, byteSize, width, height },
     select: { id: true, mime: true, byteSize: true, width: true, height: true },
   });
 

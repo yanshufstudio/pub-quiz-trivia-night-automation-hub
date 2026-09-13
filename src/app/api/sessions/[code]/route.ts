@@ -85,6 +85,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
           answer: revealAnswer ? question.answer : null,
           type: question.type as QuestionType,
           options: parseOptions(question.options),
+          hasMedia: question.media != null,
         }
       : null,
     scoreboard: computeScoreboard(session.teams, session.answers),

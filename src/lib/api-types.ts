@@ -58,6 +58,9 @@ export type SessionQuestion = {
   type: QuestionType;
   /** The choices to render for a MULTIPLE_CHOICE question; empty for TEXT. */
   options: string[];
+  /** Whether an image is attached, fetched separately from
+   * `/api/questions/[id]/media` — same contract as `Question.hasMedia`. */
+  hasMedia: boolean;
 };
 
 export type SessionRound = {

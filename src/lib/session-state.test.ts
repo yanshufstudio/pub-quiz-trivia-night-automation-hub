@@ -12,6 +12,7 @@ function question(index: number) {
     type: "TEXT",
     options: null,
     acceptableAnswers: null,
+    media: null,
   };
 }
 

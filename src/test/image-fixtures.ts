@@ -8,6 +8,8 @@
  * a chosen byte length for the size-cap cases.
  */
 
+import sharp from "sharp";
+
 function uint32BE(value: number): number[] {
   return [(value >>> 24) & 0xff, (value >>> 16) & 0xff, (value >>> 8) & 0xff, value & 0xff];
 }
@@ -69,3 +71,34 @@ export const REAL_PNG_1X1 = new Uint8Array(
     "base64"
   )
 );
+
+/**
+ * Real, decodable images built with `sharp` at test time rather than
+ * checked in as binary — for anything that puts bytes through an actual
+ * decode, not just the header sniff `validateImageBytes` does (the fixtures
+ * above are headers only; sharp fully decodes and would reject them).
+ */
+export async function realPngBytes(width = 4, height = 4): Promise<Buffer> {
+  return sharp({ create: { width, height, channels: 3, background: { r: 200, g: 40, b: 40 } } })
+    .png()
+    .toBuffer();
+}
+
+export async function realJpegBytes(width = 4, height = 4): Promise<Buffer> {
+  return sharp({ create: { width, height, channels: 3, background: { r: 40, g: 120, b: 200 } } })
+    .jpeg()
+    .toBuffer();
+}
+
+/** A real, decodable JPEG carrying EXIF metadata (including a GPS tag) —
+ * the shape an unedited phone photo actually has. Built with sharp's own
+ * EXIF writer so the fixture needs no hand-rolled binary and no dependency
+ * on a real camera file; what matters for the tests that use it is that the
+ * metadata round-trips back out via `sharp(...).metadata()`, which it does. */
+export async function realJpegWithExif(width = 4, height = 4): Promise<Buffer> {
+  const base = await realJpegBytes(width, height);
+  return sharp(base)
+    .withExif({ IFD0: { Make: "TestCam", GPSLatitude: "51/1" } })
+    .jpeg()
+    .toBuffer();
+}

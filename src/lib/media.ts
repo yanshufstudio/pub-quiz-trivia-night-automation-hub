@@ -17,7 +17,22 @@
  * image. A few kilobytes of PNG can declare 50000x50000 and cost gigabytes
  * of RAM to decode; rejecting on the declared dimensions means no such file
  * ever reaches a decoder.
+ *
+ * Every image that reaches storage — upload or an imported pack file's
+ * base64 blob — goes through `prepareImageForStorage` below, which sniffs
+ * and validates the raw bytes (this module's original job) and then
+ * re-encodes them with `sharp` (decided 2026-09-13, closing the "still
+ * open" question phase 1 shipped with): sharp drops all metadata unless
+ * asked to keep it, so a phone photo's EXIF — GPS coordinates included —
+ * never reaches the stored bytes, and a hostile file that is merely
+ * *shaped* like a JPEG/PNG with extra bytes appended (a polyglot) doesn't
+ * survive a real decode-then-encode round trip. There is exactly one
+ * function that turns request bytes into stored bytes, on both the upload
+ * route and pack import, for the same reason there is exactly one
+ * `validateImageBytes`.
  */
+
+import sharp from "sharp";
 
 export const MEDIA_MIME = {
   JPEG: "image/jpeg",
@@ -39,6 +54,19 @@ export const MAX_MEDIA_BYTES = 2 * 1024 * 1024;
 /** Per side. Comfortably above any photo worth projecting in a pub, and far
  * below the point where decoding one costs real memory. */
 export const MAX_MEDIA_DIMENSION = 4096;
+
+/**
+ * Ceiling on images per pack (decided 2026-09-13, alongside the sharp
+ * question below): the per-question uniqueness constraint and the 40
+ * uploads/10 min rate limiter bound *speed*, not total size — a pack with
+ * enough questions could otherwise still accumulate unlimited images. 40
+ * is generous for a real picture round (one full round of questions, plus
+ * headroom) while keeping a pack's worst-case media footprint bounded
+ * (40 x MAX_MEDIA_BYTES). Enforced in the upload route and on pack import,
+ * only when attaching a *new* image — replacing an existing one never
+ * changes the count.
+ */
+export const MAX_MEDIA_PER_PACK = 40;
 
 export type ImageInfo = {
   mime: MediaMime;
@@ -204,4 +232,66 @@ export function formatBytes(byteCount: number): string {
  */
 export function toDataUri(media: { mime: string; bytes: Uint8Array }): string {
   return `data:${media.mime};base64,${Buffer.from(media.bytes).toString("base64")}`;
+}
+
+export type ProcessedImage = {
+  mime: MediaMime;
+  bytes: Buffer;
+  width: number;
+  height: number;
+  byteSize: number;
+};
+
+/**
+ * Decodes and re-encodes validated image bytes, discarding whatever metadata
+ * the original carried.
+ *
+ * `rotate()` with no argument applies the EXIF orientation flag (if any)
+ * before that flag is gone — otherwise a phone photo taken in portrait would
+ * come out sideways the moment its metadata is stripped. Not calling
+ * `withMetadata()` afterward is what does the stripping: sharp's default
+ * output carries none of the input's EXIF/ICC/XMP forward. `limitInputPixels`
+ * is a second, decoder-level backstop behind the header-based dimension
+ * check in `validateImageBytes` — belt and braces, not a replacement for it.
+ *
+ * Re-encodes to the same format it detected (JPEG stays JPEG, PNG stays
+ * PNG): converting format as well isn't needed for the security property
+ * here (a full decode/encode round trip already neutralises a polyglot
+ * regardless of output format) and would cost quality/size for no benefit.
+ *
+ * Throws on anything sharp can't actually decode — bytes whose magic number
+ * matched but whose body doesn't parse as a real image. Callers should treat
+ * that the same as a validation failure.
+ */
+async function reencodeImage(bytes: Uint8Array, mime: MediaMime): Promise<ProcessedImage> {
+  const pipeline = sharp(bytes, { limitInputPixels: MAX_MEDIA_DIMENSION * MAX_MEDIA_DIMENSION }).rotate();
+  const { data, info } =
+    mime === MEDIA_MIME.PNG
+      ? await pipeline.png({ compressionLevel: 9 }).toBuffer({ resolveWithObject: true })
+      : await pipeline.jpeg({ quality: 85, mozjpeg: true }).toBuffer({ resolveWithObject: true });
+  return { mime, bytes: data, width: info.width, height: info.height, byteSize: data.length };
+}
+
+export type PreparedImage = { ok: true; info: ProcessedImage } | { ok: false; status: 400 | 413; error: string };
+
+/**
+ * The single entry point for turning attacker-controlled bytes — a direct
+ * upload's body or an imported pack file's decoded base64 — into what
+ * `QuestionMedia` stores: sniff-and-validate, then re-encode. Both callers
+ * (the upload route and pack import) go through this rather than repeating
+ * the two steps, so neither can drift into skipping one of them.
+ */
+export async function prepareImageForStorage(bytes: Uint8Array): Promise<PreparedImage> {
+  const validated = validateImageBytes(bytes);
+  if (!validated.ok) return validated;
+
+  try {
+    const info = await reencodeImage(bytes, validated.info.mime);
+    return { ok: true, info };
+  } catch {
+    // The magic number and declared dimensions checked out, but sharp
+    // couldn't actually decode it — truncated, corrupt, or a header
+    // deliberately detached from a body that isn't really an image.
+    return { ok: false, status: 400, error: "That file looks damaged — its image data could not be decoded" };
+  }
 }

@@ -13,7 +13,22 @@ import {
   type StoredTeam,
 } from "@/lib/team-session";
 import { readJoinCode } from "@/lib/join-url";
-import type { TeamSessionState } from "@/lib/api-types";
+import type { SessionQuestion, TeamSessionState } from "@/lib/api-types";
+
+/** Same-origin `<img>` at the question's own media route — never a URL held
+ * anywhere but our own DB-backed bytes (see src/lib/media.ts). Renders
+ * nothing when the question carries no image, which is most questions. */
+function QuestionImage({ question }: { question: SessionQuestion | null | undefined }) {
+  if (!question?.hasMedia) return null;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
+    <img
+      src={`/api/questions/${question.id}/media`}
+      alt=""
+      className="mt-4 max-h-64 w-full rounded-xl border border-white/15 bg-white object-contain"
+    />
+  );
+}
 
 export function TeamPortal() {
   const [stored, setStored] = useState<StoredTeam | null>(null);
@@ -227,6 +242,7 @@ export function TeamPortal() {
               <Countdown timer={state.timer} dark />
             </div>
             <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug">{state.question?.text}</h2>
+            <QuestionImage question={state.question} />
             {state.question?.type === "MULTIPLE_CHOICE" ? (
               <div className="mt-6 flex-1 space-y-3">
                 <span className="text-sm font-medium">Your answer</span>
@@ -311,6 +327,7 @@ function RevealPanel({ state }: { state: TeamSessionState }) {
     <div className="flex flex-1 flex-col">
       <RoundKicker state={state} />
       <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug">{state.question?.text}</h2>
+      <QuestionImage question={state.question} />
       <div
         className={`mt-6 rounded-2xl px-4 py-5 ${
           correct ? "bg-emerald-500/15 text-emerald-100" : "bg-red-500/15 text-red-100"

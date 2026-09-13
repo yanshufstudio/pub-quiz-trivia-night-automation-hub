@@ -1,12 +1,14 @@
+import sharp from "sharp";
 import { describe, expect, it } from "vitest";
 import {
   MAX_MEDIA_BYTES,
   MAX_MEDIA_DIMENSION,
   MEDIA_MIME,
+  prepareImageForStorage,
   toDataUri,
   validateImageBytes,
 } from "@/lib/media";
-import { jpegBytes, pngBytes } from "@/test/image-fixtures";
+import { GIF_BYTES, jpegBytes, pngBytes, realJpegBytes, realJpegWithExif, realPngBytes } from "@/test/image-fixtures";
 
 describe("validateImageBytes", () => {
   it("accepts a PNG and reads its dimensions from IHDR", () => {
@@ -129,5 +131,81 @@ describe("toDataUri", () => {
   it("inlines the bytes, so nothing downstream has a URL to fetch", () => {
     const bytes = new Uint8Array([1, 2, 3, 4]);
     expect(toDataUri({ mime: MEDIA_MIME.PNG, bytes })).toBe("data:image/png;base64,AQIDBA==");
+  });
+});
+
+describe("prepareImageForStorage", () => {
+  it("rejects on validateImageBytes' terms before ever touching sharp", async () => {
+    // GIF_BYTES fails the magic-number check, which is exactly what
+    // validateImageBytes is for — this must short-circuit rather than hand
+    // non-image bytes to a decoder.
+    const result = await prepareImageForStorage(GIF_BYTES);
+    expect(result).toMatchObject({ ok: false, status: 400 });
+  });
+
+  it("re-encodes a real PNG and reports its actual (decoded) dimensions", async () => {
+    const png = await realPngBytes(6, 4);
+    const result = await prepareImageForStorage(png);
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error("expected ok");
+    expect(result.info.mime).toBe(MEDIA_MIME.PNG);
+    expect(result.info.width).toBe(6);
+    expect(result.info.height).toBe(4);
+    // A real re-encode, not a pass-through of the input bytes.
+    expect(Buffer.from(result.info.bytes)).not.toEqual(png);
+    // And the output has to actually be what it claims — decodable, same size.
+    const decoded = await sharp(result.info.bytes).metadata();
+    expect(decoded.format).toBe("png");
+    expect(decoded.width).toBe(6);
+    expect(decoded.height).toBe(4);
+  });
+
+  it("re-encodes a real JPEG, keeping its format", async () => {
+    const jpeg = await realJpegBytes(5, 3);
+    const result = await prepareImageForStorage(jpeg);
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error("expected ok");
+    expect(result.info.mime).toBe(MEDIA_MIME.JPEG);
+    const decoded = await sharp(result.info.bytes).metadata();
+    expect(decoded.format).toBe("jpeg");
+    expect(decoded.width).toBe(5);
+    expect(decoded.height).toBe(3);
+  });
+
+  // The actual point of the sharp decision: a phone photo's EXIF — GPS
+  // included — must not survive into what gets stored and later served to
+  // anyone holding the question id.
+  it("strips EXIF metadata (GPS included) from the re-encoded bytes", async () => {
+    const withExif = await realJpegWithExif(4, 4);
+    const before = await sharp(withExif).metadata();
+    expect(before.exif).toBeTruthy();
+    expect(before.exif!.toString("latin1")).toContain("TestCam");
+
+    const result = await prepareImageForStorage(withExif);
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error("expected ok");
+
+    const after = await sharp(result.info.bytes).metadata();
+    expect(after.exif).toBeUndefined();
+  });
+
+  it("rejects bytes that pass the header sniff but sharp cannot decode", async () => {
+    // A well-formed PNG signature and IHDR (satisfies validateImageBytes),
+    // but no actual image data behind it — the header/body split
+    // `prepareImageForStorage` exists to catch that `validateImageBytes`
+    // alone cannot, since it never decodes anything.
+    const result = await prepareImageForStorage(pngBytes(10, 10));
+    expect(result).toMatchObject({ ok: false, status: 400 });
+    if (result.ok) throw new Error("expected rejection");
+    expect(result.error).toMatch(/damaged/i);
+  });
+
+  it("still enforces the dimension cap on a real image that would decode fine", async () => {
+    // Below MAX_MEDIA_BYTES but declaring more pixels than MAX_MEDIA_DIMENSION
+    // allows on a side — validateImageBytes must catch this before sharp
+    // ever gets a chance to decode it.
+    const oversized = jpegBytes(MAX_MEDIA_DIMENSION + 1, 10);
+    const result = await prepareImageForStorage(oversized);
+    expect(result).toMatchObject({ ok: false, status: 400 });
   });
 });

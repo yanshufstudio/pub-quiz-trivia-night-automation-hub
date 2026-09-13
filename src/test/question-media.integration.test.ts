@@ -1,14 +1,25 @@
+import sharp from "sharp";
 import { afterAll, describe, expect, it } from "vitest";
 import { NextRequest } from "next/server";
 
 import { DELETE as deleteMedia, GET as getMedia, POST as uploadMedia } from "@/app/api/questions/[id]/media/route";
 import { GET as getPack } from "@/app/api/packs/[id]/route";
 import { DELETE as deleteQuestion } from "@/app/api/questions/[id]/route";
+import { POST as createSession } from "@/app/api/sessions/route";
+import { GET as getSession } from "@/app/api/sessions/[code]/route";
+import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { COOKIE_NAME } from "@/lib/creator";
 import { db } from "@/lib/db";
-import { MAX_MEDIA_BYTES, MEDIA_MIME } from "@/lib/media";
-import { GIF_BYTES, jpegBytes, pngBytes, SVG_SOURCE } from "@/test/image-fixtures";
+import { MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, MEDIA_MIME } from "@/lib/media";
+import {
+  GIF_BYTES,
+  pngBytes,
+  realJpegBytes,
+  realJpegWithExif,
+  realPngBytes,
+  SVG_SOURCE,
+} from "@/test/image-fixtures";
 
 const BASE = "http://localhost:3000";
 
@@ -20,7 +31,7 @@ async function newCreator() {
   return { id: creator.id, cookie: deviceKey };
 }
 
-async function packWithQuestions(creatorId: string | null) {
+async function packWithQuestions(creatorId: string | null, questionCount = 2) {
   return createPackFromGenerated(
     {
       title: `Question Media Test ${Math.random().toString(36).slice(2)}`,
@@ -28,10 +39,12 @@ async function packWithQuestions(creatorId: string | null) {
         {
           title: "Round A",
           category: "General",
-          questions: [
-            { text: "A1?", answer: "a1", points: 1, type: "TEXT" as const },
-            { text: "A2?", answer: "a2", points: 1, type: "TEXT" as const },
-          ],
+          questions: Array.from({ length: questionCount }, (_, i) => ({
+            text: `A${i + 1}?`,
+            answer: `a${i + 1}`,
+            points: 1,
+            type: "TEXT" as const,
+          })),
         },
       ],
     },
@@ -68,12 +81,18 @@ function readRequest(questionId: string, headers: Record<string, string> = {}) {
   return new NextRequest(`${BASE}/api/questions/${questionId}/media`, { headers });
 }
 
-/** The owner's pack, one uploaded PNG, ready to read back. */
+/** The owner's pack, one uploaded PNG, ready to read back. A real, decodable
+ * image: the route now re-encodes with sharp, which the header-only
+ * `pngBytes()` fixture can't survive (see the `prepareImageForStorage` unit
+ * tests in src/lib/media.test.ts for why that matters). */
 async function packWithMedia() {
   const owner = await newCreator();
   const pack = await packWithQuestions(owner.id);
   const questionId = pack.rounds[0].questions[0].id;
-  const res = await uploadMedia(uploadRequest(questionId, pngBytes(640, 480), { cookie: owner.cookie }), params(questionId));
+  const res = await uploadMedia(
+    uploadRequest(questionId, await realPngBytes(640, 480), { cookie: owner.cookie }),
+    params(questionId)
+  );
   expect(res.status).toBe(201);
   return { owner, pack, questionId };
 }
@@ -90,7 +109,7 @@ describe("question media", () => {
       const questionId = pack.rounds[0].questions[0].id;
 
       const res = await uploadMedia(
-        uploadRequest(questionId, pngBytes(1024, 768), { cookie: owner.cookie }),
+        uploadRequest(questionId, await realPngBytes(1024, 768), { cookie: owner.cookie }),
         params(questionId)
       );
       expect(res.status).toBe(201);
@@ -110,7 +129,7 @@ describe("question media", () => {
       const questionId = pack.rounds[0].questions[0].id;
 
       const res = await uploadMedia(
-        uploadRequest(questionId, jpegBytes(300, 200), { cookie: owner.cookie }),
+        uploadRequest(questionId, await realJpegBytes(300, 200), { cookie: owner.cookie }),
         params(questionId)
       );
       expect(res.status).toBe(201);
@@ -126,7 +145,7 @@ describe("question media", () => {
       const questionId = pack.rounds[0].questions[0].id;
 
       const res = await uploadMedia(
-        uploadRequest(questionId, pngBytes(), { cookie: owner.cookie, contentType: "image/gif" }),
+        uploadRequest(questionId, await realPngBytes(), { cookie: owner.cookie, contentType: "image/gif" }),
         params(questionId)
       );
       expect(res.status).toBe(201);
@@ -136,7 +155,7 @@ describe("question media", () => {
     it("replaces the existing image rather than accumulating rows", async () => {
       const { questionId, owner } = await packWithMedia();
       const res = await uploadMedia(
-        uploadRequest(questionId, jpegBytes(120, 90), { cookie: owner.cookie }),
+        uploadRequest(questionId, await realJpegBytes(120, 90), { cookie: owner.cookie }),
         params(questionId)
       );
       expect(res.status).toBe(201);
@@ -145,6 +164,27 @@ describe("question media", () => {
       const row = await db.questionMedia.findUniqueOrThrow({ where: { questionId } });
       expect(row.mime).toBe(MEDIA_MIME.JPEG);
       expect(row.width).toBe(120);
+    });
+
+    // The route re-encodes through src/lib/media.ts's prepareImageForStorage
+    // (sharp) rather than storing what was sent — proven here at the route
+    // level, not just in the function's own unit tests, so the wiring itself
+    // is what's under test.
+    it("re-encodes the upload rather than storing the request bytes verbatim", async () => {
+      const owner = await newCreator();
+      const pack = await packWithQuestions(owner.id);
+      const questionId = pack.rounds[0].questions[0].id;
+      const withExif = await realJpegWithExif(8, 8);
+
+      const res = await uploadMedia(uploadRequest(questionId, withExif, { cookie: owner.cookie }), params(questionId));
+      expect(res.status).toBe(201);
+
+      const row = await db.questionMedia.findUniqueOrThrow({ where: { questionId } });
+      expect(Buffer.from(row.bytes)).not.toEqual(Buffer.from(withExif));
+      const decoded = await sharp(row.bytes).metadata();
+      expect(decoded.exif).toBeUndefined();
+      expect(decoded.width).toBe(8);
+      expect(decoded.height).toBe(8);
     });
 
     it("rejects SVG", async () => {
@@ -207,9 +247,10 @@ describe("question media", () => {
       const questionId = pack.rounds[0].questions[0].id;
       const flood = { cookie: owner.cookie, headers: { "x-forwarded-for": "203.0.113.7" } };
 
+      const image = await realPngBytes(10, 10);
       const statuses: number[] = [];
       for (let attempt = 0; attempt < 45; attempt++) {
-        const res = await uploadMedia(uploadRequest(questionId, pngBytes(10, 10), flood), params(questionId));
+        const res = await uploadMedia(uploadRequest(questionId, image, flood), params(questionId));
         statuses.push(res.status);
       }
 
@@ -221,6 +262,41 @@ describe("question media", () => {
       const owner = await newCreator();
       const res = await uploadMedia(uploadRequest("does-not-exist", pngBytes(), { cookie: owner.cookie }), params("does-not-exist"));
       expect(res.status).toBe(404);
+    });
+  });
+
+  describe("POST — the per-pack cap", () => {
+    it("blocks a new image once the pack holds the max, but still allows replacing one already there", async () => {
+      const owner = await newCreator();
+      const pack = await packWithQuestions(owner.id, MAX_MEDIA_PER_PACK + 1);
+      const questions = pack.rounds[0].questions;
+      const image = await realPngBytes(10, 10);
+
+      for (let i = 0; i < MAX_MEDIA_PER_PACK; i++) {
+        const res = await uploadMedia(uploadRequest(questions[i].id, image, { cookie: owner.cookie }), params(questions[i].id));
+        expect(res.status).toBe(201);
+      }
+      expect(await db.questionMedia.count({ where: { question: { round: { packId: pack.id } } } })).toBe(
+        MAX_MEDIA_PER_PACK
+      );
+
+      // The pack is now at the cap — a NEW image (a question that doesn't
+      // already have one) is refused with 409.
+      const overCap = questions[MAX_MEDIA_PER_PACK];
+      const blocked = await uploadMedia(uploadRequest(overCap.id, image, { cookie: owner.cookie }), params(overCap.id));
+      expect(blocked.status).toBe(409);
+      expect(await db.questionMedia.count({ where: { questionId: overCap.id } })).toBe(0);
+
+      // Replacing an image on a question that already has one is exempt —
+      // it doesn't grow the pack's count, so it must still succeed at the cap.
+      const replace = await uploadMedia(
+        uploadRequest(questions[0].id, await realJpegBytes(20, 20), { cookie: owner.cookie }),
+        params(questions[0].id)
+      );
+      expect(replace.status).toBe(201);
+      expect(await db.questionMedia.count({ where: { question: { round: { packId: pack.id } } } })).toBe(
+        MAX_MEDIA_PER_PACK
+      );
     });
   });
 
@@ -268,8 +344,14 @@ describe("question media", () => {
       expect(res.headers.get("X-Content-Type-Options")).toBe("nosniff");
       expect(res.headers.get("Content-Security-Policy")).toContain("default-src 'none'");
 
+      // The served bytes are a re-encode, not the upload verbatim (see
+      // "re-encodes the upload..." above) — so this asserts what a real
+      // decode of the served bytes reports, not byte-for-byte equality.
       const bytes = new Uint8Array(await res.arrayBuffer());
-      expect(bytes).toEqual(pngBytes(640, 480));
+      const decoded = await sharp(Buffer.from(bytes)).metadata();
+      expect(decoded.format).toBe("png");
+      expect(decoded.width).toBe(640);
+      expect(decoded.height).toBe(480);
     });
 
     // Reads by id are open across this app (see src/lib/pack-access.ts) —
@@ -292,7 +374,7 @@ describe("question media", () => {
 
       // Replacing the image must not keep serving the old one from a cache.
       await new Promise((resolve) => setTimeout(resolve, 5));
-      await uploadMedia(uploadRequest(questionId, jpegBytes(50, 50), { cookie: owner.cookie }), params(questionId));
+      await uploadMedia(uploadRequest(questionId, await realJpegBytes(50, 50), { cookie: owner.cookie }), params(questionId));
       const afterReplace = await getMedia(readRequest(questionId, { "if-none-match": etag! }), params(questionId));
       expect(afterReplace.status).toBe(200);
       expect(afterReplace.headers.get("ETag")).not.toBe(etag);
@@ -348,6 +430,43 @@ describe("question media", () => {
       expect(questions.find((q: { id: string }) => q.id === questionId).hasMedia).toBe(true);
       expect(questions.find((q: { id: string }) => q.id !== questionId).hasMedia).toBe(false);
       expect(body).not.toContain("bytes");
+    });
+  });
+
+  describe("the session payload", () => {
+    it("reports hasMedia on the current question, for host and team alike", async () => {
+      const { pack, questionId } = await packWithMedia();
+
+      const sessionRes = await createSession(
+        new NextRequest(`${BASE}/api/sessions`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ packId: pack.id }),
+        })
+      );
+      expect(sessionRes.status).toBe(201);
+      const { session, hostToken } = await sessionRes.json();
+
+      const started = await advanceSession(
+        new NextRequest(`${BASE}/api/sessions/${session.code}/advance`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "start", hostToken }),
+        }),
+        { params: Promise.resolve({ code: session.code }) }
+      );
+      expect(started.status).toBe(200);
+
+      const hostView = await getSession(
+        new NextRequest(`${BASE}/api/sessions/${session.code}?as=host&hostToken=${hostToken}`),
+        { params: Promise.resolve({ code: session.code }) }
+      );
+      const hostData = await hostView.json();
+      expect(hostData.question.id).toBe(questionId);
+      expect(hostData.question.hasMedia).toBe(true);
+      // Never the bytes, never a URL — only the flag, same contract as the
+      // pack payload above.
+      expect(JSON.stringify(hostData)).not.toContain("bytes");
     });
   });
 
