@@ -14,10 +14,17 @@ the full record of the 2026-09-07→09 work.
 unmerged**, and everything below lives on it.
 
 - **PR #3** — branch `claude/youthful-knuth-clvns7`, base `master` `d1b613d`.
-  CI green, `mergeable_state: clean`.
+  CI green (as of `0f3dcd3`), `mergeable_state: clean`.
   https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/3
 
-The working tree is clean and nothing is unpushed.
+**Three commits are local-only, not on `origin`**: `e685124`, `2677222`,
+`7126412` (media phases 2-4 — see "What landed in the third 2026-09-13
+session"), on top of the `0f3dcd3` PR #3 already had. This session's git
+proxy still 403s on push ("not in this session's authorized repository
+set"); a bundle and patch series were handed to the user directly. Whoever
+picks this up next: `git log origin/claude/youthful-knuth-clvns7..claude/youthful-knuth-clvns7`
+to see them locally, or apply the delivered bundle/patches if working from a
+fresh checkout.
 
 ## What landed in the first 2026-09-13 session
 
@@ -118,6 +125,78 @@ Two things this turned up that the design did not anticipate:
   recording a call, every other assertion in the file has quietly become
   worthless.
 
+## What landed in the third 2026-09-13 session
+
+**Live verification against the real model**, via the built-in browser routed
+through the user's own linked computer (the sandbox's egress proxy still
+blocks `*.vercel.app` directly — this is what got past it). Confirmed the
+preview at `https://pub-quiz-trivia-night-automation-hub-git-claude-7f580a-privlin.vercel.app`
+was actually serving `0f3dcd3` (read off Vercel's own deployments list, not
+inferred from timing) before generating against it. Default brief, an
+oversized 8-round/15-question-per-round brief, and an explicit
+picture/music-round brief all generated cleanly with no console errors and no
+media-dependent questions reaching the table. The oversized brief in
+particular fully succeeded (120 questions, ~35s) where an earlier, unpushed
+session's `SAFE_QUESTION_ESTIMATE = 60` constant (on a different, stale
+branch) assumed it would fail or need salvaging — that constant is too
+conservative and worth revisiting, but no further credit was spent finding
+the actual breaking point without asking first. `FREE_PACK_LIMIT` was already
+raised on Preview by an earlier session; left as is, production untouched.
+
+**The five "still undecided" items below were put to the repo owner and
+answered**, then built as **media phases 2-4**, each shipped as its own
+commit on `claude/youthful-knuth-clvns7`:
+
+- `e685124` — **phase 2.** Re-encode with `sharp` (item 2, decided yes):
+  `prepareImageForStorage` in `src/lib/media.ts` now sniffs *and* decodes —
+  `rotate()` applies EXIF orientation, then re-encoding without
+  `withMetadata()` strips EXIF/GPS and neutralises polyglot files. Same
+  function for an upload and (phase 4) an imported pack file's base64, so
+  neither gets a weaker check. **Per-pack cap** (item 4, decided yes):
+  `MAX_MEDIA_PER_PACK = 40`, enforced on a *new* image only — replacing one
+  is exempt, so it can't be blocked by the pack's own cap. Item 5 (does the
+  free tier separately limit media) was decided **no** — the per-pack cap is
+  enough. Also: `hasMedia` now flows through the live session state
+  (`session-state.ts`, `api-types.ts`, `sessions/[code]/route.ts`), the pack
+  editor got attach/replace/remove, and the host dashboard / team portal
+  render a question's image via a same-origin `<img>`.
+- `2677222` — **phase 3.** Item 3 (which PDFs get images) was decided **all
+  three** (question sheet, answer sheet, presenter script), plus the browser
+  print preview. Images render as a fixed `data:` URI box
+  (`toDataUri`, never a URL) inside `src/lib/pdf/documents.tsx`, sized so a
+  tall or wide photo can't push a question block off the page.
+  `pdf-media-offline.integration.test.ts` — written in phase 1 before any of
+  this existed, passing vacuously — now exercises the real render and still
+  passes with zero network calls.
+- `7126412` — **phase 4.** `PACK_FILE_VERSION` is 2; the schema reads `1 | 2`
+  so every already-exported file still imports. A v2 file's optional
+  per-question `image` (base64) goes through the identical
+  `prepareImageForStorage` as a direct upload on `POST /api/packs/import` —
+  that route is unauthenticated, so an embedded image is exactly as hostile
+  as an upload body. An image that fails validation is dropped, not a reason
+  to fail the whole import ("degrade, don't reject", matching
+  `degradeInvalidMultipleChoice`'s existing choice for a bad option set).
+
+**Full suite green before every commit**: `next typegen` → `tsc` → `eslint`
+(0 errors; one pre-existing `jsx-a11y/alt-text` warning on `@react-pdf`'s
+`Image`, not an HTML `<img>`) → 153 unit tests → 145 integration tests → 6/6
+Playwright e2e (needed a **local-only**, never-committed config override to
+point at this sandbox's installed `chromium` binary instead of the
+`chromium_headless_shell` build the pinned `@playwright/test` version
+expects and that isn't installed here — a known sandbox/browser-build
+mismatch, not a suite problem; deleted before finishing).
+
+**Push access re-checked, still 403.** Same error as every prior session:
+"yanshufstudio/pub-quiz-trivia-night-automation-hub is not in this session's
+authorized repository set" — a session-level allowlist on Claude Code's own
+git proxy, confirmed via the browser to be a *different* thing from the
+GitHub App's own installation, which **is** listed on the repo's own
+Settings → GitHub Apps page. Installing the app on a repo and authorizing a
+Claude Code session to push to it are evidently two separate grants. The
+three phase commits above are local-only; a git bundle and a `git format-patch`
+series covering them (based on `0f3dcd3`, PR #3's current head) were handed
+to the user directly as the delivery mechanism.
+
 ## Verified, and not
 
 Run against the media phase-1 commit, all green:
@@ -169,7 +248,8 @@ call it fixed without a browser on a real deployment.**
   the timing, not a fact read off the deployment; and **no session here has
   been able to open it** — the sandbox egress proxy blocks `*.vercel.app`, so
   every verification below is still a human-with-a-browser job.
-- **Media support: phase 1 is built, phases 2-4 are not.** See below.
+- **Media support: all four phases are built** (2026-09-13), but phases 2-4
+  are local-only commits, not on `origin` — see above.
 - **Paywall copy** — the free-cap screen still says "Upgrade to Pro for
   unlimited packs, coming soon". Goes away with the Paddle work.
 - **`npm audit`** — 3 high findings in the dev-only
@@ -281,15 +361,16 @@ boundary a hostile pack file walks in through.
 
 1. ~~Schema + upload/serve routes + validator + owner auth (backend only,
    fully testable)~~ — **done, 2026-09-13.**
-2. Editor UI + player/host rendering. The pieces are waiting: questions carry
-   `hasMedia`, and `/api/questions/[id]/media` serves the bytes same-origin.
-3. PDF and print. Read the bytes in the same query as the pack and pass
-   `toDataUri(media)` — never a URL, never a path. The test that fails if you
-   don't is already written.
-4. Export/import v2. The format-version trap above is still unsprung:
-   `PACK_FILE_VERSION` is still `1` and `pack-file.ts` is untouched. Imported
-   base64 must go through `validateImageBytes` — the same function the upload
-   route calls, not a second copy of it.
+2. ~~Editor UI + player/host rendering~~ — **done, 2026-09-13** (`e685124`).
+3. ~~PDF and print~~ — **done, 2026-09-13** (`2677222`).
+4. ~~Export/import v2~~ — **done, 2026-09-13** (`7126412`). `PACK_FILE_VERSION`
+   is 2, the schema still reads 1, and imported base64 goes through
+   `prepareImageForStorage` — the same function the upload route calls.
+
+All four phases are built. See "What landed in the third 2026-09-13 session"
+above for the detail; the local commits are not yet on `origin` (still the
+session's authorized-repo-set 403 — a bundle/patch series was handed to the
+user directly).
 
 ### The test that matters most
 
@@ -297,28 +378,21 @@ Written: `src/test/pdf-media-offline.integration.test.ts`. See the notes on
 it above — in particular the `yoga-layout` WASM fetch, and why it carries two
 control cases.
 
-### Still undecided
+### Formerly undecided — all five resolved 2026-09-13
 
 1. ~~Size cap~~ — **decided in code: 2 MB, 4096px per side**
    (`MAX_MEDIA_BYTES` / `MAX_MEDIA_DIMENSION` in `src/lib/media.ts`). Change
    the constants if you want different numbers; nothing else reads them.
-2. Re-encode with `sharp` (strips EXIF location data from uploaded photos,
-   neutralises polyglot files) vs sniff-only (lighter, weaker)? **Still
-   open — phase 1 shipped sniff-only.** Worth knowing what that means
-   concretely: an uploaded phone photo keeps its EXIF, GPS coordinates
-   included, and `GET /api/questions/[id]/media` is open to anyone holding
-   the question id. If a pack ever holds someone's personal photos, this is
-   the one of the five that matters most.
-3. Which PDFs get images — question sheet yes, presenter script probably,
-   answer sheet probably not. Blocks phase 3, not before.
-4. Media cap per pack, so one pack can't put 40 × 2 MB into Turso. **Not
-   implemented.** What bounds it today is the rate limiter (40 uploads per
-   10 min per IP) and one-image-per-question uniqueness — a determined owner
-   can still fill a pack. Cheap to add once the number is chosen.
-5. Does the free tier limit media, or is the per-pack cap enough?
-
-Only the size cap arguably blocked phase 1, and it is now decided. The rest
-block phases 2-4 or nothing.
+2. ~~Re-encode with `sharp` vs sniff-only?~~ — **decided: re-encode.** Built in
+   phase 2 (`prepareImageForStorage`). An uploaded phone photo's EXIF/GPS is
+   now stripped before storage; a polyglot doesn't survive the decode/encode
+   round trip either.
+3. ~~Which PDFs get images?~~ — **decided: all three** (question sheet, answer
+   sheet, presenter script), plus the print preview. Built in phase 3.
+4. ~~Per-pack media cap?~~ — **decided: yes, 40** (`MAX_MEDIA_PER_PACK` in
+   `src/lib/media.ts`). Built in phase 2, enforced on upload and on import.
+5. ~~Does the free tier separately limit media?~~ — **decided: no**, the
+   per-pack cap is enough.
 
 **`1bd7f6e` stays either way.** The model cannot upload images, so generated
 questions must still stand on their own text. Media is a human-editor feature
