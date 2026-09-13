@@ -5,8 +5,13 @@ import { useRouter } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
 
+// The brief every visitor generates from unless they retype it, so it has to
+// ask only for what the app can actually put in front of players: question
+// text and nothing else. It used to end on a "picture-round-style" closer,
+// which invited exactly the pack the app cannot show — a round whose
+// questions need an image that never arrives.
 const EXAMPLE =
-  "A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a picture-round-style general knowledge closer. Keep answers short and pub-friendly.";
+  "A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.";
 
 export default function CreatePage() {
   const router = useRouter();
