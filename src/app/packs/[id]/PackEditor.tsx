@@ -83,6 +83,72 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
   // never touches this still gets the exact behavior the app shipped with
   // before per-question timers existed.
   const [duration, setDuration] = useState("");
+  // Per-question image state, keyed by question id. `mediaVersion` busts the
+  // browser cache after an attach/replace — the served bytes change but the
+  // URL wouldn't, since it's just the question id (see the ETag/Cache-Control
+  // on GET /api/questions/[id]/media, which otherwise revalidate to the old
+  // image for the rest of this page's life).
+  const [mediaBusy, setMediaBusy] = useState<Record<string, boolean>>({});
+  const [mediaError, setMediaError] = useState<Record<string, string | null>>({});
+  const [mediaVersion, setMediaVersion] = useState<Record<string, number>>({});
+
+  function mediaUrl(questionId: string) {
+    return `/api/questions/${questionId}/media?v=${mediaVersion[questionId] ?? 0}`;
+  }
+
+  function setQuestionHasMedia(roundId: string, questionId: string, hasMedia: boolean) {
+    setRounds((current) =>
+      current.map((round) =>
+        round.id === roundId
+          ? { ...round, questions: round.questions.map((q) => (q.id === questionId ? { ...q, hasMedia } : q)) }
+          : round
+      )
+    );
+  }
+
+  async function uploadQuestionMedia(roundId: string, questionId: string, file: File) {
+    setMediaError((current) => ({ ...current, [questionId]: null }));
+    setMediaBusy((current) => ({ ...current, [questionId]: true }));
+    try {
+      // The route's body is the raw image — no multipart, no JSON envelope
+      // (see the POST handler's own comment) — so the file's bytes go
+      // straight through as the request body.
+      const res = await fetch(`/api/questions/${questionId}/media`, {
+        method: "POST",
+        headers: { "Content-Type": file.type || "application/octet-stream" },
+        body: await file.arrayBuffer(),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setMediaError((current) => ({ ...current, [questionId]: data.error ?? "Could not upload image" }));
+        return;
+      }
+      setQuestionHasMedia(roundId, questionId, true);
+      setMediaVersion((current) => ({ ...current, [questionId]: (current[questionId] ?? 0) + 1 }));
+    } catch {
+      setMediaError((current) => ({ ...current, [questionId]: "Could not upload image" }));
+    } finally {
+      setMediaBusy((current) => ({ ...current, [questionId]: false }));
+    }
+  }
+
+  async function removeQuestionMedia(roundId: string, questionId: string) {
+    setMediaError((current) => ({ ...current, [questionId]: null }));
+    setMediaBusy((current) => ({ ...current, [questionId]: true }));
+    try {
+      const res = await fetch(`/api/questions/${questionId}/media`, { method: "DELETE" });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setMediaError((current) => ({ ...current, [questionId]: data.error ?? "Could not remove image" }));
+        return;
+      }
+      setQuestionHasMedia(roundId, questionId, false);
+    } catch {
+      setMediaError((current) => ({ ...current, [questionId]: "Could not remove image" }));
+    } finally {
+      setMediaBusy((current) => ({ ...current, [questionId]: false }));
+    }
+  }
 
   const questionCount = useMemo(() => rounds.reduce((sum, round) => sum + round.questions.length, 0), [rounds]);
 
@@ -615,6 +681,58 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                         </span>
                       </label>
                     ) : null}
+
+                    <div className="grid gap-2">
+                      <span className="text-xs font-medium uppercase tracking-wide text-muted">Image</span>
+                      <div className="flex flex-wrap items-center gap-3">
+                        {question.hasMedia ? (
+                          // eslint-disable-next-line @next/next/no-img-element -- served from our own API route, not next/image-optimizable
+                          <img
+                            src={mediaUrl(question.id)}
+                            alt=""
+                            className="h-20 w-28 rounded-lg border border-line object-contain bg-white"
+                          />
+                        ) : canEdit ? (
+                          <span className="text-xs text-muted">No image attached</span>
+                        ) : null}
+                        {canEdit ? (
+                          <>
+                            <label
+                              className={`inline-flex h-9 cursor-pointer items-center rounded-lg border border-line bg-white px-3 text-xs font-semibold ${
+                                mediaBusy[question.id] ? "opacity-50" : ""
+                              }`}
+                            >
+                              {mediaBusy[question.id] ? "Uploading…" : question.hasMedia ? "Replace image" : "Add image"}
+                              <input
+                                type="file"
+                                accept="image/png,image/jpeg"
+                                className="sr-only"
+                                disabled={mediaBusy[question.id]}
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  e.target.value = "";
+                                  if (file) void uploadQuestionMedia(round.id, question.id, file);
+                                }}
+                              />
+                            </label>
+                            {question.hasMedia ? (
+                              <button
+                                type="button"
+                                onClick={() => removeQuestionMedia(round.id, question.id)}
+                                disabled={mediaBusy[question.id]}
+                                className="h-9 rounded-lg border border-line px-3 text-xs font-semibold text-muted disabled:opacity-50"
+                              >
+                                Remove
+                              </button>
+                            ) : null}
+                          </>
+                        ) : null}
+                      </div>
+                      {mediaError[question.id] ? (
+                        <p className="text-xs text-red-700">{mediaError[question.id]}</p>
+                      ) : null}
+                      <span className="text-xs text-muted">JPEG or PNG, up to 2 MB.</span>
+                    </div>
                   </li>
                 );
               })}

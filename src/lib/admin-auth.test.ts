@@ -16,10 +16,21 @@ describe("isAuthorizedAdmin", () => {
     else process.env.ADMIN_TOKEN = originalToken;
   });
 
-  it("allows every request when ADMIN_TOKEN is unset (solo local dev default)", () => {
+  // Fails closed: no configured token means no operator, so no request is
+  // the operator — including one that supplies a header of its own. The
+  // helper must be safe on its own, not only when a caller remembers to
+  // check isAdminTokenConfigured() first.
+  it("authorizes nobody when ADMIN_TOKEN is unset", () => {
     delete process.env.ADMIN_TOKEN;
-    expect(isAuthorizedAdmin(requestWith(null))).toBe(true);
-    expect(isAuthorizedAdmin(requestWith("anything"))).toBe(true);
+    expect(isAuthorizedAdmin(requestWith(null))).toBe(false);
+    expect(isAuthorizedAdmin(requestWith("anything"))).toBe(false);
+    expect(isAuthorizedAdmin(requestWith(""))).toBe(false);
+  });
+
+  it("authorizes nobody when ADMIN_TOKEN is set to an empty string", () => {
+    process.env.ADMIN_TOKEN = "";
+    expect(isAuthorizedAdmin(requestWith(""))).toBe(false);
+    expect(isAuthorizedAdmin(requestWith("anything"))).toBe(false);
   });
 
   describe("when ADMIN_TOKEN is set", () => {

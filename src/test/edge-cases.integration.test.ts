@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
 import { POST as createPack } from "@/app/api/packs/seed/route";
@@ -24,9 +24,13 @@ async function json(res: Response) {
 }
 
 describe("POST /api/packs/generate — input validation and unconfigured-key path", () => {
-  // No ANTHROPIC_API_KEY is set in the test environment, which is exactly
-  // the "not configured" path every request below should hit once it gets
-  // past validation — nothing here calls the real Anthropic API.
+  // The "not configured" path is what every request below should hit once it
+  // gets past validation. Stubbed rather than assumed: this used to rely on
+  // ANTHROPIC_API_KEY happening to be absent from the ambient environment,
+  // so on a developer machine (or CI) that has one set, the suite failed —
+  // and, worse, spent a real API call to do it.
+  beforeEach(() => vi.stubEnv("ANTHROPIC_API_KEY", ""));
+  afterEach(() => vi.unstubAllEnvs());
 
   it("rejects an empty prompt before ever reaching the AI call", async () => {
     const res = await generatePack(jsonRequest(`${BASE}/api/packs/generate`, "POST", { prompt: "" }));

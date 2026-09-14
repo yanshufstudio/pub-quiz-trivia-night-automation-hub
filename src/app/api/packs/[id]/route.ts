@@ -10,14 +10,29 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
     include: {
       rounds: {
         orderBy: { index: "asc" },
-        include: { questions: { orderBy: { index: "asc" } } },
+        include: {
+          questions: { orderBy: { index: "asc" }, include: { media: { select: { id: true } } } },
+        },
       },
     },
   });
   if (!pack) {
     return NextResponse.json({ error: "Pack not found" }, { status: 404 });
   }
-  return NextResponse.json({ pack });
+  // An attached image is reported as a flag; the bytes are served separately
+  // by /api/questions/[id]/media so that a pack read stays a small JSON
+  // payload however many images the pack carries. The rest of the row is
+  // passed through unchanged — `options` and `acceptableAnswers` stay in
+  // their stored JSON-string form here, as they always have.
+  return NextResponse.json({
+    pack: {
+      ...pack,
+      rounds: pack.rounds.map((round) => ({
+        ...round,
+        questions: round.questions.map(({ media, ...question }) => ({ ...question, hasMedia: media !== null })),
+      })),
+    },
+  });
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -26,13 +41,11 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   // own creator may delete it. Both fail with the same 401 so a probe can't
   // tell an unowned id from a wrong token.
   //
-  // isAuthorizedAdmin alone is not enough to gate on here: with no
-  // ADMIN_TOKEN configured it returns true for *any* request (that's the
-  // right default for a solo local-dev checkout with nothing to protect
-  // against), which would skip the ownership check below entirely and let
-  // anyone delete anyone's pack the moment this is deployed without the
-  // token set. isAdminTokenConfigured() makes the override opt-in: no token
-  // configured means no admin bypass, full stop, and ownership decides.
+  // isAuthorizedAdmin fails closed when ADMIN_TOKEN is unset (see its
+  // comment), so there is no configuration of this deployment in which the
+  // ownership check below is skipped. isAdminTokenConfigured() is kept in
+  // front of it to state that intent at the call site rather than leaving it
+  // to be re-derived from the helper.
   const adminOverride = isAdminTokenConfigured() && isAuthorizedAdmin(req);
   if (!adminOverride) {
     const [ownership, creatorId] = await Promise.all([packOwnership({ packId: id }), creatorIdFromRequest(req)]);

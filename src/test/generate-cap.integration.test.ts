@@ -18,8 +18,17 @@ const FIXTURE_PACK: GeneratedPack = {
   ],
 };
 
-vi.mock("@/lib/generate-pack", () => ({
-  generateQuizPack: vi.fn(async () => FIXTURE_PACK),
+// Only the model call is stubbed. Everything else in the module — notably
+// UnusableModelOutputError, which the route branches on with `instanceof` —
+// stays real, so a mock can't quietly diverge from the module it stands in for.
+vi.mock("@/lib/generate-pack", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/generate-pack")>()),
+  generateQuizPack: vi.fn(async () => ({
+    pack: FIXTURE_PACK,
+    droppedQuestions: 0,
+    droppedRounds: 0,
+    truncated: false,
+  })),
 }));
 
 import { generateQuizPack } from "@/lib/generate-pack";

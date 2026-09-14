@@ -95,9 +95,18 @@ Claude. There's also a CLI seed script: `npm run db:seed`.
    multiple-choice question with an unusable option set becomes free-text,
    and a missing pack title is derived from the round titles
    (`src/lib/quiz-schema.ts`) — both were observed in real model output and
-   each used to throw away an otherwise good 40-question pack.
+   each used to throw away an otherwise good 40-question pack. When strict
+   parsing still fails, `salvageGeneratedPack` keeps every question that
+   stands on its own and drops only what doesn't, so a response truncated at
+   `max_tokens` yields the 33 questions that arrived intact instead of a 502.
+   Failures that remain are told apart rather than collapsed into one status:
+   **422** when the brief asked for a bigger pack than one generation holds
+   (retrying can't help — the message says what to change), **503** when the
+   model API is rate-limiting or down, **502** for anything else.
 2. **Edit** — `/packs/[id]` lists rounds/questions for inline editing
-   (`PATCH /api/questions/[id]`) and links to PDF exports
+   (`PATCH /api/questions/[id]`), optionally with an image per question
+   (`POST`/`GET`/`DELETE /api/questions/[id]/media` — see Security notes),
+   and links to PDF exports
    (`GET /api/packs/[id]/pdf?type=questions|answers|script`). A pack can
    also be exported as a portable JSON file (`GET /api/packs/[id]/export`,
    format `pub-quiz-pack` v1, ids stripped, host-approved alternate answers
@@ -131,8 +140,11 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   dashboard stores it in `localStorage`; if that's lost (different device,
   cleared storage), `/host/[code]` offers a "paste your host key" recovery
   form rather than a hard lockout.
-- **Rate limiting**: `POST /api/packs/generate` (spends real Anthropic API
-  credit), `POST /api/packs/seed` and `POST /api/packs/import` are throttled per-IP
+- **Rate limiting**: every unauthenticated write is bounded. `POST
+  /api/packs/generate` (spends real Anthropic API credit),
+  `POST /api/packs/seed`, `POST /api/packs/import`, `POST /api/sessions`
+  (writes a row and consumes one of a finite pool of 5-character join codes)
+  and `POST /api/sessions/[code]/join` are throttled per-IP
   (`src/lib/rate-limit.ts`) — backed by Upstash Redis when
   `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` are set (see
   Deployment above), or an in-memory, single-instance Map otherwise, which
@@ -145,6 +157,13 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   offers no real protection; that's a deployment-topology assumption worth
   confirming before going further than this app's current single-operator
   scale.
+- **Team cap per session**: the join code is printed on the table QR and
+  read out to the room, so joining cannot be authenticated — anyone holding
+  the code may join, by design. It is bounded instead: a session accepts at
+  most 60 teams (`src/app/api/sessions/[code]/join/route.ts`), well above a
+  real venue's 5-25, so one person with the code can't fill a host's
+  scoreboard with junk teams mid-quiz. The cap is per session, so it holds
+  against a caller rotating IPs past the rate limiter.
 - **Pack ownership** (`src/lib/pack-access.ts`): the same httpOnly
   `pq_creator` cookie that scopes the free-tier cap also owns packs. `/packs`
   and `GET /api/packs` list shared packs (no owner — the seeded demo pack)
@@ -156,11 +175,33 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   (unlisted, cuid ids) so sessions, PDF and export keep working for the demo
   path. Losing the cookie loses edit access — the accepted trade-off of
   cookie identity over accounts, see `claude/monetization-buildout-plan.md`.
-- **`ADMIN_TOKEN`** (optional, see `.env.example`): if set, `DELETE
-  /api/packs/[id]` requires it via an `x-admin-token` header — or the pack's
-  own creator cookie, which may delete that one pack without it. Nothing in
-  the UI calls this route today; it exists to be reachable safely once
-  something does. Unset by default for solo local dev.
+- **Question images are stored, never linked** (`src/lib/media.ts`): a
+  question may carry one image, uploaded by the pack's owner to
+  `POST /api/questions/[id]/media` and served back from the same path. The
+  bytes are stored in the database and no surface ever renders an image from
+  a URL. That is a security property, not a storage preference:
+  `@react-pdf/renderer` resolves `<Image src>` server-side during render
+  with a bare `fetch` — no scheme restriction, host allowlist, timeout or
+  size limit, redirects followed — and `GET /api/packs/[id]/pdf` is
+  deliberately unauthenticated, so a question image held as a URL would let
+  any visitor make the server fetch an address of their choosing and read
+  the result out of the returned PDF. The PDF path is handed `data:` URIs,
+  which are decoded in-process. `src/test/pdf-media-offline.integration.test.ts`
+  renders with `fetch` stubbed and fails if a render reaches the network.
+  Uploads are validated on their bytes, never on the request's
+  `Content-Type` or a filename: JPEG and PNG only (SVG is refused — it can
+  reference external resources and is a parser attack surface), 2 MB and
+  4096x4096 maximum, with the dimensions read from the header so nothing
+  ever decodes a decompression bomb. Upload and delete are owner-gated and
+  rate-limited; `GET` is open, like every other read by id here.
+- **`ADMIN_TOKEN`** (optional, see `.env.example`): an operator override for
+  `DELETE /api/packs/[id]`, supplied via an `x-admin-token` header. Without
+  it, that route accepts only the pack's own creator cookie. The gate fails
+  **closed**: with no `ADMIN_TOKEN` configured there is no operator, so no
+  request is treated as one and ownership alone decides
+  (`src/lib/admin-auth.ts`). A deployment that forgets to set the variable
+  therefore loses the override, not the protection. Nothing in the UI calls
+  this route today; it exists to be reachable safely once something does.
 - These are proportionate to this app's actual trust model — one host
   running one venue's quiz for a room of teams — not a multi-tenant SaaS
   auth system. See [PROMPTS.md](./PROMPTS.md) history / commit messages for

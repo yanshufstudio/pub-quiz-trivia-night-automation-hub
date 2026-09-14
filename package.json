@@ -30,6 +30,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-qr-code": "^2.2.0",
+    "sharp": "^0.35.4",
     "zod": "^4.5.4"
   },
   "devDependencies": {

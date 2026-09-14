@@ -2,16 +2,23 @@ import { timingSafeEqual } from "node:crypto";
 import type { NextRequest } from "next/server";
 
 /**
- * Gate for destructive, unauthenticated-by-default routes (currently just
- * pack deletion — nothing in the UI calls it, but it's reachable). This app
- * has no user/account system, so a single shared operator secret is the
- * proportionate fix: set ADMIN_TOKEN to require it. Left unset, the route
- * stays open (today's behavior) since that matches solo local-dev use —
- * but it's the operator's job to set this before a shared/public deploy.
+ * Operator override for destructive routes (currently just pack deletion).
+ * This app has no user/account system, so a single shared secret in
+ * ADMIN_TOKEN is the proportionate mechanism.
+ *
+ * It fails **closed**: with no ADMIN_TOKEN configured there is no operator
+ * to override anything, so nobody is an admin and the route's own ownership
+ * check decides. An earlier version returned true for every request when the
+ * token was unset — convenient for a solo local checkout, but it meant a
+ * deploy that forgot to set the variable handed pack deletion to the whole
+ * internet, and the only thing standing between that default and a real
+ * incident was every future caller remembering to check
+ * isAdminTokenConfigured() first. A gate that is safe only when its callers
+ * are careful is not a gate.
  */
 export function isAuthorizedAdmin(req: NextRequest): boolean {
   const configured = process.env.ADMIN_TOKEN;
-  if (!configured) return true;
+  if (!configured) return false;
 
   const provided = req.headers.get("x-admin-token");
   if (!provided) return false;
@@ -23,10 +30,11 @@ export function isAuthorizedAdmin(req: NextRequest): boolean {
 }
 
 /**
- * Whether an admin override is even possible right now. A caller that wants
- * to treat "no ADMIN_TOKEN configured" as "no admin override, fall back to
- * ownership" — rather than isAuthorizedAdmin's own "unset means everyone is
- * admin" — should gate on this first. See its use in the pack DELETE route.
+ * Whether an admin override is even possible right now — i.e. whether the
+ * operator has configured a token at all. Distinct from isAuthorizedAdmin,
+ * which answers "is *this request* the operator". Useful for telling "no
+ * operator exists" apart from "this caller isn't them", e.g. in an error
+ * message or a health check.
  */
 export function isAdminTokenConfigured(): boolean {
   return Boolean(process.env.ADMIN_TOKEN);

@@ -61,8 +61,36 @@ model Question {
   // (parsed with the same helpers in src/lib/question-types.ts); null/empty
   // means only the primary `answer` scores as correct.
   acceptableAnswers String?
+  // Optional image shown with the question (see src/lib/media.ts). Kept in a
+  // separate table so pack reads never carry image bytes — the pack payload
+  // exposes only `hasMedia`.
+  media   QuestionMedia?
 
   @@unique([roundId, index])
+}
+
+// An image uploaded by the pack's owner for one question. The bytes live
+// here rather than at a remote URL on purpose: every surface that renders a
+// question image reads them from this row, so no render path ever makes a
+// network request. That is what keeps @react-pdf/renderer's server-side
+// <Image src> resolution (a bare `fetch`, no scheme/host/size/timeout
+// limits) from becoming an SSRF hole reachable through the unauthenticated
+// PDF route. See the "Media support" section of HANDOFF.md.
+model QuestionMedia {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String   @unique
+  // Always derived from the uploaded bytes' magic number, never from the
+  // request's Content-Type or a filename. "image/jpeg" | "image/png".
+  mime       String
+  bytes      Bytes
+  byteSize   Int
+  width      Int
+  height     Int
+  createdAt  DateTime @default(now())
+  // Replacing an image reuses the row, so this is what tells a cached copy
+  // apart from a new one — it is the ETag the serve route revalidates on.
+  updatedAt  DateTime @updatedAt
 }
 
 model Session {

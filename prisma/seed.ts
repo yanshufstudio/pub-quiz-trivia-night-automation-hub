@@ -1,7 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import "dotenv/config";
+import { db } from "../src/lib/db";
 import { DEMO_PACK, DEMO_PACK_PROMPT } from "../src/lib/demo-pack";
 
-const db = new PrismaClient();
+// Uses the app's own client (src/lib/db.ts) rather than a bare
+// `new PrismaClient()`. Since the move to the libSQL driver adapter, a
+// client constructed without one throws at startup ("Missing configured
+// driver adapter. Engine type `client` requires an active driver adapter"),
+// which is what `npm run db:seed` did on every run. Sharing the app's client
+// also means the seed reaches exactly the database the app reads —
+// DATABASE_URL, local file or hosted Turso alike.
 
 async function main() {
   const existing = await db.quizPack.findFirst({ where: { title: DEMO_PACK.title } });

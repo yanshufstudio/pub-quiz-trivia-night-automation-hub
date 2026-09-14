@@ -7,7 +7,7 @@ import {
   PresenterScriptDocument,
   QuestionSheetDocument,
 } from "@/lib/pdf/documents";
-import type { PackWithRounds } from "@/lib/session-state";
+import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
 
 const DOCUMENTS = {
   questions: { Component: QuestionSheetDocument, suffix: "questions" },
@@ -33,15 +33,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     );
   }
 
+  // The full media rows (mime + bytes), not the lightweight `hasMedia` shape
+  // sessions poll with — documents.tsx inlines the bytes as a data: URI, and
+  // that's the one form an image may reach @react-pdf/renderer in (see
+  // src/test/pdf-media-offline.integration.test.ts).
   const pack = (await db.quizPack.findUnique({
     where: { id },
-    include: {
-      rounds: {
-        orderBy: { index: "asc" },
-        include: { questions: { orderBy: { index: "asc" } } },
-      },
-    },
-  })) as PackWithRounds | null;
+    ...packWithRoundsAndMediaArgs,
+  })) as PackWithRoundsAndMedia | null;
 
   if (!pack) {
     return NextResponse.json({ error: "Pack not found" }, { status: 404 });

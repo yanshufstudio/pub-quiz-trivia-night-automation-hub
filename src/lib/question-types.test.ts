@@ -65,12 +65,19 @@ describe("toQuestionView", () => {
       type: "MULTIPLE_CHOICE",
       options: ["A", "B"],
       acceptableAnswers: [],
+      hasMedia: false,
     });
   });
 
   it("yields an empty options array for a TEXT question", () => {
     const raw = { id: "q2", type: "TEXT", options: null };
-    expect(toQuestionView(raw)).toEqual({ id: "q2", type: "TEXT", options: [], acceptableAnswers: [] });
+    expect(toQuestionView(raw)).toEqual({
+      id: "q2",
+      type: "TEXT",
+      options: [],
+      acceptableAnswers: [],
+      hasMedia: false,
+    });
   });
 
   it("also parses acceptableAnswers when present", () => {
@@ -85,6 +92,25 @@ describe("toQuestionView", () => {
       type: "TEXT",
       options: [],
       acceptableAnswers: ["Seven", "7"],
+      hasMedia: false,
     });
+  });
+
+  it("reports hasMedia when the media relation was included", () => {
+    const raw = { id: "q4", type: "TEXT", options: null, media: { id: "m1" } };
+    expect(toQuestionView(raw)).toMatchObject({ id: "q4", hasMedia: true });
+  });
+
+  // The flag replaces the relation rather than sitting beside it: a pack
+  // payload must never carry image data, so the relation is dropped here
+  // whatever a caller selected into it.
+  it("drops the media relation instead of passing it through", () => {
+    const view = toQuestionView({ id: "q5", type: "TEXT", options: null, media: { id: "m2" } });
+    expect(view).not.toHaveProperty("media");
+    expect(JSON.stringify(view)).not.toContain("m2");
+  });
+
+  it("reports no media when the relation was included and is empty", () => {
+    expect(toQuestionView({ id: "q6", type: "TEXT", options: null, media: null })).toMatchObject({ hasMedia: false });
   });
 });

@@ -466,3 +466,170 @@ back on twice in one day, and the rule that survived is in the Yanshuf
 `HANDOFF.md`: **restore it only after generating from the wizard's default brief
 succeeds in a browser.** A green test suite is not sufficient evidence, because
 the suite used smaller prompts than the UI itself suggests.
+
+---
+
+# Production-readiness pass, 2026-09-10 — PR #3
+
+A second full walk of the quizmaster flow, on `d1b613d`. Seven commits on
+`claude/youthful-knuth-clvns7`; CI green on `f342325` (every step, e2e
+included). **Not verified on production or against the live model** — see
+"The verification gap" below, which is the most important part of this
+section.
+
+## What was walked
+
+Describe a night → generate → edit → print → run it live → score it.
+
+| Step | Result |
+|---|---|
+| Wizard, real browser, default four-round brief | **Pass.** 201, redirect to the editor, "4 rounds · 40 questions", no console errors, no failed requests. |
+| Print preview, three PDFs, JSON export | **Pass**, all 200, real `%PDF-` payloads. (But see the layout defect below.) |
+| Live session, two teams, join by code | **Pass.** |
+| Auto-scoring | **Pass.** Case-insensitive match scored, wrong answer scored 0. |
+| Host score override | **Pass**, and 401 with a wrong `hostToken`. |
+| Multiple choice | **Pass.** Off-list submission 400, valid option 201. |
+| Answer after reveal | **Pass**, 409. |
+| Per-question timer | **Pass.** Auto-revealed on the next poll; the late answer 409'd. |
+| Advance 40 questions to `ENDED` | **Pass**, 76 host actions, correct final scoreboard. |
+
+## The 502 — the fourth and last cause
+
+`101a4c7` (bad multiple-choice option set) and `4e0ee66` (missing pack
+title) each fixed a real cause. Both were real; neither was the whole
+thing, because the shape of the bug was never addressed: **one `try/catch`
+in the generate route flattened every possible failure into the same 502
+saying "Please try again"**, so each fix removed one cause from a category
+nobody had enumerated.
+
+There were four. Reproduced by pointing the SDK at a local stand-in for the
+Messages API and driving each in turn:
+
+| Trigger | Before |
+|---|---|
+| `stop_reason: max_tokens` — response truncated mid-tool-call | 502 |
+| Unusable tool input | 502 |
+| Model answers in prose, no tool call | 502 |
+| Anthropic API 429/5xx | 502 |
+
+The first is the one that was never diagnosed, and the only deterministic
+one. `max_tokens` was 8000. A four-round/40-question pack fits, which is
+exactly why the default brief works and why every verification run to date
+passed. But the brief is a free-text box: "eight rounds of fifteen
+questions" is an ordinary thing to ask a quiz wizard for, and it runs the
+model out of budget every single time. Strict validation then threw away
+the thirty-nine intact questions along with the half-written one.
+
+"Please try again" was therefore not just unhelpful, it was **wrong** — the
+same brief truncates identically on every retry.
+
+Fixed in `4fc4ab4`:
+
+- `max_tokens` 8000 → 16000, well inside the model's ceiling. The real
+  limit on pack size is the route's 60s `maxDuration`, not this number.
+- `salvageGeneratedPack` (`src/lib/quiz-schema.ts`): when strict parsing
+  fails, validate question by question and keep everything that stands on
+  its own. The same degrade-don't-reject principle behind `101a4c7` and
+  `4e0ee66`, applied to the pack as a whole instead of one field at a time.
+  The truncation case now returns 201 with the 33 questions that arrived.
+- Failures past salvage are told apart rather than collapsed: **422** brief
+  too big (with what to change), **503** model API busy, **502** everything
+  else. Dropped content is logged server-side.
+
+## Authorization
+
+The unauthenticated pack delete was already closed by `5eb1eba` / `c0f23d2`.
+Verified rather than assumed: all six pack-editing endpoints probed as an
+anonymous stranger and as a wrong user holding a valid cookie of their own —
+401/403 on all twelve.
+
+Two gaps remained:
+
+- **`d99ac02`** — `isAuthorizedAdmin` returned `true` for *every* request
+  when `ADMIN_TOKEN` was unset. The delete route was safe only because it
+  remembered to gate on `isAdminTokenConfigured()` first. That is a gate
+  which is safe only while its callers are careful, which is not a gate. It
+  now fails closed. Added the two missing delete tests: a different creator
+  with a valid cookie, and a cookie matching no `Creator` row.
+- **`b301d04`** — the two writes that *cannot* be authenticated had no
+  ceiling. `POST /api/sessions` created 30 sessions from 30 anonymous
+  requests, each consuming one of a finite pool of 5-character join codes.
+  `POST /api/sessions/[code]/join` took **60 junk teams into a live quiz
+  from a single loop** — and the join code is printed on the table QR, so
+  the attacker is anyone in the room. Both rate-limited; joining also has a
+  hard 60-team-per-session cap, which is the part that survives an attacker
+  rotating IPs past the limiter.
+
+Nothing destructive is reachable without auth.
+
+## Three regressions nobody had flagged
+
+- **`b88d153`** — the app served **no `theme-color` meta tag at all**.
+  `be4967e` (the visual redesign) deleted the `viewport` export from
+  `layout.tsx` along with `applicationName` and the Apple web-app metadata.
+  `e2e/pwa.spec.ts` catches it and has been red on `master` ever since, so
+  that commit shipped without the e2e suite being run. The unit test reads
+  `manifest.ts`, which was never touched, so nothing else noticed. Restored,
+  now reading the colour from the manifest so the two cannot drift again —
+  the spec asserts against the manifest too, instead of a literal.
+- **`a763086`** — every PDF render of a full-size pack logged `VIEW ...
+  bigger than available page height`, four times. Each round was declared
+  unbreakable (`wrap={false}`) to keep it on one page; that holds for the
+  five-question demo pack and cannot hold for the ten-question rounds the
+  default brief produces. Rounds now flow across pages, individual
+  questions and answer rows do not split, `minPresenceAhead` keeps a round
+  heading off the foot of a page. Page counts unchanged for the question
+  sheet and script; demo pack still one page.
+- **`d9454f9`** — `npm run db:seed`, which the README offers as the
+  no-API-key path, crashed on **every** run since the libSQL adapter
+  migration: `prisma/seed.ts` built a bare `PrismaClient`, which now throws
+  "Missing configured driver adapter" at startup.
+
+## Test-suite findings
+
+- `src/test/edge-cases.integration.test.ts` asserted the 503-when-no-key
+  path by *assuming* `ANTHROPIC_API_KEY` was absent from the ambient
+  environment. On a machine that has one set it failed — and spent a real
+  API call doing so. Now stubbed per-test.
+- **`e2e/tie-ending.spec.ts` did not reproduce the timeout** recorded in the
+  2026-09-09 handoff as happening "every run". It passed in 7.1s locally and
+  in CI, whole suite 37s. Whatever that was, it was specific to that machine.
+- New coverage: `generate-failures` (the four 502 triggers and the salvage
+  path), `session-limits` (both ceilings), `pdf-layout` (all three documents
+  at the size the default brief generates — no existing PDF test used a pack
+  bigger than the demo one). 96 unit, 112 integration, 6 e2e.
+
+## The verification gap — read this before believing the above
+
+Everything was verified against a **local** build. The session had no
+`ANTHROPIC_API_KEY`, and its network policy blocked the Vercel hostname, so
+generation was driven through a local stand-in for the Messages API. The
+failure shapes are real and the code paths are proven; the live model's
+actual output was never sampled.
+
+This project's 502 has been declared closed twice on the strength of a
+green suite and reopened twice. **A green suite is not evidence here.** The
+branch has a Vercel preview deploy with real env vars — verify there:
+
+1. `/create`, default four-round brief, real browser, click Generate.
+2. Then the case the fix targets and which has **never** been tested: a
+   deliberately oversized brief ("eight rounds of fifteen questions"). A
+   full pack, a short pack (look for the `Quiz pack salvaged: dropped N
+   question(s)` log line), or a 422 are all correct. A 502 is not.
+
+Free cap is 2 per `pq_creator` cookie and the route is 5 per 10 min per IP,
+so use a fresh profile if the form says "Free limit reached".
+
+## Still open, deliberately not fixed
+
+- **The free-tier cap is bypassable by clearing a cookie**, and every
+  generation spends real credit. The per-IP limit is the only real ceiling
+  and a proxy pool walks past it. Needs accounts — the Paddle work already
+  next in the plan.
+- **The rate limiter trusts `x-forwarded-for`.** Correct behind Vercel,
+  worth nothing without a proxy that sets it. Already noted in the README;
+  it is a deployment-topology assumption, not a code bug.
+- **No e2e covers generation** — the most failure-prone path in the app,
+  and the reason it broke three times in production. It needs a mockable
+  seam at the model boundary (`src/lib/anthropic.ts`), which is a design
+  change worth making deliberately rather than as a side effect of this pass.

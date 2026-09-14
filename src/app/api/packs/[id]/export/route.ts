@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { toPackFile } from "@/lib/pack-file";
 import { toQuestionView } from "@/lib/question-types";
+import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
 
 function filenameFor(title: string) {
   const slug = title
@@ -14,15 +15,12 @@ function filenameFor(title: string) {
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const pack = await db.quizPack.findUnique({
+  // The full media rows, not the lightweight `hasMedia` shape most reads
+  // use — a v2 file embeds the actual bytes as base64 (see pack-file.ts).
+  const pack = (await db.quizPack.findUnique({
     where: { id },
-    include: {
-      rounds: {
-        orderBy: { index: "asc" },
-        include: { questions: { orderBy: { index: "asc" } } },
-      },
-    },
-  });
+    ...packWithRoundsAndMediaArgs,
+  })) as PackWithRoundsAndMedia | null;
   if (!pack) {
     return NextResponse.json({ error: "Pack not found" }, { status: 404 });
   }
@@ -30,7 +28,12 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
   const file = toPackFile({
     ...pack,
     createdAt: pack.createdAt.toISOString(),
-    rounds: pack.rounds.map((round) => ({ ...round, questions: round.questions.map(toQuestionView) })),
+    rounds: pack.rounds.map((round) => ({
+      ...round,
+      // toQuestionView consumes `media` into `hasMedia`; re-attach the raw
+      // relation alongside it so toPackFile can still reach the bytes.
+      questions: round.questions.map((q) => ({ ...toQuestionView(q), media: q.media })),
+    })),
   });
 
   return new NextResponse(JSON.stringify(file, null, 2), {

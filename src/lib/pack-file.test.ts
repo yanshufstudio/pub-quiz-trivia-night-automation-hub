@@ -54,6 +54,50 @@ describe("packFileSchema", () => {
     expect(result.success).toBe(false);
   });
 
+  it("still accepts a version 1 file — the version this build no longer writes but must keep reading", () => {
+    const result = packFileSchema.safeParse({
+      format: PACK_FILE_FORMAT,
+      version: 1,
+      title: "P",
+      rounds: [round],
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts an embedded image on a question (version 2 only, but the field is just optional)", () => {
+    const result = packFileSchema.safeParse({
+      format: PACK_FILE_FORMAT,
+      version: 2,
+      title: "P",
+      rounds: [
+        {
+          title: "R",
+          category: "C",
+          questions: [{ text: "Q?", answer: "A", image: { mime: "image/png", data: "AQIDBA==" } }],
+        },
+      ],
+    });
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.data.rounds[0].questions[0].image).toEqual({ mime: "image/png", data: "AQIDBA==" });
+  });
+
+  it("rejects an image with an unsupported mime", () => {
+    const result = packFileSchema.safeParse({
+      format: PACK_FILE_FORMAT,
+      version: 2,
+      title: "P",
+      rounds: [
+        {
+          title: "R",
+          category: "C",
+          questions: [{ text: "Q?", answer: "A", image: { mime: "image/gif", data: "AQIDBA==" } }],
+        },
+      ],
+    });
+    expect(result.success).toBe(false);
+  });
+
   it("applies the generated-pack defaults so a hand-written file can omit points and type", () => {
     const result = packFileSchema.safeParse({
       format: PACK_FILE_FORMAT,
@@ -92,6 +136,7 @@ describe("toPackFile", () => {
               type: "TEXT",
               options: [],
               acceptableAnswers: ["7"],
+              hasMedia: false,
             },
             {
               id: "q2",
@@ -102,6 +147,7 @@ describe("toPackFile", () => {
               type: "MULTIPLE_CHOICE",
               options: ["Mars", "Venus"],
               acceptableAnswers: [],
+              hasMedia: false,
             },
           ],
         },
@@ -127,6 +173,55 @@ describe("toPackFile", () => {
       type: "MULTIPLE_CHOICE",
       options: ["Mars", "Venus"],
     });
+    expect(packFileSchema.safeParse(JSON.parse(JSON.stringify(file))).success).toBe(true);
+  });
+
+  it("embeds a question's media as base64, and omits the field entirely when there is none", () => {
+    const file = toPackFile({
+      id: "pack1",
+      title: "Pack",
+      prompt: "",
+      createdAt: "2026-09-07T00:00:00.000Z",
+      rounds: [
+        {
+          id: "r1",
+          index: 0,
+          title: "Picture Round",
+          category: "General",
+          questions: [
+            {
+              id: "q1",
+              index: 0,
+              text: "Which landmark?",
+              answer: "Big Ben",
+              points: 1,
+              type: "TEXT",
+              options: [],
+              acceptableAnswers: [],
+              hasMedia: true,
+              media: { mime: "image/png", bytes: new Uint8Array([1, 2, 3, 4]) },
+            },
+            {
+              id: "q2",
+              index: 1,
+              text: "No picture here",
+              answer: "Correct",
+              points: 1,
+              type: "TEXT",
+              options: [],
+              acceptableAnswers: [],
+              hasMedia: false,
+              media: null,
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(file.rounds[0].questions[0].image).toEqual({ mime: "image/png", data: "AQIDBA==" });
+    expect(file.rounds[0].questions[1].image).toBeUndefined();
+    // hasMedia itself is not a file field — only the bytes (as `image`) are.
+    expect(JSON.stringify(file)).not.toContain("hasMedia");
     expect(packFileSchema.safeParse(JSON.parse(JSON.stringify(file))).success).toBe(true);
   });
 });

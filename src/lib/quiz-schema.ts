@@ -53,3 +53,79 @@ export type GeneratedQuestion = z.infer<typeof generatedQuestionSchema>;
 export const wizardRequestSchema = z.object({
   prompt: z.string().trim().min(1).max(2000),
 });
+
+/**
+ * Lenient counterpart to `generatedPackSchema`, for a model response that
+ * strict parsing rejects outright.
+ *
+ * `generatedPackSchema` is all-or-nothing: one unusable question anywhere in
+ * the response discards the whole pack, which is how a 40-question, 25-second
+ * generation turns into a 502 the user can do nothing about. The dominant
+ * cause is truncation — the model hits `max_tokens` part-way through the tool
+ * call, so the final question (and sometimes the final round) arrives half
+ * written while everything before it is perfectly good.
+ *
+ * So: validate question by question and keep what survives, applying the same
+ * degrade-don't-reject rules as the strict path (`generatedQuestionSchema`
+ * already downgrades a broken multiple-choice question to free text). A round
+ * left with no usable questions is dropped; a missing round title or category
+ * is filled in rather than fatal, for the same reason the pack title is.
+ *
+ * Returns null only when nothing at all is recoverable — no rounds array, or
+ * every round empty — which is the one case the caller must still fail on.
+ */
+export type SalvagedPack = {
+  pack: GeneratedPack;
+  droppedQuestions: number;
+  droppedRounds: number;
+};
+
+const salvageRoundShape = z.object({
+  title: z.string().trim().optional(),
+  category: z.string().trim().optional(),
+  questions: z.array(z.unknown()).optional(),
+});
+
+export function salvageGeneratedPack(input: unknown): SalvagedPack | null {
+  const outer = z
+    .object({ title: z.string().trim().optional(), rounds: z.array(z.unknown()) })
+    .safeParse(input);
+  if (!outer.success) return null;
+
+  let droppedQuestions = 0;
+  let droppedRounds = 0;
+  const rounds: GeneratedRound[] = [];
+
+  outer.data.rounds.forEach((rawRound, index) => {
+    const round = salvageRoundShape.safeParse(rawRound);
+    if (!round.success) {
+      droppedRounds += 1;
+      return;
+    }
+
+    const questions: GeneratedQuestion[] = [];
+    for (const rawQuestion of round.data.questions ?? []) {
+      const question = generatedQuestionSchema.safeParse(rawQuestion);
+      if (question.success) questions.push(question.data);
+      else droppedQuestions += 1;
+    }
+
+    // A round with no questions left can't be presented or scored, so it goes
+    // — but its questions are already counted above, not double-counted here.
+    if (questions.length === 0) {
+      droppedRounds += 1;
+      return;
+    }
+
+    const title = round.data.title || `Round ${index + 1}`;
+    rounds.push({ title, category: round.data.category || title, questions });
+  });
+
+  if (rounds.length === 0) return null;
+
+  return {
+    pack: { title: outer.data.title || rounds.map((round) => round.title).join(" · "), rounds },
+    droppedQuestions,
+    droppedRounds,
+  };
+}

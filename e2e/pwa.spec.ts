@@ -25,5 +25,9 @@ test("the app is installable: manifest linked, resolvable, icons served", async 
   const appleRes = await request.get(appleIcon!);
   expect(appleRes.status()).toBe(200);
 
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#2c3a33");
+  // Against the manifest's own value, not a literal: a redesign that moves
+  // the stage colour should not have to remember to edit this file, and one
+  // that drops the viewport export (as the 2026-09 visual redesign did,
+  // taking the meta tag off every page) still fails here.
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", manifest.theme_color);
 });

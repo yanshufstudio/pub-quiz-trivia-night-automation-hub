@@ -3,7 +3,30 @@ import type { Creator } from "@prisma/client";
 import type { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-export const FREE_LIMIT = 2;
+export const DEFAULT_FREE_LIMIT = 2;
+
+/**
+ * The free-tier ceiling, overridable per environment so a preview deploy can
+ * be exercised end to end without burning the production allowance. Read once
+ * at module load: the value is fixed for the life of a deploy, and re-reading
+ * it per request would let a mid-run env change move the ceiling under a
+ * creator who is already part-way through a period.
+ *
+ * Anything that isn't a non-negative integer falls back to the default rather
+ * than propagating. `Number("")` is 0 and `Number("two")` is NaN, and NaN
+ * loses every `<` comparison in `canGenerate` — so a typo'd or blank env var
+ * would silently lock out every free creator instead of raising the cap.
+ * Failing back to the documented default keeps a misconfigured deploy
+ * working at production's limit.
+ */
+export function parseFreeLimit(raw: string | undefined): number {
+  if (raw === undefined || raw.trim() === "") return DEFAULT_FREE_LIMIT;
+  const parsed = Number(raw);
+  if (!Number.isInteger(parsed) || parsed < 0) return DEFAULT_FREE_LIMIT;
+  return parsed;
+}
+
+export const FREE_LIMIT = parseFreeLimit(process.env.FREE_PACK_LIMIT);
 const PERIOD_MS = 30 * 24 * 60 * 60 * 1000;
 
 /**

@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { generatedPackSchema, generatedQuestionSchema, wizardRequestSchema } from "@/lib/quiz-schema";
+import {
+  generatedPackSchema,
+  generatedQuestionSchema,
+  salvageGeneratedPack,
+  wizardRequestSchema,
+} from "@/lib/quiz-schema";
 
 describe("wizardRequestSchema", () => {
   it("rejects an empty prompt", () => {
@@ -157,5 +162,93 @@ describe("generatedPackSchema", () => {
     });
     expect(result.success).toBe(true);
     if (result.success) expect(result.data.title).toBe("Friday Night Lights");
+  });
+});
+
+describe("salvageGeneratedPack", () => {
+  const goodQuestion = (n: number) => ({ text: `Q${n}?`, answer: `A${n}`, points: 1 });
+
+  // The truncation shape: the model hit max_tokens part-way through the last
+  // question, so it arrives with an empty answer. Strict parsing throws away
+  // all 3 usable questions with it; salvaging keeps them.
+  it("keeps the complete questions when the response is cut off mid-question", () => {
+    const truncated = {
+      title: "Friday Night",
+      rounds: [
+        {
+          title: "Rivers",
+          category: "Geography",
+          questions: [goodQuestion(1), goodQuestion(2), goodQuestion(3), { text: "Which river runs thro", answer: "" }],
+        },
+      ],
+    };
+
+    expect(generatedPackSchema.safeParse(truncated).success).toBe(false);
+
+    const salvaged = salvageGeneratedPack(truncated);
+    expect(salvaged).not.toBeNull();
+    expect(salvaged!.pack.rounds).toHaveLength(1);
+    expect(salvaged!.pack.rounds[0].questions.map((q) => q.answer)).toEqual(["A1", "A2", "A3"]);
+    expect(salvaged!.droppedQuestions).toBe(1);
+    expect(salvaged!.droppedRounds).toBe(0);
+  });
+
+  it("drops a round left with no usable questions and keeps the rest", () => {
+    const salvaged = salvageGeneratedPack({
+      rounds: [
+        { title: "Rivers", category: "Geography", questions: [goodQuestion(1)] },
+        { title: "Cut off here", category: "Music", questions: [{ text: "Half a quest" }] },
+      ],
+    });
+
+    expect(salvaged).not.toBeNull();
+    expect(salvaged!.pack.rounds.map((r) => r.title)).toEqual(["Rivers"]);
+    expect(salvaged!.droppedQuestions).toBe(1);
+    expect(salvaged!.droppedRounds).toBe(1);
+  });
+
+  it("fills in a missing round title and category rather than dropping the round", () => {
+    const salvaged = salvageGeneratedPack({ rounds: [{ questions: [goodQuestion(1)] }] });
+
+    expect(salvaged).not.toBeNull();
+    expect(salvaged!.pack.rounds[0].title).toBe("Round 1");
+    expect(salvaged!.pack.rounds[0].category).toBe("Round 1");
+    expect(salvaged!.droppedRounds).toBe(0);
+  });
+
+  it("derives a pack title from the surviving rounds, same as strict parsing", () => {
+    const salvaged = salvageGeneratedPack({
+      rounds: [
+        { title: "Rivers", category: "Geography", questions: [goodQuestion(1)] },
+        { title: "Britpop", category: "Music", questions: [goodQuestion(2)] },
+      ],
+    });
+
+    expect(salvaged!.pack.title).toBe("Rivers · Britpop");
+  });
+
+  it("still degrades a broken multiple-choice question to TEXT instead of dropping it", () => {
+    const salvaged = salvageGeneratedPack({
+      rounds: [
+        {
+          title: "Music",
+          category: "Music",
+          questions: [{ text: "Which band?", answer: "Nirvana", type: "MULTIPLE_CHOICE", options: ["Nirvana"] }],
+        },
+      ],
+    });
+
+    expect(salvaged!.droppedQuestions).toBe(0);
+    expect(salvaged!.pack.rounds[0].questions[0].type).toBe("TEXT");
+  });
+
+  // The one case the caller must still fail on — there is no pack here to
+  // hand a quizmaster, so a salvaged "empty" pack would be worse than an error.
+  it("returns null when nothing is recoverable", () => {
+    expect(salvageGeneratedPack({})).toBeNull();
+    expect(salvageGeneratedPack({ rounds: [] })).toBeNull();
+    expect(salvageGeneratedPack({ rounds: [{ title: "R", category: "C", questions: [] }] })).toBeNull();
+    expect(salvageGeneratedPack(null)).toBeNull();
+    expect(salvageGeneratedPack("nope")).toBeNull();
   });
 });

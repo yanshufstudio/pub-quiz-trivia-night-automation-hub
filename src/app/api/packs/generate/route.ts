@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 import { createPackFromGenerated } from "@/lib/create-pack";
-import { generateQuizPack } from "@/lib/generate-pack";
+import { generateQuizPack, UnusableModelOutputError } from "@/lib/generate-pack";
 import { wizardRequestSchema } from "@/lib/quiz-schema";
 import { rateLimit } from "@/lib/rate-limit";
 import { MissingApiKeyError } from "@/lib/anthropic";
@@ -11,6 +12,38 @@ import { db } from "@/lib/db";
 // timeout. Raise the ceiling; see docs/portfolio-readiness.md "Reopened
 // 2026-09-08" for the measured cause.
 export const maxDuration = 60;
+
+/**
+ * Every generation failure used to come back as one 502 saying "Please try
+ * again", including the failures where trying again provably cannot help.
+ * These two split it by what the caller can actually do about it:
+ *
+ * - 422: the brief itself is the problem (it asked for more than one
+ *   generation holds). The user has to change it.
+ * - 503: the upstream model API is rate-limiting or down. Retrying works,
+ *   and the SDK has already retried twice by the time we get here.
+ * - 502: everything else — an unusable response we can't attribute. Still
+ *   worth retrying, so the message keeps saying so.
+ */
+function failureStatus(err: unknown): number {
+  if (err instanceof UnusableModelOutputError && err.truncated) return 422;
+  if (err instanceof Anthropic.APIError && (err.status === 429 || (err.status ?? 0) >= 500)) return 503;
+  return 502;
+}
+
+function failureBody(err: unknown): { error: string } {
+  if (err instanceof UnusableModelOutputError && err.truncated) {
+    return {
+      error:
+        "That brief asked for a bigger pack than can be generated in one go. " +
+        "Try fewer rounds, or fewer questions per round, and generate again.",
+    };
+  }
+  if (err instanceof Anthropic.APIError && (err.status === 429 || (err.status ?? 0) >= 500)) {
+    return { error: "The question generator is busy right now. Please try again in a moment." };
+  }
+  return { error: "Couldn't generate a quiz pack right now. Please try again." };
+}
 
 export async function POST(req: NextRequest) {
   // Each call spends real Anthropic API credit, so this is throttled
@@ -71,15 +104,19 @@ export async function POST(req: NextRequest) {
     // Log the real cause server-side; don't forward raw SDK/API error
     // internals (model names, request ids, etc.) to the client.
     console.error("Quiz pack generation failed:", err);
-    const res = NextResponse.json(
-      { error: "Couldn't generate a quiz pack right now. Please try again." },
-      { status: 502 }
-    );
+    const res = NextResponse.json(failureBody(err), { status: failureStatus(err) });
     setCookieOn(res);
     return res;
   }
 
-  const pack = await createPackFromGenerated(generated, parsed.data.prompt, creator.id);
+  if (generated.droppedQuestions > 0 || generated.droppedRounds > 0) {
+    console.warn(
+      `Quiz pack salvaged: dropped ${generated.droppedQuestions} question(s) and ` +
+        `${generated.droppedRounds} round(s)${generated.truncated ? " after a max_tokens truncation" : ""}.`
+    );
+  }
+
+  const pack = await createPackFromGenerated(generated.pack, parsed.data.prompt, creator.id);
   // withRolledPeriod returns the *same* object reference when the period
   // hasn't expired, and a *new* one when it has — so reference inequality
   // here reliably detects a roll (see src/lib/creator.test.ts). When the
