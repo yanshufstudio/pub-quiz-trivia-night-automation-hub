@@ -90,21 +90,14 @@ export async function getCreatorReadOnly(req: NextRequest) {
 }
 
 /**
- * Server-component twin of getOrCreateCreator for pages that must know who
- * the visitor is before any API call (the pricing page needs creatorId in
- * the checkout's customData). Setting a cookie from a server component is
- * allowed in Next 16 during a dynamic render; this page is dynamic because
- * it reads cookies.
+ * Read-only lookup for server components. Next 16 refuses cookie writes
+ * during a render ("Cookies can only be modified in a Server Action or
+ * Route Handler"), so a page can only read the identity; creating one for a
+ * cookie-less visitor is the job of POST /api/creator/ensure, which the
+ * pricing page's client component calls before opening checkout.
  */
-export async function getOrCreateCreatorForPage(): Promise<Creator> {
-  const jar = await cookies();
-  const existingKey = jar.get(COOKIE_NAME)?.value;
-  if (existingKey) {
-    const found = await db.creator.findUnique({ where: { deviceKey: existingKey } });
-    if (found) return found;
-  }
-  const deviceKey = randomUUID();
-  const creator = await db.creator.create({ data: { deviceKey } });
-  jar.set(COOKIE_NAME, deviceKey, cookieOptions());
-  return creator;
+export async function getCreatorForPage(): Promise<Creator | null> {
+  const deviceKey = (await cookies()).get(COOKIE_NAME)?.value;
+  if (!deviceKey) return null;
+  return db.creator.findUnique({ where: { deviceKey } });
 }

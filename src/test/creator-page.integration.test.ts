@@ -4,25 +4,28 @@ const store = new Map<string, string>();
 vi.mock("next/headers", () => ({
   cookies: async () => ({
     get: (name: string) => (store.has(name) ? { name, value: store.get(name)! } : undefined),
-    set: (name: string, value: string) => void store.set(name, value),
   }),
 }));
 
-import { COOKIE_NAME, getOrCreateCreatorForPage } from "@/lib/creator";
+import { COOKIE_NAME, getCreatorForPage } from "@/lib/creator";
 import { db } from "@/lib/db";
 
-describe("getOrCreateCreatorForPage", () => {
-  it("creates a creator and sets the cookie when none exists", async () => {
+describe("getCreatorForPage", () => {
+  it("returns null and creates nothing for a cookie-less visitor", async () => {
     store.clear();
-    const creator = await getOrCreateCreatorForPage();
-    expect(store.get(COOKIE_NAME)).toBe(creator.deviceKey);
-    expect(await db.creator.findUnique({ where: { id: creator.id } })).not.toBeNull();
+    const before = await db.creator.count();
+    expect(await getCreatorForPage()).toBeNull();
+    expect(await db.creator.count()).toBe(before);
+  });
+
+  it("returns null for a cookie with no matching row", async () => {
+    store.set(COOKIE_NAME, "no-such-key");
+    expect(await getCreatorForPage()).toBeNull();
   });
 
   it("returns the existing creator for a known cookie", async () => {
     const existing = await db.creator.create({ data: { deviceKey: `page-${Math.random().toString(36).slice(2)}` } });
     store.set(COOKIE_NAME, existing.deviceKey);
-    const creator = await getOrCreateCreatorForPage();
-    expect(creator.id).toBe(existing.id);
+    expect((await getCreatorForPage())?.id).toBe(existing.id);
   });
 });
