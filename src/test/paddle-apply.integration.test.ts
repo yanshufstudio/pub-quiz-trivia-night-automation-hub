@@ -25,14 +25,14 @@ describe("applySubscriptionEvent", () => {
       customerId: "ctm_1",
       status: "active",
       creatorId: c.id,
-      email: "buyer@example.com",
+      email: `buyer-${c.id}@example.com`,
     });
     expect(result).toBe("applied");
     const after = await db.creator.findUniqueOrThrow({ where: { id: c.id } });
     expect(after.plan).toBe("PRO");
     expect(after.paddleSubscriptionId).toBe(`sub_${c.id}`);
     expect(after.paddleCustomerId).toBe("ctm_1");
-    expect(after.email).toBe("buyer@example.com");
+    expect(after.email).toBe(`buyer-${c.id}@example.com`);
     expect(after.subscriptionUpdatedAt?.toISOString()).toBe(t("00").toISOString());
   });
 
@@ -62,20 +62,20 @@ describe("applySubscriptionEvent", () => {
 
   it("keeps an existing email when the event carries none", async () => {
     const c = await creator();
-    await applySubscriptionEvent({ occurredAt: t("00"), subscriptionId: `sub_${c.id}`, customerId: "ctm_1", status: "active", creatorId: c.id, email: "keep@example.com" });
+    await applySubscriptionEvent({ occurredAt: t("00"), subscriptionId: `sub_${c.id}`, customerId: "ctm_1", status: "active", creatorId: c.id, email: `keep-${c.id}@example.com` });
     await applySubscriptionEvent({ occurredAt: t("01"), subscriptionId: `sub_${c.id}`, customerId: "ctm_1", status: "active", creatorId: c.id, email: null });
     const after = await db.creator.findUniqueOrThrow({ where: { id: c.id } });
-    expect(after.email).toBe("keep@example.com");
+    expect(after.email).toBe(`keep-${c.id}@example.com`);
   });
 });
 
 describe("applyCustomerEvent", () => {
   it("updates email by paddleCustomerId and is a no-op for unknown customers", async () => {
     const c = await creator();
-    await applySubscriptionEvent({ occurredAt: t("00"), subscriptionId: `sub_${c.id}`, customerId: `ctm_${c.id}`, status: "active", creatorId: c.id, email: "old@example.com" });
-    await applyCustomerEvent({ customerId: `ctm_${c.id}`, email: "new@example.com" });
+    await applySubscriptionEvent({ occurredAt: t("00"), subscriptionId: `sub_${c.id}`, customerId: `ctm_${c.id}`, status: "active", creatorId: c.id, email: `old-${c.id}@example.com` });
+    await applyCustomerEvent({ customerId: `ctm_${c.id}`, email: `new-${c.id}@example.com` });
     await applyCustomerEvent({ customerId: "ctm_unknown", email: "nobody@example.com" });
     const after = await db.creator.findUniqueOrThrow({ where: { id: c.id } });
-    expect(after.email).toBe("new@example.com");
+    expect(after.email).toBe(`new-${c.id}@example.com`);
   });
 });
