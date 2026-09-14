@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { Creator } from "@prisma/client";
+import { cookies } from "next/headers";
 import type { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
@@ -86,4 +87,24 @@ export async function getCreatorReadOnly(req: NextRequest) {
   const deviceKey = req.cookies.get(COOKIE_NAME)?.value;
   if (!deviceKey) return null;
   return db.creator.findUnique({ where: { deviceKey } });
+}
+
+/**
+ * Server-component twin of getOrCreateCreator for pages that must know who
+ * the visitor is before any API call (the pricing page needs creatorId in
+ * the checkout's customData). Setting a cookie from a server component is
+ * allowed in Next 16 during a dynamic render; this page is dynamic because
+ * it reads cookies.
+ */
+export async function getOrCreateCreatorForPage(): Promise<Creator> {
+  const jar = await cookies();
+  const existingKey = jar.get(COOKIE_NAME)?.value;
+  if (existingKey) {
+    const found = await db.creator.findUnique({ where: { deviceKey: existingKey } });
+    if (found) return found;
+  }
+  const deviceKey = randomUUID();
+  const creator = await db.creator.create({ data: { deviceKey } });
+  jar.set(COOKIE_NAME, deviceKey, cookieOptions());
+  return creator;
 }
