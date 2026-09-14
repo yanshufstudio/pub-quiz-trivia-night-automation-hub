@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
   if (!canGenerate(rolled)) {
     const res = NextResponse.json(
       {
-        error: "You've used your free packs for this month. Upgrade to Pro for unlimited generation.",
+        error: "You've used your free packs for this month. Upgrade to Pro at /pricing for unlimited generation.",
         packsGeneratedInPeriod: rolled.packsGeneratedInPeriod,
         limit: FREE_LIMIT,
       },
