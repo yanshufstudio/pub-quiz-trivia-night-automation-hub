@@ -10,12 +10,26 @@ the full record of the 2026-09-07→09 work.
 
 ## Where things stand
 
-`master` is at `d1b613d` and that is what production runs. **PR #3 is open and
-unmerged**, and everything below lives on it.
+`master` is at `5982f76` — the PR #3 merge commit — and that is what
+production runs as of 2026-09-14 (Vercel build Ready; production smoke
+passed: home, /create, media route hits the new `QuestionMedia` table).
+**PR #3 is merged and closed; branch `claude/youthful-knuth-clvns7` deleted
+locally and on origin.**
 
-- **PR #3** — branch `claude/youthful-knuth-clvns7`, base `master` `d1b613d`.
-  CI green (as of `0f3dcd3`), `mergeable_state: clean`.
-  https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/3
+**Paddle Pro phase 3a is built on branch `claude/paddle-pro-3a`** (eight
+commits on top of `5982f76`, delivered to the owner as a bundle for push
+because sessions here cannot push — see below). Tasks 1–8 of
+`docs/superpowers/plans/2026-09-09-paddle-pro.md`: schema + migration,
+plan helpers, config + build guard, apply-subscription, webhook route,
+status endpoint, `/pricing` with overlay checkout and portal action,
+`/create` cap link + post-checkout polling. All green locally: typegen,
+tsc, eslint (one pre-existing a11y warning), unit 168, integration 169,
+e2e 9/9. `next build` could not complete in the sandbox only because
+`next/font` cannot reach Google Fonts from here; the new production build
+guard was exercised separately and fires. **Not yet done: Task 9** (sandbox
+catalog + notification destination + a real sandbox checkout on a preview),
+so nothing about Pro is verified against Paddle itself yet. See "What
+landed in the 2026-09-14 session".
 
 **All five media commits are on `origin` as of the fourth 2026-09-13
 session**: `e685124`, `2677222`, `7126412`, `eaa6fa1`, `66b4539` (phases 2-4,
@@ -268,6 +282,41 @@ session `6BPF4` was left in its natural state. **The print-preview fix itself
 has not been seen on a preview** — it was written after the run above and
 needs a push (from the owner's machine, see "Where things stand") and a
 reload of `/packs/<id>/print` with an image attached to confirm.
+
+## What landed in the 2026-09-14 session
+
+1. **PR #3 merged to `master` by the owner** (`5982f76`), production
+   deployed and smoked. Before that, a targeted re-verification on the
+   `7850f8d` preview: default / oversized / picture-round briefs all 201
+   against the real model (0 media-dependent questions in 202 read);
+   EXIF/GPS strip confirmed with exiftool on a synthetic JPEG carrying
+   GPS, Make/Model, dates and Orientation=6 (nothing survives, rotation
+   baked in); print preview, host and team portal all render images.
+   Record: project doc `claude/verification-pr3-preview-2026-09-14.md`.
+
+2. **Paddle account walked, read-only, in the owner's Chrome**: account
+   "Yanshuf Studios", live, business verification complete, one product
+   (Or Zarua Premium), approved domain `orzarua.app` only, no payouts sent,
+   payout method not confirmed. The spec's premise (reuse this account)
+   holds; the spec's two "open" questions were in fact already decided in
+   it on 2026-09-09 and re-confirmed by the owner today: reuse the account;
+   monthly + annual at $5 / $25.
+
+3. **Paddle Pro 3a, Tasks 1–8, on `claude/paddle-pro-3a`.** Two deviations
+   from the plan text, both forced:
+   - **Next 16 refuses cookie writes during a server-component render**
+     ("Cookies can only be modified in a Server Action or Route Handler").
+     The plan's `getOrCreateCreatorForPage` is therefore
+     `getCreatorForPage` (read-only) plus `POST /api/creator/ensure`, which
+     the pricing cards call before enabling the buttons. Found by the first
+     e2e run, not by tsc.
+   - The webhook's "unrelated event" fixture is a well-formed `payout.paid`;
+     the SDK's `unmarshal` parses by `event_type` and threw on a
+     subscription body labelled `transaction.completed`.
+   Also: the `creator.test.ts` fixture and the four exact-shape assertions
+   in `creator-status.integration.test.ts` needed the new nullable fields;
+   integration fixtures use per-test emails/ids because every file shares
+   one SQLite database and `Creator.email` is unique.
 
 ## Verified, and not
 
@@ -563,14 +612,21 @@ Still true from before:
 
 ## Next
 
-1. Verify PR #3 on a preview deployment, in a browser, against the live model
-   (above). Unchanged and still the blocker: a preview now exists, but no
-   session here can reach it. Merge is the owner's call and nothing has been
-   merged or approved.
-2. Media support phase 2 (editor UI, player/host rendering), then 3 (PDF and
-   print) and 4 (export/import v2). Open questions 2-5 above; only 3 blocks
-   phase 3.
-3. Then the plan's step 3: Paddle checkout, webhook, `/pricing`
-   (`claude/monetization-buildout-plan.md`). Two questions there have been
-   asked twice and never answered: reuse the HebCal Paddle seller account or
-   a separate one, and monthly / annual / both at launch.
+1. **Owner pushes `claude/paddle-pro-3a` and opens a PR** (bundle delivered
+   2026-09-14). CI should be green — the same commands ran here.
+2. **Task 9, sandbox gate**, mostly owner-side: sandbox product + two prices
+   (Pub Quiz Pro, `500`/month, `2500`/year, tax category `saas` else
+   `standard`), sandbox client token, the four `NEXT_PUBLIC_PADDLE_*`
+   preview env values (type Config), sandbox `PADDLE_API_KEY` and, after
+   creating the notification destination against the preview URL,
+   `PADDLE_NOTIFICATION_WEBHOOK_SECRET` (both `--sensitive`). Then the
+   simulator run and one real sandbox checkout (`4242 4242 4242 4242`) from
+   the preview's `/pricing`, watching `plan` flip to PRO and back to FREE
+   after cancelling in the portal. Nothing about Pro is verified until this
+   passes.
+3. **Task 10, live cutover**, owner-gated: domain approval for the production
+   domain in the Paddle dashboard (requires public terms / privacy / refund
+   pages, which the app does not have yet — that is a prerequisite task),
+   payout method, live catalog, live env, real-card walk and refund per the
+   plan.
+4. Phase 3b (`/restore` magic link) once a Resend sending domain exists.

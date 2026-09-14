@@ -10,6 +10,8 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-09-paddle-pro-design.md`
 
+**Status 2026-09-14:** Tasks 1–8 built and green (unit 168, integration 169, e2e 9/9, tsc, eslint) on branch `claude/paddle-pro-3a`. Two deviations from the text below, both forced by the codebase: (1) Next 16 refuses cookie writes during a server-component render, so Task 6's `getOrCreateCreatorForPage` became read-only `getCreatorForPage` plus `POST /api/creator/ensure`, which the pricing cards call before opening checkout; (2) Task 5's "unrelated event" fixture is a well-formed `payout.paid`, not a mislabelled subscription payload, because the SDK's `unmarshal` parses by event type and threw on the latter. Task 9 (sandbox catalog, destination, real sandbox checkout) has NOT been run.
+
 ## Global Constraints
 
 - `Creator.plan` is the only plan gate. No route or component calls Paddle to decide access.
@@ -57,7 +59,7 @@
 **Interfaces:**
 - Produces: `Creator.email`, `Creator.paddleCustomerId`, `Creator.paddleSubscriptionId`, `Creator.subscriptionStatus`, `Creator.subscriptionUpdatedAt` (all nullable); `db.paddleEvent`, `db.restoreToken`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```ts
 // src/test/paddle-schema.integration.test.ts
@@ -96,12 +98,12 @@ describe("paddle schema", () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run (Git Bash, repo root): `npx vitest run --config vitest.integration.config.ts src/test/paddle-schema.integration.test.ts`
 Expected: FAIL, `Unknown argument 'email'` or `db.paddleEvent is undefined`.
 
-- [ ] **Step 3: Edit the schema**
+- [x] **Step 3: Edit the schema**
 
 Replace the `Creator` model and add two models:
 
@@ -148,7 +150,7 @@ model RestoreToken {
 }
 ```
 
-- [ ] **Step 4: Write the migration by hand** (same style as `20260907000000_add_creator`)
+- [x] **Step 4: Write the migration by hand** (same style as `20260907000000_add_creator`)
 
 ```sql
 -- AlterTable
@@ -181,12 +183,12 @@ CREATE UNIQUE INDEX "Creator_paddleSubscriptionId_key" ON "Creator"("paddleSubsc
 CREATE INDEX "RestoreToken_creatorId_idx" ON "RestoreToken"("creatorId");
 ```
 
-- [ ] **Step 5: Regenerate the client and run the test**
+- [x] **Step 5: Regenerate the client and run the test**
 
 Run: `npx prisma generate && npx vitest run --config vitest.integration.config.ts src/test/paddle-schema.integration.test.ts`
 Expected: PASS. Also run `npx prisma migrate diff --from-migrations prisma/migrations --to-schema-datamodel prisma/schema.prisma --shadow-database-url "file:./prisma/shadow.db"` and expect "No difference detected"; delete `prisma/shadow.db` after.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add prisma/schema.prisma prisma/migrations/20260909120000_add_paddle_subscription src/test/paddle-schema.integration.test.ts
@@ -204,7 +206,7 @@ git commit -m "Add Paddle subscription columns, PaddleEvent and RestoreToken tab
 **Interfaces:**
 - Produces: `statusToPlan(status: string): "FREE" | "PRO"`; `isNewerEvent(occurredAt: Date, storedUpdatedAt: Date | null): boolean`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 ```ts
 // src/lib/paddle/plan.test.ts
@@ -242,12 +244,12 @@ describe("isNewerEvent", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npx vitest run src/lib/paddle/plan.test.ts`
 Expected: FAIL, cannot find module `./plan`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 ```ts
 // src/lib/paddle/plan.ts
@@ -279,12 +281,12 @@ export function isNewerEvent(occurredAt: Date, storedUpdatedAt: Date | null): bo
 }
 ```
 
-- [ ] **Step 4: Run to verify pass**
+- [x] **Step 4: Run to verify pass**
 
 Run: `npx vitest run src/lib/paddle/plan.test.ts`
 Expected: PASS, 10 tests.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/lib/paddle/plan.ts src/lib/paddle/plan.test.ts
@@ -304,12 +306,12 @@ git commit -m "Add pure Paddle status-to-plan and event-ordering helpers"
 **Interfaces:**
 - Produces: `paddleEnv(): "sandbox" | "production"`; `publicPaddleConfig(): { env; clientToken; priceMonthly; priceAnnual }` (throws `PaddleConfigError` when any is empty); `webhookSecret(): string` (throws when empty); `getPaddle(): Paddle`.
 
-- [ ] **Step 1: Install**
+- [x] **Step 1: Install**
 
 Run: `npm install @paddle/paddle-node-sdk@^3.10.0 @paddle/paddle-js@^1.6.5`
 Expected: both in `dependencies`; `npm audit` unchanged apart from these.
 
-- [ ] **Step 2: Write the failing test**
+- [x] **Step 2: Write the failing test**
 
 ```ts
 // src/lib/paddle/config.test.ts
@@ -357,12 +359,12 @@ describe("paddle config", () => {
 });
 ```
 
-- [ ] **Step 3: Run to verify failure**
+- [x] **Step 3: Run to verify failure**
 
 Run: `npx vitest run src/lib/paddle/config.test.ts`
 Expected: FAIL, cannot find module `./config`.
 
-- [ ] **Step 4: Implement config and client**
+- [x] **Step 4: Implement config and client**
 
 ```ts
 // src/lib/paddle/config.ts
@@ -423,7 +425,7 @@ export function getPaddle(): Paddle {
 }
 ```
 
-- [ ] **Step 5: Build-time guard in `next.config.ts`**
+- [x] **Step 5: Build-time guard in `next.config.ts`**
 
 ```ts
 import type { NextConfig } from "next";
@@ -452,7 +454,7 @@ const nextConfig: NextConfig = {};
 export default nextConfig;
 ```
 
-- [ ] **Step 6: Document in `.env.example`** (append)
+- [x] **Step 6: Document in `.env.example`** (append)
 
 ```bash
 # Paddle Billing (docs/superpowers/specs/2026-09-09-paddle-pro-design.md).
@@ -468,12 +470,12 @@ PADDLE_API_KEY=""
 PADDLE_NOTIFICATION_WEBHOOK_SECRET=""
 ```
 
-- [ ] **Step 7: Run tests and typecheck**
+- [x] **Step 7: Run tests and typecheck**
 
 Run: `npx vitest run src/lib/paddle && npx tsc --noEmit -p .`
 Expected: PASS, no type errors.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add package.json package-lock.json src/lib/paddle/config.ts src/lib/paddle/config.test.ts src/lib/paddle/client.ts next.config.ts .env.example
@@ -496,7 +498,7 @@ git commit -m "Add Paddle SDKs, env config helpers and a production build guard"
   - `applyCustomerEvent(input: { customerId: string; email: string }): Promise<void>`
   - `type SubscriptionEventInput = { occurredAt: Date; subscriptionId: string; customerId: string; status: string; creatorId: string | null; email: string | null }`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 ```ts
 // src/test/paddle-apply.integration.test.ts
@@ -583,12 +585,12 @@ describe("applyCustomerEvent", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npx vitest run --config vitest.integration.config.ts src/test/paddle-apply.integration.test.ts`
 Expected: FAIL, cannot find module `@/lib/paddle/apply-subscription`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 ```ts
 // src/lib/paddle/apply-subscription.ts
@@ -646,12 +648,12 @@ export async function applyCustomerEvent(input: { customerId: string; email: str
 }
 ```
 
-- [ ] **Step 4: Run to verify pass**
+- [x] **Step 4: Run to verify pass**
 
 Run: `npx vitest run --config vitest.integration.config.ts src/test/paddle-apply.integration.test.ts`
 Expected: PASS, 7 tests.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/lib/paddle/apply-subscription.ts src/test/paddle-apply.integration.test.ts
@@ -670,7 +672,7 @@ git commit -m "Apply Paddle subscription and customer events to Creator"
 - Consumes: `webhookSecret()` (Task 3), `recordEvent`, `applySubscriptionEvent`, `applyCustomerEvent` (Task 4).
 - Produces: `POST /api/paddle/webhook`; test helper `signedWebhookRequest(payload: object, secret: string, opts?: { ts?: number }): NextRequest` and `subscriptionPayload(overrides): object`.
 
-- [ ] **Step 1: Write the fixture builder**
+- [x] **Step 1: Write the fixture builder**
 
 Paddle signs `"{ts}:{rawBody}"` with HMAC-SHA256 hex and sends `paddle-signature: ts={ts};h1={hex}`. The SDK rejects a `ts` older than 5 seconds.
 
@@ -762,7 +764,7 @@ export function customerPayload(overrides: { customerId: string; email: string; 
 }
 ```
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 ```ts
 // src/test/paddle-webhook.integration.test.ts
@@ -851,12 +853,12 @@ describe("POST /api/paddle/webhook", () => {
 });
 ```
 
-- [ ] **Step 3: Run to verify failure**
+- [x] **Step 3: Run to verify failure**
 
 Run: `npx vitest run --config vitest.integration.config.ts src/test/paddle-webhook.integration.test.ts`
 Expected: FAIL, cannot find module `@/app/api/paddle/webhook/route`.
 
-- [ ] **Step 4: Implement the route**
+- [x] **Step 4: Implement the route**
 
 ```ts
 // src/app/api/paddle/webhook/route.ts
@@ -945,17 +947,17 @@ export async function POST(req: NextRequest) {
 
 Note on email: subscription events carry `customer_id` but not the email. Email arrives via `customer.created` / `customer.updated`, which Paddle sends in the same checkout flow, so subscribe to both on the notification destination (Task 8).
 
-- [ ] **Step 5: Run to verify pass**
+- [x] **Step 5: Run to verify pass**
 
 Run: `npx vitest run --config vitest.integration.config.ts src/test/paddle-webhook.integration.test.ts`
 Expected: PASS, 9 tests. If `fromJson` rejects the fixture shape, compare against `node_modules/@paddle/paddle-node-sdk/dist/types/notifications/entities/subscription/subscription-notification.d.ts` and add the missing field to `subscriptionPayload`; do not loosen the route.
 
-- [ ] **Step 6: Run the whole suite and lint**
+- [x] **Step 6: Run the whole suite and lint**
 
 Run: `npm run test && npm run test:integration && npx tsc --noEmit -p . && npx eslint src`
 Expected: all green.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/app/api/paddle/webhook/route.ts src/test/paddle-fixtures.ts src/test/paddle-webhook.integration.test.ts
@@ -974,7 +976,7 @@ git commit -m "Add the Paddle webhook route with signature verification and idem
 **Interfaces:**
 - Produces: status JSON gains `hasSubscription: boolean` (true when `paddleSubscriptionId` is set) and `subscriptionStatus: string | null`; `getOrCreateCreatorForPage(): Promise<Creator>` for server components (reads and sets the cookie through `next/headers`).
 
-- [ ] **Step 1: Extend the status test** (append to `src/test/creator-status.integration.test.ts`)
+- [x] **Step 1: Extend the status test** (append to `src/test/creator-status.integration.test.ts`)
 
 ```ts
 it("reports hasSubscription and subscriptionStatus", async () => {
@@ -997,12 +999,12 @@ it("reports hasSubscription false for a cookie-less visitor", async () => {
 
 Check the file's existing imports; add `db`, `COOKIE_NAME`, `NextRequest` if absent.
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npx vitest run --config vitest.integration.config.ts src/test/creator-status.integration.test.ts`
 Expected: FAIL, `expected undefined to be true`.
 
-- [ ] **Step 3: Implement the status change**
+- [x] **Step 3: Implement the status change**
 
 ```ts
 // src/app/api/creator/status/route.ts
@@ -1032,7 +1034,7 @@ export async function GET(req: NextRequest) {
 }
 ```
 
-- [ ] **Step 4: Write the page-helper test**
+- [x] **Step 4: Write the page-helper test**
 
 ```ts
 // src/test/creator-page.integration.test.ts
@@ -1066,7 +1068,7 @@ describe("getOrCreateCreatorForPage", () => {
 });
 ```
 
-- [ ] **Step 5: Implement the helper** (append to `src/lib/creator.ts`)
+- [x] **Step 5: Implement the helper** (append to `src/lib/creator.ts`)
 
 ```ts
 import { cookies } from "next/headers";
@@ -1094,12 +1096,12 @@ export async function getOrCreateCreatorForPage(): Promise<Creator> {
 
 Move the `import { cookies } from "next/headers"` line to the top of the file with the other imports. `next/headers` is server-only; `src/lib/creator.ts` is already only imported from server code, so this is safe. If the unit suite (`npm run test`) fails to resolve `next/headers`, add `vi.mock("next/headers", () => ({ cookies: async () => ({ get: () => undefined, set: () => {} }) }))` to `src/lib/creator.test.ts`.
 
-- [ ] **Step 6: Run both tests**
+- [x] **Step 6: Run both tests**
 
 Run: `npx vitest run --config vitest.integration.config.ts src/test/creator-status.integration.test.ts src/test/creator-page.integration.test.ts && npm run test`
 Expected: PASS.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/app/api/creator/status/route.ts src/lib/creator.ts src/test/creator-status.integration.test.ts src/test/creator-page.integration.test.ts
@@ -1118,7 +1120,7 @@ git commit -m "Expose subscription state on the creator status endpoint and add 
 - Consumes: `getOrCreateCreatorForPage` (Task 6), `getPaddle` (Task 3), `getCreatorReadOnly` pattern.
 - Produces: `/pricing`; server action `openCustomerPortal(): Promise<never>` (redirects).
 
-- [ ] **Step 1: Write the failing e2e test**
+- [x] **Step 1: Write the failing e2e test**
 
 ```ts
 // e2e/pricing.spec.ts
@@ -1143,12 +1145,12 @@ test("create page at the cap links to pricing", async ({ page, context }) => {
 
 Delete the second test before committing; the cap link is covered by the unit-level render in Task 9 instead. (Kept here so the executor does not add a test-only route.)
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npx playwright test e2e/pricing.spec.ts`
 Expected: FAIL, heading not found (404 page).
 
-- [ ] **Step 3: Implement the server page**
+- [x] **Step 3: Implement the server page**
 
 ```tsx
 // src/app/pricing/page.tsx
@@ -1192,7 +1194,7 @@ export default async function PricingPage() {
 }
 ```
 
-- [ ] **Step 4: Implement the client cards**
+- [x] **Step 4: Implement the client cards**
 
 ```tsx
 // src/app/pricing/PricingCards.tsx
@@ -1284,7 +1286,7 @@ export function PricingCards({ creatorId, env, clientToken, priceMonthly, priceA
 
 The "not configured" alert is deliberate: a missing value must be visible, never a silent dead button (global rule 5).
 
-- [ ] **Step 5: Implement the portal action and button**
+- [x] **Step 5: Implement the portal action and button**
 
 ```ts
 // src/app/pricing/actions.ts
@@ -1337,12 +1339,12 @@ export function ManageSubscriptionButton() {
 
 Add `ManageSubscriptionButton.tsx` to this task's file list when committing.
 
-- [ ] **Step 6: Run e2e, typecheck, lint**
+- [x] **Step 6: Run e2e, typecheck, lint**
 
 Run: `npx playwright test e2e/pricing.spec.ts && npx tsc --noEmit -p . && npx eslint src e2e`
 Expected: PASS (the first test; the second was deleted). The page renders with the "not configured" alert because e2e has no Paddle env, which is correct.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/app/pricing e2e/pricing.spec.ts
@@ -1360,7 +1362,7 @@ git commit -m "Add the pricing page with Paddle overlay checkout and a billing-p
 **Interfaces:**
 - Consumes: status JSON with `hasSubscription` (Task 6).
 
-- [ ] **Step 1: Write the failing e2e test**
+- [x] **Step 1: Write the failing e2e test**
 
 ```ts
 // e2e/create-upgrade.spec.ts
@@ -1390,12 +1392,12 @@ test("create page at the cap links to pricing", async ({ page }) => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npx playwright test e2e/create-upgrade.spec.ts`
 Expected: FAIL, "You are on Pro" not found.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 Replace the `usage` state, the status effect, and the cap copy in `src/app/create/page.tsx`:
 
@@ -1497,12 +1499,12 @@ Replace the cap copy (lines 126–130) with:
 
 Also update the generate route's 403 copy in `src/app/api/packs/generate/route.ts` from "Upgrade to Pro for unlimited generation." to "Upgrade to Pro at /pricing for unlimited generation." and adjust any test asserting that string (`grep -rn "Upgrade to Pro" src`).
 
-- [ ] **Step 4: Run e2e, unit, integration, typecheck, lint**
+- [x] **Step 4: Run e2e, unit, integration, typecheck, lint**
 
 Run: `npx playwright test e2e/create-upgrade.spec.ts && npm run test && npm run test:integration && npx tsc --noEmit -p . && npx eslint src e2e`
 Expected: all PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/app/create/page.tsx src/app/api/packs/generate/route.ts e2e/create-upgrade.spec.ts src/test
