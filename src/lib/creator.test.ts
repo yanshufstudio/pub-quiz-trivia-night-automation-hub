@@ -16,6 +16,11 @@ function makeCreator(overrides: Partial<Creator> = {}): Creator {
     packsGeneratedInPeriod: 0,
     periodStartedAt: new Date(),
     createdAt: new Date(),
+    email: null,
+    paddleCustomerId: null,
+    paddleSubscriptionId: null,
+    subscriptionStatus: null,
+    subscriptionUpdatedAt: null,
     ...overrides,
   };
 }
