@@ -394,35 +394,70 @@ call it fixed without a browser on a real deployment.**
 
 ## Open items
 
-- **Production verification of PR #3.** The gate, in order: (1) default brief
-  from `/create` in a browser on a deployment, expect 201 in 20-30s and 4
-  rounds / ~40 questions; (2) an oversized brief — "eight rounds of fifteen
-  questions each" — expect a 201 with a salvaged short pack *or* a 422 that
-  says the brief is too big; a bare 502 saying "Please try again" is the
-  original bug; (3) read every generated question and count how many need
-  media they can't be shown. Generate at least three packs for (3) — one
-  clean run is weak evidence for a probabilistic guard.
-- **Test the PR #3 *preview*, not production.** Production is `master`, which
-  has none of these fixes. Testing production and finding it fine means
-  nothing.
-- **Previews are building again.** The Vercel bot comment on PR #3
-  (`issuecomment-5620965612`, the one it keeps rewriting in place) went
-  Building → **Ready** at 18:51 UTC on 2026-09-13, against `d0ced34`. The
-  integration did not need reconnecting after all. The branch-alias preview
-  is
-  `https://pub-quiz-trivia-night-automation-hub-git-claude-7f580a-privlin.vercel.app`.
-  Two caveats: the bot comment carries no commit SHA and GitHub commit
-  statuses for the head are empty, so "it built the head" is inference from
-  the timing, not a fact read off the deployment; and **no session here has
-  been able to open it** — the sandbox egress proxy blocks `*.vercel.app`, so
-  every verification below is still a human-with-a-browser job.
-- **Media support: all four phases are built** (2026-09-13), but phases 2-4
-  are local-only commits, not on `origin` — see above.
-- **Paywall copy** — the free-cap screen still says "Upgrade to Pro for
-  unlimited packs, coming soon". Goes away with the Paddle work.
-- **`npm audit`** — 3 high findings in the dev-only
-  `prisma` → `@prisma/config` → `deepmerge-ts` chain; no fix without a
-  `prisma@8` RC.
+*Trued up 2026-09-15 against `master` `80ca6fd` and PR #4 `d16a99f`. The
+PR #3-era entries that used to be here (test the preview not production;
+previews are building again; media phases 2-4 are local-only) are gone
+because PR #3 merged as `5982f76` — the history is in the session sections
+above.*
+
+- **Paddle Task 9 — the only thing blocking PR #4.** Sandbox catalog, client
+  token, notification destination, simulator run, and a real sandbox
+  checkout driven on a preview deployment
+  (`docs/superpowers/plans/2026-09-09-paddle-pro.md`). Needs the Paddle
+  dashboard/API and a browser on a preview URL; a Claude sandbox has
+  neither (egress 403s `*.vercel.app` and `*.paddle.com`, and there is no
+  `paddle-sandbox` MCP server), so this is a human-with-a-browser job or a
+  session with different egress. **Nothing about Pro is verified against
+  Paddle. Do not merge PR #4 until this passes.**
+
+- **Generation fixes have never been checked against the real model, and
+  they are now live in production.** This is the bug that has been closed
+  twice on a green suite and reopened twice. The gate, against
+  `https://pub-quiz-trivia-night-automation-hu.vercel.app` (production *is*
+  the thing to test now — `master` carries the fixes):
+  1. Default brief from `/create` — expect 201, ~20-30s, 4 rounds / ~40
+     questions.
+  2. An oversized brief ("Eight rounds of fifteen questions each, covering
+     history, science, music, film, sport, food, literature and geography")
+     — a 201 with a short salvaged pack **or** a 422 saying the brief is too
+     big are both correct; a bare 502 "Please try again" is the original bug.
+  3. Read every question across **3+ packs** and count any needing media the
+     app cannot show. Report the number even if zero — one clean run is weak
+     evidence for a probabilistic guard.
+
+  Operational cautions: **do not set `FREE_PACK_LIMIT` on production** — it
+  is deliberately unset so the cap stays at 2. Use a fresh incognito profile
+  per 2 generations. A **403** is the free cap; a **429** is the per-IP
+  limiter (5 per 10 min) — different things. Every generation spends real
+  credit, and any pack or session created is real data: note the ids and
+  clean up with `DELETE /api/packs/[id]` + `x-admin-token`.
+
+- **EXIF/GPS strip: verified locally 2026-09-15, not on production.** The
+  full result is in "What landed in the 2026-09-15 session" — no EXIF
+  survives, no APP1 segment, rotation correctly applied, for JPEG, PNG and
+  the import path. What remains open is only that nobody has put a file
+  through the *deployed* instance, and that the test file was a JPEG with a
+  phone-style EXIF set written by `exiftool` rather than a photo off an
+  actual phone.
+
+- **The print-preview fix (`7850f8d`) has never been seen rendering.** It is
+  in `master` and therefore in production. It was written after the
+  2026-09-13 live run that found the bug, so confirming it needs a reload of
+  `/packs/<id>/print` for a pack with an image attached. Nothing in the
+  suite exercises the print *page's* query, which is why a green suite
+  missed the bug in the first place.
+
+- **Paywall copy** — `src/app/create/page.tsx:133` still reads "Upgrade to
+  Pro for unlimited packs — coming soon. Use the demo pack instead for now."
+  on `master`, so that is what production shows. PR #4 replaces it with a
+  link to `/pricing`, so this clears when PR #4 merges — which is gated on
+  Task 9 above.
+
+- **`npm audit`** — still 3 high, all one dev-only chain:
+  `prisma@6.19.3` → `@prisma/config@6.19.3` → `deepmerge-ts@7.1.5`
+  (GHSA-ggr8-5vv4-36mx, fixed in `deepmerge-ts@8`). The only fix npm offers
+  is `--force` down to `prisma@6.12.0`, which it flags as breaking, so this
+  stays open rather than being worth taking.
 
 ## Media support — scoped 2026-09-13, phase 1 built the same day
 
@@ -659,14 +694,22 @@ Still true from before:
 
 ## Next
 
-1. Verify PR #3 on a preview deployment, in a browser, against the live model
-   (above). Unchanged and still the blocker: a preview now exists, but no
-   session here can reach it. Merge is the owner's call and nothing has been
-   merged or approved.
-2. Media support phase 2 (editor UI, player/host rendering), then 3 (PDF and
-   print) and 4 (export/import v2). Open questions 2-5 above; only 3 blocks
-   phase 3.
-3. Then the plan's step 3: Paddle checkout, webhook, `/pricing`
-   (`claude/monetization-buildout-plan.md`). Two questions there have been
-   asked twice and never answered: reuse the HebCal Paddle seller account or
-   a separate one, and monthly / annual / both at launch.
+*Trued up 2026-09-15. The previous list still said "verify PR #3 on a
+preview" and "build media phases 2-4"; both are done and merged.*
+
+1. **Paddle Task 9**, which is the only thing blocking PR #4 — see Open
+   items. Needs the Paddle dashboard and a browser on a preview.
+2. **Verify the generation fixes against the real model on production** —
+   the three-step gate and its cautions are in Open items. Independent of
+   the Paddle work; whoever has a browser can do it.
+3. **Then Task 10, the live Paddle cutover** (owner-gated), followed by
+   phase 3b (Tasks 11-12, the restore-token library and routes).
+
+Still unanswered, asked more than once, and needed for **Task 10 only** (the
+sandbox work in Task 9 does not depend on either): reuse the HebCal Paddle
+seller account or open a separate one? The other long-standing question —
+monthly, annual, or both at launch — was answered by building both: PR #4
+ships monthly $5 and annual $25.
+
+Merging and approving remain the owner's call; nothing here has been merged
+or approved.
