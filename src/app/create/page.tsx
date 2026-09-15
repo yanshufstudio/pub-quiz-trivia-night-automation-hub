@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
 
@@ -13,19 +14,63 @@ import { ArrowRightIcon } from "@/components/icons";
 const EXAMPLE =
   "A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.";
 
-export default function CreatePage() {
+type Usage = { used: number; limit: number; plan: string; hasSubscription: boolean };
+
+// Paddle's success URL lands here with ?upgraded=1 before the webhook has
+// necessarily arrived, so poll the status endpoint until the plan flips.
+const ACTIVATION_POLL_MS = 2000;
+const ACTIVATION_MAX_ATTEMPTS = 30;
+
+function CreatePageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const upgraded = searchParams.get("upgraded") === "1";
   const [prompt, setPrompt] = useState(EXAMPLE);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notConfigured, setNotConfigured] = useState(false);
-  const [usage, setUsage] = useState<{ used: number; limit: number; plan: string } | null>(null);
+  const [usage, setUsage] = useState<Usage | null>(null);
+  const [activationSlow, setActivationSlow] = useState(false);
 
   useEffect(() => {
-    fetch("/api/creator/status")
-      .then((res) => res.json())
-      .then((data) => setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: data.plan }));
-  }, []);
+    let cancelled = false;
+    let attempts = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    async function loadStatus(): Promise<Usage> {
+      const res = await fetch("/api/creator/status", { cache: "no-store" });
+      const data = await res.json();
+      const next: Usage = {
+        used: data.packsGeneratedInPeriod,
+        limit: data.limit,
+        plan: data.plan,
+        hasSubscription: data.hasSubscription === true,
+      };
+      if (!cancelled) setUsage(next);
+      return next;
+    }
+
+    async function tick() {
+      const status = await loadStatus();
+      if (cancelled || !upgraded) return;
+      if (status.plan === "PRO") {
+        router.replace("/create");
+        return;
+      }
+      attempts += 1;
+      if (attempts >= ACTIVATION_MAX_ATTEMPTS) {
+        setActivationSlow(true);
+        return;
+      }
+      timer = setTimeout(tick, ACTIVATION_POLL_MS);
+    }
+
+    void tick();
+    return () => {
+      cancelled = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, [upgraded, router]);
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -43,7 +88,7 @@ export default function CreatePage() {
       if (!res.ok || !data) {
         setNotConfigured(res.status === 503);
         if (res.status === 403 && data) {
-          setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: "FREE" });
+          setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: "FREE", hasSubscription: false });
         }
         throw new Error(
           data?.error ?? `Generation failed (server returned status ${res.status}). Please try again.`
@@ -79,9 +124,23 @@ export default function CreatePage() {
           Tell the wizard what kind of night you are running. It will draft rounds, questions,
           answers, and points you can edit next.
         </p>
-        {usage && usage.plan !== "PRO" ? (
+        {usage && usage.plan === "PRO" ? (
+          <p className="mt-2 text-sm text-muted">
+            You are on Pro. Unlimited packs.{" "}
+            <Link href="/pricing" className="underline">
+              Manage subscription
+            </Link>
+          </p>
+        ) : usage ? (
           <p className="mt-2 text-sm text-muted">
             {usage.used}/{usage.limit} free packs used this month
+          </p>
+        ) : null}
+        {upgraded && usage && usage.plan !== "PRO" ? (
+          <p role="status" className="mt-2 text-sm text-muted">
+            {activationSlow
+              ? "Payment received, activation is taking longer than usual. Reload in a minute."
+              : "Payment received, activating Pro…"}
           </p>
         ) : null}
 
@@ -130,11 +189,22 @@ export default function CreatePage() {
 
           {usage && usage.plan !== "PRO" && usage.used >= usage.limit ? (
             <p className="text-sm text-muted">
-              Upgrade to Pro for unlimited packs — coming soon. Use the demo pack instead for now.
+              <Link href="/pricing" className="font-semibold underline">
+                Upgrade to Pro
+              </Link>{" "}
+              for unlimited packs, or use the demo pack.
             </p>
           ) : null}
         </form>
       </main>
     </>
+  );
+}
+
+export default function CreatePage() {
+  return (
+    <Suspense fallback={null}>
+      <CreatePageInner />
+    </Suspense>
   );
 }

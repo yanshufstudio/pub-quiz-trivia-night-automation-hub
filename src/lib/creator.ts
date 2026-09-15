@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { Creator } from "@prisma/client";
+import { cookies } from "next/headers";
 import type { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
@@ -84,6 +85,19 @@ export async function getOrCreateCreator(
 /** Read-only lookup for the status endpoint — never creates a row or sets a cookie. */
 export async function getCreatorReadOnly(req: NextRequest) {
   const deviceKey = req.cookies.get(COOKIE_NAME)?.value;
+  if (!deviceKey) return null;
+  return db.creator.findUnique({ where: { deviceKey } });
+}
+
+/**
+ * Read-only lookup for server components. Next 16 refuses cookie writes
+ * during a render ("Cookies can only be modified in a Server Action or
+ * Route Handler"), so a page can only read the identity; creating one for a
+ * cookie-less visitor is the job of POST /api/creator/ensure, which the
+ * pricing page's client component calls before opening checkout.
+ */
+export async function getCreatorForPage(): Promise<Creator | null> {
+  const deviceKey = (await cookies()).get(COOKIE_NAME)?.value;
   if (!deviceKey) return null;
   return db.creator.findUnique({ where: { deviceKey } });
 }

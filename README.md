@@ -276,6 +276,57 @@ server response time.
 tests, and the Playwright E2E test on every push/PR — no secrets required
 (nothing in the suite calls the real Claude API).
 
+## Pro subscriptions (Paddle)
+
+A visitor who hits the free cap (`FREE_PACK_LIMIT`, default 2 packs per 30
+days) can buy Pro — monthly or annual — on `/pricing`. Paddle Billing is
+integrated directly (overlay checkout + one webhook); the app never asks
+Paddle at request time. `Creator.plan` is the single gate.
+
+- **Checkout:** `/pricing` opens the Paddle overlay with
+  `customData.creatorId`. A first-time visitor gets an identity from
+  `POST /api/creator/ensure` before the buttons enable (a server component
+  can't set cookies in Next 16, so the page can't do it during render).
+  Success returns to `/create?upgraded=1`, which polls
+  `/api/creator/status` every 2 s for up to 60 s until `plan === "PRO"`.
+- **Webhook:** `POST /api/paddle/webhook`. Signature-verified with the SDK
+  (`400` no signature, `500` bad signature so Paddle retries), idempotent
+  on `event_id` via the `PaddleEvent` table, refuses out-of-order retries
+  by `occurred_at`. Subscription status → plan: `active`, `trialing`,
+  `past_due` → `PRO`; anything else → `FREE`. Subscribe the notification
+  destination to `subscription.*` and `customer.created`/`customer.updated`
+  (the latter carry the email).
+- **Manage/cancel:** "Manage subscription" mints a Paddle customer-portal
+  session (server action) and redirects there. No custom cancel UI.
+- **Env:** `NEXT_PUBLIC_PADDLE_ENV`, `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN`,
+  `NEXT_PUBLIC_PADDLE_PRICE_MONTHLY`, `NEXT_PUBLIC_PADDLE_PRICE_ANNUAL`
+  (publishable — Vercel type Config; a production build aborts if any is
+  empty), plus secrets `PADDLE_API_KEY` and
+  `PADDLE_NOTIFICATION_WEBHOOK_SECRET`. Sandbox values on previews, live in
+  production; see `.env.example`.
+- **Sandbox-verified (2026-09-15):** on a preview deployment with sandbox
+  values, a real 4242-card checkout flipped `plan` to `PRO`, the portal
+  opened, and an immediate cancel flipped it back to `FREE`, with every
+  webhook delivered on the first attempt. Plan Task 9 has the ids and
+  evidence.
+- **Sandbox test procedure:** set the four `NEXT_PUBLIC_PADDLE_*` values
+  (Preview scope, type Config) plus sandbox `PADDLE_API_KEY` and
+  `PADDLE_NOTIFICATION_WEBHOOK_SECRET`; in the Paddle sandbox dashboard
+  add the preview host as an approved checkout domain, set a default
+  payment link, and point a notification destination at
+  `<preview>/api/paddle/webhook`. Then open `<preview>/pricing`, subscribe
+  with `4242 4242 4242 4242`, and watch `/api/creator/status`. Without the
+  domain approval and default payment link the overlay only says
+  "Something went wrong".
+- **Not yet done:** live cutover (plan Task 10 — production domain
+  approval needs public terms / privacy / refund pages, plus a payout
+  method and live catalog/env) and the email magic-link restore flow
+  (phase 3b). A deploy without the env values shows a visible "not
+  configured" alert on `/pricing` rather than a dead button.
+
+Design: `docs/superpowers/specs/2026-09-09-paddle-pro-design.md`. Plan:
+`docs/superpowers/plans/2026-09-09-paddle-pro.md`.
+
 ## Known limitations
 
 - SQLite (or Turso/libSQL — see Deployment) is single-writer; fine at this
