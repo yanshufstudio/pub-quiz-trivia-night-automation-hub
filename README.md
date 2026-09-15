@@ -276,6 +276,27 @@ server response time.
 tests, and the Playwright E2E test on every push/PR — no secrets required
 (nothing in the suite calls the real Claude API).
 
+## Legal pages
+
+`/terms`, `/privacy` and `/refunds` are public server-rendered pages, linked
+from a site-wide footer that the root layout renders on every page except the
+two live-night surfaces (`/play`, `/host/<code>`) and the print sheet
+(`/packs/<id>/print`), which deliberately carry no chrome. They exist because
+Paddle's website review — the gate on going live with real payments — requires
+the production domain to serve terms, a privacy policy and a refund policy, and
+to have them reachable from the site rather than merely present at their URLs.
+That is what `e2e/legal-pages.spec.ts` checks: each page answers 200 with its
+own heading, the footer links reach all three, and the excluded surfaces still
+have no footer.
+
+The content is specific to this app rather than a generic template: the free
+tier's two-packs-per-30-days limit, Pro at $5/month or $25/year, Paddle as
+merchant of record, and the actual list of what the app stores (the
+`pq_creator` cookie, quiz content, live team names and answers, uploaded
+question images) and who processes it (Paddle, Vercel, Turso, Anthropic).
+Revising any of them means bumping `LEGAL_LAST_UPDATED` in
+`src/components/LegalPage.tsx`, which is the single date all three render.
+
 ## Known limitations
 
 - SQLite (or Turso/libSQL — see Deployment) is single-writer; fine at this

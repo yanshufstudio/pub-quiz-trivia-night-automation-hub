@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Caveat, Fraunces, IBM_Plex_Mono, Work_Sans } from "next/font/google";
+import { SiteFooter } from "@/components/SiteFooter";
 import manifest from "./manifest";
 import "./globals.css";
 
@@ -57,7 +58,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${display.variable} ${body.variable} ${mono.variable} ${chalk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        {/* Rendered here rather than per page so the legal links Paddle's
+            website review looks for are reachable from everywhere by
+            default. It removes itself on the live-night and print surfaces —
+            see SiteFooter. */}
+        <SiteFooter />
+      </body>
     </html>
   );
 }

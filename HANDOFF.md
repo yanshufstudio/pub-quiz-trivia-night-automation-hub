@@ -561,6 +561,48 @@ Still true from before:
   before firing the request you want to see fail.
 - **Vitest excludes `**/.claude/**`** so worktree spec files don't leak in.
 
+## What landed in the 2026-09-15 legal-pages session
+
+Branch `claude/legal-pages`, cut from `master` `80ca6fd`. Three public policy
+pages and the footer that makes them reachable — the prerequisite Task 10 is
+waiting on.
+
+- **`/terms`, `/privacy`, `/refunds`** — server components on the paper-toned
+  chrome (`SiteHeader`, centred column, serif h1) that `/pricing` and the
+  other ordinary pages share, built on a small `LegalPage` shell in
+  `src/components/LegalPage.tsx` so the three cannot drift apart and carry one
+  shared `LEGAL_LAST_UPDATED` date.
+- **`SiteFooter`**, rendered from the root layout so every page gets the links
+  without having to remember. It removes itself on `/play`, `/host/<code>` and
+  `/packs/<id>/print` — the live-night surfaces and the print sheet, none of
+  which carry a `SiteHeader` either.
+- **`e2e/legal-pages.spec.ts`** — each page 200s with its own heading and the
+  shared date, the footer reaches all three from an ordinary page, and the
+  three excluded surfaces have no footer, with a control asserting the same
+  locator *does* find one on a normal page so the test cannot pass vacuously.
+
+**Why it matters:** Paddle's Website approval gates the live cutover, and it
+wants the production domain to *serve* terms, privacy and refund policies and
+to have them *reachable from the site* — two separate claims, which is why the
+footer is part of the work rather than a nicety.
+
+**This satisfies the prerequisite recorded in PR #4's own "Next" item 3**
+("requires public terms / privacy / refund pages, which the app does not have
+yet — that is a prerequisite task"). That sentence lives on
+`claude/paddle-pro-3a`, not on `master`, so it could not be ticked from this
+branch; strike it when both branches are on `master`.
+
+**Two things deliberately not done here**, because `/pricing` ships with PR #4
+and does not exist on `master`:
+
+- The footer links Terms, Privacy and Refunds but **not Pricing**. A footer
+  link 404ing for the Paddle reviewer would work directly against the approval
+  these pages exist to win. Adding it is one entry in the `links` array in
+  `src/components/SiteFooter.tsx` once `/pricing` is on `master`.
+- The README section is its own `## Legal pages` rather than a paragraph under
+  "Pro subscriptions (Paddle)", which arrives with PR #4. Worth merging the two
+  when it lands.
+
 ## Next
 
 1. Verify PR #3 on a preview deployment, in a browser, against the live model
