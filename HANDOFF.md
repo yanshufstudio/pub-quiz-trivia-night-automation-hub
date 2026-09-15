@@ -10,13 +10,15 @@ the full record of the 2026-09-07→09 work.
 
 ## Where things stand
 
-> **State correction, 2026-09-15.** The paragraph below is the 2026-09-13
-> picture and is kept as the record of that day. Current state: PR #3 merged
-> as `5982f76`; `master` is **`80ca6fd`** and that is what production runs;
-> **PR #4** (`claude/paddle-pro-3a`, head `d16a99f`, 9 commits, CI green,
-> `mergeable_state: clean`) is open and marked **DO NOT MERGE YET** — Task 9
-> of `docs/superpowers/plans/2026-09-09-paddle-pro.md` has not been run, so
-> nothing about Pro is verified against Paddle itself.
+> **State correction, 2026-09-15 (end of day).** The paragraph below is the
+> 2026-09-13 picture and is kept as the record of that day. Current state:
+> PR #3 merged as `5982f76`, PR #5 as `b3a04dd`, PR #6 as `6ea006f`;
+> `master` is **`6ea006f`** (CI run 57 green, Vercel "Deployment has
+> completed") and that is what production runs. **PR #4**
+> (`claude/paddle-pro-3a`, head `c2f0dfc`, CI green) is open, untouched and
+> owner-gated. Task 9 of `docs/superpowers/plans/2026-09-09-paddle-pro.md`
+> passed on 2026-09-15; what remains is Task 10, the live cutover — see
+> Open items.
 > https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/4
 
 `master` is at `d1b613d` and that is what production runs. **PR #3 is open and
@@ -456,6 +458,29 @@ above.*
   link to `/pricing`, so this clears when PR #4 merges — which is gated on
   Task 9 above.
 
+- **Paddle Task 10 — two corrections to Step 1, drafted 2026-09-15, not yet
+  applied to the plan.** (1) The *default payment link* is account-wide and
+  currently `https://orzarua.app` — the Paddle seller account is shared with
+  Or Zarua — so **leave it alone** and only add our host under Website
+  approval. (2) Checkout *branding* is likewise account-wide, currently
+  "OrZarua", and cannot be renamed without affecting Or Zarua. Buyers will
+  see "OrZarua" at checkout; decide whether that is acceptable, and note it
+  may not match what `/terms` says about who is selling.
+
+- **`/privacy` needs revising before PR #4 merges.** The page (from PR #6)
+  already names Paddle and the email address received when a subscription
+  starts, but it says nothing about the Paddle customer and subscription
+  ids, the stored `subscriptionStatus`, or the `PaddleEvent` webhook table
+  that PR #4 adds to the schema. Merging PR #4 without that edit makes the
+  live privacy policy inaccurate. Draft exists off-repo; not committed.
+
+- **One sandbox-origin creator row sits in the production Turso DB**:
+  `cmu2qdlry000004kwpuii81g5`, carrying real *sandbox* Paddle identifiers
+  (`sub_01m2kac7e3nxnmnz959dypqrbd`, `txn_01m2kaa12cck2hn8brerkjst8k`) from
+  the 2026-09-15 refund/cancel walk. It reads FREE, so it is functionally
+  inert, but production data and sandbox billing ids are now mixed in one
+  table. Decide (delete, or leave and document) before the live cutover.
+
 - **`npm audit`** — still 3 high, all one dev-only chain:
   `prisma@6.19.3` → `@prisma/config@6.19.3` → `deepmerge-ts@7.1.5`
   (GHSA-ggr8-5vv4-36mx, fixed in `deepmerge-ts@8`). The only fix npm offers
@@ -629,6 +654,32 @@ A generation costs real Anthropic credit. **429** = the per-IP limiter
 cookie per 30 days). They are different things; don't conflate them.
 
 ## Gotchas
+
+New in the 2026-09-15 sessions:
+
+- **`prisma generate` runs only in `build`, never on `install`**
+  (`package.json`: `"build": "prisma generate && prisma migrate deploy &&
+  next build"`, no `postinstall`). A fresh checkout of `claude/paddle-pro-3a`
+  therefore gives ~17 bogus integration failures and 8 tsc errors
+  (`Property 'paddleEvent' does not exist`) until you run `npx prisma
+  generate`. Not a branch defect.
+- **`.next` route types survive a branch switch.** After moving between
+  `master` and `paddle-pro-3a`, tsc fails on `validator.ts` referencing the
+  *other* branch's routes. `rm -rf .next` before `npx next typegen`.
+- **`cmd | tail -n 20 && echo CLEAN` tests `tail`'s exit code, not the
+  command's.** It printed "CLEAN" directly under 8 real tsc errors. Same
+  class as the `echo $?` false green below. Read the errors, not the banner.
+- **`next.config.ts:14` (on `claude/paddle-pro-3a`) gates the Paddle build
+  guard on `VERCEL_ENV === "production"`**, so CI and Preview builds pass
+  regardless of whether the `NEXT_PUBLIC_PADDLE_*` values are set. Green CI
+  on PR #4 is **not** evidence the production build will succeed.
+- **The print page hangs Playwright if you emulate print media before
+  clicking a tab.** `/packs/<id>/print` has ONE `.paper-sheet` whose contents
+  depend on a tab defaulting to `"script"`; the tab buttons are labelled
+  "Presenter script", "Answer sheet", "Question sheet"; and they live inside
+  `.print-chrome`, which `@media print` sets to `display: none` — so with
+  print media emulated every click waits forever on actionability. Click
+  first, emulate print afterwards.
 
 New in the second 2026-09-13 session:
 
