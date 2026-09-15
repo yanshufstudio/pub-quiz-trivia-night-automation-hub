@@ -400,15 +400,18 @@ previews are building again; media phases 2-4 are local-only) are gone
 because PR #3 merged as `5982f76` — the history is in the session sections
 above.*
 
-- **Paddle Task 9 — the only thing blocking PR #4.** Sandbox catalog, client
-  token, notification destination, simulator run, and a real sandbox
-  checkout driven on a preview deployment
-  (`docs/superpowers/plans/2026-09-09-paddle-pro.md`). Needs the Paddle
-  dashboard/API and a browser on a preview URL; a Claude sandbox has
-  neither (egress 403s `*.vercel.app` and `*.paddle.com`, and there is no
-  `paddle-sandbox` MCP server), so this is a human-with-a-browser job or a
-  session with different egress. **Nothing about Pro is verified against
-  Paddle. Do not merge PR #4 until this passes.**
+- **~~Paddle Task 9~~ — passed 2026-09-15**, by the owner, off-sandbox. The
+  entry below was written before that and is superseded; PR #4 is no longer
+  blocked on it. What remains for Pro is **Task 10, the live cutover**
+  (`docs/superpowers/plans/2026-09-09-paddle-pro.md`), whose gate is Paddle's
+  Website approval for the production domain — and *that* prerequisite, the
+  public terms/privacy/refund pages, landed with PR #6. Note PR #4's own
+  build guard: a production build **fails** if any `NEXT_PUBLIC_PADDLE_*`
+  value is empty, so set the live values before merging it, or merge only
+  once they exist. The Paddle dashboard and a browser on a deployment are
+  still needed for Task 10, and a Claude sandbox has neither (egress 403s
+  `*.vercel.app` and `*.paddle.com`, and there is no `paddle-sandbox` MCP
+  server), so it stays a human-with-a-browser job.
 
 - **Generation fixes have never been checked against the real model, and
   they are now live in production.** This is the bug that has been closed
@@ -692,18 +695,64 @@ Still true from before:
   before firing the request you want to see fail.
 - **Vitest excludes `**/.claude/**`** so worktree spec files don't leak in.
 
+## What landed in the 2026-09-15 legal-pages session
+
+Branch `claude/legal-pages`, cut from `master` `80ca6fd`. Three public policy
+pages and the footer that makes them reachable — the prerequisite Task 10 is
+waiting on.
+
+- **`/terms`, `/privacy`, `/refunds`** — server components on the paper-toned
+  chrome (`SiteHeader`, centred column, serif h1) that `/pricing` and the
+  other ordinary pages share, built on a small `LegalPage` shell in
+  `src/components/LegalPage.tsx` so the three cannot drift apart and carry one
+  shared `LEGAL_LAST_UPDATED` date.
+- **`SiteFooter`**, rendered from the root layout so every page gets the links
+  without having to remember. It removes itself on `/play`, `/host/<code>` and
+  `/packs/<id>/print` — the live-night surfaces and the print sheet, none of
+  which carry a `SiteHeader` either.
+- **`e2e/legal-pages.spec.ts`** — each page 200s with its own heading and the
+  shared date, the footer reaches all three from an ordinary page, and the
+  three excluded surfaces have no footer, with a control asserting the same
+  locator *does* find one on a normal page so the test cannot pass vacuously.
+
+**Why it matters:** Paddle's Website approval gates the live cutover, and it
+wants the production domain to *serve* terms, privacy and refund policies and
+to have them *reachable from the site* — two separate claims, which is why the
+footer is part of the work rather than a nicety.
+
+**This satisfies the prerequisite recorded in PR #4's own "Next" item 3**
+("requires public terms / privacy / refund pages, which the app does not have
+yet — that is a prerequisite task"). That sentence lives on
+`claude/paddle-pro-3a`, not on `master`, so it could not be ticked from this
+branch; strike it when both branches are on `master`.
+
+**Two things deliberately not done here**, because `/pricing` ships with PR #4
+and does not exist on `master`:
+
+- The footer links Terms, Privacy and Refunds but **not Pricing**. A footer
+  link 404ing for the Paddle reviewer would work directly against the approval
+  these pages exist to win. Adding it is one entry in the `links` array in
+  `src/components/SiteFooter.tsx` once `/pricing` is on `master`.
+- The README section is its own `## Legal pages` rather than a paragraph under
+  "Pro subscriptions (Paddle)", which arrives with PR #4. Worth merging the two
+  when it lands.
+
 ## Next
 
 *Trued up 2026-09-15. The previous list still said "verify PR #3 on a
 preview" and "build media phases 2-4"; both are done and merged.*
 
-1. **Paddle Task 9**, which is the only thing blocking PR #4 — see Open
-   items. Needs the Paddle dashboard and a browser on a preview.
+1. ~~Paddle Task 9~~ — **passed 2026-09-15**, off-sandbox. See Open items.
 2. **Verify the generation fixes against the real model on production** —
    the three-step gate and its cautions are in Open items. Independent of
-   the Paddle work; whoever has a browser can do it.
-3. **Then Task 10, the live Paddle cutover** (owner-gated), followed by
-   phase 3b (Tasks 11-12, the restore-token library and routes).
+   the Paddle work; whoever has a browser can do it. Still the oldest
+   unpaid debt here.
+3. **Verify the print page-break fix**, which as of this merge exists only
+   in the owner's working tree — no branch on `origin` carries it, so it is
+   neither deployed nor verifiable from a sandbox. Commit it first.
+4. **Task 10, the live Paddle cutover** (owner-gated). Its Website-approval
+   prerequisite — public terms/privacy/refund pages — is satisfied as of
+   PR #6. Then phase 3b (Tasks 11-12, the restore-token library and routes).
 
 Still unanswered, asked more than once, and needed for **Task 10 only** (the
 sandbox work in Task 9 does not depend on either): reuse the HebCal Paddle
@@ -711,5 +760,8 @@ seller account or open a separate one? The other long-standing question —
 monthly, annual, or both at launch — was answered by building both: PR #4
 ships monthly $5 and annual $25.
 
-Merging and approving remain the owner's call; nothing here has been merged
-or approved.
+**PR #5 and PR #6 were merged to `master` on the owner's explicit
+instruction, 2026-09-15** — the standing "nothing gets merged or approved"
+rule was lifted for those two only. PR #4 is untouched and remains the
+owner's call. `master` deploys to production on push, so both merges are
+live.
