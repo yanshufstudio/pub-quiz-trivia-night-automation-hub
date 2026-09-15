@@ -9,15 +9,20 @@ import { usePathname } from "next/navigation";
  * Paddle's website review requires the terms, privacy and refund pages to be
  * reachable from the site, not merely to exist at their URLs.
  *
- * `/pricing` is deliberately absent from this list: it does not exist on
- * `master` (it arrives with the Paddle Pro branch), and a footer link that
- * 404s for Paddle's reviewer would work against the very approval these
- * pages are here to get. Add the entry in the same breath as that page.
+ * `/pricing` is listed here but does not exist on `master` — it arrives with
+ * the Paddle Pro branch — so until that merges this link 404s. That is known
+ * and intended: the ordering is the owner's call, and the link is here so it
+ * works the moment the page lands rather than needing to be remembered then.
+ * If the Paddle branch has still not merged when the production domain goes
+ * to Paddle for Website approval, either merge it first or drop this entry
+ * for the review, because a reviewer following a dead link is the one thing
+ * these pages exist to avoid.
  */
 const links = [
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
   { href: "/refunds", label: "Refunds" },
+  { href: "/pricing", label: "Pricing" },
 ];
 
 /**

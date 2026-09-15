@@ -592,13 +592,19 @@ yet — that is a prerequisite task"). That sentence lives on
 `claude/paddle-pro-3a`, not on `master`, so it could not be ticked from this
 branch; strike it when both branches are on `master`.
 
-**Two things deliberately not done here**, because `/pricing` ships with PR #4
-and does not exist on `master`:
+**Two consequences of `/pricing` shipping with PR #4 rather than being on
+`master`:**
 
-- The footer links Terms, Privacy and Refunds but **not Pricing**. A footer
-  link 404ing for the Paddle reviewer would work directly against the approval
-  these pages exist to win. Adding it is one entry in the `links` array in
-  `src/components/SiteFooter.tsx` once `/pricing` is on `master`.
+- **The footer links Pricing, and that link 404s until PR #4 merges.** It was
+  left out at first for exactly that reason and added back on the owner's
+  instruction, so the link works the moment the page lands instead of needing
+  to be remembered then. The cost is live while the two are apart, and it
+  points at the one thing these pages exist to avoid: **if the production
+  domain goes to Paddle for Website approval before PR #4 is on `master`,
+  merge that branch first or drop the entry from the `links` array in
+  `src/components/SiteFooter.tsx` for the review.** A reviewer following a
+  dead link is a worse outcome than a missing link. `e2e/legal-pages.spec.ts`
+  pins the link's presence and `href` but deliberately does not follow it.
 - The README section is its own `## Legal pages` rather than a paragraph under
   "Pro subscriptions (Paddle)", which arrives with PR #4. Worth merging the two
   when it lands.

@@ -37,6 +37,18 @@ test("every policy page is reachable from the footer of an ordinary page", async
   }
 });
 
+// The footer also carries a Pricing link. That page ships with the Paddle
+// branch and is not on master, so this pins the link's presence and target
+// without following it — clicking it here would only prove that a route
+// this branch does not contain is missing, which is already known.
+test("the footer links pricing", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("contentinfo").getByRole("link", { name: "Pricing" })).toHaveAttribute(
+    "href",
+    "/pricing"
+  );
+});
+
 // The footer is rendered from the root layout, so the surfaces that carry no
 // chrome on purpose only stay clean for as long as SiteFooter's exclusion
 // list is right. /play and /host are run in front of a room; anything on the
