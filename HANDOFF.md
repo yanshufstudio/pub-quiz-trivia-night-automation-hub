@@ -10,6 +10,15 @@ the full record of the 2026-09-07→09 work.
 
 ## Where things stand
 
+> **State correction, 2026-09-15.** The paragraph below is the 2026-09-13
+> picture and is kept as the record of that day. Current state: PR #3 merged
+> as `5982f76`; `master` is **`80ca6fd`** and that is what production runs;
+> **PR #4** (`claude/paddle-pro-3a`, head `d16a99f`, 9 commits, CI green,
+> `mergeable_state: clean`) is open and marked **DO NOT MERGE YET** — Task 9
+> of `docs/superpowers/plans/2026-09-09-paddle-pro.md` has not been run, so
+> nothing about Pro is verified against Paddle itself.
+> https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/4
+
 `master` is at `d1b613d` and that is what production runs. **PR #3 is open and
 unmerged**, and everything below lives on it.
 
@@ -26,9 +35,17 @@ by fetching origin afterwards). PR #3 is now 18 commits; Vercel built the
 deployments list). See "What landed in the fourth 2026-09-13 session" for
 the live verification of phases 2-4 and the one bug it found.
 
-**Pushing from a Claude sandbox session still 403s** — fifth identical
-failure this session, even on a no-op push with nothing to send, so it's a
-per-session repository-authorization gate and not about the commits:
+**Pushing from a Claude sandbox session WORKS — re-verified 2026-09-15.**
+The repeated 403 recorded here through 2026-09-13 was fixed that same day by
+setting the Claude GitHub App's repository access on the `yanshufstudio` org
+to **All repositories**; a session pushed four commits directly straight
+afterwards, and the 2026-09-15 session re-confirmed access with
+`git push --dry-run -u origin <branch>` (exit 0, `* [new branch]`), no bundle
+involved.
+
+**Test the push yourself early in a session — a dry-run is enough — rather
+than assuming it works or that it doesn't.** The failure it used to give,
+kept here so it is recognisable if it ever returns:
 
 ```
 remote: access denied by the git proxy: yanshufstudio/pub-quiz-trivia-night-automation-hub
@@ -36,12 +53,13 @@ is not in this session's authorized repository set, so the proxy will not
 inject a credential for it. To fix, add the repository to the session's sources.
 ```
 
-The GitHub API from the sandbox returns a related hint — "Use add_repo to
-request access ... call add_repo again with access:\"push\"" — but no
-`add_repo` tool existed in that session. The practical route that worked:
-the sandbox produces a bundle/patches, the owner applies and pushes from his
-own clone. Plan for that unless a session is started with this repo attached
-as a source.
+If that does come back, the repo is missing from the session's authorized
+set — add it (`add_repo` with `access: "push"`, where that tool exists)
+rather than working around it. **Do not reach for the bundle/patch handover
+unless a real push has actually failed**: it is lossy in practice — one
+commit's patch (`872c880`) did not survive the handover to this repo and had
+to be reconstructed from its description (see the caveat on `eef4a77`
+below).
 
 **Unrelated stray branch, ignore it**: `claude/post-verification-pass`
 (head `b0b8b9c`) exists locally in this environment from an entirely
@@ -269,6 +287,84 @@ has not been seen on a preview** — it was written after the run above and
 needs a push (from the owner's machine, see "Where things stand") and a
 reload of `/packs/<id>/print` with an image attached to confirm.
 
+## What landed in the 2026-09-15 session
+
+No production or Paddle access from this sandbox (see "Blocked by egress"
+below), so the one verification that could be done for real was done for
+real, and the rest is reported as not done rather than substituted.
+
+### EXIF/GPS strip — VERIFIED, locally, end to end
+
+The open worry was that `src/lib/media.ts` *reads* correct (omits
+`withMetadata()`, calls `.rotate()` first) but had never met a real file.
+It has now. Run against a local `next dev` on the sqlite dev database, over
+the real HTTP routes, with `exiftool` 12.76.
+
+The test file: a 600x400 JPEG carrying a full phone-style metadata set
+written with `exiftool` — `GPSLatitude`/`GPSLongitude` (51°30'2.52"N,
+0°7'28.56"W, plus altitude, speed, image direction, GPS date/time stamps),
+`Make=Apple`, `Model=iPhone 14 Pro`, `LensModel`, `Software`,
+`BodySerialNumber`, `OwnerName`, `DateTimeOriginal`, an embedded 160x120
+IFD1 thumbnail, and `Orientation=6` (Rotate 90 CW). **It is not literally a
+photo off a phone** — none was available in this sandbox — but every EXIF
+structure a phone photo would carry is present and readable, which is what
+the stripping code has to deal with. If a genuine phone photo is ever put
+through this, nothing here predicts a different result, but say so honestly.
+
+| | |
+|---|---|
+| `POST /api/questions/[id]/media` (raw bytes, owner cookie) | 201, stored 5,327 B, **400x600** |
+| `GET /api/questions/[id]/media` (no cookie — the open route) | 200, 5,327 B, `image/jpeg` |
+| `exiftool -G1 -a -s` on the served bytes | **no `[IFD0]`, no `[ExifIFD]`, no `[GPS]`, no `[IFD1]`** — only `[File]`/`[Composite]` structural fields derived from the JPEG itself |
+| GPS / Make / Model / serial / owner / thumbnail | all gone |
+| JPEG segments in the served file | `DQT DQT SOF2 DHT DHT SOS` — **no APP1 at all**, so there is nowhere for EXIF to live |
+| Byte scan for `Exif`/`Apple`/`iPhone`/`GPS`/owner name/serial/`http` | 0 occurrences of each |
+| Orientation | 600x400 source + `Orientation=6` → served **400x600**, and the four quadrant colours land in exactly the 90° CW positions (green TL, red TR, yellow BL, blue BR) — `.rotate()` really is applied, not just a dimension swap |
+
+The other two doors into the same function were checked too:
+
+- **PNG.** A 500x300 PNG given `GPSLatitude`/`GPSLongitude`, `Make=Google`,
+  `Model=Pixel 8 Pro`, `Artist`, `Comment`, `Description`. Served back with
+  chunks `IHDR pHYs IDAT IEND` only — no `eXIf`, no `tEXt`, no `iTXt`; every
+  tag gone.
+- **Pack import.** A v2 pack file with the same GPS JPEG embedded as base64
+  through `POST /api/packs/import` (unauthenticated) produced a **byte-identical
+  5,327 B** stripped 400x600 result, confirming import and upload really do
+  share `prepareImageForStorage` rather than having drifted apart.
+
+So the live privacy concern on that open `GET` route is closed for JPEG and
+PNG, on this code, at commit `80ca6fd`. **It was verified locally, not on
+production** — production runs the same `src/lib/media.ts`, but nobody has
+put a file through the deployed instance.
+
+### Blocked by egress, not attempted
+
+This sandbox's egress policy refuses `CONNECT` with a 403 for
+`*.vercel.app`, `sandbox-api.paddle.com` and `sandbox-vendors.paddle.com`
+(confirmed at `$HTTPS_PROXY/__agentproxy/status`, which logs each denial,
+and independently through `WebFetch`, which returns `EGRESS_BLOCKED`). There
+is also **no `paddle-sandbox` MCP server** in the session, no Vercel CLI, no
+`PADDLE_*` env, and no `ANTHROPIC_API_KEY`. Consequently:
+
+- **Paddle Task 9 — not started.** Sandbox catalog, client token,
+  notification destination, simulator run and the real sandbox checkout all
+  need the Paddle API/dashboard and a browser on a preview URL. Nothing was
+  mocked or half-done. **PR #4 remains DO NOT MERGE YET for exactly the
+  reason it already said.**
+- **Generation against the real model — not done.** Needs
+  `https://pub-quiz-trivia-night-automation-hu.vercel.app`; no key locally
+  either, so there was no second route to the real model. The default-brief
+  / oversized-brief / count-the-media-questions gate is still open, and is
+  still the thing that has been closed on a green suite and reopened twice.
+
+### Housekeeping note
+
+`git config --unset gc.auto && git gc` is still worth running **on the
+owner's machine** once the repo is out of OneDrive. It was not run here:
+`gc.auto` lives in `.git/config`, which is per-clone, and this sandbox clone
+is ephemeral and was never in OneDrive — unsetting it here would have
+changed nothing on the machine that has the problem.
+
 ## Verified, and not
 
 Run against the media phase-1 commit, all green:
@@ -298,35 +394,73 @@ call it fixed without a browser on a real deployment.**
 
 ## Open items
 
-- **Production verification of PR #3.** The gate, in order: (1) default brief
-  from `/create` in a browser on a deployment, expect 201 in 20-30s and 4
-  rounds / ~40 questions; (2) an oversized brief — "eight rounds of fifteen
-  questions each" — expect a 201 with a salvaged short pack *or* a 422 that
-  says the brief is too big; a bare 502 saying "Please try again" is the
-  original bug; (3) read every generated question and count how many need
-  media they can't be shown. Generate at least three packs for (3) — one
-  clean run is weak evidence for a probabilistic guard.
-- **Test the PR #3 *preview*, not production.** Production is `master`, which
-  has none of these fixes. Testing production and finding it fine means
-  nothing.
-- **Previews are building again.** The Vercel bot comment on PR #3
-  (`issuecomment-5620965612`, the one it keeps rewriting in place) went
-  Building → **Ready** at 18:51 UTC on 2026-09-13, against `d0ced34`. The
-  integration did not need reconnecting after all. The branch-alias preview
-  is
-  `https://pub-quiz-trivia-night-automation-hub-git-claude-7f580a-privlin.vercel.app`.
-  Two caveats: the bot comment carries no commit SHA and GitHub commit
-  statuses for the head are empty, so "it built the head" is inference from
-  the timing, not a fact read off the deployment; and **no session here has
-  been able to open it** — the sandbox egress proxy blocks `*.vercel.app`, so
-  every verification below is still a human-with-a-browser job.
-- **Media support: all four phases are built** (2026-09-13), but phases 2-4
-  are local-only commits, not on `origin` — see above.
-- **Paywall copy** — the free-cap screen still says "Upgrade to Pro for
-  unlimited packs, coming soon". Goes away with the Paddle work.
-- **`npm audit`** — 3 high findings in the dev-only
-  `prisma` → `@prisma/config` → `deepmerge-ts` chain; no fix without a
-  `prisma@8` RC.
+*Trued up 2026-09-15 against `master` `80ca6fd` and PR #4 `d16a99f`. The
+PR #3-era entries that used to be here (test the preview not production;
+previews are building again; media phases 2-4 are local-only) are gone
+because PR #3 merged as `5982f76` — the history is in the session sections
+above.*
+
+- **~~Paddle Task 9~~ — passed 2026-09-15**, by the owner, off-sandbox. The
+  entry below was written before that and is superseded; PR #4 is no longer
+  blocked on it. What remains for Pro is **Task 10, the live cutover**
+  (`docs/superpowers/plans/2026-09-09-paddle-pro.md`), whose gate is Paddle's
+  Website approval for the production domain — and *that* prerequisite, the
+  public terms/privacy/refund pages, landed with PR #6. Note PR #4's own
+  build guard: a production build **fails** if any `NEXT_PUBLIC_PADDLE_*`
+  value is empty, so set the live values before merging it, or merge only
+  once they exist. The Paddle dashboard and a browser on a deployment are
+  still needed for Task 10, and a Claude sandbox has neither (egress 403s
+  `*.vercel.app` and `*.paddle.com`, and there is no `paddle-sandbox` MCP
+  server), so it stays a human-with-a-browser job.
+
+- **Generation fixes have never been checked against the real model, and
+  they are now live in production.** This is the bug that has been closed
+  twice on a green suite and reopened twice. The gate, against
+  `https://pub-quiz-trivia-night-automation-hu.vercel.app` (production *is*
+  the thing to test now — `master` carries the fixes):
+  1. Default brief from `/create` — expect 201, ~20-30s, 4 rounds / ~40
+     questions.
+  2. An oversized brief ("Eight rounds of fifteen questions each, covering
+     history, science, music, film, sport, food, literature and geography")
+     — a 201 with a short salvaged pack **or** a 422 saying the brief is too
+     big are both correct; a bare 502 "Please try again" is the original bug.
+  3. Read every question across **3+ packs** and count any needing media the
+     app cannot show. Report the number even if zero — one clean run is weak
+     evidence for a probabilistic guard.
+
+  Operational cautions: **do not set `FREE_PACK_LIMIT` on production** — it
+  is deliberately unset so the cap stays at 2. Use a fresh incognito profile
+  per 2 generations. A **403** is the free cap; a **429** is the per-IP
+  limiter (5 per 10 min) — different things. Every generation spends real
+  credit, and any pack or session created is real data: note the ids and
+  clean up with `DELETE /api/packs/[id]` + `x-admin-token`.
+
+- **EXIF/GPS strip: verified locally 2026-09-15, not on production.** The
+  full result is in "What landed in the 2026-09-15 session" — no EXIF
+  survives, no APP1 segment, rotation correctly applied, for JPEG, PNG and
+  the import path. What remains open is only that nobody has put a file
+  through the *deployed* instance, and that the test file was a JPEG with a
+  phone-style EXIF set written by `exiftool` rather than a photo off an
+  actual phone.
+
+- **The print-preview fix (`7850f8d`) has never been seen rendering.** It is
+  in `master` and therefore in production. It was written after the
+  2026-09-13 live run that found the bug, so confirming it needs a reload of
+  `/packs/<id>/print` for a pack with an image attached. Nothing in the
+  suite exercises the print *page's* query, which is why a green suite
+  missed the bug in the first place.
+
+- **Paywall copy** — `src/app/create/page.tsx:133` still reads "Upgrade to
+  Pro for unlimited packs — coming soon. Use the demo pack instead for now."
+  on `master`, so that is what production shows. PR #4 replaces it with a
+  link to `/pricing`, so this clears when PR #4 merges — which is gated on
+  Task 9 above.
+
+- **`npm audit`** — still 3 high, all one dev-only chain:
+  `prisma@6.19.3` → `@prisma/config@6.19.3` → `deepmerge-ts@7.1.5`
+  (GHSA-ggr8-5vv4-36mx, fixed in `deepmerge-ts@8`). The only fix npm offers
+  is `--force` down to `prisma@6.12.0`, which it flags as breaking, so this
+  stays open rather than being worth taking.
 
 ## Media support — scoped 2026-09-13, phase 1 built the same day
 
@@ -605,14 +739,29 @@ and does not exist on `master`:
 
 ## Next
 
-1. Verify PR #3 on a preview deployment, in a browser, against the live model
-   (above). Unchanged and still the blocker: a preview now exists, but no
-   session here can reach it. Merge is the owner's call and nothing has been
-   merged or approved.
-2. Media support phase 2 (editor UI, player/host rendering), then 3 (PDF and
-   print) and 4 (export/import v2). Open questions 2-5 above; only 3 blocks
-   phase 3.
-3. Then the plan's step 3: Paddle checkout, webhook, `/pricing`
-   (`claude/monetization-buildout-plan.md`). Two questions there have been
-   asked twice and never answered: reuse the HebCal Paddle seller account or
-   a separate one, and monthly / annual / both at launch.
+*Trued up 2026-09-15. The previous list still said "verify PR #3 on a
+preview" and "build media phases 2-4"; both are done and merged.*
+
+1. ~~Paddle Task 9~~ — **passed 2026-09-15**, off-sandbox. See Open items.
+2. **Verify the generation fixes against the real model on production** —
+   the three-step gate and its cautions are in Open items. Independent of
+   the Paddle work; whoever has a browser can do it. Still the oldest
+   unpaid debt here.
+3. **Verify the print page-break fix**, which as of this merge exists only
+   in the owner's working tree — no branch on `origin` carries it, so it is
+   neither deployed nor verifiable from a sandbox. Commit it first.
+4. **Task 10, the live Paddle cutover** (owner-gated). Its Website-approval
+   prerequisite — public terms/privacy/refund pages — is satisfied as of
+   PR #6. Then phase 3b (Tasks 11-12, the restore-token library and routes).
+
+Still unanswered, asked more than once, and needed for **Task 10 only** (the
+sandbox work in Task 9 does not depend on either): reuse the HebCal Paddle
+seller account or open a separate one? The other long-standing question —
+monthly, annual, or both at launch — was answered by building both: PR #4
+ships monthly $5 and annual $25.
+
+**PR #5 and PR #6 were merged to `master` on the owner's explicit
+instruction, 2026-09-15** — the standing "nothing gets merged or approved"
+rule was lifted for those two only. PR #4 is untouched and remains the
+owner's call. `master` deploys to production on push, so both merges are
+live.
