@@ -10,6 +10,15 @@ the full record of the 2026-09-07→09 work.
 
 ## Where things stand
 
+> **State correction, 2026-09-15.** The paragraph below is the 2026-09-13
+> picture and is kept as the record of that day. Current state: PR #3 merged
+> as `5982f76`; `master` is **`80ca6fd`** and that is what production runs;
+> **PR #4** (`claude/paddle-pro-3a`, head `d16a99f`, 9 commits, CI green,
+> `mergeable_state: clean`) is open and marked **DO NOT MERGE YET** — Task 9
+> of `docs/superpowers/plans/2026-09-09-paddle-pro.md` has not been run, so
+> nothing about Pro is verified against Paddle itself.
+> https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/4
+
 `master` is at `d1b613d` and that is what production runs. **PR #3 is open and
 unmerged**, and everything below lives on it.
 
@@ -26,9 +35,17 @@ by fetching origin afterwards). PR #3 is now 18 commits; Vercel built the
 deployments list). See "What landed in the fourth 2026-09-13 session" for
 the live verification of phases 2-4 and the one bug it found.
 
-**Pushing from a Claude sandbox session still 403s** — fifth identical
-failure this session, even on a no-op push with nothing to send, so it's a
-per-session repository-authorization gate and not about the commits:
+**Pushing from a Claude sandbox session WORKS — re-verified 2026-09-15.**
+The repeated 403 recorded here through 2026-09-13 was fixed that same day by
+setting the Claude GitHub App's repository access on the `yanshufstudio` org
+to **All repositories**; a session pushed four commits directly straight
+afterwards, and the 2026-09-15 session re-confirmed access with
+`git push --dry-run -u origin <branch>` (exit 0, `* [new branch]`), no bundle
+involved.
+
+**Test the push yourself early in a session — a dry-run is enough — rather
+than assuming it works or that it doesn't.** The failure it used to give,
+kept here so it is recognisable if it ever returns:
 
 ```
 remote: access denied by the git proxy: yanshufstudio/pub-quiz-trivia-night-automation-hub
@@ -36,12 +53,13 @@ is not in this session's authorized repository set, so the proxy will not
 inject a credential for it. To fix, add the repository to the session's sources.
 ```
 
-The GitHub API from the sandbox returns a related hint — "Use add_repo to
-request access ... call add_repo again with access:\"push\"" — but no
-`add_repo` tool existed in that session. The practical route that worked:
-the sandbox produces a bundle/patches, the owner applies and pushes from his
-own clone. Plan for that unless a session is started with this repo attached
-as a source.
+If that does come back, the repo is missing from the session's authorized
+set — add it (`add_repo` with `access: "push"`, where that tool exists)
+rather than working around it. **Do not reach for the bundle/patch handover
+unless a real push has actually failed**: it is lossy in practice — one
+commit's patch (`872c880`) did not survive the handover to this repo and had
+to be reconstructed from its description (see the caveat on `eef4a77`
+below).
 
 **Unrelated stray branch, ignore it**: `claude/post-verification-pass`
 (head `b0b8b9c`) exists locally in this environment from an entirely
@@ -268,6 +286,84 @@ session `6BPF4` was left in its natural state. **The print-preview fix itself
 has not been seen on a preview** — it was written after the run above and
 needs a push (from the owner's machine, see "Where things stand") and a
 reload of `/packs/<id>/print` with an image attached to confirm.
+
+## What landed in the 2026-09-15 session
+
+No production or Paddle access from this sandbox (see "Blocked by egress"
+below), so the one verification that could be done for real was done for
+real, and the rest is reported as not done rather than substituted.
+
+### EXIF/GPS strip — VERIFIED, locally, end to end
+
+The open worry was that `src/lib/media.ts` *reads* correct (omits
+`withMetadata()`, calls `.rotate()` first) but had never met a real file.
+It has now. Run against a local `next dev` on the sqlite dev database, over
+the real HTTP routes, with `exiftool` 12.76.
+
+The test file: a 600x400 JPEG carrying a full phone-style metadata set
+written with `exiftool` — `GPSLatitude`/`GPSLongitude` (51°30'2.52"N,
+0°7'28.56"W, plus altitude, speed, image direction, GPS date/time stamps),
+`Make=Apple`, `Model=iPhone 14 Pro`, `LensModel`, `Software`,
+`BodySerialNumber`, `OwnerName`, `DateTimeOriginal`, an embedded 160x120
+IFD1 thumbnail, and `Orientation=6` (Rotate 90 CW). **It is not literally a
+photo off a phone** — none was available in this sandbox — but every EXIF
+structure a phone photo would carry is present and readable, which is what
+the stripping code has to deal with. If a genuine phone photo is ever put
+through this, nothing here predicts a different result, but say so honestly.
+
+| | |
+|---|---|
+| `POST /api/questions/[id]/media` (raw bytes, owner cookie) | 201, stored 5,327 B, **400x600** |
+| `GET /api/questions/[id]/media` (no cookie — the open route) | 200, 5,327 B, `image/jpeg` |
+| `exiftool -G1 -a -s` on the served bytes | **no `[IFD0]`, no `[ExifIFD]`, no `[GPS]`, no `[IFD1]`** — only `[File]`/`[Composite]` structural fields derived from the JPEG itself |
+| GPS / Make / Model / serial / owner / thumbnail | all gone |
+| JPEG segments in the served file | `DQT DQT SOF2 DHT DHT SOS` — **no APP1 at all**, so there is nowhere for EXIF to live |
+| Byte scan for `Exif`/`Apple`/`iPhone`/`GPS`/owner name/serial/`http` | 0 occurrences of each |
+| Orientation | 600x400 source + `Orientation=6` → served **400x600**, and the four quadrant colours land in exactly the 90° CW positions (green TL, red TR, yellow BL, blue BR) — `.rotate()` really is applied, not just a dimension swap |
+
+The other two doors into the same function were checked too:
+
+- **PNG.** A 500x300 PNG given `GPSLatitude`/`GPSLongitude`, `Make=Google`,
+  `Model=Pixel 8 Pro`, `Artist`, `Comment`, `Description`. Served back with
+  chunks `IHDR pHYs IDAT IEND` only — no `eXIf`, no `tEXt`, no `iTXt`; every
+  tag gone.
+- **Pack import.** A v2 pack file with the same GPS JPEG embedded as base64
+  through `POST /api/packs/import` (unauthenticated) produced a **byte-identical
+  5,327 B** stripped 400x600 result, confirming import and upload really do
+  share `prepareImageForStorage` rather than having drifted apart.
+
+So the live privacy concern on that open `GET` route is closed for JPEG and
+PNG, on this code, at commit `80ca6fd`. **It was verified locally, not on
+production** — production runs the same `src/lib/media.ts`, but nobody has
+put a file through the deployed instance.
+
+### Blocked by egress, not attempted
+
+This sandbox's egress policy refuses `CONNECT` with a 403 for
+`*.vercel.app`, `sandbox-api.paddle.com` and `sandbox-vendors.paddle.com`
+(confirmed at `$HTTPS_PROXY/__agentproxy/status`, which logs each denial,
+and independently through `WebFetch`, which returns `EGRESS_BLOCKED`). There
+is also **no `paddle-sandbox` MCP server** in the session, no Vercel CLI, no
+`PADDLE_*` env, and no `ANTHROPIC_API_KEY`. Consequently:
+
+- **Paddle Task 9 — not started.** Sandbox catalog, client token,
+  notification destination, simulator run and the real sandbox checkout all
+  need the Paddle API/dashboard and a browser on a preview URL. Nothing was
+  mocked or half-done. **PR #4 remains DO NOT MERGE YET for exactly the
+  reason it already said.**
+- **Generation against the real model — not done.** Needs
+  `https://pub-quiz-trivia-night-automation-hu.vercel.app`; no key locally
+  either, so there was no second route to the real model. The default-brief
+  / oversized-brief / count-the-media-questions gate is still open, and is
+  still the thing that has been closed on a green suite and reopened twice.
+
+### Housekeeping note
+
+`git config --unset gc.auto && git gc` is still worth running **on the
+owner's machine** once the repo is out of OneDrive. It was not run here:
+`gc.auto` lives in `.git/config`, which is per-clone, and this sandbox clone
+is ephemeral and was never in OneDrive — unsetting it here would have
+changed nothing on the machine that has the problem.
 
 ## Verified, and not
 
