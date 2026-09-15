@@ -304,11 +304,25 @@ Paddle at request time. `Creator.plan` is the single gate.
   empty), plus secrets `PADDLE_API_KEY` and
   `PADDLE_NOTIFICATION_WEBHOOK_SECRET`. Sandbox values on previews, live in
   production; see `.env.example`.
-- **Not yet done:** the sandbox catalog, notification destination and a real
-  sandbox checkout (plan Task 9), then live cutover (Task 10) and the
-  email magic-link restore flow (phase 3b). Until Task 9 passes, `/pricing`
-  on a deploy without the env values shows a visible "not configured" alert
-  rather than a dead button.
+- **Sandbox-verified (2026-09-15):** on a preview deployment with sandbox
+  values, a real 4242-card checkout flipped `plan` to `PRO`, the portal
+  opened, and an immediate cancel flipped it back to `FREE`, with every
+  webhook delivered on the first attempt. Plan Task 9 has the ids and
+  evidence.
+- **Sandbox test procedure:** set the four `NEXT_PUBLIC_PADDLE_*` values
+  (Preview scope, type Config) plus sandbox `PADDLE_API_KEY` and
+  `PADDLE_NOTIFICATION_WEBHOOK_SECRET`; in the Paddle sandbox dashboard
+  add the preview host as an approved checkout domain, set a default
+  payment link, and point a notification destination at
+  `<preview>/api/paddle/webhook`. Then open `<preview>/pricing`, subscribe
+  with `4242 4242 4242 4242`, and watch `/api/creator/status`. Without the
+  domain approval and default payment link the overlay only says
+  "Something went wrong".
+- **Not yet done:** live cutover (plan Task 10 — production domain
+  approval needs public terms / privacy / refund pages, plus a payout
+  method and live catalog/env) and the email magic-link restore flow
+  (phase 3b). A deploy without the env values shows a visible "not
+  configured" alert on `/pricing` rather than a dead button.
 
 Design: `docs/superpowers/specs/2026-09-09-paddle-pro-design.md`. Plan:
 `docs/superpowers/plans/2026-09-09-paddle-pro.md`.

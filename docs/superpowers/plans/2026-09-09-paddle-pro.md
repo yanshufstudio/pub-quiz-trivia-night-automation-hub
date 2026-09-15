@@ -10,7 +10,7 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-09-paddle-pro-design.md`
 
-**Status 2026-09-14:** Tasks 1–8 built and green (unit 168, integration 169, e2e 9/9, tsc, eslint) on branch `claude/paddle-pro-3a`. Two deviations from the text below, both forced by the codebase: (1) Next 16 refuses cookie writes during a server-component render, so Task 6's `getOrCreateCreatorForPage` became read-only `getCreatorForPage` plus `POST /api/creator/ensure`, which the pricing cards call before opening checkout; (2) Task 5's "unrelated event" fixture is a well-formed `payout.paid`, not a mislabelled subscription payload, because the SDK's `unmarshal` parses by event type and threw on the latter. Task 9 (sandbox catalog, destination, real sandbox checkout) has NOT been run.
+**Status 2026-09-14:** Tasks 1–8 built and green (unit 168, integration 169, e2e 9/9, tsc, eslint) on branch `claude/paddle-pro-3a`. Two deviations from the text below, both forced by the codebase: (1) Next 16 refuses cookie writes during a server-component render, so Task 6's `getOrCreateCreatorForPage` became read-only `getCreatorForPage` plus `POST /api/creator/ensure`, which the pricing cards call before opening checkout; (2) Task 5's "unrelated event" fixture is a well-formed `payout.paid`, not a mislabelled subscription payload, because the SDK's `unmarshal` parses by event type and threw on the latter. **Task 9 passed 2026-09-15** on the PR #4 preview (see the Task 9 outcome note below). Task 10 (live cutover) remains owner-gated.
 
 ## Global Constraints
 
@@ -1521,7 +1521,46 @@ No code beyond a seed script. This task is the sandbox gate; nothing goes live b
 - Create: `scripts/seed-paddle-catalog.ts` (only if the MCP path fails)
 - Modify: `README.md` (Paddle section), `HANDOFF.md` (status)
 
-- [ ] **Step 1: Create sandbox product and prices**
+**Outcome 2026-09-15 (sandbox gate PASSED).** Executed against the PR #4
+preview `https://pub-quiz-trivia-night-automation-hub-git-claude-fe272b-privlin.vercel.app`
+(deployment `3XpCWwNWZ`), under the shared "Yanshuf Studios" seller account.
+Sandbox ids (not secrets): product `pro_01m2jk3ybnyqd6q2hpdkw54q02` (tax
+category `saas` accepted, no fallback needed), prices
+`pri_01m2jk5fegkn69k0qc2x50yk89` ($5/month) and
+`pri_01m2jk677htx11xpytrr1tgc8e` ($25/year), client token
+`test_0cc73dc61354075b26016aeb9a0`, notification destination
+`ntfset_01m2jnfk812qzt6ekwr1hye0gw` (10 events, usage type "Both").
+Evidence: one real sandbox checkout (4242 card) → Paddle redirected to
+`/create?upgraded=1` → "You are on Pro" within the polling window;
+`/api/creator/status` returned `plan: "PRO"`, `subscriptionStatus: "active"`;
+"Manage subscription" opened the sandbox customer portal (API-key path);
+scheduling a cancel at period end kept `PRO` (correct per the status
+mapping); an immediate cancel from the dashboard flipped the same endpoint to
+`plan: "FREE"`, `subscriptionStatus: "canceled"`. Paddle's notification log
+shows all seven deliveries (`customer.created`, `subscription.created`,
+`subscription.activated`, `subscription.updated` ×3, `subscription.canceled`)
+**Delivered on attempt 1**, so signature verification and the apply path work
+end to end. Step 5 (simulator) was skipped: the real checkout exercised the
+same verify → dedupe → apply path with genuine payloads.
+
+Deviations from the steps as written: (1) the `paddle-sandbox` MCP was not
+available, so catalog, token and destination were created in the sandbox
+dashboard by hand; the four `NEXT_PUBLIC_PADDLE_*` values went in through the
+Vercel dashboard (Preview only, type Config) because `vercel env add` refuses
+`NEXT_PUBLIC_*` names without `--type config` and stalls on its "Git branch?"
+prompt when piped. (2) Two undocumented prerequisites before the overlay would
+open at all — until both were set, checkout showed a bare "Something went
+wrong": the preview host must be an **approved checkout domain** (Checkout >
+Website approval; sandbox auto-approves) and a **default payment link** must
+be set (Checkout > Checkout settings; pointed at `<preview>/pricing`). Both
+carry over to Task 10 for the production domain, where approval is manual.
+(3) The checkout overlay is branded with the seller account's display name
+(currently "OrZarua"), not the app — Paddle's account-level Checkout branding
+settings, not this repo. Worth changing before live. (4) A $0 "Payment method
+update" transaction sits at `Incomplete` on the sandbox subscription — an
+artifact of opening the portal's payment-method screen, harmless.
+
+- [x] **Step 1: Create sandbox product and prices**
 
 Via the `paddle-sandbox` MCP `execute` tool, one call:
 
@@ -1550,11 +1589,11 @@ async (client) => {
 
 If `tax_category: "saas"` is rejected, retry with `"standard"` and record the outcome in the spec's Catalog section. If `execute` returns `forbidden`, write `scripts/seed-paddle-catalog.ts` per the catalog-setup skill template with the values above and ask the owner to run it with a sandbox `PADDLE_API_KEY` in their shell (Git Bash, repo root: `PADDLE_API_KEY=... npx tsx scripts/seed-paddle-catalog.ts`). The ids are not secrets and may be pasted into chat.
 
-- [ ] **Step 2: Create a sandbox client token**
+- [x] **Step 2: Create a sandbox client token**
 
 `execute`: `async (client) => client.clientTokens.create({ name: "pub-quiz preview" })`. The token is publishable (`test_...`) and may appear in chat.
 
-- [ ] **Step 3: Set preview env in Vercel** (Git Bash, repo root; `npx --no-install vercel`)
+- [x] **Step 3: Set preview env in Vercel** (Git Bash, repo root; `npx --no-install vercel`)
 
 ```bash
 printf 'sandbox' | npx --no-install vercel env add NEXT_PUBLIC_PADDLE_ENV preview --force
@@ -1565,7 +1604,7 @@ printf '<pri_yearly>' | npx --no-install vercel env add NEXT_PUBLIC_PADDLE_PRICE
 
 The owner adds `PADDLE_API_KEY` (sandbox key) for `preview` with `--sensitive` from a file, and later the webhook secret the same way. The assistant never handles these values.
 
-- [ ] **Step 4: Deploy a preview and create the notification destination**
+- [x] **Step 4: Deploy a preview and create the notification destination**
 
 Push the branch; note the preview URL from `vercel ls 2>&1`. Then via `paddle-sandbox` `execute`:
 
@@ -1586,19 +1625,19 @@ async (client) =>
 
 The response contains `endpoint_secret_key`. Do not print it. The owner copies it from the Paddle sandbox dashboard (Developer tools > Notifications) into Vercel `preview` as `PADDLE_NOTIFICATION_WEBHOOK_SECRET --sensitive`, then redeploys.
 
-- [ ] **Step 5: Simulator run**
+- [x] **Step 5: Simulator run**
 
 `execute`: create a simulation of type `subscription_created` against the new `notification_setting_id`, then `client.simulations.runs.create(sim.id, {})`. Expect the preview's function logs (`vercel logs <preview-url>`, started before the run) to show `result: "unmatched"` (the simulator's `custom_data` has no `creatorId`), which proves signature verification and dedupe work end to end.
 
-- [ ] **Step 6: Real sandbox checkout in the Browser pane**
+- [x] **Step 6: Real sandbox checkout in the Browser pane**
 
 Open `https://<preview-url>/pricing`, click **Subscribe monthly**, pay with `4242 4242 4242 4242`, any future expiry, any CVC, a throwaway email. Expect redirect to `/create?upgraded=1`, then "You are on Pro" within a few seconds. Confirm server-side: `curl -s -b "pq_creator=<value from DevTools>" https://<preview-url>/api/creator/status` shows `"plan":"PRO"` (or query the preview database if the preview uses a separate Turso branch). Then click **Manage subscription**, cancel immediately in the portal, and confirm status returns to `FREE`.
 
-- [ ] **Step 7: Document**
+- [x] **Step 7: Document**
 
 README: new "Pro subscriptions (Paddle)" section listing the env variables, the webhook route, the status mapping, and the sandbox test procedure above. HANDOFF: "Shipped" bullet for phase 3a with the preview verification evidence; "Next" becomes live cutover (Task 10) then phase 3b.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add README.md HANDOFF.md docs/superpowers/specs/2026-09-09-paddle-pro-design.md scripts

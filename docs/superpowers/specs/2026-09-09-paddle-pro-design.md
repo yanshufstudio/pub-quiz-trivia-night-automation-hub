@@ -102,6 +102,15 @@ write permission, otherwise via a one-off `scripts/seed-paddle-catalog.ts`
 using `@paddle/paddle-node-sdk`. Price ids go into environment variables,
 never into source.
 
+Sandbox outcome (2026-09-15): `saas` was accepted, no fallback needed.
+Product `pro_01m2jk3ybnyqd6q2hpdkw54q02`, prices
+`pri_01m2jk5fegkn69k0qc2x50yk89` (monthly) and
+`pri_01m2jk677htx11xpytrr1tgc8e` (yearly). Created by hand in the sandbox
+dashboard; the MCP path was not available. Two dashboard prerequisites the
+overlay needs before it will open, both per-domain: the host on an approved
+checkout domain list, and a default payment link set under Checkout
+settings. Live equivalents are part of the cutover.
+
 ## Checkout
 
 New page `/pricing`:

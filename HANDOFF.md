@@ -1,4 +1,4 @@
-# Handoff — 2026-09-13
+# Handoff — 2026-09-15
 
 Live: https://pub-quiz-trivia-night-automation-hu.vercel.app
 Repo: https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub
@@ -26,10 +26,12 @@ status endpoint, `/pricing` with overlay checkout and portal action,
 tsc, eslint (one pre-existing a11y warning), unit 168, integration 169,
 e2e 9/9. `next build` could not complete in the sandbox only because
 `next/font` cannot reach Google Fonts from here; the new production build
-guard was exercised separately and fires. **Not yet done: Task 9** (sandbox
-catalog + notification destination + a real sandbox checkout on a preview),
-so nothing about Pro is verified against Paddle itself yet. See "What
-landed in the 2026-09-14 session".
+guard was exercised separately and fires. **Task 9, the sandbox gate,
+PASSED on 2026-09-15** against the PR #4 preview: real 4242 checkout →
+`PRO`, portal opened, immediate cancel → `FREE`, seven webhooks delivered
+first attempt. Branch is on `origin` as PR #4. See "What landed in the
+2026-09-15 session" and the outcome note in plan Task 9. Live cutover
+(Task 10) is the remaining gate before merging PR #4 into production.
 
 **All five media commits are on `origin` as of the fourth 2026-09-13
 session**: `e685124`, `2677222`, `7126412`, `eaa6fa1`, `66b4539` (phases 2-4,
@@ -282,6 +284,52 @@ session `6BPF4` was left in its natural state. **The print-preview fix itself
 has not been seen on a preview** — it was written after the run above and
 needs a push (from the owner's machine, see "Where things stand") and a
 reload of `/packs/<id>/print` with an image attached to confirm.
+
+## What landed in the 2026-09-15 session
+
+**Paddle plan Task 9 — sandbox gate — executed and passed.** All setup was
+by hand in the Paddle sandbox dashboard (the `paddle-sandbox` MCP from the
+plan was not available) and the Vercel dashboard, under the shared
+"Yanshuf Studios" seller account; the owner entered the two secrets
+himself. Ids, which are not secrets: product `pro_01m2jk3ybnyqd6q2hpdkw54q02`
+(tax category `saas` accepted), prices `pri_01m2jk5fegkn69k0qc2x50yk89`
+($5/mo) and `pri_01m2jk677htx11xpytrr1tgc8e` ($25/yr), client token
+`test_0cc73dc61354075b26016aeb9a0`, destination
+`ntfset_01m2jnfk812qzt6ekwr1hye0gw` (10 events, usage "Both"). Preview:
+`https://pub-quiz-trivia-night-automation-hub-git-claude-fe272b-privlin.vercel.app`,
+redeployed as `3XpCWwNWZ` once all six Preview env vars existed.
+
+Evidence, in order: sandbox checkout with `4242 4242 4242 4242` and a
+throwaway email → Paddle redirected to `/create?upgraded=1` → "You are on
+Pro" inside the polling window → `/api/creator/status` =
+`{plan:"PRO", subscriptionStatus:"active", hasSubscription:true}` → "Manage
+subscription" opened the sandbox customer portal (so the API-key path works)
+→ scheduled cancel at period end left `PRO` (correct: status stays `active`)
+→ immediate cancel from the dashboard → status =
+`{plan:"FREE", subscriptionStatus:"canceled", hasSubscription:true}`.
+Paddle's notification log: `customer.created`, `subscription.created`,
+`subscription.activated`, `subscription.updated` ×3, `subscription.canceled`,
+every one **Delivered, 1 attempt**. Simulator step skipped as redundant.
+Sandbox subscription `sub_01m2jphh8rdh7ny0f9vevx5pfd` is now canceled;
+nothing to clean up.
+
+**Things the plan did not say, all now recorded in plan Task 9:**
+
+- The overlay will not open until the host is an **approved checkout
+  domain** (Checkout > Website approval — sandbox auto-approves, live is
+  manual) **and** a **default payment link** is set (Checkout > Checkout
+  settings). Before both were set, the overlay showed only "Something went
+  wrong" with nothing in the console. This is the likeliest trap for Task
+  10.
+- `vercel env add` refuses `NEXT_PUBLIC_*` without `--type config` and hangs
+  on a "Git branch?" prompt when piped; the dashboard was quicker.
+- The overlay is branded with the seller account's display name
+  ("OrZarua"), set in Paddle's account-level Checkout branding, not in this
+  repo. Change it before live.
+- The preview has `FREE_PACK_LIMIT=50`, so `/api/creator/status` reports
+  `limit: 50` there; production stays at 2.
+- Synthetic DOM clicks (JS `el.click()`) in the Paddle dashboard silently do
+  nothing on the cancel confirmation; real pointer clicks work.
 
 ## What landed in the 2026-09-14 session
 
@@ -612,18 +660,13 @@ Still true from before:
 
 ## Next
 
-1. **Owner pushes `claude/paddle-pro-3a` and opens a PR** (bundle delivered
-   2026-09-14). CI should be green — the same commands ran here.
-2. **Task 9, sandbox gate**, mostly owner-side: sandbox product + two prices
-   (Pub Quiz Pro, `500`/month, `2500`/year, tax category `saas` else
-   `standard`), sandbox client token, the four `NEXT_PUBLIC_PADDLE_*`
-   preview env values (type Config), sandbox `PADDLE_API_KEY` and, after
-   creating the notification destination against the preview URL,
-   `PADDLE_NOTIFICATION_WEBHOOK_SECRET` (both `--sensitive`). Then the
-   simulator run and one real sandbox checkout (`4242 4242 4242 4242`) from
-   the preview's `/pricing`, watching `plan` flip to PRO and back to FREE
-   after cancelling in the portal. Nothing about Pro is verified until this
-   passes.
+1. ~~Owner pushes `claude/paddle-pro-3a` and opens a PR~~ — done, PR #4,
+   CI green.
+2. ~~Task 9, sandbox gate~~ — **passed 2026-09-15**, see above. PR #4
+   can be merged whenever the owner wants Pro code on `master`; without
+   live env values production builds will fail the `next.config.ts` guard,
+   so either set the live `NEXT_PUBLIC_PADDLE_*` values first (Task 10) or
+   merge only once they exist.
 3. **Task 10, live cutover**, owner-gated: domain approval for the production
    domain in the Paddle dashboard (requires public terms / privacy / refund
    pages, which the app does not have yet — that is a prerequisite task),
