@@ -366,6 +366,14 @@ nothing to clean up.
    integration fixtures use per-test emails/ids because every file shares
    one SQLite database and `Creator.email` is unique.
 
+## Refund procedure
+
+Entitlement follows subscription status only. A refund on its own does not revoke Pro — verified in sandbox 2026-09-15: a full $5.00 refund against sub_01m2kac7e3nxnmnz959dypqrbd delivered zero webhooks and left the creator on {"plan":"PRO","subscriptionStatus":"active"}. The immediate cancel that followed fired subscription.canceled and flipped it to {"plan":"FREE","subscriptionStatus":"canceled"}.
+
+So: a refund issued by hand in the Paddle dashboard is always paired with an immediate cancel of that subscription, in the same sitting. Cancel immediately, not at period end — "cancel at period end" leaves the subscription active and Pro stays on until the period runs out. The pairing works whether or not the refund has been approved yet: revoke rides the subscription.canceled event from the cancel, not the refund, so it does not depend on Paddle's refund-approval timing (in sandbox the refund sat at "requested" and this still held).
+
+The gap this does not cover: a refund a buyer obtains through Paddle's own support without us cancelling. Nothing in the system will revoke that. If refunds ever stop being rare enough to handle by hand, revisit revoke-on-refund in code — see the decision memo for what that costs (an entitlement override field, because the subscription is still active and the next subscription.updated would otherwise re-grant Pro).
+
 ## Verified, and not
 
 Run against the media phase-1 commit, all green:
