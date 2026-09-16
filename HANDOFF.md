@@ -748,6 +748,15 @@ change, so nothing outside the files below needed touching.
   TV. Now `min-h-dvh`, like the team portal always was. The old Generate /
   Manage / Play vs Create / Packs / Join nav nit is gone too — the homepage
   uses the header's labels.
+- **Social share card** (second commit on the branch): `public/og.png`,
+  1200x630, rendered by `scripts/render-og.ts` (`npm run og`) from the same
+  tokens and fonts. `layout.tsx` now sets `metadataBase`
+  (`https://triviafoundry.com`), `openGraph` and `twitter` with the card and
+  its alt text. Deliberately *not* the `app/opengraph-image.png` file
+  convention: Turbopack ignores the companion `.alt.txt`, so the card would
+  ship with no alt text (checked against a real `next build` + `next start`).
+  Before this the app had no share image at all, so a pasted link showed no
+  preview. After deploy, re-scrape on LinkedIn Post Inspector before posting.
 - **Not changed:** `package.json` name, the repo slug, `src/lib/pdf/*`
   (the printed PDFs never carried the product name), the Paddle product
   name "Pub Quiz Pro" in the sandbox catalog (Task 10 creates the *live*

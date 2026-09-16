@@ -13,7 +13,8 @@
     "test:e2e": "playwright test",
     "db:seed": "tsx prisma/seed.ts",
     "screenshots": "tsx scripts/capture-screenshots.ts",
-    "icons": "tsx scripts/render-icons.ts"
+    "icons": "tsx scripts/render-icons.ts",
+    "og": "tsx scripts/render-og.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

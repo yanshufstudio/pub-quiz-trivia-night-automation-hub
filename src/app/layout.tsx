@@ -35,7 +35,26 @@ const mono = localFont({
   display: "swap",
 });
 
+const OG_ALT =
+  "Triviafoundry: writes your pub quiz or trivia night, then runs it live. A live scoreboard on a dark pub-green background.";
+
 export const metadata: Metadata = {
+  // Absolute base for the share-card URLs below. public/og.png is rendered
+  // by scripts/render-og.ts (npm run og).
+  metadataBase: new URL("https://triviafoundry.com"),
+  openGraph: {
+    type: "website",
+    siteName: "Triviafoundry",
+    title: "Triviafoundry — pub quiz and trivia night packs, written and run live",
+    description: "Writes your pub quiz or trivia night, then runs it live.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: OG_ALT }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Triviafoundry — pub quiz and trivia night packs, written and run live",
+    description: "Writes your pub quiz or trivia night, then runs it live.",
+    images: [{ url: "/og.png", alt: OG_ALT }],
+  },
   title: "Triviafoundry — pub quiz and trivia night packs, written and run live",
   description:
     "Writes your pub quiz or trivia night, then runs it live. Describe the rounds you want; get a full pack, a presenter script and printed answer sheets, then run it with teams on their phones.",
