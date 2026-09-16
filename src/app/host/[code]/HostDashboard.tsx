@@ -116,12 +116,12 @@ export function HostDashboard({ code }: { code: string }) {
   }
 
   if (!hydrated) {
-    return <div className="min-h-full bg-stage" />;
+    return <div className="min-h-dvh bg-stage" />;
   }
 
   if (!hostToken) {
     return (
-      <div className="flex min-h-full items-center justify-center bg-stage px-5 text-stage-fg">
+      <div className="flex min-h-dvh items-center justify-center bg-stage px-5 text-stage-fg">
         <div className="w-full max-w-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Host desk</p>
           <h1 className="mt-2 font-serif text-2xl font-semibold">Host key needed</h1>
@@ -153,7 +153,7 @@ export function HostDashboard({ code }: { code: string }) {
 
   if (!state) {
     return (
-      <div className="flex min-h-full items-center justify-center bg-stage text-stage-muted">
+      <div className="flex min-h-dvh items-center justify-center bg-stage text-stage-muted">
         {error ?? "Loading host desk…"}
       </div>
     );
@@ -169,7 +169,7 @@ export function HostDashboard({ code }: { code: string }) {
     state.status === "QUESTION_ACTIVE" || state.status === "REVEAL" ? "Live submissions" : "Teams";
 
   return (
-    <div className="min-h-full bg-stage text-stage-fg">
+    <div className="min-h-dvh bg-stage text-stage-fg">
       <header className="border-b border-white/10 px-5 py-4 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
           <div>

@@ -1,45 +1,49 @@
 import type { Metadata, Viewport } from "next";
-import { Caveat, Fraunces, IBM_Plex_Mono, Work_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { SiteFooter } from "@/components/SiteFooter";
 import manifest from "./manifest";
 import "./globals.css";
 
-const display = Fraunces({
+// All three faces are self-hosted from src/fonts (see the README there) so
+// the build never depends on Google Fonts being reachable.
+
+// The sign face: a slab serif with the weight of a painted pub sign. One
+// weight, no italic — globals.css switches font-synthesis off for it so the
+// headings that still ask for font-semibold don't get a faux bold.
+const display = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  axes: ["opsz", "SOFT"],
-  style: ["normal", "italic"],
+  src: "../fonts/alfa-slab-one-latin-400-normal.woff2",
+  weight: "400",
+  style: "normal",
+  display: "swap",
 });
 
-const body = Work_Sans({
+const body = localFont({
   variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  src: "../fonts/nunito-sans-latin-wght-normal.woff2",
+  weight: "200 1000",
+  style: "normal",
+  display: "swap",
 });
 
-const mono = IBM_Plex_Mono({
+const mono = localFont({
   variable: "--font-mono-plex",
-  subsets: ["latin"],
-  weight: ["500", "600"],
-});
-
-// A hand-chalk marker face, used sparingly for short scrawled accents on
-// the dark "stage" surfaces (see .chalk-script in globals.css) — never for
-// body copy.
-const chalk = Caveat({
-  variable: "--font-chalk",
-  subsets: ["latin"],
-  weight: ["600", "700"],
+  src: [
+    { path: "../fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/ibm-plex-mono-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Pub Quiz Automation Hub",
-  description: "AI-generated pub quiz packs, presenter scripts, and a live team portal.",
-  applicationName: "Pub Quiz Hub",
+  title: "Triviafoundry — pub quiz and trivia night packs, written and run live",
+  description:
+    "Writes your pub quiz or trivia night, then runs it live. Describe the rounds you want; get a full pack, a presenter script and printed answer sheets, then run it with teams on their phones.",
+  applicationName: "Triviafoundry",
   // Installable from the browser menu (Chromium, iOS 16.4+). No service
   // worker on purpose: the live session is polling, so an "offline" shell
   // would only look alive while being dead. manifest.ts carries the rest.
-  appleWebApp: { capable: true, title: "Quiz Hub", statusBarStyle: "black-translucent" },
+  appleWebApp: { capable: true, title: "Triviafoundry", statusBarStyle: "black-translucent" },
 };
 
 export const viewport: Viewport = {
@@ -56,7 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} ${chalk.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {children}

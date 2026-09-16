@@ -3,8 +3,8 @@ import Link from "next/link";
 import { LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Terms of Service · Pub Quiz Hub",
-  description: "The terms you agree to when you use Pub Quiz Hub.",
+  title: "Terms of Service · Triviafoundry",
+  description: "The terms you agree to when you use Triviafoundry.",
 };
 
 export default function TermsPage() {
@@ -12,7 +12,7 @@ export default function TermsPage() {
     <LegalPage title="Terms of Service">
       <LegalSection id="who-we-are" title="Who we are">
         <LegalText>
-          Pub Quiz Hub is operated by Yanshuf Studio, Israel. You can reach us at{" "}
+          Triviafoundry is operated by Yanshuf Studio, Israel. You can reach us at{" "}
           <a className="font-medium text-amber hover:underline" href="mailto:privlin@gmail.com">
             privlin@gmail.com
           </a>
@@ -22,7 +22,7 @@ export default function TermsPage() {
 
       <LegalSection id="the-service" title="What the service does">
         <LegalText>
-          Pub Quiz Hub generates pub quiz packs with AI, turns them into printable PDFs, and runs a
+          Triviafoundry generates pub quiz and trivia night packs with AI, turns them into printable PDFs, and runs a
           live portal where teams submit their answers from their own phones.
         </LegalText>
         <LegalList>

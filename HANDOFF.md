@@ -1,6 +1,10 @@
-# Handoff — 2026-09-13
+# Handoff — 2026-09-13 (rename + redesign session appended 2026-09-16)
 
-Live: https://pub-quiz-trivia-night-automation-hu.vercel.app
+Product name: **Triviafoundry** (since 2026-09-16; was "Pub Quiz Hub" —
+pubquizhub.app is a live competitor). Repo slug and package name unchanged.
+Live: https://triviafoundry.com (bought at Vercel 2026-09-16 and set as the
+production domain; https://pub-quiz-trivia-night-automation-hu.vercel.app
+stays as an alias)
 Repo: https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub
 (moved from `privlin-lgtm`; Vercel deploys `master` on push)
 
@@ -416,7 +420,7 @@ above.*
 - **Generation fixes have never been checked against the real model, and
   they are now live in production.** This is the bug that has been closed
   twice on a green suite and reopened twice. The gate, against
-  `https://pub-quiz-trivia-night-automation-hu.vercel.app` (production *is*
+  `https://triviafoundry.com` (production *is*
   the thing to test now — `master` carries the fixes):
   1. Default brief from `/create` — expect 201, ~20-30s, 4 rounds / ~40
      questions.
@@ -695,6 +699,75 @@ Still true from before:
   before firing the request you want to see fail.
 - **Vitest excludes `**/.claude/**`** so worktree spec files don't leak in.
 
+## What landed in the 2026-09-16 session — rename and redesign
+
+Branch `claude/triviafoundry`, cut from `master` `6ea006f`. One PR, two
+things that had to move together because the wordmark is in both:
+
+**Rename to Triviafoundry.** Every user-facing string, the metadata
+(`layout.tsx` title/description/`applicationName`/`appleWebApp`),
+`manifest.ts` (name, short_name, description; `background_color` now the
+stage token too, so the installed app doesn't flash cream before the dark
+stage — `manifest.test.ts` updated to match), the three legal pages, the
+site footer, the README, and every `pub-quiz-trivia-night-automation-hu.vercel.app`
+reference in the Paddle plan's **Task 10** and the Paddle spec now point at
+`triviafoundry.com` (Website approval, webhook destination, the bundle
+grep). Task 10 Step 1 also stops saying "set the default payment link" —
+the link is account-wide, shared with Or Zarua, and stays
+`https://orzarua.app` (see `claude/refund-revoke-walk-2026-09-15.md` in the
+project). Tagline everywhere carries both "pub quiz" and "trivia night" on
+purpose: to a US reader "quiz" is a school test. The wordmark is one word,
+capital T; `src/components/Wordmark.tsx` is the only place it is spelled.
+
+**Redesign — Direction B, "Lit pub sign"** (chosen by the owner 2026-09-16
+from the three directions on the planning canvas). Bottle green stage,
+neon amber (`--gold`) for anything that acts, mint (`--mint`) for anything
+live or correct, brass (`--brass`) rules, cream paper for the desk. Alfa
+Slab One for the display face, Nunito Sans for body, IBM Plex Mono kept
+for codes. The two-world structure (dark stage for `/`, `/host`, `/play`;
+cream desk for create/packs/editor/print) is unchanged — the homepage is
+now *entirely* on the stage (the three steps are brass-edged panels, no
+hand-off to a cream section), and `SiteHeader`/`SiteFooter` are dark on
+every desk page so the cream reads as a sheet on a bar. `globals.css` is
+still the single file that carries the palette; the token *names* did not
+change, so nothing outside the files below needed touching.
+
+- **Fonts are now self-hosted** (`src/fonts/*.woff2`, OFL, via
+  `next/font/local`) — the build no longer fetches from Google Fonts. The
+  sandbox that did this work cannot reach fonts.googleapis.com (egress
+  policy), and a production build should not depend on it either. Fontsource
+  5.3.0 builds, latin subset, unmodified; licences in `src/fonts/README.md`.
+- `scripts/render-icons.ts` (`npm run icons`) renders the whole favicon /
+  PWA icon set from the mark and the CSS tokens, so the icons can't drift
+  from the palette again. All six icon files regenerated.
+- `scripts/capture-screenshots.ts` honours `PW_CHROMIUM_PATH` (a sandbox
+  with a preinstalled Chromium but no `playwright install`); the README
+  screenshots were regenerated with it and show the new UI.
+- Fixed in passing: the host desk's `min-h-full` never filled the viewport
+  inside the flex-column body, so a cream slab showed under the stage on a
+  TV. Now `min-h-dvh`, like the team portal always was. The old Generate /
+  Manage / Play vs Create / Packs / Join nav nit is gone too — the homepage
+  uses the header's labels.
+- **Not changed:** `package.json` name, the repo slug, `src/lib/pdf/*`
+  (the printed PDFs never carried the product name), the Paddle product
+  name "Pub Quiz Pro" in the sandbox catalog (Task 10 creates the *live*
+  catalog fresh — name it "Triviafoundry Pro" there), the seller display
+  name "OrZarua" (account-wide, still to fix before live).
+
+Definition of done, run in the sandbox: `next typegen` + `tsc` clean,
+`eslint` clean (one pre-existing `alt` warning in `documents.tsx`),
+`next build` clean, unit 153/153, integration 145/145, screenshots of
+every major page reviewed by eye. Playwright e2e not run here (no
+`playwright install`); `e2e/pwa.spec.ts` was updated for the new
+`short_name` and should be run on the device before merge.
+
+**Merge order matters:** PR #4 (`claude/paddle-pro-3a`) also edits
+`layout.tsx`, `create/page.tsx` and the Paddle plan/spec docs. Merge this
+branch first, then merge `master` into `claude/paddle-pro-3a` and resolve —
+expect small conflicts in `layout.tsx` (the font imports) and the plan's
+Task 10 block; keep this branch's version of both. PR #4's pricing page
+copy should say "Triviafoundry Pro", not "Pub Quiz Pro", when it lands.
+
 ## What landed in the 2026-09-15 legal-pages session
 
 Branch `claude/legal-pages`, cut from `master` `80ca6fd`. Three public policy
@@ -742,6 +815,10 @@ and does not exist on `master`:
 *Trued up 2026-09-15. The previous list still said "verify PR #3 on a
 preview" and "build media phases 2-4"; both are done and merged.*
 
+0. **Merge the Triviafoundry rename + redesign PR** (`claude/triviafoundry`)
+   before anything else touches `layout.tsx` — see the 2026-09-16 section
+   for the merge order against PR #4. Then re-verify triviafoundry.com in a
+   browser: wordmark, favicon, manifest `short_name`, legal pages.
 1. ~~Paddle Task 9~~ — **passed 2026-09-15**, off-sandbox. See Open items.
 2. **Verify the generation fixes against the real model on production** —
    the three-step gate and its cautions are in Open items. Independent of

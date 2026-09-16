@@ -16,7 +16,7 @@ export function StatusBadge({
 }) {
   const tone =
     status === "QUESTION_ACTIVE"
-      ? "bg-emerald-600 text-white"
+      ? "bg-mint text-stage"
       : status === "REVEAL"
         ? "bg-gold text-stage"
         : status === "ENDED"

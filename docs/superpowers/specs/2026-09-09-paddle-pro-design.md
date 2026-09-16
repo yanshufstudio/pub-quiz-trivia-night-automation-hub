@@ -268,8 +268,10 @@ Config. Only after all of that does the README or handoff say "live".
 ## Owner actions (cannot be done by the assistant)
 
 - Paddle live dashboard: approve
-  `pub-quiz-trivia-night-automation-hu.vercel.app` (and any future custom
-  domain) under Checkout > Website approval; set the default payment link.
+  `triviafoundry.com` (production since 2026-09-16; the old
+  `pub-quiz-trivia-night-automation-hu.vercel.app` host is an alias) under
+  Checkout > Website approval. The default payment link is account-wide and
+  stays `https://orzarua.app`.
 - Grant write permission to the `paddle-live` MCP connector under
   Paddle > Connectors > MCP if catalog creation returns `forbidden`;
   otherwise create the live product and prices in the dashboard and paste
