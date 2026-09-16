@@ -345,3 +345,21 @@ Design: `docs/superpowers/specs/2026-09-09-paddle-pro-design.md`. Plan:
 
 See [PROMPTS.md](./PROMPTS.md) for the phase-by-phase build playbook,
 including which tasks are better suited to Claude Code vs. Cursor.
+
+<!-- yanshuf-secrets -->
+## Local secrets
+
+These files are gitignored and exist in no clone. Fetch them before running this project:
+
+- `.env`
+- `.env.local`
+
+**Where:** `G:\My Drive\Secrets Vault (ENCRYPTED)\` - take the most recent
+`yanshuf-secrets-YYYY-MM-DD.7z`. AES-256 with encrypted headers; the password is in
+my password manager. There is no recovery path without it.
+
+A second copy lives at `C:\Users\privlin\secrets-backup\` on the primary machine.
+
+Extract over the repo root preserving paths. `_RESTORE-README.txt` inside the archive
+lists every file it holds with SHA256s, so you can confirm what you restored.
+
