@@ -1,33 +1,45 @@
 @import "tailwindcss";
 
 /*
-  "Chalk & Brass" — two linked surfaces that map to how a pub quiz actually
-  runs: the prep desk (paper, ink, brass) and the live room (chalkboard,
-  gold chalk). Same token names the rest of the app already reaches for
-  (bg-amber, text-stage-fg, bg-gold, …) — only the values and a couple of
-  textures changed here, so this file is the single place that carries the
-  whole visual identity.
+  "Lit pub sign" — Triviafoundry's visual identity. Two linked surfaces that
+  map to how a quiz night actually runs:
 
-  This pass pushes both surfaces further apart instead of toward a shared
-  middle: the desk stays warm and bright (a true worktable, not a muted
-  beige), the stage goes properly dark (a lit chalkboard in a dim room, not
-  a soft slate). --amber stays deliberately restrained (it still carries
-  white button text at AA contrast) — the brightness budget instead goes to
-  --gold, which only ever sits on the dark stage and pairs with dark text,
-  so it can run as hot as the room's actual spotlight would.
+  - The stage: the pub after dark with the sign switched on. Bottle green
+    ground, a warm overhead glow, neon amber for anything that acts, mint for
+    anything that is live or correct, brass rules. Used by the homepage, the
+    host desk and the team portal — the surfaces that end up on a TV or in a
+    hand in front of a room.
+  - The desk: the cream quiz sheet on the bar. Warm paper, dark green-black
+    ink, brass for the action colour (dark enough to carry white button text
+    at AA). Used by the create wizard, the packs list, the editor and the
+    print preview — the surfaces where the host prepares, and where the
+    output is, literally, a sheet of paper.
+
+  Same token names the rest of the app already reaches for (bg-amber,
+  text-stage-fg, bg-gold, …) — only the values changed, so this file is the
+  single place that carries the whole identity. `--gold` is the sign's neon
+  amber; it only ever sits on the dark stage and pairs with dark text, so it
+  runs as hot as the sign would. `--amber` is its desk-side cousin, a brass
+  brown that stays legible on cream and under white text.
 */
 :root {
-  --background: #f7ecd6;
-  --foreground: #221609;
-  --muted: #6b5842;
-  --line: #ddc79c;
-  --amber: #a35a12;
-  --amber-hover: #7a4009;
-  --stage: #121d16;
-  --stage-deep: #0b120d;
-  --stage-fg: #f5efe1;
-  --stage-muted: #9fb6a4;
-  --gold: #f0c04d;
+  /* desk */
+  --background: #fff4dc;
+  --foreground: #14201a;
+  --muted: #5b6b62;
+  --line: #dcc9a1;
+  --amber: #8f5d10;
+  --amber-hover: #6f4709;
+
+  /* stage */
+  --stage: #0f1a14;
+  --stage-deep: #0b130f;
+  --stage-panel: #1a2b22;
+  --stage-fg: #fff4dc;
+  --stage-muted: #9fb3a6;
+  --gold: #ffb02e;
+  --mint: #4cf0b0;
+  --brass: #b8802a;
 
   --radius-xl: 0.65rem;
   --radius-2xl: 0.9rem;
@@ -41,17 +53,17 @@
   --color-amber: var(--amber);
   --color-amber-hover: var(--amber-hover);
   --color-stage: var(--stage);
+  --color-stage-deep: var(--stage-deep);
+  --color-stage-panel: var(--stage-panel);
   --color-stage-fg: var(--stage-fg);
   --color-stage-muted: var(--stage-muted);
   --color-gold: var(--gold);
+  --color-mint: var(--mint);
+  --color-brass: var(--brass);
 
   --font-sans: var(--font-body), Arial, Helvetica, sans-serif;
-  --font-serif: var(--font-display), Georgia, serif;
+  --font-serif: var(--font-display), "Rockwell Extra Bold", Georgia, serif;
   --font-mono: var(--font-mono-plex), ui-monospace, monospace;
-  /* A genuine hand-chalk marker face — used only for short scrawled
-     accents (an eyebrow label, a doodled aside) on the stage, never for
-     body copy or anything that has to be read quickly. */
-  --font-script: var(--font-chalk), cursive;
 }
 
 body {
@@ -60,8 +72,27 @@ body {
   font-family: var(--font-sans);
 }
 
-.chalk-script {
-  font-family: var(--font-script);
+/* The display face (Alfa Slab One) ships in a single weight and no italic.
+   Headings across the app still ask for font-semibold/font-bold out of
+   habit; without this the browser would smear on a faux bold, which turns
+   a slab serif into a blob at small sizes. Unlayered so it outranks the
+   weight utilities. */
+.font-serif {
+  font-synthesis: none;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+/* The sign's glow. Restraint is the whole trick: the wordmark, the hero's
+   one accent word and the join code — never body text, never more than
+   one glowing thing in view at a time. */
+.sign-glow {
+  text-shadow:
+    0 0 18px rgba(255, 176, 46, 0.55),
+    0 0 42px rgba(255, 176, 46, 0.25);
+}
+.sign-glow-box {
+  box-shadow: 0 0 22px rgba(255, 176, 46, 0.4);
 }
 
 /* A short brass double-rule — the one signature mark repeated wherever a
@@ -92,49 +123,48 @@ body {
 /* Paper card: warm white with a faint fiber grain, not a flat swatch. */
 .paper-sheet {
   background:
-    radial-gradient(circle at 1px 1px, rgba(34, 22, 9, 0.055) 1px, transparent 0) 0 0/14px 14px,
+    radial-gradient(circle at 1px 1px, rgba(20, 32, 26, 0.05) 1px, transparent 0) 0 0/14px 14px,
     #fffaf0;
   box-shadow:
-    0 1px 0 rgba(34, 22, 9, 0.08),
-    0 20px 45px rgba(34, 22, 9, 0.12);
+    0 1px 0 rgba(20, 32, 26, 0.08),
+    0 20px 45px rgba(20, 32, 26, 0.12);
 }
 
-/* Chalkboard surfaces: every existing `bg-stage` usage picks this up for
-   free (same Tailwind class, extended here) — a felt-dark ground with a
-   dust grain and a spotlight vignette (a warm glow overhead, fading to
-   --stage-deep at the edges) instead of a flat panel color. This is the
-   one class that carries the "live room" mood everywhere it's used: the
-   homepage hero, the host desk, the team portal. */
+/* Stage surfaces: every existing `bg-stage` usage picks this up for free
+   (same Tailwind class, extended here) — bottle green with a faint dot
+   grid (the pattern in a pub's pressed-tin ceiling) and the sign's warm
+   glow overhead, fading to --stage-deep at the edges. This is the one class
+   that carries the "pub after dark" mood everywhere it's used: the
+   homepage, the host desk, the team portal. */
 .bg-stage {
   background-color: var(--stage);
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(245, 239, 225, 0.045) 1px, transparent 0),
-    radial-gradient(ellipse 75% 50% at 50% -5%, rgba(240, 192, 77, 0.14), transparent 62%),
+    radial-gradient(circle at 1px 1px, rgba(255, 244, 220, 0.055) 1px, transparent 0),
+    radial-gradient(ellipse 70% 45% at 50% -5%, rgba(255, 176, 46, 0.16), transparent 62%),
     linear-gradient(180deg, var(--stage) 0%, var(--stage-deep) 100%);
-  background-size: 16px 16px, 100% 100%, 100% 100%;
+  background-size: 22px 22px, 100% 100%, 100% 100%;
   background-repeat: repeat, no-repeat, no-repeat;
 }
 
-/* Panels/badges/hairlines on the chalkboard were sized as translucent
-   chalk-white overlays (bg-white/5, /10, /15, border-white/10, /15) — kept
-   as the same classes so every dark-mode component still reaches for them,
-   just tuned against the deeper stage above so a panel reads as a raised
-   panel, not a smudge. */
+/* Panels/badges/hairlines on the stage were sized as translucent
+   overlays (bg-white/5, /10, /15, border-white/10, /15) — kept as the same
+   classes so every dark-mode component still reaches for them, just tuned
+   so a panel reads as a raised, brass-edged panel, not a smudge. */
 .bg-white\/5 {
-  background-color: rgba(245, 239, 225, 0.07);
-  border: 1px solid rgba(245, 239, 225, 0.09);
+  background-color: var(--stage-panel);
+  border: 1px solid rgba(184, 128, 42, 0.35);
 }
 .bg-white\/10 {
-  background-color: rgba(245, 239, 225, 0.12);
+  background-color: rgba(255, 244, 220, 0.12);
 }
 .bg-white\/15 {
-  background-color: rgba(245, 239, 225, 0.18);
+  background-color: rgba(255, 244, 220, 0.18);
 }
 .border-white\/10 {
-  border-color: rgba(245, 239, 225, 0.16);
+  border-color: rgba(184, 128, 42, 0.3);
 }
 .border-white\/15 {
-  border-color: rgba(245, 239, 225, 0.22);
+  border-color: rgba(184, 128, 42, 0.45);
 }
 
 /* Quiet reveal for the end-of-quiz moment — the one place a small
@@ -185,8 +215,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1a2820;
-  border: 1px solid rgba(245, 239, 225, 0.12);
+  background: var(--stage-deep);
+  border: 1px solid rgba(184, 128, 42, 0.4);
   border-radius: 0.2rem;
   backface-visibility: hidden;
   font-family: var(--font-mono);

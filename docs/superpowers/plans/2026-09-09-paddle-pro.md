@@ -19,7 +19,7 @@
 - Vendor ids live on `Creator` only.
 - Status to plan: `active`, `trialing`, `past_due` → `PRO`; `canceled`, `paused` → `FREE`.
 - Env names exactly: `NEXT_PUBLIC_PADDLE_ENV`, `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN`, `NEXT_PUBLIC_PADDLE_PRICE_MONTHLY`, `NEXT_PUBLIC_PADDLE_PRICE_ANNUAL`, `PADDLE_API_KEY`, `PADDLE_NOTIFICATION_WEBHOOK_SECRET`, `RESEND_API_KEY`, `MAGIC_LINK_PEPPER`.
-- Prices: `500` cents USD per month, `2500` cents USD per year. Product "Pub Quiz Pro", tax category `saas` (fallback `standard`).
+- Prices: `500` cents USD per month, `2500` cents USD per year. Product "Pub Quiz Pro" in the **sandbox** catalog (created before the rename; left as is), **"Triviafoundry Pro" in the live catalog** — the product name is what a buyer sees at checkout. Tax category `saas` (fallback `standard`).
 - Never print, paste or commit a Paddle key, webhook secret or Resend key. Set them with `vercel env add NAME production --sensitive < file` or in the Vercel UI.
 - Sandbox before live, always. Preview deployments use sandbox values.
 - Tests: TDD, red then green. Unit via `npm run test`, integration via `npm run test:integration` (throwaway `prisma/test.db`, migrations run by `vitest.integration.setup.ts`), e2e via `npm run test:e2e` (dev server on port 4517; do not run while another `next dev` is up in this directory).
@@ -1650,13 +1650,13 @@ git commit -m "Document the Paddle Pro integration and the sandbox verification"
 
 No new code. Every step below is the global pre-"live" checklist applied to this feature.
 
-- [ ] **Step 1: Owner actions in the Paddle live dashboard** — approve the production domain under Checkout > Website approval; set the default payment link to `https://pub-quiz-trivia-night-automation-hu.vercel.app/pricing`; grant write permission to the `paddle-live` MCP connector or create the live product and prices by hand with the same values as Task 9 Step 1.
-- [ ] **Step 2: Live catalog** via `paddle-live` `execute` (same code as Task 9 Step 1) or the owner's dashboard. Record the live `pri_` ids in the handoff.
-- [ ] **Step 3: Live client token** via `execute` `client.clientTokens.create({ name: "pub-quiz production" })`.
+- [ ] **Step 1: Owner actions in the Paddle live dashboard** — approve the production domain `triviafoundry.com` under Checkout > Website approval (the `pub-quiz-trivia-night-automation-hu.vercel.app` alias too, if any live checkout can still start from it); leave the account-wide default payment link as `https://orzarua.app` (it is shared with Or Zarua; checkout branding is account-wide too); grant write permission to the `paddle-live` MCP connector or create the live product and prices by hand with the same values as Task 9 Step 1.
+- [ ] **Step 2: Live catalog** via `paddle-live` `execute` (same code as Task 9 Step 1) or the owner's dashboard, but **name the product "Triviafoundry Pro"**, not the sandbox's "Pub Quiz Pro" — this string is what a buyer sees at checkout. Record the live `pri_` ids in the handoff.
+- [ ] **Step 3: Live client token** via `execute` `client.clientTokens.create({ name: "triviafoundry production" })`.
 - [ ] **Step 4: Production env** — four `NEXT_PUBLIC_PADDLE_*` values as type Config with `vercel env add NAME production --force`; owner adds live `PADDLE_API_KEY` and, after Step 5, `PADDLE_NOTIFICATION_WEBHOOK_SECRET`, both `--sensitive`.
-- [ ] **Step 5: Live notification destination** pointing at `https://pub-quiz-trivia-night-automation-hu.vercel.app/api/paddle/webhook`, same event list as Task 9 Step 4.
+- [ ] **Step 5: Live notification destination** pointing at `https://triviafoundry.com/api/paddle/webhook`, same event list as Task 9 Step 4.
 - [ ] **Step 6: Redeploy** and confirm the build did not throw from `next.config.ts`.
-- [ ] **Step 7: Grep the deployed bundle**: `curl -s https://pub-quiz-trivia-night-automation-hu.vercel.app/pricing | grep -o '_next/static/chunks/app/pricing/[^"]*' | head -1`, fetch that chunk, and grep it for `live_` (client token prefix) and both live `pri_` ids. All three must appear.
+- [ ] **Step 7: Grep the deployed bundle**: `curl -s https://triviafoundry.com/pricing | grep -o '_next/static/chunks/app/pricing/[^"]*' | head -1`, fetch that chunk, and grep it for `live_` (client token prefix) and both live `pri_` ids. All three must appear.
 - [ ] **Step 8: Walk the real path** in the Browser pane on the production domain in a fresh profile: DevTools Console clean, Network filtered to `paddle` shows `200`s; buy monthly with the owner's own card; confirm `plan === "PRO"` by querying the production database (`turso db shell <db> "select plan, subscriptionStatus from Creator where paddleSubscriptionId is not null"`); cancel **immediately** (not at period end) from the Paddle dashboard; confirm `subscription.canceled` arrived (`vercel logs`) and `plan` is `FREE` the same day; refund the transaction in the dashboard.
 - [ ] **Step 9: Update docs** — HANDOFF "Shipped" bullet says live with the timestamps and evidence; README no longer says "coming soon" anywhere (`grep -rn "coming soon" src README.md` returns nothing); roadmap status block updated. Commit.
 
@@ -1913,7 +1913,7 @@ export async function sendRestoreEmail(to: string, link: string): Promise<void> 
   const { error } = await resend.emails.send({
     from,
     to,
-    subject: "Your Pub Quiz Pro sign-in link",
+    subject: "Your Triviafoundry sign-in link",
     text: `Open this link within 15 minutes to restore Pro in this browser:\n\n${link}\n\nIf you did not ask for this, ignore this email.`,
   });
   if (error) throw new Error(`Resend: ${error.message}`);

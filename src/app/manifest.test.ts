@@ -14,14 +14,14 @@ describe("web app manifest", () => {
   const m = manifest();
 
   it("names the app and opens at the root in standalone mode", () => {
-    expect(m.name).toBe("Pub Quiz Hub");
-    expect(m.short_name).toBe("Quiz Hub");
+    expect(m.name).toBe("Triviafoundry");
+    expect(m.short_name).toBe("Triviafoundry");
     expect(m.start_url).toBe("/");
     expect(m.display).toBe("standalone");
   });
 
-  it("uses the paper background and the stage green from the CSS tokens", () => {
-    expect(m.background_color).toBe(cssToken("background"));
+  it("uses the stage green from the CSS tokens for both splash and chrome", () => {
+    expect(m.background_color).toBe(cssToken("stage"));
     expect(m.theme_color).toBe(cssToken("stage"));
   });
 

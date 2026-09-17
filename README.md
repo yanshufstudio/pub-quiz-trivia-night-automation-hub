@@ -1,10 +1,17 @@
-# Pub Quiz / Trivia Night Automation Hub
+# Triviafoundry
 
-Generate a complete pub quiz pack with AI, print presenter scripts and PDF
-question/answer sheets, and run the night live with teams submitting answers
+**Writes your pub quiz or trivia night, then runs it live.** Describe the rounds
+you want and get a complete pack, a presenter script and printed PDF
+question/answer sheets — then run the night live with teams submitting answers
 from their phones.
 
-**Live demo**: https://pub-quiz-trivia-night-automation-hu.vercel.app
+**Live**: https://triviafoundry.com (the original
+`pub-quiz-trivia-night-automation-hu.vercel.app` host stays as an alias).
+
+Repo name predates the product name: the app was "Pub Quiz Hub" until
+2026-09-16, when it became Triviafoundry (pubquizhub.app turned out to be a
+live competitor). The GitHub slug was left alone so existing links and
+Vercel wiring keep working.
 
 ## Screenshots
 
@@ -319,13 +326,34 @@ Paddle at request time. `Creator.plan` is the single gate.
   domain approval and default payment link the overlay only says
   "Something went wrong".
 - **Not yet done:** live cutover (plan Task 10 — production domain
-  approval needs public terms / privacy / refund pages, plus a payout
-  method and live catalog/env) and the email magic-link restore flow
-  (phase 3b). A deploy without the env values shows a visible "not
+  approval, plus a payout method and live catalog/env; the public terms /
+  privacy / refund pages it also required are live, see "Legal pages"
+  below) and the email magic-link restore flow (phase 3b). A deploy without the env values shows a visible "not
   configured" alert on `/pricing` rather than a dead button.
 
 Design: `docs/superpowers/specs/2026-09-09-paddle-pro-design.md`. Plan:
 `docs/superpowers/plans/2026-09-09-paddle-pro.md`.
+
+## Legal pages
+
+`/terms`, `/privacy` and `/refunds` are public server-rendered pages, linked
+from a site-wide footer that the root layout renders on every page except the
+two live-night surfaces (`/play`, `/host/<code>`) and the print sheet
+(`/packs/<id>/print`), which deliberately carry no chrome. They exist because
+Paddle's website review — the gate on going live with real payments — requires
+the production domain to serve terms, a privacy policy and a refund policy, and
+to have them reachable from the site rather than merely present at their URLs.
+That is what `e2e/legal-pages.spec.ts` checks: each page answers 200 with its
+own heading, the footer links reach all three, and the excluded surfaces still
+have no footer.
+
+The content is specific to this app rather than a generic template: the free
+tier's two-packs-per-30-days limit, Pro at $5/month or $25/year, Paddle as
+merchant of record, and the actual list of what the app stores (the
+`pq_creator` cookie, quiz content, live team names and answers, uploaded
+question images) and who processes it (Paddle, Vercel, Turso, Anthropic).
+Revising any of them means bumping `LEGAL_LAST_UPDATED` in
+`src/components/LegalPage.tsx`, which is the single date all three render.
 
 ## Known limitations
 

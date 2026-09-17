@@ -86,7 +86,9 @@ async function main() {
     await waitForServer(BASE_URL, 60_000);
     log("server is up");
 
-    const browser = await chromium.launch();
+    // PW_CHROMIUM_PATH lets a sandbox with a preinstalled Chromium (but no
+    // `playwright install`) point at it; unset, Playwright uses its own.
+    const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM_PATH || undefined });
 
     // Desktop context — landing, wizard, editor, print preview, host dashboard.
     const desktop = await browser.newContext({ viewport: { width: 1440, height: 900 } });
