@@ -460,6 +460,34 @@ above.*
   link to `/pricing`, so this clears when PR #4 merges — which is gated on
   Task 9 above.
 
+- **Checkout branding says "OrZarua", and `/terms` may contradict it.** The
+  Paddle seller account is shared with Or Zarua, so the checkout branding —
+  the name a buyer reads while paying — is account-wide and cannot be renamed
+  for Triviafoundry alone. The 2026-09-16 section already notes the display
+  name as "still to fix before live"; the sharper problem is that it is what
+  the *buyer* sees at the moment of paying, and it may not match what
+  `/terms` says about who is selling. Decide before the live cutover whether
+  "OrZarua" at checkout is acceptable, and reconcile the two. (The *default
+  payment link* half of this correction is already applied — Task 10 Step 1
+  leaves `https://orzarua.app` alone.)
+
+- **`/privacy` needs revising before PR #4 merges.** The page names Paddle
+  and the email address received when a subscription starts, and nothing
+  else. PR #4's schema adds `paddleCustomerId`, `paddleSubscriptionId`,
+  `subscriptionStatus` and `subscriptionUpdatedAt` to `Creator`, plus a
+  `PaddleEvent` webhook table — none of which the policy mentions. Merging
+  PR #4 as it stands makes the *live* privacy policy inaccurate on the day
+  it ships. Checked 2026-09-17 against `origin/claude/paddle-pro-3a`'s
+  `prisma/schema.prisma` and `master`'s `src/app/privacy/page.tsx`. A draft
+  exists off-repo; it was never committed.
+
+- **One sandbox-origin creator row sits in the production Turso DB**:
+  `cmu2qdlry000004kwpuii81g5`, carrying real *sandbox* Paddle identifiers
+  (`sub_01m2kac7e3nxnmnz959dypqrbd`, `txn_01m2kaa12cck2hn8brerkjst8k`) from
+  the 2026-09-15 refund/cancel walk. It reads FREE, so it is functionally
+  inert, but production data and sandbox billing ids are now mixed in one
+  table. Decide (delete, or leave and document) before the live cutover.
+
 - **`npm audit`** — still 3 high, all one dev-only chain:
   `prisma@6.19.3` → `@prisma/config@6.19.3` → `deepmerge-ts@7.1.5`
   (GHSA-ggr8-5vv4-36mx, fixed in `deepmerge-ts@8`). The only fix npm offers
@@ -634,6 +662,34 @@ cookie per 30 days). They are different things; don't conflate them.
 
 ## Gotchas
 
+New in the 2026-09-15 and 2026-09-17 sessions:
+
+- **`prisma generate` runs only in `build`, never on install.**
+  `package.json` has `"build": "prisma generate && prisma migrate deploy &&
+  next build"` and **no `postinstall`**. The generated client lives in
+  `node_modules`, so it is shared across branch switches and goes stale the
+  moment the schema differs: a fresh checkout, or a move onto
+  `claude/paddle-pro-3a`, gives tsc errors like `Property 'paddleEvent' does
+  not exist` and a wave of bogus integration failures until you run
+  `npx prisma generate`. Not a branch defect. Re-run it after every move
+  between `master` and `paddle-pro-3a`.
+- **`.next` route types survive a branch switch too.** After moving between
+  branches, tsc fails on route types belonging to the *other* branch.
+  `rm -rf .next` before `npx next typegen`.
+- **`next lint` does not exist in Next 16** — it reads the argument as a
+  path and tries to lint a directory called `lint`. Use `npm run lint`
+  (plain `eslint`). The 2026-09-17 session also reports it pinned dependency
+  versions as a side effect; that left no trace in the repo and was not
+  reproduced here, so treat it as a reason to check `git status` after
+  running it rather than as established fact.
+- **The print page hangs Playwright if you emulate print media before
+  clicking a tab.** `/packs/<id>/print` renders ONE `.paper-sheet` whose
+  contents depend on a tab defaulting to `"script"`; the tab buttons are
+  labelled "Presenter script", "Answer sheet" and "Question sheet", and they
+  live inside `.print-chrome`, which `@media print` sets to
+  `display: none !important`. With print media emulated every click waits
+  forever on actionability. **Click first, emulate print afterwards.**
+
 New in the second 2026-09-13 session:
 
 - **Anything that asserts "`fetch` was never called" during a react-pdf
@@ -670,6 +726,11 @@ Still new from the first 2026-09-13 session:
 - **`cmd > log 2>&1; echo $?` in a backgrounded shell reports the wrapper's
   exit code, not the command's.** This caused a false "e2e baseline passed"
   in this session when all 6 were failing. Read the log, not the exit code.
+  **Piping to `tail` is the same trap**, and has now cost time twice:
+  `cmd | tail -n 20 && echo CLEAN` tests `tail`'s exit code, so on
+  2026-09-15 it printed CLEAN directly under 8 real tsc errors, and on
+  2026-09-17 it swallowed a `next lint` failure so the `|| npm run lint`
+  fallback never fired. Read the errors, not the banner.
 - **`e2e/tie-ending.spec.ts` ran in 5.8s** here (whole suite 38-54s). The
   2026-09-09 handoff lists it as exceeding the 30s timeout on every run —
   that was specific to that machine, not the repo. Don't go hunting for it.
@@ -789,6 +850,37 @@ would have waved the broken palette through.
 Gate: tsc clean, eslint 0 errors, `next build` clean, **unit 157, integration
 145, e2e 11/11**. Icons, share card and README screenshots regenerated from
 their own scripts.
+
+### The `claude/zen-feynman-xtoljd` fold — closed
+
+That branch was one commit (`7e1547f`, HANDOFF.md only, cut from `6ea006f`)
+carrying an earlier 2026-09-15 fold that never reached `master`. Every item
+on it has now been checked against this file and against the tree; the live
+ones are in Open items and Gotchas above, and the branch carries nothing
+else, so **it can be deleted**.
+
+Dropped as superseded:
+
+- Its rewrite of the "State correction" block, which pinned `master` at
+  `6ea006f` and PR #4 at `c2f0dfc`. Both moved the same day; the 2026-09-17
+  section above is the current record.
+- Task 10 Step 1 correction (1), the account-wide default payment link —
+  already applied to the plan, see the 2026-09-16 section.
+- The `next.config.ts` `VERCEL_ENV === "production"` gotcha — already on
+  record above, as the reason PR #4's green CI is *not* evidence that its
+  production build will succeed.
+
+Kept, because nothing else on `master` or PR #8 recorded them: the
+`/privacy` revision, the sandbox creator row and the checkout-branding
+conflict (Open items); the `prisma generate`, `.next` route-types and
+print-page/Playwright gotchas (Gotchas). Each was re-verified against the
+tree rather than transcribed — `package.json` has no `postinstall`;
+`paddle-pro-3a`'s `Creator` really does gain four Paddle columns plus a
+`PaddleEvent` table that `/privacy` never mentions; `.print-chrome` really
+is `display: none` under `@media print` with the tab buttons inside it. The
+one exception is the `next lint` bullet, which this sandbox could not
+re-check because `node_modules` is not installed here; it stays on the
+2026-09-17 session's authority and says so.
 
 ## What landed in the 2026-09-16 session — rename and redesign
 
