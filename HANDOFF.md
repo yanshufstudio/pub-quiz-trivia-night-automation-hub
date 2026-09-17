@@ -14,14 +14,34 @@ the full record of the 2026-09-07→09 work.
 
 ## Where things stand
 
-> **State correction, 2026-09-15.** The paragraph below is the 2026-09-13
-> picture and is kept as the record of that day. Current state: PR #3 merged
-> as `5982f76`; `master` is **`80ca6fd`** and that is what production runs;
-> **PR #4** (`claude/paddle-pro-3a`, head `d16a99f`, 9 commits, CI green,
-> `mergeable_state: clean`) is open and marked **DO NOT MERGE YET** — Task 9
-> of `docs/superpowers/plans/2026-09-09-paddle-pro.md` has not been run, so
-> nothing about Pro is verified against Paddle itself.
-> https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/4
+> **State correction, 2026-09-17 (second session, end of day).** Everything
+> below this box is the 2026-09-13 picture, kept as the record of that day.
+> **Read this box instead.**
+>
+> `master` is **`27e73b3`** and production deploys it, so **TriviaFoundry,
+> the lifted stage palette and the 2026-09-17 QA hardening are all live**.
+> PRs #3, #5, #6, #7, #8, #9 and #10 are merged.
+>
+> **Open, in the order they matter:**
+>
+> - **`claude/vibrant-mccarthy-nsbvf0`** (`0cdd7b1`) — this session's work:
+>   the host desk rescaled for TV viewing distance, the narrow-viewport
+>   regression spec, and the handoff. Merged up to `27e73b3`, gate green,
+>   **no PR opened** because none was asked for.
+> - **PR #11** (`claude/zealous-ritchie-filqif`) — the QA session's follow-up,
+>   brand-casing in stale doc headings. Not this session's.
+> - **PR #4** (`claude/paddle-pro-3a`, `cd9f552`) — still **DO NOT MERGE**,
+>   and now on **two** gates, not one: the live `NEXT_PUBLIC_PADDLE_*` values
+>   (`next.config.ts` fails a production build without them, and CI cannot
+>   catch it because the guard only fires when `VERCEL_ENV` is production),
+>   **and** `/privacy`, which says nothing about the four Paddle columns and
+>   the `PaddleEvent` table that PR #4 adds. Merging as it stands makes the
+>   live privacy policy inaccurate on day one. Owner's call either way.
+>   https://github.com/yanshufstudio/pub-quiz-trivia-night-automation-hub/pull/4
+>
+> **The oldest unpaid debt is unchanged**: the generation fixes have never
+> been checked against the real model on production. Three-step gate in Open
+> items. Needs a browser; a sandbox cannot do it.
 
 `master` is at `d1b613d` and that is what production runs. **PR #3 is open and
 unmerged**, and everything below lives on it.
@@ -825,6 +845,136 @@ Still true from before:
   before firing the request you want to see fail.
 - **Vitest excludes `**/.claude/**`** so worktree spec files don't leak in.
 
+## What landed in the second 2026-09-17 session — TriviaFoundry, a live phone bug, and the TV
+
+Branch `claude/vibrant-mccarthy-nsbvf0`, head **`0cdd7b1`**, merged up to
+`origin/master` `27e73b3` and mergeable. Six commits plus a merge. **No PR
+opened** — the owner has not asked for one.
+
+**`master` moved three times during this session.** PRs #8, #9 and #10 all
+merged while the work was in flight; `master` is now **`27e73b3`** and
+production deploys it, so **TriviaFoundry and the lifted palette are live**.
+Anything below that reads as "not merged" means not merged *as of this
+branch's head*.
+
+### The wordmark is TriviaFoundry — merged with PR #9
+
+The owner asked for a medial capital when the redesign landed; PR #9's first
+commit answered it with colour instead. Asked again here, and the answer was
+**both**, because they are not competing fixes: the capital is structural and
+lives in the string, so it is the only one that reaches the tab title, the
+PWA install prompt, `manifest.short_name`, a Paddle receipt and one-colour
+reproduction; the two-tone is atmospheric and is why the mark reads as a sign
+that is switched on. Full reasoning is in `Wordmark.tsx`'s doc comment.
+
+Two arguments the two-tone commit gave for dropping the capital were wrong
+and are recorded so nobody re-runs them: the F is five characters from the T
+rather than adjacent, and a lowercase domain under a camel-cased mark is the
+oldest convention on the web. 29 strings moved; the domain stays lowercase.
+**`scripts/render-icons.ts` draws only the coaster mark**, so no brand-name
+change can ever touch the icon set — the earlier claim that it could was
+wrong and is corrected above.
+
+### A horizontal-scroll bug that was live in production
+
+Found by the owner asking whether the wordmark had been checked across sizes.
+It had not. Measured on `origin/master` `efb982c`, which production was
+serving: **85px of horizontal scroll at 320, 45 at 360, 15 at 390** — 390 is
+a standard iPhone — and clean at 430. At 320 the nav was pushed off the right
+edge and only "Create" survived.
+
+The capital F added exactly **5px** of that, matching the measured glyph
+delta to the pixel. **~94% of the bug was already shipped.**
+
+Fixed with `flex-wrap` on the two header rows. A smaller wordmark cannot fix
+it: 280px of usable width has to hold a ~201px sign and a ~217px nav.
+
+**Only that row was ever affected.** `/play`, `/host/<code>` and the team
+join screen — the one player surface carrying the brand — measured zero
+overflow at 320, 360, 390, 1024 and 2560.
+
+**PR #10 independently wrote the same fix**, differing by one character
+(`gap-y-1` vs `gap-y-2`). See "Two sessions, one fix" below.
+
+### `e2e/narrow-viewport.spec.ts` — the blind spot that let it ship
+
+Nothing in the suite used a viewport narrower than a desktop. That is why a
+green gate said nothing, and it is the same blind spot that hid the
+print-preview bug. The spec asserts zero horizontal scroll at 320/360/390/430
+across `/`, `/create`, `/terms`, `/privacy`, `/refunds`, and **was verified to
+fail before the fix** — 15 red at the three narrow widths, the 5 at 430 green.
+It carries a control that injects an over-wide element and asserts the check
+does fire, so it cannot pass vacuously against a page that never rendered.
+
+### The host desk, for TV viewing distance
+
+The desk is the only surface in this product with its own viewing distance —
+it goes on a TV or a projector and is read from about four metres — and it was
+laid out like an ordinary desktop page. At 2560x1440 everything sat in the top
+quarter of the screen inside a 1152px column with the question at roughly 30px.
+
+- Question type is **fluid, not stepped**, because a pub screen is any size:
+  `clamp(1.5rem, 1rem + 2.6vw, 5.25rem)` — ~26px on a phone (unchanged),
+  ~49px at 1280, **~83px at 2560**.
+- Question column takes **2fr inside 110rem** and the grid centres in the
+  height it has. The first attempt kept `max-w-6xl`/1.4fr and the question
+  still wrapped to three lines with half the screen empty.
+- Team code ~57px; the **lobby QR goes 168px → 22rem**, since it is scanned
+  from tables across the room, not from the host's chair.
+
+**Gated at `xl` (1280px), not `2xl`, on purpose.** `2xl` starts at 1536px and
+would miss **1366x768**, which is what most projectors pointed at a pub wall
+report.
+
+**Two mistakes worth knowing about**, both caught by looking again rather than
+by any test:
+
+- The widening left the header at `96rem`/`px-8` against the main's
+  `110rem`/`px-12` — a crooked left edge on exactly the screen the work was
+  for. The merge surfaced it.
+- **The first fix for that was also wrong.** Matching the two max-widths and
+  paddings *by value* is not enough: the header set its padding on the
+  `<header>` element, outside the max-width box, while `<main>` sets both on
+  one element. Same numbers, different box model, still 48px apart at 2560.
+  Fixed by mirroring `<main>`'s box model, and **measured** —
+  `getBoundingClientRect().left` on both, delta 0 at 2560/1920/1366/1024/390.
+
+### Two sessions, one fix
+
+A second session (`claude/qa-hardening`, PR #10, now merged) was hardening the
+app at the same time and **independently wrote the identical `SiteHeader`
+fix**. Neither session knew the other existed until this one went looking.
+
+`SendMessage` **cannot reach a cloud session from a sandbox** — `ListAgents`
+reports no peers. The channel that works is **a comment on a PR the other
+session is subscribed to**. Two were posted on PR #10: one claiming
+`HostDashboard.tsx` before touching it, one releasing it.
+
+The merge resolved the way this session proposed publicly beforehand:
+master's `SiteHeader` taken wholesale, and `HostDashboard.tsx` kept from this
+branch because it is a strict superset of PR #10's four edits to that file.
+
+**When more than one session is running on this repo, say so at the start of
+each and name the files each one owns.** Two agents shipping the same diff is
+cheap to prevent and annoying to unpick.
+
+### Gate
+
+On the merged tree: `prisma generate`, tsc clean, eslint 0 errors (the
+pre-existing `alt` warning in `documents.tsx`), `next build` clean,
+**unit 169, integration 153, e2e 32/32** (11 original + 21 narrow-viewport).
+Unit and integration are up on this branch's own numbers because PR #10's
+suites arrived with the merge.
+
+### Not done
+
+- **`/privacy` still needs its Paddle paragraphs** before PR #4 merges — see
+  Open items. Unchanged by this session.
+- **Nothing here has been seen on a deployment.** The desk was rendered
+  locally at six widths; the sandbox cannot reach `*.vercel.app`.
+- The `claude/zen-feynman-xtoljd` branch is still there, to delete once this
+  branch is on `master` (its content is folded in above).
+
 ## What landed in the 2026-09-17 session — rename merged, PR #4 rebased
 
 **PR #7 merged as `efb982c`.** `master` now carries the Triviafoundry rename
@@ -1126,30 +1276,54 @@ and does not exist on `master`:
 
 ## Next
 
-*Trued up 2026-09-15. The previous list still said "verify PR #3 on a
-preview" and "build media phases 2-4"; both are done and merged.*
+*Trued up 2026-09-17, second session. The previous list led with "merge the
+rename PR" and "verify the print page-break fix"; the rename merged as PR #7
+and the whole 0-4 list below it has been rewritten against `master`
+`27e73b3`.*
 
-0. **Merge the Triviafoundry rename + redesign PR** (`claude/triviafoundry`)
-   before anything else touches `layout.tsx` — see the 2026-09-16 section
-   for the merge order against PR #4. Then re-verify triviafoundry.com in a
-   browser: wordmark, favicon, manifest `short_name`, legal pages.
-1. ~~Paddle Task 9~~ — **passed 2026-09-15**, off-sandbox. See Open items.
-2. **Verify the generation fixes against the real model on production** —
-   the three-step gate and its cautions are in Open items. Independent of
-   the Paddle work; whoever has a browser can do it. Still the oldest
-   unpaid debt here.
-3. **Verify the print page-break fix**, which as of this merge exists only
-   in the owner's working tree — no branch on `origin` carries it, so it is
-   neither deployed nor verifiable from a sandbox. Commit it first.
-4. **Task 10, the live Paddle cutover** (owner-gated). Its Website-approval
-   prerequisite — public terms/privacy/refund pages — is satisfied as of
-   PR #6. Then phase 3b (Tasks 11-12, the restore-token library and routes).
+1. **Verify the generation fixes against the real model on production** —
+   still the oldest unpaid debt, and still the thing that has been closed
+   twice on a green suite and reopened twice. The three-step gate and its
+   cautions (free-cap 403 vs limiter 429, fresh incognito per 2 generations,
+   never set `FREE_PACK_LIMIT` on production, clean up the packs you create)
+   are in Open items. Needs a browser; independent of everything else here.
 
-Still unanswered, asked more than once, and needed for **Task 10 only** (the
-sandbox work in Task 9 does not depend on either): reuse the HebCal Paddle
-seller account or open a separate one? The other long-standing question —
-monthly, annual, or both at launch — was answered by building both: PR #4
-ships monthly $5 and annual $25.
+2. **Look at `triviafoundry.com` on a phone and a TV.** Three things landed
+   today that have only ever been seen locally: the TriviaFoundry wordmark
+   and lifted palette (live now, via PRs #9 and #10), the header wrap fix
+   (live via PR #10), and the host desk rescale (**not** live — it is on
+   `claude/vibrant-mccarthy-nsbvf0`). A real phone at 390px and a real TV or
+   projector are the two checks a sandbox cannot make.
+
+3. **Decide what to do with `claude/vibrant-mccarthy-nsbvf0`.** It is merged
+   up to `master`, gate green, and carries the desk rescale plus the
+   narrow-viewport spec. It needs either a PR or a direct merge — say which.
+
+4. **Give `/privacy` its Paddle paragraphs** before PR #4 merges. This is now
+   a gate on PR #4 in its own right, not a nicety. A draft exists off-repo and
+   was never committed.
+
+5. **Task 10, the live Paddle cutover** (owner-gated). Website-approval
+   prerequisite satisfied since PR #6. Before it: rename the live catalog to
+   **"TriviaFoundry Pro"** in the plan (it still says "Triviafoundry Pro" on
+   `claude/paddle-pro-3a`, and the product name is what a buyer reads at
+   checkout), settle the account-wide "OrZarua" checkout branding against
+   what `/terms` says, and resolve the sandbox-origin creator row sitting in
+   the production Turso DB. All three are in Open items. Then phase 3b
+   (Tasks 11-12, the restore-token library and routes).
+
+6. **Verify the print page-break fix** — still only in the owner's working
+   tree, so still neither deployed nor verifiable from a sandbox. Commit it
+   first. Unchanged from the last three handoffs.
+
+7. **Delete `claude/zen-feynman-xtoljd`** once this branch is on `master`.
+   Its live content is folded into Open items and Gotchas; it carries nothing
+   else.
+
+Still unanswered, asked more than once, and needed for **Task 10 only**:
+reuse the HebCal Paddle seller account or open a separate one? The other
+long-standing question — monthly, annual, or both at launch — was answered by
+building both: PR #4 ships monthly $5 and annual $25.
 
 **PR #5 and PR #6 were merged to `master` on the owner's explicit
 instruction, 2026-09-15** — the standing "nothing gets merged or approved"
