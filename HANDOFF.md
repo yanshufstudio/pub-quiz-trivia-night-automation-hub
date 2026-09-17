@@ -699,6 +699,97 @@ Still true from before:
   before firing the request you want to see fail.
 - **Vitest excludes `**/.claude/**`** so worktree spec files don't leak in.
 
+## What landed in the 2026-09-17 session — rename merged, PR #4 rebased
+
+**PR #7 merged as `efb982c`.** `master` now carries the Triviafoundry rename
+and the "Lit pub sign" redesign, and production is deployed from it. Checked
+on the preview before merging, then again on the real domain after: `/` 200
+with the new title, `og:image` and `og:image:alt` both present, `/og.png` 200
+`image/png`, manifest `short_name` "Triviafoundry", and `/terms`, `/privacy`,
+`/refunds` all 200.
+
+`https://triviafoundry.com/og.png` **404'd before the merge and serves the
+card after it** — the image only ever existed on the branch, so the domain
+was fine all along. That was the one thing worth checking, because the share
+card URL is absolute (`metadataBase`) and points at the real domain rather
+than at whatever host is serving. Re-scrape LinkedIn Post Inspector before
+posting a link anywhere.
+
+**PR #4 brought up to date, still not merged** (`cd9f552` on
+`claude/paddle-pro-3a`). `master` merged in; conflicts were in `HANDOFF.md`
+and `README.md` only — `layout.tsx` and the Paddle plan auto-merged, which
+the 2026-09-16 note had expected to clash. Master's rename-era wording won
+where the two sides disagreed; both sides were kept where they were
+complementary, so the branch now carries its own Task 9 record and Refund
+procedure alongside master's EXIF/GPS verification, and the README has both
+"Pro subscriptions (Paddle)" and "Legal pages".
+
+Also on that branch: the **live** Paddle catalog is now named
+**"Triviafoundry Pro"** in Task 10 Step 2, the live client token is
+"triviafoundry production", and the phase 3b magic-link email subject drops
+the old product name. The product name is what a buyer reads at checkout, and
+following the plan verbatim would have created a live product called "Pub Quiz
+Pro". The **sandbox** catalog keeps its old name on purpose. The pricing and
+create pages needed no copy change — neither carried the old product name.
+
+Gate re-run on the merged branch, in the sandbox: tsc clean, eslint 0 errors
+(the one pre-existing `alt` warning in `documents.tsx`), `next build` clean,
+**unit 168, integration 169, e2e 14/14**.
+
+**PR #4 remains owner-gated and must not be merged** until the live
+`NEXT_PUBLIC_PADDLE_*` values exist: `next.config.ts` fails a production build
+without them, and CI cannot catch that because the guard only fires when
+`VERCEL_ENV === "production"`.
+
+Two gotchas re-confirmed the hard way, both already on record below and both
+worth believing: `next lint` does not exist in Next 16 (it tries to lint a
+directory called `lint`), and piping it to `tail` swallowed the failure so a
+`|| npm run lint` fallback never fired. And Playwright still wants Chromium
+1234 where the sandbox has 1194 — all 14 specs "fail" identically until you
+point `launchOptions.executablePath` at
+`/opt/pw-browsers/chromium-1194/chrome-linux/chrome` from a throwaway config.
+
+### Palette lift and the two-tone wordmark — PR #9
+
+Owner's reaction to the new theme: "really really dark", and the name should
+be camel-cased "TriviaFoundry". The first was right, the second was answered
+a different way. Branch `claude/stage-lift`, PR #9, **open, not merged**.
+
+The stage greens sat at roughly L\* 5 / 8 / 16 (deep, stage, panel), which was
+wrong twice over. Hue stops being perceptible below about L\* 15, so a
+42%-saturated bottle green at L\* 8 renders as plain black — the colour was
+specified and never seen. And the ladder spanned only 11 points, so panels
+barely lifted off the ground and the stage read as one flat slab. The gradient
+in `.bg-stage` made it worse by fading the bottom of every stage page down to
+the darkest of the three. Now roughly **L\* 10 / 16 / 25**, same hues.
+
+**Contrast was never the problem and is not the fix.** Every stage foreground
+cleared AA at the old values and still does, now 5.0-15.7:1. Darkness here is
+a stylistic choice, never an accessibility one, and there is headroom to go
+lighter still if it wants it.
+
+The wordmark is **two-tone** — cream "Trivia", neon amber "foundry" — rather
+than camel-cased. The complaint behind wanting a medial capital is real:
+fourteen characters under one capital and the seam vanishes. But Alfa Slab One
+is a very heavy slab, so a capital F mid-word plants a second thick vertical
+with two horizontal arms right against the T; and the share card sets the
+wordmark directly above `triviafoundry.com`, so a second casing would read as
+two different names. Colour separates the compound just as well, keeps one
+spelling everywhere, and needs no metadata change or LinkedIn re-scrape. The
+card follows suit. **If the owner still wants CamelCase it is cheap** — the
+spelling lives in `Wordmark.tsx` plus the metadata strings, and the card and
+icons rebuild from their scripts.
+
+`src/app/stage-palette.test.ts` guards the thing that actually broke: the
+perceptual floor and the gaps between the three surfaces, **not** contrast.
+Verified to fail on the old values before being committed — two assertions go
+red while the AA assertion stays green, which is exactly why a contrast check
+would have waved the broken palette through.
+
+Gate: tsc clean, eslint 0 errors, `next build` clean, **unit 157, integration
+145, e2e 11/11**. Icons, share card and README screenshots regenerated from
+their own scripts.
+
 ## What landed in the 2026-09-16 session — rename and redesign
 
 Branch `claude/triviafoundry`, cut from `master` `6ea006f`. One PR, two
