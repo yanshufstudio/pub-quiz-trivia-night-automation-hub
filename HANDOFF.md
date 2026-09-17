@@ -829,17 +829,10 @@ cleared AA at the old values and still does, now 5.0-15.7:1. Darkness here is
 a stylistic choice, never an accessibility one, and there is headroom to go
 lighter still if it wants it.
 
-The wordmark is **two-tone** — cream "Trivia", neon amber "foundry" — rather
-than camel-cased. The complaint behind wanting a medial capital is real:
-fourteen characters under one capital and the seam vanishes. But Alfa Slab One
-is a very heavy slab, so a capital F mid-word plants a second thick vertical
-with two horizontal arms right against the T; and the share card sets the
-wordmark directly above `triviafoundry.com`, so a second casing would read as
-two different names. Colour separates the compound just as well, keeps one
-spelling everywhere, and needs no metadata change or LinkedIn re-scrape. The
-card follows suit. **If the owner still wants CamelCase it is cheap** — the
-spelling lives in `Wordmark.tsx` plus the metadata strings, and the card and
-icons rebuild from their scripts.
+The wordmark was first shipped **two-tone but not camel-cased** — cream
+"Trivia", neon amber "foundry". That is **superseded**; see "The wordmark is
+now TriviaFoundry" below. The original reasoning is kept here as the record
+of the decision, and two of its arguments turned out not to hold.
 
 `src/app/stage-palette.test.ts` guards the thing that actually broke: the
 perceptual floor and the gaps between the three surfaces, **not** contrast.
@@ -848,8 +841,72 @@ red while the AA assertion stays green, which is exactly why a contrast check
 would have waved the broken palette through.
 
 Gate: tsc clean, eslint 0 errors, `next build` clean, **unit 157, integration
-145, e2e 11/11**. Icons, share card and README screenshots regenerated from
-their own scripts.
+145, e2e 11/11**. Share card and README screenshots regenerated from their
+own scripts. (This entry originally said the icons were regenerated too.
+They were, but needlessly: `scripts/render-icons.ts` draws only the coaster
+mark and never the wordmark, so **no brand-name change can affect the icon
+set**. The same correction applies to the "cheap to change" note that used
+to be in the paragraph above.)
+
+### The wordmark is now TriviaFoundry — `45df975` on `claude/stage-lift`
+
+Decided by the owner on 2026-09-17, after the two-tone landed. **The capital
+is back and the colour stays**: cream "Trivia", neon amber "Foundry". Same
+branch, same PR #9 — a second commit on top of `2709f95`, no history
+rewritten.
+
+The reason they are not competing answers: they fail in different places.
+The **medial capital is structural** — it lives in the string, so it is the
+only one that reaches what we do not render (the tab title, the PWA install
+prompt, `manifest.short_name`, the app switcher, a Paddle receipt, someone
+typing the name into a group chat), and the only one that survives
+one-colour reproduction. The **two-tone is atmospheric** — it is why the
+mark reads as a sign that is switched on rather than a logo that happens to
+be orange. Alfa Slab One has a large x-height and short ascenders, so the
+capital separates less forcefully here than it would in a text face, which
+means the colour is carrying real weight at header sizes rather than
+decorating. Keep both; drop either and the seam returns somewhere.
+
+**Both arguments the two-tone commit gave for dropping the capital were
+wrong**, and are worth recording so they are not re-run:
+
+- *"A capital F mid-word plants a second thick vertical right against the
+  T."* The F is five characters from the T (`T-r-i-v-i-a-F`). They are not
+  adjacent and do not collide.
+- *"A second casing above `triviafoundry.com` would read as two different
+  names."* A lowercase domain under a camel-cased mark is the oldest
+  convention on the web — YouTube/youtube.com, GitHub/github.com — and the
+  medial capital exists *because* domains flatten compound names. The
+  domain is unchanged and stays lowercase everywhere.
+
+29 strings moved: `Wordmark.tsx` (markup, `aria-label` and the doc comment,
+which now carries this reasoning), `SiteFooter.tsx`, `layout.tsx` metadata,
+`manifest.ts`, `globals.css`'s header comment, `page.tsx`, the three legal
+pages, `README.md`, `manifest.test.ts` and `e2e/pwa.spec.ts`. The footer's
+brand credit also picked up the two-tone treatment, which it should have had
+from the start instead of flat gold.
+
+Gate re-run in full on the merged result: `prisma generate`, tsc clean,
+eslint 0 errors (the one pre-existing `alt` warning), `next build` clean,
+**unit 157, integration 145, e2e 11/11** — every number matching `2709f95`'s
+baseline. Verified out of the build output rather than by eye: `<title>`,
+`og:site_name`, `og:title`, `application-name`, `apple-mobile-web-app-title`
+and the manifest `name`/`short_name` all read "TriviaFoundry", `og:image` is
+still absolute on the lowercase domain, and the footer renders
+`TriviaFoundry · by Yanshuf Studio` with the spacing intact. `public/og.png`
+and the README screenshots were regenerated; `04-print-preview.png` did not
+change, correctly, because the print sheet carries no header or footer.
+
+**Still needs a human with a browser**, unchanged from the two-tone entry:
+whether the lifted darkness is right is a judgement call, not a test result.
+Re-scrape LinkedIn Post Inspector after this deploys — the card bytes
+changed, though `metadataBase` and the URL did not.
+
+**One thing this does not reach.** `docs/superpowers/plans/2026-09-09-paddle-pro.md`
+on `claude/paddle-pro-3a` names the live Paddle catalog **"Triviafoundry
+Pro"**. That branch was not touched here. It needs to become "TriviaFoundry
+Pro" before Task 10 creates the live product, because the product name is
+what a buyer reads at checkout.
 
 ### The `claude/zen-feynman-xtoljd` fold — closed
 
