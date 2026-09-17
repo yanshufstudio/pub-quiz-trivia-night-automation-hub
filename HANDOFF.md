@@ -398,7 +398,10 @@ call it fixed without a browser on a real deployment.**
 
 ## Open items
 
-*Trued up 2026-09-15 against `master` `80ca6fd` and PR #4 `d16a99f`. The
+*Trued up 2026-09-15 against `master` `80ca6fd` and PR #4 `d16a99f`; the
+SHAs have moved since (`master` is `bed9e39`, PR #4's head is `cd9f552`) but
+the entries below were re-checked 2026-09-17 and all still hold except the
+print one, which is corrected in Next item 3. The
 PR #3-era entries that used to be here (test the preview not production;
 previews are building again; media phases 2-4 are local-only) are gone
 because PR #3 merged as `5982f76` — the history is in the session sections
@@ -960,23 +963,93 @@ and does not exist on `master`:
   "Pro subscriptions (Paddle)", which arrives with PR #4. Worth merging the two
   when it lands.
 
+## What landed in the 2026-09-17 second session — the print page's page breaks
+
+Started from a clean tree at `master` `bed9e39` with nothing in flight, so
+this began as a state check and turned into one bug.
+
+**Full gate re-run on `master` in a fresh container, green**: tsc clean,
+eslint 0 errors (the one pre-existing `alt` warning in `documents.tsx`),
+`next build` clean, **unit 169, integration 153, e2e 32/32**. Worth recording
+because no session had run the whole suite on `master` itself since the
+PR #8-#14 merges — every previous gate was run on a branch.
+
+**Push access re-confirmed** for this session with
+`git push --dry-run -u origin <branch>` (exit 0, `* [new branch]`), as the
+push note above asks every session to do.
+
+**The bug.** `src/app/packs/[id]/print/PrintPreview.tsx` put
+`break-inside-avoid` on the round `<section>` in all three layouts — the exact
+policy `a763086` removed from the PDF documents on 2026-09-10, for the exact
+reason given in that commit: a ten-question round is taller than a sheet, and
+a block that cannot fit on any page is one the renderer breaks wherever it
+lands, mid-question included. The PDF side was fixed and tested; the browser
+print page, which prints the same pack, was never looked at. Two surfaces, one
+policy, written two different ways — so the fix to one could not carry to the
+other, and a green suite had nothing to say about it.
+
+Rounds now flow; the question `<li>` and the answer-table `<tr>` carry
+`break-inside-avoid`; `break-after-avoid` on the round heading and its
+category is the CSS counterpart of the PDF's `minPresenceAhead`.
+
+`e2e/print-page-breaks.spec.ts` imports a four-round, ten-question pack
+through `POST /api/packs/import` — the demo pack every other spec seeds is
+2x5 and fits on a page, which is why nothing caught this — and reads the
+policy back off computed styles under `emulateMedia({ media: "print" })`.
+There is no browser equivalent of the react-pdf overflow warning that
+`pdf-layout.integration.test.ts` counts, so the spec asserts the rule that was
+wrong rather than a symptom: round breakable, question not. **All four
+assertions were confirmed red against the old layout before the commit**, and
+a fourth test re-applies the old policy to a round to prove the check can
+still see it — the same false-green guard `narrow-viewport.spec.ts` carries.
+
+Gate on the branch: tsc clean, eslint 0 errors, `next build` clean, **unit
+169, integration 153, e2e 36/36**.
+
+**Not verified in a browser**, and it cannot be from a sandbox: nobody has
+watched this page actually print. The spec pins the policy, not the
+pagination. See Next item 3.
+
+**Playwright/Chromium gotcha, re-confirmed**: the sandbox has Chromium 1194
+where Playwright wants 1234, so all specs fail identically until
+`launchOptions.executablePath` points at
+`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`. A throwaway config that
+spreads `playwright.config.ts` and overrides just that one field works; delete
+it before committing so it does not land in the repo.
+
+**`tsc` needs a build first in a fresh container.** On a clean clone
+`npx tsc --noEmit` fails with `src/app/layout.tsx(78,50): error TS2304: Cannot
+find name 'LayoutProps'` — `LayoutProps` is a Next-generated global that lives
+in `.next/types`, which does not exist until `next build` has run once. It is
+not a real error and there is nothing to fix; run the build first.
+
 ## Next
 
-*Trued up 2026-09-15. The previous list still said "verify PR #3 on a
-preview" and "build media phases 2-4"; both are done and merged.*
+*Trued up 2026-09-17 (second session) against `master` `bed9e39`. Items 0 and
+3 below were stale and are corrected in place — see the strikethroughs. The
+previous true-up was 2026-09-15.*
 
-0. **Merge the Triviafoundry rename + redesign PR** (`claude/triviafoundry`)
-   before anything else touches `layout.tsx` — see the 2026-09-16 section
-   for the merge order against PR #4. Then re-verify triviafoundry.com in a
-   browser: wordmark, favicon, manifest `short_name`, legal pages.
+0. ~~Merge the Triviafoundry rename + redesign PR~~ — **done**: PR #7 merged
+   as `efb982c`, and the browser re-verification (wordmark, favicon, manifest
+   `short_name`, legal pages, `/og.png`) is recorded in the 2026-09-17
+   section. `master` has since taken PRs #8-#14 on top.
 1. ~~Paddle Task 9~~ — **passed 2026-09-15**, off-sandbox. See Open items.
 2. **Verify the generation fixes against the real model on production** —
    the three-step gate and its cautions are in Open items. Independent of
    the Paddle work; whoever has a browser can do it. Still the oldest
    unpaid debt here.
-3. **Verify the print page-break fix**, which as of this merge exists only
-   in the owner's working tree — no branch on `origin` carries it, so it is
-   neither deployed nor verifiable from a sandbox. Commit it first.
+3. ~~Verify the print page-break fix, which exists only in the owner's
+   working tree~~ — **that was wrong on both counts.** The PDF page-break
+   fix is `a763086`, has been in `master` since 2026-09-10, ships with its
+   own test (`src/test/pdf-layout.integration.test.ts`) and is deployed.
+   What was *actually* still broken is the browser print page, which carried
+   the identical bug in CSS and nobody had looked at — fixed on
+   `claude/vigilant-turing-20iz2l`, see the section below. What remains is
+   only the **visual** confirmation of both, which needs a browser on a
+   deployment: load `/packs/<id>/print` for a four-round, ten-question pack,
+   print-preview it, and check no question is cut across a page break. Same
+   reload confirms `7850f8d` (images on the print page), which has also never
+   been seen rendering.
 4. **Task 10, the live Paddle cutover** (owner-gated). Its Website-approval
    prerequisite — public terms/privacy/refund pages — is satisfied as of
    PR #6. Then phase 3b (Tasks 11-12, the restore-token library and routes).
