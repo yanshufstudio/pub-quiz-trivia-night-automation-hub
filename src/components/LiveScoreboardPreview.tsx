@@ -20,8 +20,8 @@ export function LiveScoreboardPreview() {
         <p className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-stage-muted">
           Round 3 · Live scoreboard
         </p>
-        <span className="inline-flex items-center gap-1.5 font-mono text-[0.68rem] tracking-[0.1em] text-gold">
-          <span className="h-1.5 w-1.5 rounded-full bg-gold motion-safe:animate-pulse" />
+        <span className="inline-flex items-center gap-1.5 font-mono text-[0.68rem] font-semibold tracking-[0.1em] text-mint">
+          <span className="h-1.5 w-1.5 rounded-full bg-mint motion-safe:animate-pulse" />
           LIVE
         </span>
       </div>

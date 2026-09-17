@@ -1,10 +1,17 @@
-# Pub Quiz / Trivia Night Automation Hub
+# Triviafoundry
 
-Generate a complete pub quiz pack with AI, print presenter scripts and PDF
-question/answer sheets, and run the night live with teams submitting answers
+**Writes your pub quiz or trivia night, then runs it live.** Describe the rounds
+you want and get a complete pack, a presenter script and printed PDF
+question/answer sheets — then run the night live with teams submitting answers
 from their phones.
 
-**Live demo**: https://pub-quiz-trivia-night-automation-hu.vercel.app
+**Live**: https://triviafoundry.com (the original
+`pub-quiz-trivia-night-automation-hu.vercel.app` host stays as an alias).
+
+Repo name predates the product name: the app was "Pub Quiz Hub" until
+2026-09-16, when it became Triviafoundry (pubquizhub.app turned out to be a
+live competitor). The GitHub slug was left alone so existing links and
+Vercel wiring keep working.
 
 ## Screenshots
 

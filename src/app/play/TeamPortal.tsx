@@ -5,6 +5,7 @@ import { Countdown } from "@/components/Countdown";
 import { Scoreboard } from "@/components/Scoreboard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { TrophyIcon } from "@/components/icons";
+import { Wordmark } from "@/components/Wordmark";
 import { topScorers } from "@/lib/scoreboard-summary";
 import {
   clearStoredTeam,
@@ -169,7 +170,10 @@ export function TeamPortal() {
     return (
       <div className="flex min-h-dvh flex-col bg-stage px-5 py-8 text-stage-fg">
         <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Team portal</p>
+          {/* The one place the brand appears on a team's phone: the join
+              screen, before the night starts. Never during a question. */}
+          <Wordmark className="mb-8 text-[1.35rem]" />
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-mint">Team portal</p>
           <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight">Join tonight’s quiz</h1>
           <p className="mt-2 text-stage-muted">Ask the host for the 5-character code, then pick a team name.</p>
 

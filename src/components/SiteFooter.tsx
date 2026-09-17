@@ -39,15 +39,17 @@ export function SiteFooter() {
   if (BARE_SURFACES.some((pattern) => pattern.test(pathname))) return null;
 
   return (
-    <footer className="mt-auto border-t border-line bg-background/90">
+    <footer className="bg-stage mt-auto border-t-2 border-brass/70 text-stage-fg">
       <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-5 py-6">
-        <p className="text-sm text-muted">Yanshuf Studio</p>
+        <p className="text-sm text-stage-muted">
+          <span className="font-serif text-gold">Triviafoundry</span> · by Yanshuf Studio
+        </p>
         <nav aria-label="Legal" className="flex flex-wrap items-center gap-x-1 gap-y-1">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-md px-2 py-1 text-sm font-medium text-muted transition-colors hover:text-amber"
+              className="rounded-md px-2 py-1 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
             >
               {link.label}
             </Link>

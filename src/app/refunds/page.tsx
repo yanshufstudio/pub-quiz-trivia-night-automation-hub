@@ -3,8 +3,8 @@ import Link from "next/link";
 import { LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Refund Policy · Pub Quiz Hub",
-  description: "How refunds and cancellations work for Pub Quiz Hub Pro subscriptions.",
+  title: "Refund Policy · Triviafoundry",
+  description: "How refunds and cancellations work for Triviafoundry Pro subscriptions.",
 };
 
 export default function RefundsPage() {
@@ -14,7 +14,7 @@ export default function RefundsPage() {
         <LegalText>
           Pro subscriptions are sold by Paddle.com, which acts as the merchant of record for every
           purchase. Paddle handles the payment, the invoice, any sales tax, and the refund itself.
-          Pub Quiz Hub is operated by Yanshuf Studio, Israel.
+          Triviafoundry is operated by Yanshuf Studio, Israel.
         </LegalText>
         <LegalText>
           Paddle runs buyer support for orders and invoices at{" "}

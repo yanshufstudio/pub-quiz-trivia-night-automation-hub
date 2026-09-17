@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LiveScoreboardPreview } from "@/components/LiveScoreboardPreview";
+import { Wordmark } from "@/components/Wordmark";
 import { ArrowRightIcon } from "@/components/icons";
 import type { SVGProps } from "react";
 
@@ -31,110 +32,113 @@ function PhoneLiveIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+// Same three links, same labels, as SiteHeader — the homepage used to say
+// Generate / Manage / Play while every other page said Create / Packs / Join.
+const nav = [
+  { href: "/create", label: "Create" },
+  { href: "/packs", label: "Packs" },
+  { href: "/play", label: "Join" },
+];
+
 const steps = [
   {
     href: "/create",
     icon: QuillIcon,
-    title: "Generate",
-    body: "Describe the rounds and topics you want, and let AI build a complete quiz pack.",
+    title: "Write it",
+    body: "Describe the rounds and topics you want — 90s pop, local history, a picture round — and the pack is drafted for you.",
     cta: "Open the wizard",
   },
   {
     href: "/packs",
     icon: OpenBookIcon,
     title: "Edit & print",
-    body: "Fine-tune rounds and questions, then export presenter scripts and PDF answer sheets.",
+    body: "Fix a question, swap an answer, reorder a round. Then print the presenter script and the team answer sheets.",
     cta: "View packs",
   },
   {
     href: "/play",
     icon: PhoneLiveIcon,
     title: "Run it live",
-    body: "On your phone at the venue? Enter the session code the host gives you and start answering.",
+    body: "Put the host screen on the TV. Teams join from their phones with a code, answer in real time, and watch the scores climb.",
     cta: "Join a session",
   },
 ];
 
 export default function Home() {
   return (
-    <>
-      {/* The homepage opens on its own dark "stage" — the same surface the
-          live host desk and team portal use — with the nav folded into it,
-          rather than the paper-toned SiteHeader every other page shares.
-          That header is the app's admin chrome; this is the one moment
-          meant to feel like the room itself. */}
-      <div className="bg-stage text-stage-fg">
-        <div className="mx-auto w-full max-w-5xl px-5 pt-7">
-          <div className="flex items-center justify-between gap-4">
-            <span className="inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-stage-muted">
-              <QuillIcon className="h-4 w-4 shrink-0" />
-              Pub Quiz Hub
-            </span>
-            <nav className="flex items-center gap-6 text-sm font-medium text-stage-muted">
-              <Link href="/create" className="transition-colors hover:text-gold">Generate</Link>
-              <Link href="/packs" className="transition-colors hover:text-gold">Manage</Link>
-              <Link href="/play" className="transition-colors hover:text-gold">Play</Link>
-            </nav>
+    <div className="bg-stage text-stage-fg">
+      <div className="mx-auto w-full max-w-5xl px-5 pt-7">
+        {/* The homepage carries its own copy of the site chrome (see
+            SiteHeader) rather than rendering that component, so the sign
+            can sit straight on the stage with no rule under it. */}
+        <div className="flex items-center justify-between gap-4">
+          <Wordmark href="/" className="text-[1.5rem]" />
+          <nav className="flex items-center gap-6 text-sm font-semibold text-stage-muted">
+            {nav.map((link) => (
+              <Link key={link.href} href={link.href} className="transition-colors hover:text-gold">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        <main className="pt-16 pb-16 sm:pt-20 sm:pb-20">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-mint">
+            Pub quiz · Trivia night · Written, printed, run live
+          </p>
+          <h1 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.05] text-balance sm:text-6xl">
+            Tonight&apos;s quiz, <span className="sign-glow text-gold">forged</span> while you pour.
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-stage-muted">
+            Describe the rounds you want. Triviafoundry writes the whole pub quiz or trivia night
+            — a full pack, a presenter script and printed answer sheets — then runs it live while
+            every team&apos;s phone lights up with the question.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/create"
+              className="sign-glow-box inline-flex h-12 items-center rounded-lg bg-gold px-5 text-sm font-bold text-stage transition-transform hover:-translate-y-px"
+            >
+              Write my quiz
+            </Link>
+            <Link
+              href="/play"
+              className="group inline-flex h-12 items-center gap-1.5 rounded-lg border-2 border-mint/80 px-5 text-sm font-bold text-mint transition-colors hover:border-mint hover:bg-mint/10"
+            >
+              Join as a team
+              <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
 
-          <main className="pt-16 pb-20 sm:pt-20 sm:pb-24">
-            <p className="chalk-script inline-block -rotate-2 text-2xl leading-none text-gold">
-              Trivia night, wired up
-            </p>
-            <h1 className="mt-3 max-w-xl font-serif text-5xl font-semibold leading-[1.03] tracking-tight text-balance sm:text-6xl">
-              Pub Quiz <em className="font-medium italic text-gold">Automation</em> Hub
-            </h1>
-            <p className="mt-5 max-w-lg text-lg leading-relaxed text-stage-muted">
-              Describe the rounds you want and AI builds the pack. Print the presenter script and
-              answer sheets, then run the night live while every team&apos;s phone lights up with
-              the question.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/create"
-                className="inline-flex h-12 items-center rounded-lg bg-gold px-5 text-sm font-semibold text-stage transition-transform hover:-translate-y-px"
-              >
-                Generate a quiz pack
-              </Link>
-              <Link
-                href="/play"
-                className="group inline-flex h-12 items-center gap-1.5 rounded-lg border border-white/15 px-5 text-sm font-semibold transition-colors hover:border-gold hover:text-gold"
-              >
-                Join as a team
-                <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-
-            <LiveScoreboardPreview />
-          </main>
-        </div>
+          <LiveScoreboardPreview />
+        </main>
       </div>
 
-      {/* Handoff seam: the stage fades to the bright prep-desk below it. */}
-      <div className="h-8 bg-gradient-to-b from-[var(--stage-deep)] to-background sm:h-10" />
-
-      <div className="bg-background text-foreground">
-        <main className="mx-auto w-full max-w-5xl px-5 pb-20 sm:pb-24">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber">The prep desk</p>
-          <h2 className="mt-2 max-w-lg font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
-            Three steps <em className="font-medium italic text-amber">before</em> the room fills up
+      {/* The three steps stay on the stage — one room, not a hand-off to a
+          lighter page — as brass-edged panels, the way a chalked menu board
+          hangs behind the bar. */}
+      <div className="border-t border-brass/30">
+        <main className="mx-auto w-full max-w-5xl px-5 py-16 sm:py-20">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-mint">How a night runs</p>
+          <h2 className="mt-3 max-w-lg font-serif text-3xl tracking-tight sm:text-4xl">
+            Three steps before the room fills up
           </h2>
 
-          <div className="mt-11 grid gap-5 sm:grid-cols-3">
+          <div className="mt-10 grid gap-5 sm:grid-cols-3">
             {steps.map((step, i) => (
               <Link
                 key={step.href}
                 href={step.href}
-                className="paper-sheet group relative block rounded-xl border border-line p-6 pt-8 transition-transform hover:-translate-y-1"
+                className="group relative block rounded-lg border border-brass/40 border-l-4 border-l-gold bg-stage-panel p-6 pt-7 transition-transform hover:-translate-y-1 hover:border-brass/70"
               >
-                <span className="absolute -top-3 left-6 inline-flex items-center rounded bg-amber px-2 py-1 font-mono text-[0.68rem] font-semibold tracking-wide text-white shadow-sm">
+                <span className="absolute -top-3 left-5 inline-flex items-center rounded bg-gold px-2 py-1 font-mono text-[0.68rem] font-semibold tracking-wide text-stage">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <step.icon className="h-6 w-6 text-amber" />
-                <h3 className="mt-4 font-serif text-lg font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm text-muted">{step.body}</p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-amber">
+                <step.icon className="h-6 w-6 text-gold" />
+                <h3 className="mt-4 font-serif text-xl">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-stage-muted">{step.body}</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-mint">
                   {step.cta}
                   <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </span>
@@ -143,6 +147,6 @@ export default function Home() {
           </div>
         </main>
       </div>
-    </>
+    </div>
   );
 }
