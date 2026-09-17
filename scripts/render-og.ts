@@ -59,7 +59,8 @@ html, body { margin: 0; }
 .coaster { width: 64px; height: 64px; border-radius: 50%; background: ${T.deep}; border: 3px solid ${T.brass};
   display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
 .coaster span { font-family: Slab; color: ${T.gold}; font-size: 44px; line-height: 1; margin-top: 2px; }
-.word { font-family: Slab; color: ${T.gold}; font-size: 54px; line-height: 1;
+.word { font-family: Slab; color: ${T.fg}; font-size: 54px; line-height: 1; }
+.word em { font-style: normal; color: ${T.gold};
   text-shadow: 0 0 18px rgba(255,176,46,0.5), 0 0 42px rgba(255,176,46,0.22); }
 .eyebrow { margin-top: 58px; font-family: Mono; font-weight: 600; font-size: 20px; letter-spacing: 0.2em; color: ${T.mint}; }
 h1 { margin: 18px 0 0; font-family: Slab; font-weight: 400; font-size: 66px; line-height: 1.06; width: 640px; }
@@ -79,7 +80,7 @@ h1 em { font-style: normal; color: ${T.gold}; }
 .nm { flex: 1; font-weight: 800; font-size: 21px; white-space: nowrap; }
 .sc { font-family: Slab; font-size: 28px; color: ${T.fg}; }
 </style></head><body><div class="card">
-  <div class="brand"><div class="coaster"><span>?</span></div><div class="word">Triviafoundry</div></div>
+  <div class="brand"><div class="coaster"><span>?</span></div><div class="word">Trivia<em>Foundry</em></div></div>
   <div class="eyebrow">PUB QUIZ · TRIVIA NIGHT</div>
   <h1>Tonight&rsquo;s quiz, <em>forged</em> while you pour.</h1>
   <div class="sub">Writes the whole night, prints the sheets, then runs it live on every team&rsquo;s phone.</div>

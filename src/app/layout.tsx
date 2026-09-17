@@ -36,7 +36,7 @@ const mono = localFont({
 });
 
 const OG_ALT =
-  "Triviafoundry: writes your pub quiz or trivia night, then runs it live. A live scoreboard on a dark pub-green background.";
+  "TriviaFoundry: writes your pub quiz or trivia night, then runs it live. A live scoreboard on a dark pub-green background.";
 
 export const metadata: Metadata = {
   // Absolute base for the share-card URLs below. public/og.png is rendered
@@ -44,25 +44,25 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://triviafoundry.com"),
   openGraph: {
     type: "website",
-    siteName: "Triviafoundry",
-    title: "Triviafoundry — pub quiz and trivia night packs, written and run live",
+    siteName: "TriviaFoundry",
+    title: "TriviaFoundry — pub quiz and trivia night packs, written and run live",
     description: "Writes your pub quiz or trivia night, then runs it live.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: OG_ALT }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Triviafoundry — pub quiz and trivia night packs, written and run live",
+    title: "TriviaFoundry — pub quiz and trivia night packs, written and run live",
     description: "Writes your pub quiz or trivia night, then runs it live.",
     images: [{ url: "/og.png", alt: OG_ALT }],
   },
-  title: "Triviafoundry — pub quiz and trivia night packs, written and run live",
+  title: "TriviaFoundry — pub quiz and trivia night packs, written and run live",
   description:
     "Writes your pub quiz or trivia night, then runs it live. Describe the rounds you want; get a full pack, a presenter script and printed answer sheets, then run it with teams on their phones.",
-  applicationName: "Triviafoundry",
+  applicationName: "TriviaFoundry",
   // Installable from the browser menu (Chromium, iOS 16.4+). No service
   // worker on purpose: the live session is polling, so an "offline" shell
   // would only look alive while being dead. manifest.ts carries the rest.
-  appleWebApp: { capable: true, title: "Triviafoundry", statusBarStyle: "black-translucent" },
+  appleWebApp: { capable: true, title: "TriviaFoundry", statusBarStyle: "black-translucent" },
 };
 
 export const viewport: Viewport = {

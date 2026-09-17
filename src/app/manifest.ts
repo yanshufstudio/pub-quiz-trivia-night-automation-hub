@@ -9,13 +9,13 @@ import type { MetadataRoute } from "next";
 // the central 80%.
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Triviafoundry",
-    short_name: "Triviafoundry",
+    name: "TriviaFoundry",
+    short_name: "TriviaFoundry",
     description: "Writes your pub quiz or trivia night, then runs it live.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0f1a14",
-    theme_color: "#0f1a14",
+    background_color: "#182c21",
+    theme_color: "#182c21",
     icons: [
       { src: "/icon-256.png", sizes: "256x256", type: "image/png", purpose: "any" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },

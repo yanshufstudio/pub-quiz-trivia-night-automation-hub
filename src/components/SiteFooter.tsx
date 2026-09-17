@@ -42,7 +42,10 @@ export function SiteFooter() {
     <footer className="bg-stage mt-auto border-t-2 border-brass/70 text-stage-fg">
       <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-5 py-6">
         <p className="text-sm text-stage-muted">
-          <span className="font-serif text-gold">Triviafoundry</span> · by Yanshuf Studio
+          <span className="font-serif text-stage-fg">
+            Trivia<span className="text-gold">Foundry</span>
+          </span>{" "}
+          · by Yanshuf Studio
         </p>
         <nav aria-label="Legal" className="flex flex-wrap items-center gap-x-1 gap-y-1">
           {links.map((link) => (

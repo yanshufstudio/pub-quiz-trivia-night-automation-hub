@@ -90,7 +90,7 @@ export default function Home() {
             Tonight&apos;s quiz, <span className="sign-glow text-gold">forged</span> while you pour.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-stage-muted">
-            Describe the rounds you want. Triviafoundry writes the whole pub quiz or trivia night
+            Describe the rounds you want. TriviaFoundry writes the whole pub quiz or trivia night
             — a full pack, a presenter script and printed answer sheets — then runs it live while
             every team&apos;s phone lights up with the question.
           </p>
