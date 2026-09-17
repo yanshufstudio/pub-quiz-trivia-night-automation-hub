@@ -749,13 +749,46 @@ directory called `lint`), and piping it to `tail` swallowed the failure so a
 point `launchOptions.executablePath` at
 `/opt/pw-browsers/chromium-1194/chrome-linux/chrome` from a throwaway config.
 
-**Open, for the owner:** the stage palette reads as near-black rather than
-bottle green. `--stage` is L\* 8, and hue stops being perceptible below about
-L\* 15, so the green is paid for and not seen; `--stage`, `--stage-deep` and
-`--stage-panel` span only L\* 5-16, so panels barely separate from the ground.
-Raised to roughly L\* 15 and L\* 23 the theme would still clear AA against
-cream by a wide margin. Also under discussion: whether the wordmark should be
-"TriviaFoundry".
+### Palette lift and the two-tone wordmark — PR #9
+
+Owner's reaction to the new theme: "really really dark", and the name should
+be camel-cased "TriviaFoundry". The first was right, the second was answered
+a different way. Branch `claude/stage-lift`, PR #9, **open, not merged**.
+
+The stage greens sat at roughly L\* 5 / 8 / 16 (deep, stage, panel), which was
+wrong twice over. Hue stops being perceptible below about L\* 15, so a
+42%-saturated bottle green at L\* 8 renders as plain black — the colour was
+specified and never seen. And the ladder spanned only 11 points, so panels
+barely lifted off the ground and the stage read as one flat slab. The gradient
+in `.bg-stage` made it worse by fading the bottom of every stage page down to
+the darkest of the three. Now roughly **L\* 10 / 16 / 25**, same hues.
+
+**Contrast was never the problem and is not the fix.** Every stage foreground
+cleared AA at the old values and still does, now 5.0-15.7:1. Darkness here is
+a stylistic choice, never an accessibility one, and there is headroom to go
+lighter still if it wants it.
+
+The wordmark is **two-tone** — cream "Trivia", neon amber "foundry" — rather
+than camel-cased. The complaint behind wanting a medial capital is real:
+fourteen characters under one capital and the seam vanishes. But Alfa Slab One
+is a very heavy slab, so a capital F mid-word plants a second thick vertical
+with two horizontal arms right against the T; and the share card sets the
+wordmark directly above `triviafoundry.com`, so a second casing would read as
+two different names. Colour separates the compound just as well, keeps one
+spelling everywhere, and needs no metadata change or LinkedIn re-scrape. The
+card follows suit. **If the owner still wants CamelCase it is cheap** — the
+spelling lives in `Wordmark.tsx` plus the metadata strings, and the card and
+icons rebuild from their scripts.
+
+`src/app/stage-palette.test.ts` guards the thing that actually broke: the
+perceptual floor and the gaps between the three surfaces, **not** contrast.
+Verified to fail on the old values before being committed — two assertions go
+red while the AA assertion stays green, which is exactly why a contrast check
+would have waved the broken palette through.
+
+Gate: tsc clean, eslint 0 errors, `next build` clean, **unit 157, integration
+145, e2e 11/11**. Icons, share card and README screenshots regenerated from
+their own scripts.
 
 ## What landed in the 2026-09-16 session — rename and redesign
 
