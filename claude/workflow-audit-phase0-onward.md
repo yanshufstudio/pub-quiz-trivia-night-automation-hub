@@ -1,4 +1,4 @@
-# Pub Quiz Hub vs. the Vibe-Coding MVP Workflow (Phase 0 step 3 → Phase 10)
+# TriviaFoundry vs. the Vibe-Coding MVP Workflow (Phase 0 step 3 → Phase 10)
 
 The app is already built (Next.js/Prisma/SQLite, Anthropic tool-use generation, react-pdf, polling live session — see `improvement-roadmap.md` for the full code review). This audits it against the workflow doc, starting where asked: Phase 0 step 3.
 

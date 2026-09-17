@@ -1,4 +1,4 @@
-# Pub Quiz Hub — Improvement Roadmap
+# TriviaFoundry — Improvement Roadmap
 
 Reviewed the codebase in `pub-quiz-trivia-night-automation-hub` (Next.js App Router + Prisma/SQLite + Anthropic tool-use generation + react-pdf + polling live session). Overall it's a strong, well-tested MVP: a race-safe session state machine (conditional `updateMany` transitions), a real host-key/join-code security split, per-IP rate limiting, and unit/integration/e2e/load tests. The gaps below are mostly scope (features not built yet) plus a few things to fix before a real live event.
 

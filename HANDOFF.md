@@ -1,6 +1,6 @@
 # Handoff — 2026-09-13 (rename + redesign session appended 2026-09-16)
 
-Product name: **Triviafoundry** (since 2026-09-16; was "Pub Quiz Hub" —
+Product name: **TriviaFoundry** (since 2026-09-16; was "Pub Quiz Hub" —
 pubquizhub.app is a live competitor). Repo slug and package name unchanged.
 Live: https://triviafoundry.com (bought at Vercel 2026-09-16 and set as the
 production domain; https://pub-quiz-trivia-night-automation-hu.vercel.app
