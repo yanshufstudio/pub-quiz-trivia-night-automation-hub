@@ -6,6 +6,8 @@ import { MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION, packFileSchema, type PackFile } from "@/lib/pack-file";
 import { rateLimit } from "@/lib/rate-limit";
 
+const MAX_IMPORT_BYTES = 120 * 1024 * 1024;
+
 /**
  * Attaches each question's embedded `image` (a v2 file only — v1 has none)
  * to the row `createPackFromGenerated` just created for it. `POST
@@ -74,6 +76,14 @@ export async function POST(req: NextRequest) {
       { error: "Too many packs imported recently. Please wait a bit and try again." },
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
+  }
+
+  // Cheap first line against a multi-megabyte body: the biggest legitimate
+  // file (500 questions, 40 images at the 2 MB cap, base64) is well under
+  // this, and JSON.parse on anything larger is work spent on nothing.
+  const declared = Number(req.headers.get("content-length") ?? 0);
+  if (declared > MAX_IMPORT_BYTES) {
+    return NextResponse.json({ error: "That pack file is too large to import." }, { status: 413 });
   }
 
   const body = await req.json().catch(() => null);

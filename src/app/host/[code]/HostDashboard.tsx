@@ -179,14 +179,19 @@ export function HostDashboard({ code }: { code: string }) {
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={state.status} dark />
             <div className="rounded-xl bg-gold px-4 py-2 text-stage">
-              <p className="text-[10px] font-semibold uppercase tracking-wider">Team code</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wider">Team code</p>
               <p className="font-mono text-2xl font-bold tracking-[0.2em]">{state.code}</p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-6xl gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[1.4fr_1fr]">
+      {/* minmax(0, …) and min-w-0: a grid column's default minimum is its
+          content's min-content width, so one long team name or a wide
+          answer row in the aside used to force the whole desk wider than an
+          iPad in portrait, and squeeze the question column to one word per
+          line at 1024px. */}
+      <main className="mx-auto grid max-w-6xl gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         {error ? <p className="lg:col-span-2 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
 
         <section className="rounded-2xl bg-white/5 p-5 sm:p-6">
@@ -293,7 +298,7 @@ export function HostDashboard({ code }: { code: string }) {
           ) : null}
         </section>
 
-        <aside className="space-y-6">
+        <aside className="min-w-0 space-y-6">
           <section className="rounded-2xl bg-white/5 p-5">
             <div className="flex items-center justify-between gap-3">
               <h3 className="font-semibold">{submissionsLabel}</h3>
@@ -339,7 +344,7 @@ export function HostDashboard({ code }: { code: string }) {
                         <button
                           type="button"
                           onClick={() => overrideAnswer(team, true)}
-                          className="h-10 rounded-lg bg-emerald-600/80 text-sm font-semibold"
+                          className="h-10 rounded-lg bg-emerald-700 text-sm font-semibold"
                         >
                           Correct
                         </button>
@@ -366,7 +371,7 @@ export function HostDashboard({ code }: { code: string }) {
 
         <p className="lg:col-span-2 text-center text-sm text-stage-muted">
           Teams join at{" "}
-          <Link href="/play" className="text-gold underline-offset-2 hover:underline">
+          <Link href="/play" className="text-gold underline underline-offset-2">
             /play
           </Link>
         </p>

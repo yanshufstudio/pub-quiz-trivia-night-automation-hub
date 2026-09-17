@@ -1,4 +1,5 @@
 import type { ScoreboardRow } from "@/lib/api-types";
+import { rankOf } from "@/lib/scoreboard-summary";
 
 export function Scoreboard({
   rows,
@@ -19,7 +20,7 @@ export function Scoreboard({
 
   return (
     <ol className="space-y-2">
-      {rows.map((row, index) => {
+      {rows.map((row) => {
         const mine = highlightName != null && row.name === highlightName;
         return (
           <li
@@ -40,7 +41,7 @@ export function Scoreboard({
                   dark ? "text-gold" : "text-amber"
                 }`}
               >
-                {index + 1}
+                {rankOf(rows, row.teamId)}
               </span>
               <span className="truncate font-medium">{row.name}</span>
             </span>
