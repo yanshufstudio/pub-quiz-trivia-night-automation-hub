@@ -775,7 +775,7 @@ procedure alongside master's EXIF/GPS verification, and the README has both
 "Pro subscriptions (Paddle)" and "Legal pages".
 
 Also on that branch: the **live** Paddle catalog is now named
-**"Triviafoundry Pro"** in Task 10 Step 2, the live client token is
+**"TriviaFoundry Pro"** in Task 10 Step 2, the live client token is
 "triviafoundry production", and the phase 3b magic-link email subject drops
 the old product name. The product name is what a buyer reads at checkout, and
 following the plan verbatim would have created a live product called "Pub Quiz
@@ -901,7 +901,7 @@ change, so nothing outside the files below needed touching.
 - **Not changed:** `package.json` name, the repo slug, `src/lib/pdf/*`
   (the printed PDFs never carried the product name), the Paddle product
   name "Pub Quiz Pro" in the sandbox catalog (Task 10 creates the *live*
-  catalog fresh — name it "Triviafoundry Pro" there), the seller display
+  catalog fresh — name it "TriviaFoundry Pro" there), the seller display
   name "OrZarua" (account-wide, still to fix before live).
 
 Definition of done, run in the sandbox: `next typegen` + `tsc` clean,
@@ -916,7 +916,7 @@ every major page reviewed by eye. Playwright e2e not run here (no
 branch first, then merge `master` into `claude/paddle-pro-3a` and resolve —
 expect small conflicts in `layout.tsx` (the font imports) and the plan's
 Task 10 block; keep this branch's version of both. PR #4's pricing page
-copy should say "Triviafoundry Pro", not "Pub Quiz Pro", when it lands.
+copy should say "TriviaFoundry Pro", not "Pub Quiz Pro", when it lands.
 
 ## What landed in the 2026-09-15 legal-pages session
 
