@@ -71,11 +71,11 @@ export default function Home() {
         {/* The homepage carries its own copy of the site chrome (see
             SiteHeader) rather than rendering that component, so the sign
             can sit straight on the stage with no rule under it. */}
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <Wordmark href="/" className="text-[1.5rem]" />
           <nav className="flex items-center gap-6 text-sm font-semibold text-stage-muted">
             {nav.map((link) => (
-              <Link key={link.href} href={link.href} className="transition-colors hover:text-gold">
+              <Link key={link.href} href={link.href} className="py-2 transition-colors hover:text-gold">
                 {link.label}
               </Link>
             ))}
@@ -119,9 +119,9 @@ export default function Home() {
           lighter page — as brass-edged panels, the way a chalked menu board
           hangs behind the bar. */}
       <div className="border-t border-brass/30">
-        <main className="mx-auto w-full max-w-5xl px-5 py-16 sm:py-20">
+        <section aria-labelledby="how-a-night-runs" className="mx-auto w-full max-w-5xl px-5 py-16 sm:py-20">
           <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-mint">How a night runs</p>
-          <h2 className="mt-3 max-w-lg font-serif text-3xl tracking-tight sm:text-4xl">
+          <h2 id="how-a-night-runs" className="mt-3 max-w-lg font-serif text-3xl tracking-tight sm:text-4xl">
             Three steps before the room fills up
           </h2>
 
@@ -145,7 +145,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-        </main>
+        </section>
       </div>
     </div>
   );

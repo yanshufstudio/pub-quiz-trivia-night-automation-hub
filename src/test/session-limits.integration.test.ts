@@ -152,11 +152,16 @@ describe("POST /api/sessions/[code]/join — team cap", () => {
     const code = await newSessionCode(pack.id, "10.21.0.4");
     const ip = "10.21.0.4";
 
+    // The per-IP ceiling (150 per 10 minutes) sits above the per-session
+    // team cap (60) on purpose: a full room joins from one wifi address and
+    // needs headroom for rejoins. So a loop that stays inside one session
+    // hits the team cap (409) first; the 429 shows only past that.
     const statuses: number[] = [];
-    for (let i = 0; i < 61; i++) {
+    for (let i = 0; i < 151; i++) {
       statuses.push((await joinSession(joinRequest(code, `Flood ${i}`, ip), codeParams(code))).status);
     }
 
+    expect(statuses.filter((s) => s === 201)).toHaveLength(60);
     expect(statuses[statuses.length - 1]).toBe(429);
   });
 });

@@ -23,6 +23,27 @@ import { QUESTION_TYPE } from "@/lib/question-types";
 export const PACK_FILE_FORMAT = "pub-quiz-pack";
 export const PACK_FILE_VERSION = 2;
 
+/**
+ * Size ceilings for an imported file. Import is unauthenticated and there
+ * was no ceiling at all: the 2026-09-17 stress run imported a 3,000-question
+ * pack in a second, and rendering its PDF then held the server for 231
+ * seconds. These are generous for any real night (a long one is 8 rounds of
+ * 15) and small enough that the PDF and the editor stay usable. Text limits
+ * mirror what the editor can show and what fits on a printed sheet.
+ */
+export const PACK_LIMITS = {
+  rounds: 40,
+  questionsPerRound: 60,
+  questionsTotal: 500,
+  title: 200,
+  roundTitle: 200,
+  category: 120,
+  questionText: 2000,
+  answer: 500,
+  option: 300,
+  acceptableAnswer: 200,
+} as const;
+
 const fileImageSchema = z.object({
   mime: z.enum([MEDIA_MIME.JPEG, MEDIA_MIME.PNG]),
   // Base64, no data: prefix — validated for real (magic bytes, dimensions,
@@ -34,7 +55,10 @@ const fileImageSchema = z.object({
 
 const fileQuestionSchema = generatedQuestionFields
   .extend({
-    acceptableAnswers: z.array(z.string().min(1)).max(20).optional(),
+    text: z.string().min(1).max(PACK_LIMITS.questionText),
+    answer: z.string().min(1).max(PACK_LIMITS.answer),
+    options: z.array(z.string().min(1).max(PACK_LIMITS.option)).max(6).optional(),
+    acceptableAnswers: z.array(z.string().min(1).max(PACK_LIMITS.acceptableAnswer)).max(20).optional(),
     image: fileImageSchema.optional(),
   })
   .transform(degradeInvalidMultipleChoice);
@@ -45,15 +69,21 @@ export const packFileSchema = z.object({
   // may carry fields this build would silently drop, so refuse it rather
   // than import a lossy copy.
   version: z.union([z.literal(1), z.literal(2)]),
-  title: z.string().min(1),
-  prompt: z.string().optional(),
+  title: z.string().min(1).max(PACK_LIMITS.title),
+  prompt: z.string().max(2000).optional(),
   rounds: z
     .array(
       generatedRoundSchema.extend({
-        questions: z.array(fileQuestionSchema).min(1),
+        title: z.string().min(1).max(PACK_LIMITS.roundTitle),
+        category: z.string().min(1).max(PACK_LIMITS.category),
+        questions: z.array(fileQuestionSchema).min(1).max(PACK_LIMITS.questionsPerRound),
       })
     )
-    .min(1),
+    .min(1)
+    .max(PACK_LIMITS.rounds)
+    .refine((rounds) => rounds.reduce((n, r) => n + r.questions.length, 0) <= PACK_LIMITS.questionsTotal, {
+      message: `A pack can hold at most ${PACK_LIMITS.questionsTotal} questions`,
+    }),
 });
 
 export type PackFile = z.infer<typeof packFileSchema>;

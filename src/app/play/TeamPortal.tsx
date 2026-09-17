@@ -6,7 +6,7 @@ import { Scoreboard } from "@/components/Scoreboard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { TrophyIcon } from "@/components/icons";
 import { Wordmark } from "@/components/Wordmark";
-import { topScorers } from "@/lib/scoreboard-summary";
+import { rankOf, topScorers } from "@/lib/scoreboard-summary";
 import {
   clearStoredTeam,
   readStoredTeam,
@@ -155,6 +155,17 @@ export function TeamPortal() {
   }
 
   function leave() {
+    // Best-effort: the server removes the team only if it has not answered
+    // yet (see /api/sessions/[code]/leave), so the name is free to rejoin.
+    // The phone forgets the team either way; the response is not awaited.
+    if (stored) {
+      void fetch(`/api/sessions/${stored.code}/leave`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: stored.token }),
+        keepalive: true,
+      }).catch(() => {});
+    }
     clearStoredTeam();
     setStored(null);
     setState(null);
@@ -359,7 +370,7 @@ function RevealPanel({ state }: { state: TeamSessionState }) {
 
 function EndedPanel({ state }: { state: TeamSessionState }) {
   const mine = state.scoreboard.find((row) => row.name === state.teamName);
-  const place = mine ? state.scoreboard.findIndex((row) => row.teamId === mine.teamId) + 1 : null;
+  const place = mine ? rankOf(state.scoreboard, mine.teamId) : null;
   const { winners } = topScorers(state.scoreboard);
   const isWinner = mine != null && winners.some((row) => row.teamId === mine.teamId);
   return (

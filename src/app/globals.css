@@ -82,6 +82,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  /* User-typed text — team names, answers, pack titles, a URL pasted as an
+     answer — can be one unbroken 140-character word. Without this that word
+     sets the minimum width of every flex/grid box it sits in and the page
+     scrolls sideways on a phone (the 2026-09-17 sweep hit this on the
+     host desk, the team portal, the packs list and the print sheet).
+     `anywhere` only breaks a word when it cannot fit, and unlike
+     `break-word` it also shrinks the box's min-content size. */
+  overflow-wrap: anywhere;
 }
 
 /* The display face (Alfa Slab One) ships in a single weight and no italic.

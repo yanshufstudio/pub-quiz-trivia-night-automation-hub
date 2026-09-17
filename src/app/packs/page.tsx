@@ -44,7 +44,7 @@ export default async function PacksPage() {
           <div className="paper-sheet mt-10 rounded-xl border border-line px-6 py-12 text-center">
             <p className="font-medium">No packs yet.</p>
             <p className="mt-2 text-sm text-muted">Generate one from a brief, or seed the demo pack.</p>
-            <Link href="/create" className="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-amber">
+            <Link href="/create" className="group mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-amber">
               Open the wizard
               <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
