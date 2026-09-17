@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
+import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Terms of Service · TriviaFoundry",
@@ -13,9 +13,7 @@ export default function TermsPage() {
       <LegalSection id="who-we-are" title="Who we are">
         <LegalText>
           TriviaFoundry is operated by Yanshuf Studio, Israel. You can reach us at{" "}
-          <a className="font-medium text-amber hover:underline" href="mailto:privlin@gmail.com">
-            privlin@gmail.com
-          </a>
+          <ContactLink />
           . Using the service means you accept these terms.
         </LegalText>
       </LegalSection>
@@ -92,9 +90,7 @@ export default function TermsPage() {
         <LegalText>
           If we change these terms, the date at the top of this page changes with them. Continuing
           to use the service after that means the new version applies. Questions go to{" "}
-          <a className="font-medium text-amber hover:underline" href="mailto:privlin@gmail.com">
-            privlin@gmail.com
-          </a>
+          <ContactLink />
           .
         </LegalText>
       </LegalSection>

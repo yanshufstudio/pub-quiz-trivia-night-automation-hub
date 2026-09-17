@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
+import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Privacy Policy · TriviaFoundry",
@@ -13,9 +13,7 @@ export default function PrivacyPage() {
       <LegalSection id="who-we-are" title="Who we are">
         <LegalText>
           TriviaFoundry is operated by Yanshuf Studio, Israel. For anything about your data, write to{" "}
-          <a className="font-medium text-amber hover:underline" href="mailto:privlin@gmail.com">
-            privlin@gmail.com
-          </a>
+          <ContactLink />
           .
         </LegalText>
       </LegalSection>
@@ -86,9 +84,7 @@ export default function PrivacyPage() {
       <LegalSection id="deletion" title="Deleting your data">
         <LegalText>
           Email{" "}
-          <a className="font-medium text-amber hover:underline" href="mailto:privlin@gmail.com">
-            privlin@gmail.com
-          </a>{" "}
+          <ContactLink />{" "}
           and we will delete what we hold for you — your packs, any uploaded images, and the email
           address attached to a subscription. Billing records held by Paddle as merchant of record
           are theirs to keep or remove; see the{" "}

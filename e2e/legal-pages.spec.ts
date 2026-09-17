@@ -1,10 +1,17 @@
 import { test, expect, request } from "@playwright/test";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED } from "@/lib/site";
 
 // Paddle's website review requires the three policy pages to be publicly
 // served and reachable from the site. That is two separate claims, so this
 // checks both: each page answers 200 with its own heading, and the footer
 // that links them is present on the ordinary pages — including the ones a
 // reviewer is most likely to land on first.
+//
+// The date comes from the constant the pages render rather than a literal:
+// this spec used to hard-code 2026-09-15 and failed the first time the
+// policies were revised, which is a test failing for the wrong reason. What
+// is worth asserting is that a date is shown at all and that it is the one
+// the app believes in — the sitemap publishes the same constant.
 
 const PAGES = [
   { path: "/terms", heading: "Terms of Service" },
@@ -19,7 +26,13 @@ for (const { path, heading } of PAGES) {
 
     await page.goto(path);
     await expect(page.getByRole("heading", { level: 1, name: heading })).toBeVisible();
-    await expect(page.getByText("Last updated: 2026-09-15")).toBeVisible();
+    await expect(page.getByText(`Last updated: ${LEGAL_LAST_UPDATED}`)).toBeVisible();
+
+    // Paddle's review also wants a way to contact the seller from these
+    // pages, and /refunds names this address as the alternative to Paddle's
+    // own buyer support — so a policy page that has lost its contact link,
+    // or is showing a stale address, is a review failure and not a typo.
+    await expect(page.getByRole("link", { name: CONTACT_EMAIL }).first()).toBeVisible();
   });
 }
 
