@@ -225,3 +225,28 @@ describe("toPackFile", () => {
     expect(packFileSchema.safeParse(JSON.parse(JSON.stringify(file))).success).toBe(true);
   });
 });
+
+describe("packFileSchema size ceilings", () => {
+  const file = (rounds: unknown[]) => ({ format: PACK_FILE_FORMAT, version: PACK_FILE_VERSION, title: "Big", rounds });
+  const q = (n: number) => Array.from({ length: n }, (_, i) => ({ text: `Q${i}`, answer: "a" }));
+
+  it("accepts a long real night (8 rounds of 15)", () => {
+    const r = packFileSchema.safeParse(file(Array.from({ length: 8 }, (_, i) => ({ title: `R${i}`, category: "C", questions: q(15) }))));
+    expect(r.success).toBe(true);
+  });
+
+  it("refuses more than 500 questions in total", () => {
+    const r = packFileSchema.safeParse(file(Array.from({ length: 11 }, (_, i) => ({ title: `R${i}`, category: "C", questions: q(50) }))));
+    expect(r.success).toBe(false);
+  });
+
+  it("refuses more than 60 questions in a round and more than 40 rounds", () => {
+    expect(packFileSchema.safeParse(file([{ title: "R", category: "C", questions: q(61) }])).success).toBe(false);
+    expect(packFileSchema.safeParse(file(Array.from({ length: 41 }, (_, i) => ({ title: `R${i}`, category: "C", questions: q(1) })))).success).toBe(false);
+  });
+
+  it("refuses a question longer than 2000 characters", () => {
+    const r = packFileSchema.safeParse(file([{ title: "R", category: "C", questions: [{ text: "x".repeat(2001), answer: "a" }] }]));
+    expect(r.success).toBe(false);
+  });
+});

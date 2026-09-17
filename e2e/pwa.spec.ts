@@ -11,7 +11,7 @@ test("the app is installable: manifest linked, resolvable, icons served", async 
   const manifestRes = await request.get(href!);
   expect(manifestRes.ok()).toBeTruthy();
   const manifest = await manifestRes.json();
-  expect(manifest.short_name).toBe("Triviafoundry");
+  expect(manifest.short_name).toBe("TriviaFoundry");
   expect(manifest.display).toBe("standalone");
 
   for (const icon of manifest.icons as { src: string; type: string }[]) {

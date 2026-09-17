@@ -17,12 +17,11 @@ const links = [
 export function SiteHeader() {
   return (
     <header className="bg-stage border-b-2 border-brass/70 text-stage-fg">
-      {/* flex-wrap, not a smaller wordmark: at 320px the usable width is
-          280px while the sign is ~201px and the nav ~217px, so no single
-          row fits and shrinking the sign only makes it illegible without
-          closing the gap. The nav drops to its own line instead and the
-          sign keeps its full size. Guarded by e2e/narrow-viewport.spec.ts. */}
-      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-5 py-3.5">
+      {/* flex-wrap: at 320-390px the sign (~200px) and the nav (~220px) cannot
+          share one row, so the nav drops to its own line rather than pushing
+          the page sideways (the 2026-09-17 sweep caught "Join" cut off on an
+          iPhone 15). */}
+      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-5 py-3.5">
         <Wordmark href="/" className="text-[1.35rem]" />
         <nav className="flex items-center gap-1">
           {links.map((link) => (

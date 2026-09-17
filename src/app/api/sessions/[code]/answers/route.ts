@@ -8,7 +8,9 @@ import { parseOptions, QUESTION_TYPE } from "@/lib/question-types";
 
 const submitSchema = z.object({
   token: z.string().min(1),
-  text: z.string().min(1).max(500),
+  // Trimmed first: a run of spaces is not an answer, and storing one gave
+  // the host a blank submission row to puzzle over.
+  text: z.string().max(500).transform((t) => t.trim()).pipe(z.string().min(1).max(500)),
 });
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ code: string }> }) {

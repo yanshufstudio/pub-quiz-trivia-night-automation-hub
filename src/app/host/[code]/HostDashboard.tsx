@@ -170,8 +170,8 @@ export function HostDashboard({ code }: { code: string }) {
 
   return (
     <div className="min-h-dvh bg-stage text-stage-fg">
-      <header className="border-b border-white/10 px-5 py-4 sm:px-8 xl:py-6">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 xl:max-w-[96rem]">
+      <header className="border-b border-white/10 px-5 py-4 sm:px-8 xl:px-12 xl:py-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 xl:max-w-[110rem]">
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.18em] text-gold xl:text-base">Host desk</p>
             <h1 className="mt-1 font-serif text-xl font-semibold xl:text-3xl">{state.packTitle}</h1>
@@ -191,15 +191,19 @@ export function HostDashboard({ code }: { code: string }) {
       </header>
 
       {/* minmax(0, …) and min-w-0 on the aside: a grid column's default
-          minimum is its content's min-content width, so one long team name
-          forced the whole desk wider than the viewport. (Same fix as PR #10;
-          kept here deliberately so the two versions agree.)
+          minimum is its content's min-content width, so one long team name,
+          or a wide answer row in the aside, used to force the whole desk
+          wider than an iPad in portrait and squeeze the question column to
+          one word per line at 1024px.
 
-          The xl step (1280px+) is the TV, chosen over 2xl so a 1366x768
-          projector is included, not just a 4K panel: the desk is the one surface in this app
-          read from four metres, and at 2560px it used to put everything in
-          the top quarter of the screen inside a 1152px column. It now takes
-          96rem and centres itself in the height it has. */}
+          The xl step (1280px+) is the TV. xl rather than 2xl on purpose:
+          2xl starts at 1536px and would miss 1366x768, which is what most
+          projectors pointed at a pub wall report. The desk is the one
+          surface in this app read from about four metres, and at 2560px it
+          used to put everything in the top quarter of the screen inside a
+          1152px column. It now takes 110rem and centres in the height it
+          has — the header above matches that width and padding so the two
+          align. */}
       <main className="mx-auto grid max-w-6xl gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] xl:min-h-[calc(100dvh-9.5rem)] xl:max-w-[110rem] xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] xl:content-center xl:gap-10 xl:px-12 xl:py-10">
         {error ? <p className="lg:col-span-2 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
 

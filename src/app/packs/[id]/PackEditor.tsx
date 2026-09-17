@@ -584,15 +584,18 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                         </span>
                         {draft.options.map((option, i) => (
                           <div key={i} className="flex items-center gap-2">
-                            <input
-                              type="radio"
-                              name={`correct-${question.id}`}
-                              checked={option === draft.answer && option.trim().length > 0}
-                              onChange={() => markOptionCorrect(question.id, i)}
-                              disabled={!canEdit || !option.trim()}
-                              className="h-4 w-4 accent-amber"
-                              aria-label={`Option ${i + 1} is correct`}
-                            />
+                            {/* The 44px label is the tap target; the radio itself stays small. */}
+                            <label className="inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center">
+                              <input
+                                type="radio"
+                                name={`correct-${question.id}`}
+                                checked={option === draft.answer && option.trim().length > 0}
+                                onChange={() => markOptionCorrect(question.id, i)}
+                                disabled={!canEdit || !option.trim()}
+                                className="h-5 w-5 accent-amber"
+                                aria-label={`Option ${i + 1} is correct`}
+                              />
+                            </label>
                             <input
                               value={option}
                               onChange={(e) => updateOption(question.id, i, e.target.value)}

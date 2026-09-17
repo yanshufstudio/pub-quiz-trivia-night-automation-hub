@@ -4,9 +4,12 @@ import { db } from "@/lib/db";
 import { generateTeamToken } from "@/lib/codes";
 import { rateLimit } from "@/lib/rate-limit";
 import { SESSION_STATUS } from "@/lib/session-state";
+import { TEAM_NAME_MAX, normalizeTeamName, teamNameKey } from "@/lib/team-name";
 
 const joinSchema = z.object({
-  name: z.string().trim().min(1).max(40),
+  // Normalised before the length check so a name made of control
+  // characters cannot pass min(1) and then store as empty; see team-name.ts.
+  name: z.string().max(200).transform(normalizeTeamName).pipe(z.string().min(1).max(TEAM_NAME_MAX)),
 });
 
 /**
@@ -26,7 +29,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   // room joins from the same address, so this must not fire on a real night.
   // It exists to stop a scripted loop, which the per-session cap below then
   // bounds even from an attacker changing IPs.
-  const limited = await rateLimit(req, "sessions:join", { limit: 60, windowMs: 10 * 60 * 1000 });
+  // 150, not 60: the per-session cap is 60 teams and every one of them
+  // arrives from the venue's single IP, and each mistyped code, "Leave" or
+  // phone-died rejoin is another hit. 60 left no headroom at all on a full
+  // night (the 2026-09-17 stress run tripped it on the 61st join).
+  const limited = await rateLimit(req, "sessions:join", { limit: 150, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
       { error: "Too many teams joined from here recently. Please wait a bit and try again." },
@@ -57,9 +64,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   }
 
   const name = parsed.data.name;
-  const existing = await db.team.findUnique({
-    where: { sessionId_name: { sessionId: session.id, name } },
-  });
+  // Case- and width-insensitive: the unique index is exact, so without this
+  // "quiz pigs" joins alongside "Quiz Pigs" and the host sees both.
+  const key = teamNameKey(name);
+  const names = await db.team.findMany({ where: { sessionId: session.id }, select: { name: true } });
+  const existing = names.find((t) => teamNameKey(t.name) === key);
   if (existing) {
     return NextResponse.json(
       { error: "That team name is already taken in this session" },

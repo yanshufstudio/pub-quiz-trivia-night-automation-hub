@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
-  "Lit pub sign" — Triviafoundry's visual identity. Two linked surfaces that
+  "Lit pub sign" — TriviaFoundry's visual identity. Two linked surfaces that
   map to how a quiz night actually runs:
 
   - The stage: the pub after dark with the sign switched on. Bottle green
@@ -21,6 +21,18 @@
   amber; it only ever sits on the dark stage and pairs with dark text, so it
   runs as hot as the sign would. `--amber` is its desk-side cousin, a brass
   brown that stays legible on cream and under white text.
+
+  On the stage ladder's lightness, because it is easy to undo by eye: the
+  three greens sit at roughly L* 10 / 16 / 25 (deep, stage, panel). The first
+  cut of this palette had them at 5 / 8 / 16, which was a mistake in two ways.
+  Hue stops being perceptible below about L* 15, so a 42%-saturated bottle
+  green at L* 8 is simply black — the green was paid for and never seen. And
+  the whole ladder spanned 11 points, so panels barely lifted off the ground
+  and the stage read as one flat slab rather than a room with things in it.
+  Keep the gaps: about 6 points deep-to-stage, about 9 stage-to-panel. There
+  is headroom to go lighter if anything — every foreground still clears AA on
+  every stage surface (cream 10-16:1, gold 6-9:1, mint 8-12:1), so darkness
+  here is a stylistic choice and never an accessibility one.
 */
 :root {
   /* desk */
@@ -31,10 +43,10 @@
   --amber: #8f5d10;
   --amber-hover: #6f4709;
 
-  /* stage */
-  --stage: #0f1a14;
-  --stage-deep: #0b130f;
-  --stage-panel: #1a2b22;
+  /* stage — see the lightness note in the block comment above */
+  --stage: #182c21;
+  --stage-deep: #101e17;
+  --stage-panel: #264132;
   --stage-fg: #fff4dc;
   --stage-muted: #9fb3a6;
   --gold: #ffb02e;
@@ -70,6 +82,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  /* User-typed text — team names, answers, pack titles, a URL pasted as an
+     answer — can be one unbroken 140-character word. Without this that word
+     sets the minimum width of every flex/grid box it sits in and the page
+     scrolls sideways on a phone (the 2026-09-17 sweep hit this on the
+     host desk, the team portal, the packs list and the print sheet).
+     `anywhere` only breaks a word when it cannot fit, and unlike
+     `break-word` it also shrinks the box's min-content size. */
+  overflow-wrap: anywhere;
 }
 
 /* The display face (Alfa Slab One) ships in a single weight and no italic.
@@ -202,6 +222,10 @@ body {
   perspective: 220px;
 }
 .flip-tile .flipper {
+  /* The flipper is a <span>: without display:block its height:100% is
+     ignored, the absolutely-positioned faces collapse to 2px, and the digits
+     float above the row with no tile behind them. */
+  display: block;
   position: relative;
   width: 100%;
   height: 100%;

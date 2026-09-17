@@ -26,7 +26,7 @@ function PrintQuestionImage({ question }: { question: Question }) {
     <img
       src={`/api/questions/${question.id}/media`}
       alt=""
-      className="mt-2 ml-6 max-h-40 max-w-xs rounded-md border border-line object-contain print:max-h-32"
+      className="mt-2 ml-6 max-h-40 max-w-[min(20rem,calc(100%-1.5rem))] rounded-md border border-line object-contain print:max-h-32"
     />
   );
 }
@@ -46,7 +46,7 @@ export function PrintPreview({ pack }: { pack: Pack }) {
         <div>
           <Link
             href={`/packs/${pack.id}`}
-            className="group inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
+            className="group inline-flex min-h-11 items-center gap-1.5 text-sm text-foreground/75 hover:text-foreground"
           >
             <ArrowLeftIcon className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
             Back to editor
