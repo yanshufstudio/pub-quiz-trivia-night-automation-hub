@@ -149,4 +149,35 @@ model Creator {
   periodStartedAt        DateTime   @default(now())
   createdAt              DateTime   @default(now())
   packs                  QuizPack[]
+
+  // Set by the Paddle webhook (src/lib/paddle/apply-subscription.ts) and
+  // the restore flow. Never written from the browser.
+  email                  String?    @unique
+  paddleCustomerId       String?
+  paddleSubscriptionId   String?    @unique
+  subscriptionStatus     String?    // Paddle SubscriptionStatus
+  subscriptionUpdatedAt  DateTime?  // occurred_at of the last applied event
+  restoreTokens          RestoreToken[]
+}
+
+// One row per Paddle webhook delivery. Primary key on Paddle's event_id
+// makes the webhook idempotent: a retry hits the unique constraint and is
+// acknowledged without re-applying.
+model PaddleEvent {
+  eventId    String   @id
+  type       String
+  occurredAt DateTime
+  receivedAt DateTime @default(now())
+}
+
+// Single-use magic-link tokens for /restore. Only the SHA-256 of the token
+// is stored; the raw token travels in the email link.
+model RestoreToken {
+  tokenHash String    @id
+  creator   Creator   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId String
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  @@index([creatorId])
 }
