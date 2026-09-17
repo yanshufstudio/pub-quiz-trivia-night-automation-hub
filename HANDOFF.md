@@ -418,10 +418,12 @@ call it fixed without a browser on a real deployment.**
 
 ## Open items
 
-*Trued up 2026-09-15 against `master` `80ca6fd` and PR #4 `d16a99f`. The
-PR #3-era entries that used to be here (test the preview not production;
-previews are building again; media phases 2-4 are local-only) are gone
-because PR #3 merged as `5982f76` — the history is in the session sections
+*Trued up 2026-09-17 (second session) against `master` `27e73b3` and PR #4
+`cd9f552`. Four entries were added that day — the `/privacy` gap, the sandbox
+creator row, the "OrZarua" checkout branding and the header overflow — and
+two were struck as fixed. The PR #3-era entries (test the preview not
+production; previews are building again; media phases 2-4 are local-only)
+went when PR #3 merged as `5982f76`; that history is in the session sections
 above.*
 
 - **~~Paddle Task 9~~ — passed 2026-09-15**, by the owner, off-sandbox. The
