@@ -170,8 +170,10 @@ export function HostDashboard({ code }: { code: string }) {
 
   return (
     <div className="min-h-dvh bg-stage text-stage-fg">
-      <header className="border-b border-white/10 px-5 py-4 sm:px-8 xl:px-12 xl:py-6">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 xl:max-w-[110rem]">
+      <header className="border-b border-white/10 py-4 xl:py-6">
+        {/* Same box model as <main> below — max-width and padding on one
+            element — so the header and the content share a left edge. */}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 sm:px-8 xl:max-w-[110rem] xl:px-12">
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.18em] text-gold xl:text-base">Host desk</p>
             <h1 className="mt-1 font-serif text-xl font-semibold xl:text-3xl">{state.packTitle}</h1>
