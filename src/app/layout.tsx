@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SITE_URL } from "@/lib/site";
 import manifest from "./manifest";
 import "./globals.css";
 
@@ -40,8 +41,10 @@ const OG_ALT =
 
 export const metadata: Metadata = {
   // Absolute base for the share-card URLs below. public/og.png is rendered
-  // by scripts/render-og.ts (npm run og).
-  metadataBase: new URL("https://triviafoundry.com"),
+  // by scripts/render-og.ts (npm run og). The origin is shared with
+  // sitemap.ts and robots.ts, so it comes from src/lib/site.ts rather than
+  // being spelled out here a third time.
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     siteName: "TriviaFoundry",

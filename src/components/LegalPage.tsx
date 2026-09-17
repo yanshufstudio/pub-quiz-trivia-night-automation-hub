@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED } from "@/lib/site";
 
 /**
  * The shared shell for /terms, /privacy and /refunds.
@@ -9,10 +10,10 @@ import { SiteHeader } from "@/components/SiteHeader";
  * to change when a policy is revised, rather than three that can drift out of
  * step with each other. The visual language matches /pricing and the rest of
  * the paper-toned pages: SiteHeader, a centred column, a serif h1.
+ *
+ * The "last updated" date and the contact address both come from
+ * `src/lib/site.ts`, which is also what `sitemap.ts` reads.
  */
-
-/** Shown on all three pages. Bump this when the wording of any of them changes. */
-export const LEGAL_LAST_UPDATED = "2026-09-15";
 
 export function LegalPage({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -45,4 +46,19 @@ export function LegalText({ children }: { children: ReactNode }) {
 /** A bulleted list of points within a clause. */
 export function LegalList({ children }: { children: ReactNode }) {
   return <ul className="list-disc space-y-2 pl-5 text-muted">{children}</ul>;
+}
+
+/**
+ * The published contact address, as a link. Used five times across the three
+ * pages; each one used to carry its own copy of the address and its own copy
+ * of these classes, which is how the address drifted out of step with the one
+ * the GitHub organisation publishes. One component, one address, from
+ * `src/lib/site.ts`.
+ */
+export function ContactLink() {
+  return (
+    <a className="font-medium text-amber hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
+      {CONTACT_EMAIL}
+    </a>
+  );
 }

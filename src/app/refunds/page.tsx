@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
+import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Refund Policy · TriviaFoundry",
@@ -66,9 +66,7 @@ export default function RefundsPage() {
             paddle.net
           </a>{" "}
           or email us at{" "}
-          <a className="font-medium text-amber hover:underline" href="mailto:privlin@gmail.com">
-            privlin@gmail.com
-          </a>{" "}
+          <ContactLink />{" "}
           and we will arrange it with them. Either route works.
         </LegalText>
       </LegalSection>
