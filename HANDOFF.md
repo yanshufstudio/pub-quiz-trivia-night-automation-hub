@@ -509,14 +509,30 @@ above.*
   the 5 at 430 green — and carrying a control so it cannot pass vacuously.
   Same blind spot that hid the print-preview bug.
 
-- **The host desk is laid out like a desktop page on a surface read from
-  four metres.** Not a bug and nothing overflows — at 2560x1440 the live
-  desk measures zero overflow — but the content fills only the top ~25% of
-  the screen, `max-w-5xl` uses 40% of the width, and the question, which is
-  the one thing the room is reading, sets at roughly 30px on a 2560px
-  display. The host desk is the only surface in this product with its own
-  viewing distance and it is currently styled like every other page. Worth a
-  decision before anyone runs a real night on a pub TV.
+- **~~The host desk was laid out like a desktop page on a surface read from
+  four metres~~ — fixed 2026-09-17 (`b138bde`), not yet merged.** It is the
+  only surface in this product with its own viewing distance. The question
+  now scales fluidly (`clamp(1.5rem, 1rem + 2.6vw, 5.25rem)`: ~26px on a
+  phone as before, ~83px at 2560 against the old fixed 30px), the column
+  takes 2fr inside 110rem, the grid centres in the height it has, the team
+  code reaches ~57px and the lobby QR goes 168px → 22rem because it is
+  scanned from tables, not from the host's chair.
+
+  **Gated at `xl` (1280px), not `2xl`** — on purpose. `2xl` starts at
+  1536px and would have missed **1366x768**, the resolution of most
+  projectors likely to be pointed at a pub wall. Verified by rendering the
+  live desk at 2560, 1440, 1366, 1280, 1024 and 390: zero overflow at every
+  size, phone view unchanged.
+
+- **Two sessions duplicated the same fix on 2026-09-17, because neither knew
+  the other existed.** This session and the QA-hardening session
+  (`claude/zealous-ritchie-filqif`, PR #10) independently wrote the
+  `SiteHeader` `flex-wrap` fix; the two diffs differ by one character
+  (`gap-y-1` vs `gap-y-2`) and the `page.tsx` containers are identical.
+  `SendMessage` cannot reach a cloud session from a sandbox — `ListAgents`
+  reports no peers — so the working channel is **a comment on the PR the
+  other session is subscribed to**. When more than one session is running on
+  this repo, say so at the start of each and name the files each one owns.
 
 - **`npm audit`** — still 3 high, all one dev-only chain:
   `prisma@6.19.3` → `@prisma/config@6.19.3` → `deepmerge-ts@7.1.5`
