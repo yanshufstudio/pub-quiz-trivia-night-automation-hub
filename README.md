@@ -1,4 +1,4 @@
-# Triviafoundry
+# TriviaFoundry
 
 **Writes your pub quiz or trivia night, then runs it live.** Describe the rounds
 you want and get a complete pack, a presenter script and printed PDF
@@ -9,7 +9,7 @@ from their phones.
 `pub-quiz-trivia-night-automation-hu.vercel.app` host stays as an alias).
 
 Repo name predates the product name: the app was "Pub Quiz Hub" until
-2026-09-16, when it became Triviafoundry (pubquizhub.app turned out to be a
+2026-09-16, when it became TriviaFoundry (pubquizhub.app turned out to be a
 live competitor). The GitHub slug was left alone so existing links and
 Vercel wiring keep working.
 

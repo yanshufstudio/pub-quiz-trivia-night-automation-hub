@@ -14,8 +14,8 @@ describe("web app manifest", () => {
   const m = manifest();
 
   it("names the app and opens at the root in standalone mode", () => {
-    expect(m.name).toBe("Triviafoundry");
-    expect(m.short_name).toBe("Triviafoundry");
+    expect(m.name).toBe("TriviaFoundry");
+    expect(m.short_name).toBe("TriviaFoundry");
     expect(m.start_url).toBe("/");
     expect(m.display).toBe("standalone");
   });

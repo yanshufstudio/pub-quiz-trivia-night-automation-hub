@@ -3,8 +3,8 @@ import Link from "next/link";
 import { LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy · Triviafoundry",
-  description: "What Triviafoundry stores, who processes it, and how to have it deleted.",
+  title: "Privacy Policy · TriviaFoundry",
+  description: "What TriviaFoundry stores, who processes it, and how to have it deleted.",
 };
 
 export default function PrivacyPage() {
@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <LegalPage title="Privacy Policy">
       <LegalSection id="who-we-are" title="Who we are">
         <LegalText>
-          Triviafoundry is operated by Yanshuf Studio, Israel. For anything about your data, write to{" "}
+          TriviaFoundry is operated by Yanshuf Studio, Israel. For anything about your data, write to{" "}
           <a className="font-medium text-amber hover:underline" href="mailto:privlin@gmail.com">
             privlin@gmail.com
           </a>

@@ -80,7 +80,7 @@ h1 em { font-style: normal; color: ${T.gold}; }
 .nm { flex: 1; font-weight: 800; font-size: 21px; white-space: nowrap; }
 .sc { font-family: Slab; font-size: 28px; color: ${T.fg}; }
 </style></head><body><div class="card">
-  <div class="brand"><div class="coaster"><span>?</span></div><div class="word">Trivia<em>foundry</em></div></div>
+  <div class="brand"><div class="coaster"><span>?</span></div><div class="word">Trivia<em>Foundry</em></div></div>
   <div class="eyebrow">PUB QUIZ · TRIVIA NIGHT</div>
   <h1>Tonight&rsquo;s quiz, <em>forged</em> while you pour.</h1>
   <div class="sub">Writes the whole night, prints the sheets, then runs it live on every team&rsquo;s phone.</div>

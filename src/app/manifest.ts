@@ -9,8 +9,8 @@ import type { MetadataRoute } from "next";
 // the central 80%.
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Triviafoundry",
-    short_name: "Triviafoundry",
+    name: "TriviaFoundry",
+    short_name: "TriviaFoundry",
     description: "Writes your pub quiz or trivia night, then runs it live.",
     start_url: "/",
     display: "standalone",
