@@ -214,6 +214,10 @@ body {
   perspective: 220px;
 }
 .flip-tile .flipper {
+  /* The flipper is a <span>: without display:block its height:100% is
+     ignored, the absolutely-positioned faces collapse to 2px, and the digits
+     float above the row with no tile behind them. */
+  display: block;
   position: relative;
   width: 100%;
   height: 100%;
