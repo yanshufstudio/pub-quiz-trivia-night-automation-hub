@@ -21,6 +21,18 @@
   amber; it only ever sits on the dark stage and pairs with dark text, so it
   runs as hot as the sign would. `--amber` is its desk-side cousin, a brass
   brown that stays legible on cream and under white text.
+
+  On the stage ladder's lightness, because it is easy to undo by eye: the
+  three greens sit at roughly L* 10 / 16 / 25 (deep, stage, panel). The first
+  cut of this palette had them at 5 / 8 / 16, which was a mistake in two ways.
+  Hue stops being perceptible below about L* 15, so a 42%-saturated bottle
+  green at L* 8 is simply black — the green was paid for and never seen. And
+  the whole ladder spanned 11 points, so panels barely lifted off the ground
+  and the stage read as one flat slab rather than a room with things in it.
+  Keep the gaps: about 6 points deep-to-stage, about 9 stage-to-panel. There
+  is headroom to go lighter if anything — every foreground still clears AA on
+  every stage surface (cream 10-16:1, gold 6-9:1, mint 8-12:1), so darkness
+  here is a stylistic choice and never an accessibility one.
 */
 :root {
   /* desk */
@@ -31,10 +43,10 @@
   --amber: #8f5d10;
   --amber-hover: #6f4709;
 
-  /* stage */
-  --stage: #0f1a14;
-  --stage-deep: #0b130f;
-  --stage-panel: #1a2b22;
+  /* stage — see the lightness note in the block comment above */
+  --stage: #182c21;
+  --stage-deep: #101e17;
+  --stage-panel: #264132;
   --stage-fg: #fff4dc;
   --stage-muted: #9fb3a6;
   --gold: #ffb02e;
