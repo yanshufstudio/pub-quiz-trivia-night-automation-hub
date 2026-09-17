@@ -170,30 +170,44 @@ export function HostDashboard({ code }: { code: string }) {
 
   return (
     <div className="min-h-dvh bg-stage text-stage-fg">
-      <header className="border-b border-white/10 px-5 py-4 sm:px-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-gold">Host desk</p>
-            <h1 className="mt-1 font-serif text-xl font-semibold">{state.packTitle}</h1>
+      <header className="border-b border-white/10 px-5 py-4 sm:px-8 xl:py-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 xl:max-w-[96rem]">
+          <div className="min-w-0">
+            <p className="text-xs uppercase tracking-[0.18em] text-gold xl:text-base">Host desk</p>
+            <h1 className="mt-1 font-serif text-xl font-semibold xl:text-3xl">{state.packTitle}</h1>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={state.status} dark />
-            <div className="rounded-xl bg-gold px-4 py-2 text-stage">
-              <p className="text-[10px] font-semibold uppercase tracking-wider">Team code</p>
-              <p className="font-mono text-2xl font-bold tracking-[0.2em]">{state.code}</p>
+            {/* The code is what a latecomer squints at from the door, so it
+                scales with the screen rather than sitting at 24px on a TV. */}
+            <div className="rounded-xl bg-gold px-4 py-2 text-stage xl:px-6 xl:py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wider xl:text-sm">Team code</p>
+              <p className="font-mono text-[clamp(1.5rem,0.6rem+1.8vw,3.75rem)] font-bold leading-tight tracking-[0.2em]">
+                {state.code}
+              </p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-6xl gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[1.4fr_1fr]">
+      {/* minmax(0, …) and min-w-0 on the aside: a grid column's default
+          minimum is its content's min-content width, so one long team name
+          forced the whole desk wider than the viewport. (Same fix as PR #10;
+          kept here deliberately so the two versions agree.)
+
+          The xl step (1280px+) is the TV, chosen over 2xl so a 1366x768
+          projector is included, not just a 4K panel: the desk is the one surface in this app
+          read from four metres, and at 2560px it used to put everything in
+          the top quarter of the screen inside a 1152px column. It now takes
+          96rem and centres itself in the height it has. */}
+      <main className="mx-auto grid max-w-6xl gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] xl:min-h-[calc(100dvh-9.5rem)] xl:max-w-[110rem] xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] xl:content-center xl:gap-10 xl:px-12 xl:py-10">
         {error ? <p className="lg:col-span-2 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
 
-        <section className="rounded-2xl bg-white/5 p-5 sm:p-6">
+        <section className="min-w-0 rounded-2xl bg-white/5 p-5 sm:p-6 xl:p-10">
           {state.status === "LOBBY" ? (
             <>
-              <h2 className="font-serif text-2xl font-semibold">Waiting for teams</h2>
-              <p className="mt-2 text-stage-muted">
+              <h2 className="font-serif text-2xl font-semibold xl:text-5xl">Waiting for teams</h2>
+              <p className="mt-2 text-stage-muted xl:mt-4 xl:text-2xl">
                 Share the code. Start when everyone is in — late joiners can still arrive during the lobby.
               </p>
               <JoinQr code={state.code} />
@@ -201,7 +215,7 @@ export function HostDashboard({ code }: { code: string }) {
                 type="button"
                 onClick={() => advance("start")}
                 disabled={busy || state.teams.length === 0}
-                className="mt-6 h-14 w-full rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40"
+                className="mt-6 h-14 w-full rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40 xl:mt-10 xl:h-20 xl:text-2xl"
               >
                 {state.teams.length === 0 ? "Waiting for the first team" : "Start quiz"}
               </button>
@@ -215,15 +229,19 @@ export function HostDashboard({ code }: { code: string }) {
                   <Countdown timer={state.timer} dark />
                 </div>
               ) : null}
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold xl:text-lg">
                 Round {state.roundNumber} of {state.totalRounds}
                 {state.round ? ` · ${state.round.title}` : ""}
               </p>
-              <p className="mt-1 text-sm text-stage-muted">
+              <p className="mt-1 text-sm text-stage-muted xl:mt-2 xl:text-lg">
                 Question {state.questionNumber} of {state.totalQuestionsInRound}
                 {state.question ? ` · ${state.question.points} pt` : ""}
               </p>
-              <h2 className="mt-4 font-serif text-2xl font-semibold leading-snug sm:text-3xl">
+              {/* Fluid rather than stepped, because a pub TV is any size:
+                  ~26px on a phone (what it always was), ~53px on a laptop,
+                  ~83px at 2560px. Below about 24px nothing is legible at
+                  four metres, and the old fixed 30px was exactly that. */}
+              <h2 className="mt-4 font-serif text-[clamp(1.5rem,1rem+2.6vw,5.25rem)] font-semibold leading-[1.15] xl:mt-6">
                 {state.question?.text ?? "No question loaded"}
               </h2>
               <QuestionImage question={state.question} />
@@ -232,7 +250,7 @@ export function HostDashboard({ code }: { code: string }) {
                   {state.question.options.map((option, i) => (
                     <li
                       key={option}
-                      className={`rounded-lg px-3 py-2 text-sm ${
+                      className={`rounded-lg px-3 py-2 text-sm xl:px-5 xl:py-3 xl:text-2xl ${
                         state.question?.answer === option
                           ? "bg-emerald-500/20 font-semibold text-emerald-200"
                           : "bg-white/5"
@@ -244,19 +262,19 @@ export function HostDashboard({ code }: { code: string }) {
                 </ul>
               ) : null}
               {state.question?.answer ? (
-                <p className="mt-4 rounded-xl bg-emerald-500/15 px-4 py-3 font-semibold text-emerald-200">
+                <p className="mt-4 rounded-xl bg-emerald-500/15 px-4 py-3 font-semibold text-emerald-200 xl:mt-6 xl:px-6 xl:py-5 xl:text-[clamp(1.5rem,0.75rem+1.7vw,3.25rem)]">
                   Answer: {state.question.answer}
                 </p>
               ) : (
-                <p className="mt-4 text-sm text-stage-muted">Answer stays hidden until you reveal.</p>
+                <p className="mt-4 text-sm text-stage-muted xl:text-xl">Answer stays hidden until you reveal.</p>
               )}
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row xl:mt-10">
                 {state.status === "QUESTION_ACTIVE" ? (
                   <button
                     type="button"
                     onClick={() => advance("reveal")}
                     disabled={busy}
-                    className="h-14 flex-1 rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40"
+                    className="h-14 flex-1 rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40 xl:h-20 xl:text-2xl"
                   >
                     Reveal answer
                   </button>
@@ -265,7 +283,7 @@ export function HostDashboard({ code }: { code: string }) {
                     type="button"
                     onClick={() => advance("next")}
                     disabled={busy}
-                    className="h-14 flex-1 rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40"
+                    className="h-14 flex-1 rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40 xl:h-20 xl:text-2xl"
                   >
                     {nextLabel}
                   </button>
@@ -280,7 +298,9 @@ export function HostDashboard({ code }: { code: string }) {
               <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                 {winners.length > 1 ? "Tonight’s champions" : "Tonight’s champion"}
               </p>
-              <h2 className="mt-2 font-serif text-4xl font-semibold leading-tight">{winningNames(winners)}</h2>
+              <h2 className="mt-2 font-serif text-[clamp(2.25rem,1rem+3vw,6rem)] font-semibold leading-tight">
+                {winningNames(winners)}
+              </h2>
               {winners.length > 0 ? (
                 <p className="mt-2 text-stage-muted">
                   {topScore} {topScore === 1 ? "point" : "points"} · {state.totalRounds} rounds
@@ -293,11 +313,11 @@ export function HostDashboard({ code }: { code: string }) {
           ) : null}
         </section>
 
-        <aside className="space-y-6">
-          <section className="rounded-2xl bg-white/5 p-5">
+        <aside className="min-w-0 space-y-6 xl:space-y-8">
+          <section className="rounded-2xl bg-white/5 p-5 xl:p-7">
             <div className="flex items-center justify-between gap-3">
-              <h3 className="font-semibold">{submissionsLabel}</h3>
-              <span className="text-sm text-stage-muted">
+              <h3 className="font-semibold xl:text-2xl">{submissionsLabel}</h3>
+              <span className="text-sm text-stage-muted xl:text-xl">
                 {submitted}/{state.teams.length}
               </span>
             </div>
@@ -307,7 +327,7 @@ export function HostDashboard({ code }: { code: string }) {
                   <li className="text-sm text-stage-muted">No teams yet.</li>
                 ) : (
                   state.teams.map((team) => (
-                    <li key={team.id} className="rounded-lg bg-white/5 px-3 py-2.5">
+                    <li key={team.id} className="rounded-lg bg-white/5 px-3 py-2.5 xl:px-5 xl:py-3.5 xl:text-2xl">
                       {team.name}
                     </li>
                   ))
@@ -319,8 +339,8 @@ export function HostDashboard({ code }: { code: string }) {
                   <li key={team.id} className="rounded-lg bg-white/5 px-3 py-3">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="font-medium">{team.name}</p>
-                        <p className="mt-1 truncate text-sm text-stage-muted">
+                        <p className="font-medium xl:text-2xl">{team.name}</p>
+                        <p className="mt-1 truncate text-sm text-stage-muted xl:text-xl">
                           {team.currentAnswer?.text ?? "Waiting…"}
                         </p>
                       </div>
@@ -339,14 +359,14 @@ export function HostDashboard({ code }: { code: string }) {
                         <button
                           type="button"
                           onClick={() => overrideAnswer(team, true)}
-                          className="h-10 rounded-lg bg-emerald-600/80 text-sm font-semibold"
+                          className="h-10 rounded-lg bg-emerald-700 text-sm font-semibold xl:h-14 xl:text-lg"
                         >
                           Correct
                         </button>
                         <button
                           type="button"
                           onClick={() => overrideAnswer(team, false)}
-                          className="h-10 rounded-lg bg-red-600/70 text-sm font-semibold"
+                          className="h-10 rounded-lg bg-red-600/70 text-sm font-semibold xl:h-14 xl:text-lg"
                         >
                           Wrong
                         </button>
@@ -358,15 +378,15 @@ export function HostDashboard({ code }: { code: string }) {
             )}
           </section>
 
-          <section className="rounded-2xl bg-white/5 p-5">
-            <h3 className="mb-3 font-semibold">Scoreboard</h3>
+          <section className="rounded-2xl bg-white/5 p-5 xl:p-7 xl:text-2xl">
+            <h3 className="mb-3 font-semibold xl:mb-5 xl:text-2xl">Scoreboard</h3>
             <Scoreboard rows={state.scoreboard} dark />
           </section>
         </aside>
 
-        <p className="lg:col-span-2 text-center text-sm text-stage-muted">
+        <p className="lg:col-span-2 text-center text-sm text-stage-muted xl:text-xl">
           Teams join at{" "}
-          <Link href="/play" className="text-gold underline-offset-2 hover:underline">
+          <Link href="/play" className="text-gold underline underline-offset-2">
             /play
           </Link>
         </p>
@@ -381,13 +401,23 @@ export function HostDashboard({ code }: { code: string }) {
 function JoinQr({ code }: { code: string }) {
   const joinUrl = buildJoinUrl(window.location.origin, code);
   return (
-    <figure className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:gap-5">
-      <div className="rounded-xl bg-white p-3">
-        <QRCode value={joinUrl} size={168} role="img" aria-label="Scan to join" />
+    <figure className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:gap-5 xl:mt-10 xl:gap-10">
+      {/* The SVG is rendered once at 168 and scaled by its box, so the code
+          stays crisp at any size. On a TV it is scanned from a table across
+          the room, which a 168px square cannot serve. */}
+      <div className="w-[calc(168px+1.5rem)] rounded-xl bg-white p-3 xl:w-[22rem] xl:p-6">
+        <QRCode
+          value={joinUrl}
+          size={168}
+          role="img"
+          aria-label="Scan to join"
+          className="h-auto w-full"
+          viewBox="0 0 168 168"
+        />
       </div>
-      <figcaption className="text-center text-sm text-stage-muted sm:text-left">
-        <span className="block font-semibold text-stage-fg">Scan to join</span>
-        <span className="mt-1 block break-all font-mono text-xs">{joinUrl}</span>
+      <figcaption className="text-center text-sm text-stage-muted sm:text-left xl:text-2xl">
+        <span className="block font-semibold text-stage-fg xl:text-3xl">Scan to join</span>
+        <span className="mt-1 block break-all font-mono text-xs xl:mt-3 xl:text-lg">{joinUrl}</span>
       </figcaption>
     </figure>
   );
