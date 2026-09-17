@@ -488,6 +488,36 @@ above.*
   inert, but production data and sandbox billing ids are now mixed in one
   table. Decide (delete, or leave and document) before the live cutover.
 
+- **~~The header row scrolled the page sideways on a phone~~ — fixed
+  2026-09-17 (`1ae6b0f`), not yet merged.** Recorded because it was live in
+  production and nobody knew. The sign and the nav were one non-wrapping
+  flex row, so below ~410px the whole page slid sideways: on `origin/master`
+  `efb982c` (what triviafoundry.com serves) 85px at 320, 45px at 360 and
+  **15px at 390 — a standard iPhone**; at 320 the nav was pushed off the
+  right edge and only "Create" survived. Fixed with `flex-wrap` on the two
+  header rows (`SiteHeader.tsx` and the homepage's own copy in `page.tsx`);
+  a smaller wordmark cannot fix it, since 280px of usable width has to hold
+  a ~201px sign and a ~217px nav. **Only that row was affected** — `/play`,
+  `/host/<code>` and the team join screen all measured zero overflow at 320,
+  360, 390, 1024 and 2560. PR #9's capital F added exactly 5px to a bug that
+  was ~94% already there.
+
+  **Why a green suite missed it: nothing in the suite used a viewport
+  narrower than a desktop.** That is now closed by
+  `e2e/narrow-viewport.spec.ts` (320/360/390/430 across the five surfaces
+  carrying the header row), verified to fail before the fix — 15 red, and
+  the 5 at 430 green — and carrying a control so it cannot pass vacuously.
+  Same blind spot that hid the print-preview bug.
+
+- **The host desk is laid out like a desktop page on a surface read from
+  four metres.** Not a bug and nothing overflows — at 2560x1440 the live
+  desk measures zero overflow — but the content fills only the top ~25% of
+  the screen, `max-w-5xl` uses 40% of the width, and the question, which is
+  the one thing the room is reading, sets at roughly 30px on a 2560px
+  display. The host desk is the only surface in this product with its own
+  viewing distance and it is currently styled like every other page. Worth a
+  decision before anyone runs a real night on a pub TV.
+
 - **`npm audit`** — still 3 high, all one dev-only chain:
   `prisma@6.19.3` → `@prisma/config@6.19.3` → `deepmerge-ts@7.1.5`
   (GHSA-ggr8-5vv4-36mx, fixed in `deepmerge-ts@8`). The only fix npm offers
@@ -663,6 +693,25 @@ cookie per 30 days). They are different things; don't conflate them.
 ## Gotchas
 
 New in the 2026-09-15 and 2026-09-17 sessions:
+
+- **The local `master` branch in a fresh sandbox clone is STALE.** It sat at
+  `d1b613d` while `origin/master` was `efb982c` — four merges and the whole
+  rename behind. Nothing warns you: `git checkout master`, `git diff master`
+  and `git merge master` all silently use the old commit, and on `d1b613d`
+  files like `src/components/Wordmark.tsx` do not exist yet. This produced a
+  confidently wrong measurement in the 2026-09-17 session (a probe reported
+  "no bug on master" because it was measuring a pre-rename tree). **Always
+  say `origin/master`**, or `git fetch origin master && git checkout
+  --detach origin/master`, and check `git rev-parse --short master
+  origin/master` before trusting any comparison against "master".
+- **A stray `next dev` can hold the project directory while listening on no
+  port at all.** The known "refuses a second instance" gotcha below assumes
+  you can find the stray by its port; you cannot always. A `next-server`
+  process survived with no socket bound, and every later `next dev` simply
+  hung at startup with no error — twice, costing a screenshot run and an
+  audit run. Check `pgrep -af next-server`, not just `ss -lntp`. Beware
+  `pkill -f "next dev"`: the pattern matches the shell running it, so it
+  kills your own command (exit 144). Kill by PID.
 
 - **`prisma generate` runs only in `build`, never on install.**
   `package.json` has `"build": "prisma generate && prisma migrate deploy &&
