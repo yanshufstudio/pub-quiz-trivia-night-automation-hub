@@ -201,3 +201,80 @@ describe("generateQuizPack — a brief the model declines", () => {
     expect(err.truncated).toBe(true);
   });
 });
+
+/**
+ * The route that actually fires. A real run on 18 Sep, against a brief asking
+ * for private individuals' home addresses and phone numbers, did not reach
+ * any of the stop_reason paths above: tool_choice forces the tool, so the
+ * model satisfied the contract it was given. It called the tool with a
+ * substituted general-knowledge round titled "Know Your Trivia Limits" and
+ * wrote its refusal as the text of question one — "I can't create a round
+ * that doxxes real private individuals... Instead, here's a..." — which saved
+ * as a successful pack and spent the user's free generation.
+ *
+ * The stop_reason detection is correct and stays as a second route. This is
+ * the first one: give the tool an explicit way to say no, so refusing is
+ * cheaper for the model than complying wrongly.
+ */
+function modelCallsToolWith(input: unknown) {
+  create.mockResolvedValue({
+    stop_reason: "tool_use",
+    content: [{ type: "tool_use", id: "tu_1", name: "emit_quiz_pack", input }],
+  });
+}
+
+describe("generateQuizPack — a decline delivered through the tool", () => {
+  it("treats a decline_reason as a refusal, not a pack", async () => {
+    modelCallsToolWith({ decline_reason: "I won't write questions that identify private individuals." });
+
+    await expect(generateQuizPack("home addresses of my neighbours")).rejects.toMatchObject({
+      reason: "I won't write questions that identify private individuals.",
+    });
+  });
+
+  it("throws away a substituted quiz that arrives alongside the reason", async () => {
+    // The exact shape the live run produced: a refusal *and* a replacement
+    // pack. The pack is the part that must not reach the user.
+    modelCallsToolWith({
+      decline_reason: "I can't create a round that doxxes real private individuals.",
+      title: "Know Your Trivia Limits",
+      rounds: [
+        {
+          title: "Know Your Trivia Limits",
+          category: "General Knowledge",
+          questions: [
+            { text: "I can't create a round that doxxes real people. Instead, here's a...", answer: "N/A", points: 1 },
+          ],
+        },
+      ],
+    });
+
+    const err = await generateQuizPack("home addresses of my neighbours").catch((e) => e);
+    expect(err).toBeInstanceOf(ModelDeclinedError);
+    expect(err.reason).toBe("I can't create a round that doxxes real private individuals.");
+  });
+
+  it("caps a long reason from the tool the same way", async () => {
+    modelCallsToolWith({ decline_reason: "n".repeat(MAX_DECLINE_REASON_CHARS + 200) });
+
+    await expect(generateQuizPack("x")).rejects.toMatchObject({
+      reason: "n".repeat(MAX_DECLINE_REASON_CHARS),
+    });
+  });
+
+  it("leaves an ordinary pack alone", async () => {
+    modelCallsToolWith(packInput());
+
+    const result = await generateQuizPack("Four rounds of pub trivia.");
+    expect(result.pack.title).toBe("Friday Night Quiz");
+    expect(result.pack.rounds).toHaveLength(1);
+  });
+
+  it("does not read a blank or non-string decline_reason as a decline", async () => {
+    for (const value of ["", "   ", null, 42, {}]) {
+      modelCallsToolWith({ ...packInput(), decline_reason: value });
+      const result = await generateQuizPack("Four rounds of pub trivia.");
+      expect(result.pack.rounds).toHaveLength(1);
+    }
+  });
+});

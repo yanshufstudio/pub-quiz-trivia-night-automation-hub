@@ -20,10 +20,17 @@ const TOOL_NAME = "emit_quiz_pack";
 const quizPackJsonSchema: Anthropic.Tool.InputSchema = {
   type: "object",
   properties: {
+    decline_reason: {
+      type: "string",
+      description:
+        "Set this ONLY if you will not write the quiz the brief asks for. A short " +
+        "explanation addressed to the quizmaster, saying what you will not write and " +
+        "why. When you set it, send no rounds. Never substitute a different quiz, and " +
+        "never put an explanation, apology or refusal inside a question or an answer.",
+    },
     title: { type: "string", description: "Short title for the whole quiz pack" },
     rounds: {
       type: "array",
-      minItems: 1,
       items: {
         type: "object",
         properties: {
@@ -69,7 +76,11 @@ const quizPackJsonSchema: Anthropic.Tool.InputSchema = {
       },
     },
   },
-  required: ["title", "rounds"],
+  // Nothing is required at the top level, because a decline is a valid
+  // response and carries neither a title nor rounds. The parse in
+  // generateQuizPack enforces the real contract: either a decline_reason, or
+  // a pack with a title and at least one round.
+  required: [],
 };
 
 /**
@@ -127,6 +138,16 @@ export type GenerationResult = {
   truncated: boolean;
 };
 
+/** The tool's own decline channel: a non-empty `decline_reason` on the tool
+ * input, trimmed and capped. Anything else — absent, blank, not a string —
+ * is not a decline. */
+function declineReasonFromTool(input: unknown): string {
+  if (typeof input !== "object" || input === null) return "";
+  const raw = (input as { decline_reason?: unknown }).decline_reason;
+  if (typeof raw !== "string") return "";
+  return raw.trim().slice(0, MAX_DECLINE_REASON_CHARS).trim();
+}
+
 /**
  * What the model said when it declined, trimmed and capped.
  *
@@ -168,7 +189,13 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
       "from easy to hard. Do not repeat questions or trivia facts across rounds. Most " +
       "questions should be free-text; sprinkle in the occasional multiple-choice question " +
       "for variety, never more than one or two per round. Call the " +
-      `${TOOL_NAME} tool exactly once with the full pack.`,
+      `${TOOL_NAME} tool exactly once with the full pack.` +
+      "\n\nIf you will not write the quiz the brief asks for, call the tool with " +
+      "decline_reason set to a short explanation addressed to the quizmaster, and no " +
+      "rounds. Never substitute a different quiz for the one you were asked for, and " +
+      "never put an explanation, apology or refusal inside a question or an answer — a " +
+      "pack is printed and read aloud to a room, so a refusal written as question one " +
+      "reaches the players as a question.",
     tools: [
       {
         name: TOOL_NAME,
@@ -206,6 +233,21 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
     }
     throw new UnusableModelOutputError("Model did not return structured quiz data", truncated);
   }
+
+  // A decline delivered through the tool itself, which is the route that
+  // actually fires. tool_choice forces the tool, so the model satisfies the
+  // contract it was given rather than ending its turn: asked for a brief it
+  // would not write, it called the tool anyway with a substituted,
+  // unobjectionable quiz and its refusal as the text of question one. That
+  // saved as a successful pack and spent the user's free generation, and no
+  // stop_reason ever said otherwise. Giving the tool an explicit way to say
+  // no is what makes refusing cheaper for the model than complying wrongly.
+  //
+  // Checked before the pack parse, and regardless of what else came with it:
+  // a response carrying both a reason and rounds is a decline that also
+  // substituted a quiz, and the quiz is the part to throw away.
+  const declined = declineReasonFromTool(toolUse.input);
+  if (declined) throw new ModelDeclinedError(declined);
 
   const parsed = generatedPackSchema.safeParse(toolUse.input);
   if (parsed.success) {
