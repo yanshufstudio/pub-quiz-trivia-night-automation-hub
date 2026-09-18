@@ -54,3 +54,27 @@ test("pricing is reachable from the footer of an ordinary page", async ({ page }
   await expect(page).toHaveURL(/\/pricing$/);
   await expect(page.getByRole("heading", { level: 1, name: "Pricing" })).toBeVisible();
 });
+
+/**
+ * The homepage folds its own nav row into the hero instead of rendering
+ * <SiteHeader>, and for a day it kept a hand-maintained copy of the link list
+ * that had gone stale: Pricing was added to the header and the homepage — the
+ * first page Paddle's reviewer sees — silently still showed three links. Both
+ * now render the same exported array, and this is the check that says so.
+ */
+test("the homepage's own top nav carries every header link, Pricing included", async ({ page }) => {
+  await page.goto("/");
+
+  // Scoped to the hero's nav, not the footer: the footer already had a
+  // Pricing link while the top of the page did not, so a page-wide lookup
+  // would have passed straight through the bug. The homepage's row sits in a
+  // bare <div> above <main> rather than in a <header>, so this keys off the
+  // navigation landmark and takes the first one in document order.
+  const topNav = page.getByRole("navigation").first();
+  for (const label of ["Create", "Packs", "Join", "Pricing"]) {
+    await expect(topNav.getByRole("link", { name: label, exact: true })).toBeVisible();
+  }
+
+  await topNav.getByRole("link", { name: "Pricing", exact: true }).click();
+  await expect(page).toHaveURL(/\/pricing$/);
+});

@@ -87,3 +87,73 @@ export async function getCreatorReadOnly(req: NextRequest) {
   if (!deviceKey) return null;
   return db.creator.findUnique({ where: { deviceKey } });
 }
+
+/**
+ * Claim one of this creator's free-tier generations *before* the model runs.
+ *
+ * The route used to check `canGenerate` at the top and increment at the
+ * bottom, with a multi-second Anthropic call in between (M12). Both requests
+ * of a concurrent pair read the same pre-call count, both passed the check,
+ * and both generated — so the last free pack could be spent twice, and with
+ * enough parallelism a two-pack allowance stretched as far as the caller
+ * liked. Reserving up front closes the window: the check and the increment
+ * are one atomic statement, and whatever isn't spent is handed back by
+ * `releaseFreeGeneration`.
+ *
+ * The increment is a conditional `updateMany` — the same race-safe shape the
+ * session state machine uses for its transitions — so the database, not this
+ * process, decides who got the last one. `count === 0` means somebody else
+ * took it.
+ *
+ * PRO reserves nothing and is never counted: Pro has no per-user cap, which
+ * is what keeps "as many quiz packs as you want" on /pricing true. Its spend
+ * is bounded by the global daily ceiling instead (src/lib/daily-ceiling.ts).
+ */
+export async function reserveFreeGeneration(
+  creator: Creator
+): Promise<{ reserved: boolean; used: number; limit: number }> {
+  if (creator.plan === "PRO") {
+    return { reserved: true, used: creator.packsGeneratedInPeriod, limit: FREE_LIMIT };
+  }
+
+  // Roll an expired period first, conditional on the period we actually read.
+  // Two concurrent requests that both see an expired period would otherwise
+  // both zero the count — the second one wiping the first one's increment.
+  // The condition means only one of them wins the roll; the loser's update
+  // matches nothing and falls through to the claim below against the count
+  // the winner just reset.
+  const rolled = withRolledPeriod(creator);
+  if (rolled.periodStartedAt !== creator.periodStartedAt) {
+    await db.creator.updateMany({
+      where: { id: creator.id, periodStartedAt: creator.periodStartedAt },
+      data: { packsGeneratedInPeriod: 0, periodStartedAt: rolled.periodStartedAt },
+    });
+  }
+
+  const claimed = await db.creator.updateMany({
+    where: { id: creator.id, packsGeneratedInPeriod: { lt: FREE_LIMIT } },
+    data: { packsGeneratedInPeriod: { increment: 1 } },
+  });
+
+  if (claimed.count === 0) {
+    const current = await db.creator.findUnique({ where: { id: creator.id } });
+    return { reserved: false, used: current?.packsGeneratedInPeriod ?? FREE_LIMIT, limit: FREE_LIMIT };
+  }
+
+  return { reserved: true, used: rolled.packsGeneratedInPeriod + 1, limit: FREE_LIMIT };
+}
+
+/**
+ * Hand back a reservation the generation never spent — a refusal, an upstream
+ * failure, a bad brief. Guarded against going negative, so a release that
+ * somehow arrives after a period roll cannot mint an extra free pack.
+ *
+ * A no-op for PRO, which never reserved anything.
+ */
+export async function releaseFreeGeneration(creator: Creator): Promise<void> {
+  if (creator.plan === "PRO") return;
+  await db.creator.updateMany({
+    where: { id: creator.id, packsGeneratedInPeriod: { gt: 0 } },
+    data: { packsGeneratedInPeriod: { decrement: 1 } },
+  });
+}

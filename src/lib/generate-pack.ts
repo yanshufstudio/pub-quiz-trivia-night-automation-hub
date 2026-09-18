@@ -89,6 +89,35 @@ export class UnusableModelOutputError extends Error {
   }
 }
 
+/** The longest decline we will repeat back to the user. The text comes from
+ * the model, so it is arbitrary-length content being put on a page; a couple
+ * of sentences is all a decline ever needs, and the cap keeps a runaway
+ * response out of the UI. */
+export const MAX_DECLINE_REASON_CHARS = 400;
+
+/**
+ * The model read the brief and declined to write it — a refusal, not a
+ * failure. It comes back as a turn with no tool_use block and
+ * stop_reason "end_turn", carrying the model's own explanation as text.
+ *
+ * This used to be indistinguishable from a broken response: both threw
+ * UnusableModelOutputError, the route answered 502 "Please try again", and
+ * the explanation was discarded. Retrying a decline cannot work — the brief
+ * has to change — so inviting a retry, after up to 60 seconds of waiting,
+ * wastes the user's time and a second generation's worth of tokens.
+ */
+export class ModelDeclinedError extends Error {
+  /** The model's own words, trimmed and capped. Empty when it declined
+   * without saying anything. */
+  readonly reason: string;
+
+  constructor(reason: string) {
+    super(reason || "The question generator declined this brief");
+    this.name = "ModelDeclinedError";
+    this.reason = reason;
+  }
+}
+
 export type GenerationResult = {
   pack: GeneratedPack;
   /** Questions and rounds dropped to salvage the rest — 0/0 on a clean run. */
@@ -136,6 +165,20 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
 
   const toolUse = message.content.find((block) => block.type === "tool_use");
   if (!toolUse || toolUse.type !== "tool_use") {
+    // No tool call and the turn ended of its own accord: the model chose not
+    // to answer rather than failing to. A truncated turn is a different thing
+    // — it *was* writing the pack and ran out of room — and keeps the old
+    // path, which reports the size problem.
+    if (!truncated && message.stop_reason === "end_turn") {
+      const spoken = message.content
+        .filter((block) => block.type === "text")
+        .map((block) => (block.type === "text" ? block.text : ""))
+        .join(" ")
+        .trim()
+        .slice(0, MAX_DECLINE_REASON_CHARS)
+        .trim();
+      throw new ModelDeclinedError(spoken);
+    }
     throw new UnusableModelOutputError("Model did not return structured quiz data", truncated);
   }
 

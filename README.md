@@ -209,6 +209,20 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   (`src/lib/admin-auth.ts`). A deployment that forgets to set the variable
   therefore loses the override, not the protection. Nothing in the UI calls
   this route today; it exists to be reachable safely once something does.
+- **`FREE_DAILY_PACK_CEILING` / `PRO_DAILY_PACK_CEILING`** (optional,
+  defaults 50 and 200, see `.env.example`): hard ceilings on how many packs
+  the **whole deployment** generates per UTC day, enforced before the model
+  is called. These, not `FREE_PACK_LIMIT`, are what bound the Anthropic bill.
+  The per-creator cap is counted against the `pq_creator` cookie, so deleting
+  it resets the allowance and never sending one skips it entirely — a
+  cookie-less caller was limited only by the per-IP throttle (5 per 10
+  minutes, ~720/day/address). These ceilings have no identity in the key, so
+  rotating cookies does not move them. Free and Pro count in separate
+  buckets, so free traffic cannot exhaust a subscriber's capacity; Pro has no
+  per-user cap and its ceiling is purely a runaway-loop backstop. They are
+  read per request, so a change needs no rebuild, and they are only genuinely
+  global when Upstash is configured — without it each serverless instance
+  counts separately (`src/lib/daily-ceiling.ts`).
 - These are proportionate to this app's actual trust model — one host
   running one venue's quiz for a room of teams — not a multi-tenant SaaS
   auth system. See [PROMPTS.md](./PROMPTS.md) history / commit messages for
