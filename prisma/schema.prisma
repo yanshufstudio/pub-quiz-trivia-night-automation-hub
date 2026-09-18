@@ -139,6 +139,12 @@ model Answer {
   submittedAt   DateTime @default(now())
 
   @@unique([teamId, roundIndex, questionIndex])
+  // Every poll of GET /api/sessions/[code] — one per host and per team every
+  // three seconds — loads a session's answers. The unique above leads on
+  // teamId, so it could not serve that lookup and SQLite scanned every Answer
+  // row ever written instead. Leading on sessionId also serves the
+  // current-question slice the scoreboard and the host grid ask for.
+  @@index([sessionId, roundIndex, questionIndex])
 }
 
 model Creator {
