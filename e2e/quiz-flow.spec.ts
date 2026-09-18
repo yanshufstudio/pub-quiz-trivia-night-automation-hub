@@ -36,11 +36,19 @@ test("host runs a live round and a team answers correctly", async ({ browser, ba
   await teamPage.getByLabel("Your answer").fill("Canberra");
   await teamPage.getByRole("button", { name: "Submit answer" }).click();
 
-  // Host sees the live submission, auto-scored as correct, before revealing.
+  // Host sees *that* the team has answered, and not what they said. The desk
+  // goes on the pub TV, so showing the text here showed it to the room — see
+  // e2e/host-desk-no-peek.spec.ts. This assertion used to read "auto-scored
+  // as correct, before revealing", which was the bug stated as a feature.
   await expect(hostPage.getByText("1/1")).toBeVisible({ timeout: 10_000 });
-  await expect(hostPage.getByText("Canberra")).toBeVisible();
+  await expect(hostPage.getByText("Answered")).toBeVisible();
+  await expect(hostPage.getByText("Canberra")).toHaveCount(0);
 
   await hostPage.getByRole("button", { name: "Reveal answer" }).click();
+
+  // ...and gets it back on the reveal. More than one element carries it now
+  // (the revealed answer and the team's row), hence first().
+  await expect(hostPage.getByText("Canberra").first()).toBeVisible();
 
   // Team sees the reveal with their own answer and the correct verdict.
   await expect(teamPage.getByText(/Correct/)).toBeVisible({ timeout: 10_000 });

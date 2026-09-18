@@ -77,11 +77,14 @@ export type TimerInfo = {
 export type HostTeam = {
   id: string;
   name: string;
+  /** Non-null once the team has answered the current question. Every field
+   * inside it is null until the host reveals — see the host branch of
+   * GET /api/sessions/[code]. */
   currentAnswer: {
-    id: string;
-    text: string;
+    id: string | null;
+    text: string | null;
     isCorrect: boolean | null;
-    pointsAwarded: number;
+    pointsAwarded: number | null;
   } | null;
 };
 
