@@ -135,7 +135,7 @@ export async function reserveDailyGeneration(plan: string, now: Date = new Date(
   if (count > limit) {
     // Over the line: give the unit straight back, so a refused request does
     // not push the counter further past the ceiling on every retry.
-    await releaseOne(key);
+    await releaseOne(key, ttlSeconds);
     return { allowed: false, limit, used: limit, retryAfterSeconds: ttlSeconds, release: NO_OP_RELEASE };
   }
 
@@ -148,7 +148,7 @@ export async function reserveDailyGeneration(plan: string, now: Date = new Date(
     release: async () => {
       if (released) return;
       released = true;
-      await releaseOne(key);
+      await releaseOne(key, ttlSeconds);
     },
   };
 }
@@ -173,11 +173,16 @@ function incrementMemory(key: string, ttlSeconds: number, now: Date): number {
 }
 
 /** Never lets a counter go negative: an expired key would otherwise come back
- * as -1 and hand out a day's worth of free generations. */
-async function releaseOne(key: string): Promise<void> {
+ * as -1 and hand out a day's worth of free generations.
+ *
+ * The repair SET carries the expiry explicitly. Upstash's SET drops whatever
+ * TTL the key had unless told otherwise, and the INCR path only sets one when
+ * it sees count === 1 — so a bare SET here would leave today's counter with no
+ * expiry at all, immortal in Redis once the day rolls over. */
+async function releaseOne(key: string, ttlSeconds: number): Promise<void> {
   if (redis) {
     const count = await redis.decr(key);
-    if (count < 0) await redis.set(key, 0);
+    if (count < 0) await redis.set(key, 0, { ex: ttlSeconds });
     return;
   }
   const bucket = memoryCounters.get(key);

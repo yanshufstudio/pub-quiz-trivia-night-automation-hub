@@ -127,6 +127,29 @@ export type GenerationResult = {
   truncated: boolean;
 };
 
+/**
+ * What the model said when it declined, trimmed and capped.
+ *
+ * A "refusal" turn carries the reason in stop_details.explanation; an
+ * ordinary "end_turn" carries it in text blocks, of which there may be
+ * several. Prefer the structured field and fall back to the prose, so both
+ * shapes give the user something to act on. Empty is a valid answer — the
+ * model can decline without elaborating — and the caller supplies the
+ * wording for that case.
+ */
+function declineReason(message: { stop_details?: { explanation?: string | null } | null; content: unknown[] }): string {
+  const structured = message.stop_details?.explanation?.trim();
+  if (structured) return structured.slice(0, MAX_DECLINE_REASON_CHARS).trim();
+
+  return (message.content as { type: string; text?: string }[])
+    .filter((block) => block.type === "text")
+    .map((block) => block.text ?? "")
+    .join(" ")
+    .trim()
+    .slice(0, MAX_DECLINE_REASON_CHARS)
+    .trim();
+}
+
 export async function generateQuizPack(userPrompt: string): Promise<GenerationResult> {
   const anthropic = getAnthropicClient();
 
@@ -161,23 +184,25 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
   // questions before the cut are fine, the last one isn't. Track it so a
   // pack that survives salvage still reports *why* it came up short, and so
   // an unsalvageable one gets an error message that names the real cause.
-  const truncated = message.stop_reason === "max_tokens";
+  // model_context_window_exceeded is the same problem arriving by a different
+  // door — the brief did not fit — and wants the same "ask for less" answer.
+  const truncated =
+    message.stop_reason === "max_tokens" || message.stop_reason === "model_context_window_exceeded";
 
   const toolUse = message.content.find((block) => block.type === "tool_use");
   if (!toolUse || toolUse.type !== "tool_use") {
-    // No tool call and the turn ended of its own accord: the model chose not
-    // to answer rather than failing to. A truncated turn is a different thing
-    // — it *was* writing the pack and ran out of room — and keeps the old
-    // path, which reports the size problem.
-    if (!truncated && message.stop_reason === "end_turn") {
-      const spoken = message.content
-        .filter((block) => block.type === "text")
-        .map((block) => (block.type === "text" ? block.text : ""))
-        .join(" ")
-        .trim()
-        .slice(0, MAX_DECLINE_REASON_CHARS)
-        .trim();
-      throw new ModelDeclinedError(spoken);
+    // No tool call, and the turn ended of its own accord rather than being
+    // cut off: the model chose not to answer rather than failing to.
+    //
+    // Both stop reasons matter, and "refusal" is the one that matters most.
+    // The request forces the tool (tool_choice below), so a model that simply
+    // finishes its turn without calling it is the unusual shape; a safety
+    // classifier declining the brief reports "refusal" and carries its
+    // explanation in stop_details rather than in a text block. Watching only
+    // for "end_turn" caught the rarer case and let the common one fall
+    // through to a generic retryable error.
+    if (!truncated && (message.stop_reason === "refusal" || message.stop_reason === "end_turn")) {
+      throw new ModelDeclinedError(declineReason(message));
     }
     throw new UnusableModelOutputError("Model did not return structured quiz data", truncated);
   }

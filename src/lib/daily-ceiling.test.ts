@@ -86,13 +86,22 @@ describe("reserveDailyGeneration", () => {
 
   it("does not let refused attempts push the counter away from the ceiling", async () => {
     process.env[FREE_CEILING_ENV] = "1";
-    await reserveDailyGeneration("FREE", noon);
-    for (let i = 0; i < 5; i++) await reserveDailyGeneration("FREE", noon);
-
-    // A refusal hands its unit straight back, so releasing the one real
-    // reservation puts us exactly back at zero rather than 5 under.
     const held = await reserveDailyGeneration("FREE", noon);
-    expect(held.allowed).toBe(false);
+    expect(held.allowed).toBe(true);
+
+    // Five refusals. Each one INCRs before it can compare against the
+    // ceiling, so each must hand that unit straight back.
+    for (let i = 0; i < 5; i++) {
+      expect((await reserveDailyGeneration("FREE", noon)).allowed).toBe(false);
+    }
+
+    // The proof: release the one real reservation and the day is open again.
+    // If the refusals had kept their units the counter would sit at 6, and
+    // this would still be refused. (The earlier version of this test never
+    // called release at all, so it passed whether or not refusals gave
+    // anything back — it asserted nothing about its own name.)
+    await held.release();
+    expect((await reserveDailyGeneration("FREE", noon)).allowed).toBe(true);
   });
 
   it("counts FREE and PRO in separate buckets", async () => {

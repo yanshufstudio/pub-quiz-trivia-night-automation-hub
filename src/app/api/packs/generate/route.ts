@@ -6,10 +6,11 @@ import { wizardRequestSchema } from "@/lib/quiz-schema";
 import { rateLimit } from "@/lib/rate-limit";
 import { MissingApiKeyError } from "@/lib/anthropic";
 import {
+  canGenerate,
   getCreatorReadOnly,
   getOrCreateCreator,
-  releaseFreeGeneration,
   reserveFreeGeneration,
+  withRolledPeriod,
   FREE_LIMIT,
 } from "@/lib/creator";
 import { reserveDailyGeneration } from "@/lib/daily-ceiling";
@@ -24,12 +25,11 @@ export const maxDuration = 60;
  * again", including the failures where trying again provably cannot help.
  * These two split it by what the caller can actually do about it:
  *
- * - 422: the brief itself is the problem (it asked for more than one
- *   generation holds). The user has to change it.
+ * - 422: the brief itself is the problem — it asked for more than one
+ *   generation holds, or the model declined to write it. Either way the user
+ *   has to change it, and retrying unchanged cannot help.
  * - 503: the upstream model API is rate-limiting or down. Retrying works,
  *   and the SDK has already retried twice by the time we get here.
- * - 422: the brief itself is the problem — also the model declining to write
- *   it, which no amount of retrying will change.
  * - 502: everything else — an unusable response we can't attribute. Still
  *   worth retrying, so the message keeps saying so.
  */
@@ -40,7 +40,7 @@ function failureStatus(err: unknown): number {
   return 502;
 }
 
-function failureBody(err: unknown): { error: string; declined?: true } {
+function failureBody(err: unknown): { error: string; declined?: true; notConfigured?: true } {
   // The model's own explanation, verbatim — it is the only thing that tells
   // the user what to change. `declined` is what stops /create offering a
   // retry that cannot succeed.
@@ -91,6 +91,24 @@ export async function POST(req: NextRequest) {
   const existing = await getCreatorReadOnly(req);
   const plan = existing?.plan === "PRO" ? "PRO" : "FREE";
 
+  // Settle this creator's own cap first, against the row we already have.
+  // reserveFreeGeneration below is still the authority — this read cannot be
+  // trusted to decide anything — but a creator who is plainly out of packs
+  // should not INCR and then DECR the shared daily counter on the way to a
+  // 403. At the ceiling boundary that churn can make a genuine visitor whose
+  // request interleaves read one over the limit and be refused capacity that
+  // is not actually in use.
+  if (existing && !canGenerate(existing)) {
+    return NextResponse.json(
+      {
+        error: "You've used your free packs for this period. Upgrade to Pro for unlimited generation.",
+        packsGeneratedInPeriod: withRolledPeriod(existing).packsGeneratedInPeriod,
+        limit: FREE_LIMIT,
+      },
+      { status: 403 }
+    );
+  }
+
   // The ceiling that actually bounds the bill, taken before anything is spent
   // and before any row is written. There is no identity in its key, so
   // rotating or dropping cookies does not move it.
@@ -133,17 +151,44 @@ export async function POST(req: NextRequest) {
     return res;
   }
 
-  /** Give back everything this request reserved but did not spend. */
-  const releaseReservations = async () => {
-    await releaseFreeGeneration(creator);
-    await daily.release();
+  /**
+   * Give back what this request reserved but did not spend.
+   *
+   * The two reservations are not refunded on the same terms, because they
+   * guard different things. The creator's free pack is a fairness allowance:
+   * a user should never lose one to our failure, so it always comes back. The
+   * daily ceiling is a *bill* control, and the bill is charged the moment the
+   * model produces a completion — a brief that runs to the full 16k
+   * max_tokens and then fails validation is the most expensive call the app
+   * can make. Refunding the ceiling for those would have left the loop that
+   * generates them bounded by nothing but the per-IP throttle, which is the
+   * exact hole this ceiling exists to close.
+   *
+   * So the ceiling is only handed back when we are confident nothing was
+   * generated: no client at all (MissingApiKeyError, thrown before the
+   * request is built), or the API rejecting the request outright
+   * (Anthropic.APIError — a 429 or a 5xx produces no completion and no
+   * charge). Everything else keeps its unit.
+   */
+  const releaseReservations = async (err: unknown) => {
+    const nothingWasGenerated = err instanceof MissingApiKeyError || err instanceof Anthropic.APIError;
+    try {
+      await reservation.release();
+      if (nothingWasGenerated) await daily.release();
+    } catch (releaseErr) {
+      // Never let bookkeeping replace the diagnosis. Without this, a database
+      // blip or an Upstash timeout in here would throw straight out of the
+      // catch block below and the caller would get an opaque 500 instead of
+      // the 422 telling them exactly what to change.
+      console.error("Failed to release a generation reservation:", releaseErr);
+    }
   };
 
   let generated;
   try {
     generated = await generateQuizPack(parsed.data.prompt);
   } catch (err) {
-    await releaseReservations();
+    await releaseReservations(err);
     if (err instanceof MissingApiKeyError) {
       // Not an upstream failure — nothing to hide, and "please try again"
       // would be actively misleading here since retrying can't help.
@@ -152,6 +197,11 @@ export async function POST(req: NextRequest) {
           error:
             "AI generation isn't configured on this server yet — set ANTHROPIC_API_KEY " +
             "in .env and restart, or use the demo pack (POST /api/packs/seed) instead.",
+          // Three different conditions answer 503 — this one, the daily
+          // ceiling, and an upstream model outage — so the client cannot tell
+          // them apart from the status. Only this one means "generation is
+          // not set up here", and only this one should offer the demo pack.
+          notConfigured: true,
         },
         { status: 503 }
       );
@@ -179,7 +229,30 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const pack = await createPackFromGenerated(generated.pack, parsed.data.prompt, creator.id);
+  let pack;
+  try {
+    pack = await createPackFromGenerated(generated.pack, parsed.data.prompt, creator.id);
+  } catch (err) {
+    // The model ran and was billed, so the daily unit stays spent — but the
+    // caller has nothing to show for it, and charging them a free pack for
+    // our storage failure would, at FREE_LIMIT of 2, lock them out for 30
+    // days after two of these. The cookie still goes back: without it a
+    // first-time visitor's freshly minted Creator row is orphaned, along
+    // with every pack they generate afterwards under a new identity.
+    console.error("Generated pack could not be saved:", err);
+    try {
+      await reservation.release();
+    } catch (releaseErr) {
+      console.error("Failed to release a generation reservation:", releaseErr);
+    }
+    const res = NextResponse.json(
+      { error: "The quiz pack was generated but could not be saved. Please try again." },
+      { status: 500 }
+    );
+    setCookieOn(res);
+    return res;
+  }
+
   const res = NextResponse.json({ pack }, { status: 201 });
   setCookieOn(res);
   return res;

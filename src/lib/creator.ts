@@ -111,9 +111,14 @@ export async function getCreatorReadOnly(req: NextRequest) {
  */
 export async function reserveFreeGeneration(
   creator: Creator
-): Promise<{ reserved: boolean; used: number; limit: number }> {
+): Promise<{ reserved: boolean; used: number; limit: number; release: () => Promise<void> }> {
   if (creator.plan === "PRO") {
-    return { reserved: true, used: creator.packsGeneratedInPeriod, limit: FREE_LIMIT };
+    return {
+      reserved: true,
+      used: creator.packsGeneratedInPeriod,
+      limit: FREE_LIMIT,
+      release: async () => {},
+    };
   }
 
   // Roll an expired period first, conditional on the period we actually read.
@@ -137,23 +142,35 @@ export async function reserveFreeGeneration(
 
   if (claimed.count === 0) {
     const current = await db.creator.findUnique({ where: { id: creator.id } });
-    return { reserved: false, used: current?.packsGeneratedInPeriod ?? FREE_LIMIT, limit: FREE_LIMIT };
+    return {
+      reserved: false,
+      used: current?.packsGeneratedInPeriod ?? FREE_LIMIT,
+      limit: FREE_LIMIT,
+      release: async () => {},
+    };
   }
 
-  return { reserved: true, used: rolled.packsGeneratedInPeriod + 1, limit: FREE_LIMIT };
-}
+  // The period this reservation was taken against. The release below is
+  // conditional on it still being current, because a generation can take a
+  // minute and a 30-day period can expire inside that minute: if another
+  // request rolls the row in between, decrementing would refund a reservation
+  // from the old period against the new one's count. A `> 0` guard keeps the
+  // number non-negative but does not prevent that — only matching the period
+  // does.
+  const claimedPeriod = rolled.periodStartedAt;
+  let released = false;
 
-/**
- * Hand back a reservation the generation never spent — a refusal, an upstream
- * failure, a bad brief. Guarded against going negative, so a release that
- * somehow arrives after a period roll cannot mint an extra free pack.
- *
- * A no-op for PRO, which never reserved anything.
- */
-export async function releaseFreeGeneration(creator: Creator): Promise<void> {
-  if (creator.plan === "PRO") return;
-  await db.creator.updateMany({
-    where: { id: creator.id, packsGeneratedInPeriod: { gt: 0 } },
-    data: { packsGeneratedInPeriod: { decrement: 1 } },
-  });
+  return {
+    reserved: true,
+    used: rolled.packsGeneratedInPeriod + 1,
+    limit: FREE_LIMIT,
+    release: async () => {
+      if (released) return;
+      released = true;
+      await db.creator.updateMany({
+        where: { id: creator.id, periodStartedAt: claimedPeriod, packsGeneratedInPeriod: { gt: 0 } },
+        data: { packsGeneratedInPeriod: { decrement: 1 } },
+      });
+    },
+  };
 }

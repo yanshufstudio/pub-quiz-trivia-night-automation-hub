@@ -10,7 +10,7 @@ vi.mock("@/lib/anthropic", () => ({
   MissingApiKeyError: class MissingApiKeyError extends Error {},
 }));
 
-import { generateQuizPack } from "@/lib/generate-pack";
+import { generateQuizPack, MAX_DECLINE_REASON_CHARS, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
 
 type Request = Anthropic.MessageCreateParamsNonStreaming;
 
@@ -104,5 +104,100 @@ describe("generateQuizPack — reading the response", () => {
     modelReplies(packInput(), "max_tokens");
 
     expect((await generateQuizPack("Eight rounds of fifteen.")).truncated).toBe(true);
+  });
+});
+
+/**
+ * Every other test of the decline path mocks generateQuizPack itself and
+ * hands the route a ModelDeclinedError built by hand, so none of them ever
+ * executed the detection below. That gap is exactly how the first version
+ * shipped watching only for "end_turn": the request forces the tool, so a
+ * safety classifier declining a brief reports "refusal" and the common case
+ * fell through to a generic retryable 502.
+ */
+function modelDeclines({
+  stopReason,
+  text,
+  explanation,
+}: {
+  stopReason: string;
+  text?: string[];
+  explanation?: string;
+}) {
+  create.mockResolvedValue({
+    stop_reason: stopReason,
+    stop_details: explanation === undefined ? null : { type: "refusal", explanation },
+    content: (text ?? []).map((t) => ({ type: "text", text: t })),
+  });
+}
+
+describe("generateQuizPack — a brief the model declines", () => {
+  it("reads a refusal, which is the shape a forced-tool request actually gets", async () => {
+    modelDeclines({ stopReason: "refusal", explanation: "I can't write questions about that." });
+
+    await expect(generateQuizPack("something disallowed")).rejects.toBeInstanceOf(ModelDeclinedError);
+    await expect(generateQuizPack("something disallowed")).rejects.toMatchObject({
+      reason: "I can't write questions about that.",
+    });
+  });
+
+  it("reads an ordinary end_turn decline out of the text blocks", async () => {
+    modelDeclines({ stopReason: "end_turn", text: ["I'd rather not write that quiz."] });
+
+    await expect(generateQuizPack("something odd")).rejects.toMatchObject({
+      reason: "I'd rather not write that quiz.",
+    });
+  });
+
+  it("joins several text blocks rather than reporting only the first", async () => {
+    modelDeclines({ stopReason: "end_turn", text: ["I can't help with that.", "Try another topic."] });
+
+    await expect(generateQuizPack("x")).rejects.toMatchObject({
+      reason: "I can't help with that. Try another topic.",
+    });
+  });
+
+  it("prefers the structured explanation over any prose alongside it", async () => {
+    modelDeclines({
+      stopReason: "refusal",
+      explanation: "Policy: weapons synthesis.",
+      text: ["Some other chatter."],
+    });
+
+    await expect(generateQuizPack("x")).rejects.toMatchObject({ reason: "Policy: weapons synthesis." });
+  });
+
+  it("caps the reason, because it is model output going onto a page", async () => {
+    modelDeclines({ stopReason: "refusal", explanation: "n".repeat(MAX_DECLINE_REASON_CHARS + 500) });
+
+    await expect(generateQuizPack("x")).rejects.toMatchObject({
+      reason: "n".repeat(MAX_DECLINE_REASON_CHARS),
+    });
+  });
+
+  it("declines with an empty reason rather than inventing one", async () => {
+    modelDeclines({ stopReason: "refusal" });
+
+    const err = await generateQuizPack("x").catch((e) => e);
+    expect(err).toBeInstanceOf(ModelDeclinedError);
+    expect(err.reason).toBe("");
+  });
+
+  it("still calls a cut-off turn a size problem, not a decline", async () => {
+    // max_tokens means it *was* writing the pack and ran out of room. That
+    // wants "ask for less", not "the model said no".
+    modelDeclines({ stopReason: "max_tokens", text: ["partial"] });
+
+    const err = await generateQuizPack("forty rounds").catch((e) => e);
+    expect(err).toBeInstanceOf(UnusableModelOutputError);
+    expect(err.truncated).toBe(true);
+  });
+
+  it("treats a blown context window as the same size problem", async () => {
+    modelDeclines({ stopReason: "model_context_window_exceeded" });
+
+    const err = await generateQuizPack("forty rounds").catch((e) => e);
+    expect(err).toBeInstanceOf(UnusableModelOutputError);
+    expect(err.truncated).toBe(true);
   });
 });

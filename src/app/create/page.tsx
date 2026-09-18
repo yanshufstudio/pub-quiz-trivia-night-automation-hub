@@ -46,10 +46,13 @@ export default function CreatePage() {
       const isJson = res.headers.get("content-type")?.includes("application/json");
       const data = isJson ? await res.json() : null;
       if (!res.ok || !data) {
-        // Both the missing-API-key case and the daily ceiling answer 503, but
-        // only the first is "generation isn't set up here" — the ceiling is
-        // set up fine and simply spent for today.
-        setNotConfigured(res.status === 503 && data?.dailyCeilingReached !== true);
+        // Keyed off a marker the route sets, not off the status: three
+        // different conditions answer 503 — no ANTHROPIC_API_KEY, the daily
+        // ceiling, and an upstream model outage — and only the first means
+        // generation is not set up here. Inferring it from the status offered
+        // the demo pack, and the words "isn't configured on this server", to
+        // anyone who hit a transient upstream blip.
+        setNotConfigured(data?.notConfigured === true);
         setDeclined(res.status === 422 && data?.declined === true);
         if (res.status === 403 && data) {
           setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: "FREE" });

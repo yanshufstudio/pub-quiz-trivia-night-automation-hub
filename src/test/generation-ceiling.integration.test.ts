@@ -1,5 +1,6 @@
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 import { db } from "@/lib/db";
 
 vi.mock("@/lib/generate-pack", async (importOriginal) => ({
@@ -7,7 +8,7 @@ vi.mock("@/lib/generate-pack", async (importOriginal) => ({
   generateQuizPack: vi.fn(),
 }));
 
-import { generateQuizPack, ModelDeclinedError } from "@/lib/generate-pack";
+import { generateQuizPack, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
 import { POST as generate } from "@/app/api/packs/generate/route";
 import { COOKIE_NAME, FREE_LIMIT } from "@/lib/creator";
 import { FREE_CEILING_ENV, PRO_CEILING_ENV, __resetMemoryCounters } from "@/lib/daily-ceiling";
@@ -116,13 +117,74 @@ describe("the global daily generation ceiling", () => {
     expect(vi.mocked(generateQuizPack)).not.toHaveBeenCalled();
   });
 
-  it("hands the reservation back when the generation fails", async () => {
+  // The ceiling is a bill control, and the bill is charged when the model
+  // produces a completion — not when the app likes the result. A brief that
+  // runs to the full 16k max_tokens and then fails validation is the most
+  // expensive call this app can make, so refunding its unit would leave a
+  // loop of exactly those bounded by nothing but the per-IP throttle.
+  it("keeps the ceiling unit spent when the model ran and produced something unusable", async () => {
     process.env[FREE_CEILING_ENV] = "1";
-    vi.mocked(generateQuizPack).mockRejectedValueOnce(new Error("upstream exploded"));
+    vi.mocked(generateQuizPack).mockRejectedValueOnce(
+      new UnusableModelOutputError("ran to max_tokens and could not be salvaged", true)
+    );
 
-    expect((await generate(generateRequest())).status).toBe(502);
+    expect((await generate(generateRequest())).status).toBe(422);
 
-    // The failed attempt spent nothing, so the day's one slot is still there.
+    // The day's only unit was spent on a real, billed generation.
+    const next = await generate(generateRequest());
+    expect(next.status).toBe(503);
+    expect((await next.json()).dailyCeilingReached).toBe(true);
+  });
+
+  it("keeps it spent for a declined brief too — the model still ran", async () => {
+    process.env[FREE_CEILING_ENV] = "1";
+    vi.mocked(generateQuizPack).mockRejectedValueOnce(new ModelDeclinedError("no"));
+
+    expect((await generate(generateRequest())).status).toBe(422);
+    expect((await generate(generateRequest())).status).toBe(503);
+  });
+
+  it("hands the ceiling back when the API rejected the request outright", async () => {
+    process.env[FREE_CEILING_ENV] = "1";
+    // A 429 or a 5xx produces no completion, so there is nothing to charge
+    // for and nothing to account against the day.
+    vi.mocked(generateQuizPack).mockRejectedValueOnce(
+      new Anthropic.APIError(503, { type: "error" }, "upstream down", undefined)
+    );
+
+    expect((await generate(generateRequest())).status).toBe(503);
+    expect((await generate(generateRequest())).status).toBe(201);
+  });
+
+  it("never charges the caller a free pack for a failure, however it failed", async () => {
+    // The two reservations are refunded on different terms, and this is the
+    // half that always comes back: a user must not lose an allowance to our
+    // failure, even one we were billed for.
+    for (const err of [
+      new UnusableModelOutputError("unusable", true),
+      new ModelDeclinedError("no"),
+      new Anthropic.APIError(503, { type: "error" }, "down", undefined),
+    ]) {
+      vi.mocked(generateQuizPack).mockRejectedValueOnce(err);
+      const res = await generate(generateRequest());
+      const deviceKey = res.cookies.get(COOKIE_NAME)!.value;
+      const creator = await db.creator.findUnique({ where: { deviceKey } });
+      expect(creator?.packsGeneratedInPeriod).toBe(0);
+    }
+  });
+
+  it("refuses a spent creator without touching the shared daily counter", async () => {
+    process.env[FREE_CEILING_ENV] = "1";
+    const spent = await db.creator.create({
+      data: { deviceKey: `spent-${Math.random()}`, packsGeneratedInPeriod: FREE_LIMIT },
+    });
+
+    // Their 403 must not INCR-then-DECR the day's counter: at the boundary
+    // that churn can make a genuine visitor read one over the ceiling and be
+    // refused capacity nobody is using.
+    expect((await generate(generateRequest(spent.deviceKey))).status).toBe(403);
+
+    // The day is untouched, so the one real slot is still there.
     expect((await generate(generateRequest())).status).toBe(201);
   });
 
