@@ -9,12 +9,13 @@ import { usePathname } from "next/navigation";
  * Paddle's website review requires the terms, privacy and refund pages to be
  * reachable from the site, not merely to exist at their URLs.
  *
- * `/pricing` is deliberately absent from this list: it does not exist on
- * `master` (it arrives with the Paddle Pro branch), and a footer link that
- * 404s for Paddle's reviewer would work against the very approval these
- * pages are here to get. Add the entry in the same breath as that page.
+ * `/pricing` joined the list on 2026-09-18, in the same commit as the page
+ * itself — the condition this comment used to set out. Paddle's review wants
+ * pricing visible as well as the policies, and a reviewer who has to hunt for
+ * it is a reviewer who sends the submission to manual review.
  */
 const links = [
+  { href: "/pricing", label: "Pricing" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
   { href: "/refunds", label: "Refunds" },
@@ -47,7 +48,10 @@ export function SiteFooter() {
           </span>{" "}
           · by Yanshuf Studio
         </p>
-        <nav aria-label="Legal" className="flex flex-wrap items-center gap-x-1 gap-y-1">
+        {/* Not "Legal" any more: the row carries Pricing as well, and a
+            landmark that mislabels its own contents is worse than a generic
+            one for anyone navigating by landmark. */}
+        <nav aria-label="Pricing and legal" className="flex flex-wrap items-center gap-x-1 gap-y-1">
           {links.map((link) => (
             <Link
               key={link.href}
