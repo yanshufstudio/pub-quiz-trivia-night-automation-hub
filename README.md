@@ -210,7 +210,7 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   therefore loses the override, not the protection. Nothing in the UI calls
   this route today; it exists to be reachable safely once something does.
 - **`FREE_DAILY_PACK_CEILING` / `PRO_DAILY_PACK_CEILING`** (optional,
-  defaults 50 and 200, see `.env.example`): hard ceilings on how many packs
+  defaults 20 and 50, see `.env.example`): hard ceilings on how many packs
   the **whole deployment** generates per UTC day, enforced before the model
   is called. These, not `FREE_PACK_LIMIT`, are what bound the Anthropic bill.
   The per-creator cap is counted against the `pq_creator` cookie, so deleting

@@ -44,6 +44,19 @@ describe("parseCeiling", () => {
   });
 });
 
+describe("the default ceilings", () => {
+  // Pinned, not derived. These are the owner's API budget expressed as a
+  // number of packs — at roughly $0.18 for a pack that runs to the full 16k
+  // max_tokens, 20 + 50 is about $12.60 a day of worst-case spend — so they
+  // are not free to drift. The two buckets are independent and therefore ADD:
+  // a change to either one changes the daily exposure, which is why this
+  // asserts the values rather than just that they exist.
+  it("are the budgeted numbers", () => {
+    expect(DEFAULT_FREE_DAILY_CEILING).toBe(20);
+    expect(DEFAULT_PRO_DAILY_CEILING).toBe(50);
+  });
+});
+
 describe("dailyCeilingFor", () => {
   it("defaults each plan to its own documented ceiling", () => {
     expect(dailyCeilingFor("FREE")).toBe(DEFAULT_FREE_DAILY_CEILING);

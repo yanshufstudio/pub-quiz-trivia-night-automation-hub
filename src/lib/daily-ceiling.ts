@@ -23,8 +23,15 @@ import { Redis } from "@upstash/redis";
  * as a backstop against a runaway loop, set far above any real usage.
  */
 
-export const DEFAULT_FREE_DAILY_CEILING = 50;
-export const DEFAULT_PRO_DAILY_CEILING = 200;
+/**
+ * Set to the owner's API budget, not to a guess at demand: at roughly $0.18
+ * for a pack that runs to the full 16k max_tokens, 20 + 50 is about $12.60 of
+ * worst-case spend a day. The defaults exist so that a deploy which forgets
+ * the environment variables is still bounded by something the owner has
+ * agreed to pay, rather than by a number that merely sounded cautious.
+ */
+export const DEFAULT_FREE_DAILY_CEILING = 20;
+export const DEFAULT_PRO_DAILY_CEILING = 50;
 
 export const FREE_CEILING_ENV = "FREE_DAILY_PACK_CEILING";
 export const PRO_CEILING_ENV = "PRO_DAILY_PACK_CEILING";
