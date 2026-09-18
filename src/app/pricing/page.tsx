@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
-import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
+import {
+  ANNUAL_MONTHS_FREE,
+  FREE_PACK_ALLOWANCE,
+  PRICE_ANNUAL_USD,
+  PRICE_MONTHLY_USD,
+  formatUsd,
+} from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing · TriviaFoundry",
@@ -76,7 +82,7 @@ export default function PricingPage() {
               <span className="text-base font-normal text-muted"> per month</span>
             </p>
             <p className="mt-1 text-sm text-muted">
-              or {formatUsd(PRICE_ANNUAL_USD)} per year, two months free
+              or {formatUsd(PRICE_ANNUAL_USD)} per year, {ANNUAL_MONTHS_FREE} months free
             </p>
             <ul className="mt-5 list-disc space-y-2 pl-5 text-muted">
               <li>

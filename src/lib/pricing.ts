@@ -19,6 +19,18 @@
 export const PRICE_MONTHLY_USD = 5;
 export const PRICE_ANNUAL_USD = 25;
 
+/**
+ * How many months of the monthly plan the annual price saves, as /pricing
+ * states it ("7 months free" at $5 and $25).
+ *
+ * Worked out rather than written, because the written version was wrong: the
+ * page said "two months free", carried over from PR #4's cards, when $25 a
+ * year against $60 of monthly payments is seven. Rounded down so that a price
+ * change which stops dividing evenly understates the saving instead of
+ * overstating it; `pricing.test.ts` asserts it divides evenly today.
+ */
+export const ANNUAL_MONTHS_FREE = Math.floor(12 - PRICE_ANNUAL_USD / PRICE_MONTHLY_USD);
+
 /** `$5`, `$25` — one renderer so the two pages cannot format differently. */
 export function formatUsd(amount: number): string {
   return `$${amount}`;

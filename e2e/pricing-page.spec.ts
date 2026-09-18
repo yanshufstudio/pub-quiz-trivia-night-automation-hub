@@ -1,5 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
+import {
+  ANNUAL_MONTHS_FREE,
+  FREE_PACK_ALLOWANCE,
+  PRICE_ANNUAL_USD,
+  PRICE_MONTHLY_USD,
+  formatUsd,
+} from "@/lib/pricing";
 
 // Paddle's domain review checks that pricing is visible on the live site and
 // that the policy pages are reachable from the navigation. /pricing exists for
@@ -24,6 +30,10 @@ test("/pricing is served publicly and states both prices", async ({ page, reques
   await expect(page.getByText(formatUsd(PRICE_MONTHLY_USD), { exact: false }).first()).toBeVisible();
   await expect(page.getByText(formatUsd(PRICE_ANNUAL_USD), { exact: false }).first()).toBeVisible();
   await expect(page.getByText(String(FREE_PACK_ALLOWANCE), { exact: false }).first()).toBeVisible();
+
+  // The annual saving is derived from the two prices; the page once claimed
+  // "two months free" against $5 and $25, which is seven.
+  await expect(page.getByText(`${ANNUAL_MONTHS_FREE} months free`, { exact: false })).toBeVisible();
 });
 
 test("/pricing carries no checkout control while Paddle has not approved the domain", async ({ page }) => {

@@ -2,7 +2,13 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { DEFAULT_FREE_LIMIT } from "@/lib/creator";
-import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
+import {
+  ANNUAL_MONTHS_FREE,
+  FREE_PACK_ALLOWANCE,
+  PRICE_ANNUAL_USD,
+  PRICE_MONTHLY_USD,
+  formatUsd,
+} from "@/lib/pricing";
 
 const APP_DIR = path.resolve(__dirname, "../app");
 
@@ -21,10 +27,19 @@ function appSources(dir = APP_DIR): Array<[string, string]> {
 
 describe("pricing constants", () => {
   it("prices the annual plan below twelve months of the monthly one", () => {
-    // The page says "two months free", so the annual price has to actually be
-    // a discount. A copy-paste that made them equal would otherwise ship.
+    // The page advertises months free on the annual plan, so the annual price
+    // has to actually be a discount. A copy-paste that made them equal would
+    // otherwise ship.
     expect(PRICE_ANNUAL_USD).toBeLessThan(PRICE_MONTHLY_USD * 12);
     expect(PRICE_ANNUAL_USD).toBe(PRICE_MONTHLY_USD * 5);
+  });
+
+  it("states the annual saving the two prices actually give", () => {
+    // /pricing once said "two months free" beside $5 and $25, which is seven.
+    // The figure is now derived; this pins what it derives to, and that the
+    // division is exact, so the page never prints a floored approximation.
+    expect(PRICE_MONTHLY_USD * 12 - PRICE_ANNUAL_USD).toBe(PRICE_MONTHLY_USD * ANNUAL_MONTHS_FREE);
+    expect(ANNUAL_MONTHS_FREE).toBe(7);
   });
 
   it("states the free allowance production actually enforces", () => {
