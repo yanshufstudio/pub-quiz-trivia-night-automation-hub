@@ -4,7 +4,7 @@ import { LEGAL_LAST_UPDATED, SITE_URL } from "@/lib/site";
 /**
  * Served at /sitemap.xml and pointed at from robots.txt.
  *
- * Only the five pages a stranger can land on cold and get something from.
+ * Only the six pages a stranger can land on cold and get something from.
  * Everything else is per-session (/host, /play), unlisted by design (/packs
  * and the print sheets beneath it — see `src/lib/pack-access.ts`) or an API
  * route, and robots.ts disallows all of them. Listing a URL here that
@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE_URL },
     { url: `${SITE_URL}/create` },
+    { url: `${SITE_URL}/pricing` },
     { url: `${SITE_URL}/terms`, lastModified: LEGAL_LAST_UPDATED },
     { url: `${SITE_URL}/privacy`, lastModified: LEGAL_LAST_UPDATED },
     { url: `${SITE_URL}/refunds`, lastModified: LEGAL_LAST_UPDATED },

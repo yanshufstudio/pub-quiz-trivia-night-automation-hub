@@ -15,7 +15,7 @@ const WIDTHS = [320, 360, 390, 430] as const;
 // Every surface that carries the wordmark-and-nav row. The live-night
 // surfaces (/play, /host/<code>) deliberately carry no such row and were
 // never affected; they are covered by their own specs.
-const PAGES = ["/", "/create", "/terms", "/privacy", "/refunds"] as const;
+const PAGES = ["/", "/create", "/pricing", "/terms", "/privacy", "/refunds"] as const;
 
 async function horizontalOverflow(page: import("@playwright/test").Page) {
   return page.evaluate(() => {

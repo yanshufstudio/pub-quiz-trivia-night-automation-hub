@@ -5,6 +5,12 @@ const links = [
   { href: "/create", label: "Create" },
   { href: "/packs", label: "Packs" },
   { href: "/play", label: "Join" },
+  // Fourth item, added 2026-09-18 with the pricing page. Paddle's reviewer
+  // should not have to scroll to the footer to find what the thing costs.
+  // The row already wraps to its own line on a narrow phone (see the comment
+  // on the flex container below), and e2e/narrow-viewport.spec.ts checks a
+  // four-item nav at 320-430px rather than trusting that.
+  { href: "/pricing", label: "Pricing" },
 ];
 
 /**
