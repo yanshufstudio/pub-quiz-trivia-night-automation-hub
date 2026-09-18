@@ -110,12 +110,23 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
         return {
           id: t.id,
           name: t.name,
+          // Withheld until the reveal, exactly as myAnswer is on the team
+          // payload below. The host screen is not a private admin view — it
+          // goes on the pub's TV or projector and is laid out to be read from
+          // about four metres — so what it receives, the room receives. A
+          // non-null currentAnswer still says *that* the team answered, which
+          // is what the host needs in order to know when to reveal; what it
+          // was, and whether it scored, waits.
+          //
+          // Gated here and not only in the component: a screen cannot show
+          // what it was never sent, so a future layout change cannot put the
+          // answers back on the wall by accident.
           currentAnswer: answer
             ? {
-                id: answer.id,
-                text: answer.text,
-                isCorrect: answer.isCorrect,
-                pointsAwarded: answer.pointsAwarded,
+                id: revealAnswer ? answer.id : null,
+                text: revealAnswer ? answer.text : null,
+                isCorrect: revealAnswer ? answer.isCorrect : null,
+                pointsAwarded: revealAnswer ? answer.pointsAwarded : null,
               }
             : null,
         };

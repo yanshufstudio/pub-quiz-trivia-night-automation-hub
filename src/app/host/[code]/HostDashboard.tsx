@@ -97,7 +97,10 @@ export function HostDashboard({ code }: { code: string }) {
   }
 
   async function overrideAnswer(team: HostTeam, isCorrect: boolean) {
-    if (!team.currentAnswer || !state?.question || !hostToken) return;
+    // The id is only sent from the reveal onwards, along with everything else
+    // about the answer — so this is unreachable before then, and the buttons
+    // that call it are not rendered either.
+    if (!team.currentAnswer?.id || !state?.question || !hostToken) return;
     await fetch(`/api/sessions/${code}/answers/${team.currentAnswer.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -160,6 +163,17 @@ export function HostDashboard({ code }: { code: string }) {
   }
 
   const submitted = state.teams.filter((team) => team.currentAnswer).length;
+  /**
+   * Whether the room may see how each team did.
+   *
+   * This desk goes on a TV and is read from across the pub, so everything it
+   * renders is public to the players. While a question is open it used to
+   * show every team's answer text, a green or red score, and the override
+   * buttons — so the first team to answer correctly published the answer to
+   * the room, and with resubmissions allowed the rest could simply copy it
+   * off the wall. Until the reveal the desk says only who has answered.
+   */
+  const revealed = state.status === "REVEAL" || state.status === "ENDED";
   const nextLabel =
     state.roundNumber >= state.totalRounds && state.questionNumber >= state.totalQuestionsInRound
       ? "End quiz"
@@ -326,10 +340,14 @@ export function HostDashboard({ code }: { code: string }) {
                       <div className="min-w-0">
                         <p className="font-medium">{team.name}</p>
                         <p className="mt-1 truncate text-sm text-stage-muted">
-                          {team.currentAnswer?.text ?? "Waiting…"}
+                          {revealed
+                            ? (team.currentAnswer?.text ?? "Waiting…")
+                            : team.currentAnswer
+                              ? "Answered"
+                              : "Waiting…"}
                         </p>
                       </div>
-                      {team.currentAnswer ? (
+                      {revealed && team.currentAnswer ? (
                         <span
                           className={`shrink-0 text-xs font-semibold ${
                             team.currentAnswer.isCorrect ? "text-emerald-300" : "text-red-300"
@@ -339,7 +357,7 @@ export function HostDashboard({ code }: { code: string }) {
                         </span>
                       ) : null}
                     </div>
-                    {team.currentAnswer && (state.status === "REVEAL" || state.status === "QUESTION_ACTIVE") ? (
+                    {revealed && team.currentAnswer ? (
                       <div className="mt-3 grid grid-cols-2 gap-2">
                         <button
                           type="button"
