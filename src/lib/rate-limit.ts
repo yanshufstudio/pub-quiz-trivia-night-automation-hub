@@ -25,12 +25,19 @@ function clientIp(req: NextRequest): string {
   );
 }
 
+/**
+ * `identity` overrides what the bucket is counted against. It defaults to the
+ * client IP, which is right for an open public endpoint but wrong for anything
+ * played in one room: a pub's teams all arrive from a single NAT address, so
+ * an IP-keyed bucket would have the first team's submissions throttle
+ * everybody else's. Pass a team id (or another per-actor identifier) for those.
+ */
 export async function rateLimit(
   req: NextRequest,
   key: string,
-  { limit, windowMs }: { limit: number; windowMs: number }
+  { limit, windowMs, identity }: { limit: number; windowMs: number; identity?: string }
 ): Promise<{ allowed: boolean; retryAfterSeconds: number }> {
-  const bucketKey = `ratelimit:${key}:${clientIp(req)}`;
+  const bucketKey = `ratelimit:${key}:${identity ?? clientIp(req)}`;
   return redis ? redisRateLimit(redis, bucketKey, limit, windowMs) : memoryRateLimit(bucketKey, limit, windowMs);
 }
 

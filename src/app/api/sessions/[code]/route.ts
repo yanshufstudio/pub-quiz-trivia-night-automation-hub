@@ -88,7 +88,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
           hasMedia: question.media != null,
         }
       : null,
-    scoreboard: computeScoreboard(session.teams, session.answers),
+    // Counts the current question only once it is revealed — see
+    // computeScoreboard. Both payloads get the same board: the host screen is
+    // on the pub TV, so withholding it from teams alone would not hide it.
+    scoreboard: computeScoreboard(session.teams, session.answers, {
+      roundIndex: session.currentRoundIndex,
+      questionIndex: session.currentQuestionIndex,
+      revealed: revealAnswer,
+    }),
     timer:
       session.questionDurationSeconds != null && session.questionStartedAt != null
         ? { startedAt: session.questionStartedAt.toISOString(), durationSeconds: session.questionDurationSeconds }

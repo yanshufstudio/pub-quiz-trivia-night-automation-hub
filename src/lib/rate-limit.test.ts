@@ -152,4 +152,28 @@ describe("rateLimit — Upstash Redis backend (env vars configured)", () => {
     for (let i = 0; i < 3; i++) await rateLimit(req, keyA, { limit: 3, windowMs: 60_000 });
     expect((await rateLimit(req, keyB, { limit: 3, windowMs: 60_000 })).allowed).toBe(true);
   });
+
+  // Everyone in a pub shares the venue's public IP, so anything counted per
+  // player has to be counted against the player, not the address they arrived
+  // from. Without this, the first team to use up an allowance would take the
+  // rest of the room down with it.
+  it("counts against `identity` instead of the IP when one is given", async () => {
+    const k = freshKey();
+    const sameIp = requestFrom("9.9.9.9");
+
+    for (let i = 0; i < 3; i++) {
+      expect((await rateLimit(sameIp, k, { limit: 3, windowMs: 60_000, identity: "team-a" })).allowed).toBe(true);
+    }
+    expect((await rateLimit(sameIp, k, { limit: 3, windowMs: 60_000, identity: "team-a" })).allowed).toBe(false);
+
+    // Second team, exhausted key, identical IP — untouched.
+    expect((await rateLimit(sameIp, k, { limit: 3, windowMs: 60_000, identity: "team-b" })).allowed).toBe(true);
+  });
+
+  it("still falls back to the IP when no identity is given", async () => {
+    const k = freshKey();
+    for (let i = 0; i < 3; i++) await rateLimit(requestFrom("10.0.0.1"), k, { limit: 3, windowMs: 60_000 });
+    expect((await rateLimit(requestFrom("10.0.0.1"), k, { limit: 3, windowMs: 60_000 })).allowed).toBe(false);
+    expect((await rateLimit(requestFrom("10.0.0.2"), k, { limit: 3, windowMs: 60_000 })).allowed).toBe(true);
+  });
 });

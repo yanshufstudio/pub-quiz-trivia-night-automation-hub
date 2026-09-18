@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { SESSION_STATUS, getCurrentQuestion, packWithRoundsArgs, type PackWithRounds } from "@/lib/session-state";
+import {
+  ANSWER_SUBMISSIONS_PER_QUESTION,
+  ANSWER_SUBMISSION_WINDOW_MS,
+  SESSION_STATUS,
+  getCurrentQuestion,
+  packWithRoundsArgs,
+  type PackWithRounds,
+} from "@/lib/session-state";
+import { rateLimit } from "@/lib/rate-limit";
 import { autoRevealIfExpired } from "@/lib/session-timer";
 import { isLikelyCorrect } from "@/lib/scoring";
 import { parseOptions, QUESTION_TYPE } from "@/lib/question-types";
@@ -47,6 +55,26 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     : null;
   if (!question) {
     return NextResponse.json({ error: "No active question" }, { status: 409 });
+  }
+
+  // Counted against the team, not the caller's IP: every team in the room is
+  // behind the pub's one address, so an IP bucket would let the first team to
+  // answer lock out the rest. The key carries the round and question index, so
+  // the allowance is per question and a new question starts a fresh one.
+  const submissions = await rateLimit(
+    req,
+    `answers:${session.currentRoundIndex}:${session.currentQuestionIndex}`,
+    {
+      limit: ANSWER_SUBMISSIONS_PER_QUESTION,
+      windowMs: ANSWER_SUBMISSION_WINDOW_MS,
+      identity: team.id,
+    }
+  );
+  if (!submissions.allowed) {
+    return NextResponse.json(
+      { error: `You can change your answer up to ${ANSWER_SUBMISSIONS_PER_QUESTION} times for a question.` },
+      { status: 429, headers: { "Retry-After": String(submissions.retryAfterSeconds) } }
+    );
   }
 
   const text = parsed.data.text.trim();
