@@ -9,6 +9,28 @@ export const SESSION_STATUS = {
 
 export type SessionStatus = (typeof SESSION_STATUS)[keyof typeof SESSION_STATUS];
 
+/**
+ * How many times one team may submit an answer to one question.
+ *
+ * Submissions upsert a single row, so a resubmission is a correction, not an
+ * extra answer — a team fixing a typo or changing its mind is normal and must
+ * keep working. What is not normal is the loop that used to read the scoreboard
+ * back after each try; that is closed at the source (see computeScoreboard),
+ * and this is the second lock on the same door, plus a bound on how many
+ * writes one team can aim at the database during a single question.
+ *
+ * Five is enough for a phone keyboard and an autocorrect fight, and useless
+ * for anything else: a multiple-choice question has at most six options, and
+ * submitting them all now tells the team nothing, because only the last one
+ * stands and no score moves until the reveal.
+ *
+ * The window only has to outlast a question. Keying the bucket on the round
+ * and question index is what makes the allowance per question; the window is
+ * the backstop for a question left open unusually long.
+ */
+export const ANSWER_SUBMISSIONS_PER_QUESTION = 5;
+export const ANSWER_SUBMISSION_WINDOW_MS = 60 * 60 * 1000;
+
 const packWithRounds = {
   include: {
     rounds: {
