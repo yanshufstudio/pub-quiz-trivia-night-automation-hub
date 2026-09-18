@@ -1,7 +1,17 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/Wordmark";
 
-const links = [
+/**
+ * The site's primary navigation, in one place because it was in two.
+ *
+ * The homepage folds this row into its hero rather than rendering
+ * <SiteHeader>, and kept its own copy of the array. The copies drifted twice:
+ * first on the labels (the homepage said Generate / Manage / Play while every
+ * other page said Create / Packs / Join), and then on 2026-09-18, when
+ * Pricing was added here and the homepage — the page Paddle's reviewer lands
+ * on first — silently kept three links. Importing beats remembering.
+ */
+export const NAV_LINKS = [
   { href: "/create", label: "Create" },
   { href: "/packs", label: "Packs" },
   { href: "/play", label: "Join" },
@@ -30,7 +40,7 @@ export function SiteHeader() {
       <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-5 py-3.5">
         <Wordmark href="/" className="text-[1.35rem]" />
         <nav className="flex items-center gap-1">
-          {links.map((link) => (
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}

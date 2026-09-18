@@ -20,10 +20,17 @@ const TOOL_NAME = "emit_quiz_pack";
 const quizPackJsonSchema: Anthropic.Tool.InputSchema = {
   type: "object",
   properties: {
+    decline_reason: {
+      type: "string",
+      description:
+        "Set this ONLY if you will not write the quiz the brief asks for. A short " +
+        "explanation addressed to the quizmaster, saying what you will not write and " +
+        "why. When you set it, send no rounds. Never substitute a different quiz, and " +
+        "never put an explanation, apology or refusal inside a question or an answer.",
+    },
     title: { type: "string", description: "Short title for the whole quiz pack" },
     rounds: {
       type: "array",
-      minItems: 1,
       items: {
         type: "object",
         properties: {
@@ -69,7 +76,11 @@ const quizPackJsonSchema: Anthropic.Tool.InputSchema = {
       },
     },
   },
-  required: ["title", "rounds"],
+  // Nothing is required at the top level, because a decline is a valid
+  // response and carries neither a title nor rounds. The parse in
+  // generateQuizPack enforces the real contract: either a decline_reason, or
+  // a pack with a title and at least one round.
+  required: [],
 };
 
 /**
@@ -89,6 +100,35 @@ export class UnusableModelOutputError extends Error {
   }
 }
 
+/** The longest decline we will repeat back to the user. The text comes from
+ * the model, so it is arbitrary-length content being put on a page; a couple
+ * of sentences is all a decline ever needs, and the cap keeps a runaway
+ * response out of the UI. */
+export const MAX_DECLINE_REASON_CHARS = 400;
+
+/**
+ * The model read the brief and declined to write it — a refusal, not a
+ * failure. It comes back as a turn with no tool_use block and
+ * stop_reason "end_turn", carrying the model's own explanation as text.
+ *
+ * This used to be indistinguishable from a broken response: both threw
+ * UnusableModelOutputError, the route answered 502 "Please try again", and
+ * the explanation was discarded. Retrying a decline cannot work — the brief
+ * has to change — so inviting a retry, after up to 60 seconds of waiting,
+ * wastes the user's time and a second generation's worth of tokens.
+ */
+export class ModelDeclinedError extends Error {
+  /** The model's own words, trimmed and capped. Empty when it declined
+   * without saying anything. */
+  readonly reason: string;
+
+  constructor(reason: string) {
+    super(reason || "The question generator declined this brief");
+    this.name = "ModelDeclinedError";
+    this.reason = reason;
+  }
+}
+
 export type GenerationResult = {
   pack: GeneratedPack;
   /** Questions and rounds dropped to salvage the rest — 0/0 on a clean run. */
@@ -97,6 +137,39 @@ export type GenerationResult = {
   /** The model hit MAX_TOKENS, so the pack is short of what the brief asked for. */
   truncated: boolean;
 };
+
+/** The tool's own decline channel: a non-empty `decline_reason` on the tool
+ * input, trimmed and capped. Anything else — absent, blank, not a string —
+ * is not a decline. */
+function declineReasonFromTool(input: unknown): string {
+  if (typeof input !== "object" || input === null) return "";
+  const raw = (input as { decline_reason?: unknown }).decline_reason;
+  if (typeof raw !== "string") return "";
+  return raw.trim().slice(0, MAX_DECLINE_REASON_CHARS).trim();
+}
+
+/**
+ * What the model said when it declined, trimmed and capped.
+ *
+ * A "refusal" turn carries the reason in stop_details.explanation; an
+ * ordinary "end_turn" carries it in text blocks, of which there may be
+ * several. Prefer the structured field and fall back to the prose, so both
+ * shapes give the user something to act on. Empty is a valid answer — the
+ * model can decline without elaborating — and the caller supplies the
+ * wording for that case.
+ */
+function declineReason(message: { stop_details?: { explanation?: string | null } | null; content: unknown[] }): string {
+  const structured = message.stop_details?.explanation?.trim();
+  if (structured) return structured.slice(0, MAX_DECLINE_REASON_CHARS).trim();
+
+  return (message.content as { type: string; text?: string }[])
+    .filter((block) => block.type === "text")
+    .map((block) => block.text ?? "")
+    .join(" ")
+    .trim()
+    .slice(0, MAX_DECLINE_REASON_CHARS)
+    .trim();
+}
 
 export async function generateQuizPack(userPrompt: string): Promise<GenerationResult> {
   const anthropic = getAnthropicClient();
@@ -116,7 +189,13 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
       "from easy to hard. Do not repeat questions or trivia facts across rounds. Most " +
       "questions should be free-text; sprinkle in the occasional multiple-choice question " +
       "for variety, never more than one or two per round. Call the " +
-      `${TOOL_NAME} tool exactly once with the full pack.`,
+      `${TOOL_NAME} tool exactly once with the full pack.` +
+      "\n\nIf you will not write the quiz the brief asks for, call the tool with " +
+      "decline_reason set to a short explanation addressed to the quizmaster, and no " +
+      "rounds. Never substitute a different quiz for the one you were asked for, and " +
+      "never put an explanation, apology or refusal inside a question or an answer — a " +
+      "pack is printed and read aloud to a room, so a refusal written as question one " +
+      "reaches the players as a question.",
     tools: [
       {
         name: TOOL_NAME,
@@ -132,12 +211,43 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
   // questions before the cut are fine, the last one isn't. Track it so a
   // pack that survives salvage still reports *why* it came up short, and so
   // an unsalvageable one gets an error message that names the real cause.
-  const truncated = message.stop_reason === "max_tokens";
+  // model_context_window_exceeded is the same problem arriving by a different
+  // door — the brief did not fit — and wants the same "ask for less" answer.
+  const truncated =
+    message.stop_reason === "max_tokens" || message.stop_reason === "model_context_window_exceeded";
 
   const toolUse = message.content.find((block) => block.type === "tool_use");
   if (!toolUse || toolUse.type !== "tool_use") {
+    // No tool call, and the turn ended of its own accord rather than being
+    // cut off: the model chose not to answer rather than failing to.
+    //
+    // Both stop reasons matter, and "refusal" is the one that matters most.
+    // The request forces the tool (tool_choice below), so a model that simply
+    // finishes its turn without calling it is the unusual shape; a safety
+    // classifier declining the brief reports "refusal" and carries its
+    // explanation in stop_details rather than in a text block. Watching only
+    // for "end_turn" caught the rarer case and let the common one fall
+    // through to a generic retryable error.
+    if (!truncated && (message.stop_reason === "refusal" || message.stop_reason === "end_turn")) {
+      throw new ModelDeclinedError(declineReason(message));
+    }
     throw new UnusableModelOutputError("Model did not return structured quiz data", truncated);
   }
+
+  // A decline delivered through the tool itself, which is the route that
+  // actually fires. tool_choice forces the tool, so the model satisfies the
+  // contract it was given rather than ending its turn: asked for a brief it
+  // would not write, it called the tool anyway with a substituted,
+  // unobjectionable quiz and its refusal as the text of question one. That
+  // saved as a successful pack and spent the user's free generation, and no
+  // stop_reason ever said otherwise. Giving the tool an explicit way to say
+  // no is what makes refusing cheaper for the model than complying wrongly.
+  //
+  // Checked before the pack parse, and regardless of what else came with it:
+  // a response carrying both a reason and rounds is a decline that also
+  // substituted a quiz, and the quiz is the part to throw away.
+  const declined = declineReasonFromTool(toolUse.input);
+  if (declined) throw new ModelDeclinedError(declined);
 
   const parsed = generatedPackSchema.safeParse(toolUse.input);
   if (parsed.success) {

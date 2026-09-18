@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LiveScoreboardPreview } from "@/components/LiveScoreboardPreview";
+import { NAV_LINKS } from "@/components/SiteHeader";
 import { Wordmark } from "@/components/Wordmark";
 import { ArrowRightIcon } from "@/components/icons";
 import type { SVGProps } from "react";
@@ -31,14 +32,6 @@ function PhoneLiveIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-// Same three links, same labels, as SiteHeader — the homepage used to say
-// Generate / Manage / Play while every other page said Create / Packs / Join.
-const nav = [
-  { href: "/create", label: "Create" },
-  { href: "/packs", label: "Packs" },
-  { href: "/play", label: "Join" },
-];
 
 const steps = [
   {
@@ -74,7 +67,7 @@ export default function Home() {
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <Wordmark href="/" className="text-[1.5rem]" />
           <nav className="flex items-center gap-6 text-sm font-semibold text-stage-muted">
-            {nav.map((link) => (
+            {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className="py-2 transition-colors hover:text-gold">
                 {link.label}
               </Link>

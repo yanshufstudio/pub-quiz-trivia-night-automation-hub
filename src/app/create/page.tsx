@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
@@ -19,6 +20,9 @@ export default function CreatePage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notConfigured, setNotConfigured] = useState(false);
+  // A brief the model refused to write. Not a failure, and not retryable:
+  // the same brief will be refused again, so the UI must not invite one.
+  const [declined, setDeclined] = useState(false);
   const [usage, setUsage] = useState<{ used: number; limit: number; plan: string } | null>(null);
 
   useEffect(() => {
@@ -32,6 +36,7 @@ export default function CreatePage() {
     setBusy(true);
     setError(null);
     setNotConfigured(false);
+    setDeclined(false);
     try {
       const res = await fetch("/api/packs/generate", {
         method: "POST",
@@ -41,7 +46,14 @@ export default function CreatePage() {
       const isJson = res.headers.get("content-type")?.includes("application/json");
       const data = isJson ? await res.json() : null;
       if (!res.ok || !data) {
-        setNotConfigured(res.status === 503);
+        // Keyed off a marker the route sets, not off the status: three
+        // different conditions answer 503 — no ANTHROPIC_API_KEY, the daily
+        // ceiling, and an upstream model outage — and only the first means
+        // generation is not set up here. Inferring it from the status offered
+        // the demo pack, and the words "isn't configured on this server", to
+        // anyone who hit a transient upstream blip.
+        setNotConfigured(data?.notConfigured === true);
+        setDeclined(res.status === 422 && data?.declined === true);
         if (res.status === 403 && data) {
           setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: "FREE" });
         }
@@ -81,7 +93,7 @@ export default function CreatePage() {
         </p>
         {usage && usage.plan !== "PRO" ? (
           <p className="mt-2 text-sm text-muted">
-            {usage.used}/{usage.limit} free packs used this month
+            {usage.used}/{usage.limit} free packs used in the last 30 days
           </p>
         ) : null}
 
@@ -99,8 +111,20 @@ export default function CreatePage() {
           </label>
 
           {error ? (
-            <div className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800">
-              <p>{error}</p>
+            <div
+              className={`rounded-lg px-3 py-2 text-sm ${
+                declined ? "bg-amber-50 text-amber-900" : "bg-red-50 text-red-800"
+              }`}
+            >
+              {declined ? (
+                <>
+                  <p className="font-semibold">The question generator wouldn&rsquo;t write this brief.</p>
+                  <p className="mt-1">{error}</p>
+                  <p className="mt-1">Edit the brief above and generate again.</p>
+                </>
+              ) : (
+                <p>{error}</p>
+              )}
               {notConfigured ? (
                 <button
                   type="button"
@@ -130,7 +154,10 @@ export default function CreatePage() {
 
           {usage && usage.plan !== "PRO" && usage.used >= usage.limit ? (
             <p className="text-sm text-muted">
-              Upgrade to Pro for unlimited packs — coming soon. Use the demo pack instead for now.
+              <Link href="/pricing" className="font-semibold underline underline-offset-2">
+                Upgrade to Pro
+              </Link>{" "}
+              for as many packs as you want, or use the demo pack.
             </p>
           ) : null}
         </form>
