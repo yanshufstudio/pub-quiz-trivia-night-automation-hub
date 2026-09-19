@@ -25,14 +25,19 @@ the full record of the 2026-09-07→09 work.
 >
 > - **PR #21** (`claude/function-duration`, head `d5f66c0`) — `maxDuration`
 >   300 on generate, PDF and export.
-> - **PR #22** (`claude/accounts`, head `e8967bd`) — **host accounts**. This
->   is the big one and it changes who may do what across the whole app.
+> - **PR #22** (`claude/accounts`, head `3879ecf`) — **host accounts**. This
+>   is the big one and it changes who may do what across the whole app. It
+>   has had a **second round** (three more commits, 19th, evening): sign-in
+>   by emailed six-digit code instead of a magic link, pack reads made
+>   owner-only, and the legal pages committed. Read that subsection before
+>   reading the first one — it replaces the sign-in mechanism entirely.
 >
-> **Three things wait on the owner and are written into PR #22's body**: the
-> /privacy and /terms drafts plus the `LEGAL_LAST_UPDATED` bump (drafted, not
-> committed — the pages are now out of date and say so in the README), the
+> **Two things wait on the owner and are written into PR #22's body**: the
 > environment variables and the Google OAuth client, and the list of what
-> PR #4 must change. Do not action any of them without the owner.
+> PR #4 must change. Do not action either without the owner. The legal
+> drafts were the third; the owner approved them on the 19th and they are
+> committed, so /privacy and /terms are current again and the README's
+> "out of date" note is gone.
 >
 > **PR #4** (`claude/paddle-pro-3a`) is still open, still the owner's call,
 > and now needs work it did not need before — see the 2026-09-19 session
@@ -454,16 +459,26 @@ model settled it in a minute. The lesson generalises — where the question is
 on the 18th and still holds — `master` has not moved since, because nothing
 from the 19th merged.*
 
-- **The owner has three decisions waiting, all written into PR #22's body.**
-  Nothing should be actioned without them. (1) The /privacy and /terms drafts
-  plus the `LEGAL_LAST_UPDATED` bump — **the pages are out of date right now**:
-  Google and Resend are new processors, and the app stores an email address, a
-  name, a Google account id and sign-in session records. The README carries a
-  visible note so the gap is not silent. (2) The environment variables and the
-  Google OAuth client — `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`,
+- **The owner has two decisions waiting, both written into PR #22's body.**
+  Nothing should be actioned without them. (1) The environment variables and
+  the Google OAuth client — `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`,
   `GOOGLE_CLIENT_ID`/`_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, each
-  documented in `.env.example` with its reasoning. (3) The list of what PR #4
-  must change.
+  documented in `.env.example` with its reasoning. (2) The list of what PR #4
+  must change. *(The legal drafts were the third and are now approved and
+  committed — /privacy and /terms are current.)*
+
+- **`SIGN_IN_LINK_CAPTURE` was renamed to `SIGN_IN_EMAIL_CAPTURE`** in the
+  second round, along with `/api/test/sign-in-links` → `/api/test/sign-in-emails`.
+  Both are test-only and the suites set them for themselves, so there is
+  nothing to change on Vercel — but if the old name was ever set anywhere,
+  unset it, because the new gate does not read it.
+
+- **`GET /api/questions/[id]/media` is the only open read left, and it is
+  open by design rather than by omission.** Anyone holding a question id can
+  fetch its image. Narrowing it means scoping the read to a live session and
+  its team token, which changes what a team's browser sends — a team-facing
+  change, so it needs the owner. Until then: nothing private should be
+  uploaded as a question image.
 
 - **PR #4 cannot ship as written once accounts land, and the reason is a
   security one.** `customData.creatorId` comes from `POST /api/creator/ensure`,
@@ -796,6 +811,46 @@ A generation costs real Anthropic credit. **429** = the per-IP limiter
 cookie per 30 days). They are different things; don't conflate them.
 
 ## Gotchas
+
+New in the 2026-09-19 session, second round:
+
+- **A GET that signs you in is a GET a scanner signs itself in with.**
+  Corporate mail filters fetch every link in incoming mail before the person
+  clicks, so any emailed link that consumes on GET is consumed by the filter
+  first. The emailed link must open a page that does nothing; only a button's
+  POST may spend anything. This is why `magicLink` was replaced by
+  `emailOTP` — the plugin was not at fault, the GET-consumes shape was.
+- **`page.getByRole("alert")` is ambiguous on every Next App Router page, and
+  only *sometimes* fails.** Next hydrates `<div
+  id="__next-route-announcer__" role="alert">` about 200ms after the HTML, so
+  a bare alert locator resolves to one element inside that window and two
+  after it, and Playwright's strict mode rejects two. An assertion that polls
+  inside the window passes on a quiet machine and fails on a busy one. Scope
+  it: `page.getByRole("main").getByRole("alert")`, or the `pageAlert()`
+  helper in `e2e/sign-in-helper.ts`.
+- **Playwright applies a test's `use` options to a direct
+  `browser.newContext()` too** (`runBeforeCreateBrowserContext`). So a
+  file-level `test.use({ extraHTTPHeaders })` silently reaches every context
+  in the file — which is the opposite of the assumption that makes people
+  think a manually-created context is unattributed. Corollary: a file-level
+  `test.use` that calls a counter function evaluates it **once at module
+  load**, so every test in that file shares the one value.
+- **Better Auth's `getIP` falls back to a single `127.0.0.1` in dev and
+  test** when no `x-forwarded-for` arrives, and its limiter keys on
+  `ip|path`. So any test context without an address shares a bucket with
+  every other such context in the run, across spec files. Give each one its
+  own valid IPv4 — a malformed one is silently dropped and lands back in the
+  shared bucket.
+- **Two functions stating one rule will drift.** `visiblePacksWhere` (a
+  Prisma `where` for the list) and `canReadPack` (a predicate for one row)
+  disagreed the moment reads were gated, because the filter still had a
+  signed-out branch that could no longer be reached. A test that evaluates
+  the filter by hand against every shape of row and compares it to the
+  predicate is cheap and would have caught it.
+- **A page that prints a query parameter back is a way to render text on your
+  domain.** `/sign-in/confirm?email=<a sentence>` showed it under the site
+  header next to a Sign in button. Shape-check and cap anything reflected,
+  even when nothing can be *done* with the page.
 
 New in the 2026-09-19 session:
 
@@ -1497,9 +1552,204 @@ Better Auth's own `trustedOrigins` refuses a hostile `callbackURL` posted
 straight at the API with `403 INVALID_CALLBACK_URL`, so `safeNextPath` is the
 second line, not the only one.
 
-Gate at the final commit: typegen, tsc, eslint (1 known alt warning),
-**unit 275**, **integration 234**, **e2e 69**, `next build`. Baselines were
-236 / 179 / 41.
+Gate at the first round's final commit (`e8967bd`): typegen, tsc, eslint (1
+known alt warning), **unit 275**, **integration 234**, **e2e 69**,
+`next build`. Baselines were 236 / 179 / 41. The second round's numbers are
+at the end of the next section.
+
+### Second round on PR #22 — the sign-in a mail filter cannot spend
+
+Three commits on the evening of the 19th, after the owner reviewed the
+first round: `4f3e367`, `2e5b541`, `3879ecf`. Head is `3879ecf`.
+
+**The magic link was broken for anyone behind a corporate mail filter, and
+not subtly.** `GET /api/auth/magic-link/verify` is GET-only and consumes the
+token on the first GET. Microsoft 365 Safe Links, Defender and Proofpoint
+fetch every link in incoming mail *before* the person clicks. So for those
+hosts the link was spent by the filter and their first click said "already
+been used". **A GET that signs you in is a GET a scanner signs itself in
+with** — worth holding on to as a rule, because it is not specific to this
+app.
+
+`magicLink` is gone; `emailOTP` replaces it. One email carries **one secret,
+two ways to use it**: six digits to type on `/sign-in`, and a link to
+`/sign-in/confirm?email=…&code=…` carrying the same digits. That page reads
+nothing, writes nothing and submits nothing on its own — no database call, no
+session lookup, no `useEffect` that fires on mount — so a scan costs nothing.
+Only its button's `POST /api/auth/sign-in/email-otp` spends the code.
+
+One secret rather than a link token *plus* a code, deliberately. Two
+independent tokens buy nothing once the link consumes nothing, and cost two
+expiries, two attempt budgets, and a host who clicks the link *and* types the
+code ending up with two sessions. Kept from the old flow: 15 minutes, single
+use, no answer that reveals whether an address has an account. New: five
+wrong guesses kill a code, and the budget is spent **per code** rather than
+per caller, so changing address buys a guesser nothing. Codes are stored
+hashed.
+
+Nothing in `prisma/` changed. The code lives in the `verification` table the
+accounts migration already creates, under identifier `sign-in-otp-<address>`,
+so there is no second migration and `20260919180000_add_accounts` is
+byte-for-byte what it was. That matters more than it sounds: the PR #22
+preview build ran `prisma migrate deploy` against a `DATABASE_URL` scoped to
+Production **and** Preview, so that migration is almost certainly already
+applied to the production database. **Never edit it.** Any future schema
+change is a new migration.
+
+**What is deliberately worse.** The link no longer carries where you were
+going: type the code in the tab you started in and you land back on
+`/packs/<id>`; follow the link and you land on `/packs`. Nothing carries that
+intent through an inbox, the link is routinely opened on a different device
+from the one that started, and a redirect target arriving from an email is
+one more externally-supplied URL to validate. Both behaviours are pinned in
+`e2e/host-gate.spec.ts` so neither can drift into an accident.
+
+**The residual risk, because it is not zero.** A scanner that merely *fetches*
+the link costs nothing — that is the design. A scanner that executes
+JavaScript and *clicks buttons* would still spend the code, and with one
+secret the typed half goes with it. Much rarer than a plain fetch, and the
+answer is the same as a forwarded email: ask for a fresh code. Two
+independent tokens would close it; the trade is written up in PR #22's body.
+
+### Second round — reading a pack now means owning it
+
+`GET /api/packs/[id]` returned every question and every answer to anyone
+holding an id, with no account at all, on the theory that a cuid is unlisted.
+**Nothing in the client has ever called it** — the editor is server-rendered
+and a team's phone reads `/api/sessions/[code]` — so the only thing that hole
+served was whoever found an id. The other read surfaces needed an account but
+not ownership, so any *other* signed-in host with an id could read a
+quizmaster's unrun pack, which is the one thing in this product worth
+stealing.
+
+Six surfaces now require ownership, not the five that are obvious:
+`/packs/[id]`, `/packs/[id]/print`, `GET /api/packs/[id]`, the PDF route, the
+export route — and **`POST /api/sessions`**, which was not on the brief's
+list. Running a session on a pack puts every question and every answer on the
+host desk, so starting one is a read. Without it, "every pack read is
+owner-only" would have been true of five doors and false of the side
+entrance.
+
+Somebody else's pack answers **exactly** as a pack that does not exist: same
+status, same content type, same bytes from an API, `notFound()` from a page,
+asserted side by side. Anything that differed would make each surface an
+existence oracle for pack ids. The ownerless demo stays readable by any
+signed-in host, which is what keeps Export → Import working as the way to
+take an editable copy.
+
+`visiblePacksWhere` lost its null branch *and* its null parameter. It
+described a signed-out listing, which has not existed since accounts landed,
+and a branch for a state that cannot occur is a branch that quietly disagrees
+with the single-row check. The two are now asserted to agree for every shape
+of pack.
+
+**`GET /api/questions/[id]/media` stays open and is now the only open read.**
+A team's phone renders the current question's image and holds nothing that
+could authenticate it. Narrowing it means scoping the read to a live session
+and its team token, which changes what a team's browser has to send — a
+team-facing change, so it was left alone and flagged to the owner instead.
+Anyone holding a question id can fetch its image; nothing private should be
+uploaded as a question image.
+
+### Second round — the flaky spec, and why the obvious diagnosis was wrong
+
+The brief said `e2e/sign-in.spec.ts` "a sign-in link works once" failed about
+one run in two, and blamed the two `browser.newContext({ baseURL })` calls
+sharing Better Auth's localhost rate-limit bucket. **It was not that**, and
+the hour spent proving it was worth it.
+
+- Those contexts **were** attributed. Playwright fills a test's `use` options
+  into a direct `browser.newContext()` too — `runBeforeCreateBrowserContext`
+  in `playwright/lib/index.js` — so the file-level `test.use({
+  extraHTTPHeaders: { "x-forwarded-for": signInIp() } })` reached them.
+- The arithmetic did not work either: `/magic-link/verify` was capped at 10
+  per 60s and that spec put two requests in the bucket.
+- Three consecutive full runs of the **unmodified** suite: 69/69 each time.
+
+The real cause: Next hydrates a route announcer — `<div
+id="__next-route-announcer__" role="alert">` — into every App Router page, so
+`page.getByRole("alert")` is ambiguous and Playwright's strict mode fails on
+two matches. The announcer arrives **after** the HTML, so there is a window
+in which the locator resolves to one element and the assertion passes.
+Measured on `/sign-in?error=…`, polling every 25ms from `waitUntil: "commit"`:
+
+```
+attempt 1: counts=1,1,1,1,1,1,1,1,1,2  → became 2 after ~225ms
+attempt 2: counts=1,1,1,1,1,1,1,1,1,2  → became 2 after ~225ms
+attempt 3: counts=1,1,1,1,1,1,1,1,2    → became 2 after ~200ms
+```
+
+An assertion whose first poll lands inside that window passes; the same
+assertion on a busier machine does not. That is a load-dependent race that
+fails about one run in two and passes alone — the report exactly.
+`e2e/pack-file.spec.ts` had already worked around it with a `.filter()`, so
+it has bitten here before and nobody wrote it down. Now: a named
+`pageAlert(page)` helper scoped to `<main>`, and a spec that pins the reason.
+
+The rate-limit work is in anyway, as hygiene and not as the fix. Two real
+ordering hazards it removes: every context in a file with a file-level
+`test.use` shared **one** caller address, and contexts in files without one
+had no address at all and shared Better Auth's `127.0.0.1` fallback across
+the whole run. Every e2e context now announces its own caller, worker-scoped
+so raising `workers` above 1 cannot collide.
+
+### Second round — the legal pages, committed
+
+The owner approved the drafts with edits, so /privacy and /terms are current
+again and `LEGAL_LAST_UPDATED` is `2026-09-19`. `[contact]` is the existing
+`ContactLink` component throughout. The README's "out of date as of host
+accounts" note is gone.
+
+**The cookie clause names every cookie this configuration can set, and the
+list came from what the configured instance actually emits** — driven through
+`auth.handler` and read off the `Set-Cookie` headers, not taken from the
+documentation:
+
+| Cookie | Life | When |
+|---|---|---|
+| `__Secure-better-auth.session_token` | 7 days, refreshed by use | On sign-in |
+| `__Secure-better-auth.state` | 5 minutes | Only while a Google sign-in is in flight |
+| `pq_creator` | legacy | Never set any more; read once, on first sign-in |
+
+Better Auth's `session_data`/`account_data` need the cookie cache, which is
+off; `dont_remember` needs a `rememberMe`, which only the password endpoints
+accept and those are disabled. Neither is reachable here.
+
+The retention clause promises only what the code does. Better Auth deletes a
+code's row the moment it is consumed, and an expired row when a submission
+arrives for it, but **nothing sweeps a code nobody ever tries**. So the page
+says both stop working and claims no deletion there is no job to perform. A
+real "and then it is deleted" promise needs a cleanup job first.
+
+### Second round — verification, and the gate
+
+Driven in a browser rather than re-run as tests: the whole sign-in flow at
+390px (form → check-your-inbox → wrong code → the confirm page → signed in),
+and /privacy at 1280px. The confirm page and the code field were both added
+to `e2e/narrow-viewport.spec.ts` at 320/360/390/430px — neither is reachable
+by a plain `goto`, which is why they had no coverage.
+
+Two claims checked against the running server rather than reasoned about:
+
+- **Where the emailed link points.** Driven through the real handler with
+  three `Host` headers. A preview host gets a preview link, the production
+  domain gets a production link, and a forged `evil.test` falls back to the
+  configured origin rather than mailing somebody a link to an attacker's
+  domain.
+- **A hydration warning in the dev overlay was mine, not the app's.**
+  `caret-color: transparent` on the focused input is what Playwright's
+  `screenshot({ caret: "hide" })` default injects. The served HTML has none.
+
+Gate at `3879ecf`: typegen, tsc, eslint (1 known alt warning), **unit 286**,
+**integration 263**, **e2e 79** — the e2e suite run **three times end to
+end**, 79/79 each time — and `next build`. `/`, `/pricing`, `/terms`,
+`/privacy`, `/refunds` and `/play` all stayed **static**; `/sign-in/confirm`
+is dynamic, which it has to be, because it reads a code out of the query
+string.
+
+Two mutation checks, because a test that cannot fail is not evidence:
+`allowedAttempts` 5 → 50 fails the five-guesses test, and `canReadPack` →
+`return true` fails 7 of the 23 pack-read tests.
 
 ## Next
 
@@ -1509,16 +1759,18 @@ unchanged and still accurate — nothing from the 19th merged.*
 
 0a. **Decide PR #21 and PR #22.** Both green on `test` and `Vercel`, both
     `mergeable_state: clean`, neither merged. #21 is five files and carries no
-    behaviour change beyond the wall-clock ceiling. #22 is host accounts and
-    needs the three owner decisions in Open items *before* it is useful in
-    production — in particular it will not serve a sign-in without
-    `BETTER_AUTH_SECRET` and `RESEND_API_KEY`/`EMAIL_FROM`, which is
-    deliberate: it fails loudly rather than signing cookies with a published
-    default key.
+    behaviour change beyond the wall-clock ceiling. #22 is host accounts,
+    now after two rounds, and needs the two owner decisions in Open items
+    *before* it is useful in production — in particular it will not serve a
+    sign-in without `BETTER_AUTH_SECRET` and `RESEND_API_KEY`/`EMAIL_FROM`,
+    which is deliberate: it fails loudly rather than signing cookies with a
+    published default key.
 
-0b. **Approve or edit the legal drafts.** They are the one thing in #22 that
-    was deliberately not committed, and /privacy and /terms are wrong until
-    they are. Drafts and the `LEGAL_LAST_UPDATED` bump are in PR #22's body.
+0b. **Set the environment variables and create the Google OAuth client.**
+    This is now the only thing standing between #22 and a working sign-in.
+    The table and the exact redirect URIs are in PR #22's body; every
+    variable is also in `.env.example` with its reasoning. Nothing on Vercel,
+    Turso, Google or Resend has been touched from this side.
 
 *The list below was rewritten 2026-09-18 against `master` `3bca366`. The previous list was trued
 up on the 15th and had gone wrong in two places by the 17th: item 0 asked for
