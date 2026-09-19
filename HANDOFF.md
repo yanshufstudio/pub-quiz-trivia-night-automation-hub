@@ -1,4 +1,4 @@
-# Handoff — 2026-09-13 (sessions appended through 2026-09-18)
+# Handoff — 2026-09-13 (sessions appended through 2026-09-19)
 
 Product name: **TriviaFoundry** (since 2026-09-16; was "Pub Quiz Hub" —
 pubquizhub.app is a live competitor). Repo slug and package name unchanged.
@@ -13,6 +13,33 @@ history — `git show 86069bd:HANDOFF.md` for the previous one, which still has
 the full record of the 2026-09-07→09 work.
 
 ## Where things stand
+
+> **State correction, 2026-09-19. Nothing from this session has merged, and
+> `master` has not moved.** It is **`2263a4b`** (PR #20, the previous
+> handoff) and that is what production runs. The 2026-09-18 note below says
+> `3bca366`, which was true when it was written and stopped being true the
+> moment it merged — read this one.
+>
+> Two PRs are open from the 19th, both green on `test` and on the `Vercel`
+> commit status, both `mergeable_state: clean`, neither merged:
+>
+> - **PR #21** (`claude/function-duration`, head `d5f66c0`) — `maxDuration`
+>   300 on generate, PDF and export.
+> - **PR #22** (`claude/accounts`, head `e8967bd`) — **host accounts**. This
+>   is the big one and it changes who may do what across the whole app.
+>
+> **Three things wait on the owner and are written into PR #22's body**: the
+> /privacy and /terms drafts plus the `LEGAL_LAST_UPDATED` bump (drafted, not
+> committed — the pages are now out of date and say so in the README), the
+> environment variables and the Google OAuth client, and the list of what
+> PR #4 must change. Do not action any of them without the owner.
+>
+> **PR #4** (`claude/paddle-pro-3a`) is still open, still the owner's call,
+> and now needs work it did not need before — see the 2026-09-19 session
+> section.
+>
+> The corrections below are the record of their own days and are all
+> superseded by this one.
 
 > **State correction, 2026-09-18.** `master` is **`3bca366`** and that is what
 > production runs. It carries PRs **#17**, **#19** and **#18**, merged in that
@@ -423,7 +450,57 @@ model settled it in a minute. The lesson generalises — where the question is
 
 ## Open items
 
-*Re-checked 2026-09-18 against `master` `3bca366`. The entries added that day
+*Entries added 2026-09-19 come first. Everything below them was re-checked
+on the 18th and still holds — `master` has not moved since, because nothing
+from the 19th merged.*
+
+- **The owner has three decisions waiting, all written into PR #22's body.**
+  Nothing should be actioned without them. (1) The /privacy and /terms drafts
+  plus the `LEGAL_LAST_UPDATED` bump — **the pages are out of date right now**:
+  Google and Resend are new processors, and the app stores an email address, a
+  name, a Google account id and sign-in session records. The README carries a
+  visible note so the gap is not silent. (2) The environment variables and the
+  Google OAuth client — `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`,
+  `GOOGLE_CLIENT_ID`/`_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, each
+  documented in `.env.example` with its reasoning. (3) The list of what PR #4
+  must change.
+
+- **PR #4 cannot ship as written once accounts land, and the reason is a
+  security one.** `customData.creatorId` comes from `POST /api/creator/ensure`,
+  which mints a `Creator` for whatever cookie the browser sent. A cookie is
+  attacker-controlled, so that is a checkout that can be pointed at someone
+  else's creator. It must come from the session. `ensure` then has no reason
+  to exist, and `RestoreToken`//restore/phase 3b become unnecessary —
+  restoring Pro on a new device is now "sign in". Full file-by-file list in
+  PR #22's body.
+
+- **Google sign-in cannot work on preview deployments, by design.** A redirect
+  URI must be registered in Google Cloud ahead of time and `*.vercel.app`
+  changes on every push. Previews use the email link. Both `.env.example` and
+  `src/lib/auth.ts` say so at the point of use — this is not a bug to fix.
+
+- **Nothing sweeps an expired sign-in link nobody followed, or an expired
+  `authSession` row.** A link is deleted atomically when it *is* followed
+  (`consumeVerificationValue` deletes before it checks expiry, so even a stale
+  link cleans itself up). Both stop working on time; neither is removed. This
+  is why the drafted retention clause promises only that they stop working. A
+  real "and then it is deleted" promise needs a cleanup job first, and the
+  policy must not get ahead of the code.
+
+- **`/api/test/sign-in-links` is distinguishable from a path that does not
+  exist.** It answers `404 {"error":"Not found"}` where a missing path answers
+  Next's HTML 404. It leaks no links and names nothing, but it confirms the
+  path resolves to something. Three fixes were tried and measured, all worse —
+  see the 2026-09-19 session section before attempting a fourth.
+
+- **The header's tap targets are 36px.** "Sign in" and "Sign out" are 68x36
+  and 69x36, under the 44px iOS / 48px Material minimum. They match the four
+  existing nav links exactly, so this is the header's house style rather than
+  something accounts regressed — but it now applies to the two controls a host
+  taps most on a phone. Changing it means restyling the existing links too,
+  which is why it was left alone.
+
+*The entries below were re-checked 2026-09-18 against `master` `3bca366`. The entries added that day
 are first; the older ones below them still hold except where struck through.
 The 2026-09-15 note that used to open this section said it was trued up
 against `master` `80ca6fd` and PR #4 `d16a99f` — both SHAs have moved since.*
@@ -719,6 +796,43 @@ A generation costs real Anthropic credit. **429** = the per-IP limiter
 cookie per 30 days). They are different things; don't conflate them.
 
 ## Gotchas
+
+New in the 2026-09-19 session:
+
+- **A green narrow-viewport suite does not mean the layout is still.** It
+  measured horizontal overflow and never measured *movement*, so two separate
+  layout shifts shipped through it — 36px on 380-500px, then 28px on
+  520-639px from the first fix. If a widget resolves client-side, the thing to
+  assert is that the header's height is the same before and after, with the
+  request **held open** so "pending" is observed rather than raced.
+- **Reserving a height does not stop a wrap; only reserving a width does.**
+  And an *empty* placeholder has zero **intrinsic** width, so it can change an
+  outer flex container's wrap even when its own line is fixed. Any element
+  whose content size depends on async state needs a footprint that does not.
+- **`notFound()` in a Route Handler does not render the 404 page.** That
+  happens for *page* routes. From a route handler it yields a bodiless 404 (0
+  bytes, no content-type), which is more anomalous than an ordinary JSON 404,
+  not less. It throws `NEXT_HTTP_ERROR_FALLBACK;404` as both `message` and
+  `digest`, so a direct handler call in a test gets a throw, not a `Response`.
+- **`NextResponse.rewrite` always emits `x-middleware-rewrite`, and it is
+  load-bearing.** Deleting the header does not hide the rewrite; it cancels
+  it, and the response becomes `200 OK` with an empty body.
+- **Better Auth's rate limiter shares one bucket in dev.** `getIP` falls back
+  to a single localhost key when no `x-forwarded-for` is present, so every
+  browser request from a local suite counts against the same 5-per-minute
+  allowance and specs throttle each other. Give each context its own
+  `x-forwarded-for` — and a **syntactically valid IPv4**, because a malformed
+  one is dropped and silently falls back to that shared key.
+- **`next dev` guards on a lockfile in `.next/dev`, not on the port.** A
+  leftover dev server refuses the next one with "Another next dev server is
+  already running" even when `ss` shows the port free. Kill the PID it names,
+  then `rm -rf .next/dev`. This happened twice; `pkill -f` from inside the
+  agent's own shell also kills the shell (exit 144), which is how the strays
+  survived in the first place.
+- **The build logs six `BetterAuthError: You are using the default secret`
+  lines, and that is correct.** `next build` evaluates `src/lib/auth.ts`
+  without `BETTER_AUTH_SECRET`, which is exactly the arrangement that keeps
+  the secret out of the build environment. Noise, not a defect.
 
 New in the 2026-09-18 session:
 
@@ -1212,9 +1326,201 @@ before merge.
 reproduce. Run `npx next typegen` before `tsc`, and see Gotchas for the
 Chromium override the e2e run needs in a sandbox.
 
+## What was built in the 2026-09-19 session — host accounts, the function ceiling
+
+**Nothing merged.** Two PRs opened, both green, both left for the owner.
+`master` is still `2263a4b`. This section is written as "built", not
+"landed", because none of it is in production.
+
+### PR #21 — `maxDuration` 300, because the account is on Pro
+
+`POST /api/packs/generate` had carried `maxDuration = 60` since 2026-09-08,
+and the comment above it read as though 60 were the platform's ceiling. It is
+not: the Vercel account is on **Pro**, where functions default to 300s and can
+go to 800s. That was not a free mistake — **a generation killed at 60s has
+already spent the Anthropic tokens it burned getting there**, so the caller
+got a 504 and the project got the bill. Large briefs were the ones paying.
+
+`[id]/pdf` and `[id]/export` had **no** `maxDuration` at all and ran on the
+platform default. The QA sweep measured **231s** for a large pack's PDF.
+Both now 300; export inlines media as base64 and scales the same way.
+
+Observable artifact, since nothing local enforces a wall-clock ceiling —
+`.next/server/functions-config-manifest.json`, built both ways:
+
+```
+before (master)            after (#21)
+/api/packs/generate  60    /api/packs/generate     300
+                           /api/packs/[id]/pdf     300
+                           /api/packs/[id]/export  300
+```
+
+The two routes being *absent* from the "before" manifest is the confirmation
+they had no declared ceiling. Whether Vercel honours 300 is Vercel's to
+demonstrate; it cannot be shown off-platform.
+
+`docs/portfolio-readiness.md` still says 60 in places and was **deliberately
+left alone** — those sit inside dated entries recording what was measured
+that day. `src/lib/generate-pack.ts` and the README said it as current fact
+and were corrected.
+
+*One correction to the brief that set this up*: it described the route's
+comment as calling 60 "the Hobby maximum". It did not — the word "Hobby"
+appears nowhere in the repo. The comment said "the platform's default
+function timeout", which was misleading by omission rather than wrong.
+
+### PR #22 — host accounts
+
+Identity was an unsigned `pq_creator` cookie. Clearing cookies handed a
+visitor a fresh free allowance, lost them every pack they had written, and —
+once Paddle goes live — would lose a buyer their Pro. **Better Auth 1.7.5**
+with the Prisma adapter over the existing libSQL client; Google, or a link
+mailed to the address; no passwords. 92 files.
+
+**Teams never sign in, and that is load-bearing.** `/play`, joining,
+answering, the team portal, `GET /api/sessions/[code]` and
+`GET /api/questions/[id]/media` all stay open — a pub full of strangers
+cannot be asked to make an account to answer question three, and a team's
+phone holds nothing that could authenticate it.
+
+**The surfaces that carry the answers changed, and this is the one behaviour
+change worth knowing about.** The PDF, print and export routes did **not**
+need an account before. They do now.
+
+**Schema.** Four Better Auth tables plus `Creator.userId String? @unique`.
+`Session` is already the *game* session — the row behind a five-character
+join code — so Better Auth's live in **`authSession`**;
+`src/lib/auth-config.test.ts` fails if that ever changes, because the failure
+mode is a corrupted quiz night rather than a broken login. The migration is
+hand-written, as they all are here: `prisma migrate diff` wanted to
+`DROP TABLE "Creator"` and rebuild it to add one nullable column, and SQLite
+does not need that. **Purely additive** — verified by applying it and dumping
+`sqlite_master`; `Creator` keeps its original DDL with the column appended.
+
+**Claiming.** `pq_creator` is no longer identity and **nothing sets it any
+more** — it is read in exactly one place, `legacyDeviceKey` in
+`src/lib/auth-guard.ts`. A browser still carrying one hands it over once, on
+sign-in, so the packs and used allowance behind it move onto the account. A
+Creator belonging to another user is never taken, and a merge keeps the
+**higher** of the two counts — the alternative makes claiming itself the way
+to refund an allowance.
+
+**The proxy is not the defence.** `src/proxy.ts` (Next 16's renamed
+`middleware.ts`) redirects on a missing session cookie, but `auth-guard.ts`
+running `auth.api.getSession` is what actually decides. `src/proxy.test.ts`
+forges a cookie and walks straight through the proxy to prove the point.
+
+### Two bugs caught by re-reading and re-measuring, not by the suite
+
+Both were self-inflicted and both were found *after* the code looked right:
+
+- **The production secret check had to move.** Throwing at module load made
+  `next build` itself depend on `BETTER_AUTH_SECRET`, which forces the secret
+  into the build environment and stops `npm run build` working locally. It is
+  now `assertAuthConfigured()`, per request. Verified on a real `next start`:
+  with no secret, `/` and `/pricing` still serve, every auth endpoint 500s,
+  and `/packs` **with a forged cookie** 500s rather than letting it in.
+
+- **The claim's merge transaction re-read only the orphan.** It used the
+  account's own row as read *before* the transaction, so a sign-in racing a
+  generation could write a **lower** used count back — the exact failure the
+  whole design exists to prevent, arriving through the one path meant to
+  guarantee it cannot. Both rows are now read inside the transaction. There
+  is no test that provokes that interleaving deterministically; this is a
+  code fix and a comment, not a test claim.
+
+### A layout shift that took two goes
+
+The account corner resolves client-side, so for a moment the header does not
+know which of three differently-sized things it will show. The placeholder
+reserved a **height** and nothing else, and **width** is what decides a wrap:
+on a 390px phone the nav row has 107px left after the four links, the 64px
+placeholder and 68px "Sign in" fitted, and the signed-in 217px did not. A
+host's email arriving wrapped the corner to a new line and shoved the page
+down **36px**, at **380-500px** — iPhone 13/14, Pixel 5/7, iPhone 14 Pro Max.
+
+Giving it its own line below `sm` fixed that band and **broke 520-639px**,
+because an empty placeholder also has zero *intrinsic* width: the header's
+outer row sized the nav at 243px pending and 459px resolved and wrapped
+differently, shifting 28px — now for **signed-out** visitors, who never had a
+shift at all. Only re-running the same sweep caught it.
+
+The slot is now a fixed width in every state at every viewport. Re-measured
+320-1280px signed out, signed in, and signed in with a 76-character address:
+**worst movement 0px, worst overflow 0px**. Tablets and landscape phones came
+out 28px *shorter* than before.
+
+`e2e/sign-in.spec.ts` now holds the `get-session` request open so "pending"
+is observed rather than raced. Checked against the previous component: those
+tests fail at exactly 390px and 430px signed in and pass at 320/560/1280, so
+they pin the bug rather than the implementation.
+
+**The suite measured horizontal overflow and never measured movement**, which
+is why neither shift was caught. Worth remembering before trusting a green
+narrow-viewport run.
+
+### The e2e sign-in capture, and its one residual weakness
+
+A browser cannot open an email, so the suite reads the link back from
+`GET /api/test/sign-in-links`. That route needs **all three** of
+`NODE_ENV !== "production"`, `SIGN_IN_LINK_CAPTURE === "1"`, and no
+`RESEND_API_KEY`. Verified on a production server with the flag *deliberately
+set*: 404 on GET and DELETE, before and after a real sign-in, nothing
+captured, and the send failing loudly with `SignInEmailNotConfiguredError`.
+
+**It is not indistinguishable from a path that does not exist, and three
+attempts to make it so all failed.** Recorded so nobody re-treads it:
+
+1. `notFound()` from `next/navigation` renders the 404 *page* only for page
+   routes; from a route handler it yields a **bodiless** 404 (0 bytes), which
+   is *more* anomalous than the JSON, not less.
+2. A proxy rewrite to a nonexistent path produced a byte-identical body
+   (19,621 bytes) and identical headers — except `x-middleware-rewrite`,
+   which announces the rewrite and leaks an internal path.
+3. Deleting that header breaks the rewrite outright: `200 OK`, empty body.
+   The header is what performs it.
+
+So the JSON 404 stays. What leaks is that the path resolves to *something
+that declines* — no links, no status, no hint what it is.
+
+### Verification
+
+Driven in a browser rather than re-run as tests: signed-out redirects with
+the query string preserved, the sign-in journey by **tap** on nine device
+profiles (iPhone SE through iPad Mini, plus two landscape), sign-out, a
+re-used link refused in a second browser, a team playing a full question with
+**zero cookies**, and the 401 sweep over every host route by raw HTTP.
+
+Hostile `?next=` values — `//evil.test`, `https://evil.test/steal`,
+`/\evil.test` — all rewrote to `/packs`; the browser never left the origin.
+Better Auth's own `trustedOrigins` refuses a hostile `callbackURL` posted
+straight at the API with `403 INVALID_CALLBACK_URL`, so `safeNextPath` is the
+second line, not the only one.
+
+Gate at the final commit: typegen, tsc, eslint (1 known alt warning),
+**unit 275**, **integration 234**, **e2e 69**, `next build`. Baselines were
+236 / 179 / 41.
+
 ## Next
 
-*Rewritten 2026-09-18 against `master` `3bca366`. The previous list was trued
+*Updated 2026-09-19. Items 0a and 0b are new and come first because both are
+sitting in open PRs; the numbered list below them is the 2026-09-18 list,
+unchanged and still accurate — nothing from the 19th merged.*
+
+0a. **Decide PR #21 and PR #22.** Both green on `test` and `Vercel`, both
+    `mergeable_state: clean`, neither merged. #21 is five files and carries no
+    behaviour change beyond the wall-clock ceiling. #22 is host accounts and
+    needs the three owner decisions in Open items *before* it is useful in
+    production — in particular it will not serve a sign-in without
+    `BETTER_AUTH_SECRET` and `RESEND_API_KEY`/`EMAIL_FROM`, which is
+    deliberate: it fails loudly rather than signing cookies with a published
+    default key.
+
+0b. **Approve or edit the legal drafts.** They are the one thing in #22 that
+    was deliberately not committed, and /privacy and /terms are wrong until
+    they are. Drafts and the `LEGAL_LAST_UPDATED` bump are in PR #22's body.
+
+*The list below was rewritten 2026-09-18 against `master` `3bca366`. The previous list was trued
 up on the 15th and had gone wrong in two places by the 17th: item 0 asked for
 a rename PR that had already merged, and item 3 said the print page-break fix
 was uncommitted when `a763086` had carried it since 2026-09-10. Both are
