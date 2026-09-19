@@ -4,6 +4,10 @@ import { toPackFile } from "@/lib/pack-file";
 import { toQuestionView } from "@/lib/question-types";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
 
+// A v2 export inlines every media file as base64, so it scales with the pack
+// the same way the PDF does; match the PDF route rather than the default.
+export const maxDuration = 300;
+
 function filenameFor(title: string) {
   const slug = title
     .toLowerCase()

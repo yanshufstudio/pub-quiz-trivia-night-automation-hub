@@ -16,9 +16,12 @@ import {
 import { reserveDailyGeneration } from "@/lib/daily-ceiling";
 
 // Default wizard brief (four rounds) exceeds the platform's default function
-// timeout. Raise the ceiling; see docs/portfolio-readiness.md "Reopened
-// 2026-09-08" for the measured cause.
-export const maxDuration = 60;
+// timeout; see docs/portfolio-readiness.md "Reopened 2026-09-08" for the
+// measured cause. 60 was never the ceiling we had to live with: this team is
+// on Vercel's Pro plan, where functions default to 300s and can be raised to
+// 800s. A large brief killed at 60s has already spent the model tokens it
+// burned getting there, so the low ceiling cost money and returned nothing.
+export const maxDuration = 300;
 
 /**
  * Every generation failure used to come back as one 502 saying "Please try

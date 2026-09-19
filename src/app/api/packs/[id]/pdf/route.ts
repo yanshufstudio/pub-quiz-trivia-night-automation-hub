@@ -17,6 +17,9 @@ const DOCUMENTS = {
 
 type DocType = keyof typeof DOCUMENTS;
 
+// A large pack's PDF measured 231s in the QA sweep, past the platform default.
+export const maxDuration = 300;
+
 function isDocType(value: string | null): value is DocType {
   return !!value && value in DOCUMENTS;
 }
