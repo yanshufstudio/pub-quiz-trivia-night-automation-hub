@@ -96,19 +96,29 @@ export async function creatorForUser(userId: string, deviceKey: string | undefin
  * allowance, and delete the husk.
  *
  * One interactive transaction, which this app already runs against Turso in
- * production. The re-read inside it is the point: the row may have been
- * claimed by another request between the findMany above and this call, and
- * the `userId: null` check has to be made against what is in the database
- * now, not against what we read a moment ago.
+ * production. BOTH rows are re-read inside it, and that is the point:
+ *
+ * - the orphan may have been claimed by another request since the `findMany`
+ *   above, and `userId: null` has to be checked against what is in the
+ *   database now rather than what we read a moment ago;
+ * - the account's own row may have been incremented since then too — signing
+ *   in in one tab while generating in another is all it takes — and merging
+ *   against the stale copy would write a *lower* used count back. Lowering a
+ *   used count is the exact failure this whole design exists to prevent, so
+ *   it does not get to happen through the claim path either.
  */
 async function mergeIntoOwn(own: Creator, orphan: Creator): Promise<Creator> {
   await db.$transaction(async (tx) => {
-    const fresh = await tx.creator.findUnique({ where: { id: orphan.id } });
-    if (!fresh || fresh.userId !== null) return;
+    const [freshOwn, freshOrphan] = await Promise.all([
+      tx.creator.findUnique({ where: { id: own.id } }),
+      tx.creator.findUnique({ where: { id: orphan.id } }),
+    ]);
+    if (!freshOwn) return;
+    if (!freshOrphan || freshOrphan.userId !== null) return;
 
-    await tx.quizPack.updateMany({ where: { creatorId: orphan.id }, data: { creatorId: own.id } });
-    await tx.creator.update({ where: { id: own.id }, data: mergeAllowance(own, fresh) });
-    await tx.creator.delete({ where: { id: orphan.id } });
+    await tx.quizPack.updateMany({ where: { creatorId: freshOrphan.id }, data: { creatorId: freshOwn.id } });
+    await tx.creator.update({ where: { id: freshOwn.id }, data: mergeAllowance(freshOwn, freshOrphan) });
+    await tx.creator.delete({ where: { id: freshOrphan.id } });
   });
 
   const merged = await db.creator.findUnique({ where: { id: own.id } });
