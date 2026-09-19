@@ -1,4 +1,4 @@
-# Handoff — 2026-09-13 (rename + redesign session appended 2026-09-16)
+# Handoff — 2026-09-13 (sessions appended through 2026-09-18)
 
 Product name: **TriviaFoundry** (since 2026-09-16; was "Pub Quiz Hub" —
 pubquizhub.app is a live competitor). Repo slug and package name unchanged.
@@ -13,6 +13,22 @@ history — `git show 86069bd:HANDOFF.md` for the previous one, which still has
 the full record of the 2026-09-07→09 work.
 
 ## Where things stand
+
+> **State correction, 2026-09-18.** `master` is **`3bca366`** and that is what
+> production runs. It carries PRs **#17**, **#19** and **#18**, merged in that
+> order overnight on the 18th: cross-script scoring, the scoreboard oracle,
+> the Answer index, the host desk, the generation bill ceiling and the
+> model-decline path. See "What landed in the 2026-09-18 session" below.
+>
+> **Read Open items before doing anything else.** One thing a merge does not
+> settle is still unverified, and it decides whether the Anthropic bill is
+> actually capped.
+>
+> **PR #4** (`claude/paddle-pro-3a`, head `cd9f552`) is still open and still
+> the owner's call.
+>
+> The two corrections below are the record of their own days and are both
+> superseded by this one.
 
 > **State correction, 2026-09-15.** The paragraph below is the 2026-09-13
 > picture and is kept as the record of that day. Current state: PR #3 merged
@@ -371,6 +387,9 @@ changed nothing on the machine that has the problem.
 
 ## Verified, and not
 
+*This section is the 2026-09-13 record and its numbers are of that date. The
+current gate counts are in the 2026-09-18 session section.*
+
 Run against the media phase-1 commit, all green:
 
 | | |
@@ -396,13 +415,57 @@ precisely the thing a test suite cannot tell you.
 This bug has been closed twice on a green suite and reopened twice. **Do not
 call it fixed without a browser on a real deployment.**
 
+The same pattern caught the model-decline path on 2026-09-18: two versions of
+it passed a green suite while being wrong, because the tests mocked the very
+function whose behaviour was in question. One real brief against the live
+model settled it in a minute. The lesson generalises — where the question is
+"what will the model do", a stub cannot answer it.
+
 ## Open items
 
-*Trued up 2026-09-15 against `master` `80ca6fd` and PR #4 `d16a99f`. The
-PR #3-era entries that used to be here (test the preview not production;
-previews are building again; media phases 2-4 are local-only) are gone
-because PR #3 merged as `5982f76` — the history is in the session sections
-above.*
+*Re-checked 2026-09-18 against `master` `3bca366`. The entries added that day
+are first; the older ones below them still hold except where struck through.
+The 2026-09-15 note that used to open this section said it was trued up
+against `master` `80ca6fd` and PR #4 `d16a99f` — both SHAs have moved since.*
+
+- **Is Upstash configured on production? Nobody has checked, and it decides
+  whether the bill is capped.** `src/lib/daily-ceiling.ts` uses Upstash when
+  `UPSTASH_REDIS_REST_URL`/`_TOKEN` are set and an in-process `Map` otherwise
+  — the same arrangement as `rate-limit.ts`, but the consequence is worse
+  here. Without Upstash each serverless instance keeps its own counter, so a
+  ceiling of 20 a day is really 20 a day *per instance* and bounds the
+  Anthropic bill by an unknown multiple. Everything else about the ceiling was
+  tested; this was not, because a sandbox cannot see the Vercel dashboard.
+  **Check this before believing the bill is capped.**
+
+- **The two ceilings add up, and the arithmetic is worth a second look.**
+  Free and Pro are independent buckets, so worst-case daily exposure is
+  `20 + 50` generations. At roughly $0.18 for a pack that runs to the full 16k
+  `max_tokens` that is about **$12.60 a day, ~$380 a month**. The owner set
+  these against a stated $50 API budget; if that figure is monthly rather than
+  daily, the ceilings do not enforce it — that would need roughly 9 a day
+  across both buckets. Raised at the time and the numbers were confirmed
+  anyway, so this is a note, not a blocker.
+
+- **`GET /api/packs` and `GET /api/packs/[id]` return full answer text for
+  ownerless packs (e.g. the demo pack), unauthenticated.** Found during the
+  PR #17 work and **deliberately deferred until after launch** on the owner's
+  instruction. It is a real exposure — anyone with the URL can read a shared
+  pack's answers — but it predates this session and is not what the pre-launch
+  fixes were for.
+
+- **`rate-limit.ts` and `daily-ceiling.ts` duplicate the Upstash-or-memory
+  counter.** The client construction, the `Map`, and the INCR/EXPIRE
+  fixed-window body are the same in both, so two Redis clients are built per
+  process against one instance and every fix to the shared mechanism has to be
+  made twice. It was deferred while PRs #17 and #18 were both open, because
+  #17 also modified `rate-limit.ts` and the refactor would have manufactured a
+  conflict. **Both have merged, so this is now available to do.**
+
+- **The host payload's pre-reveal exposure is closed; the host's own
+  `currentAnswer` after the reveal is unchanged.** Noted so nobody re-opens
+  PR #19's decision: withholding it *before* REVEAL was the fix, and the host
+  needs all of it *from* REVEAL to adjudicate.
 
 - **~~Paddle Task 9~~ — passed 2026-09-15**, by the owner, off-sandbox. The
   entry below was written before that and is superseded; PR #4 is no longer
@@ -656,6 +719,34 @@ A generation costs real Anthropic credit. **429** = the per-IP limiter
 cookie per 30 days). They are different things; don't conflate them.
 
 ## Gotchas
+
+New in the 2026-09-18 session:
+
+- **Under forced tool use the model does not refuse — it complies wrongly.**
+  `generateQuizPack` sends `tool_choice: { type: "tool", name: ... }`, and a
+  model handed a brief it will not write satisfies that contract rather than
+  breaking it: it called the tool with a substituted quiz and its refusal
+  written as the text of question one. No `stop_reason` says anything. If you
+  need a model to be able to decline under forced tool use, **give the tool a
+  field to decline with** — `decline_reason` on `emit_quiz_pack` — and say so
+  in the system prompt. Checking `stop_reason` is a backstop, not the
+  mechanism.
+- **A path tested only against a stubbed transport is not tested.** The
+  decline path was built twice and both versions passed a green suite while
+  being wrong, because every test mocked `generateQuizPack` itself and
+  constructed the error by hand, so the detection never ran. It took one real
+  brief against the live model to find it. See the 2026-09-18 session section.
+- **`npx next typegen` is the fast fix for `Cannot find name 'LayoutProps'`.**
+  On a fresh clone `npx tsc --noEmit` fails in `layout.tsx` because that type
+  is generated into `.next/types`, which does not exist until a build has run.
+  `next typegen` generates it in seconds without a full build; CI already does
+  this, and it belongs first in any local gate.
+- **Playwright wants Chromium 1234 where the sandbox has 1194**, so all specs
+  fail identically until `launchOptions.executablePath` points at
+  `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`. A throwaway config
+  that spreads `playwright.config.ts` and overrides only that field works —
+  delete it before `git add`, and note `prisma/gate.db` is not gitignored
+  either.
 
 New in the 2026-09-15 sessions (recovered from `claude/zen-feynman-xtoljd`,
 which was never merged):
@@ -960,23 +1051,195 @@ and does not exist on `master`:
   "Pro subscriptions (Paddle)", which arrives with PR #4. Worth merging the two
   when it lands.
 
+## What landed in the 2026-09-18 session — game integrity, the bill, the desk
+
+Three PRs, all merged to `master` overnight on the 18th. `master` went
+`c429f12` -> `c6fa263` (#17) -> `542151c` (#19) -> `3bca366` (#18).
+
+### PR #17 — scoring, the scoreboard oracle, the Answer index
+
+**A Hebrew quiz scored every team correct.** `normalizeAnswer` ended with
+`.replace(/[^a-z0-9\s]/g, "")`, an ASCII-only class that deleted every other
+character rather than just punctuation. "ירושלים", "!!!" and "" all normalised
+to `""` and matched each other — so **an empty answer box scored correct**
+against any Hebrew answer. "תל אביב" and "באר שבע" both became a single space.
+Latin was damaged more quietly: "café" became "caf", so a team typing "cafe"
+was marked wrong. It now NFKD-decomposes, strips `\p{M}` (which also folds
+Hebrew niqqud, so a pointed answer matches an unpointed one) and keeps
+`\p{L}\p{N}`. An answer that normalises to nothing now matches nothing, which
+is what closes the blank-box case for good.
+
+Same commit, **M14**: the leading-article strip ran *before* the punctuation
+strip, so a quoted `"The Beatles"` kept its article and stopped matching a bare
+`Beatles`.
+
+**The live scoreboard was an answer oracle.** `computeScoreboard` summed every
+answer with no filter and the route spread it into both payloads. Answers are
+scored at submit time and a team could resubmit without limit, so: submit,
+poll, watch your own total, repeat until it moves. The route already withheld
+`myAnswer.isCorrect` before the reveal and then leaked the same fact through
+the total. The current question is now excluded until REVEAL/ENDED, **for the
+host payload too** — the desk is on the pub TV. `computeScoreboard` takes the
+question in play as a *required* argument, so the next caller cannot forget.
+
+**Submissions capped at 5 per team per question**, counted against the team id.
+`rateLimit` gained an optional `identity` that replaces the client IP, because
+every team in a pub arrives from the venue's single NAT address and an
+IP-keyed allowance would have the first team to answer throttle the room.
+
+**H8**: `Answer` carried only the unique on `(teamId, roundIndex,
+questionIndex)`, which leads on `teamId` and could not serve `WHERE sessionId
+= ?` — the lookup every 3-second poll makes. SQLite answered with `SCAN
+Answer`: every row ever written, for every host and team, every 3 seconds.
+`@@index([sessionId, roundIndex, questionIndex])` makes it `SEARCH ... USING
+INDEX`, confirmed with `EXPLAIN QUERY PLAN` both ways.
+
+### PR #19 — the host desk stops showing the answers to the room
+
+The desk is not a private admin view: it goes on a TV or projector and is laid
+out to be read from about four metres (`b138bde`). During QUESTION_ACTIVE it
+rendered every team's answer text, a green `+1` or red `0`, and the
+Correct/Wrong buttons — so the first team to answer correctly published the
+answer to the room, and with 5 resubmissions the rest could copy it off the
+wall. It now shows only "Answered" or "Waiting…" until the reveal.
+
+**Gated server-side as well, and that is the gate that matters**: the host
+branch of `GET /api/sessions/[code]` nulls the answer's `text`, `isCorrect`,
+`pointsAwarded` and `id` before REVEAL, exactly as `myAnswer` is nulled for
+teams. A screen cannot show what it was never sent.
+
+Two things worth keeping:
+
+`e2e/quiz-flow.spec.ts` had asserted the leak **as a feature** — its comment
+read "Host sees the live submission, auto-scored as correct, before revealing".
+That is why a green suite sat on top of it.
+
+The host page's DOM *does* contain answers, but only as inert RSC payload left
+behind by `/packs/<id>` — the editor, which legitimately shows answers to the
+pack's owner — carried across the client-side navigation. It is never
+rendered, so it is not on the TV. The e2e reloads before asserting so it tests
+the right document. Do not re-raise this as a leak.
+
+### PR #18 — the generation bill, the M12 race, the decline path
+
+**The free tier was voluntary and the bill had no ceiling.**
+`getOrCreateCreator` mints a Creator with a full allowance for any request
+without a `pq_creator` cookie, so deleting the cookie reset the allowance and
+never sending one skipped it entirely. A cookie-less `curl` loop was an
+unlimited generator, bounded only by the per-IP throttle (5 per 10 min,
+~720/day/address). **Signing the cookie would not have closed this — the
+attack is having no cookie at all.**
+
+What closes it is a hard global ceiling per UTC day, checked before the model
+call, with **no identity in the key**, so rotating or dropping cookies cannot
+move it. `FREE_DAILY_PACK_CEILING` (default 20) and `PRO_DAILY_PACK_CEILING`
+(default 50), separate buckets, read per request. Pro keeps **no per-user
+cap** — that is what makes "as many quiz packs as you want" on /pricing true —
+and its ceiling is a runaway backstop. Upstash-backed where configured, with
+the caveat that is now Next item 1.
+
+**M12**: the free-cap check and the increment straddled the multi-second model
+call, so two concurrent requests on one cookie both passed on the same stale
+read. `reserveFreeGeneration` claims the slot up front in one conditional
+`updateMany`. The test fires `FREE_LIMIT x 2` requests at one cookie at once:
+against the old shape all four returned 201, now exactly two do.
+
+**The decline path took three attempts, and only the third was real.**
+
+1. First version watched `stop_reason === "end_turn"`. Wrong branch.
+2. A code review caught that the SDK's `StopReason` union includes `"refusal"`,
+   and that a forced-tool request makes `end_turn` the *unlikely* shape. Fixed
+   to read both, preferring `stop_details.explanation`.
+3. **A real run on the 18th showed neither fires.** Asked for a round on
+   private individuals' home addresses and phone numbers, the model satisfied
+   the tool contract instead of refusing: it called the tool with a substituted
+   general-knowledge round titled "Know Your Trivia Limits" and wrote its
+   refusal as the text of question one — "I can't create a round that doxxes
+   real private individuals... Instead, here's a...". **That saved as a
+   successful pack and spent a free generation.**
+
+The fix is to give the tool an explicit way to say no: `emit_quiz_pack` takes
+an optional top-level `decline_reason`, `rounds` is no longer required, and
+the system prompt says to use it and to never substitute a quiz or put a
+refusal inside a question or answer. A non-empty `decline_reason` is checked
+*before* the pack parse and regardless of what arrives with it — a response
+carrying both a reason and rounds is a decline that also substituted a quiz,
+and the quiz is the part to discard.
+
+**VERIFIED against the real model, 2026-09-18**, by the owner, off-sandbox: the
+same doxxing brief now returns **422, shows the model's refusal, and saves no
+pack**. This is the first real-model confirmation this path has ever had, and
+the reason it is worth writing down is that two earlier versions of it passed
+a green suite while being wrong — both were only ever tested against a stub.
+
+A code review of PR #18 also found twelve issues, two of which meant the PR did
+not do what it claimed; the fixes are in `12cfeb8`. The one worth remembering:
+**the daily ceiling was refunding itself after billed calls.** A brief that
+runs to the full 16k `max_tokens` and then fails validation is the most
+expensive call this app can make, and refunding its unit left a loop of exactly
+those bounded by nothing. The two reservations now refund on different terms —
+the creator's free pack always comes back (fairness), the ceiling only when
+nothing can have been generated (no client, or an `Anthropic.APIError`, which
+produces no completion).
+
+Also in #18: model refusals return 422 rather than a retryable 502; the
+paywall line links to /pricing instead of promising "coming soon"; the period
+wording is aligned to 30 days; and `NAV_LINKS` is exported from `SiteHeader`
+so the homepage cannot drift a fourth link again.
+
+### Decisions taken by the repo owner, 2026-09-18
+
+- **5** answer resubmissions per team per question.
+- **400** characters of a model decline shown to the user.
+- An `Anthropic.APIError` refunds the daily ceiling; unusable model output does
+  not, because the tokens were billed either way.
+- Daily ceilings **20 free / 50 Pro**, set as env vars *and* as the code
+  defaults, so a deploy that forgets the variables is still inside budget.
+- `GET /api/packs` answer exposure: **left until after launch** (see Open
+  items).
+- The `rate-limit.ts` / `daily-ceiling.ts` duplication: **follow-up**, once
+  both PRs had merged. They now have, so it is available to do.
+
+### Gate, for the record
+
+Master baseline before this session was unit 191, integration 153, e2e 39.
+PR #17 left it at 210/160/39, PR #19 at 191/155/40, PR #18 at 217/170/40. All
+three were green on both the `test` check run and the `Vercel` commit status
+before merge.
+
+**The baseline on merged `master` `3bca366` is unit 236, integration 179, e2e
+41** — measured after the merges, so it is the number a fresh clone should
+reproduce. Run `npx next typegen` before `tsc`, and see Gotchas for the
+Chromium override the e2e run needs in a sandbox.
+
 ## Next
 
-*Trued up 2026-09-15. The previous list still said "verify PR #3 on a
-preview" and "build media phases 2-4"; both are done and merged.*
+*Rewritten 2026-09-18 against `master` `3bca366`. The previous list was trued
+up on the 15th and had gone wrong in two places by the 17th: item 0 asked for
+a rename PR that had already merged, and item 3 said the print page-break fix
+was uncommitted when `a763086` had carried it since 2026-09-10. Both are
+corrected here. A correction to the same two items exists on
+`claude/vigilant-turing-20iz2l` as `2b06252` and has never been merged, which
+is why `master` still carried the wrong text for a day.*
 
-0. **Merge the Triviafoundry rename + redesign PR** (`claude/triviafoundry`)
-   before anything else touches `layout.tsx` — see the 2026-09-16 section
-   for the merge order against PR #4. Then re-verify triviafoundry.com in a
-   browser: wordmark, favicon, manifest `short_name`, legal pages.
-1. ~~Paddle Task 9~~ — **passed 2026-09-15**, off-sandbox. See Open items.
+1. **Confirm Upstash is configured on production.** The single most important
+   open item, and the reason to read Open items first. Without
+   `UPSTASH_REDIS_REST_URL`/`_TOKEN` the new daily generation ceiling falls
+   back to an in-process counter per serverless instance, so "20 a day"
+   silently becomes "20 a day *per instance*" and the bill is not capped in
+   the way the code claims.
 2. **Verify the generation fixes against the real model on production** —
-   the three-step gate and its cautions are in Open items. Independent of
-   the Paddle work; whoever has a browser can do it. Still the oldest
-   unpaid debt here.
-3. **Verify the print page-break fix**, which as of this merge exists only
-   in the owner's working tree — no branch on `origin` carries it, so it is
-   neither deployed nor verifiable from a sandbox. Commit it first.
+   the three-step gate and its cautions are in Open items. Still the oldest
+   unpaid debt here, and note it is a *different* thing from the decline
+   verification, which did happen on the 18th (see below).
+3. **Merge or close `claude/vigilant-turing-20iz2l`.** It carries two things
+   `master` does not: the browser print page-break fix (the HTML twin of
+   `a763086`, which fixed only the PDF renderer) and the handoff correction
+   above. It is green and was never merged. Then the print verification that
+   has been outstanding since the 13th can finally be done: load
+   `/packs/<id>/print` for a four-round, ten-question pack, print-preview it,
+   and check no question is cut across a page break. The same reload confirms
+   `7850f8d` (images on the print page), also never seen rendering.
 4. **Task 10, the live Paddle cutover** (owner-gated). Its Website-approval
    prerequisite — public terms/privacy/refund pages — is satisfied as of
    PR #6. Then phase 3b (Tasks 11-12, the restore-token library and routes).
