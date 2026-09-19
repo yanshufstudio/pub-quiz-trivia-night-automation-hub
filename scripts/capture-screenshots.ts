@@ -40,24 +40,26 @@ async function waitForServer(url: string, timeoutMs: number) {
  * Signs `page`'s browser context in as a host.
  *
  * Every screenshot below /create and /packs is a host surface now, so the
- * script has to hold a session the same way a person does: ask for a magic
- * link, read it back from the throwaway server's own inbox, follow it.
+ * script has to hold a session the same way a person does: ask for a code,
+ * read the email back from the throwaway server's own inbox, open the link
+ * it carries and press the button.
  */
 async function signIn(page: Page, email: string) {
-  const res = await fetch(`${BASE_URL}/api/auth/sign-in/magic-link`, {
+  const res = await fetch(`${BASE_URL}/api/auth/email-otp/send-verification-otp`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, callbackURL: "/packs", errorCallbackURL: "/sign-in" }),
+    body: JSON.stringify({ email, type: "sign-in" }),
   });
   if (!res.ok) throw new Error(`sign-in request failed: ${res.status} ${await res.text()}`);
 
-  const inbox = await fetch(`${BASE_URL}/api/test/sign-in-links`);
-  if (!inbox.ok) throw new Error(`sign-in link inbox is closed: ${inbox.status}`);
-  const { links } = (await inbox.json()) as { links: { email: string; url: string }[] };
-  const link = links.filter((l) => l.email === email).at(-1);
-  if (!link) throw new Error(`no sign-in link was captured for ${email}`);
+  const inbox = await fetch(`${BASE_URL}/api/test/sign-in-emails`);
+  if (!inbox.ok) throw new Error(`sign-in email inbox is closed: ${inbox.status}`);
+  const { emails } = (await inbox.json()) as { emails: { email: string; url: string }[] };
+  const sent = emails.filter((e) => e.email === email).at(-1);
+  if (!sent) throw new Error(`no sign-in email was captured for ${email}`);
 
-  await page.goto(link.url);
+  await page.goto(sent.url);
+  await page.getByRole("button", { name: "Sign in" }).click();
   await page.waitForURL(/\/packs/);
   log(`signed in as ${email}`);
 }
@@ -74,14 +76,14 @@ async function main() {
   if (existsSync(`${DB_PATH}-journal`)) rmSync(`${DB_PATH}-journal`);
   mkdirSync(OUT_DIR, { recursive: true });
 
-  // SIGN_IN_LINK_CAPTURE turns on the in-memory inbox this script reads the
-  // host's magic link out of (see src/lib/sign-in-email.ts). It needs
+  // SIGN_IN_EMAIL_CAPTURE turns on the in-memory inbox this script reads the
+  // host's sign-in email out of (see src/lib/sign-in-email.ts). It needs
   // RESEND_API_KEY unset as well, and it cannot be switched on in production
-  // at all — the whole gate is in `linkCaptureEnabled`.
+  // at all — the whole gate is in `signInEmailCaptureEnabled`.
   const dbEnv = {
     ...process.env,
     DATABASE_URL: `file:${DB_PATH}`,
-    SIGN_IN_LINK_CAPTURE: "1",
+    SIGN_IN_EMAIL_CAPTURE: "1",
     RESEND_API_KEY: "",
     BETTER_AUTH_SECRET: "screenshots-script-secret-not-used-anywhere-else",
     BETTER_AUTH_URL: BASE_URL,

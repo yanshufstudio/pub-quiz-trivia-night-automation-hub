@@ -8,11 +8,11 @@ import { db } from "@/lib/db";
  *
  * Its default is a private in-memory Map, which on a serverless host is one
  * limiter per instance — i.e. no meaningful limit at all on the endpoints
- * that mail people sign-in links. src/lib/auth.ts points it at
+ * that mail people sign-in codes. src/lib/auth.ts points it at
  * `consumeRateLimit` instead: Upstash when configured, and otherwise the
  * same in-process Map every other limiter in the app uses.
  *
- * A behavioural test ("5 then 429", in magic-link.integration.test.ts)
+ * A behavioural test ("5 then 429", in sign-in-code.integration.test.ts)
  * cannot tell the two apart — Better Auth's own store would pass it too. So
  * this one puts a unit into the store through Better Auth's configured
  * storage and takes it out through ours. Only one store can satisfy both.

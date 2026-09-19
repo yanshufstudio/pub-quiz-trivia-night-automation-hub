@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { AUTH_SESSION_MODEL, AuthNotConfiguredError, assertAuthConfigured, auth, isGoogleSignInConfigured } from "@/lib/auth";
+import {
+  AUTH_SESSION_MODEL,
+  AuthNotConfiguredError,
+  SIGN_IN_CONFIRM_PATH,
+  assertAuthConfigured,
+  auth,
+  isGoogleSignInConfigured,
+  signInConfirmURL,
+} from "@/lib/auth";
 
 /**
  * The production guard on BETTER_AUTH_SECRET.
@@ -68,5 +76,60 @@ describe("isGoogleSignInConfigured", () => {
 
   it("is on with both", () => {
     expect(isGoogleSignInConfigured(env({ GOOGLE_CLIENT_ID: "id", GOOGLE_CLIENT_SECRET: "secret" }))).toBe(true);
+  });
+});
+
+describe("the emailed sign-in link", () => {
+  /**
+   * The property the whole flow rests on: the URL that goes in an email is a
+   * page of ours, and nothing under /api/auth. A corporate mail filter
+   * fetches links in incoming mail before the person clicks, so anything
+   * that consumes on GET is consumed by the filter first — which is exactly
+   * how the magic link this replaced kept telling hosts their link had
+   * "already been used".
+   */
+  it("points at a page of ours, never at an auth endpoint", () => {
+    const url = new URL(signInConfirmURL("https://triviafoundry.com", "host@example.test", "123456"));
+    expect(url.pathname).toBe(SIGN_IN_CONFIRM_PATH);
+    expect(url.pathname.startsWith("/api/")).toBe(false);
+    expect(url.searchParams.get("email")).toBe("host@example.test");
+    expect(url.searchParams.get("code")).toBe("123456");
+  });
+
+  it("takes only the origin from the base URL Better Auth resolved", () => {
+    // `ctx.context.baseURL` carries the /api/auth base path. A leading-slash
+    // path replaces it, and this is the test that keeps it that way.
+    const url = new URL(signInConfirmURL("http://localhost:4517/api/auth", "a@b.test", "000111"));
+    expect(url.origin).toBe("http://localhost:4517");
+    expect(url.pathname).toBe(SIGN_IN_CONFIRM_PATH);
+  });
+
+  it("escapes an address that would otherwise change the query", () => {
+    const url = new URL(signInConfirmURL("https://x.test", "a+b&code=999999@example.test", "123456"));
+    expect(url.searchParams.get("email")).toBe("a+b&code=999999@example.test");
+    expect(url.searchParams.get("code")).toBe("123456");
+  });
+});
+
+describe("the sign-in code's limits", () => {
+  // The code's own six digits, 15-minute life and five-guess budget are
+  // behaviour, not configuration to read back, and they are pinned where
+  // they can actually be exercised —
+  // src/test/sign-in-code.integration.test.ts. What is worth asserting here
+  // is which plugin is wired at all.
+  it("signs people in with a code, and no longer with a link that GET consumes", () => {
+    const ids = (auth.options.plugins ?? []).map((plugin) => plugin.id);
+    expect(ids).toContain("email-otp");
+    expect(ids).not.toContain("magic-link");
+  });
+
+  it("caps both new endpoints on our own limiter, not Better Auth's defaults", () => {
+    // customRules is resolved last (after the plugin's own 3-per-60s), so
+    // these are the numbers that actually apply.
+    const rules = auth.options.rateLimit?.customRules ?? {};
+    expect(rules["/email-otp/send-verification-otp"]).toEqual({ window: 60, max: 5 });
+    expect(rules["/sign-in/email-otp"]).toEqual({ window: 60, max: 10 });
+    // And nothing is left pointing at the flow this replaced.
+    expect(Object.keys(rules).some((path) => path.includes("magic-link"))).toBe(false);
   });
 });

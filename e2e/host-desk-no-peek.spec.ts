@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { signedInContext } from "./sign-in-helper";
+import { newAnonContext, signedInContext } from "./sign-in-helper";
 
 /**
  * The host desk goes on the pub TV, so this spec asserts what the *room* can
@@ -27,7 +27,7 @@ test("the desk shows only who has answered until the host reveals", async ({ bro
   await hostPage.waitForURL(/\/host\//);
   const code = hostPage.url().split("/host/")[1];
 
-  const teamPage = await (await browser.newContext()).newPage();
+  const teamPage = await (await newAnonContext(browser)).newPage();
   await teamPage.goto("/play");
   await teamPage.getByLabel(/code/i).fill(code);
   await teamPage.getByLabel(/team name/i).fill("Alpha");

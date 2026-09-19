@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { emailOtp, signIn } from "@/lib/auth-client";
+import { signInCodeError } from "@/lib/sign-in-errors";
 
 /**
- * Two ways in, no passwords: Google, or a link mailed to the address.
+ * Two ways in, no passwords: Google, or a code mailed to the address.
+ *
+ * The email carries the code *and* a link to a page that offers to submit it
+ * for you. This form is the other end of the same code: a host who reads
+ * their mail on a phone and runs the quiz on a pub PC types the six digits
+ * here instead of trying to open a link on the wrong machine.
  *
  * The desk styling matches /create and /pricing — cream sheet, amber primary
  * control — so this reads as part of the same building rather than as a
@@ -19,8 +26,10 @@ export function SignInForm({
   googleEnabled: boolean;
   initialError: string | null;
 }) {
+  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [busy, setBusy] = useState<"google" | "email" | null>(null);
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState<"google" | "email" | "code" | null>(null);
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(initialError);
 
@@ -34,7 +43,7 @@ export function SignInForm({
     });
     if (err) {
       setBusy(null);
-      setError("Couldn't start Google sign-in. Please try again, or use the email link below.");
+      setError("Couldn't start Google sign-in. Please try again, or use the email code below.");
     }
     // On success the browser is already navigating away, so `busy` stays set
     // deliberately: re-enabling the button would only invite a second click
@@ -48,21 +57,42 @@ export function SignInForm({
 
     setBusy("email");
     setError(null);
-    const { error: err } = await signIn.magicLink({
-      email: address,
-      callbackURL: next,
-      errorCallbackURL: `/sign-in?next=${encodeURIComponent(next)}`,
-    });
+    const { error: err } = await emailOtp.sendVerificationOtp({ email: address, type: "sign-in" });
     setBusy(null);
 
     if (err) {
       // Deliberately the same message whatever went wrong. Anything that
       // distinguished "no such account" from "sent" would turn this form
       // into a way to test whether an address has one.
-      setError("Couldn't send that link. Check the address and try again.");
+      setError("Couldn't send that code. Check the address and try again.");
       return;
     }
+    setCode("");
     setSentTo(address);
+  }
+
+  async function onCode(event: React.FormEvent) {
+    event.preventDefault();
+    const digits = code.trim();
+    if (!sentTo || !digits) return;
+
+    setBusy("code");
+    setError(null);
+    const { error: err } = await signIn.emailOtp({ email: sentTo, otp: digits });
+
+    if (err) {
+      setBusy(null);
+      setError(signInCodeError(err.code));
+      return;
+    }
+
+    // `next` reached this component from the server already narrowed to a
+    // path on this site (`safeNextPath`), which is what makes it safe to
+    // hand to the router at all. `refresh` before `push` because the target
+    // renders from the session and the client cache may still be holding
+    // what it looked like while nobody was signed in.
+    router.refresh();
+    router.push(next);
   }
 
   if (sentTo) {
@@ -70,15 +100,58 @@ export function SignInForm({
       <div className="paper-sheet mt-8 rounded-xl border border-line px-6 py-8">
         <h2 className="font-serif text-xl font-semibold">Check your inbox</h2>
         <p className="mt-3 text-muted">
-          A sign-in link is on its way to <span className="font-medium text-foreground">{sentTo}</span>.
-          It works once and expires in 15 minutes.
+          A six-digit code is on its way to{" "}
+          <span className="font-medium text-foreground">{sentTo}</span>. Type it in below — or open
+          the link in the same email and press the button there. Either works once, and both expire
+          in 15 minutes.
         </p>
-        <p className="mt-3 text-sm text-muted">
+
+        {error ? (
+          <p
+            role="alert"
+            className="mt-4 rounded-xl border border-line bg-white/60 px-4 py-3 text-sm text-foreground"
+          >
+            {error}
+          </p>
+        ) : null}
+
+        <form onSubmit={onCode} className="mt-5 space-y-3">
+          <label htmlFor="sign-in-code" className="block text-sm font-semibold">
+            Sign-in code
+          </label>
+          <input
+            id="sign-in-code"
+            name="code"
+            type="text"
+            required
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            // Lets a phone keyboard and a password manager both recognise it,
+            // and stops an autocorrect turning six digits into something else.
+            autoCorrect="off"
+            spellCheck={false}
+            maxLength={6}
+            value={code}
+            onChange={(event) => setCode(event.target.value.replace(/\D/g, "").slice(0, 6))}
+            placeholder="123456"
+            className="h-11 w-full rounded-xl border border-line bg-white px-4 font-mono text-lg tracking-[0.4em] outline-none focus:border-amber"
+          />
+          <button
+            type="submit"
+            disabled={busy !== null || code.length < 6}
+            className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-amber px-4 text-sm font-semibold text-white transition-colors hover:bg-amber-hover disabled:opacity-60"
+          >
+            {busy === "code" ? "Signing in…" : "Sign in"}
+          </button>
+        </form>
+
+        <p className="mt-4 text-sm text-muted">
           Nothing after a minute or two? Check spam, then{" "}
           <button
             type="button"
             onClick={() => {
               setSentTo(null);
+              setCode("");
               setError(null);
             }}
             className="font-semibold text-amber hover:underline"
@@ -138,7 +211,7 @@ export function SignInForm({
           disabled={busy !== null}
           className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-amber px-4 text-sm font-semibold text-white transition-colors hover:bg-amber-hover disabled:opacity-60"
         >
-          {busy === "email" ? "Sending…" : "Email me a sign-in link"}
+          {busy === "email" ? "Sending…" : "Email me a sign-in code"}
         </button>
         <p className="text-sm text-muted">
           No password to remember, and none for us to lose.

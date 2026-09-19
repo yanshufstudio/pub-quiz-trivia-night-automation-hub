@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { signedInApi } from "./sign-in-helper";
+import { newAnonContext, signedInApi } from "./sign-in-helper";
 
 // Regression test: the answer box must not carry the previous question's
 // text into the next question. Before the fix, refresh() copied myAnswer.text
@@ -27,7 +27,7 @@ test("team's answer box is empty when the next question arrives", async ({ brows
     expect(res.ok(), `advance ${action}: ${res.status()}`).toBeTruthy();
   };
 
-  const teamContext = await browser.newContext();
+  const teamContext = await newAnonContext(browser);
   const teamPage = await teamContext.newPage();
   await teamPage.goto("/play");
   await teamPage.getByLabel("Session code").fill(code);

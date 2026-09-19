@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { signedInContext } from "./sign-in-helper";
+import { newAnonContext, signedInContext } from "./sign-in-helper";
 
 // The tie-safe naming logic (topScorers/winningNames) is unit tested at the
 // function level in src/lib/scoreboard-summary.test.ts, but nothing before
@@ -39,7 +39,7 @@ test("two teams tied for first both see the champions treatment, named together"
   );
   await hostPage.goto(`/host/${code}`);
 
-  const teamAContext = await browser.newContext();
+  const teamAContext = await newAnonContext(browser);
   const teamA = await teamAContext.newPage();
   await teamA.goto("/play");
   await teamA.getByLabel("Session code").fill(code);
@@ -47,7 +47,7 @@ test("two teams tied for first both see the champions treatment, named together"
   await teamA.getByRole("button", { name: "Join session" }).click();
   await teamA.getByText("Sit tight.").waitFor();
 
-  const teamBContext = await browser.newContext();
+  const teamBContext = await newAnonContext(browser);
   const teamB = await teamBContext.newPage();
   await teamB.goto("/play");
   await teamB.getByLabel("Session code").fill(code);

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { signedInContext } from "./sign-in-helper";
+import { newAnonContext, signedInContext } from "./sign-in-helper";
 
 test("host runs a live round and a team answers correctly", async ({ browser, baseURL }) => {
   // The host signs in; the team context created below never does, which is
@@ -21,7 +21,7 @@ test("host runs a live round and a team answers correctly", async ({ browser, ba
   // baked in; a team that scans it lands on /play with the code prefilled.
   await expect(hostPage.getByRole("img", { name: "Scan to join" })).toBeVisible();
 
-  const teamContext = await browser.newContext();
+  const teamContext = await newAnonContext(browser);
   const teamPage = await teamContext.newPage();
   await teamPage.goto(`/play?code=${code}`);
   await expect(teamPage.getByLabel("Session code")).toHaveValue(code);

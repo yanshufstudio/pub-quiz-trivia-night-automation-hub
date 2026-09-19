@@ -16,20 +16,22 @@ export const metadata: Metadata = {
 // Reads the session and the incoming `?next=`, so it cannot be prerendered.
 export const dynamic = "force-dynamic";
 
-/** Better Auth redirects a failed magic link back with `?error=<code>`. */
+/**
+ * `?error=<code>` on the way back from Google.
+ *
+ * The emailed code needs nothing here: it is submitted by fetch from the
+ * form (or from the confirm page), so its failures arrive as a response to
+ * read rather than as a redirect — see src/lib/sign-in-errors.ts, which both
+ * of those share.
+ */
 const ERROR_MESSAGES: Record<string, string> = {
-  INVALID_TOKEN:
-    "That sign-in link has already been used, or it has expired. Links work once and last 15 minutes — ask for a fresh one below.",
-  EXPIRED_TOKEN: "That sign-in link has expired. Links last 15 minutes — ask for a fresh one below.",
-  FAILED_TO_CREATE_USER: "Something went wrong setting up your account. Please try again.",
-  // Not from the magic-link plugin: the social flow uses these.
   unable_to_create_user: "Something went wrong setting up your account. Please try again.",
   state_mismatch: "That Google sign-in didn't complete. Please try again.",
 };
 
 function messageFor(code: string | undefined): string | null {
   if (!code) return null;
-  return ERROR_MESSAGES[code] ?? "That sign-in link didn't work. Ask for a fresh one below.";
+  return ERROR_MESSAGES[code] ?? "That sign-in didn't complete. Try again below.";
 }
 
 export default async function SignInPage({

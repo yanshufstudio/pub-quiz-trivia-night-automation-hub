@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { randomEmail, signInIp } from "./sign-in-helper";
 
 // The suite had no viewport narrower than a desktop, so a header row that
 // could not fit a phone shipped to production unnoticed: the sign plus the
@@ -15,6 +16,10 @@ const WIDTHS = [320, 360, 390, 430] as const;
 // Every surface that carries the wordmark-and-nav row. The live-night
 // surfaces (/play, /host/<code>) deliberately carry no such row and were
 // never affected; they are covered by their own specs.
+// `/create` redirects a signed-out visitor, so that entry measures /sign-in
+// in its first state. The states it cannot reach — the check-your-inbox
+// panel with the code field, and the page the emailed link opens — get their
+// own test at the bottom of this file.
 const PAGES = ["/", "/create", "/pricing", "/terms", "/privacy", "/refunds"] as const;
 
 async function horizontalOverflow(page: import("@playwright/test").Page) {
@@ -51,4 +56,38 @@ test("the overflow check itself detects a too-wide element", async ({ page }) =>
   });
 
   expect(await horizontalOverflow(page)).toBeGreaterThan(0);
+});
+
+/**
+ * The two sign-in surfaces the list above cannot reach.
+ *
+ * The check-your-inbox panel appears only after the form is submitted, and
+ * the confirm page only from a link in an email — so neither is a URL this
+ * file can simply visit. Both are read on a phone by definition: the whole
+ * reason the code exists is the host whose mail is on one device and whose
+ * quiz is on another.
+ */
+test.describe("the sign-in states a plain goto cannot reach", () => {
+  test.use({ extraHTTPHeaders: { "x-forwarded-for": signInIp() } });
+
+  for (const width of WIDTHS) {
+    test(`the check-your-inbox panel and the confirm page fit at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+
+      await page.goto("/sign-in", { waitUntil: "networkidle" });
+      await page.getByLabel("Email address").fill(randomEmail("narrow"));
+      await page.getByRole("button", { name: "Email me a sign-in code" }).click();
+      await expect(page.getByRole("heading", { name: "Check your inbox" })).toBeVisible();
+      // The code field is wide, monospaced and letter-spaced; it is the one
+      // control in this flow most likely to push a phone sideways.
+      await page.getByLabel("Sign-in code").fill("123456");
+      expect(await horizontalOverflow(page), "check-your-inbox").toBe(0);
+
+      await page.goto("/sign-in/confirm?email=someone%40example.test&code=123456", {
+        waitUntil: "networkidle",
+      });
+      await expect(page.getByRole("button", { name: "Sign in" })).toBeVisible();
+      expect(await horizontalOverflow(page), "confirm page").toBe(0);
+    });
+  }
 });

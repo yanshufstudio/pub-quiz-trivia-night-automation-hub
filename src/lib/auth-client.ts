@@ -1,7 +1,7 @@
 "use client";
 
 import { createAuthClient } from "better-auth/react";
-import { magicLinkClient } from "better-auth/client/plugins";
+import { emailOTPClient } from "better-auth/client/plugins";
 
 /**
  * The browser half of Better Auth.
@@ -12,7 +12,7 @@ import { magicLinkClient } from "better-auth/client/plugins";
  * time from a single constant.
  */
 export const authClient = createAuthClient({
-  plugins: [magicLinkClient()],
+  plugins: [emailOTPClient()],
 });
 
-export const { useSession, signIn, signOut } = authClient;
+export const { useSession, signIn, signOut, emailOtp } = authClient;

@@ -1,81 +1,83 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
-  LINK_CAPTURE_ENV,
+  EMAIL_CAPTURE_ENV,
   SignInEmailNotConfiguredError,
-  capturedSignInLinks,
-  clearCapturedSignInLinks,
-  linkCaptureEnabled,
+  capturedSignInEmails,
+  clearCapturedSignInEmails,
   sendSignInEmail,
+  signInEmailCaptureEnabled,
 } from "@/lib/sign-in-email";
 
 /**
- * The capture exists so the e2e and integration suites can read a magic link
- * back without a mail provider. A capture that survived into production
- * would be a way to read other people's sign-in links out of a running
+ * The capture exists so the e2e and integration suites can read a sign-in
+ * code back without a mail provider. A capture that survived into production
+ * would be a way to read other people's sign-in codes out of a running
  * server, so the first block here is the one that matters.
  */
+
+const CONFIRM_URL = "https://x.test/sign-in/confirm?email=a%40example.test&code=123456";
 
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.unstubAllGlobals();
-  clearCapturedSignInLinks();
+  clearCapturedSignInEmails();
 });
 
-describe("linkCaptureEnabled — there must be no way to turn this on in production", () => {
-  it("is off in production however SIGN_IN_LINK_CAPTURE is set", () => {
+describe("signInEmailCaptureEnabled — there must be no way to turn this on in production", () => {
+  it("is off in production however SIGN_IN_EMAIL_CAPTURE is set", () => {
     for (const value of ["1", "true", "TRUE", "yes", "on", " 1 ", "0", ""]) {
       expect(
-        linkCaptureEnabled({ NODE_ENV: "production", [LINK_CAPTURE_ENV]: value } as NodeJS.ProcessEnv),
-        `NODE_ENV=production with ${LINK_CAPTURE_ENV}=${JSON.stringify(value)}`
+        signInEmailCaptureEnabled({ NODE_ENV: "production", [EMAIL_CAPTURE_ENV]: value } as NodeJS.ProcessEnv),
+        `NODE_ENV=production with ${EMAIL_CAPTURE_ENV}=${JSON.stringify(value)}`
       ).toBe(false);
     }
   });
 
   it("is off in production even with no RESEND_API_KEY to displace", () => {
     expect(
-      linkCaptureEnabled({ NODE_ENV: "production", [LINK_CAPTURE_ENV]: "1" } as NodeJS.ProcessEnv)
+      signInEmailCaptureEnabled({ NODE_ENV: "production", [EMAIL_CAPTURE_ENV]: "1" } as NodeJS.ProcessEnv)
     ).toBe(false);
   });
 
   it("is off outside production unless the flag is exactly \"1\"", () => {
     for (const value of [undefined, "", "0", "true", "yes", "2", " 1"]) {
       expect(
-        linkCaptureEnabled({ NODE_ENV: "test", [LINK_CAPTURE_ENV]: value } as NodeJS.ProcessEnv),
-        `${LINK_CAPTURE_ENV}=${JSON.stringify(value)}`
+        signInEmailCaptureEnabled({ NODE_ENV: "test", [EMAIL_CAPTURE_ENV]: value } as NodeJS.ProcessEnv),
+        `${EMAIL_CAPTURE_ENV}=${JSON.stringify(value)}`
       ).toBe(false);
     }
   });
 
   it("is off whenever a real mail provider is configured", () => {
     expect(
-      linkCaptureEnabled({
+      signInEmailCaptureEnabled({
         NODE_ENV: "test",
-        [LINK_CAPTURE_ENV]: "1",
+        [EMAIL_CAPTURE_ENV]: "1",
         RESEND_API_KEY: "re_live_key",
       } as NodeJS.ProcessEnv)
     ).toBe(false);
   });
 
   it("is on only for the exact test-shaped environment", () => {
-    expect(linkCaptureEnabled({ NODE_ENV: "test", [LINK_CAPTURE_ENV]: "1" } as NodeJS.ProcessEnv)).toBe(true);
+    expect(signInEmailCaptureEnabled({ NODE_ENV: "test", [EMAIL_CAPTURE_ENV]: "1" } as NodeJS.ProcessEnv)).toBe(true);
   });
 });
 
-describe("capturedSignInLinks", () => {
-  it("returns nothing when capture is off, rather than links from another configuration", async () => {
+describe("capturedSignInEmails", () => {
+  it("returns nothing when capture is off, rather than codes from another configuration", async () => {
     vi.stubEnv("NODE_ENV", "test");
-    vi.stubEnv(LINK_CAPTURE_ENV, "1");
+    vi.stubEnv(EMAIL_CAPTURE_ENV, "1");
     vi.stubEnv("RESEND_API_KEY", "");
-    await sendSignInEmail({ email: "a@example.test", url: "https://x.test/verify?token=abc" });
-    expect(capturedSignInLinks()).toHaveLength(1);
+    await sendSignInEmail({ email: "a@example.test", code: "123456", url: CONFIRM_URL });
+    expect(capturedSignInEmails()).toHaveLength(1);
 
     // The same process, capture switched off: nothing is readable.
-    vi.stubEnv(LINK_CAPTURE_ENV, "0");
-    expect(capturedSignInLinks()).toHaveLength(0);
+    vi.stubEnv(EMAIL_CAPTURE_ENV, "0");
+    expect(capturedSignInEmails()).toHaveLength(0);
 
-    vi.stubEnv(LINK_CAPTURE_ENV, "1");
+    vi.stubEnv(EMAIL_CAPTURE_ENV, "1");
     vi.stubEnv("NODE_ENV", "production");
-    expect(capturedSignInLinks()).toHaveLength(0);
+    expect(capturedSignInEmails()).toHaveLength(0);
   });
 });
 
@@ -86,7 +88,7 @@ describe("sendSignInEmail", () => {
     vi.stubEnv("EMAIL_FROM", "quiz@triviafoundry.com");
 
     await expect(
-      sendSignInEmail({ email: "a@example.test", url: "https://x.test/v?token=1" })
+      sendSignInEmail({ email: "a@example.test", code: "123456", url: CONFIRM_URL })
     ).rejects.toBeInstanceOf(SignInEmailNotConfiguredError);
   });
 
@@ -96,19 +98,19 @@ describe("sendSignInEmail", () => {
     vi.stubEnv("EMAIL_FROM", "");
 
     await expect(
-      sendSignInEmail({ email: "a@example.test", url: "https://x.test/v?token=1" })
+      sendSignInEmail({ email: "a@example.test", code: "123456", url: CONFIRM_URL })
     ).rejects.toBeInstanceOf(SignInEmailNotConfiguredError);
   });
 
-  it("posts the link to Resend when configured, and never captures it", async () => {
+  it("posts the code and the link to Resend when configured, and never captures either", async () => {
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("RESEND_API_KEY", "re_live_key");
     vi.stubEnv("EMAIL_FROM", "TriviaFoundry <quiz@triviafoundry.com>");
     const fetchMock = vi.fn(async () => new Response("{}", { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
 
-    const url = "https://triviafoundry.com/api/auth/magic-link/verify?token=t0ken";
-    await sendSignInEmail({ email: "host@example.test", url });
+    const url = "https://triviafoundry.com/sign-in/confirm?email=host%40example.test&code=424242";
+    await sendSignInEmail({ email: "host@example.test", code: "424242", url });
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const [endpoint, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
@@ -120,8 +122,12 @@ describe("sendSignInEmail", () => {
     expect(body.to).toEqual(["host@example.test"]);
     expect(body.text).toContain(url);
     expect(body.html).toContain(url);
+    // Both halves, because a host reading this on a phone with the quiz set
+    // up on a pub PC needs the digits, not the link.
+    expect(body.text).toContain("424242");
+    expect(body.html).toContain("424242");
 
-    expect(capturedSignInLinks()).toHaveLength(0);
+    expect(capturedSignInEmails()).toHaveLength(0);
   });
 
   it("surfaces a Resend rejection instead of reporting a send that never happened", async () => {
@@ -131,22 +137,26 @@ describe("sendSignInEmail", () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("domain not verified", { status: 403 })));
 
     await expect(
-      sendSignInEmail({ email: "host@example.test", url: "https://x.test/v?token=1" })
+      sendSignInEmail({ email: "host@example.test", code: "123456", url: CONFIRM_URL })
     ).rejects.toThrow(/HTTP 403/);
   });
 
-  it("logs the link outside production when nothing is configured, so local dev works", async () => {
+  it("logs the code outside production when nothing is configured, so local dev works", async () => {
     vi.stubEnv("NODE_ENV", "development");
     vi.stubEnv("RESEND_API_KEY", "");
-    vi.stubEnv(LINK_CAPTURE_ENV, "");
+    vi.stubEnv(EMAIL_CAPTURE_ENV, "");
     const log = vi.spyOn(console, "log").mockImplementation(() => {});
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
 
-    await sendSignInEmail({ email: "dev@example.test", url: "http://localhost:3000/v?token=1" });
+    await sendSignInEmail({
+      email: "dev@example.test",
+      code: "654321",
+      url: "http://localhost:3000/sign-in/confirm?email=dev%40example.test&code=654321",
+    });
 
     expect(fetchMock).not.toHaveBeenCalled();
-    expect(log).toHaveBeenCalledWith(expect.stringContaining("http://localhost:3000/v?token=1"));
+    expect(log).toHaveBeenCalledWith(expect.stringContaining("654321"));
     log.mockRestore();
   });
 });

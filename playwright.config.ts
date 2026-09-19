@@ -22,12 +22,12 @@ export default defineConfig({
     timeout: 60_000,
     env: {
       DATABASE_URL: `file:${dbPath}`,
-      // A browser cannot open an email, so the suite reads the magic link
-      // back from GET /api/test/sign-in-links. That route only answers when
+      // A browser cannot open an email, so the suite reads the sign-in code
+      // back from GET /api/test/sign-in-emails. That route only answers when
       // capture is on, which needs NODE_ENV !== "production" AND this flag
       // AND no RESEND_API_KEY — see src/lib/sign-in-email.ts and the tests
-      // in src/test/sign-in-link-readback.integration.test.ts.
-      SIGN_IN_LINK_CAPTURE: "1",
+      // in src/test/sign-in-email-readback.integration.test.ts.
+      SIGN_IN_EMAIL_CAPTURE: "1",
       RESEND_API_KEY: "",
       BETTER_AUTH_SECRET: "e2e-suite-secret-not-used-anywhere-else",
       BETTER_AUTH_URL: `http://localhost:${PORT}`,
