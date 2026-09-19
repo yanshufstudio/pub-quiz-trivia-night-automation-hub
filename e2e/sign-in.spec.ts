@@ -133,3 +133,68 @@ test("clearing every cookie loses nothing: the same packs, the same allowance", 
   await expect(freshPage.getByRole("heading", { level: 2, name: title })).toBeVisible();
   await fresh.context.close();
 });
+
+/**
+ * The account corner resolves client-side, so for a moment the header does
+ * not know which of three very differently-sized things it is about to show.
+ * If the slot it occupies while pending differs in width from what lands in
+ * it, the nav wraps differently before and after and the whole page jumps.
+ *
+ * That shipped once: 36px on 380-500px viewports (iPhone 13/14, Pixel 5/7)
+ * once a host was signed in, then 28px on 520-639px for everyone when the
+ * first fix reserved a line but not a width. Nothing caught either, because
+ * the suite measured horizontal overflow and never measured movement.
+ *
+ * The session request is held open on purpose so "pending" is a state this
+ * test actually observes rather than one it races.
+ */
+for (const width of [320, 390, 430, 560, 1280]) {
+  for (const signedIn of [false, true]) {
+    test(`the header does not move when the session resolves — ${width}px, signed ${signedIn ? "in" : "out"}`, async ({ browser, baseURL }) => {
+      const email = randomEmail("shift");
+      const context = signedIn
+        ? (await signedInContext(browser, baseURL!, email)).context
+        : await browser.newContext({ baseURL });
+      const page = await context.newPage();
+      await page.setViewportSize({ width, height: 800 });
+
+      // Hold the session lookup so the pending state is observable.
+      let release: () => void = () => {};
+      const held = new Promise<void>((resolve) => {
+        release = resolve;
+      });
+      await page.route("**/api/auth/get-session*", async (route) => {
+        await held;
+        await route.continue();
+      });
+
+      await page.goto("/pricing", { waitUntil: "domcontentloaded" });
+      const header = page.locator("header").first();
+      const pending = (await header.boundingBox())!.height;
+
+      // Prove it really is the pending state: neither resolved thing is there.
+      await expect(page.getByRole("banner").getByRole("link", { name: "Sign in" })).toHaveCount(0);
+      await expect(page.getByRole("banner").getByText(email)).toHaveCount(0);
+
+      release();
+      if (signedIn) {
+        await expect(page.getByRole("banner").getByText(email)).toBeVisible();
+      } else {
+        await expect(page.getByRole("banner").getByRole("link", { name: "Sign in" })).toBeVisible();
+      }
+
+      const resolved = (await header.boundingBox())!.height;
+      expect(
+        Math.round(resolved - pending),
+        `header moved ${Math.round(resolved - pending)}px at ${width}px when the session resolved`
+      ).toBe(0);
+
+      // And the fix must not have bought stability with sideways scroll.
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+      ).toBe(0);
+
+      await context.close();
+    });
+  }
+}
