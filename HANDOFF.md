@@ -20,8 +20,8 @@ the full record of the 2026-09-07→09 work.
 > `3bca366`, which was true when it was written and stopped being true the
 > moment it merged — read this one.
 >
-> Two PRs are open from the 19th, both green on `test` and on the `Vercel`
-> commit status, both `mergeable_state: clean`, neither merged:
+> Four PRs are open from the 19th, all green on `test` and on the `Vercel`
+> commit status, none merged:
 >
 > - **PR #21** (`claude/function-duration`, head `d5f66c0`) — `maxDuration`
 >   300 on generate, PDF and export.
@@ -31,6 +31,11 @@ the full record of the 2026-09-07→09 work.
 >   by emailed six-digit code instead of a magic link, pack reads made
 >   owner-only, and the legal pages committed. Read that subsection before
 >   reading the first one — it replaces the sign-in mechanism entirely.
+> - **PR #24** (`claude/practical-babbage-r02d8b`) — the question-media
+>   route. **Its base is `claude/accounts`, not `master`**: it needs
+>   `canReadPack`, which does not exist on master. Merge #22 first and
+>   GitHub retargets this one.
+> - **PR #23** (`claude/handoff-2026-09-19`) — this file.
 >
 > **Two things wait on the owner and are written into PR #22's body**: the
 > environment variables and the Google OAuth client, and the list of what
@@ -1721,6 +1726,46 @@ arrives for it, but **nothing sweeps a code nobody ever tries**. So the page
 says both stop working and claims no deletion there is no job to perform. A
 real "and then it is deleted" promise needs a cleanup job first.
 
+### The media route — PR #24, stacked on #22
+
+Asked for separately, after the second round, and kept out of #22 so the
+accounts PR did not grow a sixth topic.
+
+`GET /api/questions/[id]/media` was the last read in the app that took
+nothing at all: the bytes went to whoever held the question id. Ids travel —
+screenshots, logs, a shared URL, an exported pack — and a picture round is
+the sort of thing a rival quizmaster would take.
+
+The rule is stated so that it cannot disagree with what the app already
+shows: **the image goes to whoever the session state would serve the question
+to.** A team holding a token for the session whose *current* question this
+is, or the desk holding that session's host key — the same credential, for
+the same question, that `GET /api/sessions/[code]` already answers with
+`hasMedia: true`. Or a host who may read the pack, which is `canReadPack`.
+Everyone else gets the 404 a question with no image gets.
+
+The current question and not "anything in the session's pack", because a team
+that could walk the pack could read round four's picture round during round
+one. And "current" is resolved with `getCurrentQuestion` — the same function
+the session payload uses, against the same query shape — rather than a
+cheaper comparison of the stored `index` columns: if the gate and the payload
+ever disagreed the symptom would be images silently missing from a live quiz,
+and being one function is what makes that impossible rather than unlikely.
+
+An `<img>` cannot send a header, so the two callers with no session cookie
+put the credential on the query string (`?code=…&token=…` for a phone,
+`?code=…&hostToken=…` for the desk). Not a new exposure — a team's token is
+already a query parameter on every poll it makes — and one builder,
+`questionMediaUrl`, is what stops the client and the gate drifting apart.
+
+Two notes for whoever comes next. A team in the **lobby** can fetch the first
+question's image, which is deliberate and is a test: the session payload
+already hands a team that question's *text* before the host starts, so
+withholding the picture would guard nothing. And `GET /api/sessions/[code]`
+still compares a team token with `===` rather than in constant time — that is
+pre-existing, it was left alone rather than widening this diff into the route
+every team polls every three seconds, and it is a two-line follow-up.
+
 ### Second round — verification, and the gate
 
 Driven in a browser rather than re-run as tests: the whole sign-in flow at
@@ -1757,8 +1802,10 @@ Two mutation checks, because a test that cannot fail is not evidence:
 sitting in open PRs; the numbered list below them is the 2026-09-18 list,
 unchanged and still accurate — nothing from the 19th merged.*
 
-0a. **Decide PR #21 and PR #22.** Both green on `test` and `Vercel`, both
-    `mergeable_state: clean`, neither merged. #21 is five files and carries no
+0a. **Decide PR #21, #22 and #24, in that order where it matters.** All
+    green on `test` and `Vercel`, none merged. **#24 is stacked on #22** —
+    its base branch is `claude/accounts`, so #22 merges first and GitHub
+    retargets #24 to master. #21 is five files and carries no
     behaviour change beyond the wall-clock ceiling. #22 is host accounts,
     now after two rounds, and needs the two owner decisions in Open items
     *before* it is useful in production — in particular it will not serve a
