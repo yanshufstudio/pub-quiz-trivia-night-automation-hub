@@ -172,9 +172,19 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   scoreboard with junk teams mid-quiz. The cap is per session, so it holds
   against a caller rotating IPs past the rate limiter.
 - **Host accounts** (`src/lib/auth.ts`, `src/lib/auth-guard.ts`): hosts sign
-  in with Google or an emailed link — no passwords. Accounts live in this
+  in with Google or an emailed code — no passwords. Accounts live in this
   app's own Turso database (Better Auth with the Prisma adapter), and a
-  `Creator` belongs to one. Every host-side page and API checks
+  `Creator` belongs to one.
+  **The email carries one secret two ways**: six digits to type, and a link
+  to `/sign-in/confirm` carrying the same digits. Nothing consumes on a GET
+  — the link opens a page with a button, and only that button's POST spends
+  the code. That is not a nicety: corporate mail filters (Microsoft 365 Safe
+  Links and friends) fetch every link in incoming mail before the person
+  clicks, so a link that signs you in on GET is a link the filter has
+  already used up. The typed code is the other half of the same answer, and
+  covers the host who reads mail on a phone and runs the quiz on a pub PC.
+  One secret means one 15-minute expiry, one five-guess budget and one
+  single use. Every host-side page and API checks
   `auth.api.getSession` for itself: pages redirect to
   `/sign-in?next=<path>`, APIs answer 401 JSON. `src/proxy.ts` (Next 16's
   renamed `middleware.ts`) also redirects on a missing session cookie, but
@@ -192,10 +202,16 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   `DELETE /api/rounds/[id]`, `POST /api/rounds/[id]/move`) answers 401
   without a session and 403 when the session's creator is not the pack's.
   Shared packs are read-only for everyone; Export JSON then Import gives a
-  host their own editable copy. `GET /api/packs/[id]` stays open (unlisted,
-  cuid ids) because a team's phone reads the current question through the
-  session payload — but the surfaces that carry the **answers**, the PDF,
-  print and export routes, now need an account where before they did not.
+  host their own editable copy. **Reading a pack is owner-only too** — the
+  editor, the print sheet, the PDFs, `GET /api/packs/[id]/export`, `GET
+  /api/packs/[id]` and starting a session on it all answer somebody else's
+  pack exactly as they answer a pack that does not exist, so an id cannot be
+  probed. The ownerless demo stays readable by any signed-in host.
+  `GET /api/questions/[id]/media` is the one read that stays open, because a
+  team's phone renders the current question's image and holds nothing that
+  could authenticate it. Narrowing that one means scoping it to a live
+  session and a team token, which changes what a team's browser has to
+  send — a team-facing change, and not one to make on the way past.
 - **Claiming a pre-accounts cookie** (`src/lib/creator-claim.ts`): the
   `pq_creator` cookie is no longer identity and nothing sets it any more. It
   survives for exactly one purpose: a browser that still carries one can hand
@@ -336,17 +352,23 @@ The content is specific to this app rather than a generic template: the free
 tier's two-packs-per-30-days limit, Pro at $5/month or $25/year, Paddle as
 merchant of record, and the actual list of what the app stores (the
 `pq_creator` cookie, quiz content, live team names and answers, uploaded
-question images) and who processes it (Paddle, Vercel, Turso, Anthropic).
-Revising any of them means bumping `LEGAL_LAST_UPDATED` in `src/lib/site.ts`,
-which is the single date all three render and the one `sitemap.ts` publishes.
+question images) and who processes it (Paddle, Vercel, Turso, Anthropic,
+Google and Resend). Revising any of them means bumping `LEGAL_LAST_UPDATED`
+in `src/lib/site.ts`, which is the single date all three render and the one
+`sitemap.ts` publishes.
 
-> **Out of date as of host accounts.** /privacy and /terms still describe
-> `pq_creator` as the identity and list four processors. They now need:
-> Google (sign-in) and Resend (sign-in emails) as processors; email address,
-> name, Google account id and sign-in session records as stored data; the
-> sign-in session cookie; and an accounts clause on /terms. Drafts are in the
-> pull request that introduced accounts, held for the owner's approval —
-> wording on these three pages is not changed without it.
+Wording on these three pages is the owner's, not the codebase's: it is
+drafted in the pull request that needs it and committed only once they have
+approved it.
+
+The cookie clause on /privacy names every cookie the app can set, which is
+three: the sign-in cookie (7 days), a five-minute one set only during a
+Google sign-in, and the legacy `pq_creator`, which is no longer set for
+anyone. That list was taken from what Better Auth's configured instance
+actually emits rather than from its documentation — the session-data and
+"don't remember" cookies it can set in other configurations are not reachable
+here, because the cookie cache is off and there is no password sign-in to
+carry a `rememberMe`.
 
 ## Known limitations
 
