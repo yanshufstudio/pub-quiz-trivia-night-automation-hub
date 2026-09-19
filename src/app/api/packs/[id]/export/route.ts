@@ -4,6 +4,7 @@ import { toPackFile } from "@/lib/pack-file";
 import { toQuestionView } from "@/lib/question-types";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { canReadPack, packNotFound } from "@/lib/pack-access";
 
 function filenameFor(title: string) {
   const slug = title
@@ -15,9 +16,10 @@ function filenameFor(title: string) {
 }
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  // A pack file carries every answer, so exporting needs an account. Not
-  // ownership, though: Export → Import is exactly how a host takes an
-  // editable copy of the ownerless demo pack.
+  // A pack file carries every answer, so exporting needs an account — and
+  // one that may read this pack. Export → Import is still how a host takes
+  // an editable copy of the ownerless demo pack, because canReadPack lets
+  // any signed-in host read an ownerless one.
   const host = await hostSessionForRequest(req);
   if (!host) return unauthorized();
 
@@ -28,9 +30,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     where: { id },
     ...packWithRoundsAndMediaArgs,
   })) as PackWithRoundsAndMedia | null;
-  if (!pack) {
-    return NextResponse.json({ error: "Pack not found" }, { status: 404 });
-  }
+  if (!pack || !canReadPack(pack, host.creator.id)) return packNotFound();
 
   const file = toPackFile({
     ...pack,

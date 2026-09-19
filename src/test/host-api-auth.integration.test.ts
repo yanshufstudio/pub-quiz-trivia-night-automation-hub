@@ -102,6 +102,7 @@ const HOST_ROUTES: Case[] = [
       ) },
   { name: "POST /api/packs/seed", run: () => seedPack(anon("/api/packs/seed", "POST")) },
   { name: "DELETE /api/packs/[id]", run: () => deletePack(anon(`/api/packs/${pack.id}`, "DELETE"), idParams(pack.id)) },
+  { name: "GET /api/packs/[id]", run: () => getPack(anon(`/api/packs/${pack.id}`), idParams(pack.id)) },
   { name: "GET /api/packs/[id]/pdf", run: () => getPdf(anon(`/api/packs/${pack.id}/pdf?type=answers`), idParams(pack.id)) },
   { name: "GET /api/packs/[id]/export", run: () => exportPack(anon(`/api/packs/${pack.id}/export`), idParams(pack.id)) },
   { name: "GET /api/creator/status", run: () => creatorStatus(anon("/api/creator/status")) },
@@ -155,11 +156,6 @@ describe("every host-side API refuses a request with no session", () => {
 });
 
 describe("the routes that stay open, and why", () => {
-  it("GET /api/packs/[id] — a team's phone reads the current question from it", async () => {
-    const res = await getPack(anon(`/api/packs/${pack.id}`), idParams(pack.id));
-    expect(res.status).toBe(200);
-  });
-
   it("GET /api/questions/[id]/media — a team's phone renders the image and holds no credential", async () => {
     // 404 because this question has no image; the point is that it is not 401.
     const res = await readMedia(anon(`/api/questions/${questionId}/media`), idParams(questionId));

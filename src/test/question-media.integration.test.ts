@@ -420,8 +420,13 @@ describe("question media", () => {
 
   describe("the pack payload", () => {
     it("reports hasMedia without carrying any bytes", async () => {
-      const { pack, questionId } = await packWithMedia();
-      const res = await getPack(new NextRequest(`${BASE}/api/packs/${pack.id}`), params(pack.id));
+      const { pack, questionId, owner } = await packWithMedia();
+      // Reading a pack is owner-only now (src/lib/pack-access.ts), so this
+      // asks as the host who owns it.
+      const res = await getPack(
+        new NextRequest(`${BASE}/api/packs/${pack.id}`, { headers: owner.cookieHeader }),
+        params(pack.id)
+      );
       expect(res.status).toBe(200);
 
       const body = await res.text();

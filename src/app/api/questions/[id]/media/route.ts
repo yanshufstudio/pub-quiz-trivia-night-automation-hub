@@ -11,12 +11,17 @@ import { formatBytes, MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, prepareImageForStorag
  * `POST` and `DELETE` are the pack owner's: a signed-in account whose
  * Creator owns the pack (src/lib/auth-guard.ts, src/lib/pack-access.ts).
  *
- * `GET` is open, and deliberately stays open now that the rest of the app
- * requires an account: a team's phone renders the current question's image
- * and holds nothing that could authenticate it, and teams do not sign in.
- * Pack ids are unlisted cuids and that is the existing, deliberate read
- * model here — this route does not widen it, but it does inherit it, so
- * nothing private should ever be uploaded as a question image.
+ * `GET` is open, and deliberately stays open: a team's phone renders the
+ * current question's image and holds nothing that could authenticate it,
+ * and teams do not sign in.
+ *
+ * It is now the *only* open read left. Pack reads became owner-only (see
+ * src/lib/pack-access.ts), so this route no longer inherits a wider model —
+ * it is the exception to one. Anyone holding a question id can fetch its
+ * image, so nothing private should ever be uploaded as a question image.
+ * Narrowing it would mean scoping the read to a live session and the team
+ * token that goes with it, which changes what a team's browser has to send:
+ * a team-facing change, and not one to make on the way past.
  *
  * The bytes are stored, never a URL. See src/lib/media.ts and the "Media
  * support" section of HANDOFF.md for why that is the whole point.

@@ -5,8 +5,8 @@ import { LEGAL_LAST_UPDATED, SITE_URL } from "@/lib/site";
  * Served at /sitemap.xml and pointed at from robots.txt.
  *
  * Only the five pages a stranger can land on cold and get something from.
- * Everything else is per-session (/host, /play), unlisted by design (/packs
- * and the print sheets beneath it — see `src/lib/pack-access.ts`), behind an
+ * Everything else is per-session (/host, /play), owner-only (/packs and the
+ * print sheets beneath it — see `src/lib/pack-access.ts`), behind an
  * account, or an API route, and robots.ts disallows all of them. Listing a
  * URL here that robots.txt blocks is the one sitemap mistake Search Console
  * actually complains about, so the two files are meant to be read together

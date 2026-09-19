@@ -6,14 +6,15 @@ import { SITE_URL } from "@/lib/site";
  * 2026-09-17 because no route existed — so the first request a crawler makes
  * to the site got an error, and every path looked equally fair game.
  *
- * The disallow list is about pack privacy as much as crawl budget.
- * `src/lib/pack-access.ts` keeps reads by id open on purpose ("unlisted,
- * cuid ids") so the demo pack, the PDF export and the print sheets work
- * without an account. Unlisted stops being private the moment a crawler
- * finds the URL, and `/packs/<id>/print` *is* the answer sheet, so the whole
- * /packs tree stays out of the index. /host and /play are per-session and
- * gated on a host key or a team token: there is nothing there to index, and
- * a stale result would only send someone to a quiz that finished months ago.
+ * The disallow list is about crawl budget now rather than about privacy.
+ * Pack reads are owner-only (src/lib/pack-access.ts), so a crawler that
+ * found a /packs URL would get a redirect to /sign-in rather than an answer
+ * sheet — but an advertised URL that 307s is a Search Console error, and
+ * `/packs/<id>/print` is still the answer sheet to anyone who is signed in,
+ * so the whole /packs tree stays out of the index. /host and /play are
+ * per-session and gated on a host key or a team token: there is nothing
+ * there to index, and a stale result would only send someone to a quiz that
+ * finished months ago.
  *
  * /create and /sign-in join the list now that hosting needs an account.
  * /create redirects a signed-out visitor, so there is nothing there to

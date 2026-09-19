@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { requireHostPage } from "@/lib/auth-guard";
-import { canEditPack } from "@/lib/pack-access";
+import { canEditPack, canReadPack } from "@/lib/pack-access";
 import { SiteHeader } from "@/components/SiteHeader";
 import { toQuestionView } from "@/lib/question-types";
 import { PackEditor } from "./PackEditor";
@@ -25,7 +25,9 @@ export default async function PackEditorPage({ params }: { params: Promise<{ id:
         },
       },
   });
-  if (!pack) notFound();
+  // Not yours is indistinguishable from not there, so a stranger's id
+  // cannot be probed for existence from the editor either.
+  if (!pack || !canReadPack(pack, host.creator.id)) notFound();
 
   return (
     <>

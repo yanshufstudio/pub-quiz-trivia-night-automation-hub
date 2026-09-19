@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { generateHostToken, generateSessionCode } from "@/lib/codes";
 import { rateLimit } from "@/lib/rate-limit";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { canReadPack, packNotFound } from "@/lib/pack-access";
 import { z } from "zod";
 
 const createSessionSchema = z.object({
@@ -34,10 +35,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
+  // The sixth read surface, and the least obvious one: running a session on
+  // a pack puts every question and every answer on the host desk, so
+  // starting one is a read and is gated the same way. Without this, "every
+  // pack read is owner-only" would be true of five doors and false of the
+  // side entrance.
   const pack = await db.quizPack.findUnique({ where: { id: parsed.data.packId } });
-  if (!pack) {
-    return NextResponse.json({ error: "Pack not found" }, { status: 404 });
-  }
+  if (!pack || !canReadPack(pack, host.creator.id)) return packNotFound();
 
   let code = "";
   for (let attempt = 0; attempt < 5; attempt++) {
