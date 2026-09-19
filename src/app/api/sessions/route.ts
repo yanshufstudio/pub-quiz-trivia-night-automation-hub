@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { generateHostToken, generateSessionCode } from "@/lib/codes";
 import { rateLimit } from "@/lib/rate-limit";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { z } from "zod";
 
 const createSessionSchema = z.object({
@@ -12,11 +13,10 @@ const createSessionSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  // Hosting is deliberately open — a pack id is enough, because the demo
-  // pack has no owner and anyone should be able to run a night from it. Open
-  // is not the same as unbounded, though: this writes a row and burns one of
-  // a finite pool of 5-character join codes, so a scripted loop gets a
-  // ceiling. A real quizmaster runs a handful of sessions in an evening.
+  // Starting a session is a host action and now needs an account. The
+  // ceiling stays anyway: this writes a row and burns one of a finite pool
+  // of 5-character join codes, and a real quizmaster runs a handful of
+  // sessions in an evening, not thirty.
   const limited = await rateLimit(req, "sessions:create", { limit: 30, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
@@ -24,6 +24,9 @@ export async function POST(req: NextRequest) {
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
+
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
 
   const body = await req.json().catch(() => null);
   const parsed = createSessionSchema.safeParse(body);

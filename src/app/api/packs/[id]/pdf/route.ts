@@ -8,6 +8,7 @@ import {
   QuestionSheetDocument,
 } from "@/lib/pdf/documents";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 const DOCUMENTS = {
   questions: { Component: QuestionSheetDocument, suffix: "questions" },
@@ -22,6 +23,13 @@ function isDocType(value: string | null): value is DocType {
 }
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  // These are the host's sheets and two of the three carry the answers, so
+  // this route needs an account — where before it was open to anyone holding
+  // the pack id. Ownership is deliberately NOT required on top: an ownerless
+  // pack (the demo) must still print, exactly as it always has.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
   const { id } = await params;
   const url = new URL(req.url);
   const type = url.searchParams.get("type");

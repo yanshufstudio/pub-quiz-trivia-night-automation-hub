@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { toPackFile } from "@/lib/pack-file";
 import { toQuestionView } from "@/lib/question-types";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 function filenameFor(title: string) {
   const slug = title
@@ -13,7 +14,13 @@ function filenameFor(title: string) {
   return `${slug || "quiz-pack"}.json`;
 }
 
-export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  // A pack file carries every answer, so exporting needs an account. Not
+  // ownership, though: Export → Import is exactly how a host takes an
+  // editable copy of the ownerless demo pack.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
   const { id } = await params;
   // The full media rows, not the lightweight `hasMedia` shape most reads
   // use — a v2 file embeds the actual bytes as base64 (see pack-file.ts).

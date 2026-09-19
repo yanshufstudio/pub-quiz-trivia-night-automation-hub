@@ -41,20 +41,20 @@ model Round {
 }
 
 model Question {
-  id      String @id @default(cuid())
-  round   Round  @relation(fields: [roundId], references: [id], onDelete: Cascade)
-  roundId String
-  index   Int
-  text    String
-  answer  String
-  points  Int    @default(1)
+  id                String         @id @default(cuid())
+  round             Round          @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  roundId           String
+  index             Int
+  text              String
+  answer            String
+  points            Int            @default(1)
   // "TEXT" (default) or "MULTIPLE_CHOICE". A MULTIPLE_CHOICE question stores
   // its choices as a JSON-encoded string[] in `options` (see
   // src/lib/question-types.ts) rather than a separate table — SQLite has no
   // native array/JSON column, and nothing here queries inside the list.
   // TEXT questions leave `options` null.
-  type    String  @default("TEXT")
-  options String?
+  type              String         @default("TEXT")
+  options           String?
   // Alternate spellings/nicknames/etc. the host has approved as also-correct
   // (e.g. "7" alongside "Seven"), checked by isLikelyCorrect in
   // src/lib/scoring.ts. Same JSON-encoded string[] storage as `options`
@@ -64,7 +64,7 @@ model Question {
   // Optional image shown with the question (see src/lib/media.ts). Kept in a
   // separate table so pack reads never carry image bytes — the pack payload
   // exposes only `hasMedia`.
-  media   QuestionMedia?
+  media             QuestionMedia?
 
   @@unique([roundId, index])
 }
@@ -155,4 +155,80 @@ model Creator {
   periodStartedAt        DateTime   @default(now())
   createdAt              DateTime   @default(now())
   packs                  QuizPack[]
+  // The account this creator belongs to. Nullable because every Creator
+  // written before accounts existed has no account yet — those are the rows
+  // a `pq_creator` cookie can still claim exactly once (src/lib/creator-claim.ts).
+  // @unique is the guarantee that makes "one creator per account" a database
+  // fact rather than an intention: it is what stops a claim, a race between
+  // two tabs, or a future bug attaching two creators (two allowances) to one
+  // person.
+  user                   User?      @relation(fields: [userId], references: [id])
+  userId                 String?    @unique
+}
+
+model User {
+  id            String        @id
+  name          String
+  email         String
+  emailVerified Boolean       @default(false)
+  image         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  authsessions  AuthSession[]
+  accounts      Account[]
+  // Everything this app owns hangs off Creator, not off User: packs, plan,
+  // and the free allowance. A signed-in host has exactly one (see the
+  // @unique on Creator.userId).
+  creator       Creator?
+
+  @@unique([email])
+  @@map("user")
+}
+
+model AuthSession {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("authSession")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }

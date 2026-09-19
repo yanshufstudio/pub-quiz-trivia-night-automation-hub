@@ -1,18 +1,14 @@
-import { COOKIE_NAME } from "@/lib/creator";
-import { db } from "@/lib/db";
+import { signInTestHost, type TestHost } from "./auth-fixture";
 
 /**
- * Pack edit routes are gated on the `pq_creator` cookie matching the pack's
- * `creatorId` (src/lib/pack-access.ts). Integration suites that mutate packs
- * create one owner per file and thread it through: `owner.id` into
- * createPackFromGenerated, `owner.cookieHeader` onto every write request.
+ * A pack's owner: a signed-in host account plus the Creator behind it.
+ *
+ * This used to mint a bare `Creator` row and hand back a `pq_creator` cookie,
+ * because that was all identity was. Host-side routes now require a real
+ * account (src/lib/auth-guard.ts), so it signs one in instead — the shape is
+ * unchanged, so the suites that thread `owner.id` into a pack and
+ * `owner.cookieHeader` onto every write did not have to change with it.
  */
-export async function testOwner() {
-  const deviceKey = `test-owner-${Math.random().toString(36).slice(2)}`;
-  const creator = await db.creator.create({ data: { deviceKey } });
-  return {
-    id: creator.id,
-    deviceKey,
-    cookieHeader: { cookie: `${COOKIE_NAME}=${deviceKey}` } as Record<string, string>,
-  };
+export async function testOwner(): Promise<TestHost> {
+  return signInTestHost();
 }

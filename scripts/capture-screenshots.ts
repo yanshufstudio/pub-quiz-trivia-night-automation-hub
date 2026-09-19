@@ -36,6 +36,32 @@ async function waitForServer(url: string, timeoutMs: number) {
   throw new Error(`Server at ${url} did not become ready within ${timeoutMs}ms`);
 }
 
+/**
+ * Signs `page`'s browser context in as a host.
+ *
+ * Every screenshot below /create and /packs is a host surface now, so the
+ * script has to hold a session the same way a person does: ask for a magic
+ * link, read it back from the throwaway server's own inbox, follow it.
+ */
+async function signIn(page: Page, email: string) {
+  const res = await fetch(`${BASE_URL}/api/auth/sign-in/magic-link`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, callbackURL: "/packs", errorCallbackURL: "/sign-in" }),
+  });
+  if (!res.ok) throw new Error(`sign-in request failed: ${res.status} ${await res.text()}`);
+
+  const inbox = await fetch(`${BASE_URL}/api/test/sign-in-links`);
+  if (!inbox.ok) throw new Error(`sign-in link inbox is closed: ${inbox.status}`);
+  const { links } = (await inbox.json()) as { links: { email: string; url: string }[] };
+  const link = links.filter((l) => l.email === email).at(-1);
+  if (!link) throw new Error(`no sign-in link was captured for ${email}`);
+
+  await page.goto(link.url);
+  await page.waitForURL(/\/packs/);
+  log(`signed in as ${email}`);
+}
+
 async function shot(page: Page, name: string) {
   const file = path.join(OUT_DIR, name);
   await page.screenshot({ path: file });
@@ -48,7 +74,18 @@ async function main() {
   if (existsSync(`${DB_PATH}-journal`)) rmSync(`${DB_PATH}-journal`);
   mkdirSync(OUT_DIR, { recursive: true });
 
-  const dbEnv = { ...process.env, DATABASE_URL: `file:${DB_PATH}` };
+  // SIGN_IN_LINK_CAPTURE turns on the in-memory inbox this script reads the
+  // host's magic link out of (see src/lib/sign-in-email.ts). It needs
+  // RESEND_API_KEY unset as well, and it cannot be switched on in production
+  // at all — the whole gate is in `linkCaptureEnabled`.
+  const dbEnv = {
+    ...process.env,
+    DATABASE_URL: `file:${DB_PATH}`,
+    SIGN_IN_LINK_CAPTURE: "1",
+    RESEND_API_KEY: "",
+    BETTER_AUTH_SECRET: "screenshots-script-secret-not-used-anywhere-else",
+    BETTER_AUTH_URL: BASE_URL,
+  };
   log("running prisma migrate deploy against a throwaway screenshots.db");
   execSync("npx prisma migrate deploy", { cwd: ROOT, env: dbEnv, stdio: "inherit" });
 
@@ -97,15 +134,19 @@ async function main() {
     await host.goto(`${BASE_URL}/`);
     await shot(host, "01-landing.png");
 
+    await signIn(host, "screenshots@triviafoundry.example");
+
     await host.goto(`${BASE_URL}/create`);
     // The free-tier usage line is fetched client-side after mount; wait for
     // it so the screenshot shows the wizard in its real, settled state.
-    await host.getByText(/free packs used this month/).waitFor();
+    await host.getByText(/free packs used in the last 30 days/).waitFor();
     await shot(host, "02-create-wizard.png");
 
-    // Seed a demo pack via the API (no Anthropic key needed) and open the editor.
-    const seedRes = await fetch(`${BASE_URL}/api/packs/seed`, { method: "POST" });
-    if (!seedRes.ok) throw new Error(`seed failed: ${seedRes.status} ${await seedRes.text()}`);
+    // Seed a demo pack and open the editor. No Anthropic key needed, but the
+    // route is host-side now, so it goes through the signed-in browser
+    // context rather than a bare fetch.
+    const seedRes = await host.request.post(`${BASE_URL}/api/packs/seed`);
+    if (!seedRes.ok()) throw new Error(`seed failed: ${seedRes.status()} ${await seedRes.text()}`);
     const { pack } = (await seedRes.json()) as { pack: { id: string } };
 
     await host.goto(`${BASE_URL}/packs/${pack.id}`);

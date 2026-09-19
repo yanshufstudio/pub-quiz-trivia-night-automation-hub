@@ -10,6 +10,7 @@ import { MAX_MEDIA_PER_PACK } from "@/lib/media";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION } from "@/lib/pack-file";
 import { parseOptions } from "@/lib/question-types";
 import { REAL_PNG_1X1, realPngBytes } from "@/test/image-fixtures";
+import { signInTestHost } from "./auth-fixture";
 
 function packWithMediaInput(questionCount: number) {
   return {
@@ -45,10 +46,16 @@ async function packWithQuestionMedia(pack: Awaited<ReturnType<typeof createPackF
 
 const BASE = "http://localhost:3000";
 
+// Export and import both need an account now (src/lib/auth-guard.ts): a pack
+// file carries every answer, and importing creates a pack that has to belong
+// to someone. Ownership is deliberately NOT required to export — Export →
+// Import is how a host takes a copy of the ownerless demo pack.
+const host = await signInTestHost();
+
 function jsonRequest(url: string, body: unknown) {
   return new NextRequest(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...host.cookieHeader },
     body: JSON.stringify(body),
   });
 }
@@ -76,14 +83,14 @@ describe("pack export / import", () => {
   });
 
   it("404s when exporting a pack that doesn't exist", async () => {
-    const res = await exportPack(new NextRequest(`${BASE}/api/packs/nope/export`), {
+    const res = await exportPack(new NextRequest(`${BASE}/api/packs/nope/export`, { headers: host.cookieHeader }), {
       params: Promise.resolve({ id: "nope" }),
     });
     expect(res.status).toBe(404);
   });
 
   it("exports a downloadable file and imports it back as an identical new pack", async () => {
-    const res = await exportPack(new NextRequest(`${BASE}/api/packs/${packId}/export`), {
+    const res = await exportPack(new NextRequest(`${BASE}/api/packs/${packId}/export`, { headers: host.cookieHeader }), {
       params: Promise.resolve({ id: packId }),
     });
     expect(res.status).toBe(200);
@@ -146,7 +153,7 @@ describe("pack export / import", () => {
     const res = await importPack(
       new NextRequest(`${BASE}/api/packs/import`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...host.cookieHeader },
         body: "{not json",
       })
     );
@@ -158,7 +165,7 @@ describe("pack export / import", () => {
       const pack = await createPackFromGenerated(packWithMediaInput(2), "media export test");
       await packWithQuestionMedia(pack);
 
-      const res = await exportPack(new NextRequest(`${BASE}/api/packs/${pack.id}/export`), {
+      const res = await exportPack(new NextRequest(`${BASE}/api/packs/${pack.id}/export`, { headers: host.cookieHeader }), {
         params: Promise.resolve({ id: pack.id }),
       });
       expect(res.status).toBe(200);

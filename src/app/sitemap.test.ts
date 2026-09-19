@@ -7,7 +7,7 @@ import { LEGAL_LAST_UPDATED, SITE_URL } from "@/lib/site";
 const entries = sitemap();
 const LEGAL_PATHS = ["/terms", "/privacy", "/refunds"];
 
-/** "/create" from "https://triviafoundry.com/create"; "/" from the bare origin. */
+/** "/pricing" from "https://triviafoundry.com/pricing"; "/" from the bare origin. */
 function pathnameOf(url: string | URL): string {
   return new URL(url).pathname;
 }

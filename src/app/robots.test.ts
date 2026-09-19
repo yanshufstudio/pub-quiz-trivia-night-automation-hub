@@ -59,9 +59,16 @@ describe("robots.txt", () => {
   });
 
   it("leaves the marketing and legal pages crawlable", () => {
-    for (const pathname of ["/", "/create", "/terms", "/privacy", "/refunds"]) {
+    for (const pathname of ["/", "/pricing", "/terms", "/privacy", "/refunds"]) {
       expect(isAllowed(pathname), `${pathname} should be crawlable`).toBe(true);
     }
+  });
+
+  it("keeps the account surfaces out of the index", () => {
+    // /create redirects a signed-out visitor to /sign-in, so a crawler finds
+    // a 307 rather than a page; /sign-in is a form with nothing to rank for.
+    expect(isAllowed("/create")).toBe(false);
+    expect(isAllowed("/sign-in")).toBe(false);
   });
 
   it("allows every URL the sitemap advertises", () => {

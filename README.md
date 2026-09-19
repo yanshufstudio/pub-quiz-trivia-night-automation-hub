@@ -171,17 +171,38 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   real venue's 5-25, so one person with the code can't fill a host's
   scoreboard with junk teams mid-quiz. The cap is per session, so it holds
   against a caller rotating IPs past the rate limiter.
-- **Pack ownership** (`src/lib/pack-access.ts`): the same httpOnly
-  `pq_creator` cookie that scopes the free-tier cap also owns packs. `/packs`
-  and `GET /api/packs` list shared packs (no owner — the seeded demo pack)
-  plus the visitor's own; every edit route (`POST /api/questions`,
-  `PATCH`/`DELETE /api/questions/[id]`, `DELETE /api/rounds/[id]`,
-  `POST /api/rounds/[id]/move`) returns 403 unless the cookie matches the
-  pack's `creatorId`. Shared packs are read-only for everyone; Export JSON
-  then Import gives a visitor their own editable copy. Reads by id stay open
-  (unlisted, cuid ids) so sessions, PDF and export keep working for the demo
-  path. Losing the cookie loses edit access — the accepted trade-off of
-  cookie identity over accounts, see `claude/monetization-buildout-plan.md`.
+- **Host accounts** (`src/lib/auth.ts`, `src/lib/auth-guard.ts`): hosts sign
+  in with Google or an emailed link — no passwords. Accounts live in this
+  app's own Turso database (Better Auth with the Prisma adapter), and a
+  `Creator` belongs to one. Every host-side page and API checks
+  `auth.api.getSession` for itself: pages redirect to
+  `/sign-in?next=<path>`, APIs answer 401 JSON. `src/proxy.ts` (Next 16's
+  renamed `middleware.ts`) also redirects on a missing session cookie, but
+  that is an optimistic check and explicitly not the defence — it cannot
+  tell a valid cookie from a forged one.
+  **Teams never sign in.** `/play`, joining, answering, the team portal,
+  `GET /api/sessions/[code]` and `GET /api/questions/[id]/media` all stay
+  open: a pub full of strangers cannot be asked to make an account to answer
+  question three, and a team's phone holds nothing that could authenticate
+  it. Public: `/`, `/pricing`, `/terms`, `/privacy`, `/refunds`, `/sign-in`.
+- **Pack ownership** (`src/lib/pack-access.ts`): a pack belongs to the
+  `Creator` behind a signed-in account. `/packs` and `GET /api/packs` list
+  shared packs (no owner — the seeded demo pack) plus the host's own; every
+  edit route (`POST /api/questions`, `PATCH`/`DELETE /api/questions/[id]`,
+  `DELETE /api/rounds/[id]`, `POST /api/rounds/[id]/move`) answers 401
+  without a session and 403 when the session's creator is not the pack's.
+  Shared packs are read-only for everyone; Export JSON then Import gives a
+  host their own editable copy. `GET /api/packs/[id]` stays open (unlisted,
+  cuid ids) because a team's phone reads the current question through the
+  session payload — but the surfaces that carry the **answers**, the PDF,
+  print and export routes, now need an account where before they did not.
+- **Claiming a pre-accounts cookie** (`src/lib/creator-claim.ts`): the
+  `pq_creator` cookie is no longer identity and nothing sets it any more. It
+  survives for exactly one purpose: a browser that still carries one can hand
+  it over once, on sign-in, so the packs and used allowance behind it move
+  onto the account. A `Creator` that already belongs to another user is never
+  taken, and a merge keeps the **higher** of the two used counts — otherwise
+  claiming would itself be the way to refund an allowance.
 - **Question images are stored, never linked** (`src/lib/media.ts`): a
   question may carry one image, uploaded by the pack's owner to
   `POST /api/questions/[id]/media` and served back from the same path. The
@@ -213,11 +234,12 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   defaults 20 and 50, see `.env.example`): hard ceilings on how many packs
   the **whole deployment** generates per UTC day, enforced before the model
   is called. These, not `FREE_PACK_LIMIT`, are what bound the Anthropic bill.
-  The per-creator cap is counted against the `pq_creator` cookie, so deleting
-  it resets the allowance and never sending one skips it entirely — a
-  cookie-less caller was limited only by the per-IP throttle (5 per 10
-  minutes, ~720/day/address). These ceilings have no identity in the key, so
-  rotating cookies does not move them. Free and Pro count in separate
+  The per-account cap is spent by generating; it used to be counted against
+  the `pq_creator` cookie, so deleting the cookie reset it and never sending
+  one skipped it entirely. Accounts closed that door, but signing up is free,
+  so an attacker can still rotate accounts — and these ceilings have no
+  identity in the key at all, which is why they, and not `FREE_PACK_LIMIT`,
+  are what actually bounds the bill. Free and Pro count in separate
   buckets, so free traffic cannot exhaust a subscriber's capacity; Pro has no
   per-user cap and its ceiling is purely a runaway-loop backstop. They are
   read per request, so a change needs no rebuild, and they are only genuinely
@@ -315,8 +337,16 @@ tier's two-packs-per-30-days limit, Pro at $5/month or $25/year, Paddle as
 merchant of record, and the actual list of what the app stores (the
 `pq_creator` cookie, quiz content, live team names and answers, uploaded
 question images) and who processes it (Paddle, Vercel, Turso, Anthropic).
-Revising any of them means bumping `LEGAL_LAST_UPDATED` in
-`src/components/LegalPage.tsx`, which is the single date all three render.
+Revising any of them means bumping `LEGAL_LAST_UPDATED` in `src/lib/site.ts`,
+which is the single date all three render and the one `sitemap.ts` publishes.
+
+> **Out of date as of host accounts.** /privacy and /terms still describe
+> `pq_creator` as the identity and list four processors. They now need:
+> Google (sign-in) and Resend (sign-in emails) as processors; email address,
+> name, Google account id and sign-in session records as stored data; the
+> sign-in session cookie; and an accounts clause on /terms. Drafts are in the
+> pull request that introduced accounts, held for the owner's approval —
+> wording on these three pages is not changed without it.
 
 ## Known limitations
 

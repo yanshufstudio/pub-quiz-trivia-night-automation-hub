@@ -1,4 +1,5 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { signedInApi } from "./sign-in-helper";
 
 // Regression test: the answer box must not carry the previous question's
 // text into the next question. Before the fix, refresh() copied myAnswer.text
@@ -9,7 +10,8 @@ import { test, expect, request } from "@playwright/test";
 // The host side is driven through the API (see tie-ending.spec.ts for why);
 // the team side is the real polling portal, which is the code under test.
 test("team's answer box is empty when the next question arrives", async ({ browser, baseURL }) => {
-  const api = await request.newContext({ baseURL });
+  // The host is signed in; the team context below deliberately is not.
+  const api = await signedInApi(baseURL!);
   const seedRes = await api.post("/api/packs/seed");
   expect(seedRes.ok()).toBeTruthy();
   const { pack } = (await seedRes.json()) as {

@@ -9,29 +9,32 @@ import { DELETE as deleteQuestion, PATCH as patchQuestion } from "@/app/api/ques
 import { DELETE as deleteRound } from "@/app/api/rounds/[id]/route";
 import { POST as moveRound } from "@/app/api/rounds/[id]/move/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
-import { COOKIE_NAME } from "@/lib/creator";
 import { db } from "@/lib/db";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION } from "@/lib/pack-file";
+import { signInTestHost } from "./auth-fixture";
 
 const BASE = "http://localhost:3000";
 
+/** `cookie` is a whole Cookie header value — a session cookie from
+ * signInTestHost, or a bare string when the test is about a bad one. */
 function request(url: string, method: string, opts: { body?: unknown; cookie?: string; headers?: Record<string, string> } = {}) {
   return new NextRequest(url, {
     method,
     headers: {
       "Content-Type": "application/json",
-      ...(opts.cookie ? { cookie: `${COOKIE_NAME}=${opts.cookie}` } : {}),
+      ...(opts.cookie ? { cookie: opts.cookie } : {}),
       ...(opts.headers ?? {}),
     },
     body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
   });
 }
 
-async function newCreator() {
-  const deviceKey = `pack-access-${Math.random().toString(36).slice(2)}`;
-  const creator = await db.creator.create({ data: { deviceKey } });
-  return { id: creator.id, cookie: deviceKey };
-}
+/**
+ * A creator with an account behind it. Ownership is still `QuizPack.creatorId`
+ * against `Creator.id` — what changed is that reaching the check at all needs
+ * a session, so an unowned request is a 401 where it used to be a 403.
+ */
+const newCreator = () => signInTestHost();
 
 function packInput(title: string) {
   return {
@@ -95,11 +98,11 @@ describe("pack ownership gate", () => {
       expect(reloaded).toBe(2);
     });
 
-    it("403s with no cookie at all", async () => {
+    it("401s with no session at all — the gate is now in front of ownership", async () => {
       const owner = await newCreator();
       const pack = await ownedPack(owner.id);
       const res = await createQuestion(request(`${BASE}/api/questions`, "POST", { body: { roundId: pack.rounds[0].id } }));
-      expect(res.status).toBe(403);
+      expect(res.status).toBe(401);
     });
 
     it("403s on an ownerless pack even for a creator", async () => {
@@ -112,7 +115,10 @@ describe("pack ownership gate", () => {
     });
 
     it("still 404s for a round that doesn't exist, before any ownership check", async () => {
-      const res = await createQuestion(request(`${BASE}/api/questions`, "POST", { body: { roundId: "nope" } }));
+      const someone = await newCreator();
+      const res = await createQuestion(
+        request(`${BASE}/api/questions`, "POST", { body: { roundId: "nope" }, cookie: someone.cookie })
+      );
       expect(res.status).toBe(404);
     });
   });
@@ -144,10 +150,14 @@ describe("pack ownership gate", () => {
     });
 
     it("403s on an ownerless pack", async () => {
+      const someone = await newCreator();
       const pack = await ownedPack(null);
       const q = pack.rounds[0].questions[0];
       const res = await patchQuestion(
-        request(`${BASE}/api/questions/${q.id}`, "PATCH", { body: { answer: "vandalised" } }),
+        request(`${BASE}/api/questions/${q.id}`, "PATCH", {
+          body: { answer: "vandalised" },
+          cookie: someone.cookie,
+        }),
         params(q.id)
       );
       expect(res.status).toBe(403);
@@ -307,11 +317,13 @@ describe("pack ownership gate", () => {
       expect(await db.quizPack.findUnique({ where: { id: pack.id } })).not.toBeNull();
     });
 
-    it("401s a cookie that matches no Creator row (e.g. a reset database)", async () => {
+    it("401s a session cookie that is not a real session (e.g. a forged one)", async () => {
       const owner = await newCreator();
       const pack = await ownedPack(owner.id);
       const res = await deletePack(
-        request(`${BASE}/api/packs/${pack.id}`, "DELETE", { cookie: "not-a-real-device-key" }),
+        request(`${BASE}/api/packs/${pack.id}`, "DELETE", {
+          cookie: "better-auth.session_token=not-a-real-session-token",
+        }),
         params(pack.id)
       );
       expect(res.status).toBe(401);
@@ -343,36 +355,56 @@ describe("pack ownership gate", () => {
       expect(ids).not.toContain(theirs.id);
     });
 
-    it("lists only ownerless packs for a visitor with no cookie", async () => {
+    it("401s a visitor with no session, rather than listing the shared packs", async () => {
+      // Signed out there is no "own", so the list would be nothing but the
+      // demo pack. Asking for an account is more honest than serving that.
+      await ownedPack(null);
+      const res = await listPacks(request(`${BASE}/api/packs`, "GET"));
+      expect(res.status).toBe(401);
+    });
+
+    it("shows a signed-in host the ownerless packs as well as their own", async () => {
+      const me = await newCreator();
       const other = await newCreator();
+      const mine = await ownedPack(me.id);
       const theirs = await ownedPack(other.id);
       const shared = await ownedPack(null);
 
-      const res = await listPacks(request(`${BASE}/api/packs`, "GET"));
+      const res = await listPacks(request(`${BASE}/api/packs`, "GET", { cookie: me.cookie }));
       const ids = ((await res.json()).packs as { id: string }[]).map((p) => p.id);
+      expect(ids).toContain(mine.id);
       expect(ids).toContain(shared.id);
       expect(ids).not.toContain(theirs.id);
     });
   });
 
   describe("POST /api/packs/import", () => {
-    it("stamps the importer as owner and sets the creator cookie", async () => {
-      const file = {
-        format: PACK_FILE_FORMAT,
-        version: PACK_FILE_VERSION,
-        title: "Imported Ownership Pack",
-        prompt: "imported",
-        rounds: packInput("x").rounds,
-      };
-      const res = await importPack(request(`${BASE}/api/packs/import`, "POST", { body: file }));
+    const importFile = () => ({
+      format: PACK_FILE_FORMAT,
+      version: PACK_FILE_VERSION,
+      title: `Imported Ownership Pack ${Math.random().toString(36).slice(2)}`,
+      prompt: "imported",
+      rounds: packInput("x").rounds,
+    });
+
+    it("stamps the signed-in importer as owner, and sets no cookie", async () => {
+      const importer = await newCreator();
+      const res = await importPack(
+        request(`${BASE}/api/packs/import`, "POST", { body: importFile(), cookie: importer.cookie })
+      );
       expect(res.status).toBe(201);
-      const setCookie = res.headers.get("set-cookie");
-      expect(setCookie).toMatch(new RegExp(`${COOKIE_NAME}=`));
-      const deviceKey = new RegExp(`${COOKIE_NAME}=([^;]+)`).exec(setCookie!)![1];
-      const creator = await db.creator.findUniqueOrThrow({ where: { deviceKey } });
+      expect(res.headers.get("set-cookie")).toBeNull();
+
       const { pack } = await res.json();
       const row = await db.quizPack.findUniqueOrThrow({ where: { id: pack.id } });
-      expect(row.creatorId).toBe(creator.id);
+      expect(row.creatorId).toBe(importer.id);
+    });
+
+    it("401s an import with no session, and writes no pack", async () => {
+      const before = await db.quizPack.count();
+      const res = await importPack(request(`${BASE}/api/packs/import`, "POST", { body: importFile() }));
+      expect(res.status).toBe(401);
+      expect(await db.quizPack.count()).toBe(before);
     });
   });
 });

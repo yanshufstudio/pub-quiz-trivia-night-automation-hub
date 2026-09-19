@@ -1,4 +1,5 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { signedInContext } from "./sign-in-helper";
 
 /**
  * The host desk goes on the pub TV, so this spec asserts what the *room* can
@@ -15,10 +16,12 @@ import { test, expect, request } from "@playwright/test";
  * answer "Canberra".
  */
 test("the desk shows only who has answered until the host reveals", async ({ browser, baseURL }) => {
-  const api = await request.newContext({ baseURL });
+  // The desk is a host page, so the browser driving it needs a session —
+  // and shares one with the API context that seeds the pack.
+  const { context: hostContext, api } = await signedInContext(browser, baseURL!);
   const { pack } = await (await api.post("/api/packs/seed")).json();
 
-  const hostPage = await (await browser.newContext()).newPage();
+  const hostPage = await hostContext.newPage();
   await hostPage.goto(`/packs/${pack.id}`);
   await hostPage.getByRole("button", { name: "Start live session" }).click();
   await hostPage.waitForURL(/\/host\//);
@@ -65,5 +68,5 @@ test("the desk shows only who has answered until the host reveals", async ({ bro
   await expect(hostPage.getByRole("button", { name: "Correct" })).toBeVisible();
   await expect(hostPage.getByRole("button", { name: "Wrong" })).toBeVisible();
 
-  await api.dispose();
+  await hostContext.close();
 });

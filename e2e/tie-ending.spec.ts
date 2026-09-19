@@ -1,4 +1,5 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { signedInContext } from "./sign-in-helper";
 
 // The tie-safe naming logic (topScorers/winningNames) is unit tested at the
 // function level in src/lib/scoreboard-summary.test.ts, but nothing before
@@ -15,7 +16,9 @@ test("two teams tied for first both see the champions treatment, named together"
   browser,
   baseURL,
 }) => {
-  const api = await request.newContext({ baseURL });
+  // The desk is a host page, so the browser that drives it needs a session;
+  // the API context below shares it.
+  const { context: hostContext, api } = await signedInContext(browser, baseURL!);
   const seedRes = await api.post("/api/packs/seed");
   const { pack } = (await seedRes.json()) as {
     pack: { id: string; rounds: { questions: { answer: string }[] }[] };
@@ -27,7 +30,6 @@ test("two teams tied for first both see the champions treatment, named together"
   const { session, hostToken } = await sessionRes.json();
   const code = session.code;
 
-  const hostContext = await browser.newContext();
   const hostPage = await hostContext.newPage();
   await hostPage.addInitScript(
     ({ code, hostToken }) => {
@@ -90,5 +92,5 @@ test("two teams tied for first both see the champions treatment, named together"
   await hostContext.close();
   await teamAContext.close();
   await teamBContext.close();
-  await api.dispose();
+  await hostContext.close();
 });

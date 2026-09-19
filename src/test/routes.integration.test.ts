@@ -50,14 +50,14 @@ describe("GET /api/packs/[id]/pdf", () => {
   });
 
   it("rejects an unknown type", async () => {
-    const res = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=nonsense`), {
+    const res = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=nonsense`, { headers: owner.cookieHeader }), {
       params: Promise.resolve({ id: packId }),
     });
     expect(res.status).toBe(400);
   });
 
   it("404s for a pack that doesn't exist", async () => {
-    const res = await getPdf(new NextRequest(`${BASE}/api/packs/does-not-exist/pdf?type=questions`), {
+    const res = await getPdf(new NextRequest(`${BASE}/api/packs/does-not-exist/pdf?type=questions`, { headers: owner.cookieHeader }), {
       params: Promise.resolve({ id: "does-not-exist" }),
     });
     expect(res.status).toBe(404);
@@ -66,7 +66,7 @@ describe("GET /api/packs/[id]/pdf", () => {
   it.each(["questions", "answers", "script"] as const)(
     "renders a real, non-trivial PDF for type=%s",
     async (type) => {
-      const res = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=${type}`), {
+      const res = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=${type}`, { headers: owner.cookieHeader }), {
         params: Promise.resolve({ id: packId }),
       });
       expect(res.status).toBe(200);
@@ -89,7 +89,7 @@ describe("GET /api/packs/[id]/pdf", () => {
     // actually change after an edit is a better regression guard anyway:
     // it catches a caching bug, which is the more realistic failure mode
     // for a "generate a file from the DB on every request" route.
-    const before = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=questions`), {
+    const before = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=questions`, { headers: owner.cookieHeader }), {
       params: Promise.resolve({ id: packId }),
     });
     const beforeBytes = new Uint8Array(await before.arrayBuffer());
@@ -101,7 +101,7 @@ describe("GET /api/packs/[id]/pdf", () => {
       { params: Promise.resolve({ id: questionId }) }
     );
 
-    const after = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=questions`), {
+    const after = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=questions`, { headers: owner.cookieHeader }), {
       params: Promise.resolve({ id: packId }),
     });
     const afterBytes = new Uint8Array(await after.arrayBuffer());

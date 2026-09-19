@@ -4,8 +4,15 @@ import { NextRequest } from "next/server";
 import { GET as getPdf } from "@/app/api/packs/[id]/pdf/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { db } from "@/lib/db";
+import { signInTestHost } from "./auth-fixture";
 
 const BASE = "http://localhost:3000";
+
+// The PDF and export routes carry the answers, so they need an account now
+// (src/lib/auth-guard.ts). Ownership is deliberately not required — an
+// ownerless demo pack must still print.
+const host = await signInTestHost();
+
 
 /**
  * The three print documents are laid out for a pack the size the wizard's
@@ -66,7 +73,7 @@ describe("print documents at the size the default brief generates", () => {
   it.each(["questions", "answers", "script"] as const)(
     "lays out type=%s without a block too tall for its page",
     async (type) => {
-      const res = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=${type}`), {
+      const res = await getPdf(new NextRequest(`${BASE}/api/packs/${packId}/pdf?type=${type}`, { headers: host.cookieHeader }), {
         params: Promise.resolve({ id: packId }),
       });
       expect(res.status).toBe(200);

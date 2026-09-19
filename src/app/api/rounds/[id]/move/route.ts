@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
 
 const moveSchema = z.object({ direction: z.enum(["up", "down"]) });
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
   const { id } = await params;
   const body = await req.json().catch(() => null);
   const parsed = moveSchema.safeParse(body);
@@ -17,7 +20,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   if (!round) {
     return NextResponse.json({ error: "Round not found" }, { status: 404 });
   }
-  const forbidden = await requirePackOwner(req, { packId: round.packId });
+  const forbidden = await requirePackOwner(host.creator.id, { packId: round.packId });
   if (forbidden) return forbidden;
 
   const targetIndex = parsed.data.direction === "up" ? round.index - 1 : round.index + 1;

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { isAdminTokenConfigured, isAuthorizedAdmin } from "@/lib/admin-auth";
-import { canEditPack, creatorIdFromRequest, packOwnership } from "@/lib/pack-access";
+import { hostSessionForRequest } from "@/lib/auth-guard";
+import { canEditPack, packOwnership } from "@/lib/pack-access";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -48,8 +49,11 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   // to be re-derived from the helper.
   const adminOverride = isAdminTokenConfigured() && isAuthorizedAdmin(req);
   if (!adminOverride) {
-    const [ownership, creatorId] = await Promise.all([packOwnership({ packId: id }), creatorIdFromRequest(req)]);
-    if (!ownership || !canEditPack(ownership, creatorId)) {
+    const [ownership, host] = await Promise.all([packOwnership({ packId: id }), hostSessionForRequest(req)]);
+    // Still one indistinguishable 401 for "no session", "not your pack" and
+    // "wrong admin token" — a probe must not be able to tell an id it does
+    // not own from one that does not exist.
+    if (!host || !ownership || !canEditPack(ownership, host.creator.id)) {
       return NextResponse.json({ error: "Invalid admin token" }, { status: 401 });
     }
   }

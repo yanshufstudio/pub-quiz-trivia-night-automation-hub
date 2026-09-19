@@ -15,8 +15,15 @@ import { SITE_URL } from "@/lib/site";
  * gated on a host key or a team token: there is nothing there to index, and
  * a stale result would only send someone to a quiz that finished months ago.
  *
- * Left crawlable: the homepage, /create and the three legal pages — exactly
- * what sitemap.ts lists.
+ * /create and /sign-in join the list now that hosting needs an account.
+ * /create redirects a signed-out visitor, so there is nothing there to
+ * index; /sign-in is a form. Both also carry a `noindex` where they can (see
+ * src/app/sign-in/page.tsx) — the disallow is what stops the crawl
+ * happening at all, and the meta tag is what still holds for a crawler that
+ * ignores robots.txt but honours a meta tag.
+ *
+ * Left crawlable: the homepage, /pricing and the three legal pages —
+ * exactly what sitemap.ts lists.
  *
  * The trailing slashes are deliberate and not uniform. `/api/` and `/host/`
  * have one because only nested routes exist under them, so a future
@@ -30,7 +37,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/packs", "/host/", "/play"],
+        disallow: ["/api/", "/packs", "/host/", "/play", "/create", "/sign-in"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

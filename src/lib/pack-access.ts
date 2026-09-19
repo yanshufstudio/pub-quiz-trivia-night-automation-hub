@@ -1,16 +1,21 @@
 import type { Prisma } from "@prisma/client";
-import { NextResponse, type NextRequest } from "next/server";
-import { COOKIE_NAME } from "@/lib/creator";
+import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
 /**
- * Pack ownership, keyed by the same `pq_creator` cookie the free-tier cap
- * uses. A pack is editable only by the Creator whose id matches
- * `QuizPack.creatorId`. Ownerless packs (`creatorId` null — the seeded demo
- * pack, anything created before the Creator model) are visible to everyone
- * and editable by no one; Export → Import is how a visitor takes an
- * editable copy. Reads by id stay open (unlisted, cuid ids) so sessions,
- * PDF, print and export keep working for the demo path.
+ * Pack ownership, keyed by the signed-in host's Creator.
+ *
+ * A pack is editable only by the Creator whose id matches
+ * `QuizPack.creatorId`, and that Creator now belongs to an account rather
+ * than to a browser cookie (src/lib/auth-guard.ts). Ownerless packs
+ * (`creatorId` null — the seeded demo pack, anything created before the
+ * Creator model) are visible to every signed-in host and editable by no one;
+ * Export → Import is how a host takes an editable copy.
+ *
+ * `GET /api/packs/[id]` and `GET /api/questions/[id]/media` stay open,
+ * because a team's phone renders the current question and its image and
+ * holds nothing that could authenticate it. The surfaces that carry the
+ * *answers* — PDF, print, export — no longer are.
  */
 
 export const NOT_OWNER_MESSAGE = "You can only edit packs you created";
@@ -18,17 +23,6 @@ export const NOT_OWNER_MESSAGE = "You can only edit packs you created";
 /** Prisma filter for the packs a visitor may see in a list. */
 export function visiblePacksWhere(creatorId: string | null): Prisma.QuizPackWhereInput {
   return creatorId === null ? { creatorId: null } : { OR: [{ creatorId: null }, { creatorId }] };
-}
-
-/** Resolves a cookie value to a Creator id. Never creates a row. */
-export async function creatorIdForDeviceKey(deviceKey: string | undefined): Promise<string | null> {
-  if (!deviceKey) return null;
-  const creator = await db.creator.findUnique({ where: { deviceKey }, select: { id: true } });
-  return creator?.id ?? null;
-}
-
-export function creatorIdFromRequest(req: NextRequest): Promise<string | null> {
-  return creatorIdForDeviceKey(req.cookies.get(COOKIE_NAME)?.value);
 }
 
 export function canEditPack(pack: { creatorId: string | null }, creatorId: string | null): boolean {
@@ -58,12 +52,18 @@ export async function packOwnership(target: OwnerTarget): Promise<{ packId: stri
 }
 
 /**
- * For write routes. Returns a 403 response to send back, or null when the
- * caller owns the pack. Callers 404 on a missing row *before* this, so a
+ * For write routes. Returns a 403 response to send back, or null when this
+ * creator owns the pack. Callers 404 on a missing row *before* this, so a
  * non-existent id never turns into a misleading "not yours".
+ *
+ * The creator id is passed in rather than dug out of the request: the caller
+ * has already had to establish a session to get this far (otherwise it
+ * answered 401), and that same step is what produced the creator. Taking it
+ * as an argument means there is no path through this function that could
+ * fall back to reading an unauthenticated cookie.
  */
-export async function requirePackOwner(req: NextRequest, target: OwnerTarget): Promise<NextResponse | null> {
-  const [ownership, creatorId] = await Promise.all([packOwnership(target), creatorIdFromRequest(req)]);
+export async function requirePackOwner(creatorId: string, target: OwnerTarget): Promise<NextResponse | null> {
+  const ownership = await packOwnership(target);
   if (ownership && canEditPack(ownership, creatorId)) return null;
   return NextResponse.json({ error: NOT_OWNER_MESSAGE }, { status: 403 });
 }
