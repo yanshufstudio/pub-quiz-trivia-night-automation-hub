@@ -190,11 +190,13 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   renamed `middleware.ts`) also redirects on a missing session cookie, but
   that is an optimistic check and explicitly not the defence — it cannot
   tell a valid cookie from a forged one.
-  **Teams never sign in.** `/play`, joining, answering, the team portal,
-  `GET /api/sessions/[code]` and `GET /api/questions/[id]/media` all stay
-  open: a pub full of strangers cannot be asked to make an account to answer
-  question three, and a team's phone holds nothing that could authenticate
-  it. Public: `/`, `/pricing`, `/terms`, `/privacy`, `/refunds`, `/sign-in`.
+  **Teams never sign in** — a pub full of strangers cannot be asked to make
+  an account to answer question three. `/play`, joining, answering, the team
+  portal, `GET /api/sessions/[code]` and `GET /api/questions/[id]/media` take
+  no account. They are not uncredentialled, though: joining is the only one
+  that takes nothing, because joining is how a team gets its token, and every
+  other one takes that token. Public: `/`, `/pricing`, `/terms`, `/privacy`,
+  `/refunds`, `/sign-in`.
 - **Pack ownership** (`src/lib/pack-access.ts`): a pack belongs to the
   `Creator` behind a signed-in account. `/packs` and `GET /api/packs` list
   shared packs (no owner — the seeded demo pack) plus the host's own; every
@@ -207,11 +209,13 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   /api/packs/[id]` and starting a session on it all answer somebody else's
   pack exactly as they answer a pack that does not exist, so an id cannot be
   probed. The ownerless demo stays readable by any signed-in host.
-  `GET /api/questions/[id]/media` is the one read that stays open, because a
-  team's phone renders the current question's image and holds nothing that
-  could authenticate it. Narrowing that one means scoping it to a live
-  session and a team token, which changes what a team's browser has to
-  send — a team-facing change, and not one to make on the way past.
+  `GET /api/questions/[id]/media` followed (`src/lib/question-media-access.ts`):
+  a question id is not a credential either. It serves a team holding a token
+  for the session whose **current** question it is — the same credential, for
+  the same question, that the session payload already answers with
+  `hasMedia: true` — or the desk holding that session's host key, or a host
+  who may read the pack. Everyone else gets the 404 a question with no image
+  gets. **No read by id is open any more.**
 - **Claiming a pre-accounts cookie** (`src/lib/creator-claim.ts`): the
   `pq_creator` cookie is no longer identity and nothing sets it any more. It
   survives for exactly one purpose: a browser that still carries one can hand

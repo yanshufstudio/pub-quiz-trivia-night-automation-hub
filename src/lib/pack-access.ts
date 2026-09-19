@@ -22,9 +22,9 @@ import { db } from "@/lib/db";
  *
  * Someone else's pack answers exactly as a pack that does not exist does —
  * 404 from an API, `notFound()` from a page — so an id cannot be probed for
- * existence. `GET /api/questions/[id]/media` is the one read that stays
- * open, because a team's phone renders the current question's image and
- * holds nothing that could authenticate it.
+ * existence. `GET /api/questions/[id]/media` followed: it is gated on the
+ * team token of a live session, or on this same predicate for a host — see
+ * `src/lib/question-media-access.ts`. No read by id is open any more.
  */
 
 export const NOT_OWNER_MESSAGE = "You can only edit packs you created";
