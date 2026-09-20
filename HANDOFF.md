@@ -25,7 +25,7 @@ the full record of the 2026-09-07→09 work.
 >
 > - **PR #21** (`claude/function-duration`, head `d5f66c0`) — `maxDuration`
 >   300 on generate, PDF and export.
-> - **PR #22** (`claude/accounts`, head `3879ecf`) — **host accounts**. This
+> - **PR #22** (`claude/accounts`, head `e860bf9`) — **host accounts**. This
 >   is the big one and it changes who may do what across the whole app. It
 >   has had a **second round** (three more commits, 19th, evening): sign-in
 >   by emailed six-digit code instead of a magic link, pack reads made
@@ -839,7 +839,10 @@ New in the 2026-09-19 session, second round:
   in the file — which is the opposite of the assumption that makes people
   think a manually-created context is unattributed. Corollary: a file-level
   `test.use` that calls a counter function evaluates it **once at module
-  load**, so every test in that file shares the one value.
+  load**, so every test in that file shares the one value. A spec that
+  deliberately *exhausts* a limit therefore takes its siblings down with it;
+  put it in a `test.describe` with its own nested `test.use` so the address
+  is scoped to that block.
 - **Better Auth's `getIP` falls back to a single `127.0.0.1` in dev and
   test** when no `x-forwarded-for` arrives, and its limiter keys on
   `ip|path`. So any test context without an address shares a bucket with
@@ -1795,6 +1798,44 @@ string.
 Two mutation checks, because a test that cannot fail is not evidence:
 `allowedAttempts` 5 → 50 fails the five-guesses test, and `canReadPack` →
 `return true` fails 7 of the 23 pack-read tests.
+
+### The rate-limit message — `e860bf9`, a fourth commit on #22
+
+A finding from verifying the second round, left open at the time as a
+judgement call about copy and then closed when the owner asked for it.
+
+Bursting the sign-in form past its 5-sends-a-minute limit produced
+*"Couldn't send that code. Check the address and try again"* — advice about
+the one thing that was definitely not wrong. It now says **"Too many
+attempts. Wait a minute and try again."**
+
+The generic wording stays everywhere else and stays for its original reason:
+anything that distinguished "no such account" from "sent" would turn the
+form into a way to test an address. A 429 carries no such risk, because the
+limiter is keyed on the caller's address and the path and knows nothing
+about the account. That is the whole rule, and it is why this is one
+exception rather than a loosening.
+
+All four failure surfaces share `src/lib/sign-in-errors.ts`: asking for a
+code, submitting one, submitting one from the emailed link, and starting the
+Google redirect. The 429 check runs **ahead of** the code table, because a
+throttled request never reaches the endpoint that produces those codes —
+`err.code` is undefined on a 429, so it used to fall through to the generic
+fallback and tell someone to ask for a fresh code they were about to be
+throttled out of asking for.
+
+**And the spec for it needed a second go, in the way this session keeps
+finding.** It bursts a limit, so it must not share a caller with anything
+else — and a file-level `test.use` hands ONE address to every test in the
+file, evaluated once at module load. The first version spent that address
+and took "a wrong code is refused" down with it: two failures in a full run,
+both green when run alone. A nested `test.use` inside a `test.describe`
+scopes the address to that block. Written down because it is the third time
+in one session that the file-level `test.use` has been the thing that bit.
+
+Gate at `e860bf9`: typegen, tsc, eslint (1 known alt warning), **unit 293**,
+**integration 263**, **e2e 80**, `next build`. Mutation check: making
+`isRateLimited` return false fails 3 of the new unit tests.
 
 ## Next
 
