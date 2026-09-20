@@ -1,4 +1,5 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect, type BrowserContext } from "@playwright/test";
+import { signedInContext } from "./sign-in-helper";
 
 /**
  * The browser print page (/packs/<id>/print) is the twin of the PDF
@@ -53,18 +54,38 @@ async function breakInside(page: import("@playwright/test").Page, selector: stri
 }
 
 test.describe("print page breaks at the size the default brief generates", () => {
+  /**
+   * One signed-in host owns the pack and opens every page here.
+   *
+   * This block imported the pack anonymously until host accounts landed. A
+   * pack is readable only by its owner now (PR #22, `src/lib/pack-access.ts`),
+   * so an anonymous import is refused outright and `/packs/<id>/print`
+   * redirects a stranger to /sign-in — which would have made these specs fail
+   * on a page that never rendered rather than on the policy they measure.
+   *
+   * The context is created once and shared: signing in per test would be five
+   * sign-ins to set up one fixture. `newAnonContext` inside `signedInContext`
+   * gives it a caller address of its own, so it does not share Better Auth's
+   * rate-limit bucket with the rest of the suite.
+   */
+  let context: BrowserContext;
   let packId: string;
 
-  test.beforeAll(async ({ baseURL }) => {
-    const api = await request.newContext({ baseURL });
-    const res = await api.post("/api/packs/import", { data: FULL_SIZE_PACK });
+  test.beforeAll(async ({ browser, baseURL }) => {
+    const signedIn = await signedInContext(browser, baseURL!);
+    context = signedIn.context;
+    const res = await signedIn.api.post("/api/packs/import", { data: FULL_SIZE_PACK });
     expect(res.status()).toBe(201);
     packId = (await res.json()).pack.id;
-    await api.dispose();
+  });
+
+  test.afterAll(async () => {
+    await context.close();
   });
 
   for (const tab of TABS) {
-    test(`${tab.label}: rounds flow, questions stay whole`, async ({ page }) => {
+    test(`${tab.label}: rounds flow, questions stay whole`, async () => {
+      const page = await context.newPage();
       await page.goto(`/packs/${packId}/print`);
       await page.getByRole("button", { name: tab.label }).click();
       await page.emulateMedia({ media: "print" });
@@ -86,7 +107,8 @@ test.describe("print page breaks at the size the default brief generates", () =>
   // the layout at all, or against a browser that reports `breakInside` as
   // something this spec never compares against. Put the old policy back on a
   // round and confirm the same read does report it.
-  test("the break-inside check itself detects the old policy", async ({ page }) => {
+  test("the break-inside check itself detects the old policy", async () => {
+    const page = await context.newPage();
     await page.goto(`/packs/${packId}/print`);
     await page.emulateMedia({ media: "print" });
 
