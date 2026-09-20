@@ -1,4 +1,4 @@
-# Handoff — 2026-09-13 (sessions appended through 2026-09-19)
+# Handoff — 2026-09-13 (sessions appended through 2026-09-20)
 
 Product name: **TriviaFoundry** (since 2026-09-16; was "Pub Quiz Hub" —
 pubquizhub.app is a live competitor). Repo slug and package name unchanged.
@@ -13,6 +13,42 @@ history — `git show 86069bd:HANDOFF.md` for the previous one, which still has
 the full record of the 2026-09-07→09 work.
 
 ## Where things stand
+
+> **State correction, 2026-09-20. Host accounts are live in production.**
+> `master` is **`af46f6d`** and that is what production runs. PRs **#21**,
+> **#22** and **#23** all merged on the 20th, so every "nothing from the 19th
+> merged" below is now history — read this note first.
+>
+> The owner signed in on https://triviafoundry.com end to end before handing
+> this session its work: Google, the emailed code, the confirm link, the
+> old-cookie claim, the free limit, and a team joining a game with no
+> account. This is the first thing in the project's history that was verified
+> against production by a person rather than inferred from a green suite.
+>
+> **The auth environment is configured on Vercel** — `BETTER_AUTH_SECRET`,
+> `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
+> `RESEND_API_KEY` and `EMAIL_FROM` are all set. Names only; no value of any
+> of them is written down here or anywhere else in this repo, and none should
+> be.
+>
+> - The Google OAuth client is named **"TriviaFoundry production"** and
+>   registers exactly one redirect URI,
+>   `https://triviafoundry.com/api/auth/callback/google`. That is why Google
+>   sign-in cannot work on a preview deployment and is not a bug — a preview
+>   hostname changes on every push and cannot be pre-registered. Previews use
+>   the emailed code.
+> - The Resend domain **triviafoundry.com is verified**, in the Ireland
+>   region.
+>
+> **PR #24** (`claude/practical-babbage-r02d8b`, the question-media route) is
+> still open. Its base was `claude/accounts`, which no longer exists as
+> anything to merge into; it has been retargeted to `master` and had `master`
+> merged into it, so it is testable on its own preview now.
+>
+> **PR #4** (`claude/paddle-pro-3a`) is untouched and still the owner's call.
+>
+> The corrections below are each the record of their own day and are all
+> superseded by this one.
 
 > **State correction, 2026-09-19. Nothing from this session has merged, and
 > `master` has not moved.** It is **`2263a4b`** (PR #20, the previous
