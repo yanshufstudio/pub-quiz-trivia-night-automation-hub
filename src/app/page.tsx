@@ -70,9 +70,21 @@ export default function Home() {
           {/* The account corner rides along with the links here as well —
               the two rows import both from one place so they cannot drift
               apart again the way the labels and Pricing did. */}
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm font-semibold text-stage-muted">
+          {/* 48px targets, as in SiteHeader, and -my-1.5 for the same reason:
+              the extra height reaches into the space around the row rather
+              than moving it. The 24px between labels used to be the gap
+              (gap-x-6); it is now the links' own padding (px-3 each side,
+              gap-x-0), so the words sit the same distance apart and the space
+              between them is pressable rather than dead. -ml-3 takes back the
+              first link's left padding, so on a phone, where the nav wraps
+              under the sign, "Create" still lines up with it. */}
+          <nav className="-my-1.5 -ml-3 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm font-semibold text-stage-muted">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="py-2 transition-colors hover:text-gold">
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex min-h-12 min-w-12 items-center justify-center px-3 transition-colors hover:text-gold"
+              >
                 {link.label}
               </Link>
             ))}

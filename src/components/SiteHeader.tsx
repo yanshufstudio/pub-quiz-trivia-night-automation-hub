@@ -46,17 +46,34 @@ export function SiteHeader() {
           share one row, so the nav drops to its own line rather than pushing
           the page sideways (the 2026-09-17 sweep caught "Join" cut off on an
           iPhone 15). */}
-      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-5 py-3.5">
+      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1.5 px-5 py-3.5">
         <Wordmark href="/" className="text-[1.35rem]" />
         {/* flex-wrap here too: with an email in the row, five items cannot
             share one line on a 320px phone, so the account corner drops
             under the links rather than widening the page. */}
-        <nav className="flex flex-wrap items-center gap-x-1 gap-y-0">
+        {/* Every control in this row is a 48px target (min-h-12/min-w-12):
+            Material's minimum, which also clears iOS's 44pt. They used to be
+            36px tall — fine for a pointer, small for a thumb, and these are
+            what a host taps most on a phone.
+
+            -my-1.5 lets the extra 12px reach into the header's own padding
+            instead of pushing the header open, so on one row the header is
+            exactly as tall as before and every word sits where it did; only
+            the part you can press grew. gap-y-1.5 above matches it, so on a
+            phone, where the nav wraps under the sign, the targets meet the
+            sign's line without overlapping it. So the header grows only where
+            the row wraps: 2px for that gap, plus 12px more on a phone, where
+            the account corner is a second line of targets, 48px instead of 36.
+
+            AccountNav holds Sign in / Sign out to the same floor, and its
+            pending placeholder to the same 48px, so the row does not move
+            when the session lands. */}
+        <nav className="-my-1.5 flex flex-wrap items-center gap-x-1 gap-y-0">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-md px-3 py-2 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
+              className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-md px-3 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
             >
               {link.label}
             </Link>

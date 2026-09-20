@@ -50,7 +50,16 @@ import { signOut, useSession } from "@/lib/auth-client";
  * a wider cap above `sm` would make the resolved width exceed the slot there
  * and reintroduce exactly this bug at some larger viewport.
  */
-const SLOT = "flex min-w-[13.5rem] items-center justify-end gap-1";
+const SLOT = "flex min-w-[13.5rem] items-center justify-end gap-1 [&>a]:min-h-12 [&>button]:min-h-12";
+
+/*
+ * The last two classes above are the tap-target floor for whatever control
+ * lands in the slot — "Sign in" or "Sign out" — at 48px, the same as the nav
+ * links beside it (see SiteHeader). They live on the slot rather than on each
+ * control so the floor and the pending placeholder's height (h-12, below) are
+ * stated side by side: if those two ever disagree, the header moves when the
+ * session resolves, which is the bug SLOT exists to prevent.
+ */
 
 export function AccountNav({ className = "" }: { className?: string }) {
   const { data, isPending } = useSession();
@@ -60,7 +69,7 @@ export function AccountNav({ className = "" }: { className?: string }) {
   if (isPending) {
     // Height as well as line, so the row is the right size before the answer
     // arrives rather than only the right shape.
-    return <span aria-hidden className={`h-9 ${SLOT} ${className}`} />;
+    return <span aria-hidden className={`h-12 ${SLOT} ${className}`} />;
   }
 
   if (!data?.user) {
