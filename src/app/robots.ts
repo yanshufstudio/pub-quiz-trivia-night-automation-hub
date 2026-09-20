@@ -23,8 +23,8 @@ import { SITE_URL } from "@/lib/site";
  * happening at all, and the meta tag is what still holds for a crawler that
  * ignores robots.txt but honours a meta tag.
  *
- * Left crawlable: the homepage, /pricing and the three legal pages —
- * exactly what sitemap.ts lists.
+ * Left crawlable: the homepage, /how-it-works, /pricing and the three legal
+ * pages — exactly what sitemap.ts lists.
  *
  * The trailing slashes are deliberate and not uniform. `/api/` and `/host/`
  * have one because only nested routes exist under them, so a future
