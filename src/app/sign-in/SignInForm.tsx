@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { emailOtp, signIn } from "@/lib/auth-client";
-import { signInCodeError } from "@/lib/sign-in-errors";
+import { googleSignInError, signInCodeError, signInSendError } from "@/lib/sign-in-errors";
 
 /**
  * Two ways in, no passwords: Google, or a code mailed to the address.
@@ -43,7 +43,7 @@ export function SignInForm({
     });
     if (err) {
       setBusy(null);
-      setError("Couldn't start Google sign-in. Please try again, or use the email code below.");
+      setError(googleSignInError(err));
     }
     // On success the browser is already navigating away, so `busy` stays set
     // deliberately: re-enabling the button would only invite a second click
@@ -61,10 +61,10 @@ export function SignInForm({
     setBusy(null);
 
     if (err) {
-      // Deliberately the same message whatever went wrong. Anything that
-      // distinguished "no such account" from "sent" would turn this form
-      // into a way to test whether an address has one.
-      setError("Couldn't send that code. Check the address and try again.");
+      // Deliberately the same message whatever went wrong, with one
+      // exception: being throttled is named, because a 429 cannot leak
+      // whether an address has an account. See src/lib/sign-in-errors.ts.
+      setError(signInSendError(err));
       return;
     }
     setCode("");
@@ -82,7 +82,7 @@ export function SignInForm({
 
     if (err) {
       setBusy(null);
-      setError(signInCodeError(err.code));
+      setError(signInCodeError(err));
       return;
     }
 

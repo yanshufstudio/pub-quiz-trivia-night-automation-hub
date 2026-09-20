@@ -33,7 +33,7 @@ export function ConfirmSignIn({ email, code }: { email: string; code: string }) 
     const { error: err } = await signIn.emailOtp({ email, otp: code });
     if (err) {
       setBusy(false);
-      setError(signInCodeError(err.code, { fromLink: true }));
+      setError(signInCodeError(err, { fromLink: true }));
       return;
     }
     // `refresh` before `push`: /packs renders from the session on the

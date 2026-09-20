@@ -159,6 +159,42 @@ test("the page's own alert is not the only role=alert on the page", async ({ pag
   await expect(pageAlert(page)).toHaveCount(1);
 });
 
+/**
+ * The one spec here that deliberately exhausts a rate limit, so it is the
+ * one spec that must not share a caller with anything else.
+ *
+ * The file-level `test.use` above hands ONE address to every test in this
+ * file that uses the `page` fixture — it is evaluated once, at module load.
+ * A burst spent on that address throttles this file's siblings, which is
+ * exactly what happened the first time this was written: this test failed
+ * partway through its own loop and took "a wrong code is refused" down with
+ * it. A nested `test.use` overrides it for this block alone.
+ */
+test.describe("the rate-limit message", () => {
+  test.use({ extraHTTPHeaders: { "x-forwarded-for": signInIp() } });
+
+  test("says to wait, not to check your address", async ({ page }) => {
+    // The limiter is 5 sends a minute per caller. The generic "check the
+    // address" wording is deliberate for every other failure — it is what
+    // stops the form being an account-existence oracle — but a 429 knows
+    // nothing about the address, so it says so.
+    for (let attempt = 1; attempt <= 6; attempt += 1) {
+      await page.goto("/sign-in");
+      await page.getByLabel("Email address").fill(randomEmail("throttled"));
+      await page.getByRole("button", { name: "Email me a sign-in code" }).click();
+      if (attempt < 6) {
+        await expect(page.getByRole("heading", { name: "Check your inbox" })).toBeVisible();
+      }
+    }
+
+    await expect(pageAlert(page)).toContainText("Wait a minute");
+    // And it must not send them off to re-read something that was never wrong.
+    await expect(pageAlert(page)).not.toContainText("address");
+    // Nothing was claimed to have been sent.
+    await expect(page.getByRole("heading", { name: "Check your inbox" })).toHaveCount(0);
+  });
+});
+
 test("a crafted confirm link cannot put someone else's words on the page", async ({ page }) => {
   // Anyone can write a /sign-in/confirm URL, and the page prints the address
   // back. Without a shape check that is a way to render a sentence of your
