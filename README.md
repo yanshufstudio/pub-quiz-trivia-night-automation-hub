@@ -83,8 +83,11 @@ breaking config change.
 
 - **Function timeout**: a four-round generation takes 20–30s end to end,
   well past the 10s default a serverless host gives a function.
-  `src/app/api/packs/generate/route.ts` exports `maxDuration = 60` for that
-  reason; if your host caps functions lower than that (or you raise the
+  `src/app/api/packs/generate/route.ts` exports `maxDuration = 300` for
+  that reason, and the PDF and export routes under `src/app/api/packs/[id]/`
+  do the same (a large pack's PDF measured 231s). 300 is the Vercel Pro
+  default; Hobby caps at 60, so on Hobby the platform clamps these down. If
+  your host caps functions lower than the request needs (or you raise the
   default pack size), the request dies as a gateway 504 before the pack is
   saved. The `/create` page shows that as a plain "server returned status
   504" message rather than a JSON-parse error.

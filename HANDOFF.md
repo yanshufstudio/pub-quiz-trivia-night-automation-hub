@@ -1,4 +1,4 @@
-# Handoff — 2026-09-13 (sessions appended through 2026-09-18)
+# Handoff — 2026-09-13 (sessions appended through 2026-09-19)
 
 Product name: **TriviaFoundry** (since 2026-09-16; was "Pub Quiz Hub" —
 pubquizhub.app is a live competitor). Repo slug and package name unchanged.
@@ -13,6 +13,43 @@ history — `git show 86069bd:HANDOFF.md` for the previous one, which still has
 the full record of the 2026-09-07→09 work.
 
 ## Where things stand
+
+> **State correction, 2026-09-19. Nothing from this session has merged, and
+> `master` has not moved.** It is **`2263a4b`** (PR #20, the previous
+> handoff) and that is what production runs. The 2026-09-18 note below says
+> `3bca366`, which was true when it was written and stopped being true the
+> moment it merged — read this one.
+>
+> Four PRs are open from the 19th, all green on `test` and on the `Vercel`
+> commit status, none merged:
+>
+> - **PR #21** (`claude/function-duration`, head `d5f66c0`) — `maxDuration`
+>   300 on generate, PDF and export.
+> - **PR #22** (`claude/accounts`, head `e860bf9`) — **host accounts**. This
+>   is the big one and it changes who may do what across the whole app. It
+>   has had a **second round** (three more commits, 19th, evening): sign-in
+>   by emailed six-digit code instead of a magic link, pack reads made
+>   owner-only, and the legal pages committed. Read that subsection before
+>   reading the first one — it replaces the sign-in mechanism entirely.
+> - **PR #24** (`claude/practical-babbage-r02d8b`) — the question-media
+>   route. **Its base is `claude/accounts`, not `master`**: it needs
+>   `canReadPack`, which does not exist on master. Merge #22 first and
+>   GitHub retargets this one.
+> - **PR #23** (`claude/handoff-2026-09-19`) — this file.
+>
+> **Two things wait on the owner and are written into PR #22's body**: the
+> environment variables and the Google OAuth client, and the list of what
+> PR #4 must change. Do not action either without the owner. The legal
+> drafts were the third; the owner approved them on the 19th and they are
+> committed, so /privacy and /terms are current again and the README's
+> "out of date" note is gone.
+>
+> **PR #4** (`claude/paddle-pro-3a`) is still open, still the owner's call,
+> and now needs work it did not need before — see the 2026-09-19 session
+> section.
+>
+> The corrections below are the record of their own days and are all
+> superseded by this one.
 
 > **State correction, 2026-09-18.** `master` is **`3bca366`** and that is what
 > production runs. It carries PRs **#17**, **#19** and **#18**, merged in that
@@ -423,7 +460,67 @@ model settled it in a minute. The lesson generalises — where the question is
 
 ## Open items
 
-*Re-checked 2026-09-18 against `master` `3bca366`. The entries added that day
+*Entries added 2026-09-19 come first. Everything below them was re-checked
+on the 18th and still holds — `master` has not moved since, because nothing
+from the 19th merged.*
+
+- **The owner has two decisions waiting, both written into PR #22's body.**
+  Nothing should be actioned without them. (1) The environment variables and
+  the Google OAuth client — `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`,
+  `GOOGLE_CLIENT_ID`/`_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, each
+  documented in `.env.example` with its reasoning. (2) The list of what PR #4
+  must change. *(The legal drafts were the third and are now approved and
+  committed — /privacy and /terms are current.)*
+
+- **`SIGN_IN_LINK_CAPTURE` was renamed to `SIGN_IN_EMAIL_CAPTURE`** in the
+  second round, along with `/api/test/sign-in-links` → `/api/test/sign-in-emails`.
+  Both are test-only and the suites set them for themselves, so there is
+  nothing to change on Vercel — but if the old name was ever set anywhere,
+  unset it, because the new gate does not read it.
+
+- **`GET /api/questions/[id]/media` is the only open read left, and it is
+  open by design rather than by omission.** Anyone holding a question id can
+  fetch its image. Narrowing it means scoping the read to a live session and
+  its team token, which changes what a team's browser sends — a team-facing
+  change, so it needs the owner. Until then: nothing private should be
+  uploaded as a question image.
+
+- **PR #4 cannot ship as written once accounts land, and the reason is a
+  security one.** `customData.creatorId` comes from `POST /api/creator/ensure`,
+  which mints a `Creator` for whatever cookie the browser sent. A cookie is
+  attacker-controlled, so that is a checkout that can be pointed at someone
+  else's creator. It must come from the session. `ensure` then has no reason
+  to exist, and `RestoreToken`//restore/phase 3b become unnecessary —
+  restoring Pro on a new device is now "sign in". Full file-by-file list in
+  PR #22's body.
+
+- **Google sign-in cannot work on preview deployments, by design.** A redirect
+  URI must be registered in Google Cloud ahead of time and `*.vercel.app`
+  changes on every push. Previews use the email link. Both `.env.example` and
+  `src/lib/auth.ts` say so at the point of use — this is not a bug to fix.
+
+- **Nothing sweeps an expired sign-in link nobody followed, or an expired
+  `authSession` row.** A link is deleted atomically when it *is* followed
+  (`consumeVerificationValue` deletes before it checks expiry, so even a stale
+  link cleans itself up). Both stop working on time; neither is removed. This
+  is why the drafted retention clause promises only that they stop working. A
+  real "and then it is deleted" promise needs a cleanup job first, and the
+  policy must not get ahead of the code.
+
+- **`/api/test/sign-in-links` is distinguishable from a path that does not
+  exist.** It answers `404 {"error":"Not found"}` where a missing path answers
+  Next's HTML 404. It leaks no links and names nothing, but it confirms the
+  path resolves to something. Three fixes were tried and measured, all worse —
+  see the 2026-09-19 session section before attempting a fourth.
+
+- **The header's tap targets are 36px.** "Sign in" and "Sign out" are 68x36
+  and 69x36, under the 44px iOS / 48px Material minimum. They match the four
+  existing nav links exactly, so this is the header's house style rather than
+  something accounts regressed — but it now applies to the two controls a host
+  taps most on a phone. Changing it means restyling the existing links too,
+  which is why it was left alone.
+
+*The entries below were re-checked 2026-09-18 against `master` `3bca366`. The entries added that day
 are first; the older ones below them still hold except where struck through.
 The 2026-09-15 note that used to open this section said it was trued up
 against `master` `80ca6fd` and PR #4 `d16a99f` — both SHAs have moved since.*
@@ -719,6 +816,86 @@ A generation costs real Anthropic credit. **429** = the per-IP limiter
 cookie per 30 days). They are different things; don't conflate them.
 
 ## Gotchas
+
+New in the 2026-09-19 session, second round:
+
+- **A GET that signs you in is a GET a scanner signs itself in with.**
+  Corporate mail filters fetch every link in incoming mail before the person
+  clicks, so any emailed link that consumes on GET is consumed by the filter
+  first. The emailed link must open a page that does nothing; only a button's
+  POST may spend anything. This is why `magicLink` was replaced by
+  `emailOTP` — the plugin was not at fault, the GET-consumes shape was.
+- **`page.getByRole("alert")` is ambiguous on every Next App Router page, and
+  only *sometimes* fails.** Next hydrates `<div
+  id="__next-route-announcer__" role="alert">` about 200ms after the HTML, so
+  a bare alert locator resolves to one element inside that window and two
+  after it, and Playwright's strict mode rejects two. An assertion that polls
+  inside the window passes on a quiet machine and fails on a busy one. Scope
+  it: `page.getByRole("main").getByRole("alert")`, or the `pageAlert()`
+  helper in `e2e/sign-in-helper.ts`.
+- **Playwright applies a test's `use` options to a direct
+  `browser.newContext()` too** (`runBeforeCreateBrowserContext`). So a
+  file-level `test.use({ extraHTTPHeaders })` silently reaches every context
+  in the file — which is the opposite of the assumption that makes people
+  think a manually-created context is unattributed. Corollary: a file-level
+  `test.use` that calls a counter function evaluates it **once at module
+  load**, so every test in that file shares the one value. A spec that
+  deliberately *exhausts* a limit therefore takes its siblings down with it;
+  put it in a `test.describe` with its own nested `test.use` so the address
+  is scoped to that block.
+- **Better Auth's `getIP` falls back to a single `127.0.0.1` in dev and
+  test** when no `x-forwarded-for` arrives, and its limiter keys on
+  `ip|path`. So any test context without an address shares a bucket with
+  every other such context in the run, across spec files. Give each one its
+  own valid IPv4 — a malformed one is silently dropped and lands back in the
+  shared bucket.
+- **Two functions stating one rule will drift.** `visiblePacksWhere` (a
+  Prisma `where` for the list) and `canReadPack` (a predicate for one row)
+  disagreed the moment reads were gated, because the filter still had a
+  signed-out branch that could no longer be reached. A test that evaluates
+  the filter by hand against every shape of row and compares it to the
+  predicate is cheap and would have caught it.
+- **A page that prints a query parameter back is a way to render text on your
+  domain.** `/sign-in/confirm?email=<a sentence>` showed it under the site
+  header next to a Sign in button. Shape-check and cap anything reflected,
+  even when nothing can be *done* with the page.
+
+New in the 2026-09-19 session:
+
+- **A green narrow-viewport suite does not mean the layout is still.** It
+  measured horizontal overflow and never measured *movement*, so two separate
+  layout shifts shipped through it — 36px on 380-500px, then 28px on
+  520-639px from the first fix. If a widget resolves client-side, the thing to
+  assert is that the header's height is the same before and after, with the
+  request **held open** so "pending" is observed rather than raced.
+- **Reserving a height does not stop a wrap; only reserving a width does.**
+  And an *empty* placeholder has zero **intrinsic** width, so it can change an
+  outer flex container's wrap even when its own line is fixed. Any element
+  whose content size depends on async state needs a footprint that does not.
+- **`notFound()` in a Route Handler does not render the 404 page.** That
+  happens for *page* routes. From a route handler it yields a bodiless 404 (0
+  bytes, no content-type), which is more anomalous than an ordinary JSON 404,
+  not less. It throws `NEXT_HTTP_ERROR_FALLBACK;404` as both `message` and
+  `digest`, so a direct handler call in a test gets a throw, not a `Response`.
+- **`NextResponse.rewrite` always emits `x-middleware-rewrite`, and it is
+  load-bearing.** Deleting the header does not hide the rewrite; it cancels
+  it, and the response becomes `200 OK` with an empty body.
+- **Better Auth's rate limiter shares one bucket in dev.** `getIP` falls back
+  to a single localhost key when no `x-forwarded-for` is present, so every
+  browser request from a local suite counts against the same 5-per-minute
+  allowance and specs throttle each other. Give each context its own
+  `x-forwarded-for` — and a **syntactically valid IPv4**, because a malformed
+  one is dropped and silently falls back to that shared key.
+- **`next dev` guards on a lockfile in `.next/dev`, not on the port.** A
+  leftover dev server refuses the next one with "Another next dev server is
+  already running" even when `ss` shows the port free. Kill the PID it names,
+  then `rm -rf .next/dev`. This happened twice; `pkill -f` from inside the
+  agent's own shell also kills the shell (exit 144), which is how the strays
+  survived in the first place.
+- **The build logs six `BetterAuthError: You are using the default secret`
+  lines, and that is correct.** `next build` evaluates `src/lib/auth.ts`
+  without `BETTER_AUTH_SECRET`, which is exactly the arrangement that keeps
+  the secret out of the build environment. Noise, not a defect.
 
 New in the 2026-09-18 session:
 
@@ -1212,9 +1389,478 @@ before merge.
 reproduce. Run `npx next typegen` before `tsc`, and see Gotchas for the
 Chromium override the e2e run needs in a sandbox.
 
+## What was built in the 2026-09-19 session — host accounts, the function ceiling
+
+**Nothing merged.** Two PRs opened, both green, both left for the owner.
+`master` is still `2263a4b`. This section is written as "built", not
+"landed", because none of it is in production.
+
+### PR #21 — `maxDuration` 300, because the account is on Pro
+
+`POST /api/packs/generate` had carried `maxDuration = 60` since 2026-09-08,
+and the comment above it read as though 60 were the platform's ceiling. It is
+not: the Vercel account is on **Pro**, where functions default to 300s and can
+go to 800s. That was not a free mistake — **a generation killed at 60s has
+already spent the Anthropic tokens it burned getting there**, so the caller
+got a 504 and the project got the bill. Large briefs were the ones paying.
+
+`[id]/pdf` and `[id]/export` had **no** `maxDuration` at all and ran on the
+platform default. The QA sweep measured **231s** for a large pack's PDF.
+Both now 300; export inlines media as base64 and scales the same way.
+
+Observable artifact, since nothing local enforces a wall-clock ceiling —
+`.next/server/functions-config-manifest.json`, built both ways:
+
+```
+before (master)            after (#21)
+/api/packs/generate  60    /api/packs/generate     300
+                           /api/packs/[id]/pdf     300
+                           /api/packs/[id]/export  300
+```
+
+The two routes being *absent* from the "before" manifest is the confirmation
+they had no declared ceiling. Whether Vercel honours 300 is Vercel's to
+demonstrate; it cannot be shown off-platform.
+
+`docs/portfolio-readiness.md` still says 60 in places and was **deliberately
+left alone** — those sit inside dated entries recording what was measured
+that day. `src/lib/generate-pack.ts` and the README said it as current fact
+and were corrected.
+
+*One correction to the brief that set this up*: it described the route's
+comment as calling 60 "the Hobby maximum". It did not — the word "Hobby"
+appears nowhere in the repo. The comment said "the platform's default
+function timeout", which was misleading by omission rather than wrong.
+
+### PR #22 — host accounts
+
+Identity was an unsigned `pq_creator` cookie. Clearing cookies handed a
+visitor a fresh free allowance, lost them every pack they had written, and —
+once Paddle goes live — would lose a buyer their Pro. **Better Auth 1.7.5**
+with the Prisma adapter over the existing libSQL client; Google, or a link
+mailed to the address; no passwords. 92 files.
+
+**Teams never sign in, and that is load-bearing.** `/play`, joining,
+answering, the team portal, `GET /api/sessions/[code]` and
+`GET /api/questions/[id]/media` all stay open — a pub full of strangers
+cannot be asked to make an account to answer question three, and a team's
+phone holds nothing that could authenticate it.
+
+**The surfaces that carry the answers changed, and this is the one behaviour
+change worth knowing about.** The PDF, print and export routes did **not**
+need an account before. They do now.
+
+**Schema.** Four Better Auth tables plus `Creator.userId String? @unique`.
+`Session` is already the *game* session — the row behind a five-character
+join code — so Better Auth's live in **`authSession`**;
+`src/lib/auth-config.test.ts` fails if that ever changes, because the failure
+mode is a corrupted quiz night rather than a broken login. The migration is
+hand-written, as they all are here: `prisma migrate diff` wanted to
+`DROP TABLE "Creator"` and rebuild it to add one nullable column, and SQLite
+does not need that. **Purely additive** — verified by applying it and dumping
+`sqlite_master`; `Creator` keeps its original DDL with the column appended.
+
+**Claiming.** `pq_creator` is no longer identity and **nothing sets it any
+more** — it is read in exactly one place, `legacyDeviceKey` in
+`src/lib/auth-guard.ts`. A browser still carrying one hands it over once, on
+sign-in, so the packs and used allowance behind it move onto the account. A
+Creator belonging to another user is never taken, and a merge keeps the
+**higher** of the two counts — the alternative makes claiming itself the way
+to refund an allowance.
+
+**The proxy is not the defence.** `src/proxy.ts` (Next 16's renamed
+`middleware.ts`) redirects on a missing session cookie, but `auth-guard.ts`
+running `auth.api.getSession` is what actually decides. `src/proxy.test.ts`
+forges a cookie and walks straight through the proxy to prove the point.
+
+### Two bugs caught by re-reading and re-measuring, not by the suite
+
+Both were self-inflicted and both were found *after* the code looked right:
+
+- **The production secret check had to move.** Throwing at module load made
+  `next build` itself depend on `BETTER_AUTH_SECRET`, which forces the secret
+  into the build environment and stops `npm run build` working locally. It is
+  now `assertAuthConfigured()`, per request. Verified on a real `next start`:
+  with no secret, `/` and `/pricing` still serve, every auth endpoint 500s,
+  and `/packs` **with a forged cookie** 500s rather than letting it in.
+
+- **The claim's merge transaction re-read only the orphan.** It used the
+  account's own row as read *before* the transaction, so a sign-in racing a
+  generation could write a **lower** used count back — the exact failure the
+  whole design exists to prevent, arriving through the one path meant to
+  guarantee it cannot. Both rows are now read inside the transaction. There
+  is no test that provokes that interleaving deterministically; this is a
+  code fix and a comment, not a test claim.
+
+### A layout shift that took two goes
+
+The account corner resolves client-side, so for a moment the header does not
+know which of three differently-sized things it will show. The placeholder
+reserved a **height** and nothing else, and **width** is what decides a wrap:
+on a 390px phone the nav row has 107px left after the four links, the 64px
+placeholder and 68px "Sign in" fitted, and the signed-in 217px did not. A
+host's email arriving wrapped the corner to a new line and shoved the page
+down **36px**, at **380-500px** — iPhone 13/14, Pixel 5/7, iPhone 14 Pro Max.
+
+Giving it its own line below `sm` fixed that band and **broke 520-639px**,
+because an empty placeholder also has zero *intrinsic* width: the header's
+outer row sized the nav at 243px pending and 459px resolved and wrapped
+differently, shifting 28px — now for **signed-out** visitors, who never had a
+shift at all. Only re-running the same sweep caught it.
+
+The slot is now a fixed width in every state at every viewport. Re-measured
+320-1280px signed out, signed in, and signed in with a 76-character address:
+**worst movement 0px, worst overflow 0px**. Tablets and landscape phones came
+out 28px *shorter* than before.
+
+`e2e/sign-in.spec.ts` now holds the `get-session` request open so "pending"
+is observed rather than raced. Checked against the previous component: those
+tests fail at exactly 390px and 430px signed in and pass at 320/560/1280, so
+they pin the bug rather than the implementation.
+
+**The suite measured horizontal overflow and never measured movement**, which
+is why neither shift was caught. Worth remembering before trusting a green
+narrow-viewport run.
+
+### The e2e sign-in capture, and its one residual weakness
+
+A browser cannot open an email, so the suite reads the link back from
+`GET /api/test/sign-in-links`. That route needs **all three** of
+`NODE_ENV !== "production"`, `SIGN_IN_LINK_CAPTURE === "1"`, and no
+`RESEND_API_KEY`. Verified on a production server with the flag *deliberately
+set*: 404 on GET and DELETE, before and after a real sign-in, nothing
+captured, and the send failing loudly with `SignInEmailNotConfiguredError`.
+
+**It is not indistinguishable from a path that does not exist, and three
+attempts to make it so all failed.** Recorded so nobody re-treads it:
+
+1. `notFound()` from `next/navigation` renders the 404 *page* only for page
+   routes; from a route handler it yields a **bodiless** 404 (0 bytes), which
+   is *more* anomalous than the JSON, not less.
+2. A proxy rewrite to a nonexistent path produced a byte-identical body
+   (19,621 bytes) and identical headers — except `x-middleware-rewrite`,
+   which announces the rewrite and leaks an internal path.
+3. Deleting that header breaks the rewrite outright: `200 OK`, empty body.
+   The header is what performs it.
+
+So the JSON 404 stays. What leaks is that the path resolves to *something
+that declines* — no links, no status, no hint what it is.
+
+### Verification
+
+Driven in a browser rather than re-run as tests: signed-out redirects with
+the query string preserved, the sign-in journey by **tap** on nine device
+profiles (iPhone SE through iPad Mini, plus two landscape), sign-out, a
+re-used link refused in a second browser, a team playing a full question with
+**zero cookies**, and the 401 sweep over every host route by raw HTTP.
+
+Hostile `?next=` values — `//evil.test`, `https://evil.test/steal`,
+`/\evil.test` — all rewrote to `/packs`; the browser never left the origin.
+Better Auth's own `trustedOrigins` refuses a hostile `callbackURL` posted
+straight at the API with `403 INVALID_CALLBACK_URL`, so `safeNextPath` is the
+second line, not the only one.
+
+Gate at the first round's final commit (`e8967bd`): typegen, tsc, eslint (1
+known alt warning), **unit 275**, **integration 234**, **e2e 69**,
+`next build`. Baselines were 236 / 179 / 41. The second round's numbers are
+at the end of the next section.
+
+### Second round on PR #22 — the sign-in a mail filter cannot spend
+
+Three commits on the evening of the 19th, after the owner reviewed the
+first round: `4f3e367`, `2e5b541`, `3879ecf`. Head is `3879ecf`.
+
+**The magic link was broken for anyone behind a corporate mail filter, and
+not subtly.** `GET /api/auth/magic-link/verify` is GET-only and consumes the
+token on the first GET. Microsoft 365 Safe Links, Defender and Proofpoint
+fetch every link in incoming mail *before* the person clicks. So for those
+hosts the link was spent by the filter and their first click said "already
+been used". **A GET that signs you in is a GET a scanner signs itself in
+with** — worth holding on to as a rule, because it is not specific to this
+app.
+
+`magicLink` is gone; `emailOTP` replaces it. One email carries **one secret,
+two ways to use it**: six digits to type on `/sign-in`, and a link to
+`/sign-in/confirm?email=…&code=…` carrying the same digits. That page reads
+nothing, writes nothing and submits nothing on its own — no database call, no
+session lookup, no `useEffect` that fires on mount — so a scan costs nothing.
+Only its button's `POST /api/auth/sign-in/email-otp` spends the code.
+
+One secret rather than a link token *plus* a code, deliberately. Two
+independent tokens buy nothing once the link consumes nothing, and cost two
+expiries, two attempt budgets, and a host who clicks the link *and* types the
+code ending up with two sessions. Kept from the old flow: 15 minutes, single
+use, no answer that reveals whether an address has an account. New: five
+wrong guesses kill a code, and the budget is spent **per code** rather than
+per caller, so changing address buys a guesser nothing. Codes are stored
+hashed.
+
+Nothing in `prisma/` changed. The code lives in the `verification` table the
+accounts migration already creates, under identifier `sign-in-otp-<address>`,
+so there is no second migration and `20260919180000_add_accounts` is
+byte-for-byte what it was. That matters more than it sounds: the PR #22
+preview build ran `prisma migrate deploy` against a `DATABASE_URL` scoped to
+Production **and** Preview, so that migration is almost certainly already
+applied to the production database. **Never edit it.** Any future schema
+change is a new migration.
+
+**What is deliberately worse.** The link no longer carries where you were
+going: type the code in the tab you started in and you land back on
+`/packs/<id>`; follow the link and you land on `/packs`. Nothing carries that
+intent through an inbox, the link is routinely opened on a different device
+from the one that started, and a redirect target arriving from an email is
+one more externally-supplied URL to validate. Both behaviours are pinned in
+`e2e/host-gate.spec.ts` so neither can drift into an accident.
+
+**The residual risk, because it is not zero.** A scanner that merely *fetches*
+the link costs nothing — that is the design. A scanner that executes
+JavaScript and *clicks buttons* would still spend the code, and with one
+secret the typed half goes with it. Much rarer than a plain fetch, and the
+answer is the same as a forwarded email: ask for a fresh code. Two
+independent tokens would close it; the trade is written up in PR #22's body.
+
+### Second round — reading a pack now means owning it
+
+`GET /api/packs/[id]` returned every question and every answer to anyone
+holding an id, with no account at all, on the theory that a cuid is unlisted.
+**Nothing in the client has ever called it** — the editor is server-rendered
+and a team's phone reads `/api/sessions/[code]` — so the only thing that hole
+served was whoever found an id. The other read surfaces needed an account but
+not ownership, so any *other* signed-in host with an id could read a
+quizmaster's unrun pack, which is the one thing in this product worth
+stealing.
+
+Six surfaces now require ownership, not the five that are obvious:
+`/packs/[id]`, `/packs/[id]/print`, `GET /api/packs/[id]`, the PDF route, the
+export route — and **`POST /api/sessions`**, which was not on the brief's
+list. Running a session on a pack puts every question and every answer on the
+host desk, so starting one is a read. Without it, "every pack read is
+owner-only" would have been true of five doors and false of the side
+entrance.
+
+Somebody else's pack answers **exactly** as a pack that does not exist: same
+status, same content type, same bytes from an API, `notFound()` from a page,
+asserted side by side. Anything that differed would make each surface an
+existence oracle for pack ids. The ownerless demo stays readable by any
+signed-in host, which is what keeps Export → Import working as the way to
+take an editable copy.
+
+`visiblePacksWhere` lost its null branch *and* its null parameter. It
+described a signed-out listing, which has not existed since accounts landed,
+and a branch for a state that cannot occur is a branch that quietly disagrees
+with the single-row check. The two are now asserted to agree for every shape
+of pack.
+
+**`GET /api/questions/[id]/media` stays open and is now the only open read.**
+A team's phone renders the current question's image and holds nothing that
+could authenticate it. Narrowing it means scoping the read to a live session
+and its team token, which changes what a team's browser has to send — a
+team-facing change, so it was left alone and flagged to the owner instead.
+Anyone holding a question id can fetch its image; nothing private should be
+uploaded as a question image.
+
+### Second round — the flaky spec, and why the obvious diagnosis was wrong
+
+The brief said `e2e/sign-in.spec.ts` "a sign-in link works once" failed about
+one run in two, and blamed the two `browser.newContext({ baseURL })` calls
+sharing Better Auth's localhost rate-limit bucket. **It was not that**, and
+the hour spent proving it was worth it.
+
+- Those contexts **were** attributed. Playwright fills a test's `use` options
+  into a direct `browser.newContext()` too — `runBeforeCreateBrowserContext`
+  in `playwright/lib/index.js` — so the file-level `test.use({
+  extraHTTPHeaders: { "x-forwarded-for": signInIp() } })` reached them.
+- The arithmetic did not work either: `/magic-link/verify` was capped at 10
+  per 60s and that spec put two requests in the bucket.
+- Three consecutive full runs of the **unmodified** suite: 69/69 each time.
+
+The real cause: Next hydrates a route announcer — `<div
+id="__next-route-announcer__" role="alert">` — into every App Router page, so
+`page.getByRole("alert")` is ambiguous and Playwright's strict mode fails on
+two matches. The announcer arrives **after** the HTML, so there is a window
+in which the locator resolves to one element and the assertion passes.
+Measured on `/sign-in?error=…`, polling every 25ms from `waitUntil: "commit"`:
+
+```
+attempt 1: counts=1,1,1,1,1,1,1,1,1,2  → became 2 after ~225ms
+attempt 2: counts=1,1,1,1,1,1,1,1,1,2  → became 2 after ~225ms
+attempt 3: counts=1,1,1,1,1,1,1,1,2    → became 2 after ~200ms
+```
+
+An assertion whose first poll lands inside that window passes; the same
+assertion on a busier machine does not. That is a load-dependent race that
+fails about one run in two and passes alone — the report exactly.
+`e2e/pack-file.spec.ts` had already worked around it with a `.filter()`, so
+it has bitten here before and nobody wrote it down. Now: a named
+`pageAlert(page)` helper scoped to `<main>`, and a spec that pins the reason.
+
+The rate-limit work is in anyway, as hygiene and not as the fix. Two real
+ordering hazards it removes: every context in a file with a file-level
+`test.use` shared **one** caller address, and contexts in files without one
+had no address at all and shared Better Auth's `127.0.0.1` fallback across
+the whole run. Every e2e context now announces its own caller, worker-scoped
+so raising `workers` above 1 cannot collide.
+
+### Second round — the legal pages, committed
+
+The owner approved the drafts with edits, so /privacy and /terms are current
+again and `LEGAL_LAST_UPDATED` is `2026-09-19`. `[contact]` is the existing
+`ContactLink` component throughout. The README's "out of date as of host
+accounts" note is gone.
+
+**The cookie clause names every cookie this configuration can set, and the
+list came from what the configured instance actually emits** — driven through
+`auth.handler` and read off the `Set-Cookie` headers, not taken from the
+documentation:
+
+| Cookie | Life | When |
+|---|---|---|
+| `__Secure-better-auth.session_token` | 7 days, refreshed by use | On sign-in |
+| `__Secure-better-auth.state` | 5 minutes | Only while a Google sign-in is in flight |
+| `pq_creator` | legacy | Never set any more; read once, on first sign-in |
+
+Better Auth's `session_data`/`account_data` need the cookie cache, which is
+off; `dont_remember` needs a `rememberMe`, which only the password endpoints
+accept and those are disabled. Neither is reachable here.
+
+The retention clause promises only what the code does. Better Auth deletes a
+code's row the moment it is consumed, and an expired row when a submission
+arrives for it, but **nothing sweeps a code nobody ever tries**. So the page
+says both stop working and claims no deletion there is no job to perform. A
+real "and then it is deleted" promise needs a cleanup job first.
+
+### The media route — PR #24, stacked on #22
+
+Asked for separately, after the second round, and kept out of #22 so the
+accounts PR did not grow a sixth topic.
+
+`GET /api/questions/[id]/media` was the last read in the app that took
+nothing at all: the bytes went to whoever held the question id. Ids travel —
+screenshots, logs, a shared URL, an exported pack — and a picture round is
+the sort of thing a rival quizmaster would take.
+
+The rule is stated so that it cannot disagree with what the app already
+shows: **the image goes to whoever the session state would serve the question
+to.** A team holding a token for the session whose *current* question this
+is, or the desk holding that session's host key — the same credential, for
+the same question, that `GET /api/sessions/[code]` already answers with
+`hasMedia: true`. Or a host who may read the pack, which is `canReadPack`.
+Everyone else gets the 404 a question with no image gets.
+
+The current question and not "anything in the session's pack", because a team
+that could walk the pack could read round four's picture round during round
+one. And "current" is resolved with `getCurrentQuestion` — the same function
+the session payload uses, against the same query shape — rather than a
+cheaper comparison of the stored `index` columns: if the gate and the payload
+ever disagreed the symptom would be images silently missing from a live quiz,
+and being one function is what makes that impossible rather than unlikely.
+
+An `<img>` cannot send a header, so the two callers with no session cookie
+put the credential on the query string (`?code=…&token=…` for a phone,
+`?code=…&hostToken=…` for the desk). Not a new exposure — a team's token is
+already a query parameter on every poll it makes — and one builder,
+`questionMediaUrl`, is what stops the client and the gate drifting apart.
+
+Two notes for whoever comes next. A team in the **lobby** can fetch the first
+question's image, which is deliberate and is a test: the session payload
+already hands a team that question's *text* before the host starts, so
+withholding the picture would guard nothing. And `GET /api/sessions/[code]`
+still compares a team token with `===` rather than in constant time — that is
+pre-existing, it was left alone rather than widening this diff into the route
+every team polls every three seconds, and it is a two-line follow-up.
+
+### Second round — verification, and the gate
+
+Driven in a browser rather than re-run as tests: the whole sign-in flow at
+390px (form → check-your-inbox → wrong code → the confirm page → signed in),
+and /privacy at 1280px. The confirm page and the code field were both added
+to `e2e/narrow-viewport.spec.ts` at 320/360/390/430px — neither is reachable
+by a plain `goto`, which is why they had no coverage.
+
+Two claims checked against the running server rather than reasoned about:
+
+- **Where the emailed link points.** Driven through the real handler with
+  three `Host` headers. A preview host gets a preview link, the production
+  domain gets a production link, and a forged `evil.test` falls back to the
+  configured origin rather than mailing somebody a link to an attacker's
+  domain.
+- **A hydration warning in the dev overlay was mine, not the app's.**
+  `caret-color: transparent` on the focused input is what Playwright's
+  `screenshot({ caret: "hide" })` default injects. The served HTML has none.
+
+Gate at `3879ecf`: typegen, tsc, eslint (1 known alt warning), **unit 286**,
+**integration 263**, **e2e 79** — the e2e suite run **three times end to
+end**, 79/79 each time — and `next build`. `/`, `/pricing`, `/terms`,
+`/privacy`, `/refunds` and `/play` all stayed **static**; `/sign-in/confirm`
+is dynamic, which it has to be, because it reads a code out of the query
+string.
+
+Two mutation checks, because a test that cannot fail is not evidence:
+`allowedAttempts` 5 → 50 fails the five-guesses test, and `canReadPack` →
+`return true` fails 7 of the 23 pack-read tests.
+
+### The rate-limit message — `e860bf9`, a fourth commit on #22
+
+A finding from verifying the second round, left open at the time as a
+judgement call about copy and then closed when the owner asked for it.
+
+Bursting the sign-in form past its 5-sends-a-minute limit produced
+*"Couldn't send that code. Check the address and try again"* — advice about
+the one thing that was definitely not wrong. It now says **"Too many
+attempts. Wait a minute and try again."**
+
+The generic wording stays everywhere else and stays for its original reason:
+anything that distinguished "no such account" from "sent" would turn the
+form into a way to test an address. A 429 carries no such risk, because the
+limiter is keyed on the caller's address and the path and knows nothing
+about the account. That is the whole rule, and it is why this is one
+exception rather than a loosening.
+
+All four failure surfaces share `src/lib/sign-in-errors.ts`: asking for a
+code, submitting one, submitting one from the emailed link, and starting the
+Google redirect. The 429 check runs **ahead of** the code table, because a
+throttled request never reaches the endpoint that produces those codes —
+`err.code` is undefined on a 429, so it used to fall through to the generic
+fallback and tell someone to ask for a fresh code they were about to be
+throttled out of asking for.
+
+**And the spec for it needed a second go, in the way this session keeps
+finding.** It bursts a limit, so it must not share a caller with anything
+else — and a file-level `test.use` hands ONE address to every test in the
+file, evaluated once at module load. The first version spent that address
+and took "a wrong code is refused" down with it: two failures in a full run,
+both green when run alone. A nested `test.use` inside a `test.describe`
+scopes the address to that block. Written down because it is the third time
+in one session that the file-level `test.use` has been the thing that bit.
+
+Gate at `e860bf9`: typegen, tsc, eslint (1 known alt warning), **unit 293**,
+**integration 263**, **e2e 80**, `next build`. Mutation check: making
+`isRateLimited` return false fails 3 of the new unit tests.
+
 ## Next
 
-*Rewritten 2026-09-18 against `master` `3bca366`. The previous list was trued
+*Updated 2026-09-19. Items 0a and 0b are new and come first because both are
+sitting in open PRs; the numbered list below them is the 2026-09-18 list,
+unchanged and still accurate — nothing from the 19th merged.*
+
+0a. **Decide PR #21, #22 and #24, in that order where it matters.** All
+    green on `test` and `Vercel`, none merged. **#24 is stacked on #22** —
+    its base branch is `claude/accounts`, so #22 merges first and GitHub
+    retargets #24 to master. #21 is five files and carries no
+    behaviour change beyond the wall-clock ceiling. #22 is host accounts,
+    now after two rounds, and needs the two owner decisions in Open items
+    *before* it is useful in production — in particular it will not serve a
+    sign-in without `BETTER_AUTH_SECRET` and `RESEND_API_KEY`/`EMAIL_FROM`,
+    which is deliberate: it fails loudly rather than signing cookies with a
+    published default key.
+
+0b. **Set the environment variables and create the Google OAuth client.**
+    This is now the only thing standing between #22 and a working sign-in.
+    The table and the exact redirect URIs are in PR #22's body; every
+    variable is also in `.env.example` with its reasoning. Nothing on Vercel,
+    Turso, Google or Resend has been touched from this side.
+
+*The list below was rewritten 2026-09-18 against `master` `3bca366`. The previous list was trued
 up on the 15th and had gone wrong in two places by the 17th: item 0 asked for
 a rename PR that had already merged, and item 3 said the print page-break fix
 was uncommitted when `a763086` had carried it since 2026-09-10. Both are
