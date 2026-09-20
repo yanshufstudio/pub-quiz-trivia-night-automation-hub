@@ -16,6 +16,7 @@ function makeCreator(overrides: Partial<Creator> = {}): Creator {
     packsGeneratedInPeriod: 0,
     periodStartedAt: new Date(),
     createdAt: new Date(),
+    userId: null,
     ...overrides,
   };
 }

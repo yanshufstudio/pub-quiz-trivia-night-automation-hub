@@ -7,18 +7,20 @@ import { rateLimit } from "@/lib/rate-limit";
 import { MissingApiKeyError } from "@/lib/anthropic";
 import {
   canGenerate,
-  getCreatorReadOnly,
-  getOrCreateCreator,
   reserveFreeGeneration,
   withRolledPeriod,
   FREE_LIMIT,
 } from "@/lib/creator";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { reserveDailyGeneration } from "@/lib/daily-ceiling";
 
 // Default wizard brief (four rounds) exceeds the platform's default function
-// timeout. Raise the ceiling; see docs/portfolio-readiness.md "Reopened
-// 2026-09-08" for the measured cause.
-export const maxDuration = 60;
+// timeout; see docs/portfolio-readiness.md "Reopened 2026-09-08" for the
+// measured cause. 60 was never the ceiling we had to live with: this team is
+// on Vercel's Pro plan, where functions default to 300s and can be raised to
+// 800s. A large brief killed at 60s has already spent the model tokens it
+// burned getting there, so the low ceiling cost money and returned nothing.
+export const maxDuration = 300;
 
 /**
  * Every generation failure used to come back as one 502 saying "Please try
@@ -74,7 +76,13 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Validated before an identity exists. A malformed body used to mint a
+  // Generation is a host action and costs real money, so it needs a real
+  // account. Behind the per-IP limiter, so an unauthenticated flood is
+  // bounded before it can cost a session lookup.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
+  // Validated before anything is reserved. A malformed body used to mint a
   // Creator row and hand out a cookie on its way to a 400 — free storage for
   // anyone pointing a script at the endpoint.
   const body = await req.json().catch(() => null);
@@ -83,13 +91,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid request", details: parsed.error.flatten() }, { status: 400 });
   }
 
-  // Read-only, so a caller with no cookie is simply FREE — the lowest trust
-  // there is — and still has no row in the database. Minting one is what the
-  // old order did first, which is exactly what made a cookie-less curl loop
-  // an unlimited generator: every request arrived as a brand-new creator with
-  // a full allowance.
-  const existing = await getCreatorReadOnly(req);
-  const plan = existing?.plan === "PRO" ? "PRO" : "FREE";
+  // Identity, and the row that carries the allowance. A signed-out caller
+  // never gets here at all now, which closes the hole this comment used to
+  // describe from the other end: a cookie-less curl loop was an unlimited
+  // generator because every request arrived as a brand-new creator with a
+  // full allowance. There is no "brand-new creator per request" any more —
+  // an account has exactly one, and clearing cookies does not make another.
+  const existing = host.creator;
+  const plan = existing.plan === "PRO" ? "PRO" : "FREE";
 
   // Settle this creator's own cap first, against the row we already have.
   // reserveFreeGeneration below is still the authority — this read cannot be
@@ -98,7 +107,7 @@ export async function POST(req: NextRequest) {
   // 403. At the ceiling boundary that churn can make a genuine visitor whose
   // request interleaves read one over the limit and be refused capacity that
   // is not actually in use.
-  if (existing && !canGenerate(existing)) {
+  if (!canGenerate(existing)) {
     return NextResponse.json(
       {
         error: "You've used your free packs for this period. Upgrade to Pro for unlimited generation.",
@@ -131,12 +140,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { creator, setCookieOn } = await getOrCreateCreator(req);
-
   // Claimed before the model call, not counted after it: the check and the
-  // increment are one atomic statement, so two concurrent requests on one
-  // cookie can no longer both pass on the same stale read (M12).
-  const reservation = await reserveFreeGeneration(creator);
+  // increment are one atomic statement, so two concurrent requests from one
+  // account can no longer both pass on the same stale read (M12).
+  const reservation = await reserveFreeGeneration(existing);
   if (!reservation.reserved) {
     await daily.release();
     const res = NextResponse.json(
@@ -147,7 +154,6 @@ export async function POST(req: NextRequest) {
       },
       { status: 403 }
     );
-    setCookieOn(res);
     return res;
   }
 
@@ -205,7 +211,6 @@ export async function POST(req: NextRequest) {
         },
         { status: 503 }
       );
-      setCookieOn(res);
       return res;
     }
     // Log the real cause server-side; don't forward raw SDK/API error
@@ -218,7 +223,6 @@ export async function POST(req: NextRequest) {
       console.error("Quiz pack generation failed:", err);
     }
     const res = NextResponse.json(failureBody(err), { status: failureStatus(err) });
-    setCookieOn(res);
     return res;
   }
 
@@ -231,14 +235,12 @@ export async function POST(req: NextRequest) {
 
   let pack;
   try {
-    pack = await createPackFromGenerated(generated.pack, parsed.data.prompt, creator.id);
+    pack = await createPackFromGenerated(generated.pack, parsed.data.prompt, existing.id);
   } catch (err) {
     // The model ran and was billed, so the daily unit stays spent — but the
     // caller has nothing to show for it, and charging them a free pack for
     // our storage failure would, at FREE_LIMIT of 2, lock them out for 30
-    // days after two of these. The cookie still goes back: without it a
-    // first-time visitor's freshly minted Creator row is orphaned, along
-    // with every pack they generate afterwards under a new identity.
+    // days after two of these.
     console.error("Generated pack could not be saved:", err);
     try {
       await reservation.release();
@@ -249,11 +251,9 @@ export async function POST(req: NextRequest) {
       { error: "The quiz pack was generated but could not be saved. Please try again." },
       { status: 500 }
     );
-    setCookieOn(res);
     return res;
   }
 
   const res = NextResponse.json({ pack }, { status: 201 });
-  setCookieOn(res);
   return res;
 }

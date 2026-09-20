@@ -37,7 +37,25 @@ export async function rateLimit(
   key: string,
   { limit, windowMs, identity }: { limit: number; windowMs: number; identity?: string }
 ): Promise<{ allowed: boolean; retryAfterSeconds: number }> {
-  const bucketKey = `ratelimit:${key}:${identity ?? clientIp(req)}`;
+  return consumeRateLimit(`ratelimit:${key}:${identity ?? clientIp(req)}`, { limit, windowMs });
+}
+
+/**
+ * The same limiter, addressed by a fully-formed bucket key instead of by a
+ * request.
+ *
+ * Better Auth's own rate limiting is wired to this (see the `customStorage`
+ * in src/lib/auth.ts): its endpoints must be bounded by the *same* store as
+ * everything else here, or a deploy with Upstash configured would still be
+ * counting sign-in attempts in a per-instance Map — which on a serverless
+ * host is N limiters, not one. It hands us a key and a rule and has no
+ * NextRequest to give, hence this entry point. `rateLimit` above is now a
+ * thin wrapper that only decides what the key is.
+ */
+export async function consumeRateLimit(
+  bucketKey: string,
+  { limit, windowMs }: { limit: number; windowMs: number }
+): Promise<{ allowed: boolean; retryAfterSeconds: number }> {
   return redis ? redisRateLimit(redis, bucketKey, limit, windowMs) : memoryRateLimit(bucketKey, limit, windowMs);
 }
 

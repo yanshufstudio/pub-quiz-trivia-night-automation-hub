@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { isValidHostToken } from "@/lib/host-auth";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 const overrideSchema = z.object({
   isCorrect: z.boolean(),
@@ -13,6 +14,12 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ code: string; answerId: string }> }
 ) {
+  // A score override is the host's, and the host has an account. The
+  // per-session host token check below is unchanged and still decides which
+  // session this browser may score.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
   const { code, answerId } = await params;
   const body = await req.json().catch(() => null);
   const parsed = overrideSchema.safeParse(body);

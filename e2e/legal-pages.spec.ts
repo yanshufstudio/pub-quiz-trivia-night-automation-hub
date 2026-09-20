@@ -1,4 +1,5 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { signedInContext } from "./sign-in-helper";
 import { CONTACT_EMAIL, LEGAL_LAST_UPDATED } from "@/lib/site";
 
 // Paddle's website review requires the three policy pages to be publicly
@@ -55,10 +56,12 @@ test("every policy page is reachable from the footer of an ordinary page", async
 // list is right. /play and /host are run in front of a room; anything on the
 // print sheet comes out of the printer. Each is checked against a real URL
 // rather than the regex, so a change to either one has to fail here.
-test("the footer stays off the surfaces that carry no chrome", async ({ page, baseURL }) => {
-  const api = await request.newContext({ baseURL });
+test("the footer stays off the surfaces that carry no chrome", async ({ browser, baseURL }) => {
+  // /packs/<id> and its print sheet are host surfaces now, so this spec
+  // needs a session to reach them at all.
+  const { context, api } = await signedInContext(browser, baseURL!);
   const { pack } = (await (await api.post("/api/packs/seed")).json()) as { pack: { id: string } };
-  await api.dispose();
+  const page = await context.newPage();
 
   for (const path of ["/play", "/host/ABCDE", `/packs/${pack.id}/print`]) {
     await page.goto(path);

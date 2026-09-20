@@ -1,10 +1,13 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { signedInContext } from "./sign-in-helper";
 
 // Export from the editor's "Export JSON", import through the /packs "Import
 // pack" file picker, and land on a fresh copy — the two buttons are the only
 // UI over the routes covered in src/test/pack-file.integration.test.ts.
-test("a pack exported from the editor can be imported back from the packs list", async ({ page, baseURL }) => {
-  const api = await request.newContext({ baseURL });
+test("a pack exported from the editor can be imported back from the packs list", async ({ browser, baseURL }) => {
+  // The editor, Export and Import are all host surfaces now.
+  const { context, api } = await signedInContext(browser, baseURL!);
+  const page = await context.newPage();
   const seedRes = await api.post("/api/packs/seed");
   const { pack } = (await seedRes.json()) as { pack: { id: string; title: string } };
 
@@ -25,10 +28,12 @@ test("a pack exported from the editor can be imported back from the packs list",
   expect(page.url()).not.toContain(pack.id);
   await expect(page.getByRole("heading", { level: 1, name: pack.title })).toBeVisible();
 
-  await api.dispose();
+  await context.close();
 });
 
-test("importing something that isn't a pack file shows the error inline", async ({ page }) => {
+test("importing something that isn't a pack file shows the error inline", async ({ browser, baseURL }) => {
+  const { context } = await signedInContext(browser, baseURL!);
+  const page = await context.newPage();
   await page.goto("/packs");
   const chooserPromise = page.waitForEvent("filechooser");
   await page.getByRole("button", { name: "Import pack" }).click();

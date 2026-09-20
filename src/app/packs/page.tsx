@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { db } from "@/lib/db";
-import { COOKIE_NAME } from "@/lib/creator";
-import { creatorIdForDeviceKey, visiblePacksWhere } from "@/lib/pack-access";
+import { requireHostPage } from "@/lib/auth-guard";
+import { visiblePacksWhere } from "@/lib/pack-access";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
 import { ImportPackButton } from "./ImportPackButton";
@@ -10,11 +9,14 @@ import { ImportPackButton } from "./ImportPackButton";
 export const dynamic = "force-dynamic";
 
 export default async function PacksPage() {
-  // Shared (ownerless) packs plus this visitor's own — never another
-  // creator's. See src/lib/pack-access.ts.
-  const creatorId = await creatorIdForDeviceKey((await cookies()).get(COOKIE_NAME)?.value);
+  // The real check, not the proxy's cookie glance: this reads the session
+  // out of the database, and throws a redirect to /sign-in if there isn't
+  // one (src/lib/auth-guard.ts).
+  const host = await requireHostPage("/packs");
+  // Shared (ownerless) packs plus this host's own — never another
+  // account's. See src/lib/pack-access.ts.
   const packs = await db.quizPack.findMany({
-    where: visiblePacksWhere(creatorId),
+    where: visiblePacksWhere(host.creator.id),
     orderBy: { createdAt: "desc" },
     take: 100, // bound worst-case query/render cost as packs accumulate
     include: { rounds: { include: { questions: true } } },

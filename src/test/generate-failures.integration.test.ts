@@ -12,6 +12,7 @@ vi.mock("@/lib/generate-pack", async (importOriginal) => ({
 
 import { generateQuizPack, UnusableModelOutputError } from "@/lib/generate-pack";
 import { POST as generate } from "@/app/api/packs/generate/route";
+import { signInTestHost } from "./auth-fixture";
 
 const BASE = "http://localhost:3000";
 
@@ -20,10 +21,19 @@ const BASE = "http://localhost:3000";
 // as a different visitor rather than exhausting one visitor's 5-per-10-min.
 let testIp = 100;
 
+
+// Generation needs an account now (src/lib/auth-guard.ts); what this file
+// is about is what happens after that, so one host serves every test.
+const host = await signInTestHost();
+
 function generateRequest() {
   return new NextRequest(`${BASE}/api/packs/generate`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "x-forwarded-for": `10.7.0.${testIp}` },
+    headers: {
+      "Content-Type": "application/json",
+      "x-forwarded-for": `10.7.0.${testIp}`,
+      ...host.cookieHeader,
+    },
     body: JSON.stringify({ prompt: "Four rounds of pub trivia." }),
   });
 }

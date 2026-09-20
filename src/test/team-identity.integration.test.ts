@@ -8,6 +8,7 @@ import { POST as advance } from "@/app/api/sessions/[code]/advance/route";
 import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { db } from "@/lib/db";
+import { signInTestHost } from "./auth-fixture";
 
 const BASE = "http://localhost:3000";
 const NUL = String.fromCharCode(0);
@@ -25,10 +26,24 @@ const codeParams = (code: string) => ({ params: Promise.resolve({ code }) });
 let ipn = 0;
 const ip = () => `10.55.0.${(ipn++ % 250) + 1}`;
 
+// The host account that starts the sessions these teams play in. Every
+// `post` below carries NO session cookie, on purpose: teams do not sign in,
+// and this file is the standing proof of it.
+const host = await signInTestHost();
+
 function post(path: string, body: unknown) {
   return new NextRequest(`${BASE}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-forwarded-for": ip() },
+    body: JSON.stringify(body),
+  });
+}
+
+/** The same, from the signed-in host — for the two routes that need one. */
+function hostPost(path: string, body: unknown) {
+  return new NextRequest(`${BASE}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-forwarded-for": ip(), ...host.cookieHeader },
     body: JSON.stringify(body),
   });
 }
@@ -42,7 +57,7 @@ async function newSession() {
     "team identity test",
     null
   );
-  const res = await createSession(post("/api/sessions", { packId: pack.id }));
+  const res = await createSession(hostPost("/api/sessions", { packId: pack.id }));
   const data = await res.json();
   return { code: data.session.code as string, hostToken: data.hostToken as string };
 }
@@ -97,7 +112,7 @@ describe("leaving a session", () => {
   it("keeps a team that has scored, so the board is not rewritten", async () => {
     const { code, hostToken } = await newSession();
     const team = await (await join(code, "Quiz Pigs")).json();
-    await advance(post(`/api/sessions/${code}/advance`, { action: "start", hostToken }), codeParams(code));
+    await advance(hostPost(`/api/sessions/${code}/advance`, { action: "start", hostToken }), codeParams(code));
     expect((await submitAnswer(post(`/api/sessions/${code}/answers`, { token: team.token, text: "a1" }), codeParams(code))).status).toBe(201);
     const left = await leaveSession(post(`/api/sessions/${code}/leave`, { token: team.token }), codeParams(code));
     expect((await left.json()).removed).toBe(false);
@@ -116,7 +131,7 @@ describe("answers", () => {
   it("rejects an answer that is only whitespace", async () => {
     const { code, hostToken } = await newSession();
     const team = await (await join(code, "Quiz Pigs")).json();
-    await advance(post(`/api/sessions/${code}/advance`, { action: "start", hostToken }), codeParams(code));
+    await advance(hostPost(`/api/sessions/${code}/advance`, { action: "start", hostToken }), codeParams(code));
     const res = await submitAnswer(post(`/api/sessions/${code}/answers`, { token: team.token, text: "   " }), codeParams(code));
     expect(res.status).toBe(400);
   });

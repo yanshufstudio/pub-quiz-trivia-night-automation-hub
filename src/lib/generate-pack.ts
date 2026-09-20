@@ -11,7 +11,7 @@ const MODEL = "claude-sonnet-5";
  * of budget mid-tool-call and the response came back truncated. Truncation
  * is deterministic per brief, so "please try again" was never going to clear
  * it. Sonnet's ceiling is far above this; the real limit on pack size is the
- * route's 60s maxDuration, not this number.
+ * route's 300s maxDuration, not this number.
  */
 const MAX_TOKENS = 16000;
 
