@@ -1,4 +1,5 @@
 import { expect, request, type APIRequestContext, type Browser, type BrowserContext, type Page } from "@playwright/test";
+import { accountDisplayName } from "@/lib/account-name";
 
 /**
  * Signing in, for specs that need a host.
@@ -133,4 +134,22 @@ export async function signedInApi(baseURL: string, email = randomEmail()): Promi
   const res = await submitSignInCode(api, email, code);
   expect(res.ok(), `submitting the sign-in code failed: ${res.status()}`).toBeTruthy();
   return api;
+}
+
+/**
+ * The account corner of the header, located by what it now prints.
+ *
+ * The corner shows a first name when the account has one and the part before
+ * the `@` when it does not. Every account these specs create signs in with a
+ * code, and Better Auth stores no name for those, so it is always the local
+ * part. The full address did not go anywhere — it is the element's `title`
+ * and the sign-out control's accessible name, which the spec named "the
+ * header carries the full address, without printing it" asserts directly.
+ *
+ * `exact` is load-bearing: the sr-only "Signed in as <address>" line contains
+ * the local part as a substring, so a loose match finds two elements and
+ * fails Playwright's strict mode.
+ */
+export function accountCorner(page: Page, email: string) {
+  return page.getByRole("banner").getByText(accountDisplayName({ name: "", email }), { exact: true });
 }

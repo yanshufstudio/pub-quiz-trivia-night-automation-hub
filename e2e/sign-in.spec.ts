@@ -9,6 +9,7 @@ import {
   signInIp,
   signedInContext,
   submitSignInCode,
+  accountCorner,
 } from "./sign-in-helper";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION } from "@/lib/pack-file";
 
@@ -48,7 +49,7 @@ test("a host signs in by typing the code, and the header carries their address",
   await page.waitForURL(/\/packs/);
 
   // Signed in: the header shows the account, not "Sign in".
-  await expect(page.getByRole("banner").getByText(email)).toBeVisible();
+  await expect(accountCorner(page, email)).toBeVisible();
   await expect(page.getByRole("banner").getByRole("link", { name: "Sign in" })).toHaveCount(0);
 });
 
@@ -57,7 +58,7 @@ test("signing out puts the header back to Sign in, and locks the host pages agai
   const page = await context.newPage();
 
   await page.goto("/packs");
-  await expect(page.getByRole("banner").getByText(email)).toBeVisible();
+  await expect(accountCorner(page, email)).toBeVisible();
 
   await page.getByRole("button", { name: "Sign out" }).click();
   await page.waitForURL(/\/$/);
@@ -107,7 +108,7 @@ test("a mail filter fetching the link signs nobody in and leaves the code whole"
   await page.goto(url);
   await page.getByRole("button", { name: "Sign in" }).click();
   await page.waitForURL(/\/packs/);
-  await expect(page.getByRole("banner").getByText(email)).toBeVisible();
+  await expect(accountCorner(page, email)).toBeVisible();
   await context.close();
 
   // The typed half of the same email is the same secret, so by now it is
@@ -129,7 +130,7 @@ test("the confirm button works once; a second press says so and mints nothing", 
   await firstPage.goto(url);
   await firstPage.getByRole("button", { name: "Sign in" }).click();
   await firstPage.waitForURL(/\/packs/);
-  await expect(firstPage.getByRole("banner").getByText(email)).toBeVisible();
+  await expect(accountCorner(firstPage, email)).toBeVisible();
 
   // A different browser opens the same link — the shape of a forwarded or
   // intercepted email.
@@ -231,12 +232,12 @@ test("a wrong code is refused, and the right one still works", async ({ page, ba
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(pageAlert(page)).toContainText("didn't match");
   // Still on the form, still signed out.
-  await expect(page.getByRole("banner").getByText(email)).toHaveCount(0);
+  await expect(accountCorner(page, email)).toHaveCount(0);
 
   await page.getByLabel("Sign-in code").fill(code);
   await page.getByRole("button", { name: "Sign in" }).click();
   await page.waitForURL(/\/packs/);
-  await expect(page.getByRole("banner").getByText(email)).toBeVisible();
+  await expect(accountCorner(page, email)).toBeVisible();
 });
 
 test("clearing every cookie loses nothing: the same packs, the same allowance", async ({ browser, baseURL }) => {
@@ -331,11 +332,11 @@ for (const width of [320, 390, 430, 560, 1280]) {
 
       // Prove it really is the pending state: neither resolved thing is there.
       await expect(page.getByRole("banner").getByRole("link", { name: "Sign in" })).toHaveCount(0);
-      await expect(page.getByRole("banner").getByText(email)).toHaveCount(0);
+      await expect(accountCorner(page, email)).toHaveCount(0);
 
       release();
       if (signedIn) {
-        await expect(page.getByRole("banner").getByText(email)).toBeVisible();
+        await expect(accountCorner(page, email)).toBeVisible();
       } else {
         await expect(page.getByRole("banner").getByRole("link", { name: "Sign in" })).toBeVisible();
       }
@@ -355,3 +356,72 @@ for (const width of [320, 390, 430, 560, 1280]) {
     });
   }
 }
+
+/**
+ * The corner stopped printing the raw address on 2026-09-20 and started
+ * printing a first name (Google) or the part before the `@` (a code sign-in).
+ * These two guard what that must not cost.
+ *
+ * The first: the address is still there for anyone who needs to know exactly
+ * which account this is — a pointer gets the `title`, a screen reader gets
+ * the sr-only line and the sign-out control's own name. On a shared pub PC
+ * that is the difference between signing out and signing out of the right
+ * account.
+ *
+ * The second: a long name has to be clipped, not wrapped. Wrapping is how
+ * the header grew a second line and shoved the page down 36px in the bug
+ * fixed on the 19th; the fixed-width SLOT stops the *resolve* moving things,
+ * and `truncate` is what stops the content doing it.
+ */
+test("the header carries the full address, without printing it", async ({ browser, baseURL }) => {
+  const { context, email } = await signedInContext(browser, baseURL!);
+  const page = await context.newPage();
+  await page.goto("/pricing");
+
+  const banner = page.getByRole("banner");
+  await expect(accountCorner(page, email)).toBeVisible();
+
+  // The tooltip and the sign-out control both name the account in full.
+  await expect(banner.getByTitle(email)).toBeVisible();
+  await expect(banner.getByRole("button", { name: `Sign out of ${email}` })).toBeVisible();
+
+  // But nothing prints it: no element's text is the address itself.
+  await expect(banner.getByText(email, { exact: true })).toHaveCount(0);
+
+  await context.close();
+});
+
+test("a long account name is clipped, never wrapped onto a second line", async ({ browser, baseURL }) => {
+  const measure = async (localPart: string) => {
+    const { context, email } = await signedInContext(browser, baseURL!, randomEmail(localPart));
+    const page = await context.newPage();
+    await page.setViewportSize({ width: 390, height: 800 });
+    await page.goto("/pricing");
+    await expect(accountCorner(page, email)).toBeVisible();
+
+    const label = page.getByRole("banner").getByTitle(email);
+    const style = await label.evaluate((el) => {
+      const s = getComputedStyle(el);
+      return {
+        whiteSpace: s.whiteSpace,
+        textOverflow: s.textOverflow,
+        clipped: el.scrollWidth > el.clientWidth,
+      };
+    });
+    const header = (await page.getByRole("banner").boundingBox())!.height;
+    await context.close();
+    return { style, header };
+  };
+
+  const short = await measure("a");
+  const long = await measure("bartholomew-fitzgerald-montgomery-the-elder");
+
+  expect(long.style.whiteSpace).toBe("nowrap");
+  expect(long.style.textOverflow).toBe("ellipsis");
+  // It really is too long for its slot, so the assertions above are doing work.
+  expect(long.style.clipped).toBe(true);
+  expect(short.style.clipped).toBe(false);
+
+  // And the header is exactly as tall as it is for a short one.
+  expect(Math.round(long.header)).toBe(Math.round(short.header));
+});
