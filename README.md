@@ -174,17 +174,54 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   real venue's 5-25, so one person with the code can't fill a host's
   scoreboard with junk teams mid-quiz. The cap is per session, so it holds
   against a caller rotating IPs past the rate limiter.
-- **Pack ownership** (`src/lib/pack-access.ts`): the same httpOnly
-  `pq_creator` cookie that scopes the free-tier cap also owns packs. `/packs`
-  and `GET /api/packs` list shared packs (no owner — the seeded demo pack)
-  plus the visitor's own; every edit route (`POST /api/questions`,
-  `PATCH`/`DELETE /api/questions/[id]`, `DELETE /api/rounds/[id]`,
-  `POST /api/rounds/[id]/move`) returns 403 unless the cookie matches the
-  pack's `creatorId`. Shared packs are read-only for everyone; Export JSON
-  then Import gives a visitor their own editable copy. Reads by id stay open
-  (unlisted, cuid ids) so sessions, PDF and export keep working for the demo
-  path. Losing the cookie loses edit access — the accepted trade-off of
-  cookie identity over accounts, see `claude/monetization-buildout-plan.md`.
+- **Host accounts** (`src/lib/auth.ts`, `src/lib/auth-guard.ts`): hosts sign
+  in with Google or an emailed code — no passwords. Accounts live in this
+  app's own Turso database (Better Auth with the Prisma adapter), and a
+  `Creator` belongs to one.
+  **The email carries one secret two ways**: six digits to type, and a link
+  to `/sign-in/confirm` carrying the same digits. Nothing consumes on a GET
+  — the link opens a page with a button, and only that button's POST spends
+  the code. That is not a nicety: corporate mail filters (Microsoft 365 Safe
+  Links and friends) fetch every link in incoming mail before the person
+  clicks, so a link that signs you in on GET is a link the filter has
+  already used up. The typed code is the other half of the same answer, and
+  covers the host who reads mail on a phone and runs the quiz on a pub PC.
+  One secret means one 15-minute expiry, one five-guess budget and one
+  single use. Every host-side page and API checks
+  `auth.api.getSession` for itself: pages redirect to
+  `/sign-in?next=<path>`, APIs answer 401 JSON. `src/proxy.ts` (Next 16's
+  renamed `middleware.ts`) also redirects on a missing session cookie, but
+  that is an optimistic check and explicitly not the defence — it cannot
+  tell a valid cookie from a forged one.
+  **Teams never sign in.** `/play`, joining, answering, the team portal,
+  `GET /api/sessions/[code]` and `GET /api/questions/[id]/media` all stay
+  open: a pub full of strangers cannot be asked to make an account to answer
+  question three, and a team's phone holds nothing that could authenticate
+  it. Public: `/`, `/pricing`, `/terms`, `/privacy`, `/refunds`, `/sign-in`.
+- **Pack ownership** (`src/lib/pack-access.ts`): a pack belongs to the
+  `Creator` behind a signed-in account. `/packs` and `GET /api/packs` list
+  shared packs (no owner — the seeded demo pack) plus the host's own; every
+  edit route (`POST /api/questions`, `PATCH`/`DELETE /api/questions/[id]`,
+  `DELETE /api/rounds/[id]`, `POST /api/rounds/[id]/move`) answers 401
+  without a session and 403 when the session's creator is not the pack's.
+  Shared packs are read-only for everyone; Export JSON then Import gives a
+  host their own editable copy. **Reading a pack is owner-only too** — the
+  editor, the print sheet, the PDFs, `GET /api/packs/[id]/export`, `GET
+  /api/packs/[id]` and starting a session on it all answer somebody else's
+  pack exactly as they answer a pack that does not exist, so an id cannot be
+  probed. The ownerless demo stays readable by any signed-in host.
+  `GET /api/questions/[id]/media` is the one read that stays open, because a
+  team's phone renders the current question's image and holds nothing that
+  could authenticate it. Narrowing that one means scoping it to a live
+  session and a team token, which changes what a team's browser has to
+  send — a team-facing change, and not one to make on the way past.
+- **Claiming a pre-accounts cookie** (`src/lib/creator-claim.ts`): the
+  `pq_creator` cookie is no longer identity and nothing sets it any more. It
+  survives for exactly one purpose: a browser that still carries one can hand
+  it over once, on sign-in, so the packs and used allowance behind it move
+  onto the account. A `Creator` that already belongs to another user is never
+  taken, and a merge keeps the **higher** of the two used counts — otherwise
+  claiming would itself be the way to refund an allowance.
 - **Question images are stored, never linked** (`src/lib/media.ts`): a
   question may carry one image, uploaded by the pack's owner to
   `POST /api/questions/[id]/media` and served back from the same path. The
@@ -216,11 +253,12 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   defaults 20 and 50, see `.env.example`): hard ceilings on how many packs
   the **whole deployment** generates per UTC day, enforced before the model
   is called. These, not `FREE_PACK_LIMIT`, are what bound the Anthropic bill.
-  The per-creator cap is counted against the `pq_creator` cookie, so deleting
-  it resets the allowance and never sending one skips it entirely — a
-  cookie-less caller was limited only by the per-IP throttle (5 per 10
-  minutes, ~720/day/address). These ceilings have no identity in the key, so
-  rotating cookies does not move them. Free and Pro count in separate
+  The per-account cap is spent by generating; it used to be counted against
+  the `pq_creator` cookie, so deleting the cookie reset it and never sending
+  one skipped it entirely. Accounts closed that door, but signing up is free,
+  so an attacker can still rotate accounts — and these ceilings have no
+  identity in the key at all, which is why they, and not `FREE_PACK_LIMIT`,
+  are what actually bounds the bill. Free and Pro count in separate
   buckets, so free traffic cannot exhaust a subscriber's capacity; Pro has no
   per-user cap and its ceiling is purely a runaway-loop backstop. They are
   read per request, so a change needs no rebuild, and they are only genuinely
@@ -317,9 +355,23 @@ The content is specific to this app rather than a generic template: the free
 tier's two-packs-per-30-days limit, Pro at $5/month or $25/year, Paddle as
 merchant of record, and the actual list of what the app stores (the
 `pq_creator` cookie, quiz content, live team names and answers, uploaded
-question images) and who processes it (Paddle, Vercel, Turso, Anthropic).
-Revising any of them means bumping `LEGAL_LAST_UPDATED` in
-`src/components/LegalPage.tsx`, which is the single date all three render.
+question images) and who processes it (Paddle, Vercel, Turso, Anthropic,
+Google and Resend). Revising any of them means bumping `LEGAL_LAST_UPDATED`
+in `src/lib/site.ts`, which is the single date all three render and the one
+`sitemap.ts` publishes.
+
+Wording on these three pages is the owner's, not the codebase's: it is
+drafted in the pull request that needs it and committed only once they have
+approved it.
+
+The cookie clause on /privacy names every cookie the app can set, which is
+three: the sign-in cookie (7 days), a five-minute one set only during a
+Google sign-in, and the legacy `pq_creator`, which is no longer set for
+anyone. That list was taken from what Better Auth's configured instance
+actually emits rather than from its documentation — the session-data and
+"don't remember" cookies it can set in other configurations are not reachable
+here, because the cookie cache is off and there is no password sign-in to
+carry a `rememberMe`.
 
 ## Known limitations
 

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { SESSION_STATUS, computeNextPosition, packWithRoundsArgs, type PackWithRounds } from "@/lib/session-state";
 import { isValidHostToken } from "@/lib/host-auth";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 const advanceSchema = z.object({
   action: z.enum(["start", "reveal", "next"]),
@@ -24,6 +25,14 @@ const publicSessionSelect = {
 } as const;
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ code: string }> }) {
+  // Two independent checks, and both must pass. This one says a host is
+  // signed in; `isValidHostToken` below says this browser is the host OF
+  // THIS session. Neither implies the other — the token is what a team who
+  // knows the join code does not have, and an account is what a stranger
+  // holding a leaked token does not have.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
   const { code } = await params;
   const body = await req.json().catch(() => null);
   const parsed = advanceSchema.safeParse(body);

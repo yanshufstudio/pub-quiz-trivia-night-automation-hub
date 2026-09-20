@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AccountNav } from "@/components/AccountNav";
 import { LiveScoreboardPreview } from "@/components/LiveScoreboardPreview";
 import { NAV_LINKS } from "@/components/SiteHeader";
 import { Wordmark } from "@/components/Wordmark";
@@ -66,12 +67,16 @@ export default function Home() {
             can sit straight on the stage with no rule under it. */}
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <Wordmark href="/" className="text-[1.5rem]" />
-          <nav className="flex items-center gap-6 text-sm font-semibold text-stage-muted">
+          {/* The account corner rides along with the links here as well —
+              the two rows import both from one place so they cannot drift
+              apart again the way the labels and Pricing did. */}
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm font-semibold text-stage-muted">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className="py-2 transition-colors hover:text-gold">
                 {link.label}
               </Link>
             ))}
+            <AccountNav />
           </nav>
         </div>
 

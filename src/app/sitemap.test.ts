@@ -7,7 +7,7 @@ import { LEGAL_LAST_UPDATED, SITE_URL } from "@/lib/site";
 const entries = sitemap();
 const LEGAL_PATHS = ["/terms", "/privacy", "/refunds"];
 
-/** "/create" from "https://triviafoundry.com/create"; "/" from the bare origin. */
+/** "/pricing" from "https://triviafoundry.com/pricing"; "/" from the bare origin. */
 function pathnameOf(url: string | URL): string {
   return new URL(url).pathname;
 }
@@ -39,8 +39,8 @@ describe("sitemap.xml", () => {
   });
 
   it("does not advertise a pack, host or play URL", () => {
-    // Those trees are unlisted or per-session; robots.ts disallows them, and a
-    // sitemap entry blocked by robots.txt is a Search Console error.
+    // Those trees are owner-only or per-session; robots.ts disallows them,
+    // and a sitemap entry blocked by robots.txt is a Search Console error.
     for (const entry of entries) {
       expect(pathnameOf(entry.url)).not.toMatch(/^\/(packs|host|play|api)\b/);
     }

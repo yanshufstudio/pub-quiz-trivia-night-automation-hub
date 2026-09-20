@@ -8,6 +8,7 @@ import { createPackFromGenerated } from "@/lib/create-pack";
 import { db } from "@/lib/db";
 import { toDataUri } from "@/lib/media";
 import { REAL_PNG_1X1 } from "@/test/image-fixtures";
+import { signInTestHost } from "./auth-fixture";
 
 /**
  * The invariant, pinned: **rendering a PDF must never make a network
@@ -36,6 +37,12 @@ import { REAL_PNG_1X1 } from "@/test/image-fixtures";
  */
 
 const BASE = "http://localhost:3000";
+
+// The PDF and export routes carry the answers, so they need an account now
+// (src/lib/auth-guard.ts). Ownership is deliberately not required — an
+// ownerless demo pack must still print.
+const host = await signInTestHost();
+
 
 /**
  * Replaces `fetch` for the duration of a render and returns the list of
@@ -123,7 +130,7 @@ describe("PDF rendering is offline", () => {
       const pack = await packWithMedia();
       const calls = stubNetwork();
 
-      const res = await getPdf(new NextRequest(`${BASE}/api/packs/${pack.id}/pdf?type=${type}`), {
+      const res = await getPdf(new NextRequest(`${BASE}/api/packs/${pack.id}/pdf?type=${type}`, { headers: host.cookieHeader }), {
         params: Promise.resolve({ id: pack.id }),
       });
 

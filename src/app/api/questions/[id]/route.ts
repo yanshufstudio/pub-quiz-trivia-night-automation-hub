@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { isValidOptionSet, parseOptions, QUESTION_TYPE, serializeOptions } from "@/lib/question-types";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
 import type { Prisma } from "@prisma/client";
 
@@ -18,6 +19,8 @@ const updateSchema = z.object({
 });
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
   const { id } = await params;
   const body = await req.json().catch(() => null);
   const parsed = updateSchema.safeParse(body);
@@ -29,7 +32,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (!existing) {
     return NextResponse.json({ error: "Question not found" }, { status: 404 });
   }
-  const forbidden = await requirePackOwner(req, { questionId: id });
+  const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
 
   const { type, options: rawOptions, acceptableAnswers: rawAcceptableAnswers, ...rest } = parsed.data;
@@ -85,12 +88,14 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
   const { id } = await params;
   const existing = await db.question.findUnique({ where: { id } });
   if (!existing) {
     return NextResponse.json({ error: "Question not found" }, { status: 404 });
   }
-  const forbidden = await requirePackOwner(req, { questionId: id });
+  const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
 
   const siblingCount = await db.question.count({ where: { roundId: existing.roundId } });

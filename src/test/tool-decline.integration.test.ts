@@ -11,18 +11,26 @@ vi.mock("@/lib/anthropic", () => ({
 }));
 
 import { POST as generate } from "@/app/api/packs/generate/route";
-import { COOKIE_NAME } from "@/lib/creator";
+import { signInTestHost } from "./auth-fixture";
 import { __resetMemoryCounters } from "@/lib/daily-ceiling";
 import { db } from "@/lib/db";
 
 const BASE = "http://localhost:3000";
 let testIp = 50;
 
-function generateRequest() {
+// Generation needs an account now (src/lib/auth-guard.ts). Each request comes
+// from a fresh one so the free allowance never runs out mid-file — what this
+// suite is about is the decline path, not the cap.
+async function generateRequest() {
   testIp += 1;
+  const host = await signInTestHost();
   return new NextRequest(`${BASE}/api/packs/generate`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "x-forwarded-for": `10.5.0.${testIp}` },
+    headers: {
+      "Content-Type": "application/json",
+      "x-forwarded-for": `10.5.0.${testIp}`,
+      ...host.cookieHeader,
+    },
     body: JSON.stringify({ prompt: "A round on my neighbours' home addresses and phone numbers." }),
   });
 }
@@ -57,7 +65,7 @@ describe("a decline that arrives through the tool", () => {
     const reason = "I can't create a round that identifies real private individuals.";
     modelCallsToolWith({ decline_reason: reason });
 
-    const res = await generate(generateRequest());
+    const res = await generate(await generateRequest());
     expect(res.status).toBe(422);
 
     const body = await res.json();
@@ -81,7 +89,7 @@ describe("a decline that arrives through the tool", () => {
       ],
     });
 
-    expect((await generate(generateRequest())).status).toBe(422);
+    expect((await generate(await generateRequest())).status).toBe(422);
     // The substituted pack must not exist. This is what actually happened
     // live: it saved, and the quizmaster got it.
     expect(await db.quizPack.count()).toBe(before);
@@ -90,18 +98,29 @@ describe("a decline that arrives through the tool", () => {
   it("refunds the free pack but keeps the day's unit, because the tokens were billed", async () => {
     modelCallsToolWith({ decline_reason: "No." });
 
-    const res = await generate(generateRequest());
-    const deviceKey = res.cookies.get(COOKIE_NAME)!.value;
+    const host = await signInTestHost();
+    testIp += 1;
+    await generate(
+      new NextRequest(`${BASE}/api/packs/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-forwarded-for": `10.5.0.${testIp}`,
+          ...host.cookieHeader,
+        },
+        body: JSON.stringify({ prompt: "A round on my neighbours' home addresses and phone numbers." }),
+      })
+    );
 
-    const creator = await db.creator.findUnique({ where: { deviceKey } });
+    const creator = await db.creator.findUnique({ where: { id: host.id } });
     expect(creator?.packsGeneratedInPeriod).toBe(0);
 
     // The ceiling counted it: the model ran, so the bill moved.
     process.env.FREE_DAILY_PACK_CEILING = "1";
     __resetMemoryCounters();
     modelCallsToolWith({ decline_reason: "No." });
-    expect((await generate(generateRequest())).status).toBe(422);
-    expect((await generate(generateRequest())).status).toBe(503);
+    expect((await generate(await generateRequest())).status).toBe(422);
+    expect((await generate(await generateRequest())).status).toBe(503);
     delete process.env.FREE_DAILY_PACK_CEILING;
   });
 
@@ -117,7 +136,7 @@ describe("a decline that arrives through the tool", () => {
       ],
     });
 
-    const res = await generate(generateRequest());
+    const res = await generate(await generateRequest());
     expect(res.status).toBe(201);
     expect((await res.json()).pack.title).toBe("Friday Night Quiz");
   });

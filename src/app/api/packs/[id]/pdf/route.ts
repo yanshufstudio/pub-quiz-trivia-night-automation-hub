@@ -8,6 +8,8 @@ import {
   QuestionSheetDocument,
 } from "@/lib/pdf/documents";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { canReadPack, packNotFound } from "@/lib/pack-access";
 
 const DOCUMENTS = {
   questions: { Component: QuestionSheetDocument, suffix: "questions" },
@@ -25,6 +27,13 @@ function isDocType(value: string | null): value is DocType {
 }
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  // These are the host's sheets and two of the three carry the answers, so
+  // this route needs an account — and, since the second round of this
+  // change, the *right* account. An ownerless pack (the demo) still prints
+  // for anyone signed in; see canReadPack.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
   const { id } = await params;
   const url = new URL(req.url);
   const type = url.searchParams.get("type");
@@ -45,9 +54,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     ...packWithRoundsAndMediaArgs,
   })) as PackWithRoundsAndMedia | null;
 
-  if (!pack) {
-    return NextResponse.json({ error: "Pack not found" }, { status: 404 });
-  }
+  if (!pack || !canReadPack(pack, host.creator.id)) return packNotFound();
 
   const { Component, suffix } = DOCUMENTS[type];
   const element = createElement(Component, { pack }) as unknown as ReactElement<DocumentProps>;

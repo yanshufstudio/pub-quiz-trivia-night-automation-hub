@@ -6,28 +6,35 @@ import { POST as joinSession } from "@/app/api/sessions/[code]/join/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { generateTeamToken } from "@/lib/codes";
 import { db } from "@/lib/db";
+import { signInTestHost } from "./auth-fixture";
 
 const BASE = "http://localhost:3000";
 
 /**
- * Hosting a session and joining one are the two writes that cannot be
- * authenticated: a pack id is public by design (the demo pack has no owner),
- * and a join code is printed on the table QR. Neither was bounded, so a
- * stranger could create sessions until the 5-character code space thinned
- * out, or fill a real quizmaster's scoreboard with junk teams mid-night.
- * These pin the ceilings that replaced "unlimited".
+ * Joining a session is the one write here that cannot be authenticated: a
+ * join code is printed on the table QR and a pub full of strangers cannot be
+ * asked to sign in to answer question three. Starting a session needs an
+ * account now — but that is not a ceiling, because signing up is free, so
+ * both ceilings below still matter and both are still pinned here.
+ *
+ * Without them a stranger could create sessions until the 5-character code
+ * space thinned out, or fill a real quizmaster's scoreboard with junk teams
+ * mid-night.
  */
 
-// Each test poses as a different visitor: the per-IP limiter's in-memory
-// bucket is shared across every test in this file.
+// One host for the file; each test still poses as a different visitor IP,
+// because the per-IP limiter's in-memory bucket is shared across the file.
+const host = await signInTestHost();
+
 function sessionRequest(packId: string, ip: string) {
   return new NextRequest(`${BASE}/api/sessions`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "x-forwarded-for": ip },
+    headers: { "Content-Type": "application/json", "x-forwarded-for": ip, ...host.cookieHeader },
     body: JSON.stringify({ packId }),
   });
 }
 
+/** Teams never sign in — no cookie on this one, deliberately. */
 function joinRequest(code: string, name: string, ip: string) {
   return new NextRequest(`${BASE}/api/sessions/${code}/join`, {
     method: "POST",

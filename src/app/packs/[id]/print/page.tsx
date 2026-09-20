@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { requireHostPage } from "@/lib/auth-guard";
+import { canReadPack } from "@/lib/pack-access";
 import { toQuestionView } from "@/lib/question-types";
 import { PrintPreview } from "./PrintPreview";
 
@@ -7,6 +9,10 @@ export const dynamic = "force-dynamic";
 
 export default async function PrintPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  // Host-side, and it prints the ANSWER sheets. Before accounts this page
+  // was open to anyone holding the id; now it needs an account, and one that
+  // may read this pack.
+  const host = await requireHostPage(`/packs/${id}/print`);
   const pack = await db.quizPack.findUnique({
     where: { id },
     include: {
@@ -20,7 +26,7 @@ export default async function PrintPage({ params }: { params: Promise<{ id: stri
       },
     },
   });
-  if (!pack) notFound();
+  if (!pack || !canReadPack(pack, host.creator.id)) notFound();
 
   return (
     <PrintPreview

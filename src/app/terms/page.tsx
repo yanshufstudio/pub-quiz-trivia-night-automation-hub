@@ -33,6 +33,29 @@ export default function TermsPage() {
         </LegalList>
       </LegalSection>
 
+      <LegalSection id="your-account" title="Your account">
+        <LegalText>
+          Running a quiz needs an account. You sign in with Google or with a code we email you —
+          there is no password, so there is none for you to lose and none for us to store. The free
+          allowance and any Pro subscription belong to the account, not to the browser you are using,
+          so signing in on a new device brings both with you.
+        </LegalText>
+        <LegalText>
+          Keep your email account secure: anyone who can read your email can request a sign-in code
+          and get into your account. Tell us at <ContactLink /> if you think someone else has.
+        </LegalText>
+        <LegalText>
+          <span className="font-medium text-foreground">Teams do not need an account.</span> People
+          playing a quiz you are running join with the code you give them and are never asked to sign
+          up.
+        </LegalText>
+        <LegalText>
+          You must give an email address you actually control, and one account is for one person. We
+          may suspend or close an account used to get around the free allowance, or used in the ways
+          set out under Acceptable use.
+        </LegalText>
+      </LegalSection>
+
       <LegalSection id="eligibility" title="Eligibility">
         <LegalText>
           You must be 18 or over to buy a Pro subscription. There is no age requirement for running

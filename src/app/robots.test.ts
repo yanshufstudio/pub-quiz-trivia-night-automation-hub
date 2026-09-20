@@ -47,8 +47,10 @@ describe("robots.txt", () => {
   });
 
   it("keeps quiz packs, print sheets, live sessions and the API out of the index", () => {
-    // /packs is readable by id on purpose (unlisted cuids, see
-    // src/lib/pack-access.ts) and /packs/<id>/print is the answer sheet.
+    // Pack reads are owner-only now (src/lib/pack-access.ts), so a crawler
+    // gets a redirect rather than an answer sheet — but an advertised URL
+    // that 307s is a Search Console error, and /packs/<id>/print is still
+    // the answer sheet to whoever owns it.
     expect(isAllowed("/packs")).toBe(false);
     expect(isAllowed("/packs/cmu2qdlry000004kwpuii81g5")).toBe(false);
     expect(isAllowed("/packs/cmu2qdlry000004kwpuii81g5/print")).toBe(false);
@@ -59,9 +61,20 @@ describe("robots.txt", () => {
   });
 
   it("leaves the marketing and legal pages crawlable", () => {
-    for (const pathname of ["/", "/create", "/terms", "/privacy", "/refunds"]) {
+    for (const pathname of ["/", "/pricing", "/terms", "/privacy", "/refunds"]) {
       expect(isAllowed(pathname), `${pathname} should be crawlable`).toBe(true);
     }
+  });
+
+  it("keeps the account surfaces out of the index", () => {
+    // /create redirects a signed-out visitor to /sign-in, so a crawler finds
+    // a 307 rather than a page; /sign-in is a form with nothing to rank for.
+    expect(isAllowed("/create")).toBe(false);
+    expect(isAllowed("/sign-in")).toBe(false);
+    // The confirm page a sign-in email links to carries a live code in its
+    // query string. `Disallow: /sign-in` covers it by prefix, and the page
+    // carries its own noindex as well.
+    expect(isAllowed("/sign-in/confirm")).toBe(false);
   });
 
   it("allows every URL the sitemap advertises", () => {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
 import { rateLimit } from "@/lib/rate-limit";
 import { formatBytes, MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
@@ -7,13 +8,20 @@ import { formatBytes, MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, prepareImageForStorag
 /**
  * The image attached to one question.
  *
- * `POST` and `DELETE` are the pack owner's, gated on the same `pq_creator`
- * ownership rule as every other pack edit (src/lib/pack-access.ts). `GET` is
- * open, exactly like `GET /api/packs/[id]` and the PDF route: a team's phone
- * and the printed sheet both have to render the image, and neither holds the
- * owner's cookie. Pack ids are unlisted cuids and that is the existing,
- * deliberate read model here — this route does not widen it, but it does
- * inherit it, so nothing private should ever be uploaded as a question image.
+ * `POST` and `DELETE` are the pack owner's: a signed-in account whose
+ * Creator owns the pack (src/lib/auth-guard.ts, src/lib/pack-access.ts).
+ *
+ * `GET` is open, and deliberately stays open: a team's phone renders the
+ * current question's image and holds nothing that could authenticate it,
+ * and teams do not sign in.
+ *
+ * It is now the *only* open read left. Pack reads became owner-only (see
+ * src/lib/pack-access.ts), so this route no longer inherits a wider model —
+ * it is the exception to one. Anyone holding a question id can fetch its
+ * image, so nothing private should ever be uploaded as a question image.
+ * Narrowing it would mean scoping the read to a live session and the team
+ * token that goes with it, which changes what a team's browser has to send:
+ * a team-facing change, and not one to make on the way past.
  *
  * The bytes are stored, never a URL. See src/lib/media.ts and the "Media
  * support" section of HANDOFF.md for why that is the whole point.
@@ -36,6 +44,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     );
   }
 
+  // After the limiter (an unauthenticated flood is bounded before it can
+  // cost a session lookup) but before everything else: an upload is a pack
+  // edit, and a pack now belongs to an account, not to a browser.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
   // Advisory only — a lying or absent Content-Length is caught by the real
   // check on the bytes below. It is here so an oversized upload is refused
   // before it is read into memory, rather than after.
@@ -54,7 +68,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   if (!question) {
     return NextResponse.json({ error: "Question not found" }, { status: 404 });
   }
-  const forbidden = await requirePackOwner(req, { questionId: id });
+  const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
 
   // The cap only applies to *new* images. Whether this question already has
@@ -142,12 +156,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
   const { id } = await params;
   const existing = await db.questionMedia.findUnique({ where: { questionId: id }, select: { id: true } });
   if (!existing) {
     return NextResponse.json({ error: "No image for this question" }, { status: 404 });
   }
-  const forbidden = await requirePackOwner(req, { questionId: id });
+  const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
 
   await db.questionMedia.delete({ where: { questionId: id } }).catch(() => null);

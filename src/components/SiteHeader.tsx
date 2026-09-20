@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AccountNav } from "@/components/AccountNav";
 import { Wordmark } from "@/components/Wordmark";
 
 /**
@@ -24,6 +25,14 @@ export const NAV_LINKS = [
 ];
 
 /**
+ * The account corner sits AFTER the four links, in the same nav row, rather
+ * than becoming a fifth NAV_LINKS entry: it is not a page, its width depends
+ * on the signed-in address, and the homepage renders the same pair with its
+ * own spacing. Keeping it out of the array is what lets both rows lay it out
+ * differently without the array meaning two things.
+ */
+
+/**
  * The site's chrome on every desk page: the pub sign over the door. Dark
  * stage green with a brass rule under it, so the cream "sheet" pages below
  * read as paper on a bar rather than a light-mode app. The homepage folds
@@ -39,7 +48,10 @@ export function SiteHeader() {
           iPhone 15). */}
       <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-5 py-3.5">
         <Wordmark href="/" className="text-[1.35rem]" />
-        <nav className="flex items-center gap-1">
+        {/* flex-wrap here too: with an email in the row, five items cannot
+            share one line on a 320px phone, so the account corner drops
+            under the links rather than widening the page. */}
+        <nav className="flex flex-wrap items-center gap-x-1 gap-y-0">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -49,6 +61,7 @@ export function SiteHeader() {
               {link.label}
             </Link>
           ))}
+          <AccountNav />
         </nav>
       </div>
     </header>

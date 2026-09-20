@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { toPackFile } from "@/lib/pack-file";
 import { toQuestionView } from "@/lib/question-types";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { canReadPack, packNotFound } from "@/lib/pack-access";
 
 // A v2 export inlines every media file as base64, so it scales with the pack
 // the same way the PDF does; match the PDF route rather than the default.
@@ -17,7 +19,14 @@ function filenameFor(title: string) {
   return `${slug || "quiz-pack"}.json`;
 }
 
-export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  // A pack file carries every answer, so exporting needs an account — and
+  // one that may read this pack. Export → Import is still how a host takes
+  // an editable copy of the ownerless demo pack, because canReadPack lets
+  // any signed-in host read an ownerless one.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
+
   const { id } = await params;
   // The full media rows, not the lightweight `hasMedia` shape most reads
   // use — a v2 file embeds the actual bytes as base64 (see pack-file.ts).
@@ -25,9 +34,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
     where: { id },
     ...packWithRoundsAndMediaArgs,
   })) as PackWithRoundsAndMedia | null;
-  if (!pack) {
-    return NextResponse.json({ error: "Pack not found" }, { status: 404 });
-  }
+  if (!pack || !canReadPack(pack, host.creator.id)) return packNotFound();
 
   const file = toPackFile({
     ...pack,

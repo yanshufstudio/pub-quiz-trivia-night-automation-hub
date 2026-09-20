@@ -9,7 +9,7 @@ import { POST as createSession } from "@/app/api/sessions/route";
 import { GET as getSession } from "@/app/api/sessions/[code]/route";
 import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
-import { COOKIE_NAME } from "@/lib/creator";
+import { signInTestHost } from "./auth-fixture";
 import { db } from "@/lib/db";
 import { MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, MEDIA_MIME } from "@/lib/media";
 import {
@@ -25,11 +25,10 @@ const BASE = "http://localhost:3000";
 
 const params = (id: string) => ({ params: Promise.resolve({ id }) });
 
-async function newCreator() {
-  const deviceKey = `question-media-${Math.random().toString(36).slice(2)}`;
-  const creator = await db.creator.create({ data: { deviceKey } });
-  return { id: creator.id, cookie: deviceKey };
-}
+/** A creator with an account behind it: uploads and deletes are pack edits,
+ * and a pack belongs to an account now. `GET` stays open — a team's phone
+ * renders the image and holds nothing that could authenticate it. */
+const newCreator = () => signInTestHost();
 
 async function packWithQuestions(creatorId: string | null, questionCount = 2) {
   return createPackFromGenerated(
@@ -70,7 +69,7 @@ function uploadRequest(
     headers: {
       "Content-Type": opts.contentType ?? "application/octet-stream",
       "x-forwarded-for": `10.0.0.${nextClientIp % 254}:${nextClientIp}`,
-      ...(opts.cookie ? { cookie: `${COOKIE_NAME}=${opts.cookie}` } : {}),
+      ...(opts.cookie ? { cookie: opts.cookie } : {}),
       ...(opts.headers ?? {}),
     },
     body: typeof body === "string" ? body : (new Uint8Array(body) as unknown as BodyInit),
@@ -301,13 +300,13 @@ describe("question media", () => {
   });
 
   describe("POST — the ownership gate", () => {
-    it("refuses an anonymous upload", async () => {
+    it("refuses an anonymous upload — 401 now, where it used to be 403", async () => {
       const owner = await newCreator();
       const pack = await packWithQuestions(owner.id);
       const questionId = pack.rounds[0].questions[0].id;
 
       const res = await uploadMedia(uploadRequest(questionId, pngBytes()), params(questionId));
-      expect(res.status).toBe(403);
+      expect(res.status).toBe(401);
       expect(await db.questionMedia.count({ where: { questionId } })).toBe(0);
     });
 
@@ -396,7 +395,7 @@ describe("question media", () => {
       const res = await deleteMedia(
         new NextRequest(`${BASE}/api/questions/${questionId}/media`, {
           method: "DELETE",
-          headers: { cookie: `${COOKIE_NAME}=${owner.cookie}` },
+          headers: { cookie: owner.cookie },
         }),
         params(questionId)
       );
@@ -410,7 +409,7 @@ describe("question media", () => {
       const res = await deleteMedia(
         new NextRequest(`${BASE}/api/questions/${questionId}/media`, {
           method: "DELETE",
-          headers: { cookie: `${COOKIE_NAME}=${stranger.cookie}` },
+          headers: { cookie: stranger.cookie },
         }),
         params(questionId)
       );
@@ -421,8 +420,13 @@ describe("question media", () => {
 
   describe("the pack payload", () => {
     it("reports hasMedia without carrying any bytes", async () => {
-      const { pack, questionId } = await packWithMedia();
-      const res = await getPack(new NextRequest(`${BASE}/api/packs/${pack.id}`), params(pack.id));
+      const { pack, questionId, owner } = await packWithMedia();
+      // Reading a pack is owner-only now (src/lib/pack-access.ts), so this
+      // asks as the host who owns it.
+      const res = await getPack(
+        new NextRequest(`${BASE}/api/packs/${pack.id}`, { headers: owner.cookieHeader }),
+        params(pack.id)
+      );
       expect(res.status).toBe(200);
 
       const body = await res.text();
@@ -435,12 +439,12 @@ describe("question media", () => {
 
   describe("the session payload", () => {
     it("reports hasMedia on the current question, for host and team alike", async () => {
-      const { pack, questionId } = await packWithMedia();
+      const { pack, questionId, owner } = await packWithMedia();
 
       const sessionRes = await createSession(
         new NextRequest(`${BASE}/api/sessions`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...owner.cookieHeader },
           body: JSON.stringify({ packId: pack.id }),
         })
       );
@@ -450,7 +454,7 @@ describe("question media", () => {
       const started = await advanceSession(
         new NextRequest(`${BASE}/api/sessions/${session.code}/advance`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...owner.cookieHeader },
           body: JSON.stringify({ action: "start", hostToken }),
         }),
         { params: Promise.resolve({ code: session.code }) }
@@ -475,7 +479,7 @@ describe("question media", () => {
     const res = await deleteQuestion(
       new NextRequest(`${BASE}/api/questions/${questionId}`, {
         method: "DELETE",
-        headers: { cookie: `${COOKIE_NAME}=${owner.cookie}` },
+        headers: { cookie: owner.cookie },
       }),
       params(questionId)
     );

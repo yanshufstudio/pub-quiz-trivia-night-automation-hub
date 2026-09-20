@@ -1,12 +1,15 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { newAnonContext, signedInContext } from "./sign-in-helper";
 
 test("host runs a live round and a team answers correctly", async ({ browser, baseURL }) => {
-  const api = await request.newContext({ baseURL });
+  // The host signs in; the team context created below never does, which is
+  // the point of the whole flow — a pub full of strangers cannot be asked to
+  // make an account to answer question three.
+  const { context: hostContext, api } = await signedInContext(browser, baseURL!);
   const seedRes = await api.post("/api/packs/seed");
   expect(seedRes.ok()).toBeTruthy();
   const { pack } = await seedRes.json();
 
-  const hostContext = await browser.newContext();
   const hostPage = await hostContext.newPage();
   await hostPage.goto(`/packs/${pack.id}`);
   await hostPage.getByRole("button", { name: "Start live session" }).click();
@@ -18,7 +21,7 @@ test("host runs a live round and a team answers correctly", async ({ browser, ba
   // baked in; a team that scans it lands on /play with the code prefilled.
   await expect(hostPage.getByRole("img", { name: "Scan to join" })).toBeVisible();
 
-  const teamContext = await browser.newContext();
+  const teamContext = await newAnonContext(browser);
   const teamPage = await teamContext.newPage();
   await teamPage.goto(`/play?code=${code}`);
   await expect(teamPage.getByLabel("Session code")).toHaveValue(code);

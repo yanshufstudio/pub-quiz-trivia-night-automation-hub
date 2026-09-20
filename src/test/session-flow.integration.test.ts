@@ -10,13 +10,20 @@ import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { PATCH as overrideAnswer } from "@/app/api/sessions/[code]/answers/[answerId]/route";
 import { DEMO_PACK } from "@/lib/demo-pack";
 import { db } from "@/lib/db";
+import { signInTestHost } from "./auth-fixture";
 
 const BASE = "http://localhost:3000";
+
+// Host-side routes need an account now (src/lib/auth-guard.ts). One host
+// per file, signed in for real, threaded onto every request this suite makes.
+// Team routes ignore it; see team-routes-anonymous.integration.test.ts for the
+// proof that they still work with no cookie at all.
+const host = await signInTestHost();
 
 function jsonRequest(url: string, method: string, body?: unknown) {
   return new NextRequest(url, {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...host.cookieHeader },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { createPackFromGenerated } from "@/lib/create-pack";
-import { getOrCreateCreator } from "@/lib/creator";
+import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION, packFileSchema, type PackFile } from "@/lib/pack-file";
 import { rateLimit } from "@/lib/rate-limit";
@@ -10,8 +10,8 @@ const MAX_IMPORT_BYTES = 120 * 1024 * 1024;
 
 /**
  * Attaches each question's embedded `image` (a v2 file only — v1 has none)
- * to the row `createPackFromGenerated` just created for it. `POST
- * /api/packs/import` is unauthenticated, so this base64 blob is exactly as
+ * to the row `createPackFromGenerated` just created for it. The file is
+ * whatever a host chose to upload, so this base64 blob is exactly as
  * hostile as an upload's request body and goes through the very same
  * `prepareImageForStorage` — sniff, decode, re-encode, strip metadata — as
  * `POST /api/questions/[id]/media`. An image that fails that (bad base64,
@@ -69,7 +69,8 @@ async function attachImportedMedia(
 
 export async function POST(req: NextRequest) {
   // No AI call, so it doesn't count against the free-tier generation cap —
-  // but it's an unauthenticated write, so it gets the same ceiling as seed.
+  // but it is a write that stores whatever bytes it is handed, so it keeps
+  // the same ceiling as seed even behind an account.
   const limited = await rateLimit(req, "packs:import", { limit: 20, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
@@ -77,6 +78,10 @@ export async function POST(req: NextRequest) {
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
+
+  // Importing creates a pack, and a pack belongs to an account.
+  const host = await hostSessionForRequest(req);
+  if (!host) return unauthorized();
 
   // Cheap first line against a multi-megabyte body: the biggest legitimate
   // file (500 questions, 40 images at the 2 MB cap, base64) is well under
@@ -103,16 +108,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error }, { status: 400 });
   }
 
-  // The importer owns the copy — this is how a visitor turns a shared
-  // (ownerless) pack into one they can edit. Creating a Creator row here is
-  // the same cost as on generate, and only happens on a successful parse.
-  const { creator, setCookieOn } = await getOrCreateCreator(req);
+  // The importer owns the copy — this is how a host turns a shared
+  // (ownerless) pack, the demo one included, into one they can edit.
   const { title, prompt, rounds } = parsed.data;
-  const pack = await createPackFromGenerated({ title, rounds }, prompt ?? `Imported pack: ${title}`, creator.id);
+  const pack = await createPackFromGenerated({ title, rounds }, prompt ?? `Imported pack: ${title}`, host.creator.id);
   // A v1 file has no `image` field on any question, so this is a no-op for
   // one — the loop finds nothing to attach and returns immediately.
   await attachImportedMedia(pack.rounds, rounds);
-  const res = NextResponse.json({ pack }, { status: 201 });
-  setCookieOn(res);
-  return res;
+  return NextResponse.json({ pack }, { status: 201 });
 }

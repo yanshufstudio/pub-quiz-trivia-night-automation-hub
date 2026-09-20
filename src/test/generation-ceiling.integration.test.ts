@@ -10,7 +10,8 @@ vi.mock("@/lib/generate-pack", async (importOriginal) => ({
 
 import { generateQuizPack, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
 import { POST as generate } from "@/app/api/packs/generate/route";
-import { COOKIE_NAME, FREE_LIMIT } from "@/lib/creator";
+import { FREE_LIMIT } from "@/lib/creator";
+import { signInTestHost, type TestHost } from "./auth-fixture";
 import { FREE_CEILING_ENV, PRO_CEILING_ENV, __resetMemoryCounters } from "@/lib/daily-ceiling";
 
 const BASE = "http://localhost:3000";
@@ -35,12 +36,20 @@ const PACK = {
 // as a different visitor rather than exhausting one address's 5-per-10-min.
 let testIp = 200;
 
-function generateRequest(cookie?: string) {
+/**
+ * A request from `host`, or from nobody at all when omitted.
+ *
+ * Every test below used to vary the `pq_creator` cookie, because that was
+ * identity. It varies the account now — and the difference is the point of
+ * this whole change: a caller could always drop a cookie, and cannot drop an
+ * account.
+ */
+function generateRequest(host?: TestHost) {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "x-forwarded-for": `10.9.0.${testIp}`,
+    ...(host?.cookieHeader ?? {}),
   };
-  if (cookie) headers.cookie = `${COOKIE_NAME}=${cookie}`;
   return new NextRequest(`${BASE}/api/packs/generate`, {
     method: "POST",
     headers,
@@ -48,16 +57,22 @@ function generateRequest(cookie?: string) {
   });
 }
 
+/** A brand-new account, the closest thing left to "a brand-new identity". */
+const freshHost = () => signInTestHost();
+
 const savedEnv: Record<string, string | undefined> = {};
 
 /**
- * The free tier was voluntary and the Anthropic bill had no ceiling at all.
- * getOrCreateCreator mints a fresh Creator with a full allowance for any
- * request that arrives without a pq_creator cookie, so deleting the cookie
- * reset the allowance and never sending one skipped it entirely — a
- * cookie-less curl loop was an unlimited generator, bounded only by the
- * per-IP throttle. Signing the cookie would not have helped: the attack is
- * having no cookie at all.
+ * The free tier was voluntary and the Anthropic bill had no ceiling at all:
+ * a request with no `pq_creator` cookie was handed a fresh Creator with a
+ * full allowance, so dropping the cookie reset it and never sending one
+ * skipped it entirely.
+ *
+ * Accounts close that particular door — generation now needs one — but the
+ * global ceiling is still the thing that actually bounds the bill, because
+ * signing up is free and an attacker can do it repeatedly. It has no
+ * identity in its key at all, which is exactly why rotating accounts does
+ * not move it. That is what the first test here proves.
  */
 describe("the global daily generation ceiling", () => {
   beforeEach(() => {
@@ -84,15 +99,16 @@ describe("the global daily generation ceiling", () => {
     await db.$disconnect();
   });
 
-  it("stops a caller who never sends a cookie, which nothing used to", async () => {
+  it("stops a caller who signs up a fresh account for every request", async () => {
     process.env[FREE_CEILING_ENV] = "3";
 
     for (let i = 0; i < 3; i++) {
-      // A brand-new identity every time — the whole point of the attack.
-      expect((await generate(generateRequest())).status).toBe(201);
+      // A brand-new account every time — the cheapest attack still available
+      // now that a cookie is not identity. The ceiling does not care.
+      expect((await generate(generateRequest(await freshHost()))).status).toBe(201);
     }
 
-    const refused = await generate(generateRequest());
+    const refused = await generate(generateRequest(await freshHost()));
     expect(refused.status).toBe(503);
     expect(refused.headers.get("Retry-After")).toBeTruthy();
 
@@ -106,14 +122,27 @@ describe("the global daily generation ceiling", () => {
     expect(vi.mocked(generateQuizPack)).toHaveBeenCalledTimes(3);
   });
 
-  it("checks the ceiling before writing a Creator row", async () => {
-    process.env[FREE_CEILING_ENV] = "0";
-    const before = await db.creator.count();
+  it("refuses a caller with no account at all, before the ceiling is touched", async () => {
+    process.env[FREE_CEILING_ENV] = "3";
 
     const refused = await generate(generateRequest());
+    expect(refused.status).toBe(401);
+    expect(vi.mocked(generateQuizPack)).not.toHaveBeenCalled();
+
+    // The day's allowance is intact: a 401 must not cost a genuine host a slot.
+    for (let i = 0; i < 3; i++) {
+      expect((await generate(generateRequest(await freshHost()))).status).toBe(201);
+    }
+  });
+
+  it("checks the ceiling before writing a pack or calling the model", async () => {
+    process.env[FREE_CEILING_ENV] = "0";
+    const before = await db.quizPack.count();
+
+    const refused = await generate(generateRequest(await freshHost()));
     expect(refused.status).toBe(503);
 
-    expect(await db.creator.count()).toBe(before);
+    expect(await db.quizPack.count()).toBe(before);
     expect(vi.mocked(generateQuizPack)).not.toHaveBeenCalled();
   });
 
@@ -128,10 +157,10 @@ describe("the global daily generation ceiling", () => {
       new UnusableModelOutputError("ran to max_tokens and could not be salvaged", true)
     );
 
-    expect((await generate(generateRequest())).status).toBe(422);
+    expect((await generate(generateRequest(await freshHost()))).status).toBe(422);
 
     // The day's only unit was spent on a real, billed generation.
-    const next = await generate(generateRequest());
+    const next = await generate(generateRequest(await freshHost()));
     expect(next.status).toBe(503);
     expect((await next.json()).dailyCeilingReached).toBe(true);
   });
@@ -140,8 +169,8 @@ describe("the global daily generation ceiling", () => {
     process.env[FREE_CEILING_ENV] = "1";
     vi.mocked(generateQuizPack).mockRejectedValueOnce(new ModelDeclinedError("no"));
 
-    expect((await generate(generateRequest())).status).toBe(422);
-    expect((await generate(generateRequest())).status).toBe(503);
+    expect((await generate(generateRequest(await freshHost()))).status).toBe(422);
+    expect((await generate(generateRequest(await freshHost()))).status).toBe(503);
   });
 
   it("hands the ceiling back when the API rejected the request outright", async () => {
@@ -152,8 +181,8 @@ describe("the global daily generation ceiling", () => {
       new Anthropic.APIError(503, { type: "error" }, "upstream down", undefined)
     );
 
-    expect((await generate(generateRequest())).status).toBe(503);
-    expect((await generate(generateRequest())).status).toBe(201);
+    expect((await generate(generateRequest(await freshHost()))).status).toBe(503);
+    expect((await generate(generateRequest(await freshHost()))).status).toBe(201);
   });
 
   it("never charges the caller a free pack for a failure, however it failed", async () => {
@@ -166,36 +195,38 @@ describe("the global daily generation ceiling", () => {
       new Anthropic.APIError(503, { type: "error" }, "down", undefined),
     ]) {
       vi.mocked(generateQuizPack).mockRejectedValueOnce(err);
-      const res = await generate(generateRequest());
-      const deviceKey = res.cookies.get(COOKIE_NAME)!.value;
-      const creator = await db.creator.findUnique({ where: { deviceKey } });
+      const host = await freshHost();
+      await generate(generateRequest(host));
+      const creator = await db.creator.findUnique({ where: { id: host.id } });
       expect(creator?.packsGeneratedInPeriod).toBe(0);
     }
   });
 
   it("refuses a spent creator without touching the shared daily counter", async () => {
     process.env[FREE_CEILING_ENV] = "1";
-    const spent = await db.creator.create({
-      data: { deviceKey: `spent-${Math.random()}`, packsGeneratedInPeriod: FREE_LIMIT },
+    const spentHost = await freshHost();
+    await db.creator.update({
+      where: { id: spentHost.id },
+      data: { packsGeneratedInPeriod: FREE_LIMIT },
     });
 
     // Their 403 must not INCR-then-DECR the day's counter: at the boundary
     // that churn can make a genuine visitor read one over the ceiling and be
     // refused capacity nobody is using.
-    expect((await generate(generateRequest(spent.deviceKey))).status).toBe(403);
+    expect((await generate(generateRequest(spentHost))).status).toBe(403);
 
     // The day is untouched, so the one real slot is still there.
-    expect((await generate(generateRequest())).status).toBe(201);
+    expect((await generate(generateRequest(await freshHost()))).status).toBe(201);
   });
 
   it("does not spend a free creator's allowance on a failed generation", async () => {
     vi.mocked(generateQuizPack).mockRejectedValueOnce(new Error("upstream exploded"));
 
-    const failed = await generate(generateRequest());
+    const host = await freshHost();
+    const failed = await generate(generateRequest(host));
     expect(failed.status).toBe(502);
-    const deviceKey = failed.cookies.get(COOKIE_NAME)!.value;
 
-    const creator = await db.creator.findUnique({ where: { deviceKey } });
+    const creator = await db.creator.findUnique({ where: { id: host.id } });
     expect(creator?.packsGeneratedInPeriod).toBe(0);
   });
 
@@ -203,14 +234,15 @@ describe("the global daily generation ceiling", () => {
     process.env[FREE_CEILING_ENV] = "0";
     process.env[PRO_CEILING_ENV] = "2";
 
-    const pro = await db.creator.create({ data: { deviceKey: `pro-${Math.random()}`, plan: "PRO" } });
+    const proHost = await freshHost();
+    await db.creator.update({ where: { id: proHost.id }, data: { plan: "PRO" } });
 
     // Free is shut, and it makes no difference to a Pro subscriber.
-    expect((await generate(generateRequest())).status).toBe(503);
-    expect((await generate(generateRequest(pro.deviceKey))).status).toBe(201);
+    expect((await generate(generateRequest(await freshHost()))).status).toBe(503);
+    expect((await generate(generateRequest(proHost))).status).toBe(201);
 
     // Pro is also never charged against its own per-creator free allowance.
-    const after = await db.creator.findUnique({ where: { id: pro.id } });
+    const after = await db.creator.findUnique({ where: { id: proHost.id } });
     expect(after?.packsGeneratedInPeriod).toBe(0);
   });
 });
@@ -235,17 +267,17 @@ describe("the per-creator free cap under concurrency", () => {
     await db.$disconnect();
   });
 
-  it("lets a cookie through exactly FREE_LIMIT times when all of them race", async () => {
-    const creator = await db.creator.create({ data: { deviceKey: `race-${Math.random()}` } });
+  it("lets one account through exactly FREE_LIMIT times when all of them race", async () => {
+    const host = await signInTestHost();
 
     // Twice the allowance, all in flight together.
-    const attempts = Array.from({ length: FREE_LIMIT * 2 }, () => generate(generateRequest(creator.deviceKey)));
+    const attempts = Array.from({ length: FREE_LIMIT * 2 }, () => generate(generateRequest(host)));
     const statuses = (await Promise.all(attempts)).map((r) => r.status);
 
     expect(statuses.filter((s) => s === 201)).toHaveLength(FREE_LIMIT);
     expect(statuses.filter((s) => s === 403)).toHaveLength(FREE_LIMIT);
 
-    const after = await db.creator.findUnique({ where: { id: creator.id } });
+    const after = await db.creator.findUnique({ where: { id: host.id } });
     expect(after?.packsGeneratedInPeriod).toBe(FREE_LIMIT);
   });
 });
@@ -266,7 +298,7 @@ describe("a brief the model declines", () => {
     const reason = "I can't write a quiz round about how to synthesise nerve agents.";
     vi.mocked(generateQuizPack).mockRejectedValueOnce(new ModelDeclinedError(reason));
 
-    const res = await generate(generateRequest());
+    const res = await generate(generateRequest(await freshHost()));
     expect(res.status).toBe(422);
 
     const body = await res.json();
@@ -279,7 +311,7 @@ describe("a brief the model declines", () => {
   it("still says something useful when the model declines silently", async () => {
     vi.mocked(generateQuizPack).mockRejectedValueOnce(new ModelDeclinedError(""));
 
-    const res = await generate(generateRequest());
+    const res = await generate(generateRequest(await freshHost()));
     expect(res.status).toBe(422);
     const body = await res.json();
     expect(body.declined).toBe(true);
@@ -289,9 +321,9 @@ describe("a brief the model declines", () => {
   it("does not spend the free allowance on a declined brief", async () => {
     vi.mocked(generateQuizPack).mockRejectedValueOnce(new ModelDeclinedError("no"));
 
-    const res = await generate(generateRequest());
-    const deviceKey = res.cookies.get(COOKIE_NAME)!.value;
-    const creator = await db.creator.findUnique({ where: { deviceKey } });
+    const host = await freshHost();
+    await generate(generateRequest(host));
+    const creator = await db.creator.findUnique({ where: { id: host.id } });
     expect(creator?.packsGeneratedInPeriod).toBe(0);
   });
 });
