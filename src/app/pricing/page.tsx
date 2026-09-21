@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ProCheckout } from "./ProCheckout";
 import {
   ANNUAL_MONTHS_FREE,
   FREE_PACK_ALLOWANCE,
@@ -17,22 +18,18 @@ export const metadata: Metadata = {
 };
 
 /**
- * Content only, on purpose. There is no Paddle SDK here, no price ids and no
- * checkout button.
+ * Static on purpose, with one client island. Everything here but the Pro
+ * card's buttons is the same for every visitor, and it is what Paddle's
+ * reviewer and search crawlers read, so it stays prerendered rather than
+ * reading a session on the server. `ProCheckout` decides in the browser
+ * whether to offer Sign in, Subscribe, or Manage subscription.
  *
- * Paddle's domain review requires pricing to be visible on the live site, and
- * Paddle does not let a domain open a checkout until that review has passed.
- * So the page that sells cannot exist before approval, and the page that
- * states what is sold has to. This is the second one. PR #4 replaces this
- * file with the real thing, wired to `NEXT_PUBLIC_PADDLE_PRICE_*`, once the
- * domain is approved and the live catalogue exists.
+ * Paddle approved triviafoundry.com on 2026-09-18, so this page can now sell.
+ * It never shows a button that does nothing: a production build fails
+ * without the NEXT_PUBLIC_PADDLE_* values (next.config.ts), and anywhere
+ * else without them the card says checkout is not switched on.
  *
- * Deliberately no disabled "Subscribe" button while we wait. A control that
- * looks like it takes money and does nothing is worse than no control, and
- * the build guard on PR #4's `next.config.ts` exists precisely to stop a
- * dead-button pricing page reaching production.
- *
- * Figures come from `src/lib/pricing.ts`, which /refunds also reads.
+ * Figures come from `src/lib/pricing.ts`, which /terms and /refunds also read.
  */
 
 const FREE_FEATURES = [
@@ -94,6 +91,7 @@ export default function PricingPage() {
               <li>Everything in Free</li>
               <li>Cancel whenever you like; your packs stay yours</li>
             </ul>
+            <ProCheckout />
           </section>
         </div>
 

@@ -20,5 +20,10 @@ export async function GET(req: NextRequest) {
     packsGeneratedInPeriod: rolled.packsGeneratedInPeriod,
     limit: FREE_LIMIT,
     email: host.user.email,
+    // For /pricing and /create: whether there is a Paddle subscription behind
+    // this account at all (Manage subscription needs one), and Paddle's word
+    // for its state. `plan` above is what actually decides the limit.
+    hasSubscription: rolled.paddleSubscriptionId !== null,
+    subscriptionStatus: rolled.subscriptionStatus,
   });
 }

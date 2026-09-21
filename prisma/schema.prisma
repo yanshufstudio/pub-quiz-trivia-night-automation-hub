@@ -164,6 +164,49 @@ model Creator {
   // person.
   user                   User?      @relation(fields: [userId], references: [id])
   userId                 String?    @unique
+
+  // Pro, as Paddle reports it. Written only by the Paddle webhook
+  // (src/lib/paddle/apply-subscription.ts), never from the browser.
+  // `plan` above is derived from `subscriptionStatus` on every event.
+  paddleCustomerId       String?
+  paddleSubscriptionId   String?    @unique
+  subscriptionStatus     String?    // Paddle's subscription status
+  subscriptionUpdatedAt  DateTime?  // occurred_at of the last applied event
+
+  // UNUSED. Added by 20260914120000_add_paddle_subscription for PR #4's first
+  // draft, which stored the Paddle customer's email here for a /restore flow.
+  // Accounts made both unnecessary: the address lives on User, and restoring
+  // Pro on a new device is signing in. Nothing writes this column. It stays
+  // in the schema because that migration was already applied to production
+  // (a PR #4 preview ran it — previews share the production database), so
+  // the column exists; dropping it needs a new migration, which is the
+  // owner's call.
+  email                  String?    @unique
+  restoreTokens          RestoreToken[]
+}
+
+// One row per Paddle webhook delivery that was applied. The primary key on
+// Paddle's event_id is what makes the webhook idempotent: a retry of an event
+// already applied hits the constraint and is acknowledged without re-applying.
+// Written in the same transaction as the change it records, so a delivery that
+// fails part-way leaves no row and Paddle's retry applies it.
+model PaddleEvent {
+  eventId    String   @id
+  type       String
+  occurredAt DateTime
+  receivedAt DateTime @default(now())
+}
+
+// UNUSED — see Creator.email above. The table exists in production for the
+// same reason and nothing reads or writes it.
+model RestoreToken {
+  tokenHash String    @id
+  creator   Creator   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId String
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  @@index([creatorId])
 }
 
 model User {

@@ -45,6 +45,9 @@ describe("GET /api/creator/status", () => {
       packsGeneratedInPeriod: 1,
       limit: 2,
       email: host.email,
+      // Added with Paddle: /pricing and /create read these.
+      hasSubscription: false,
+      subscriptionStatus: null,
     });
   });
 

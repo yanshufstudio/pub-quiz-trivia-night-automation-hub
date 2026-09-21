@@ -92,6 +92,20 @@ breaking config change.
   saved. The `/create` page shows that as a plain "server returned status
   504" message rather than a JSON-parse error.
 
+- **Payments (Pro)**: Paddle Billing, as merchant of record. Six variables,
+  documented in `.env.example`: four `NEXT_PUBLIC_PADDLE_*` values read at
+  build time (a production build fails without them — `next.config.ts`),
+  `PADDLE_API_KEY` for the customer portal, and
+  `PADDLE_NOTIFICATION_WEBHOOK_SECRET` for `/api/paddle/webhook`. The flow:
+  a signed-in host presses Subscribe on `/pricing`; `POST
+  /api/billing/checkout` returns the price id and a customData whose creator
+  id comes from the session and is signed (`src/lib/paddle/checkout-token.ts`);
+  Paddle's overlay takes the payment and returns them to `/create?upgraded=1`,
+  which waits for the webhook to switch Pro on. Pro follows the subscription's
+  status on every `subscription.*` event (`src/lib/paddle/plan.ts`). A refund
+  on its own sends no subscription event, so a refund is always paired with an
+  immediate cancel of the subscription, which is what switches Pro off.
+
 No API key yet? `POST /api/packs/seed` creates a small static demo pack so you
 can exercise the editor, PDF export, and live session flow without calling
 Claude. There's also a CLI seed script: `npm run db:seed`.
