@@ -4,10 +4,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { signOut, useSession } from "@/lib/auth-client";
+import { accountDisplayName } from "@/lib/account-name";
 
 /**
  * The account corner of the site chrome: "Sign in" when signed out, the
- * account's email and a "Sign out" control when signed in.
+ * account's name and a "Sign out" control when signed in.
  *
  * Client-side on purpose. Reading the session on the server would make every
  * page that carries the header dynamic — including /, /pricing and the three
@@ -86,22 +87,35 @@ export function AccountNav({ className = "" }: { className?: string }) {
     router.refresh();
   }
 
+  const email = data.user.email;
+
   return (
     <span className={`${SLOT} ${className}`}>
-      {/* max-w + truncate: a long address must not push the nav wide enough
-          to scroll the page sideways at 320px (e2e/narrow-viewport.spec.ts),
-          and the cap stays put across breakpoints so the resolved width never
-          outgrows SLOT — see the note on it. The full address is in `title`. */}
-      <span
-        className="max-w-[9rem] truncate text-sm text-stage-muted"
-        title={data.user.email}
-      >
-        {data.user.email}
+      {/* max-w + truncate: a long name must not push the nav wide enough to
+          scroll the page sideways at 320px (e2e/narrow-viewport.spec.ts), and
+          the cap stays put across breakpoints so the resolved width never
+          outgrows SLOT — see the note on it. `truncate` is also what makes a
+          long one end in an ellipsis instead of wrapping onto a second line
+          and growing the header.
+
+          Printed: the first name, or the part before the @ (see
+          src/lib/account-name.ts). The full address is still here for anyone
+          who needs it — `title` for a pointer, the sr-only line for a screen
+          reader — so shortening the label costs neither of them. Shortening
+          what is printed cannot move the header in any case, because SLOT is
+          the same width whatever lands in it. */}
+      <span className="max-w-[9rem] truncate text-sm text-stage-muted" title={email}>
+        <span className="sr-only">Signed in as {email}</span>
+        <span aria-hidden="true">{accountDisplayName({ name: data.user.name, email })}</span>
       </span>
       <button
         type="button"
         onClick={onSignOut}
         disabled={busy}
+        // "Sign out" alone is ambiguous once the visible label is a first
+        // name: on a shared machine the one thing you want confirmed before
+        // pressing it is *which* account it ends.
+        aria-label={`Sign out of ${email}`}
         className="rounded-md px-2 py-2 text-sm font-semibold text-gold transition-colors hover:text-stage-fg disabled:opacity-60"
       >
         {busy ? "Signing out…" : "Sign out"}
