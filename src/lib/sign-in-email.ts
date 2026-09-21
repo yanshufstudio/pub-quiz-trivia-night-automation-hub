@@ -13,6 +13,8 @@
  * already gives us on every host we deploy to.
  */
 
+import { CONTACT_EMAIL } from "@/lib/site";
+
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
 export type CapturedSignInEmail = {
@@ -176,6 +178,14 @@ export async function sendSignInEmail({
     body: JSON.stringify({
       from,
       to: [email],
+      // Replying to a sign-in code is the obvious thing to do when it does
+      // not work, and until now it went nowhere: EMAIL_FROM is on
+      // triviafoundry.com, which sends mail but has no inbox behind it, so a
+      // host's reply bounced or vanished. Reply-To puts those replies in
+      // front of the same mailbox /privacy, /terms and /refunds publish.
+      // Resend's REST field is snake_case `reply_to`; `replyTo` is the SDK's
+      // spelling and is silently ignored here.
+      reply_to: CONTACT_EMAIL,
       subject: subject(),
       text: textBody({ code, url }),
       html: htmlBody({ code, url }),
