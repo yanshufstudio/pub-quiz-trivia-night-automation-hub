@@ -45,13 +45,20 @@ import { accountDisplayName } from "@/lib/account-name";
  * about it depends on what the session turns out to be, which is the only
  * property that makes both wraps stable. `justify-end` keeps the content
  * against the right edge so the reserved space reads as alignment rather
- * than as a gap.
+ * than as a gap — on the one-row header, md and up. Below md the header
+ * stacks and centres every line (see SiteHeader), and the slot takes a line
+ * of its own, full width, with its content centred. Right-aligned inside a
+ * 13.5rem box, "name · Sign out" sat off to one side; and sharing the links'
+ * line (which it can on wider phones and small tablets) the box's unused
+ * width sat on one side of the line and pulled it off centre. A full line is
+ * the same width in every state, so it keeps the property above: nothing
+ * moves when the session resolves.
  *
  * The email cap is deliberately the same at every width for the same reason:
  * a wider cap above `sm` would make the resolved width exceed the slot there
  * and reintroduce exactly this bug at some larger viewport.
  */
-const SLOT = "flex min-w-[13.5rem] items-center justify-end gap-1 [&>a]:min-h-12 [&>button]:min-h-12";
+const SLOT = "flex min-w-[13.5rem] items-center justify-end gap-1 max-md:basis-full max-md:justify-center [&>a]:min-h-12 [&>button]:min-h-12";
 
 /*
  * The last two classes above are the tap-target floor for whatever control

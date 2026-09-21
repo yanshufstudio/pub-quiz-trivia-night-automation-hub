@@ -46,7 +46,22 @@ export function SiteHeader() {
           share one row, so the nav drops to its own line rather than pushing
           the page sideways (the 2026-09-17 sweep caught "Join" cut off on an
           iPhone 15). */}
-      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1.5 px-5 py-3.5">
+      {/* Below md (768px) the row stacks into three centred lines: sign,
+          links, account. Before, a wrapped row kept its one-row alignment
+          piecemeal — sign on the left, links a little in from it, and the
+          account line wherever the right edge of its fixed-width slot
+          happened to fall (Paul, 21 Sep: pick A of three layouts). At md and
+          up it is the one row it always was: sign left, nav right.
+
+          Why md and not the width the row actually needs: in Chromium the
+          row fits from 732px here (728px on the homepage; measured signed in
+          and out, 4px steps). Another browser can set the same text a few
+          pixels wider, and a breakpoint right at 732 would then leave a band
+          where the row wraps on its own but is not centred — the old look.
+          md leaves 36px of slack. The cost is that between ~732 and 767px the
+          header stacks although one row would just fit: taller there, never
+          lopsided. e2e/header-layout.spec.ts pins both sides of md. */}
+      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1.5 px-5 py-3.5 max-md:justify-center">
         <Wordmark href="/" className="text-[1.35rem]" />
         {/* flex-wrap here too: with an email in the row, five items cannot
             share one line on a 320px phone, so the account corner drops
@@ -68,7 +83,7 @@ export function SiteHeader() {
             AccountNav holds Sign in / Sign out to the same floor, and its
             pending placeholder to the same 48px, so the row does not move
             when the session lands. */}
-        <nav className="-my-1.5 flex flex-wrap items-center gap-x-1 gap-y-0">
+        <nav className="-my-1.5 flex flex-wrap items-center gap-x-1 gap-y-0 max-md:w-full max-md:justify-center">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
