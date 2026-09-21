@@ -17,21 +17,29 @@
  */
 
 export const PRICE_MONTHLY_USD = 5;
-export const PRICE_ANNUAL_USD = 25;
+/**
+ * $45 a year: three months free against twelve monthly payments. The owner's
+ * decision of 2026-09-21 (planning decision 27), replacing the $25 the
+ * 2026-09-09 spec launched with. The live Paddle annual price is created at
+ * 4500 cents to match; if the two ever differ, the site advertises one price
+ * and Paddle charges another.
+ */
+export const PRICE_ANNUAL_USD = 45;
 
 /**
  * How many months of the monthly plan the annual price saves, as /pricing
- * states it ("7 months free" at $5 and $25).
+ * states it ("3 months free" at $5 and $45).
  *
  * Worked out rather than written, because the written version was wrong: the
- * page said "two months free", carried over from PR #4's cards, when $25 a
- * year against $60 of monthly payments is seven. Rounded down so that a price
- * change which stops dividing evenly understates the saving instead of
- * overstating it; `pricing.test.ts` asserts it divides evenly today.
+ * page once said "two months free", carried over from PR #4's cards, when
+ * the $25 a year it then advertised against $60 of monthly payments was
+ * seven. Rounded down so that a price change which stops dividing evenly
+ * understates the saving instead of overstating it; `pricing.test.ts`
+ * asserts it divides evenly today.
  */
 export const ANNUAL_MONTHS_FREE = Math.floor(12 - PRICE_ANNUAL_USD / PRICE_MONTHLY_USD);
 
-/** `$5`, `$25` — one renderer so the two pages cannot format differently. */
+/** `$5`, `$45` — one renderer so the pages cannot format differently. */
 export function formatUsd(amount: number): string {
   return `$${amount}`;
 }

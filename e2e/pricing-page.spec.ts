@@ -32,8 +32,15 @@ test("/pricing is served publicly and states both prices", async ({ page, reques
   await expect(page.getByText(String(FREE_PACK_ALLOWANCE), { exact: false }).first()).toBeVisible();
 
   // The annual saving is derived from the two prices; the page once claimed
-  // "two months free" against $5 and $25, which is seven.
+  // "two months free" against $5 and $25, which was seven.
   await expect(page.getByText(`${ANNUAL_MONTHS_FREE} months free`, { exact: false })).toBeVisible();
+
+  // The Free card said "No card, no account" until accounts went live on
+  // 2026-09-20, after which the second half was false: running a quiz needs
+  // an account (a free one). Teams still need none, but this page is about
+  // what a host pays for.
+  await expect(page.getByRole("main").getByText(/no account/i)).toHaveCount(0);
+  await expect(page.getByText("A free account, no card")).toBeVisible();
 });
 
 test("/pricing carries no checkout control while Paddle has not approved the domain", async ({ page }) => {

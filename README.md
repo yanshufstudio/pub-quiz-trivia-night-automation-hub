@@ -352,7 +352,7 @@ own heading, the footer links reach all three, and the excluded surfaces still
 have no footer.
 
 The content is specific to this app rather than a generic template: the free
-tier's two-packs-per-30-days limit, Pro at $5/month or $25/year, Paddle as
+tier's two-packs-per-30-days limit, Pro at $5/month or $45/year, Paddle as
 merchant of record, and the actual list of what the app stores (the
 `pq_creator` cookie, quiz content, live team names and answers, uploaded
 question images) and who processes it (Paddle, Vercel, Turso, Anthropic,
