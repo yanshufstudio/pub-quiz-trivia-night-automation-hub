@@ -224,6 +224,16 @@ export function HostDashboard({ code }: { code: string }) {
               <p className="mt-2 text-stage-muted">
                 Share the code. Start when everyone is in — late joiners can still arrive during the lobby.
               </p>
+              {/* The one thing about hosting that is not guessable, said in
+                  the one place it can still be acted on: the key lives in
+                  this browser's local storage (src/lib/host-session.ts), so
+                  moving to another device mid-night means pasting the host
+                  key rather than simply signing in. Better to learn it in the
+                  lobby than in front of a room. */}
+              <p className="mt-2 text-sm text-stage-muted">
+                Keep this browser open — the host controls are tied to it. Anywhere else will ask for
+                this session&apos;s host key.
+              </p>
               <JoinQr code={state.code} />
               <button
                 type="button"

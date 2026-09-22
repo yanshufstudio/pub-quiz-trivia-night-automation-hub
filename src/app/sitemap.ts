@@ -4,7 +4,7 @@ import { LEGAL_LAST_UPDATED, SITE_URL } from "@/lib/site";
 /**
  * Served at /sitemap.xml and pointed at from robots.txt.
  *
- * Only the five pages a stranger can land on cold and get something from.
+ * Only the pages a stranger can land on cold and get something from.
  * Everything else is per-session (/host, /play), owner-only (/packs and the
  * print sheets beneath it — see `src/lib/pack-access.ts`), behind an
  * account, or an API route, and robots.ts disallows all of them. Listing a
@@ -26,6 +26,10 @@ import { LEGAL_LAST_UPDATED, SITE_URL } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE_URL },
+    // Added 2026-09-20 with the page. It is the one URL here written for a
+    // host rather than for a reviewer or a crawler: "how do I run a pub quiz"
+    // is a thing people search for, and the answer is a page we now have.
+    { url: `${SITE_URL}/how-it-works` },
     { url: `${SITE_URL}/pricing` },
     { url: `${SITE_URL}/terms`, lastModified: LEGAL_LAST_UPDATED },
     { url: `${SITE_URL}/privacy`, lastModified: LEGAL_LAST_UPDATED },

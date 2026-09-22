@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Pack, Question, QuestionType, Round } from "@/lib/api-types";
 import { writeHostToken } from "@/lib/host-session";
+import { SITE_URL } from "@/lib/site";
 
 type Draft = Pick<Question, "text" | "answer" | "points" | "type" | "options"> & {
   // Kept as the raw comma-separated text the host is typing, not a parsed
@@ -426,6 +427,19 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           </button>
         </div>
       </div>
+
+      {/* What that amber button actually does, said once, here, where it is
+          about to be pressed. Nothing on the site explained that the host
+          screen and the team phones are two different surfaces, so the first
+          time most hosts found out was during a quiz night. */}
+      <p className="mt-3 text-sm text-muted">
+        <strong className="font-semibold text-foreground">Start live session</strong> opens your host
+        screen with a five-character code teams enter at{" "}
+        <span className="font-semibold">{SITE_URL.replace(/^https:\/\//, "")}/play</span>.{" "}
+        <Link className="font-medium text-amber hover:underline" href="/how-it-works">
+          How to run a quiz night
+        </Link>
+      </p>
 
       {error ? <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800">{error}</p> : null}
 
