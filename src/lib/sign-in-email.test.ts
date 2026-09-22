@@ -7,6 +7,7 @@ import {
   sendSignInEmail,
   signInEmailCaptureEnabled,
 } from "@/lib/sign-in-email";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 /**
  * The capture exists so the e2e and integration suites can read a sign-in
@@ -126,6 +127,13 @@ describe("sendSignInEmail", () => {
     // up on a pub PC needs the digits, not the link.
     expect(body.text).toContain("424242");
     expect(body.html).toContain("424242");
+
+    // Replying to the code is the obvious move when it does not work, and
+    // the From domain has no inbox behind it. `reply_to` is the REST API's
+    // spelling — Resend's own SDK maps its `replyTo` option onto exactly
+    // this field — so a camelCase key here would be accepted and ignored.
+    expect(body.reply_to).toBe(CONTACT_EMAIL);
+    expect(body.replyTo).toBeUndefined();
 
     expect(capturedSignInEmails()).toHaveLength(0);
   });
