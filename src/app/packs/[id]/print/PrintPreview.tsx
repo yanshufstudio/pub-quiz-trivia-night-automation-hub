@@ -103,20 +103,38 @@ function Cue({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Page-break policy for the three layouts below, the same one the PDF
+ * documents follow (src/lib/pdf/documents.tsx): a round flows across pages
+ * when it has to, no single question or answer row is ever split down the
+ * middle, and a round heading is never left stranded at the foot of a page
+ * with nothing under it.
+ *
+ * Every round used to carry `break-inside-avoid` itself. That holds for the
+ * five-question demo pack and cannot hold for the ten-question rounds the
+ * wizard's default brief produces — such a round is taller than a sheet, and
+ * a block that cannot fit on any page is one the browser breaks wherever it
+ * happens to land, mid-question included. Declaring the *question* unbreakable
+ * and letting the round flow is what actually keeps a question whole.
+ *
+ * This is the browser-print twin of the bug fixed in the PDF renderer in
+ * `a763086`; the two surfaces print the same pack and had the same policy
+ * written two different ways, so only one of them got fixed.
+ */
 function ScriptLayout({ pack }: { pack: Pack }) {
   return (
     <div className="mt-6">
       <Cue>Welcome everyone, introduce tonight’s quiz, and remind teams how scoring works.</Cue>
       {pack.rounds.map((round) => (
-        <section key={round.id} className="mt-8 break-inside-avoid">
-          <h3 className="font-serif text-2xl font-bold">
+        <section key={round.id} className="mt-8">
+          <h3 className="break-after-avoid font-serif text-2xl font-bold">
             Round {round.index + 1}: {round.title}
           </h3>
-          <p className="text-sm italic text-muted">{round.category}</p>
+          <p className="break-after-avoid text-sm italic text-muted">{round.category}</p>
           <Cue>Announce the round title and category. Give teams a moment to ready their sheets.</Cue>
           <ol className="mt-4 space-y-5">
             {round.questions.map((question) => (
-              <li key={question.id}>
+              <li key={question.id} className="break-inside-avoid">
                 <div className="flex items-start justify-between gap-4">
                   <p>
                     <span className="mr-2 font-bold">{question.index + 1}.</span>
@@ -146,11 +164,11 @@ function AnswerLayout({ pack }: { pack: Pack }) {
   return (
     <div className="mt-6 space-y-8">
       {pack.rounds.map((round) => (
-        <section key={round.id} className="break-inside-avoid">
-          <h3 className="font-serif text-xl font-bold">
+        <section key={round.id}>
+          <h3 className="break-after-avoid font-serif text-xl font-bold">
             Round {round.index + 1}: {round.title}
           </h3>
-          <p className="mb-3 text-sm italic text-muted">{round.category}</p>
+          <p className="break-after-avoid mb-3 text-sm italic text-muted">{round.category}</p>
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="border-b border-foreground text-left text-xs uppercase tracking-wide text-muted">
@@ -162,7 +180,7 @@ function AnswerLayout({ pack }: { pack: Pack }) {
             </thead>
             <tbody>
               {round.questions.map((question) => (
-                <tr key={question.id} className="border-b border-line align-top">
+                <tr key={question.id} className="break-inside-avoid border-b border-line align-top">
                   <td className="py-2.5 font-semibold">{question.index + 1}</td>
                   <td className="py-2.5 pr-4 text-muted">
                     {question.text}
@@ -192,14 +210,14 @@ function QuestionLayout({ pack }: { pack: Pack }) {
     <div className="mt-6 space-y-8">
       <p className="text-sm text-muted">Team name: _______________________________</p>
       {pack.rounds.map((round) => (
-        <section key={round.id} className="break-inside-avoid">
-          <h3 className="font-serif text-xl font-bold">
+        <section key={round.id}>
+          <h3 className="break-after-avoid font-serif text-xl font-bold">
             Round {round.index + 1}: {round.title}
           </h3>
-          <p className="mb-3 text-sm italic text-muted">{round.category}</p>
+          <p className="break-after-avoid mb-3 text-sm italic text-muted">{round.category}</p>
           <ol className="space-y-5">
             {round.questions.map((question) => (
-              <li key={question.id}>
+              <li key={question.id} className="break-inside-avoid">
                 <div className="flex items-start justify-between gap-4">
                   <p>
                     <span className="mr-2 font-bold">{question.index + 1}.</span>

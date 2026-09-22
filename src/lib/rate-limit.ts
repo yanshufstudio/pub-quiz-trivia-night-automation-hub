@@ -1,21 +1,15 @@
 import type { NextRequest } from "next/server";
-import { Redis } from "@upstash/redis";
+import { createFixedWindowCounter } from "@/lib/fixed-window-counter";
 
 /**
- * Upstash Redis when configured (UPSTASH_REDIS_REST_URL/TOKEN in
- * .env.example) — a real shared store, so limits are actually enforced
- * across every serverless instance rather than reset per cold start.
- * Falls back to an in-process Map otherwise, which is fine for local dev
- * (or a genuinely single, long-running process) but not for a real
- * multi-instance deploy: each instance gets its own counters, and a
- * redeploy/cold start wipes them.
+ * Upstash Redis when configured, an in-process Map otherwise — see
+ * src/lib/fixed-window-counter.ts, which holds the one client and the one
+ * counter body this file and src/lib/daily-ceiling.ts share. With Upstash,
+ * limits hold across every serverless instance; without it each instance
+ * keeps its own counters and a cold start wipes them, which is fine for
+ * local dev and not for a real multi-instance deploy.
  */
-const redis =
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
-    ? new Redis({ url: process.env.UPSTASH_REDIS_REST_URL, token: process.env.UPSTASH_REDIS_REST_TOKEN })
-    : null;
-
-const memoryBuckets = new Map<string, { count: number; resetAt: number }>();
+const counter = createFixedWindowCounter();
 
 function clientIp(req: NextRequest): string {
   return (
@@ -56,47 +50,12 @@ export async function consumeRateLimit(
   bucketKey: string,
   { limit, windowMs }: { limit: number; windowMs: number }
 ): Promise<{ allowed: boolean; retryAfterSeconds: number }> {
-  return redis ? redisRateLimit(redis, bucketKey, limit, windowMs) : memoryRateLimit(bucketKey, limit, windowMs);
-}
-
-/** Fixed-window counter via INCR + EXPIRE. Two requests racing to be "first"
- * in a new window can both fire the EXPIRE — harmless, since they agree on
- * how long the window should last (windowSeconds), so the TTL ends up the
- * same either way. */
-async function redisRateLimit(
-  redis: Redis,
-  bucketKey: string,
-  limit: number,
-  windowMs: number
-): Promise<{ allowed: boolean; retryAfterSeconds: number }> {
-  const windowSeconds = Math.ceil(windowMs / 1000);
-  const count = await redis.incr(bucketKey);
-  if (count === 1) {
-    await redis.expire(bucketKey, windowSeconds);
-  }
-  if (count > limit) {
-    const ttl = await redis.ttl(bucketKey);
-    return { allowed: false, retryAfterSeconds: Math.max(ttl, 1) };
-  }
-  return { allowed: true, retryAfterSeconds: 0 };
-}
-
-function memoryRateLimit(
-  bucketKey: string,
-  limit: number,
-  windowMs: number
-): { allowed: boolean; retryAfterSeconds: number } {
+  // One clock reading for both calls, so the fallback store measures the
+  // wait from the same instant it counted at.
   const now = Date.now();
-  const bucket = memoryBuckets.get(bucketKey);
-  if (!bucket || bucket.resetAt <= now) {
-    memoryBuckets.set(bucketKey, { count: 1, resetAt: now + windowMs });
-    return { allowed: true, retryAfterSeconds: 0 };
+  const count = await counter.hit(bucketKey, windowMs, now);
+  if (count > limit) {
+    return { allowed: false, retryAfterSeconds: await counter.secondsLeft(bucketKey, now) };
   }
-
-  if (bucket.count >= limit) {
-    return { allowed: false, retryAfterSeconds: Math.ceil((bucket.resetAt - now) / 1000) };
-  }
-
-  bucket.count += 1;
   return { allowed: true, retryAfterSeconds: 0 };
 }

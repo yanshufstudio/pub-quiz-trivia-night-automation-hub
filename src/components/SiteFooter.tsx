@@ -13,8 +13,16 @@ import { usePathname } from "next/navigation";
  * itself — the condition this comment used to set out. Paddle's review wants
  * pricing visible as well as the policies, and a reviewer who has to hunt for
  * it is a reviewer who sends the submission to manual review.
+ *
+ * `/how-it-works` joined on 2026-09-20. It goes here rather than in
+ * NAV_LINKS because the header row is already four links plus the account
+ * corner, and a fifth would be bought at the cost of the 320px layout the
+ * 2026-09-17 sweep and `e2e/narrow-viewport.spec.ts` exist to protect. The
+ * in-context link that matters more is the one in the pack editor, next to
+ * the button the guide explains.
  */
 const links = [
+  { href: "/how-it-works", label: "How it works" },
   { href: "/pricing", label: "Pricing" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
@@ -48,9 +56,9 @@ export function SiteFooter() {
           </span>{" "}
           · by Yanshuf Studio
         </p>
-        {/* Not "Legal" any more: the row carries Pricing as well, and a
-            landmark that mislabels its own contents is worse than a generic
-            one for anyone navigating by landmark. */}
+        {/* Not "Legal" any more: the row carries the host guide and Pricing
+            as well, and a landmark that mislabels its own contents is worse
+            than a generic one for anyone navigating by landmark. */}
         {/* Every link in this row is a 48px target (min-h-12/min-w-12), the
             same floor the header's controls were brought up to. They were
             28px tall — text-sm with py-1 — which is fine for a pointer and
@@ -65,7 +73,7 @@ export function SiteFooter() {
             it — no overlap, and the footer keeps its height there too.
             gap-y-0, not gap-y-1: if the links themselves ever wrap, two
             48px lines meet without a seam. */}
-        <nav aria-label="Pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
+        <nav aria-label="Guide, pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
           {links.map((link) => (
             <Link
               key={link.href}

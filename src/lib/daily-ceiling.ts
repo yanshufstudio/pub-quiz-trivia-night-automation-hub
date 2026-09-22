@@ -1,4 +1,4 @@
-import { Redis } from "@upstash/redis";
+import { createFixedWindowCounter } from "@/lib/fixed-window-counter";
 
 /**
  * A hard ceiling on how many packs the whole deployment will generate in a
@@ -68,23 +68,19 @@ export function dailyCeilingFor(plan: string): number {
 }
 
 /**
- * Upstash when configured, an in-process Map otherwise — the same arrangement
- * as src/lib/rate-limit.ts, and with the same caveat, which matters more here:
- * without Upstash each serverless instance keeps its own counter, so the
- * "global" ceiling is really N ceilings and bounds the bill N times less
- * tightly. This is a cost control, so set UPSTASH_REDIS_REST_URL/TOKEN in
- * production and treat the fallback as a local-dev convenience.
+ * Upstash when configured, an in-process Map otherwise — the counter and the
+ * client are shared with src/lib/rate-limit.ts (src/lib/fixed-window-counter.ts),
+ * and the caveat matters more here: without Upstash each serverless instance
+ * keeps its own counter, so the "global" ceiling is really N ceilings and
+ * bounds the bill N times less tightly. This is a cost control, so set
+ * UPSTASH_REDIS_REST_URL/TOKEN in production and treat the fallback as a
+ * local-dev convenience.
  */
-const redis =
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
-    ? new Redis({ url: process.env.UPSTASH_REDIS_REST_URL, token: process.env.UPSTASH_REDIS_REST_TOKEN })
-    : null;
-
-const memoryCounters = new Map<string, { count: number; resetAt: number }>();
+const counter = createFixedWindowCounter();
 
 /** Exposed for tests: the fallback store is module-level and outlives a test. */
 export function __resetMemoryCounters() {
-  memoryCounters.clear();
+  counter.resetMemory();
 }
 
 function bucketFor(plan: string): "PRO" | "FREE" {
@@ -135,14 +131,13 @@ export async function reserveDailyGeneration(plan: string, now: Date = new Date(
     return { allowed: false, limit, used: 0, retryAfterSeconds: ttlSeconds, release: NO_OP_RELEASE };
   }
 
-  const count = redis
-    ? await incrementRedis(redis, key, ttlSeconds)
-    : incrementMemory(key, ttlSeconds, now);
+  const windowMs = ttlSeconds * 1000;
+  const count = await counter.hit(key, windowMs, now.getTime());
 
   if (count > limit) {
     // Over the line: give the unit straight back, so a refused request does
     // not push the counter further past the ceiling on every retry.
-    await releaseOne(key, ttlSeconds);
+    await counter.release(key, windowMs);
     return { allowed: false, limit, used: limit, retryAfterSeconds: ttlSeconds, release: NO_OP_RELEASE };
   }
 
@@ -155,43 +150,7 @@ export async function reserveDailyGeneration(plan: string, now: Date = new Date(
     release: async () => {
       if (released) return;
       released = true;
-      await releaseOne(key, ttlSeconds);
+      await counter.release(key, windowMs);
     },
   };
-}
-
-async function incrementRedis(client: Redis, key: string, ttlSeconds: number): Promise<number> {
-  const count = await client.incr(key);
-  // Only the request that created the key sets its lifetime. Re-expiring on
-  // every call would slide the window forward and the counter would never
-  // roll over on a busy day.
-  if (count === 1) await client.expire(key, ttlSeconds);
-  return count;
-}
-
-function incrementMemory(key: string, ttlSeconds: number, now: Date): number {
-  const bucket = memoryCounters.get(key);
-  if (!bucket || bucket.resetAt <= now.getTime()) {
-    memoryCounters.set(key, { count: 1, resetAt: now.getTime() + ttlSeconds * 1000 });
-    return 1;
-  }
-  bucket.count += 1;
-  return bucket.count;
-}
-
-/** Never lets a counter go negative: an expired key would otherwise come back
- * as -1 and hand out a day's worth of free generations.
- *
- * The repair SET carries the expiry explicitly. Upstash's SET drops whatever
- * TTL the key had unless told otherwise, and the INCR path only sets one when
- * it sees count === 1 — so a bare SET here would leave today's counter with no
- * expiry at all, immortal in Redis once the day rolls over. */
-async function releaseOne(key: string, ttlSeconds: number): Promise<void> {
-  if (redis) {
-    const count = await redis.decr(key);
-    if (count < 0) await redis.set(key, 0, { ex: ttlSeconds });
-    return;
-  }
-  const bucket = memoryCounters.get(key);
-  if (bucket && bucket.count > 0) bucket.count -= 1;
 }
