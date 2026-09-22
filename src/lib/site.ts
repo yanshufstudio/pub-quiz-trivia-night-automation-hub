@@ -19,13 +19,21 @@
 export const SITE_URL = "https://triviafoundry.com";
 
 /**
- * The published contact address for legal, privacy and refund enquiries.
+ * The published contact address for support, legal, privacy and refund
+ * enquiries, and the Reply-To on the sign-in email.
  *
  * Must stay a mailbox that is actually read: /refunds points a paying
  * customer here as the alternative to Paddle's own buyer support, so a
- * bounce is a compliance problem rather than a cosmetic one.
+ * bounce is a compliance problem rather than a cosmetic one. It is also
+ * where a host lands who simply replies to their sign-in code, which is the
+ * obvious thing to do and used to go nowhere — triviafoundry.com sends mail
+ * but receives none (see `src/lib/sign-in-email.ts`).
+ *
+ * It is a shared studio address rather than a personal one on purpose: the
+ * published contact point for a paying customer should outlive any one
+ * person's mailbox.
  */
-export const CONTACT_EMAIL = "paul@yanshufstudio.com";
+export const CONTACT_EMAIL = "info@yanshufstudio.com";
 
 /**
  * The date printed at the top of /terms, /privacy and /refunds, and the
@@ -34,4 +42,4 @@ export const CONTACT_EMAIL = "paul@yanshufstudio.com";
  * truth. It lives here rather than in `LegalPage.tsx` so `sitemap.ts` can
  * read it without importing a React component for a string.
  */
-export const LEGAL_LAST_UPDATED = "2026-09-19";
+export const LEGAL_LAST_UPDATED = "2026-09-20";
