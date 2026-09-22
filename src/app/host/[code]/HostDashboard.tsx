@@ -10,17 +10,26 @@ import { TrophyIcon } from "@/components/icons";
 import { topScorers, winningNames } from "@/lib/scoreboard-summary";
 import { readHostToken, writeHostToken } from "@/lib/host-session";
 import { buildJoinUrl } from "@/lib/join-url";
+import { questionMediaUrl } from "@/lib/question-media-url";
 import type { HostSessionState, HostTeam, SessionQuestion } from "@/lib/api-types";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
  * anywhere but our own DB-backed bytes (see src/lib/media.ts). Renders
  * nothing when the question carries no image, which is most questions. */
-function QuestionImage({ question }: { question: SessionQuestion | null | undefined }) {
+function QuestionImage({
+  question,
+  code,
+  hostToken,
+}: {
+  question: SessionQuestion | null | undefined;
+  code: string;
+  hostToken: string;
+}) {
   if (!question?.hasMedia) return null;
   return (
     // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
     <img
-      src={`/api/questions/${question.id}/media`}
+      src={questionMediaUrl(question.id, { code, hostToken })}
       alt=""
       className="mt-4 max-h-72 w-full rounded-xl border border-white/10 bg-white object-contain"
     />
@@ -245,7 +254,7 @@ export function HostDashboard({ code }: { code: string }) {
               <h2 className="mt-4 font-serif text-2xl font-semibold leading-snug sm:text-3xl">
                 {state.question?.text ?? "No question loaded"}
               </h2>
-              <QuestionImage question={state.question} />
+              <QuestionImage question={state.question} code={code} hostToken={hostToken} />
               {state.question?.type === "MULTIPLE_CHOICE" && state.question.options.length > 0 ? (
                 <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                   {state.question.options.map((option, i) => (

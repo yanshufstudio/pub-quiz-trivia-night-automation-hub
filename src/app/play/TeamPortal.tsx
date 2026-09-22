@@ -14,17 +14,30 @@ import {
   type StoredTeam,
 } from "@/lib/team-session";
 import { readJoinCode } from "@/lib/join-url";
+import { questionMediaUrl } from "@/lib/question-media-url";
 import type { SessionQuestion, TeamSessionState } from "@/lib/api-types";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
  * anywhere but our own DB-backed bytes (see src/lib/media.ts). Renders
- * nothing when the question carries no image, which is most questions. */
-function QuestionImage({ question }: { question: SessionQuestion | null | undefined }) {
+ * nothing when the question carries no image, which is most questions.
+ *
+ * The join code and this team's token ride on the URL because that route no
+ * longer serves a question's image to whoever asks (see
+ * src/lib/question-media-access.ts) and an `<img>` cannot send a header. The
+ * token is already on the query string of every poll this page makes, so
+ * nothing is exposed here that was not already. */
+function QuestionImage({
+  question,
+  team,
+}: {
+  question: SessionQuestion | null | undefined;
+  team: StoredTeam;
+}) {
   if (!question?.hasMedia) return null;
   return (
     // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
     <img
-      src={`/api/questions/${question.id}/media`}
+      src={questionMediaUrl(question.id, { code: team.code, token: team.token })}
       alt=""
       className="mt-4 max-h-64 w-full rounded-xl border border-white/15 bg-white object-contain"
     />
@@ -257,7 +270,7 @@ export function TeamPortal() {
               <Countdown timer={state.timer} dark />
             </div>
             <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug">{state.question?.text}</h2>
-            <QuestionImage question={state.question} />
+            <QuestionImage question={state.question} team={stored} />
             {state.question?.type === "MULTIPLE_CHOICE" ? (
               <div className="mt-6 flex-1 space-y-3">
                 <span className="text-sm font-medium">Your answer</span>
@@ -306,7 +319,7 @@ export function TeamPortal() {
           </form>
         ) : null}
 
-        {state?.status === "REVEAL" ? <RevealPanel state={state} /> : null}
+        {state?.status === "REVEAL" ? <RevealPanel state={state} team={stored} /> : null}
         {state?.status === "ENDED" ? <EndedPanel state={state} /> : null}
       </main>
     </div>
@@ -336,13 +349,13 @@ function LobbyPanel({ teamName, state }: { teamName: string; state: TeamSessionS
   );
 }
 
-function RevealPanel({ state }: { state: TeamSessionState }) {
+function RevealPanel({ state, team }: { state: TeamSessionState; team: StoredTeam }) {
   const correct = state.myAnswer?.isCorrect;
   return (
     <div className="flex flex-1 flex-col">
       <RoundKicker state={state} />
       <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug">{state.question?.text}</h2>
-      <QuestionImage question={state.question} />
+      <QuestionImage question={state.question} team={team} />
       <div
         className={`mt-6 rounded-2xl px-4 py-5 ${
           correct ? "bg-emerald-500/15 text-emerald-100" : "bg-red-500/15 text-red-100"
