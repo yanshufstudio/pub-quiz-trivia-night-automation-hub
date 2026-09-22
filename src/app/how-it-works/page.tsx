@@ -6,8 +6,8 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "How to run a quiz night · TriviaFoundry",
   description:
-    "From a pack to a room full of teams: sign in, generate, print, start the live "
-    + "session, share the join code, and run the night from one screen.",
+    "From a pack to a room full of teams: sign in, generate, add your pictures, print, "
+    + "start the live session, share the join code, and run the night from one screen.",
 };
 
 /**
@@ -54,6 +54,18 @@ const STEPS: Step[] = [
         Tell <Link className="font-medium text-amber hover:underline" href="/create">Create</Link>{" "}
         what the night should be about and it writes the rounds, questions, answers and points.
         Everything it writes is yours to edit afterwards — nothing is fixed.
+      </>
+    ),
+  },
+  {
+    title: "Add your own pictures, if you want a picture round",
+    body: (
+      <>
+        The wizard writes text — it does not make pictures, music or video. For a picture
+        round, put your own image on any question with <em>Add image</em> in the pack editor;
+        it then shows on the printed sheets, your host screen and every team&apos;s phone.
+        Your own photos work best: the pub, the regulars, the high street. Location and
+        camera details are stripped from a phone photo when it is uploaded.
       </>
     ),
   },
@@ -156,7 +168,7 @@ export default function HowItWorksPage() {
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-10">
         <h1 className="font-serif text-3xl font-semibold tracking-tight">How to run a quiz night</h1>
         <p className="mt-2 text-muted">
-          From an empty screen to a room full of teams. Eleven steps, most of them one click.
+          From an empty screen to a room full of teams. Twelve steps, most of them one click.
         </p>
 
         {/* A numbered list, because the order is the content. The marker is
