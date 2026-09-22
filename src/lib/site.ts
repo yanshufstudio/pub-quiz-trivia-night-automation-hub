@@ -42,4 +42,4 @@ export const CONTACT_EMAIL = "info@yanshufstudio.com";
  * truth. It lives here rather than in `LegalPage.tsx` so `sitemap.ts` can
  * read it without importing a React component for a string.
  */
-export const LEGAL_LAST_UPDATED = "2026-09-20";
+export const LEGAL_LAST_UPDATED = "2026-09-21";
