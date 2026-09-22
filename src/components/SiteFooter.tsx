@@ -20,9 +20,15 @@ import { usePathname } from "next/navigation";
  * 2026-09-17 sweep and `e2e/narrow-viewport.spec.ts` exist to protect. The
  * in-context link that matters more is the one in the pack editor, next to
  * the button the guide explains.
+ *
+ * `/faq` joined on 2026-09-22, for the question that comes before the guide:
+ * "does it do X". The one that prompted it was whether the wizard makes
+ * pictures (it does not; the host adds their own), which nothing on the site
+ * answered.
  */
 const links = [
   { href: "/how-it-works", label: "How it works" },
+  { href: "/faq", label: "FAQ" },
   { href: "/pricing", label: "Pricing" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
@@ -73,7 +79,7 @@ export function SiteFooter() {
             it — no overlap, and the footer keeps its height there too.
             gap-y-0, not gap-y-1: if the links themselves ever wrap, two
             48px lines meet without a seam. */}
-        <nav aria-label="Guide, pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
+        <nav aria-label="Guide, FAQ, pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
           {links.map((link) => (
             <Link
               key={link.href}

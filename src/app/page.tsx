@@ -39,7 +39,7 @@ const steps = [
     href: "/create",
     icon: QuillIcon,
     title: "Write it",
-    body: "Describe the rounds and topics you want — 90s pop, local history, a picture round — and the pack is drafted for you.",
+    body: "Describe the rounds and topics you want — 90s pop, local history, the town's past — and the pack is written for you, in words. Add your own pictures to any question for a picture round.",
     cta: "Open the wizard",
   },
   {

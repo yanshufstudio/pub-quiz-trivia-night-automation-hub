@@ -30,6 +30,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // host rather than for a reviewer or a crawler: "how do I run a pub quiz"
     // is a thing people search for, and the answer is a page we now have.
     { url: `${SITE_URL}/how-it-works` },
+    // Added 2026-09-22 with the page: the questions a host asks before the
+    // guide, above all whether the wizard makes pictures.
+    { url: `${SITE_URL}/faq` },
     { url: `${SITE_URL}/pricing` },
     { url: `${SITE_URL}/terms`, lastModified: LEGAL_LAST_UPDATED },
     { url: `${SITE_URL}/privacy`, lastModified: LEGAL_LAST_UPDATED },
