@@ -51,12 +51,26 @@ export function SiteFooter() {
         {/* Not "Legal" any more: the row carries Pricing as well, and a
             landmark that mislabels its own contents is worse than a generic
             one for anyone navigating by landmark. */}
-        <nav aria-label="Pricing and legal" className="flex flex-wrap items-center gap-x-1 gap-y-1">
+        {/* Every link in this row is a 48px target (min-h-12/min-w-12), the
+            same floor the header's controls were brought up to. They were
+            28px tall — text-sm with py-1 — which is fine for a pointer and
+            small for a thumb, and these are the links a host reads on a
+            phone before paying.
+
+            -my-2.5 lets the extra 20px reach into the footer's own py-6
+            instead of pushing it open, so the row is exactly as tall as
+            before and every word sits where it did; only the part you can
+            press grew. Where the nav wraps under the brand line on a phone,
+            the targets reach 10px up into that gap-y-3 and stop 2px short of
+            it — no overlap, and the footer keeps its height there too.
+            gap-y-0, not gap-y-1: if the links themselves ever wrap, two
+            48px lines meet without a seam. */}
+        <nav aria-label="Pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-md px-2 py-1 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
+              className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-md px-2 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
             >
               {link.label}
             </Link>
