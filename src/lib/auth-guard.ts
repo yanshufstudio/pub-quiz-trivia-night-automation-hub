@@ -34,18 +34,26 @@ import { creatorForUser } from "@/lib/creator-claim";
  *                   pack id gets the same 404 a made-up id gets. See
  *                   src/lib/pack-access.ts.
  *
- *   OPEN (teams)    /play and everything it calls: POST
- *                   /api/sessions/[code]/join, /answers, /leave, and GET
- *                   /api/sessions/[code]. Teams do not have accounts and are
- *                   not getting them — a pub full of strangers cannot be
- *                   asked to sign in to answer question three.
+ *   TEAMS           /play and everything it calls: POST
+ *   (no account)    /api/sessions/[code]/join, /answers, /leave, GET
+ *                   /api/sessions/[code], and GET
+ *                   /api/questions/[id]/media. Teams do not have accounts
+ *                   and are not getting them — a pub full of strangers
+ *                   cannot be asked to sign in to answer question three.
  *
- *   OPEN (both)     GET /api/questions/[id]/media, and only that: a team's
- *                   phone renders the current question's image and holds
- *                   nothing that could authenticate it. `GET
- *                   /api/packs/[id]` used to be open on the same reasoning
- *                   and was not entitled to it — it carries every answer,
- *                   and nothing in the client has ever called it.
+ *                   No account is not the same as no credential. Joining is
+ *                   the only one of these that takes nothing, because
+ *                   joining is how a team gets its token; every other one
+ *                   takes that token, the media route included
+ *                   (src/lib/question-media-access.ts).
+ *
+ *   NOTHING READS   Every read by id now takes something. `GET
+ *   BY ID ALONE     /api/packs/[id]` was open on the "unlisted cuid" theory
+ *                   and was not entitled to it; `GET
+ *                   /api/questions/[id]/media` was the last one left after
+ *                   that, and a question id is not a credential either. It
+ *                   now serves a team holding a token for the session whose
+ *                   current question it is, or a host who may read the pack.
  *
  *   OPEN (public)   /, /pricing, /terms, /privacy, /refunds, /sign-in, and
  *                   /api/auth/* — which is how a session is obtained.

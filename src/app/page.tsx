@@ -39,7 +39,7 @@ const steps = [
     href: "/create",
     icon: QuillIcon,
     title: "Write it",
-    body: "Describe the rounds and topics you want — 90s pop, local history, a picture round — and the pack is drafted for you.",
+    body: "Describe the rounds and topics you want — 90s pop, local history, the town's past — and the pack is written for you, in words. Add your own pictures to any question for a picture round.",
     cta: "Open the wizard",
   },
   {
@@ -65,14 +65,30 @@ export default function Home() {
         {/* The homepage carries its own copy of the site chrome (see
             SiteHeader) rather than rendering that component, so the sign
             can sit straight on the stage with no rule under it. */}
-        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 max-md:justify-center">
           <Wordmark href="/" className="text-[1.5rem]" />
           {/* The account corner rides along with the links here as well —
               the two rows import both from one place so they cannot drift
               apart again the way the labels and Pricing did. */}
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm font-semibold text-stage-muted">
+          {/* 48px targets, as in SiteHeader, and -my-1.5 for the same reason:
+              the extra height reaches into the space around the row rather
+              than moving it. The 24px between labels used to be the gap
+              (gap-x-6); it is now the links' own padding (px-3 each side,
+              gap-x-0), so the words sit the same distance apart and the space
+              between them is pressable rather than dead.
+
+              Below md it stacks and centres, exactly as SiteHeader does (see
+              the note there). -ml-3 is the one-row case: it takes back the
+              first link's left padding, which is also 12px of the room the
+              row needs to fit on one line. Stacked, that offset would push
+              the centred links 6px left, so max-md:ml-0 drops it. */}
+          <nav className="-my-1.5 -ml-3 flex flex-wrap items-center gap-x-0 gap-y-1 text-sm font-semibold text-stage-muted max-md:ml-0 max-md:w-full max-md:justify-center">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="py-2 transition-colors hover:text-gold">
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex min-h-12 min-w-12 items-center justify-center px-3 transition-colors hover:text-gold"
+              >
                 {link.label}
               </Link>
             ))}
