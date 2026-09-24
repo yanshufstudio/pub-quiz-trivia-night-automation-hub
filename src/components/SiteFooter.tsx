@@ -13,8 +13,22 @@ import { usePathname } from "next/navigation";
  * itself — the condition this comment used to set out. Paddle's review wants
  * pricing visible as well as the policies, and a reviewer who has to hunt for
  * it is a reviewer who sends the submission to manual review.
+ *
+ * `/how-it-works` joined on 2026-09-20. It goes here rather than in
+ * NAV_LINKS because the header row is already four links plus the account
+ * corner, and a fifth would be bought at the cost of the 320px layout the
+ * 2026-09-17 sweep and `e2e/narrow-viewport.spec.ts` exist to protect. The
+ * in-context link that matters more is the one in the pack editor, next to
+ * the button the guide explains.
+ *
+ * `/faq` joined on 2026-09-22, for the question that comes before the guide:
+ * "does it do X". The one that prompted it was whether the wizard makes
+ * pictures (it does not; the host adds their own), which nothing on the site
+ * answered.
  */
 const links = [
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/faq", label: "FAQ" },
   { href: "/pricing", label: "Pricing" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
@@ -48,15 +62,29 @@ export function SiteFooter() {
           </span>{" "}
           · by Yanshuf Studio
         </p>
-        {/* Not "Legal" any more: the row carries Pricing as well, and a
-            landmark that mislabels its own contents is worse than a generic
-            one for anyone navigating by landmark. */}
-        <nav aria-label="Pricing and legal" className="flex flex-wrap items-center gap-x-1 gap-y-1">
+        {/* Not "Legal" any more: the row carries the host guide and Pricing
+            as well, and a landmark that mislabels its own contents is worse
+            than a generic one for anyone navigating by landmark. */}
+        {/* Every link in this row is a 48px target (min-h-12/min-w-12), the
+            same floor the header's controls were brought up to. They were
+            28px tall — text-sm with py-1 — which is fine for a pointer and
+            small for a thumb, and these are the links a host reads on a
+            phone before paying.
+
+            -my-2.5 lets the extra 20px reach into the footer's own py-6
+            instead of pushing it open, so the row is exactly as tall as
+            before and every word sits where it did; only the part you can
+            press grew. Where the nav wraps under the brand line on a phone,
+            the targets reach 10px up into that gap-y-3 and stop 2px short of
+            it — no overlap, and the footer keeps its height there too.
+            gap-y-0, not gap-y-1: if the links themselves ever wrap, two
+            48px lines meet without a seam. */}
+        <nav aria-label="Guide, FAQ, pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-md px-2 py-1 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
+              className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-md px-2 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
             >
               {link.label}
             </Link>

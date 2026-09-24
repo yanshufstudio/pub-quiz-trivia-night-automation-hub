@@ -76,8 +76,15 @@ function uploadRequest(
   });
 }
 
-function readRequest(questionId: string, headers: Record<string, string> = {}) {
-  return new NextRequest(`${BASE}/api/questions/${questionId}/media`, { headers });
+/**
+ * A read as the pack's owner. Serving the bytes now takes a credential (see
+ * src/lib/question-media-access.ts) and the owner's cookie is the simplest
+ * one — who else may read, and who may not, is swept in
+ * src/test/question-media-access.integration.test.ts. These tests are about
+ * what comes back, not about who may ask.
+ */
+function readRequest(questionId: string, cookie: string, headers: Record<string, string> = {}) {
+  return new NextRequest(`${BASE}/api/questions/${questionId}/media`, { headers: { cookie, ...headers } });
 }
 
 /** The owner's pack, one uploaded PNG, ready to read back. A real, decodable
@@ -335,8 +342,8 @@ describe("question media", () => {
 
   describe("GET — serving the bytes", () => {
     it("serves the stored bytes with the sniffed type", async () => {
-      const { questionId } = await packWithMedia();
-      const res = await getMedia(readRequest(questionId), params(questionId));
+      const { questionId, owner } = await packWithMedia();
+      const res = await getMedia(readRequest(questionId, owner.cookie), params(questionId));
 
       expect(res.status).toBe(200);
       expect(res.headers.get("Content-Type")).toBe(MEDIA_MIME.PNG);
@@ -353,28 +360,37 @@ describe("question media", () => {
       expect(decoded.height).toBe(480);
     });
 
-    // Reads by id are open across this app (see src/lib/pack-access.ts) —
-    // a team's phone and the print sheet have no owner cookie and still
-    // have to render the image.
-    it("serves a visitor with no cookie at all", async () => {
+    // The inverse of what this test used to assert. A question id used to be
+    // enough; it is not any more.
+    it("refuses a visitor with no credential at all, as if there were no image", async () => {
       const { questionId } = await packWithMedia();
-      const res = await getMedia(readRequest(questionId), params(questionId));
-      expect(res.status).toBe(200);
+      const res = await getMedia(
+        new NextRequest(`${BASE}/api/questions/${questionId}/media`),
+        params(questionId)
+      );
+      expect(res.status).toBe(404);
+      expect(await res.json()).toEqual({ error: "No image for this question" });
     });
 
     it("revalidates with an ETag instead of going stale", async () => {
       const { questionId, owner } = await packWithMedia();
-      const first = await getMedia(readRequest(questionId), params(questionId));
+      const first = await getMedia(readRequest(questionId, owner.cookie), params(questionId));
       const etag = first.headers.get("ETag");
       expect(etag).toBeTruthy();
 
-      const cached = await getMedia(readRequest(questionId, { "if-none-match": etag! }), params(questionId));
+      const cached = await getMedia(
+        readRequest(questionId, owner.cookie, { "if-none-match": etag! }),
+        params(questionId)
+      );
       expect(cached.status).toBe(304);
 
       // Replacing the image must not keep serving the old one from a cache.
       await new Promise((resolve) => setTimeout(resolve, 5));
       await uploadMedia(uploadRequest(questionId, await realJpegBytes(50, 50), { cookie: owner.cookie }), params(questionId));
-      const afterReplace = await getMedia(readRequest(questionId, { "if-none-match": etag! }), params(questionId));
+      const afterReplace = await getMedia(
+        readRequest(questionId, owner.cookie, { "if-none-match": etag! }),
+        params(questionId)
+      );
       expect(afterReplace.status).toBe(200);
       expect(afterReplace.headers.get("ETag")).not.toBe(etag);
     });
@@ -384,7 +400,7 @@ describe("question media", () => {
       const pack = await packWithQuestions(owner.id);
       const questionId = pack.rounds[0].questions[1].id;
 
-      const res = await getMedia(readRequest(questionId), params(questionId));
+      const res = await getMedia(readRequest(questionId, owner.cookie), params(questionId));
       expect(res.status).toBe(404);
     });
   });

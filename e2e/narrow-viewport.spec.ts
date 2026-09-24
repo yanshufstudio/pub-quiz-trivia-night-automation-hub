@@ -20,7 +20,7 @@ const WIDTHS = [320, 360, 390, 430] as const;
 // in its first state. The states it cannot reach — the check-your-inbox
 // panel with the code field, and the page the emailed link opens — get their
 // own test at the bottom of this file.
-const PAGES = ["/", "/create", "/pricing", "/terms", "/privacy", "/refunds"] as const;
+const PAGES = ["/", "/create", "/how-it-works", "/faq", "/pricing", "/terms", "/privacy", "/refunds"] as const;
 
 async function horizontalOverflow(page: import("@playwright/test").Page) {
   return page.evaluate(() => {

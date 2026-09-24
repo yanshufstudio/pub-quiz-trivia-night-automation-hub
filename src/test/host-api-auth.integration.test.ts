@@ -156,10 +156,15 @@ describe("every host-side API refuses a request with no session", () => {
 });
 
 describe("the routes that stay open, and why", () => {
-  it("GET /api/questions/[id]/media — a team's phone renders the image and holds no credential", async () => {
-    // 404 because this question has no image; the point is that it is not 401.
+  it("GET /api/questions/[id]/media — no longer open, and answers 404 rather than 401", async () => {
+    // It used to take no credential at all. It now takes a team token for
+    // the session whose current question it is, or a host who may read the
+    // pack (src/lib/question-media-access.ts, swept in
+    // src/test/question-media-access.integration.test.ts). It answers 404
+    // rather than 401 on purpose: "not yours" and "no image here" have to be
+    // the same answer, or a question id can be probed for one.
     const res = await readMedia(anon(`/api/questions/${questionId}/media`), idParams(questionId));
-    expect(res.status).not.toBe(401);
+    expect(res.status).toBe(404);
   });
 
   it("GET /api/sessions/[code] — every team polls this every three seconds, on its team token alone", async () => {

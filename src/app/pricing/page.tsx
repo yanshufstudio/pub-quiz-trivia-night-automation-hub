@@ -59,7 +59,7 @@ export default function PricingPage() {
               Free
             </h2>
             <p className="mt-3 text-3xl font-semibold">{formatUsd(0)}</p>
-            <p className="mt-1 text-sm text-muted">No card, no account</p>
+            <p className="mt-1 text-sm text-muted">A free account, no card</p>
             <ul className="mt-5 list-disc space-y-2 pl-5 text-muted">
               {FREE_FEATURES.map((feature) => (
                 <li key={feature}>{feature}</li>

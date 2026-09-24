@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
+import { mayReadQuestionMedia } from "@/lib/question-media-access";
 import { rateLimit } from "@/lib/rate-limit";
 import { formatBytes, MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
 
@@ -11,17 +12,15 @@ import { formatBytes, MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, prepareImageForStorag
  * `POST` and `DELETE` are the pack owner's: a signed-in account whose
  * Creator owns the pack (src/lib/auth-guard.ts, src/lib/pack-access.ts).
  *
- * `GET` is open, and deliberately stays open: a team's phone renders the
- * current question's image and holds nothing that could authenticate it,
- * and teams do not sign in.
+ * `GET` takes a credential too, now. It was the last read in this app that
+ * took none — anyone holding a question id got the bytes — which was
+ * defensible while every pack read was open and stopped being so when they
+ * stopped being. Who may fetch what is in src/lib/question-media-access.ts;
+ * the short version is that the image goes to whoever the session state
+ * would serve that question to, plus the host who may read the pack.
  *
- * It is now the *only* open read left. Pack reads became owner-only (see
- * src/lib/pack-access.ts), so this route no longer inherits a wider model —
- * it is the exception to one. Anyone holding a question id can fetch its
- * image, so nothing private should ever be uploaded as a question image.
- * Narrowing it would mean scoping the read to a live session and the team
- * token that goes with it, which changes what a team's browser has to send:
- * a team-facing change, and not one to make on the way past.
+ * A caller who may not read it gets the same 404 as a question that has no
+ * image, so a question id cannot be probed for one.
  *
  * The bytes are stored, never a URL. See src/lib/media.ts and the "Media
  * support" section of HANDOFF.md for why that is the whole point.
@@ -121,12 +120,22 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   return NextResponse.json({ media }, { status: 201 });
 }
 
+/** The one 404 this route answers with: "no image" and "not yours" are the
+ * same answer, deliberately. */
+function noImage() {
+  return NextResponse.json({ error: "No image for this question" }, { status: 404 });
+}
+
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+
+  // Before the row is read, not after: the row carries the bytes, and there
+  // is no reason to pull an image into memory for a caller who is not going
+  // to be given it.
+  if (!(await mayReadQuestionMedia(req, id))) return noImage();
+
   const media = await db.questionMedia.findUnique({ where: { questionId: id } });
-  if (!media) {
-    return NextResponse.json({ error: "No image for this question" }, { status: 404 });
-  }
+  if (!media) return noImage();
 
   // Replacing an image reuses the row, so the row's id alone would let a
   // stale copy live forever; updatedAt and the size are what actually change.

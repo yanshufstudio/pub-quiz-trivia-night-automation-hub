@@ -31,15 +31,18 @@ describe("pricing constants", () => {
     // has to actually be a discount. A copy-paste that made them equal would
     // otherwise ship.
     expect(PRICE_ANNUAL_USD).toBeLessThan(PRICE_MONTHLY_USD * 12);
-    expect(PRICE_ANNUAL_USD).toBe(PRICE_MONTHLY_USD * 5);
+    // Pinned, not derived: $45 a year is the owner's decision (2026-09-21),
+    // and the live Paddle annual price is created at 4500 cents to match.
+    expect(PRICE_MONTHLY_USD).toBe(5);
+    expect(PRICE_ANNUAL_USD).toBe(45);
   });
 
   it("states the annual saving the two prices actually give", () => {
-    // /pricing once said "two months free" beside $5 and $25, which is seven.
-    // The figure is now derived; this pins what it derives to, and that the
+    // /pricing once said "two months free" beside $5 and $25, which was
+    // seven. The figure is derived; this pins what it derives to, and that the
     // division is exact, so the page never prints a floored approximation.
     expect(PRICE_MONTHLY_USD * 12 - PRICE_ANNUAL_USD).toBe(PRICE_MONTHLY_USD * ANNUAL_MONTHS_FREE);
-    expect(ANNUAL_MONTHS_FREE).toBe(7);
+    expect(ANNUAL_MONTHS_FREE).toBe(3);
   });
 
   it("states the free allowance production actually enforces", () => {
@@ -52,7 +55,7 @@ describe("pricing constants", () => {
 
   it("formats whole dollars without stray decimals", () => {
     expect(formatUsd(PRICE_MONTHLY_USD)).toBe("$5");
-    expect(formatUsd(PRICE_ANNUAL_USD)).toBe("$25");
+    expect(formatUsd(PRICE_ANNUAL_USD)).toBe("$45");
     expect(formatUsd(0)).toBe("$0");
   });
 });

@@ -12,6 +12,12 @@ test("host runs a live round and a team answers correctly", async ({ browser, ba
 
   const hostPage = await hostContext.newPage();
   await hostPage.goto(`/packs/${pack.id}`);
+
+  // Said before the button is pressed, because afterwards is too late: until
+  // 2026-09-20 nothing told a host that the code teams type is somewhere
+  // else entirely, and the first time most of them found out was mid-quiz.
+  await expect(hostPage.getByText("triviafoundry.com/play")).toBeVisible();
+
   await hostPage.getByRole("button", { name: "Start live session" }).click();
   await hostPage.waitForURL(/\/host\//);
   const code = hostPage.url().split("/host/")[1];
@@ -20,6 +26,11 @@ test("host runs a live round and a team answers correctly", async ({ browser, ba
   // The lobby shows a QR code that encodes the join link with the code
   // baked in; a team that scans it lands on /play with the code prefilled.
   await expect(hostPage.getByRole("img", { name: "Scan to join" })).toBeVisible();
+
+  // And the lobby is the last moment the other unguessable fact is still
+  // cheap to act on: the host key lives in this browser, so moving devices
+  // mid-night means pasting it rather than signing in again.
+  await expect(hostPage.getByText(/host controls are tied to it/i)).toBeVisible();
 
   const teamContext = await newAnonContext(browser);
   const teamPage = await teamContext.newPage();
