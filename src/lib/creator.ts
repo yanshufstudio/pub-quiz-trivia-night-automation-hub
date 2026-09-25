@@ -72,7 +72,7 @@ export const COOKIE_NAME = "pq_creator";
  * took it.
  *
  * PRO reserves nothing and is never counted: Pro has no per-user cap, which
- * is what keeps "as many quiz packs as you want" on /pricing true. Its spend
+ * is what /pricing's "Pro lifts the 2-pack limit" promises. Its spend
  * is bounded by the global daily ceiling instead (src/lib/daily-ceiling.ts).
  */
 export async function reserveFreeGeneration(

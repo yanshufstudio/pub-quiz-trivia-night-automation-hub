@@ -35,7 +35,10 @@ export default function RefundsPage() {
         <LegalList>
           <li>
             <span className="font-medium text-foreground">Your first subscription payment</span> is
-            fully refundable for 14 days, on request, no reason needed.
+            refundable within 14 days of the charge, on request, no reason needed, provided that
+            since subscribing you have generated no more packs than the free plan allows (currently{" "}
+            {FREE_PACK_ALLOWANCE} per 30 days). In other words, if Pro was not for you and you used
+            it no more than you could have used the free plan, you get your money back.
           </li>
           <li>
             <span className="font-medium text-foreground">A renewal</span> is refundable within 14
@@ -43,7 +46,40 @@ export default function RefundsPage() {
             renewal caught you by surprise and you have not used the generator since, ask and you
             get it back.
           </li>
+          <li>
+            <span className="font-medium text-foreground">Refund abuse.</span> We do not refund,
+            and may refuse further subscriptions from, an account that subscribes, uses Pro and
+            asks for a refund repeatedly, or where there is evidence of fraud. Paddle&apos;s own{" "}
+            <a
+              className="font-medium text-amber hover:underline"
+              href="https://www.paddle.com/legal/refund-policy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              refund policy
+            </a>{" "}
+            says the same.
+          </li>
         </LegalList>
+      </LegalSection>
+
+      <LegalSection id="your-rights" title="Your legal rights come first">
+        <LegalText>
+          Paddle sells the subscription to you under the{" "}
+          <a
+            className="font-medium text-amber hover:underline"
+            href="https://www.paddle.com/legal/invoiced-consumer-terms"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Paddle Buyer Terms
+          </a>
+          . Where those terms, Paddle&apos;s refund policy or the consumer law of your country give
+          you a right to cancel or to a refund, that right applies in full, whatever this page says.
+          That includes the 14-day cancellation rights some countries give consumers for digital
+          services, among them the EU, the UK and Israel. Nothing on this page takes away a right
+          the law gives you.
+        </LegalText>
       </LegalSection>
 
       <LegalSection id="cancelling" title="Cancelling">
