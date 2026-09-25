@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { signedInContext } from "./sign-in-helper";
 import { CONTACT_EMAIL, LEGAL_LAST_UPDATED } from "@/lib/site";
+import { FREE_PACK_ALLOWANCE } from "@/lib/pricing";
 
 // Paddle's website review requires the three policy pages to be publicly
 // served and reachable from the site. That is two separate claims, so this
@@ -72,4 +73,38 @@ test("the footer stays off the surfaces that carry no chrome", async ({ browser,
   // getByRole that silently stopped matching anything cannot pass this file.
   await page.goto(`/packs/${pack.id}`);
   await expect(page.getByRole("contentinfo")).toHaveCount(1);
+});
+
+// The first-payment refund condition is worded against the free allowance
+// (planning, 25 Sep): it must follow FREE_PACK_ALLOWANCE if the free tier
+// changes, not a number typed into the page. And the page must never promise
+// less than Paddle or consumer law guarantees, so the statutory-rights section
+// and the links to Paddle's own terms have to be there.
+test("/refunds ties the first-payment refund to the free allowance and puts statutory rights first", async ({ page }) => {
+  await page.goto("/refunds");
+
+  await expect(
+    page.getByText(`no more packs than the free plan allows (currently ${FREE_PACK_ALLOWANCE} per 30 days)`)
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your legal rights come first" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Paddle Buyer Terms" })).toHaveAttribute(
+    "href",
+    "https://www.paddle.com/legal/invoiced-consumer-terms"
+  );
+  await expect(page.getByRole("link", { name: "refund policy" }).first()).toHaveAttribute(
+    "href",
+    "https://www.paddle.com/legal/refund-policy"
+  );
+});
+
+test("/terms reserves the right to refuse repeat refund abusers and names Paddle's Buyer Terms", async ({ page }) => {
+  await page.goto("/terms");
+
+  await expect(
+    page.getByText("account that repeatedly subscribes, uses Pro and asks for a refund", { exact: false })
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Paddle Buyer Terms" })).toHaveAttribute(
+    "href",
+    "https://www.paddle.com/legal/invoiced-consumer-terms"
+  );
 });

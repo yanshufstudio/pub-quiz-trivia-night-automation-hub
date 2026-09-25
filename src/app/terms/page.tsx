@@ -52,7 +52,8 @@ export default function TermsPage() {
         <LegalText>
           You must give an email address you actually control, and one account is for one person. We
           may suspend or close an account used to get around the free allowance, or used in the ways
-          set out under Acceptable use.
+          set out under Acceptable use. We may also refuse a new subscription from, or suspend, an
+          account that repeatedly subscribes, uses Pro and asks for a refund.
         </LegalText>
       </LegalSection>
 
@@ -91,7 +92,17 @@ export default function TermsPage() {
       <LegalSection id="payments" title="Payments">
         <LegalText>
           Subscriptions are sold by Paddle.com, which acts as the merchant of record and handles
-          payment, invoicing and sales tax. Cancellation and refunds are covered on our{" "}
+          payment, invoicing and sales tax, and your purchase is also governed by the{" "}
+          <a
+            className="font-medium text-amber hover:underline"
+            href="https://www.paddle.com/legal/invoiced-consumer-terms"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Paddle Buyer Terms
+          </a>
+          . Cancellation and refunds, including when a first payment is refundable and your
+          statutory rights, are covered on our{" "}
           <Link className="font-medium text-amber hover:underline" href="/refunds">
             refund policy
           </Link>{" "}
