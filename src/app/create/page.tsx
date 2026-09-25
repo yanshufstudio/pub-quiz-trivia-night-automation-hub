@@ -11,7 +11,13 @@ import { CreateWizard } from "./CreateWizard";
  * `POST /api/packs/generate` — after typing a brief. Redirecting here means
  * signing in happens before the work, not after it.
  */
-export default async function CreatePage() {
+export default async function CreatePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ upgraded?: string }>;
+}) {
   await requireHostPage("/create");
-  return <CreateWizard />;
+  // ?upgraded=1 is where Paddle's checkout sends a host back after paying.
+  const { upgraded } = await searchParams;
+  return <CreateWizard upgraded={upgraded === "1"} />;
 }
