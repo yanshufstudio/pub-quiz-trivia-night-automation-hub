@@ -84,9 +84,9 @@ export default function PricingPage() {
             <ul className="mt-5 list-disc space-y-2 pl-5 text-muted">
               <li>
                 <span className="font-medium text-foreground">
-                  As many quiz packs as you want
+                  Pro lifts the {FREE_PACK_ALLOWANCE}-pack limit
                 </span>{" "}
-                — the {FREE_PACK_ALLOWANCE}-pack limit is lifted
+                — no cap on how many packs you make in 30 days
               </li>
               <li>Everything in Free</li>
               <li>Cancel whenever you like; your packs stay yours</li>
@@ -107,6 +107,12 @@ export default function PricingPage() {
             terms of service
           </Link>{" "}
           page.
+        </p>
+
+        <p className="mt-4 text-sm text-muted">
+          To keep the service running for everyone, pack generation has a daily safety limit across
+          all accounts. It is set well above normal use and is not a limit on your subscription; if
+          it is ever reached, the wizard asks you to try again the next day.
         </p>
       </main>
     </>

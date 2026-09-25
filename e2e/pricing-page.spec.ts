@@ -89,3 +89,18 @@ test("the homepage's own top nav carries every header link, Pricing included", a
   await topNav.getByRole("link", { name: "Pricing", exact: true }).click();
   await expect(page).toHaveURL(/\/pricing$/);
 });
+
+// Planning, 25 Sep: "as many quiz packs as you want" overclaimed once a
+// service-wide daily generation ceiling existed (src/lib/daily-ceiling.ts).
+// The Pro benefit is lifting the free limit, in the words the studio site's
+// TriviaFoundry card quotes, and the daily safety limit is stated, not
+// contradicted.
+test("/pricing says Pro lifts the free limit and states the daily safety limit", async ({ page }) => {
+  await page.goto("/pricing");
+  const main = page.getByRole("main");
+
+  await expect(main.getByText(`Pro lifts the ${FREE_PACK_ALLOWANCE}-pack limit`)).toBeVisible();
+  await expect(main.getByText(/daily safety limit across\s+all accounts/)).toBeVisible();
+  await expect(main.getByText(/as many (quiz )?packs as you want/i)).toHaveCount(0);
+  await expect(main.getByText(/unlimited/i)).toHaveCount(0);
+});

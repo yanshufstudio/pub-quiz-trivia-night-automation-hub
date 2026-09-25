@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
+import { FREE_PACK_ALLOWANCE } from "@/lib/pricing";
 
 // The brief every visitor generates from unless they retype it, so it has to
 // ask only for what the app can actually put in front of players: question
@@ -133,7 +134,7 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
         </p>
         {usage && usage.plan === "PRO" ? (
           <p className="mt-2 text-sm text-muted">
-            You are on Pro: no pack limit.{" "}
+            You are on Pro: the {FREE_PACK_ALLOWANCE}-pack limit is lifted.{" "}
             <Link href="/pricing" className="font-semibold underline underline-offset-2">
               Manage subscription
             </Link>
@@ -211,7 +212,7 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
               <Link href="/pricing" className="font-semibold underline underline-offset-2">
                 Upgrade to Pro
               </Link>{" "}
-              for as many packs as you want, or use the demo pack.
+              to lift the {FREE_PACK_ALLOWANCE}-pack limit, or use the demo pack.
             </p>
           ) : null}
         </form>
