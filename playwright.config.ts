@@ -31,6 +31,15 @@ export default defineConfig({
       RESEND_API_KEY: "",
       BETTER_AUTH_SECRET: "e2e-suite-secret-not-used-anywhere-else",
       BETTER_AUTH_URL: `http://localhost:${PORT}`,
+      // Paddle, with test values: enough for /pricing to offer checkout and
+      // for /api/paddle/webhook to verify what the suite sends it. Nothing
+      // reaches Paddle — e2e/pro-upgrade.spec.ts stands in for Paddle.js, and
+      // plays Paddle's side of the webhook itself.
+      NEXT_PUBLIC_PADDLE_ENV: "sandbox",
+      NEXT_PUBLIC_PADDLE_CLIENT_TOKEN: "test_e2e_client_token",
+      NEXT_PUBLIC_PADDLE_PRICE_MONTHLY: "pri_e2e_monthly",
+      NEXT_PUBLIC_PADDLE_PRICE_ANNUAL: "pri_e2e_annual",
+      PADDLE_NOTIFICATION_WEBHOOK_SECRET: "e2e-paddle-webhook-secret-not-used-anywhere-else",
     },
   },
 });

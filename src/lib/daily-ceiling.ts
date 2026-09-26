@@ -18,9 +18,10 @@ import { createFixedWindowCounter } from "@/lib/fixed-window-counter";
  * cookies, because there is no identity in the key.
  *
  * FREE and PRO count in separate buckets, so free traffic can never exhaust
- * a paying customer's capacity. Pro has no per-user cap — "as many quiz packs
- * as you want" on /pricing stays literally true — and its ceiling exists only
- * as a backstop against a runaway loop, set far above any real usage.
+ * a paying customer's capacity. Pro has no per-user cap — /pricing says "Pro
+ * lifts the 2-pack limit" and names this service-wide daily safety limit
+ * (planning, 25 Sep: "as many as you want" overclaimed) — and its ceiling
+ * exists only as a backstop against a runaway loop, set far above real usage.
  */
 
 /**

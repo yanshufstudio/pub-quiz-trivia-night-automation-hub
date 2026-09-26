@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
   if (!canGenerate(existing)) {
     return NextResponse.json(
       {
-        error: "You've used your free packs for this period. Upgrade to Pro for unlimited generation.",
+        error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
         packsGeneratedInPeriod: withRolledPeriod(existing).packsGeneratedInPeriod,
         limit: FREE_LIMIT,
       },
@@ -148,7 +148,7 @@ export async function POST(req: NextRequest) {
     await daily.release();
     const res = NextResponse.json(
       {
-        error: "You've used your free packs for this period. Upgrade to Pro for unlimited generation.",
+        error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
         packsGeneratedInPeriod: reservation.used,
         limit: FREE_LIMIT,
       },

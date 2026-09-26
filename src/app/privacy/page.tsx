@@ -59,6 +59,17 @@ export default function PrivacyPage() {
           <li>
             <span className="font-medium text-foreground">Images you upload</span> to a question.
           </li>
+          <li>
+            <span className="font-medium text-foreground">Your subscription, if you buy Pro</span> — the
+            customer id and subscription id Paddle gives us for you, the subscription&apos;s status
+            (active, cancelled and so on) and when that status last changed. It is how we know whether
+            your account is on Pro. We never see or store your card.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">A log of Paddle&apos;s notifications</span> —
+            the id, type and time of each message Paddle sends us about a subscription, so that none is
+            ever applied twice. It holds nothing about you.
+          </li>
         </LegalList>
       </LegalSection>
 
@@ -77,7 +88,10 @@ export default function PrivacyPage() {
           </li>
           <li>
             <span className="font-medium text-foreground">Paddle</span> — sells the subscriptions and
-            handles payment and invoicing. Card details go to Paddle, never to us.
+            handles payment and invoicing. Card details go to Paddle, never to us. When you subscribe we
+            pass Paddle&apos;s checkout your account&apos;s email address, so you do not have to type
+            it, and an id that ties the purchase to your account; Paddle sends us back the ids and the
+            status listed above.
           </li>
           <li>
             <span className="font-medium text-foreground">Vercel</span> — hosts the site.
@@ -131,10 +145,10 @@ export default function PrivacyPage() {
 
       <LegalSection id="retention" title="How long we keep it">
         <LegalText>
-          Your account and your packs stay until you ask us to delete them. A sign-in session stops
-          working 7 days after it was last used, and a sign-in code 15 minutes after we send it; a
-          code is deleted the moment it is used. Live session entries — team names and answers — stay
-          with the quiz they belong to.
+          Your account, your packs and your subscription record stay until you ask us to delete
+          them. A sign-in session stops working 7 days after it was last used, and a sign-in code 15
+          minutes after we send it; a code is deleted the moment it is used. Live session entries —
+          team names and answers — stay with the quiz they belong to.
         </LegalText>
       </LegalSection>
 
@@ -143,9 +157,10 @@ export default function PrivacyPage() {
           Email{" "}
           <ContactLink />{" "}
           and we will delete your account and everything held under it — your packs, any uploaded
-          images, your sign-in sessions, and the email address and name on the account. We do this
-          within 30 days and we do not keep a copy. Billing records held by Paddle as merchant of
-          record are theirs to keep or remove; see the{" "}
+          images, your sign-in sessions, the subscription ids and status we hold, and the email
+          address and name on the account. We do this within 30 days and we do not keep a copy.
+          Billing records held by Paddle as merchant of record are theirs to keep or remove; see
+          the{" "}
           <Link className="font-medium text-amber hover:underline" href="/refunds">
             refund policy
           </Link>{" "}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
+import { FREE_PACK_ALLOWANCE } from "@/lib/pricing";
 
 // The brief every visitor generates from unless they retype it, so it has to
 // ask only for what the app can actually put in front of players: question
@@ -14,7 +15,13 @@ import { ArrowRightIcon } from "@/components/icons";
 const EXAMPLE =
   "A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.";
 
-export function CreateWizard() {
+// Paddle's checkout returns the host here with ?upgraded=1, often a few
+// seconds before its webhook has switched Pro on. So poll the status until
+// the plan flips, and say what is happening meanwhile.
+const ACTIVATION_POLL_MS = 2000;
+const ACTIVATION_MAX_ATTEMPTS = 30;
+
+export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
   const router = useRouter();
   const [prompt, setPrompt] = useState(EXAMPLE);
   const [busy, setBusy] = useState(false);
@@ -24,20 +31,46 @@ export function CreateWizard() {
   // the same brief will be refused again, so the UI must not invite one.
   const [declined, setDeclined] = useState(false);
   const [usage, setUsage] = useState<{ used: number; limit: number; plan: string } | null>(null);
+  const [activationSlow, setActivationSlow] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+    let attempts = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
     // `res.ok` first: this page is gated, so a 401 here means the session
     // expired while it was open. Reading the body regardless would put
     // "undefined/undefined free packs used" above the wizard, which is worse
     // than showing no counter at all.
-    fetch("/api/creator/status")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!data) return;
-        setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: data.plan });
-      })
-      .catch(() => {});
-  }, []);
+    async function load(): Promise<string | null> {
+      const res = await fetch("/api/creator/status", { cache: "no-store" }).catch(() => null);
+      const data = res?.ok ? await res.json().catch(() => null) : null;
+      if (!data || cancelled) return null;
+      setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: data.plan });
+      return data.plan;
+    }
+
+    async function tick() {
+      const plan = await load();
+      if (cancelled || !upgraded) return;
+      if (plan === "PRO") {
+        router.replace("/create");
+        return;
+      }
+      attempts += 1;
+      if (attempts >= ACTIVATION_MAX_ATTEMPTS) {
+        setActivationSlow(true);
+        return;
+      }
+      timer = setTimeout(tick, ACTIVATION_POLL_MS);
+    }
+
+    void tick();
+    return () => {
+      cancelled = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, [upgraded, router]);
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -99,9 +132,23 @@ export function CreateWizard() {
           Tell the wizard what kind of night you are running. It will draft rounds, questions,
           answers, and points you can edit next.
         </p>
-        {usage && usage.plan !== "PRO" ? (
+        {usage && usage.plan === "PRO" ? (
+          <p className="mt-2 text-sm text-muted">
+            You are on Pro: the {FREE_PACK_ALLOWANCE}-pack limit is lifted.{" "}
+            <Link href="/pricing" className="font-semibold underline underline-offset-2">
+              Manage subscription
+            </Link>
+          </p>
+        ) : usage ? (
           <p className="mt-2 text-sm text-muted">
             {usage.used}/{usage.limit} free packs used in the last 30 days
+          </p>
+        ) : null}
+        {upgraded && usage?.plan !== "PRO" ? (
+          <p role="status" className="mt-2 text-sm text-muted">
+            {activationSlow
+              ? "Payment received. Switching Pro on is taking longer than usual; reload this page in a minute."
+              : "Payment received. Switching Pro on…"}
           </p>
         ) : null}
 
@@ -165,7 +212,7 @@ export function CreateWizard() {
               <Link href="/pricing" className="font-semibold underline underline-offset-2">
                 Upgrade to Pro
               </Link>{" "}
-              for as many packs as you want, or use the demo pack.
+              to lift the {FREE_PACK_ALLOWANCE}-pack limit, or use the demo pack.
             </p>
           ) : null}
         </form>

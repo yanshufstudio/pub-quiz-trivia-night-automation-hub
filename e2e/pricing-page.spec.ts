@@ -43,11 +43,15 @@ test("/pricing is served publicly and states both prices", async ({ page, reques
   await expect(page.getByText("A free account, no card")).toBeVisible();
 });
 
-test("/pricing carries no checkout control while Paddle has not approved the domain", async ({ page }) => {
-  // A disabled or dead "Subscribe" button is worse than none, and PR #4's
-  // build guard exists to stop exactly that reaching production. If someone
-  // wires checkout into this page without the live price ids, this fails.
+test("a signed-out visitor is asked to sign in, not shown a checkout", async ({ page }) => {
+  // A subscription belongs to an account, so there is nothing to buy without
+  // one: the Pro card offers "Sign in to subscribe", which comes back here.
+  // No Subscribe button, and Paddle.js is not loaded for someone who cannot
+  // use it.
   await page.goto("/pricing");
+  const signIn = page.getByRole("main").getByRole("link", { name: "Sign in to subscribe" });
+  await expect(signIn).toBeVisible();
+  await expect(signIn).toHaveAttribute("href", "/sign-in?next=%2Fpricing");
   await expect(page.getByRole("button", { name: /subscribe|upgrade|buy|checkout/i })).toHaveCount(0);
   await expect(page.locator("script[src*='paddle']")).toHaveCount(0);
 });
@@ -84,4 +88,19 @@ test("the homepage's own top nav carries every header link, Pricing included", a
 
   await topNav.getByRole("link", { name: "Pricing", exact: true }).click();
   await expect(page).toHaveURL(/\/pricing$/);
+});
+
+// Planning, 25 Sep: "as many quiz packs as you want" overclaimed once a
+// service-wide daily generation ceiling existed (src/lib/daily-ceiling.ts).
+// The Pro benefit is lifting the free limit, in the words the studio site's
+// TriviaFoundry card quotes, and the daily safety limit is stated, not
+// contradicted.
+test("/pricing says Pro lifts the free limit and states the daily safety limit", async ({ page }) => {
+  await page.goto("/pricing");
+  const main = page.getByRole("main");
+
+  await expect(main.getByText(`Pro lifts the ${FREE_PACK_ALLOWANCE}-pack limit`)).toBeVisible();
+  await expect(main.getByText(/daily safety limit across\s+all accounts/)).toBeVisible();
+  await expect(main.getByText(/as many (quiz )?packs as you want/i)).toHaveCount(0);
+  await expect(main.getByText(/unlimited/i)).toHaveCount(0);
 });
