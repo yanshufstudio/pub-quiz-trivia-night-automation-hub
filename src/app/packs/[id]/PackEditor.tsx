@@ -1,12 +1,22 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Pack, Question, QuestionType, Round } from "@/lib/api-types";
 import { writeHostToken } from "@/lib/host-session";
 import { SITE_URL } from "@/lib/site";
 import { countOf } from "@/lib/plural";
+
+/**
+ * What an expired session is told while editing (M5).
+ *
+ * A 401 used to show the same "Couldn't save" as a validation error, so the one
+ * thing that fixes it — signing in again — was the one thing the message did not
+ * mention. Exported so the test asserts the exact words rather than a fragment.
+ */
+export const SIGNED_OUT_MESSAGE =
+  "You've been signed out — sign in again in another tab, then save this edit once more. Your text is still here.";
 
 type Draft = Pick<Question, "text" | "answer" | "points" | "type" | "options"> & {
   // Kept as the raw comma-separated text the host is typing, not a parsed
@@ -172,6 +182,32 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
     if (isDraftSaveable(next)) void saveQuestion(id, next);
   }
 
+  /**
+   * What an expired session is told. Named so the test can assert the exact words
+   * rather than a fragment of them, and so it cannot drift from the one the
+   * beforeunload guard below is about.
+   */
+  const unsavedIds = Object.keys(drafts).filter((id) => saved[id] && !draftsEqual(drafts[id], saved[id]));
+
+  /**
+   * Warn before leaving with an edit that has not been saved (M5).
+   *
+   * Saves happen on blur, so the dangerous shape is real: type into the last field
+   * on the page, hit Cmd-W without clicking away, and the edit was never sent.
+   * The browser shows its own wording — the string below is required to trigger it
+   * and is not displayed by any current browser.
+   */
+  useEffect(() => {
+    if (unsavedIds.length === 0) return;
+    const warn = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      // Still set for the handful of engines that need a truthy returnValue.
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [unsavedIds.length]);
+
   async function saveQuestion(id: string, override?: Draft) {
     const draft = override ?? drafts[id];
     const previous = saved[id];
@@ -183,21 +219,63 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
     }
 
     setStatus((current) => ({ ...current, [id]: "saving" }));
-    const res = await fetch(`/api/questions/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        text: draft.text,
-        answer: draft.answer,
-        points: draft.points,
-        type: draft.type,
-        options: draft.type === "MULTIPLE_CHOICE" ? draft.options.map((o) => o.trim()).filter(Boolean) : undefined,
-        acceptableAnswers: draft.acceptableAnswersText
-          .split(",")
-          .map((a) => a.trim())
-          .filter(Boolean),
-      }),
+
+    const body = JSON.stringify({
+      text: draft.text,
+      answer: draft.answer,
+      points: draft.points,
+      type: draft.type,
+      options: draft.type === "MULTIPLE_CHOICE" ? draft.options.map((o) => o.trim()).filter(Boolean) : undefined,
+      acceptableAnswers: draft.acceptableAnswersText
+        .split(",")
+        .map((a) => a.trim())
+        .filter(Boolean),
     });
+
+    /**
+     * Saving used to be one bare `fetch` with no try/catch (M5). Three things
+     * followed, all of them silent:
+     *
+     * - A dropped connection — venue wifi, a laptop waking up — threw out of this
+     *   function. The row stayed on "Saving…" for ever and the edit was lost.
+     * - A transient failure was final. Editing is a burst of small saves on blur,
+     *   so a single blip lost whatever the host had just typed.
+     * - An expired session answered 401 and showed the same "Couldn't save" as a
+     *   validation error, so the fix — sign in again — was the one thing the
+     *   message did not suggest.
+     */
+    const attempt = async () => {
+      try {
+        return await fetch(`/api/questions/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body,
+        });
+      } catch {
+        // Network-level failure. Reported as a null so the caller decides, rather
+        // than as an exception that escapes the whole save.
+        return null;
+      }
+    };
+
+    let res = await attempt();
+    // One retry, and only for the failures a retry can fix: no response at all, or
+    // a 5xx. A 400 or a 403 means this request will never succeed, and retrying it
+    // would double the work and the log noise for nothing.
+    if (!res || res.status >= 500) {
+      res = await attempt();
+    }
+
+    if (!res) {
+      setStatus((current) => ({ ...current, [id]: "error" }));
+      setError("Couldn't reach the server to save that. Check your connection — your text is still here.");
+      return;
+    }
+    if (res.status === 401) {
+      setStatus((current) => ({ ...current, [id]: "error" }));
+      setError(SIGNED_OUT_MESSAGE);
+      return;
+    }
     if (!res.ok) {
       setStatus((current) => ({ ...current, [id]: "error" }));
       return;

@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { isValidOptionSet, parseOptions, QUESTION_TYPE, serializeOptions } from "@/lib/question-types";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
+import { PACK_LIMITS } from "@/lib/pack-file";
 import { refuseIfLiveGameFor } from "@/lib/live-game-guard";
 import type { Prisma } from "@prisma/client";
 
@@ -12,11 +13,21 @@ const updateSchema = z.object({
   answer: z.string().min(1).optional(),
   points: z.number().int().min(1).max(10).optional(),
   type: z.enum([QUESTION_TYPE.TEXT, QUESTION_TYPE.MULTIPLE_CHOICE]).optional(),
-  options: z.array(z.string().min(1)).max(6).optional(),
+  // Both of these take their bounds from PACK_LIMITS so that what the editor will
+  // save and what a pack file may contain are the same thing (M5). They were not:
+  // import accepted 20 alternates of up to 200 characters where the editor
+  // accepted 10 of up to 100, so a pack imported with a dozen alternates could not
+  // then be saved — "Couldn't save", with no reason given. Options disagreed the
+  // other way, the editor having no length bound at all, which let it save an
+  // option that its own export could not then re-import.
+  options: z.array(z.string().min(1).max(PACK_LIMITS.option)).max(6).optional(),
   // Alternate spellings/nicknames the host approves as also-correct — see
   // isLikelyCorrect in src/lib/scoring.ts. Sent as a full replacement list,
   // same as `options`.
-  acceptableAnswers: z.array(z.string().min(1).max(100)).max(10).optional(),
+  acceptableAnswers: z
+    .array(z.string().min(1).max(PACK_LIMITS.acceptableAnswer))
+    .max(PACK_LIMITS.acceptableAnswersPerQuestion)
+    .optional(),
 });
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
