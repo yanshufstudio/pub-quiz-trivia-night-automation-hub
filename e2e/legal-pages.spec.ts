@@ -179,6 +179,25 @@ test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ pag
   await expect(page.getByText(/We use them only to sign you in/i)).toBeVisible();
 });
 
+test("/privacy lists Vercel Web Analytics and no longer says there is none (SEO3)", async ({ page }) => {
+  await page.goto("/privacy");
+
+  // The page said "We run no analytics" until the analytics component landed
+  // (SEO2); a sentence that turned false the day it shipped is the failure
+  // this guards.
+  await expect(page.getByText(/We run no analytics/i)).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Analytics, and no advertising" })).toBeVisible();
+
+  const entry = page.getByRole("listitem").filter({ hasText: /^Vercel Web Analytics/ });
+  await expect(entry).toHaveCount(1);
+  await expect(entry).toContainText("It sets no cookies and stores nothing in your browser");
+  // The query-string sentence is only true because SiteAnalytics strips it —
+  // e2e/analytics.spec.ts is the test that holds the code to it.
+  await expect(entry).toContainText("we remove anything after a ? or # before it is sent");
+  await expect(entry).toContainText("discards after 24 hours");
+  await expect(entry).toContainText("at least 12 months");
+});
+
 test("/pricing and /terms state no Pro daily number, but do state the limits (M12)", async ({
   page,
 }) => {

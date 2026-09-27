@@ -112,6 +112,19 @@ export default function PrivacyPage() {
             <span className="font-medium text-foreground">Vercel</span> — hosts the site.
           </li>
           <li>
+            <span className="font-medium text-foreground">Vercel Web Analytics</span> — counts page
+            views, so we can see which pages people read. It sets no cookies and stores nothing in
+            your browser. For each page view it records the page&apos;s address (we remove anything
+            after a <code>?</code> or <code>#</code> before it is sent), the site you arrived from, the
+            time, a country, region and city worked out from your IP address, and your browser,
+            operating system and type of device (phone, tablet or desktop), with their versions. It
+            tells one visitor from another by a hash of the request, which Vercel discards after 24
+            hours, so a visit cannot be followed from one day to the next or onto other websites, and
+            nothing it records is tied to your account. We see totals, not people. Vercel keeps these
+            statistics for at least 12 months, the reporting window on our plan, and says it may
+            keep them longer.
+          </li>
+          <li>
             <span className="font-medium text-foreground">Turso</span> — runs the database the above
             is stored in.
           </li>
@@ -128,10 +141,12 @@ export default function PrivacyPage() {
         </LegalList>
       </LegalSection>
 
-      <LegalSection id="no-tracking" title="No analytics, no advertising">
+      <LegalSection id="no-tracking" title="Analytics, and no advertising">
         <LegalText>
-          We run no analytics and no advertising, and we do not sell or share your data for either.
-          Nothing here is used to profile you.
+          The only analytics we run is Vercel Web Analytics, described above: page-view counts, with
+          no cookies, nothing stored in your browser, and nothing that ties a visit to you or to your
+          account. We run no advertising, and we do not sell or share your data. Nothing here is used
+          to profile you.
         </LegalText>
       </LegalSection>
 
