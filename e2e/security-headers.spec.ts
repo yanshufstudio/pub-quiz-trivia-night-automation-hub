@@ -12,7 +12,8 @@ import { test, expect } from "@playwright/test";
 const EXPECTED: Record<string, string> = {
   "x-frame-options": "DENY",
   "referrer-policy": "strict-origin-when-cross-origin",
-  "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "permissions-policy":
+    'camera=("https://buy.paddle.com" "https://sandbox-buy.paddle.com"), microphone=(), geolocation=()',
   "x-content-type-options": "nosniff",
 };
 
@@ -42,4 +43,24 @@ test("the headers do not stop Google sign-in or Paddle checkout being offered", 
 
   await page.goto("/pricing");
   await expect(page.getByRole("heading", { name: /Pro/ }).first()).toBeVisible();
+});
+
+test("the camera allowlist names Paddle's checkout origins and nothing else", async ({ request }) => {
+  // camera=() would have blocked card scanning inside Paddle's overlay — our
+  // header breaking a payment feature, on the page where a failure costs money.
+  // What must not happen while fixing that is widening the policy further than
+  // the checkout.
+  const policy = (await request.get("/pricing")).headers()["permissions-policy"];
+
+  expect(policy).toContain('camera=("https://buy.paddle.com" "https://sandbox-buy.paddle.com")');
+
+  // Exact origins, because a wildcard is a Chrome extension to the grammar
+  // rather than part of it, and an item a browser cannot parse can take the
+  // directive with it.
+  expect(policy).not.toContain("*.paddle.com");
+  // Not `self`: our own pages never ask for the camera.
+  expect(policy).not.toMatch(/camera=\([^)]*\bself\b/);
+  // And the two nobody needs are still closed.
+  expect(policy).toContain("microphone=()");
+  expect(policy).toContain("geolocation=()");
 });
