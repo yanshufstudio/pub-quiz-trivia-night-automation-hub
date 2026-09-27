@@ -3,6 +3,8 @@ import {
   DEFAULT_PRO_USER_DAILY_LIMIT,
   PRO_USER_DAILY_LIMIT_ENV,
   proDailyLimitMessage,
+  PRO_GENERATION_OFF_MESSAGE,
+  OFF_RETRY_SECONDS,
   proUserDailyLimit,
   reserveProDailyGeneration,
   shouldRollProPeriod,
@@ -69,10 +71,35 @@ describe("the message a capped subscriber reads", () => {
     expect(proDailyLimitMessage(25)).toContain("25 packs today");
   });
 
+  it("does not claim zero packs and a midnight reset when the limit is zero", () => {
+    // Driving the route with PRO_USER_DAILY_PACK_LIMIT=0 produced "You've made 0
+    // packs today — the limit resets at 00:00 UTC.", which is false twice over:
+    // they made none, and nothing resets, because a value was set rather than an
+    // allowance spent.
+    const message = proDailyLimitMessage(0);
+    expect(message).toBe(PRO_GENERATION_OFF_MESSAGE);
+    expect(message).not.toContain("0 packs");
+    expect(message).not.toContain("00:00 UTC");
+  });
+
   it("does not read like a fault or a suspension", () => {
     // Somebody is paying for this. "Try again later" or "not allowed" would be
     // the wrong shape of sentence.
     expect(proDailyLimitMessage(10)).not.toMatch(/error|wrong|not allowed|suspend|blocked/i);
+  });
+});
+
+describe("a limit of zero, the deliberate kill switch", () => {
+  it("reports itself as the service being off, with a short wait", async () => {
+    vi.stubEnv(PRO_USER_DAILY_LIMIT_ENV, "0");
+    const reservation = await reserveProDailyGeneration("creator-off");
+    expect(reservation.allowed).toBe(false);
+    expect(reservation.generationOff).toBe(true);
+    // Not the time to midnight: a switch is thrown back when somebody throws it.
+    expect(reservation.retryAfterSeconds).toBe(OFF_RETRY_SECONDS);
+    expect(reservation.retryAfterSeconds).toBeLessThan(60);
+    // And not the "we could not count" case, which needs different words again.
+    expect(reservation.unavailable).toBeUndefined();
   });
 });
 

@@ -37,6 +37,24 @@ export function proUserDailyLimit(): number {
 }
 
 /**
+ * What a subscriber is told when the limit is zero — the deliberate kill switch,
+ * reachable only by setting PRO_USER_DAILY_PACK_LIMIT to an explicit "0".
+ *
+ * It exists because the sentence below is false in that state, in two ways at
+ * once: they have not made any packs today, and nothing resets at midnight,
+ * because what is stopping them is a value somebody set rather than an
+ * allowance they spent. Observed by driving the route with the limit at 0: it
+ * answered "You've made 0 packs today — the limit resets at 00:00 UTC."
+ *
+ * So this says nothing about counts or clocks. It does not invite a retry at a
+ * particular time, because there is no particular time — only the owner
+ * changing the value back.
+ */
+export const PRO_GENERATION_OFF_MESSAGE =
+  "Pro pack generation is paused right now. Sorry — this is on us, not your subscription. " +
+  "Please try again later, or email us if it stays this way.";
+
+/**
  * What a capped subscriber is told.
  *
  * It names the number and the reset, because "try again later" from something
@@ -44,10 +62,18 @@ export function proUserDailyLimit(): number {
  * stated outright rather than localised: the counter's window really is a UTC
  * day, and a time converted to the reader's zone would be a different promise
  * from the one the code keeps.
+ *
+ * A limit of zero is not a small limit, it is a different situation, and it gets
+ * the sentence above instead.
  */
 export function proDailyLimitMessage(limit: number): string {
+  if (limit <= 0) return PRO_GENERATION_OFF_MESSAGE;
   return `You've made ${limit} packs today — the limit resets at 00:00 UTC.`;
 }
+
+/** How long a caller turned away by the kill switch is told to wait. Short, and
+ * not the time to midnight: the switch is not on a clock. */
+export const OFF_RETRY_SECONDS = 30;
 
 const counter = createFixedWindowCounter();
 
@@ -65,6 +91,15 @@ export type ProDailyReservation = {
    * are over your limit". Same distinction, and same reason, as
    * DailyReservation.unavailable. */
   unavailable?: boolean;
+  /**
+   * The limit is zero: the owner has switched Pro generation off, rather than
+   * this subscriber having spent an allowance. Like `unavailable`, it needs
+   * different words and a different status from "too many" — and, unlike a
+   * spent allowance, nothing about it resets at midnight, so the caller must
+   * not be sent away with a Retry-After measured to the day boundary. Never
+   * true when `allowed`.
+   */
+  generationOff?: boolean;
   release: () => Promise<void>;
 };
 
@@ -95,9 +130,19 @@ export async function reserveProDailyGeneration(
   const ttlSeconds = secondsUntilUtcMidnight(now);
 
   // A limit of zero refuses without touching the counter, as the shared
-  // ceiling does: an explicit "0" is a deliberate kill switch.
+  // ceiling does: an explicit "0" is a deliberate kill switch. It is reported as
+  // its own thing rather than as a limit of zero — see `generationOff` above and
+  // PRO_GENERATION_OFF_MESSAGE. The wait is the short one, because a switch is
+  // thrown back whenever the owner throws it and not at 00:00 UTC.
   if (limit === 0) {
-    return { allowed: false, limit, used: 0, retryAfterSeconds: ttlSeconds, release: NO_OP_RELEASE };
+    return {
+      allowed: false,
+      limit,
+      used: 0,
+      retryAfterSeconds: OFF_RETRY_SECONDS,
+      generationOff: true,
+      release: NO_OP_RELEASE,
+    };
   }
 
   const windowMs = ttlSeconds * 1000;

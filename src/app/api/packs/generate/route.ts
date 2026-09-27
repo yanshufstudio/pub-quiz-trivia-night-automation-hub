@@ -224,6 +224,16 @@ export async function POST(req: NextRequest) {
         { status: 503, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
       );
     }
+    if (proDaily.generationOff) {
+      // The owner has set PRO_USER_DAILY_PACK_LIMIT to 0. That is the service
+      // being off, not this subscriber being over a limit, so it gets 503 rather
+      // than 429 and the short Retry-After — a 429 with eleven hours on it would
+      // contradict a message that says "try again later" and blames us.
+      return NextResponse.json(
+        { error: proDailyLimitMessage(proDaily.limit), generationPaused: true },
+        { status: 503, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
+      );
+    }
     // 429, not 403: this is a rate, and it resets. A 403 would read as "your
     // subscription does not allow this", which is the opposite of true.
     return NextResponse.json(
