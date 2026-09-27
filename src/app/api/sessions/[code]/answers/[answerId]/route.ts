@@ -45,6 +45,10 @@ export async function PATCH(
     data: {
       isCorrect: parsed.data.isCorrect,
       pointsAwarded: parsed.data.isCorrect ? parsed.data.points : 0,
+      // A human decided, and that outranks the answer key from here on: rescoring
+      // at reveal skips this row (M7), and a late resubmission cannot overwrite it
+      // (L3).
+      hostOverride: true,
     },
   });
 

@@ -151,6 +151,13 @@ model Answer {
   isCorrect     Boolean?
   pointsAwarded Int      @default(0)
   submittedAt   DateTime @default(now())
+  /// The host has marked this answer by hand (PATCH .../answers/[answerId]).
+  ///
+  /// Two things need to know. Rescoring at reveal (M7) recomputes marks from the
+  /// current answer key and must leave a human decision alone — a host who
+  /// accepted "Canberra, Australia" does not want it re-marked wrong. And a late
+  /// resubmission (L3) must not overwrite one.
+  hostOverride  Boolean  @default(false)
 
   @@unique([teamId, roundIndex, questionIndex])
   // Every poll of GET /api/sessions/[code] — one per host and per team every

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { SESSION_STATUS, computeNextPosition, packWithRoundsArgs, type PackWithRounds } from "@/lib/session-state";
 import { isValidHostToken } from "@/lib/host-auth";
+import { rescoreCurrentQuestion } from "@/lib/rescore";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 const advanceSchema = z.object({
@@ -119,6 +120,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     if (count === 0) {
       return NextResponse.json({ error: "No active question to reveal" }, { status: 409 });
     }
+    // The answer key may have been edited while the question was open — that is
+    // allowed, it moves no index — so the marks are recomputed here, at the moment
+    // they become visible. A mark the host set by hand is left alone (M7).
+    await rescoreCurrentQuestion(session, pack);
     return NextResponse.json({ session: await db.session.findUniqueOrThrow({ where: { id: session.id }, select: publicSessionSelect }) });
   }
 
