@@ -5,6 +5,16 @@ import { NAV_LINKS } from "@/components/SiteHeader";
 import { Wordmark } from "@/components/Wordmark";
 import { ArrowRightIcon } from "@/components/icons";
 import type { SVGProps } from "react";
+import type { Metadata } from "next";
+import { HOME_DESCRIPTION, HOME_TITLE, pageMetadata } from "@/lib/page-metadata";
+
+// The root layout carries the same title and description, as the default for
+// pages with none of their own; this adds the homepage's og:url and canonical.
+export const metadata: Metadata = pageMetadata({
+  path: "/",
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+});
 
 function QuillIcon(props: SVGProps<SVGSVGElement>) {
   return (

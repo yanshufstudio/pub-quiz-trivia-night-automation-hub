@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
 import { countOf } from "@/lib/plural";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/refunds",
   title: "Refund Policy · TriviaFoundry",
   description: "How refunds and cancellations work for TriviaFoundry Pro subscriptions.",
-};
+});
 
 export default function RefundsPage() {
   return (

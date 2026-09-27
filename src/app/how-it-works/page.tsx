@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SITE_URL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/how-it-works",
   title: "How to run a quiz night · TriviaFoundry",
   description:
     "From a pack to a room full of teams: sign in, generate, add your pictures, print, "
     + "start the live session, share the join code, and run the night from one screen.",
-};
+});
 
 /**
  * The page that was missing.

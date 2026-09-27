@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ProCheckout } from "./ProCheckout";
@@ -10,12 +11,13 @@ import {
   formatUsd,
 } from "@/lib/pricing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/pricing",
   title: "Pricing · TriviaFoundry",
   description:
     `What TriviaFoundry costs: a free tier, and Pro at ${formatUsd(PRICE_MONTHLY_USD)} a month `
     + `or ${formatUsd(PRICE_ANNUAL_USD)} a year.`,
-};
+});
 
 /**
  * Static on purpose, with one client island. Everything here but the Pro

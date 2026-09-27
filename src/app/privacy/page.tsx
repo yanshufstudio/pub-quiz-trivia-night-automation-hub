@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/privacy",
   title: "Privacy Policy · TriviaFoundry",
   description: "What TriviaFoundry stores, who processes it, and how to have it deleted.",
-};
+});
 
 export default function PrivacyPage() {
   return (

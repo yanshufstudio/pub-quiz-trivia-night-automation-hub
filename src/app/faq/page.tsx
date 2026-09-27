@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ANNUAL_MONTHS_FREE, formatUsd, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD } from "@/lib/pricing";
 import { SITE_URL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/faq",
   title: "Questions and answers · TriviaFoundry",
   description:
     "What TriviaFoundry does and does not do: what the wizard writes, how long it takes, "
     + "what teams need, what it costs, and what is coming next.",
-};
+});
 
 /**
  * The questions a host asks before the guide makes sense to them.
