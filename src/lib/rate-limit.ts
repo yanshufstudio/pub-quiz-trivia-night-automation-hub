@@ -94,7 +94,13 @@ export function __resetRateLimitWarnThrottle() {
   lastWarnedAtMs = null;
 }
 
-function warnCounterUnavailable(bucketKey: string, error: unknown, nowMs: number) {
+/**
+ * Exported so every limiter that fails open reports it the same way and under
+ * one throttle. src/lib/sign-in-limits.ts is the other caller: one string to
+ * alert on beats two, and one throttle beats two that each allow a line a
+ * minute.
+ */
+export function warnCounterUnavailable(bucketKey: string, error: unknown, nowMs: number) {
   if (lastWarnedAtMs !== null && nowMs - lastWarnedAtMs < WARN_INTERVAL_MS) return;
   lastWarnedAtMs = nowMs;
   // "ratelimit-redis-error" is the string to alert on. The bucket key says
