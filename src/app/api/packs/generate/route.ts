@@ -4,7 +4,12 @@ import { createPackFromGenerated } from "@/lib/create-pack";
 import { generateQuizPack, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
 import { wizardRequestSchema } from "@/lib/quiz-schema";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
-import { MissingApiKeyError } from "@/lib/anthropic";
+import {
+  MissingApiKeyError,
+  isAnthropicCreditExhausted,
+  CREDIT_EXHAUSTED_LOG,
+  GENERATION_PAUSED_MESSAGE,
+} from "@/lib/anthropic";
 import {
   canGenerate,
   reserveFreeGeneration,
@@ -40,18 +45,32 @@ export const maxDuration = 300;
  *   generation holds, or the model declined to write it. Either way the user
  *   has to change it, and retrying unchanged cannot help.
  * - 503: the upstream model API is rate-limiting or down. Retrying works,
- *   and the SDK has already retried twice by the time we get here.
+ *   and the SDK has already retried twice by the time we get here. An exhausted
+ *   Anthropic account is also 503, because generation really is unavailable —
+ *   but with its own message, since retrying is the one thing that cannot fix
+ *   it (H3).
  * - 502: everything else — an unusable response we can't attribute. Still
  *   worth retrying, so the message keeps saying so.
  */
 function failureStatus(err: unknown): number {
+  if (isAnthropicCreditExhausted(err)) return 503;
   if (err instanceof ModelDeclinedError) return 422;
   if (err instanceof UnusableModelOutputError && err.truncated) return 422;
   if (err instanceof Anthropic.APIError && (err.status === 429 || (err.status ?? 0) >= 500)) return 503;
   return 502;
 }
 
-function failureBody(err: unknown): { error: string; declined?: true; notConfigured?: true } {
+function failureBody(err: unknown): {
+  error: string;
+  declined?: true;
+  notConfigured?: true;
+  generationPaused?: true;
+} {
+  // Ahead of everything else: an exhausted account is a 400 from the SDK, so the
+  // rate-limit branch below would not catch it and the generic 502 message would.
+  if (isAnthropicCreditExhausted(err)) {
+    return { error: GENERATION_PAUSED_MESSAGE, generationPaused: true };
+  }
   // The model's own explanation, verbatim — it is the only thing that tells
   // the user what to change. `declined` is what stops /create offering a
   // retry that cannot succeed.
@@ -303,7 +322,16 @@ export async function POST(req: NextRequest) {
     // internals (model names, request ids, etc.) to the client. A decline is
     // not a failure — the model worked, it just said no — so it is not logged
     // as one, or every refused brief would read like an outage.
-    if (err instanceof ModelDeclinedError) {
+    if (isAnthropicCreditExhausted(err)) {
+      // The one generation failure that needs somebody to do something about it
+      // rather than a retry, so it is logged as its own thing and with a string
+      // worth alerting on.
+      console.error(
+        `${CREDIT_EXHAUSTED_LOG}: the Anthropic account cannot be charged, so no pack can be ` +
+          `generated until it is topped up. Retrying will not help.`,
+        err
+      );
+    } else if (err instanceof ModelDeclinedError) {
       console.warn("Quiz pack brief declined by the model:", err.reason || "(no reason given)");
     } else {
       console.error("Quiz pack generation failed:", err);
