@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 import {
   FREE_PACK_ALLOWANCE,
-  PRO_DAILY_PACK_ALLOWANCE,
   PRICE_ANNUAL_USD,
   PRICE_MONTHLY_USD,
   formatUsd,
@@ -35,9 +34,9 @@ export default function TermsPage() {
           <li>Free accounts can generate {countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days.</li>
           <li>
             Pro costs {formatUsd(PRICE_MONTHLY_USD)} per month or {formatUsd(PRICE_ANNUAL_USD)} per
-            year and allows up to {PRO_DAILY_PACK_ALLOWANCE} AI-generated packs a day. To keep the
-            service running for everyone there is also a shared daily safety limit; if it is reached,
-            generation pauses until 00:00 UTC.
+            year and removes the free plan&apos;s pack allowance. Pack generation is subject to a
+            daily fair-use limit per account and a service-wide daily safety limit; the wizard shows
+            the current limit when it is reached.
           </li>
         </LegalList>
       </LegalSection>

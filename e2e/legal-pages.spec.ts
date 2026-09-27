@@ -170,6 +170,43 @@ test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ pag
   await expect(page.getByText(/We use them only to sign you in/i)).toBeVisible();
 });
 
+test("/pricing and /terms state no Pro daily number, but do state the limits (M12)", async ({
+  page,
+}) => {
+  // The pages used to print the per-subscriber cap. A number on a public page is
+  // a promise: changing the cap became a pricing change, and lowering it during
+  // an incident would leave the page false until somebody edited it. The
+  // enforcement is unchanged — the wizard names the live figure when somebody
+  // reaches it.
+  //
+  // This reads the rendered text, which is the half a source scan cannot do: a
+  // number arriving through an expression looks like nothing in the source.
+  const NUMBER_NEAR_DAILY =
+    /(\b\d+\b[^.\n]{0,40}\bpacks?\s+(a|per)\s+day\b)|(\bup\s+to\s+\d+\b)|(\b\d+\s*\/\s*day\b)/i;
+
+  for (const path of ["/pricing", "/terms"]) {
+    await page.goto(path);
+    const text = (await page.locator("main").innerText()).replace(/\s+/g, " ");
+
+    const offender = text.match(NUMBER_NEAR_DAILY);
+    expect(offender?.[0], `${path} publishes a Pro daily number: ${offender?.[0]}`).toBeUndefined();
+
+    // And it has not simply gone quiet: somebody deciding whether to pay is
+    // entitled to know a fair-use limit exists.
+    expect(text, path).toMatch(/fair-use limit/i);
+    expect(text, path).toMatch(/safety limit/i);
+  }
+
+  // /pricing says where the real number comes from.
+  await page.goto("/pricing");
+  await expect(page.getByText(/the wizard tells you the limit and when it resets/i)).toBeVisible();
+
+  // /refunds keeps its M8 counting wording — that is a refund term, not a
+  // published allowance, and it names no daily figure.
+  await page.goto("/refunds");
+  await expect(page.getByText(/no packs in the current billing period/i).first()).toBeVisible();
+});
+
 test("/refunds counts what the code counts, and says what the statement shows (M8, M11)", async ({
   page,
 }) => {
@@ -190,14 +227,24 @@ test("/refunds counts what the code counts, and says what the statement shows (M
   await expect(page.getByText(/no reason needed/i)).toBeVisible();
 });
 
-test("/terms states the Pro allowance and the minimum ages (M12, M13)", async ({ page }) => {
+test("/terms states the Pro limits without a number, and the minimum ages (M12, M13)", async ({
+  page,
+}) => {
   await page.goto("/terms");
 
-  // M12: the same number /pricing promises and the generate route enforces.
-  await expect(page.getByText(/up to 10 AI-generated packs a day/i)).toBeVisible();
-  await expect(page.getByText(/shared daily safety limit/i)).toBeVisible();
-  // "removes that cap" was the claim that made Pro sound uncapped.
+  // M12, third revision (Paul, 27 Sep). This used to assert "up to 10
+  // AI-generated packs a day" — the number the generate route enforces. The
+  // number is deliberately no longer published: on a public page it is a
+  // promise, so changing the cap became a pricing change. What /terms states now
+  // is the shape, and that the product names the figure when somebody meets it.
+  await expect(page.getByText(/removes the free plan's pack allowance/i)).toBeVisible();
+  await expect(page.getByText(/daily fair-use limit per account/i)).toBeVisible();
+  await expect(page.getByText(/service-wide daily safety limit/i)).toBeVisible();
+  await expect(page.getByText(/the wizard shows the current limit/i)).toBeVisible();
+  // The three claims this page has now outgrown, in order of when they were
+  // wrong: "removes that cap" made Pro sound uncapped, and the number itself.
   await expect(page.getByText(/removes that cap/i)).toHaveCount(0);
+  await expect(page.getByText(/up to 10/i)).toHaveCount(0);
 
   // M13: an account minimum, which the page did not have at all — it said there
   // was no age requirement for a free account.

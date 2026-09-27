@@ -2,11 +2,10 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { DEFAULT_FREE_LIMIT } from "@/lib/creator";
-import { DEFAULT_PRO_USER_DAILY_LIMIT } from "@/lib/pro-limits";
+import { DEFAULT_PRO_USER_DAILY_LIMIT, proDailyLimitMessage } from "@/lib/pro-limits";
 import {
   ANNUAL_MONTHS_FREE,
   FREE_PACK_ALLOWANCE,
-  PRO_DAILY_PACK_ALLOWANCE,
   PRICE_ANNUAL_USD,
   PRICE_MONTHLY_USD,
   formatUsd,
@@ -53,10 +52,6 @@ describe("pricing constants", () => {
     // how production runs. If someone changes the ceiling and not the copy,
     // the site advertises an allowance it does not give.
     expect(FREE_PACK_ALLOWANCE).toBe(DEFAULT_FREE_LIMIT);
-    // And the Pro number /pricing and /terms print is the one the generate route
-    // actually enforces (H2). Copy that overstates a paying customer's allowance
-    // is a promise the product breaks.
-    expect(PRO_DAILY_PACK_ALLOWANCE).toBe(DEFAULT_PRO_USER_DAILY_LIMIT);
   });
 
   it("formats whole dollars without stray decimals", () => {
@@ -78,5 +73,69 @@ describe("no page keeps its own copy of a price", () => {
       .filter(([, text]) => /\$\d/.test(text))
       .map(([file]) => file);
     expect(offenders, "import from @/lib/pricing and render with formatUsd").toEqual([]);
+  });
+});
+
+/**
+ * No public page states a Pro daily number (M12, Paul, 27 Sep).
+ *
+ * The pages used to print the per-subscriber cap, tied by a test to
+ * DEFAULT_PRO_USER_DAILY_LIMIT so copy and enforcement could not drift. That
+ * fixed the drift and made the number a published promise: changing the cap
+ * became a pricing change, and lowering it during an incident would leave the
+ * page false until somebody edited it. The enforcement is unchanged — the wizard
+ * names the live figure and its reset at the moment somebody reaches it.
+ *
+ * This walks the sources rather than the rendered pages, which is the cheap half
+ * of the guard: it catches a hard-coded number and a re-imported constant.
+ * e2e/legal-pages.spec.ts checks the rendered text, which is the half that
+ * catches a number arriving through an expression.
+ */
+describe("no public page publishes a Pro daily number", () => {
+  const PUBLIC_PAGES = ["pricing/page.tsx", "terms/page.tsx"];
+
+  /** "10 packs a day", "up to 10", "10 AI-generated packs", "10/day". */
+  const NUMBER_NEAR_DAILY =
+    /(\b\d+\b[^.\n]{0,40}\bpacks?\s+(a|per)\s+day\b)|(\bup\s+to\s+\d+\b)|(\b\d+\s*\/\s*day\b)/i;
+
+  it("does not hard-code one on /pricing or /terms", () => {
+    for (const page of PUBLIC_PAGES) {
+      const [, source] = appSources().find(([rel]) => rel === page)!;
+      const match = source.match(NUMBER_NEAR_DAILY);
+      expect(match?.[0], `${page} states a Pro daily number: ${match?.[0]}`).toBeUndefined();
+    }
+  });
+
+  it("does not reach for a constant that would print one", () => {
+    // The constant is gone from src/lib/pricing.ts on purpose. This fails if a
+    // page reintroduces one, which a digit search could not see.
+    //
+    // Pages only. The generate route names PRO_USER_DAILY_PACK_LIMIT in a comment
+    // about the kill switch and pro-limits.ts defines it — those are the
+    // enforcement, which is supposed to know the number. What must not know it is
+    // anything that renders copy for a visitor.
+    for (const [rel, source] of appSources()) {
+      if (!/(^|\/)page\.tsx$/.test(rel)) continue;
+      expect(source, rel).not.toMatch(/PRO_DAILY_PACK_ALLOWANCE|PRO_USER_DAILY_PACK_LIMIT/);
+    }
+  });
+
+  it("still describes the shape of the limits, so the pages are not merely silent", () => {
+    // Removing the number must not turn into saying nothing: somebody deciding
+    // whether to pay is entitled to know that a fair-use limit exists.
+    for (const page of PUBLIC_PAGES) {
+      const [, source] = appSources().find(([rel]) => rel === page)!;
+      expect(source, page).toMatch(/fair-use limit/);
+      expect(source, page).toMatch(/safety limit/);
+    }
+  });
+
+  it("leaves the enforcement's own message free to name the number", () => {
+    // The cap still exists and the wizard still states it. This is the line that
+    // says the two halves are deliberate rather than an oversight.
+    expect(DEFAULT_PRO_USER_DAILY_LIMIT).toBeGreaterThan(0);
+    expect(proDailyLimitMessage(DEFAULT_PRO_USER_DAILY_LIMIT)).toContain(
+      String(DEFAULT_PRO_USER_DAILY_LIMIT)
+    );
   });
 });
