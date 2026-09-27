@@ -28,6 +28,10 @@ function event(creatorId: string, overrides: Partial<SubscriptionEvent> = {}): S
     // periods, so the default event reports none — which rolls nothing. The
     // M8 cases below pass one explicitly.
     currentBillingPeriodStartsAt: null,
+    // No prices named, which priceOwnership reads as "cannot tell" rather than
+    // "not ours" — so these cases keep the handling they had before C2. The
+    // foreign-price cases name prices explicitly.
+    priceIds: [],
     verifiedCreatorId: creatorId,
     ...overrides,
   };

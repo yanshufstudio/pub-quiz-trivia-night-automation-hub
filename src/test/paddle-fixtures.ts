@@ -32,6 +32,13 @@ export function subscriptionPayload(overrides: {
    * Omitted means none. Use `signedCustomData` for what the app's own
    * checkout produces. */
   customData?: Record<string, unknown> | null;
+  /**
+   * The price ids the subscription's items name. `[]` (the default) means the
+   * event names no price at all, which priceOwnership reads as "cannot tell"
+   * rather than "not ours" — see src/lib/paddle/prices.ts. Pass ids to make an
+   * event plainly ours or plainly another product's (C2).
+   */
+  priceIds?: readonly string[];
 }) {
   counter += 1;
   const subscriptionId = overrides.subscriptionId ?? `sub_test_${counter}`;
@@ -60,7 +67,34 @@ export function subscriptionPayload(overrides: {
       current_billing_period: null,
       billing_cycle: { interval: "month", frequency: 1 },
       scheduled_change: null,
-      items: [],
+      items: (overrides.priceIds ?? []).map((priceId, index) => ({
+        status: "active",
+        quantity: 1,
+        recurring: true,
+        created_at: "2026-09-09T10:00:00Z",
+        updated_at: "2026-09-09T10:00:00Z",
+        previously_billed_at: null,
+        next_billed_at: null,
+        trial_dates: null,
+        price: {
+          id: priceId,
+          product_id: `pro_test_${index}`,
+          description: "Test price",
+          type: "standard",
+          name: null,
+          billing_cycle: { interval: "month", frequency: 1 },
+          trial_period: null,
+          tax_mode: "account_setting",
+          unit_price: { amount: "500", currency_code: "USD" },
+          unit_price_overrides: [],
+          quantity: { minimum: 1, maximum: 1 },
+          status: "active",
+          custom_data: null,
+          import_meta: null,
+          created_at: "2026-09-09T10:00:00Z",
+          updated_at: "2026-09-09T10:00:00Z",
+        },
+      })),
       custom_data: overrides.customData ?? null,
       import_meta: null,
     },

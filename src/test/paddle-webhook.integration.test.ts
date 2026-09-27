@@ -196,3 +196,142 @@ describe("POST /api/paddle/webhook — what it does", () => {
     expect(await res.json()).toEqual({ received: true, result: "ignored" });
   });
 });
+
+/**
+ * The Paddle account this app bills through also sells Or Zarua, and Paddle
+ * delivers every subscription notification on the account to every configured
+ * destination. So this endpoint is handed events about a product it knows nothing
+ * about, and until C2 it read their status and set `plan` from it without ever
+ * looking at what had been bought.
+ */
+describe("POST /api/paddle/webhook — whose product it is (C2)", () => {
+  const OUR_MONTHLY = "pri_ours_monthly";
+  const OUR_ANNUAL = "pri_ours_annual";
+
+  function configurePrices() {
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_MONTHLY", OUR_MONTHLY);
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_ANNUAL", OUR_ANNUAL);
+  }
+
+  it("acknowledges and ignores an event for another product's price", async () => {
+    configurePrices();
+    const c = await creator();
+    // Signed customData, so the *only* thing standing between this event and a
+    // granted Pro subscription is the price check.
+    const payload = subscriptionPayload({
+      customData: signedCustomData(c.id),
+      priceIds: ["pri_or_zarua_monthly"],
+      subscriptionId: `sub_foreign_${c.id}`,
+    });
+
+    const res = await POST(signedWebhookRequest(payload));
+
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ received: true, result: "foreign-price" });
+
+    // Nothing granted, and nothing written — not even an event row, because the
+    // PaddleEvent table exists to make our own events idempotent and filling it
+    // with another product's traffic would make it useless for reading.
+    const after = await reread(c.id);
+    expect(after.plan).toBe("FREE");
+    expect(after.paddleSubscriptionId).toBeNull();
+    expect(await db.paddleEvent.findUnique({ where: { eventId: payload.event_id } })).toBeNull();
+  });
+
+  it("200s rather than 500s, so Paddle stops retrying it", async () => {
+    // Before C2 a foreign event answered 500 because no creator could be found,
+    // and Paddle retried for three days — the other product's ordinary business
+    // arrived as a wall of failing deliveries on our endpoint, which is exactly
+    // the signal a real problem would have used.
+    configurePrices();
+    const payload = subscriptionPayload({ priceIds: ["pri_or_zarua_annual"] });
+
+    const res = await POST(signedWebhookRequest(payload));
+    expect(res.status).toBe(200);
+    expect((await res.json()).result).toBe("foreign-price");
+  });
+
+  it("still switches Pro on for our own price", async () => {
+    configurePrices();
+    const c = await creator();
+    const payload = subscriptionPayload({
+      customData: signedCustomData(c.id),
+      priceIds: [OUR_ANNUAL],
+      subscriptionId: `sub_ours_${c.id}`,
+      customerId: `ctm_ours_${c.id}`,
+    });
+
+    const res = await POST(signedWebhookRequest(payload));
+
+    expect(res.status).toBe(200);
+    expect((await res.json()).result).toBe("applied");
+    expect((await reread(c.id)).plan).toBe("PRO");
+  });
+
+  it("still switches Pro on when the event names no price at all", async () => {
+    // "Cannot tell" must not mean "not ours". A cancellation carrying no items
+    // has to keep working, or somebody stays on Pro after they stop paying.
+    configurePrices();
+    const c = await creator();
+    const payload = subscriptionPayload({
+      customData: signedCustomData(c.id),
+      subscriptionId: `sub_nopr_${c.id}`,
+      customerId: `ctm_nopr_${c.id}`,
+    });
+
+    const res = await POST(signedWebhookRequest(payload));
+    expect((await res.json()).result).toBe("applied");
+    expect((await reread(c.id)).plan).toBe("PRO");
+  });
+
+  it("takes Pro away again on a cancellation that names no price", async () => {
+    // The failure mode the asymmetry exists to prevent, played out end to end.
+    configurePrices();
+    const c = await creator();
+    const subscriptionId = `sub_cancel_${c.id}`;
+    await POST(
+      signedWebhookRequest(
+        subscriptionPayload({
+          customData: signedCustomData(c.id),
+          priceIds: [OUR_MONTHLY],
+          subscriptionId,
+          customerId: `ctm_cancel_${c.id}`,
+        })
+      )
+    );
+    expect((await reread(c.id)).plan).toBe("PRO");
+
+    const cancelled = await POST(
+      signedWebhookRequest(
+        subscriptionPayload({
+          eventType: "subscription.canceled",
+          status: "canceled",
+          subscriptionId,
+          customerId: `ctm_cancel_${c.id}`,
+          occurredAt: new Date(Date.now() + 1000).toISOString(),
+        })
+      )
+    );
+
+    expect((await cancelled.json()).result).toBe("applied");
+    expect((await reread(c.id)).plan).toBe("FREE");
+  });
+
+  it("grants Pro when no price configuration exists, rather than refusing everyone", async () => {
+    // A deploy that forgets NEXT_PUBLIC_PADDLE_PRICE_* must not silently stop
+    // granting Pro to paying customers.
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_MONTHLY", "");
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_ANNUAL", "");
+    const c = await creator();
+    const payload = subscriptionPayload({
+      customData: signedCustomData(c.id),
+      priceIds: ["pri_anything"],
+      subscriptionId: `sub_noconf_${c.id}`,
+      customerId: `ctm_noconf_${c.id}`,
+    });
+
+    const res = await POST(signedWebhookRequest(payload));
+    expect((await res.json()).result).toBe("applied");
+    expect((await reread(c.id)).plan).toBe("PRO");
+  });
+});

@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { isNewerEvent, statusToPlan } from "./plan";
 import { shouldRollProPeriod } from "@/lib/pro-limits";
+import { priceOwnership } from "./prices";
 
 export type SubscriptionEvent = {
   eventId: string;
@@ -19,6 +20,16 @@ export type SubscriptionEvent = {
    * status change outside a period — and a null never rolls anything.
    */
   currentBillingPeriodStartsAt: Date | null;
+  /**
+   * Every price id the event names, in the order the payload lists them.
+   *
+   * The Paddle account also sells another product, and every notification on the
+   * account reaches this endpoint, so this is how an event about that product is
+   * recognised and dropped (C2). Empty for an event whose items we cannot read,
+   * which is treated as "cannot tell" rather than as "not ours" — see
+   * priceOwnership.
+   */
+  priceIds: readonly string[];
   /** From customData, and only if its signature verified (checkout-token.ts). */
   verifiedCreatorId: string | null;
 };
@@ -31,8 +42,16 @@ export type SubscriptionEvent = {
  *   would take Pro away; recorded, not applied (see below).
  * - unmatched: no creator could be found. Nothing is recorded, so the route
  *   answers 500 and Paddle retries — see the webhook route for why.
+ * - foreign-price: the event is about a product we do not sell. Acknowledged and
+ *   ignored without touching the database (C2).
  */
-export type ApplyResult = "applied" | "duplicate" | "stale" | "superseded" | "unmatched";
+export type ApplyResult =
+  | "applied"
+  | "duplicate"
+  | "stale"
+  | "superseded"
+  | "unmatched"
+  | "foreign-price";
 
 type Tx = Prisma.TransactionClient;
 
@@ -71,6 +90,19 @@ async function record(tx: Tx, event: SubscriptionEvent) {
  * was never made. Here a failure rolls both back and the retry applies it.
  */
 export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<ApplyResult> {
+  // Before anything else, and before any database work: is this even our
+  // product? The Paddle account also sells Or Zarua, and every notification on
+  // the account arrives here (C2). Only a positive "these prices are not ours"
+  // drops an event — an event we cannot classify keeps whatever handling it had,
+  // because dropping a real subscription.canceled would leave somebody on Pro
+  // after they stopped paying.
+  //
+  // Dropped without recording it, deliberately: the PaddleEvent table exists to
+  // make *our* events idempotent, and filling it with another product's traffic
+  // would make it useless for reading. Paddle needs no more than the 200 the
+  // route answers.
+  if (priceOwnership(event.priceIds) === "foreign") return "foreign-price";
+
   try {
     return await db.$transaction(async (tx) => {
       if (await tx.paddleEvent.findUnique({ where: { eventId: event.eventId } })) return "duplicate";
