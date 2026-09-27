@@ -27,6 +27,15 @@ export default function PrivacyPage() {
             address is all we get.
           </li>
           <li>
+            <span className="font-medium text-foreground">A free-allowance record</span> — so one inbox
+            gets one free allowance however many accounts are opened from it. It holds no address: we
+            take a one-way fingerprint of your email address, which cannot be turned back into it, and
+            store that next to a count of free packs and the date the current 30 days began. Aliases of
+            one inbox share a fingerprint, so <span className="whitespace-nowrap">name+1@gmail.com</span>{" "}
+            and <span className="whitespace-nowrap">name+2@gmail.com</span> share one allowance. Pro
+            subscriptions are not counted here at all.
+          </li>
+          <li>
             <span className="font-medium text-foreground">Your sign-in code</span> — the six digits we
             email you, and the link in the same email that carries them. We keep the code hashed, not
             in the clear, and it stops working once you use it or 15 minutes after we send it,
@@ -156,6 +165,14 @@ export default function PrivacyPage() {
           minutes after we send it; a code is deleted the moment it is used. Live session entries —
           team names and answers — stay with the quiz they belong to.
         </LegalText>
+        <LegalText>
+          The free-allowance record above is the one thing we keep after an account is gone, and we
+          keep it deliberately: if deleting an account also cleared it, the free allowance could be
+          claimed again and again by deleting and re-registering, which is the abuse it exists to
+          stop. It holds a one-way fingerprint rather than your address, so it is not a copy of your
+          email that outlives you — and it stops counting for anything 30 days after the last free
+          pack was made.
+        </LegalText>
       </LegalSection>
 
       <LegalSection id="deletion" title="Deleting your data">
@@ -165,7 +182,9 @@ export default function PrivacyPage() {
           from the address you signed in with. We delete your account, quiz packs and game data —
           including any uploaded images, your sign-in sessions, the subscription ids and status we
           hold, and the email address and name on the account — from our live database within 30
-          days. Encrypted backups kept by our database provider are overwritten on their normal
+          days. The one exception is the free-allowance record described above, which holds no
+          address and stays; deleting it would turn &ldquo;delete my account&rdquo; into a way to
+          collect free packs indefinitely. Encrypted backups kept by our database provider are overwritten on their normal
           cycle, after which the data is gone. Billing records held by Paddle as merchant of record
           are theirs to keep or remove; see the{" "}
           <Link className="font-medium text-amber hover:underline" href="/refunds">

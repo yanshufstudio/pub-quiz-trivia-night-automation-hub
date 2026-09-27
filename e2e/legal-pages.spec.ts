@@ -136,6 +136,25 @@ test("/privacy describes deletion in terms we can actually keep (M9)", async ({ 
   await expect(page.getByText(/we do not keep a copy/i)).toHaveCount(0);
 });
 
+test("/privacy discloses the free-allowance record, and that it outlives the account (H1b)", async ({
+  page,
+}) => {
+  await page.goto("/privacy");
+
+  // H1(b) added a row that deliberately survives account deletion, so the
+  // deletion promise above it stops being true unless the page says so.
+  await expect(page.getByText(/A free-allowance record/)).toBeVisible();
+  await expect(page.getByText(/one-way fingerprint/i).first()).toBeVisible();
+  await expect(page.getByText(/one inbox gets one free allowance/i)).toBeVisible();
+
+  // It holds no address, and the page has to say that rather than imply it.
+  await expect(page.getByText(/It holds no address/i)).toBeVisible();
+
+  // The exception is stated where somebody reading about deletion will meet it,
+  // not only in the retention section further up.
+  await expect(page.getByText(/The one exception is the free-allowance record/i)).toBeVisible();
+});
+
 test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ page }) => {
   await page.goto("/privacy");
 
