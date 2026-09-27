@@ -51,31 +51,36 @@ const SEND_CODE_PATH = "/email-otp/send-verification-otp";
  * can make us send, and counting the suite's own sign-ins would have every
  * integration file start failing once it had signed in sixty times.
  */
-async function refuseFloodedSignInCode(req: Request): Promise<Response | null> {
-  if (!new URL(req.url).pathname.endsWith(SEND_CODE_PATH)) return null;
 
-  // Read a copy: the body has to stay unconsumed for the real handler.
+/**
+ * The address a send-code request is asking for, or null if this request is not
+ * one we cap.
+ *
+ * Takes the body as text rather than reading the request itself, because a
+ * Request's body can only be consumed once and Better Auth needs the same bytes
+ * afterwards. See POST.
+ */
+function signInAddressFrom(rawBody: string): string | null {
   let body: unknown;
   try {
-    body = await req.clone().json();
+    body = JSON.parse(rawBody);
   } catch {
     // Not JSON. Better Auth's own validation should answer that, not this.
     return null;
   }
-
   const { email, type } = (body ?? {}) as { email?: unknown; type?: unknown };
   // Only the sign-in flow sends anything (see sendVerificationOTP), and an
   // address we cannot read is Better Auth's to reject.
   if (type !== "sign-in" || typeof email !== "string" || email.trim() === "") return null;
+  return email;
+}
 
-  const permission = await reserveSignInCode(email);
-  if (permission.allowed) return null;
-
-  // 429 for both, because both are throttles that reset — but with different
-  // sentences and a code the form can branch on without matching prose. The
-  // body is shaped like Better Auth's own errors so the client surfaces it the
-  // same way.
-  const global = permission.reason === "global";
+/** 429 for both, because both are throttles that reset — but with different
+ * sentences and a code the form can branch on without matching prose. The body
+ * is shaped like Better Auth's own errors so the client surfaces it the same
+ * way. */
+function floodRefusal(reason: "address" | "global"): Response {
+  const global = reason === "global";
   return Response.json(
     {
       code: global ? SIGN_IN_CODES_PAUSED_CODE : TOO_MANY_CODES_FOR_ADDRESS_CODE,
@@ -93,35 +98,48 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   assertAuthConfigured();
 
-  const refusal = await refuseFloodedSignInCode(req);
-  if (refusal) return refusal;
+  if (!new URL(req.url).pathname.endsWith(SEND_CODE_PATH)) return handlers.POST(req);
 
-  const res = await handlers.POST(req);
+  // Read the body here, once, and hand Better Auth a request carrying the same
+  // bytes.
+  //
+  // The first version of this cloned the request twice — once to read the
+  // address on the way in, once to release the reserved unit on the way out —
+  // and the second clone could never work: Better Auth consumes the original
+  // body, and `clone()` on a consumed Request throws. The throw landed in a
+  // catch that called it bookkeeping, so the give-back below silently never
+  // happened, and a request Better Auth itself rejected (a malformed address,
+  // its own per-IP rule) still spent a unit of the address's hourly allowance
+  // and of the day's shared one. Measured, not reasoned about: an "Invalid
+  // email" 400 left the next request for that address refused with 429.
+  const rawBody = await req.text().catch(() => null);
+  if (rawBody === null) return handlers.POST(req);
+  const forwarded = () =>
+    new Request(req.url, { method: "POST", headers: req.headers, body: rawBody });
+
+  const address = signInAddressFrom(rawBody);
+  if (address === null) return handlers.POST(forwarded());
+
+  const permission = await reserveSignInCode(address);
+  if (!permission.allowed) return floodRefusal(permission.reason);
+
+  const res = await handlers.POST(forwarded());
 
   // Better Auth rejected it itself — its own per-IP rule, or a malformed
-  // address. No mail was sent, so the day's shared allowance should not be a
-  // unit down. (A *send* failure cannot be detected here: Better Auth answers
-  // 200 for those too, which is why the reservation is not released on 2xx.)
-  if (!res.ok) await releaseIfReserved(req);
+  // address. No mail was sent, so neither allowance should be a unit down. (A
+  // *send* failure cannot be detected here: Better Auth answers 200 for those
+  // too, which is why the reservation is not released on 2xx.)
+  //
+  // `permission.release` rather than a release addressed by the address: it
+  // gives back exactly the units this reservation took, is idempotent, and is a
+  // no-op when the counter was unreachable and nothing was counted at all.
+  if (!res.ok) {
+    try {
+      await permission.release();
+    } catch (error) {
+      console.error("sign-in code cap: could not give back a reserved unit", error);
+    }
+  }
 
   return res;
-}
-
-/**
- * Give back the unit taken above, for a request Better Auth then refused.
- *
- * Re-derived rather than threaded through, because `refuseFloodedSignInCode`
- * returns null on the happy path and holding the handle would mean restructuring
- * the handler around a case that is rare and cheap to recompute.
- */
-async function releaseIfReserved(req: Request): Promise<void> {
-  if (!new URL(req.url).pathname.endsWith(SEND_CODE_PATH)) return;
-  try {
-    const body = (await req.clone().json()) as { email?: unknown; type?: unknown };
-    if (body.type !== "sign-in" || typeof body.email !== "string") return;
-    const { releaseSignInCode } = await import("@/lib/sign-in-limits");
-    await releaseSignInCode(body.email);
-  } catch {
-    // Bookkeeping. Never worth failing a response over.
-  }
 }

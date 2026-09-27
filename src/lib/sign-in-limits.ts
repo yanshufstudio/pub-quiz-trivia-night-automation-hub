@@ -169,31 +169,3 @@ export async function reserveSignInCode(
     },
   };
 }
-
-/**
- * Give back the pair of units `reserveSignInCode` took for an address.
- *
- * Addressed by the address rather than by a handle, because the caller that
- * needs it — the auth route, when Better Auth rejects a request we had already
- * counted — does not hold one: it reserved on the way in and only learns the
- * outcome on the way out. Releasing by key is safe here because the counters are
- * plain per-key counts with no notion of which request took which unit, and the
- * `> 0` floor in the counter keeps a stray release from going negative.
- *
- * It never throws. Bookkeeping is not worth failing a response over.
- */
-export async function releaseSignInCode(address: string, now: Date = new Date()): Promise<void> {
-  const addressKey = `signin:code:address:${signInCodeKeyFor(address)}`;
-  const dayKey = `signin:code:global:${utcDay(now)}`;
-  const dayWindowMs = secondsUntilUtcMidnight(now) * 1000;
-  for (const [key, windowMs] of [
-    [addressKey, HOUR_MS],
-    [dayKey, dayWindowMs],
-  ] as const) {
-    try {
-      await counter.release(key, windowMs);
-    } catch (error) {
-      if (!isCounterUnavailable(error)) throw error;
-    }
-  }
-}

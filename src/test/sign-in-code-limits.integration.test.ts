@@ -131,6 +131,33 @@ describe("asking for a sign-in code too often", () => {
     expect((await send(address("other"))).status).toBe(200);
   });
 
+  it("gives the unit back when Better Auth refuses the request itself", async () => {
+    // The cap is taken on the way in, before Better Auth has looked at the
+    // request at all — so a request it then rejects has cost us nothing to send
+    // and must not have cost an allowance either. This is also the case that
+    // caught a real bug: the give-back used to re-read the body with
+    // `req.clone()` after Better Auth had consumed it, which throws, and the
+    // throw was swallowed as bookkeeping. One "Invalid email" 400 was enough to
+    // lock a valid address out of its whole hourly allowance.
+    process.env[PER_ADDRESS_HOURLY_ENV] = "1";
+
+    const rejected = await send("not-an-email");
+    expect(rejected.status).toBe(400);
+
+    // The same address again: the unit it did not spend is back, so this one is
+    // allowed rather than 429.
+    expect((await send("not-an-email")).status).toBe(400);
+  });
+
+  it("keeps the day's allowance intact when Better Auth refuses", async () => {
+    process.env[DAILY_LIMIT_ENV] = "1";
+
+    expect((await send("also-not-an-email")).status).toBe(400);
+
+    // The day's one unit was never spent, so a real address can still have it.
+    expect((await send(address("afterreject"))).status).toBe(200);
+  });
+
   it("treats the same mailbox in different case as one address", async () => {
     process.env[PER_ADDRESS_HOURLY_ENV] = "1";
     const lower = address("caseless");
