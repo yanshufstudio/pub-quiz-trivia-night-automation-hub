@@ -33,6 +33,49 @@ const handlers = toNextJsHandler(auth);
 const SEND_CODE_PATH = "/email-otp/send-verification-otp";
 
 /**
+ * The password-reset flow, refused in one voice (AUTH).
+ *
+ * `emailAndPassword: { enabled: false }` in src/lib/auth.ts means no account here
+ * can have a password, and none can: sign-up refuses with
+ * EMAIL_PASSWORD_SIGN_UP_DISABLED and `change-password` cannot find a credential
+ * account to change. That part is sound and was measured — no credential row can
+ * be created through any of these.
+ *
+ * What is not uniform is the *refusal*. Better Auth checks the feature flag on
+ * some of these paths and not others, so probing them returns whatever the
+ * request happened to fail on first:
+ *
+ *   POST /reset-password            400 INVALID_TOKEN
+ *   POST /change-password           400 CREDENTIAL_ACCOUNT_NOT_FOUND (signed in)
+ *   GET  /reset-password/<token>    400 VALIDATION_ERROR about callbackURL
+ *   POST /request-password-reset    400 RESET_PASSWORD_DISABLED  ← the honest one
+ *
+ * None of those is exploitable and none is a lie, but three of the four answer a
+ * question nobody asked and imply a password flow exists behind them. They are
+ * answered here with the code Better Auth uses when it does check —
+ * EMAIL_PASSWORD_DISABLED, the same one `sign-in/email` returns — so the whole
+ * flow says one thing.
+ *
+ * Conditional on the config rather than hard-coded: if passwords are ever turned
+ * on, this steps aside instead of becoming the lie it was written to prevent.
+ * `request-password-reset` is left alone because it already refuses clearly, and
+ * the paths Better Auth does not serve at all are left as 404s.
+ */
+const PASSWORD_FLOW_PATHS = [/\/reset-password(\/|$)/, /\/change-password$/];
+
+const EMAIL_PASSWORD_DISABLED = {
+  code: "EMAIL_PASSWORD_DISABLED",
+  message: "Email and password is not enabled",
+};
+
+function refuseIfPasswordAuthDisabled(req: Request): Response | null {
+  if (auth.options.emailAndPassword?.enabled) return null;
+  const { pathname } = new URL(req.url);
+  if (!PASSWORD_FLOW_PATHS.some((path) => path.test(pathname))) return null;
+  return Response.json(EMAIL_PASSWORD_DISABLED, { status: 400 });
+}
+
+/**
  * How many sign-in codes we will email, enforced here rather than deeper (M2).
  *
  * Resend's free plan allows 100 emails a day and that allowance is **shared
@@ -94,11 +137,16 @@ function floodRefusal(reason: "address" | "global"): Response {
 
 export async function GET(req: Request) {
   assertAuthConfigured();
+  const disabled = refuseIfPasswordAuthDisabled(req);
+  if (disabled) return disabled;
   return handlers.GET(req);
 }
 
 export async function POST(req: Request) {
   assertAuthConfigured();
+
+  const disabled = refuseIfPasswordAuthDisabled(req);
+  if (disabled) return disabled;
 
   if (!new URL(req.url).pathname.endsWith(SEND_CODE_PATH)) return handlers.POST(req);
 
