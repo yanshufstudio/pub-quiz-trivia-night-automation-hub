@@ -61,8 +61,25 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   }
 
   const round = getCurrentRound(pack, session.currentRoundIndex);
-  const question = getCurrentQuestion(pack, session.currentRoundIndex, session.currentQuestionIndex);
   const revealAnswer = session.status === SESSION_STATUS.REVEAL || session.status === SESSION_STATUS.ENDED;
+
+  /**
+   * Nothing has been asked yet in the lobby, so nothing about a question goes
+   * out in a lobby response (L2).
+   *
+   * A session's position starts at round 0, question 0, and this payload was
+   * built from that position whatever the status — so a team that joined and sat
+   * on /play could read question one, its options and its points before the host
+   * had started the quiz. Not by doing anything clever: the polling the join
+   * screen already does returned it.
+   *
+   * Keyed on "not LOBBY" rather than listing the in-play statuses, so a status
+   * added later is included by default rather than silently omitted.
+   */
+  const inPlay = session.status !== SESSION_STATUS.LOBBY;
+  const question = inPlay
+    ? getCurrentQuestion(pack, session.currentRoundIndex, session.currentQuestionIndex)
+    : null;
 
   const currentQuestionAnswers = session.answers.filter(
     (a) => a.roundIndex === session.currentRoundIndex && a.questionIndex === session.currentQuestionIndex
