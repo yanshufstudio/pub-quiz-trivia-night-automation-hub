@@ -86,3 +86,17 @@ test("the FAQ and the guide say what the printed sheets cannot print yet (L23)",
     await expect(main, path).toContainText("do not print correctly yet");
   }
 });
+
+// L24. The answer used to say "Mark it yourself" and never that marking is
+// automatic. Each clause is a claim about src/lib/scoring.ts, which
+// scoring.test.ts pins case by case.
+test("the FAQ says answers are marked automatically and the host can override (L24)", async ({ page }) => {
+  await page.goto("/faq");
+  const entry = page.locator("#marking");
+  await expect(entry.getByRole("heading", { name: "What if a team's answer is right but spelt wrong?" })).toBeVisible();
+  await expect(entry).toContainText("Answers are marked automatically against the answer key");
+  await expect(entry).toContainText("so “Canbera” is marked wrong");
+  await expect(entry).toContainText("you can override any mark; the scores follow");
+  await expect(entry).toContainText("You are the quizmaster; the software is not.");
+  await expect(entry).not.toContainText("Mark it yourself");
+});

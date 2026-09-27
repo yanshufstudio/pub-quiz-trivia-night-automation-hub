@@ -146,9 +146,13 @@ const ENTRIES: Entry[] = [
     question: "What if a team's answer is right but spelt wrong?",
     answer: (
       <>
-        You decide. After each reveal, every team&apos;s answer is listed with <em>Correct</em>{" "}
-        and <em>Wrong</em> next to it. Mark it yourself and the scores follow. You are the
-        quizmaster; the software is not.
+        You decide. Answers are marked automatically against the answer key: capitals,
+        accents, punctuation and a leading &ldquo;the&rdquo; do not count against a team, and
+        any alternative answers you gave the question in the pack editor count as right too.
+        The software does not guess at spelling, though, so &ldquo;Canbera&rdquo; is marked
+        wrong. After each reveal, every team&apos;s answer is listed with <em>Correct</em> and{" "}
+        <em>Wrong</em> next to it, and you can override any mark; the scores follow. You are
+        the quizmaster; the software is not.
       </>
     ),
   },
