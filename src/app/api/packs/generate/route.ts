@@ -21,7 +21,12 @@ import {
   reserveDailyGeneration,
   CEILING_UNAVAILABLE_MESSAGE,
 } from "@/lib/daily-ceiling";
-import { reserveFreeIpDaily, FREE_IP_LIMIT_MESSAGE } from "@/lib/free-allowance";
+import {
+  reserveFreeIpDaily,
+  FREE_IP_LIMIT_MESSAGE,
+  reserveMailboxGeneration,
+  MAILBOX_LIMIT_MESSAGE,
+} from "@/lib/free-allowance";
 import {
   reserveProDailyGeneration,
   proDailyLimitMessage,
@@ -265,6 +270,41 @@ export async function POST(req: NextRequest) {
   }
 
   /**
+   * H1(b) — and one of the *mailbox's*, which is the allowance a supply of
+   * aliases cannot rotate around.
+   *
+   * After the per-account claim rather than before it, so an account that is
+   * simply out of its own two packs is told that by the check that knows it,
+   * and the shared row is not touched on the way to a refusal it had no part
+   * in. FREE only: `reserveFreeGeneration` reserves nothing for PRO, and a
+   * subscriber has no free allowance to share.
+   *
+   * The message is deliberately the same one above — see MAILBOX_LIMIT_MESSAGE.
+   *
+   * `periodStartedAt` is passed so the shared allowance is anchored to the oldest
+   * account behind the mailbox rather than to its first generation. Without it an
+   * honest host who signs up and generates three weeks later is refused for the
+   * rest of the month after their own period has rolled.
+   */
+  const mailbox =
+    existing.plan === "PRO"
+      ? null
+      : await reserveMailboxGeneration(host.user.email, existing.periodStartedAt);
+  if (mailbox && !mailbox.reserved) {
+    await reservation.release();
+    await daily.release();
+    await freeIp?.release();
+    return NextResponse.json(
+      {
+        error: MAILBOX_LIMIT_MESSAGE,
+        packsGeneratedInPeriod: mailbox.used,
+        limit: mailbox.limit,
+      },
+      { status: 403 }
+    );
+  }
+
+  /**
    * Give back what this request reserved but did not spend.
    *
    * The two reservations are not refunded on the same terms, because they
@@ -287,6 +327,7 @@ export async function POST(req: NextRequest) {
     const nothingWasGenerated = err instanceof MissingApiKeyError || err instanceof Anthropic.APIError;
     try {
       await reservation.release();
+      await mailbox?.release();
       // The free-tier fairness counters are not a bill: whatever went wrong,
       // the caller has no pack, so their allowance comes back either way.
       await freeIp?.release();
@@ -368,6 +409,7 @@ export async function POST(req: NextRequest) {
     console.error("Generated pack could not be saved:", err);
     try {
       await reservation.release();
+      await mailbox?.release();
       await freeIp?.release();
       // The model ran and was billed, so the shared ceiling keeps its unit —
       // but this subscriber has nothing to show for it, and one of their ten a

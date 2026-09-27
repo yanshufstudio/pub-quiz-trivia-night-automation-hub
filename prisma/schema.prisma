@@ -168,6 +168,30 @@ model Answer {
   @@index([sessionId, roundIndex, questionIndex])
 }
 
+/// One free allowance per mailbox, shared by every account behind it (H1b).
+///
+/// Signing up is free and one person can hold any number of accounts, so a
+/// per-Creator allowance bounded nothing: `someone+1@gmail.com`,
+/// `someone+2@gmail.com` and `some.one@googlemail.com` are one inbox that
+/// Google delivers all of, and each was a separate account with its own two
+/// free packs. This row is the allowance those accounts share.
+///
+/// It is a table rather than a column on Creator because the shared allowance
+/// needs its own clock: it rolls on its own 30-day period, the same rule a
+/// Creator's does. Hanging it off one of the accounts would anchor everybody's
+/// period to whichever account happened to generate first.
+///
+/// `key` is a digest, not an address — see freeAllowanceKey in
+/// src/lib/free-allowance.ts. The row has to outlive account deletion or the
+/// cap would be one "delete my account" away from resetting, and a row that
+/// outlives the account must not be a stored copy of the person's address.
+model MailboxAllowance {
+  key             String   @id
+  packsGenerated  Int      @default(0)
+  periodStartedAt DateTime @default(now())
+  createdAt       DateTime @default(now())
+}
+
 model Creator {
   id                     String     @id @default(cuid())
   deviceKey              String     @unique

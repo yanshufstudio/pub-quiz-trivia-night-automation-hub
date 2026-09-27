@@ -7,6 +7,8 @@ import {
   FREE_IP_LIMIT_MESSAGE,
   freeIpDailyLimit,
   normaliseForFreeAllowance,
+  freeAllowanceKey,
+  FREE_ALLOWANCE_KEY_VERSION,
   reserveFreeIpDaily,
   __resetFreeAllowanceCounters,
 } from "@/lib/free-allowance";
@@ -223,5 +225,46 @@ describe("the per-address cap fails open when Upstash is unreachable", () => {
 
     vi.doUnmock("@upstash/redis");
     vi.resetModules();
+  });
+});
+
+describe("the stored key for a mailbox", () => {
+  it("is a digest, not the address", () => {
+    const key = freeAllowanceKey("Some.One+quiz@Gmail.com");
+    expect(key).not.toContain("@");
+    expect(key).not.toContain("someone");
+    expect(key).not.toContain("Some.One");
+    // The row outlives the deletion of every account behind it — a cap a
+    // "delete my account" resets is not a cap — so it must not be a second
+    // stored copy of somebody's address.
+    expect(key).toMatch(/^v1\.[0-9a-f]{64}$/);
+  });
+
+  it("gives every alias of one mailbox the same key", () => {
+    const expected = freeAllowanceKey("someone@gmail.com");
+    for (const alias of [
+      "someone+1@gmail.com",
+      "some.one@gmail.com",
+      "s.o.m.e.o.n.e+anything@googlemail.com",
+      "  SomeOne@GMAIL.com  ",
+    ]) {
+      expect(freeAllowanceKey(alias)).toBe(expected);
+    }
+  });
+
+  it("gives different mailboxes different keys", () => {
+    expect(freeAllowanceKey("someone@gmail.com")).not.toBe(freeAllowanceKey("someoneelse@gmail.com"));
+    // Dots outside Gmail are two different people, so two different keys.
+    expect(freeAllowanceKey("first.last@company.test")).not.toBe(
+      freeAllowanceKey("firstlast@company.test")
+    );
+  });
+
+  it("names the normalisation it was taken under", () => {
+    // If the folding rules ever change, the keys change with them and every
+    // mailbox starts a fresh allowance. The prefix makes that a visible
+    // decision rather than a silent one.
+    expect(FREE_ALLOWANCE_KEY_VERSION).toBe("v1");
+    expect(freeAllowanceKey("someone@gmail.com").startsWith("v1.")).toBe(true);
   });
 });
