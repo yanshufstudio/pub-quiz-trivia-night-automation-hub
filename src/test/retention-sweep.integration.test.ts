@@ -283,7 +283,14 @@ describe("orphaned mailbox free-allowance rows", () => {
       const res = await runSweep(cronCall(`Bearer ${SECRET}`));
       expect(res.status).toBe(200);
       await expect(res.json()).resolves.toMatchObject({ mailboxAllowances: expect.any(Number) });
-      expect(info).toHaveBeenCalledWith(expect.stringContaining("orphaned mailbox allowances"));
+      // Singular at one, which is the whole point of countOf being here: the
+      // line used to read "1 orphaned mailbox allowances".
+      expect(info).toHaveBeenCalledWith(expect.stringContaining("1 orphaned mailbox allowance"));
+      expect(info).not.toHaveBeenCalledWith(expect.stringContaining("1 orphaned mailbox allowances"));
+      // And the two counts that were always in this line are pluralised too, so
+      // the sentence does not disagree with itself at one.
+      expect(info).toHaveBeenCalledWith(expect.stringContaining("0 expired codes"));
+      expect(info).toHaveBeenCalledWith(expect.stringContaining("0 expired sessions"));
     } finally {
       info.mockRestore();
     }

@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isAuthorizedCron } from "@/lib/cron-auth";
 import { sweepExpiredAuthRows } from "@/lib/retention";
+import { countOf } from "@/lib/plural";
 
 /**
  * The daily retention sweep, called by Vercel Cron (see vercel.json).
@@ -28,9 +29,18 @@ export async function GET(req: NextRequest) {
   const sweep = await sweepExpiredAuthRows();
   // Counts only — no identifiers, no addresses. This is what Vercel's cron
   // log shows for each run.
+  //
+  // Through `countOf`, so a sweep that removed one thing does not report "1
+  // expired codes". All three counts, not just the newest: this line said
+  // "1 expired codes" from the day it was written, and fixing only the third
+  // would have produced "1 expired codes, 1 expired session", which reads worse
+  // than either. It is a log line rather than a page, so nobody was ever misled
+  // by it — but it is the same `s` the plural fix went round the product
+  // removing, and countOf is right here.
   console.info(
-    `retention sweep: ${sweep.verifications} expired codes, ${sweep.sessions} expired sessions, ` +
-      `${sweep.mailboxAllowances} orphaned mailbox allowances`
+    `retention sweep: ${countOf(sweep.verifications, "expired code")}, ` +
+      `${countOf(sweep.sessions, "expired session")}, ` +
+      `${countOf(sweep.mailboxAllowances, "orphaned mailbox allowance")}`
   );
   return NextResponse.json(sweep);
 }
