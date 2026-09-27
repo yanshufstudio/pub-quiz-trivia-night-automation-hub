@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { isValidOptionSet, parseOptions, QUESTION_TYPE, serializeOptions } from "@/lib/question-types";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
+import { refuseIfLiveGameFor } from "@/lib/live-game-guard";
 import type { Prisma } from "@prisma/client";
 
 const updateSchema = z.object({
@@ -97,6 +98,11 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   }
   const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
+
+  // Deleting shifts every later question down a slot, which re-points every
+  // answer already stored against those indices (H5).
+  const live = await refuseIfLiveGameFor({ questionId: id });
+  if (live) return live;
 
   const siblingCount = await db.question.count({ where: { roundId: existing.roundId } });
   if (siblingCount <= 1) {

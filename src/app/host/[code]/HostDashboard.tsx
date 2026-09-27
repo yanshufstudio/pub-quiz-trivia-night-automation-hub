@@ -43,6 +43,11 @@ export function HostDashboard({ code }: { code: string }) {
   const [state, setState] = useState<HostSessionState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // Two taps to end a game, because this desk sits on a TV within reach of a
+  // room full of people and the action cannot be undone. An inline panel
+  // rather than window.confirm: a native dialog on a phone covers the screen
+  // it is asking about, and this one can be read from across the pub.
+  const [confirmingEnd, setConfirmingEnd] = useState(false);
 
   useEffect(() => {
     // localStorage isn't available during SSR, so the real value can only be
@@ -86,7 +91,7 @@ export function HostDashboard({ code }: { code: string }) {
     return () => window.clearInterval(id);
   }, [refresh, hostToken]);
 
-  async function advance(action: "start" | "reveal" | "next") {
+  async function advance(action: "start" | "reveal" | "next" | "end") {
     if (!hostToken) return;
     setBusy(true);
     try {
@@ -405,6 +410,60 @@ export function HostDashboard({ code }: { code: string }) {
             <Scoreboard rows={state.scoreboard} dark />
           </section>
         </aside>
+
+        {/* The host's way out of a game, and the reason the pack's editor can
+            trust that a live session means a live session: a lobby nobody
+            joined, or a question the room walked out on, otherwise stays
+            un-ENDED and blocks structural edits to the pack until the
+            12-hour staleness window passes (L9, and the guard in
+            src/lib/live-game-guard.ts). */}
+        {state.status !== "ENDED" ? (
+          <section className="lg:col-span-2 rounded-2xl border border-white/10 p-5">
+            {confirmingEnd ? (
+              <>
+                <h3 className="font-semibold">End this game for everyone?</h3>
+                <p className="mt-1 text-sm text-stage-muted">
+                  Teams stop being able to answer and the scoreboard becomes final. The pack can be
+                  edited again afterwards. This cannot be undone.
+                </p>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setConfirmingEnd(false);
+                      void advance("end");
+                    }}
+                    disabled={busy}
+                    className="h-12 min-h-12 rounded-xl bg-red-500/90 px-5 text-sm font-semibold text-white disabled:opacity-40"
+                  >
+                    Yes, end the game
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmingEnd(false)}
+                    className="h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
+                  >
+                    Keep playing
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="text-sm text-stage-muted">
+                  Finished early, or opened this session by mistake? Ending the game unlocks the pack
+                  for editing.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setConfirmingEnd(true)}
+                  className="h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
+                >
+                  End game
+                </button>
+              </div>
+            )}
+          </section>
+        ) : null}
 
         <p className="lg:col-span-2 text-center text-sm text-stage-muted">
           Teams join at{" "}

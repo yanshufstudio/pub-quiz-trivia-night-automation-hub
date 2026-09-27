@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { parseOptions } from "@/lib/question-types";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
+import { refuseIfLiveGame } from "@/lib/live-game-guard";
 
 const createSchema = z.object({
   roundId: z.string().min(1),
@@ -30,6 +31,11 @@ export async function POST(req: NextRequest) {
   }
   const forbidden = await requirePackOwner(host.creator.id, { roundId: round.id });
   if (forbidden) return forbidden;
+
+  // Adding a question extends the round's index range, which a live session is
+  // already walking (H5).
+  const live = await refuseIfLiveGame(round.packId);
+  if (live) return live;
 
   const question = await db.question.create({
     data: {

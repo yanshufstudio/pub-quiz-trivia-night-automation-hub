@@ -6,7 +6,7 @@ import { isValidHostToken } from "@/lib/host-auth";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 const advanceSchema = z.object({
-  action: z.enum(["start", "reveal", "next"]),
+  action: z.enum(["start", "reveal", "next", "end"]),
   hostToken: z.string().min(1),
 });
 
@@ -57,6 +57,26 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   }
 
   const { action } = parsed.data;
+
+  if (action === "end") {
+    // The host's deliberate way to close a game, from any state: the lobby
+    // nobody joined, a question the room walked out on, or a finished quiz the
+    // host wants off the pack. It exists because the edit guard
+    // (src/lib/live-game-guard.ts) treats a live session as a reason to refuse
+    // structural edits, and a host who closed the tab mid-question would
+    // otherwise have to wait out the 12-hour staleness window (L9).
+    //
+    // Idempotent on purpose — a second tap, a retry on venue wifi, or a second
+    // device is not an error — so unlike the transitions below it does not
+    // report a lost race.
+    await db.session.updateMany({
+      where: { id: session.id, status: { not: SESSION_STATUS.ENDED } },
+      data: { status: SESSION_STATUS.ENDED },
+    });
+    return NextResponse.json({
+      session: await db.session.findUniqueOrThrow({ where: { id: session.id }, select: publicSessionSelect }),
+    });
+  }
 
   // Every transition below is a conditional update: the `where` clause pins
   // the exact state this request read, so if two requests race (a

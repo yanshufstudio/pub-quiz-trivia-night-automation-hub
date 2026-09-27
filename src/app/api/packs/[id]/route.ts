@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { refuseIfLiveGame } from "@/lib/live-game-guard";
 import { isAdminTokenConfigured, isAuthorizedAdmin } from "@/lib/admin-auth";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { canEditPack, canReadPack, packNotFound, packOwnership } from "@/lib/pack-access";
@@ -66,6 +67,13 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
       return NextResponse.json({ error: "Invalid admin token" }, { status: 401 });
     }
   }
+  // Deleting the pack cascades its sessions, teams and answers away with it.
+  // Mid-game that destroys the running quiz, so it waits for the game to end —
+  // and that applies to the admin override as well: this is a data-integrity
+  // rule, not a permission (H6).
+  const live = await refuseIfLiveGame(id);
+  if (live) return live;
+
   await db.quizPack.delete({ where: { id } }).catch(() => null);
   return NextResponse.json({ ok: true });
 }
