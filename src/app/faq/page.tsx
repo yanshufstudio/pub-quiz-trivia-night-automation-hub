@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ANNUAL_MONTHS_FREE, formatUsd, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD } from "@/lib/pricing";
 import { SITE_URL } from "@/lib/site";
+import { formatBytes, MAX_MEDIA_BYTES } from "@/lib/media-limits";
 
 export const metadata: Metadata = pageMetadata({
   path: "/faq",
@@ -62,7 +63,8 @@ const ENTRIES: Entry[] = [
     answer: (
       <>
         Yes, with your own pictures. Any question in the pack editor takes an image —{" "}
-        <em>Add image</em> under the question — and that picture then shows on the printed
+        <em>Add image</em> under the question, a JPEG or PNG of up to{" "}
+        {formatBytes(MAX_MEDIA_BYTES)} — and that picture then shows on the printed
         sheets, on your host screen and on every team&apos;s phone. Your own photos work
         best: the pub, the regulars, the high street. Phone photos have their location and
         camera details stripped when they are uploaded.
@@ -132,7 +134,10 @@ const ENTRIES: Entry[] = [
       <>
         Yes. <em>Print preview</em> in the pack editor gives you a presenter script to read
         from, a question sheet, and answer sheets for teams who would rather write than tap.
-        Pictures you have added print with their questions.
+        Pictures you have added print with their questions. The printed sheets can only print Western European letters for now: English, French,
+        German, Spanish and the like. Other letters — a Polish ł or a Czech ř — and other
+        alphabets, such as Greek or Cyrillic, do not print correctly yet, although they show
+        properly on your screen and on the teams&apos; phones.
       </>
     ),
   },

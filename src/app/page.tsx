@@ -7,6 +7,7 @@ import { ArrowRightIcon } from "@/components/icons";
 import type { SVGProps } from "react";
 import type { Metadata } from "next";
 import { HOME_DESCRIPTION, HOME_TITLE, pageMetadata } from "@/lib/page-metadata";
+import { formatBytes, MAX_MEDIA_BYTES } from "@/lib/media-limits";
 
 // The root layout carries the same title and description, as the default for
 // pages with none of their own; this adds the homepage's og:url and canonical.
@@ -49,7 +50,7 @@ const steps = [
     href: "/create",
     icon: QuillIcon,
     title: "Write it",
-    body: "Describe the rounds and topics you want — 90s pop, local history, the town's past — and the pack is written for you, in words. Add your own pictures to any question for a picture round.",
+    body: `Describe the rounds and topics you want — 90s pop, local history, the town's past — and the pack is written for you, in words. Add your own pictures to any question, up to ${formatBytes(MAX_MEDIA_BYTES)} each, for a picture round.`,
     cta: "Open the wizard",
   },
   {

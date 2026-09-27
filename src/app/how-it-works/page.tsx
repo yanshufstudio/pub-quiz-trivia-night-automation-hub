@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SITE_URL } from "@/lib/site";
+import { formatBytes, MAX_MEDIA_BYTES } from "@/lib/media-limits";
 
 export const metadata: Metadata = pageMetadata({
   path: "/how-it-works",
@@ -64,8 +65,9 @@ const STEPS: Step[] = [
     body: (
       <>
         The wizard writes text — it does not make pictures, music or video. For a picture
-        round, put your own image on any question with <em>Add image</em> in the pack editor;
-        it then shows on the printed sheets, your host screen and every team&apos;s phone.
+        round, put your own image on any question with <em>Add image</em> in the pack editor —
+        a JPEG or PNG of up to {formatBytes(MAX_MEDIA_BYTES)} —
+        and it then shows on the printed sheets, your host screen and every team&apos;s phone.
         Your own photos work best: the pub, the regulars, the high street. Location and
         camera details are stripped from a phone photo when it is uploaded.
       </>
@@ -88,6 +90,10 @@ const STEPS: Step[] = [
         <em>Print preview</em> in the pack editor gives you three things to print: the
         presenter script to read from, answer sheets for the teams, and a question sheet.
         Print them before the night — this is the part that needs a printer, not a phone.
+        The printed sheets can only print Western European letters for now: English, French,
+        German, Spanish and the like. Other letters — a Polish ł or a Czech ř — and other
+        alphabets, such as Greek or Cyrillic, do not print correctly yet, although they show
+        properly on your screen and on the teams&apos; phones.
       </>
     ),
   },
