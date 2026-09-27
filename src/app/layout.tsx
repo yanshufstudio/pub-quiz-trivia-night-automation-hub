@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HOME_DESCRIPTION, HOME_TITLE, OG_IMAGE, SITE_NAME } from "@/lib/page-metadata";
 import { SITE_URL } from "@/lib/site";
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             default. It removes itself on the live-night and print surfaces —
             see SiteFooter. */}
         <SiteFooter />
+        <SiteAnalytics />
       </body>
     </html>
   );
