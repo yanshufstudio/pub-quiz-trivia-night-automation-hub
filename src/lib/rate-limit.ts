@@ -11,7 +11,11 @@ import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-wind
  */
 const counter = createFixedWindowCounter();
 
-function clientIp(req: NextRequest): string {
+/** Exported so a limiter that is not keyed on a bucket name — the per-IP free
+ * generation cap in src/lib/free-allowance.ts — attributes a request to the same
+ * address this one does. Two ideas of "who is calling" would be two different
+ * caps wearing one name. */
+export function clientIp(req: NextRequest): string {
   return (
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     req.headers.get("x-real-ip") ||

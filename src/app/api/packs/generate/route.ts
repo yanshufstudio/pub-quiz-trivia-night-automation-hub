@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { generateQuizPack, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
 import { wizardRequestSchema } from "@/lib/quiz-schema";
-import { rateLimit } from "@/lib/rate-limit";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { MissingApiKeyError } from "@/lib/anthropic";
 import {
   canGenerate,
@@ -16,6 +16,7 @@ import {
   reserveDailyGeneration,
   CEILING_UNAVAILABLE_MESSAGE,
 } from "@/lib/daily-ceiling";
+import { reserveFreeIpDaily, FREE_IP_LIMIT_MESSAGE } from "@/lib/free-allowance";
 import {
   reserveProDailyGeneration,
   proDailyLimitMessage,
@@ -126,10 +127,31 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  /**
+   * H1(a) — how many free packs one address may take in a day.
+   *
+   * Signing up is free, so a caller with a supply of addresses had an unbounded
+   * supply of free allowances; the per-IP limiter above is 5 per 10 minutes,
+   * about 720 a day, which is a throttle and not a cap. FREE only: a Pro
+   * subscriber has paid, and a pub's shared address must not throttle the person
+   * running the quiz on it.
+   *
+   * Ahead of the shared ceiling so a refused caller never touches it.
+   */
+  const freeIp =
+    plan === "PRO" ? null : await reserveFreeIpDaily(clientIp(req));
+  if (freeIp && !freeIp.allowed) {
+    return NextResponse.json(
+      { error: FREE_IP_LIMIT_MESSAGE, freeIpLimitReached: true, limit: freeIp.limit },
+      { status: 429, headers: { "Retry-After": String(freeIp.retryAfterSeconds) } }
+    );
+  }
+
   // The ceiling that actually bounds the bill, taken before anything is spent
   // and before any row is written. There is no identity in its key, so
   // rotating or dropping cookies does not move it.
   const daily = await reserveDailyGeneration(plan);
+  if (!daily.allowed) await freeIp?.release();
   if (!daily.allowed && daily.unavailable) {
     // The counter could not be reached, so the ceiling could not be checked
     // and nothing is spent (N1). This is not "you are out of packs" and must
@@ -201,6 +223,7 @@ export async function POST(req: NextRequest) {
   const reservation = await reserveFreeGeneration(existing);
   if (!reservation.reserved) {
     await daily.release();
+    await freeIp?.release();
     const res = NextResponse.json(
       {
         error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
@@ -235,6 +258,9 @@ export async function POST(req: NextRequest) {
     const nothingWasGenerated = err instanceof MissingApiKeyError || err instanceof Anthropic.APIError;
     try {
       await reservation.release();
+      // The free-tier fairness counters are not a bill: whatever went wrong,
+      // the caller has no pack, so their allowance comes back either way.
+      await freeIp?.release();
       if (nothingWasGenerated) {
         await daily.release();
         // Same terms as the shared ceiling: this subscriber's daily unit comes
@@ -304,6 +330,7 @@ export async function POST(req: NextRequest) {
     console.error("Generated pack could not be saved:", err);
     try {
       await reservation.release();
+      await freeIp?.release();
       // The model ran and was billed, so the shared ceiling keeps its unit —
       // but this subscriber has nothing to show for it, and one of their ten a
       // day should not be spent on our storage failure.
