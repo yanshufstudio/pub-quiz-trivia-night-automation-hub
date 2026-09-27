@@ -1,7 +1,9 @@
 import { toNextJsHandler } from "better-auth/next-js";
 import { assertAuthConfigured, auth } from "@/lib/auth";
-import { reserveSignInCode } from "@/lib/sign-in-limits";
+import { isEmailTooLong, reserveSignInCode } from "@/lib/sign-in-limits";
 import {
+  EMAIL_TOO_LONG_CODE,
+  EMAIL_TOO_LONG_MESSAGE,
   SIGN_IN_CODES_PAUSED_CODE,
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
@@ -119,6 +121,23 @@ export async function POST(req: Request) {
 
   const address = signInAddressFrom(rawBody);
   if (address === null) return handlers.POST(forwarded());
+
+  /**
+   * Too long to be a mailbox, refused before anything is created or sent.
+   *
+   * Ahead of the caps on purpose. An address like this should not spend a unit of
+   * anybody's allowance on its way to being rejected — and it must not reach
+   * Better Auth, which accepts an address of any length: measured with a
+   * 20,000-character local part, it validated, wrote a verification row, and had
+   * a code sent to it. In production that hands the address to Resend.
+   *
+   * 400, not 429, because this does not reset and retrying cannot help. The body
+   * is shaped like the caps' refusals so the form reads it back the same way
+   * (src/lib/sign-in-errors.ts).
+   */
+  if (isEmailTooLong(address)) {
+    return Response.json({ code: EMAIL_TOO_LONG_CODE, message: EMAIL_TOO_LONG_MESSAGE }, { status: 400 });
+  }
 
   const permission = await reserveSignInCode(address);
   if (!permission.allowed) return floodRefusal(permission.reason);

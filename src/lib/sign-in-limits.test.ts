@@ -5,12 +5,16 @@ import {
   DEFAULT_PER_ADDRESS_HOURLY,
   PER_ADDRESS_HOURLY_ENV,
   dailyCodeLimit,
+  isEmailTooLong,
   perAddressHourlyLimit,
   reserveSignInCode,
   signInCodeKeyFor,
   __resetSignInLimitCounters,
 } from "@/lib/sign-in-limits";
 import {
+  EMAIL_TOO_LONG_CODE,
+  EMAIL_TOO_LONG_MESSAGE,
+  MAX_EMAIL_LENGTH,
   SIGN_IN_CODES_PAUSED_CODE,
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
@@ -221,5 +225,37 @@ describe("what the sign-in form shows", () => {
     for (const message of [SIGN_IN_CODES_PAUSED_MESSAGE, TOO_MANY_CODES_FOR_ADDRESS_MESSAGE]) {
       expect(message).not.toMatch(/account|registered|exists|unknown/i);
     }
+  });
+});
+
+describe("an address too long to be a mailbox", () => {
+  const local = (n: number) => "a".repeat(n);
+
+  it("refuses anything over 254 characters", () => {
+    // RFC 5321 bounds the path at 256 octets including the angle brackets, so 254
+    // is the address itself. Anything longer is a paste or a probe.
+    const domain = "@example.test";
+    const atLimit = local(MAX_EMAIL_LENGTH - domain.length) + domain;
+    expect(atLimit).toHaveLength(MAX_EMAIL_LENGTH);
+    expect(isEmailTooLong(atLimit)).toBe(false);
+    expect(isEmailTooLong(local(MAX_EMAIL_LENGTH - domain.length + 1) + domain)).toBe(true);
+  });
+
+  it("measures the address the caps count, not the raw string", () => {
+    // Surrounding whitespace must not push a legitimate address over the line —
+    // it is measured after signInCodeKeyFor trims and lower-cases, which is the
+    // same string the per-address cap is keyed on.
+    const domain = "@example.test";
+    const atLimit = local(MAX_EMAIL_LENGTH - domain.length) + domain;
+    expect(isEmailTooLong(`   ${atLimit}\n`)).toBe(false);
+    expect(isEmailTooLong(atLimit.toUpperCase())).toBe(false);
+  });
+
+  it("says so in a way the form can read back", () => {
+    // It is not a throttle: no waiting fixes it, so the message says what to
+    // change rather than when to come back.
+    expect(signInSendError({ status: 400, code: EMAIL_TOO_LONG_CODE })).toBe(EMAIL_TOO_LONG_MESSAGE);
+    expect(EMAIL_TOO_LONG_MESSAGE).toContain("254");
+    expect(EMAIL_TOO_LONG_MESSAGE).not.toMatch(/wait|tomorrow|hour/i);
   });
 });

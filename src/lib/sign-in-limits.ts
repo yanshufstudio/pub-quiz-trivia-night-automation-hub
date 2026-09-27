@@ -1,11 +1,15 @@
 import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-window-counter";
 import { warnCounterUnavailable } from "@/lib/rate-limit";
 import { parseCeiling, secondsUntilUtcMidnight, utcDay } from "@/lib/daily-ceiling";
+import { MAX_EMAIL_LENGTH } from "@/lib/sign-in-limit-messages";
 
 // Re-exported so a server caller has one import for the whole mechanism; the
 // definitions live in a module with no dependencies because the sign-in form
 // reads them too. See src/lib/sign-in-limit-messages.ts.
 export {
+  EMAIL_TOO_LONG_CODE,
+  EMAIL_TOO_LONG_MESSAGE,
+  MAX_EMAIL_LENGTH,
   SIGN_IN_CODES_PAUSED_CODE,
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
@@ -66,6 +70,23 @@ export function dailyCodeLimit(): number {
  */
 export function signInCodeKeyFor(address: string): string {
   return address.trim().toLowerCase();
+}
+
+/**
+ * Is this address longer than any real mailbox can be?
+ *
+ * Measured on the same string the caps count against — `signInCodeKeyFor`, so
+ * trimmed and lower-cased — because that is the address as this module
+ * understands it, and because surrounding whitespace should not push a legitimate
+ * address over the line. Lower-casing cannot change a length.
+ *
+ * Deliberately a length check and nothing more: the shape of an address is Better
+ * Auth's to validate and it does. What it does not do is bound the length, which
+ * was measured — a 20,000-character local part validated, wrote a verification
+ * row, and had a code sent to it.
+ */
+export function isEmailTooLong(address: string): boolean {
+  return signInCodeKeyFor(address).length > MAX_EMAIL_LENGTH;
 }
 
 const counter = createFixedWindowCounter();

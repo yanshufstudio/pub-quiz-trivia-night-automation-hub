@@ -7,6 +7,9 @@ import {
   __resetSignInLimitCounters,
 } from "@/lib/sign-in-limits";
 import {
+  EMAIL_TOO_LONG_CODE,
+  EMAIL_TOO_LONG_MESSAGE,
+  MAX_EMAIL_LENGTH,
   SIGN_IN_CODES_PAUSED_CODE,
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
@@ -163,5 +166,44 @@ describe("asking for a sign-in code too often", () => {
     const lower = address("caseless");
     expect((await send(lower)).status).toBe(200);
     expect((await send(lower.toUpperCase())).status).toBe(429);
+  });
+});
+
+describe("an address too long to be a mailbox", () => {
+  const tooLong = () => `${"a".repeat(MAX_EMAIL_LENGTH)}@example.test`;
+
+  it("is refused 400, with no code created and none sent", async () => {
+    // Better Auth accepts an address of any length: measured before this existed
+    // with a 20,000-character local part, it validated, wrote a verification row
+    // and had a code sent to it — which in production means handing the address
+    // to Resend. So the refusal has to be in front of it, not behind.
+    const before = await db.verification.count();
+
+    const res = await send(tooLong());
+    expect(res.status).toBe(400);
+    const body = await res.json();
+    expect(body.code).toBe(EMAIL_TOO_LONG_CODE);
+    expect(body.message).toBe(EMAIL_TOO_LONG_MESSAGE);
+
+    expect(await db.verification.count()).toBe(before);
+    expect(capturedSignInEmails().filter((sent) => sent.email.length > MAX_EMAIL_LENGTH)).toHaveLength(0);
+  });
+
+  it("does not spend the address's allowance or the day's on its way to being refused", async () => {
+    // It is checked ahead of the caps, so a junk address cannot burn a unit of
+    // either. With the day's allowance at 1, a real address must still get through
+    // after any number of over-long ones.
+    process.env[DAILY_LIMIT_ENV] = "1";
+    for (let i = 0; i < 3; i++) expect((await send(tooLong())).status).toBe(400);
+    expect((await send(address("after-too-long"))).status).toBe(200);
+  });
+
+  it("takes an address of exactly the maximum", async () => {
+    // 254 is allowed, 255 is not. A limit that refused the boundary would turn a
+    // legitimate — if absurd — address away.
+    const domain = "@example.test";
+    const atLimit = `${"a".repeat(MAX_EMAIL_LENGTH - domain.length)}${domain}`;
+    expect(atLimit).toHaveLength(MAX_EMAIL_LENGTH);
+    expect((await send(atLimit)).status).toBe(200);
   });
 });
