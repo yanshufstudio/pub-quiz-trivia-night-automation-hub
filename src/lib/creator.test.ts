@@ -3,6 +3,8 @@ import {
   canGenerate,
   DEFAULT_FREE_LIMIT,
   FREE_LIMIT,
+  effectivePlan,
+  isProFromAnotherEnvironment,
   parseFreeLimit,
   withRolledPeriod,
 } from "@/lib/creator";
@@ -23,6 +25,7 @@ function makeCreator(overrides: Partial<Creator> = {}): Creator {
     subscriptionUpdatedAt: null,
     proPacksGeneratedInPeriod: 0,
     proPeriodStartedAt: null,
+    proEnvironment: null,
     email: null,
     ...overrides,
   };
@@ -152,5 +155,71 @@ describe("canGenerate", () => {
   it("allows a FREE creator whose period has expired, even if it was previously at the limit", () => {
     const longAgo = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000);
     expect(canGenerate(makeCreator({ packsGeneratedInPeriod: FREE_LIMIT, periodStartedAt: longAgo }))).toBe(true);
+  });
+});
+
+/**
+ * Which environment's Pro this deployment will act on (C1).
+ *
+ * Preview deployments share the production database and talk to Paddle's
+ * sandbox, so a sandbox checkout on a preview writes plan: "PRO" to the very row
+ * production reads. A test purchase that costs nothing could hand out real Pro.
+ */
+describe("Pro from another Paddle environment", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("honours a production grant on production", () => {
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_ENV", "production");
+    expect(effectivePlan({ plan: "PRO", proEnvironment: "production" })).toBe("PRO");
+  });
+
+  it("refuses a sandbox grant on production", () => {
+    // The whole point. A free sandbox subscription must not be real Pro.
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_ENV", "production");
+    expect(effectivePlan({ plan: "PRO", proEnvironment: "sandbox" })).toBe("FREE");
+    expect(isProFromAnotherEnvironment({ plan: "PRO", proEnvironment: "sandbox" })).toBe(true);
+  });
+
+  it("refuses a production grant on a preview, so a sandbox walk tests the sandbox", () => {
+    // The other direction matters too: a preview exercising Pro should be
+    // exercising the grant the preview made, not a real customer's.
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_ENV", "sandbox");
+    expect(effectivePlan({ plan: "PRO", proEnvironment: "production" })).toBe("FREE");
+  });
+
+  it("treats a row written before the column existed as production", () => {
+    // Every Pro row that exists today was granted by production and has no value
+    // here, so nobody paying for anything changes state when this ships.
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_ENV", "production");
+    expect(effectivePlan({ plan: "PRO", proEnvironment: null })).toBe("PRO");
+    expect(isProFromAnotherEnvironment({ plan: "PRO", proEnvironment: null })).toBe(false);
+  });
+
+  it("never invents Pro from an environment match", () => {
+    // A FREE row is FREE however well its environment matches.
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_ENV", "production");
+    expect(effectivePlan({ plan: "FREE", proEnvironment: "production" })).toBe("FREE");
+    expect(isProFromAnotherEnvironment({ plan: "FREE", proEnvironment: "sandbox" })).toBe(false);
+  });
+
+  it("gates canGenerate and the free reservation, not just the readout", () => {
+    // A sandbox-Pro row must be subject to the free cap like any other FREE row,
+    // or the refusal would only be cosmetic.
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_ENV", "production");
+    const sandboxPro = makeCreator({
+      plan: "PRO",
+      proEnvironment: "sandbox",
+      packsGeneratedInPeriod: FREE_LIMIT,
+    });
+    expect(canGenerate(sandboxPro)).toBe(false);
+
+    const realPro = makeCreator({
+      plan: "PRO",
+      proEnvironment: "production",
+      packsGeneratedInPeriod: FREE_LIMIT,
+    });
+    expect(canGenerate(realPro)).toBe(true);
   });
 });

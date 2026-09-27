@@ -12,6 +12,7 @@ import {
 } from "@/lib/anthropic";
 import {
   canGenerate,
+  effectivePlan,
   reserveFreeGeneration,
   withRolledPeriod,
   FREE_LIMIT,
@@ -131,7 +132,13 @@ export async function POST(req: NextRequest) {
   // full allowance. There is no "brand-new creator per request" any more —
   // an account has exactly one, and clearing cookies does not make another.
   const existing = host.creator;
-  const plan = existing.plan === "PRO" ? "PRO" : "FREE";
+  // effectivePlan, not existing.plan: a sandbox grant must not buy production
+  // generation, and a preview must not read production's (C1). It matters beyond
+  // the free allowance — which canGenerate and reserveFreeGeneration already gate
+  // — because this is also what decides which daily ceiling bucket the request
+  // spends from, whether the per-address free cap applies, and whether a Pro
+  // per-subscriber unit is reserved.
+  const plan = effectivePlan(existing);
 
   // Settle this creator's own cap first, against the row we already have.
   // reserveFreeGeneration below is still the authority — this read cannot be
@@ -287,7 +294,7 @@ export async function POST(req: NextRequest) {
    * rest of the month after their own period has rolled.
    */
   const mailbox =
-    existing.plan === "PRO"
+    plan === "PRO"
       ? null
       : await reserveMailboxGeneration(host.user.email, existing.periodStartedAt);
   if (mailbox && !mailbox.reserved) {

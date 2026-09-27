@@ -1,5 +1,6 @@
 import type { Creator } from "@prisma/client";
 import { db } from "@/lib/db";
+import { paddleEnv } from "@/lib/paddle/config";
 
 export const DEFAULT_FREE_LIMIT = 2;
 
@@ -37,8 +38,52 @@ export function withRolledPeriod(creator: Creator): Creator {
   return { ...creator, packsGeneratedInPeriod: 0, periodStartedAt: new Date() };
 }
 
+/**
+ * The plan this deployment will act on, which is not always the one in the row
+ * (C1).
+ *
+ * Preview deployments share the production database and talk to Paddle's
+ * sandbox, and BETTER_AUTH_SECRET is set separately for Preview — so a sandbox
+ * checkout on a preview is signed and verified by that preview, and then writes
+ * `plan: "PRO"` to the same Creator row production reads. A test purchase that
+ * costs nothing could hand out real Pro. C2 does not close this: a sandbox price
+ * id is exactly what a preview's own NEXT_PUBLIC_PADDLE_PRICE_* are set to, so
+ * the event is ours as far as that check can tell.
+ *
+ * `plan` stays the only gate, written by the same webhook as before. What
+ * changes is that a grant records the environment that made it, and a read
+ * honours Pro only where that environment matches. A sandbox grant is FREE on
+ * production and a production grant is FREE on a preview — which also keeps the
+ * sandbox walk honest in the other direction, because a preview testing Pro is
+ * testing the grant the preview made.
+ *
+ * **Null is production.** Every Pro row that exists today was granted by
+ * production and has no value here, so nothing anybody is paying for changes
+ * state when this ships. It also means this can only take Pro away from a grant
+ * that positively recorded itself as sandbox, never from one we are unsure
+ * about — the same asymmetry priceOwnership uses, and for the same reason.
+ *
+ * Every server-side read of the plan goes through this. There are five, and
+ * leaving any of them reading `creator.plan` directly would be a surface where
+ * sandbox Pro still worked.
+ */
+export function effectivePlan(creator: Pick<Creator, "plan" | "proEnvironment">): "FREE" | "PRO" {
+  if (creator.plan !== "PRO") return "FREE";
+  if (creator.proEnvironment === null || creator.proEnvironment === undefined) return "PRO";
+  return creator.proEnvironment === paddleEnv() ? "PRO" : "FREE";
+}
+
+/** True when the row says PRO but this deployment will not honour it, which is
+ * the only case worth a distinct word: it is why somebody looking at the
+ * database sees Pro and the site does not. */
+export function isProFromAnotherEnvironment(
+  creator: Pick<Creator, "plan" | "proEnvironment">
+): boolean {
+  return creator.plan === "PRO" && effectivePlan(creator) === "FREE";
+}
+
 export function canGenerate(creator: Creator): boolean {
-  if (creator.plan === "PRO") return true;
+  if (effectivePlan(creator) === "PRO") return true;
   return withRolledPeriod(creator).packsGeneratedInPeriod < FREE_LIMIT;
 }
 
@@ -78,7 +123,7 @@ export const COOKIE_NAME = "pq_creator";
 export async function reserveFreeGeneration(
   creator: Creator
 ): Promise<{ reserved: boolean; used: number; limit: number; release: () => Promise<void> }> {
-  if (creator.plan === "PRO") {
+  if (effectivePlan(creator) === "PRO") {
     return {
       reserved: true,
       used: creator.packsGeneratedInPeriod,

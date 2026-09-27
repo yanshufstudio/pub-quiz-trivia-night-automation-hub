@@ -19,6 +19,7 @@ function creator(overrides: Partial<Creator> = {}): Creator {
     subscriptionUpdatedAt: null,
     proPacksGeneratedInPeriod: 0,
     proPeriodStartedAt: null,
+    proEnvironment: null,
     email: null,
     ...overrides,
   };

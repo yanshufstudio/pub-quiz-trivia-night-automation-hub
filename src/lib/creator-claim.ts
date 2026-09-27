@@ -30,7 +30,12 @@ import { withRolledPeriod } from "@/lib/creator";
 export function mergeAllowance(
   own: Creator,
   claimed: Creator
-): { packsGeneratedInPeriod: number; periodStartedAt: Date; plan: string } {
+): {
+  packsGeneratedInPeriod: number;
+  periodStartedAt: Date;
+  plan: string;
+  proEnvironment: string | null;
+} {
   // Roll both first. An expired period is genuinely spent — carrying its old
   // count across would punish a claim for usage that had already lapsed on
   // both sides, and rolling is what the rest of the app would have done to
@@ -51,6 +56,13 @@ export function mergeAllowance(
     // in is the worse failure by a distance. (Nothing on master sets PRO — see
     // the PR body's note on what PR #4 has to do here.)
     plan: mine.plan === "PRO" || theirs.plan === "PRO" ? "PRO" : mine.plan,
+    // And the environment that granted it travels with it (C1). A merge that
+    // kept the PRO and dropped the environment would turn a sandbox grant into
+    // one with no environment at all — which reads as production, and is exactly
+    // the thing the column exists to prevent. `mine` wins when both are PRO,
+    // matching the plan above.
+    proEnvironment:
+      mine.plan === "PRO" ? mine.proEnvironment : theirs.plan === "PRO" ? theirs.proEnvironment : mine.proEnvironment,
   };
 }
 

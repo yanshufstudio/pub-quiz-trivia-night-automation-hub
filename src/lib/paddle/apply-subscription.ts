@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { isNewerEvent, statusToPlan } from "./plan";
 import { shouldRollProPeriod } from "@/lib/pro-limits";
 import { priceOwnership } from "./prices";
+import { paddleEnv } from "./config";
 
 export type SubscriptionEvent = {
   eventId: string;
@@ -144,6 +145,13 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
         where: { id: creator.id },
         data: {
           plan: statusToPlan(event.status),
+          // Which Paddle this grant came from (C1). Written on every applied
+          // event, not only the ones that grant: it records the environment of
+          // the deployment that last spoke for this subscription, so a row can
+          // never be left claiming Pro under an environment that did not grant
+          // it. A sandbox value makes the row FREE on production, and vice
+          // versa — see effectivePlan in src/lib/creator.ts.
+          proEnvironment: paddleEnv(),
           subscriptionStatus: event.status,
           subscriptionUpdatedAt: event.occurredAt,
           paddleSubscriptionId: event.subscriptionId,
