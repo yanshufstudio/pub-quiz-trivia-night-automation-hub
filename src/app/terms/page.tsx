@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
-import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
+import {
+  FREE_PACK_ALLOWANCE,
+  PRO_DAILY_PACK_ALLOWANCE,
+  PRICE_ANNUAL_USD,
+  PRICE_MONTHLY_USD,
+  formatUsd,
+} from "@/lib/pricing";
 import { countOf } from "@/lib/plural";
 
 export const metadata: Metadata = {
@@ -29,7 +35,9 @@ export default function TermsPage() {
           <li>Free accounts can generate {countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days.</li>
           <li>
             Pro costs {formatUsd(PRICE_MONTHLY_USD)} per month or {formatUsd(PRICE_ANNUAL_USD)} per
-            year and removes that cap.
+            year and allows up to {PRO_DAILY_PACK_ALLOWANCE} AI-generated packs a day. To keep the
+            service running for everyone there is also a shared daily safety limit; if it is reached,
+            generation pauses until 00:00 UTC.
           </li>
         </LegalList>
       </LegalSection>
@@ -60,8 +68,8 @@ export default function TermsPage() {
 
       <LegalSection id="eligibility" title="Eligibility">
         <LegalText>
-          You must be 18 or over to buy a Pro subscription. There is no age requirement for running
-          a quiz with a free account.
+          You must be at least 16 to create an account and at least 18 to buy Pro. Teams answering
+          questions in a quiz never sign in and are not covered by this.
         </LegalText>
       </LegalSection>
 

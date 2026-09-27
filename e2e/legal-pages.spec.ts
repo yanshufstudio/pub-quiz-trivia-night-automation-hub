@@ -170,3 +170,19 @@ test("/refunds counts what the code counts, and says what the statement shows (M
   await expect(page.getByText(/within 14 days of the charge/i).first()).toBeVisible();
   await expect(page.getByText(/no reason needed/i)).toBeVisible();
 });
+
+test("/terms states the Pro allowance and the minimum ages (M12, M13)", async ({ page }) => {
+  await page.goto("/terms");
+
+  // M12: the same number /pricing promises and the generate route enforces.
+  await expect(page.getByText(/up to 10 AI-generated packs a day/i)).toBeVisible();
+  await expect(page.getByText(/shared daily safety limit/i)).toBeVisible();
+  // "removes that cap" was the claim that made Pro sound uncapped.
+  await expect(page.getByText(/removes that cap/i)).toHaveCount(0);
+
+  // M13: an account minimum, which the page did not have at all — it said there
+  // was no age requirement for a free account.
+  await expect(page.getByText(/at least 16 to create an account/i)).toBeVisible();
+  await expect(page.getByText(/at least 18 to buy Pro/i)).toBeVisible();
+  await expect(page.getByText(/no age requirement/i)).toHaveCount(0);
+});
