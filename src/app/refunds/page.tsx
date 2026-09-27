@@ -19,6 +19,10 @@ export default function RefundsPage() {
           TriviaFoundry is operated by Yanshuf Studio, Israel.
         </LegalText>
         <LegalText>
+          Payments are handled by Paddle, our reseller and merchant of record. Your card statement
+          will show PADDLE.NET* YANSHUFST, and receipts come from Paddle on behalf of Yanshuf Studio.
+        </LegalText>
+        <LegalText>
           Paddle runs buyer support for orders and invoices at{" "}
           <a
             className="font-medium text-amber hover:underline"
@@ -36,16 +40,16 @@ export default function RefundsPage() {
         <LegalList>
           <li>
             <span className="font-medium text-foreground">Your first subscription payment</span> is
-            refundable within 14 days of the charge, on request, no reason needed, provided that
-            since subscribing you have generated no more packs than the free plan allows (currently{" "}
-            {FREE_PACK_ALLOWANCE} per 30 days). In other words, if Pro was not for you and you used
-            it no more than you could have used the free plan, you get your money back.
+            refundable within 14 days of the charge, on request, no reason needed, provided you have
+            generated no more than {countOf(FREE_PACK_ALLOWANCE, "pack")} in the current billing
+            period — the same number the free plan allows. In other words, if Pro was not for you and
+            you used it no more than you could have used the free plan, you get your money back.
           </li>
           <li>
             <span className="font-medium text-foreground">A renewal</span> is refundable within 14
-            days of the charge, provided you have not generated any packs in that period. If a
-            renewal caught you by surprise and you have not used the generator since, ask and you
-            get it back.
+            days of the charge, provided you have generated no packs in the current billing period.
+            If a renewal caught you by surprise and you have not used the generator since, ask and
+            you get it back.
           </li>
           <li>
             <span className="font-medium text-foreground">Refund abuse.</span> We do not refund,

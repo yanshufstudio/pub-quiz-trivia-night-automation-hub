@@ -83,9 +83,15 @@ test("the footer stays off the surfaces that carry no chrome", async ({ browser,
 test("/refunds ties the first-payment refund to the free allowance and puts statutory rights first", async ({ page }) => {
   await page.goto("/refunds");
 
+  // M8 restated this in the unit the code actually counts: Pro packs in the
+  // current billing period, rather than a 30-day window that only matched a
+  // monthly subscription. The number is still the free plan's.
   await expect(
-    page.getByText(`no more packs than the free plan allows (currently ${FREE_PACK_ALLOWANCE} per 30 days)`)
+    page.getByText(
+      new RegExp(`no more than ${FREE_PACK_ALLOWANCE} packs in the current billing\\s+period`)
+    )
   ).toBeVisible();
+  await expect(page.getByText(/the same number the free plan allows/i)).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your legal rights come first" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Paddle Buyer Terms" })).toHaveAttribute(
     "href",
@@ -143,4 +149,24 @@ test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ pag
     page.getByText(/profile photo link and the sign-in tokens Google gives us/i)
   ).toBeVisible();
   await expect(page.getByText(/We use them only to sign you in/i)).toBeVisible();
+});
+
+test("/refunds counts what the code counts, and says what the statement shows (M8, M11)", async ({
+  page,
+}) => {
+  await page.goto("/refunds");
+
+  // M8: the rule is now stated in the unit the code actually keeps —
+  // Creator.proPacksGeneratedInPeriod, rolled by Paddle's billing period — rather
+  // than in a 30-day window that only matched a monthly subscription.
+  await expect(page.getByText(/in the current billing period/i).first()).toBeVisible();
+  await expect(page.getByText(/no packs in the current billing period/i)).toBeVisible();
+  await expect(page.getByText(/any packs in that period/i)).toHaveCount(0);
+
+  // M11: the descriptor, on the page somebody reads when checking a charge.
+  await expect(page.getByText(/PADDLE\.NET\* YANSHUFST/)).toBeVisible();
+
+  // The approved terms themselves are unchanged.
+  await expect(page.getByText(/within 14 days of the charge/i).first()).toBeVisible();
+  await expect(page.getByText(/no reason needed/i)).toBeVisible();
 });
