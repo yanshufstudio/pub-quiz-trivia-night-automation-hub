@@ -18,11 +18,59 @@ import { Redis } from "@upstash/redis";
  * multi-instance deploy — each instance keeps its own count and a cold start
  * wipes it. For the daily ceiling that means "20 a day" is really 20 a day
  * *per instance*, which is why production must set both variables.
+ *
+ * Upstash being unreachable is not this module's decision to make. On 27 Sep a
+ * bad token turned every Redis call into a throw, the throw travelled out
+ * through Better Auth's rate-limit storage, and /api/auth/get-session answered
+ * 500 — so nobody could sign in because the *rate limiter* was broken. The two
+ * call sites want opposite things from that failure (the limiter should let
+ * traffic through, the cost ceiling must not), so the counter raises a
+ * CounterUnavailableError and each caller chooses. What it must never do is
+ * return a number it did not get from the store.
  */
 const redis =
   process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
     ? new Redis({ url: process.env.UPSTASH_REDIS_REST_URL, token: process.env.UPSTASH_REDIS_REST_TOKEN })
     : null;
+
+/**
+ * The store could not answer. Carries the operation that failed and the
+ * original error as `cause`, so a log line says which command died without
+ * the caller having to guess.
+ */
+export class CounterUnavailableError extends Error {
+  readonly operation: string;
+
+  constructor(operation: string, cause: unknown) {
+    super(`fixed-window counter unavailable during ${operation}`, { cause });
+    this.name = "CounterUnavailableError";
+    this.operation = operation;
+  }
+}
+
+/**
+ * Recognise the error above without relying on `instanceof`.
+ *
+ * The test suites re-import this module through `vi.resetModules()`, which can
+ * leave two copies of the class in one process — and `instanceof` is false
+ * across them. A caller that missed the match would rethrow and 500, which is
+ * the exact bug this is all here to prevent, so the name is checked too.
+ */
+export function isCounterUnavailable(error: unknown): error is CounterUnavailableError {
+  return (
+    error instanceof CounterUnavailableError ||
+    (error instanceof Error && error.name === "CounterUnavailableError")
+  );
+}
+
+/** Run a Redis command, reporting any failure as unavailability. */
+async function viaRedis<T>(operation: string, run: () => Promise<T>): Promise<T> {
+  try {
+    return await run();
+  } catch (cause) {
+    throw new CounterUnavailableError(operation, cause);
+  }
+}
 
 export type FixedWindowCounter = {
   /**
@@ -35,6 +83,8 @@ export type FixedWindowCounter = {
    * clock). It is a parameter so a caller that reasons about a specific
    * moment — the daily ceiling works in UTC days — counts against the same
    * moment it computed its key and window from.
+   *
+   * Throws CounterUnavailableError if the store could not be reached.
    */
   hit(key: string, windowMs: number, nowMs?: number): Promise<number>;
 
@@ -42,6 +92,8 @@ export type FixedWindowCounter = {
    * Whole seconds until `key`'s window closes: what a refused caller is told
    * to wait. Never less than one, because a Retry-After of 0 invites an
    * immediate retry.
+   *
+   * Throws CounterUnavailableError if the store could not be reached.
    */
   secondsLeft(key: string, nowMs?: number): Promise<number>;
 
@@ -54,6 +106,10 @@ export type FixedWindowCounter = {
    * the key had unless told otherwise, and `hit` only sets one on a count of
    * 1, so a bare SET here would leave the key with no expiry at all —
    * immortal once its window had passed.
+   *
+   * Throws CounterUnavailableError if the store could not be reached. A caller
+   * handing back an allowance it no longer needs generally wants to swallow
+   * that: the work it was reserved for has already succeeded.
    */
   release(key: string, windowMs: number): Promise<void>;
 
@@ -74,9 +130,28 @@ export function createFixedWindowCounter(): FixedWindowCounter {
   return {
     async hit(key, windowMs, nowMs = Date.now()) {
       if (redis) {
-        const count = await redis.incr(key);
-        if (count === 1) await redis.expire(key, windowSecondsFor(windowMs));
-        return count;
+        return viaRedis("hit", async () => {
+          const count = await redis.incr(key);
+          if (count === 1) {
+            try {
+              await redis.expire(key, windowSecondsFor(windowMs));
+            } catch (cause) {
+              // INCR landed and EXPIRE did not, so the key now exists with no
+              // TTL — and an expiry is only ever set on a count of 1, so
+              // nothing would set one again. The key would be immortal: the
+              // daily ceiling, which fails closed, would refuse generation
+              // for good rather than for a moment. Drop it so the next window
+              // opens clean, then report the failure.
+              try {
+                await redis.del(key);
+              } catch {
+                // Best effort. Already reporting unavailability.
+              }
+              throw cause;
+            }
+          }
+          return count;
+        });
       }
       const bucket = memory.get(key);
       if (!bucket || bucket.resetAt <= nowMs) {
@@ -88,7 +163,7 @@ export function createFixedWindowCounter(): FixedWindowCounter {
     },
 
     async secondsLeft(key, nowMs = Date.now()) {
-      if (redis) return Math.max(await redis.ttl(key), 1);
+      if (redis) return viaRedis("secondsLeft", async () => Math.max(await redis.ttl(key), 1));
       const bucket = memory.get(key);
       if (!bucket) return 1;
       return Math.max(Math.ceil((bucket.resetAt - nowMs) / 1000), 1);
@@ -96,9 +171,10 @@ export function createFixedWindowCounter(): FixedWindowCounter {
 
     async release(key, windowMs) {
       if (redis) {
-        const count = await redis.decr(key);
-        if (count < 0) await redis.set(key, 0, { ex: windowSecondsFor(windowMs) });
-        return;
+        return viaRedis("release", async () => {
+          const count = await redis.decr(key);
+          if (count < 0) await redis.set(key, 0, { ex: windowSecondsFor(windowMs) });
+        });
       }
       const bucket = memory.get(key);
       if (bucket && bucket.count > 0) bucket.count -= 1;

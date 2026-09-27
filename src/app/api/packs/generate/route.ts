@@ -12,7 +12,10 @@ import {
   FREE_LIMIT,
 } from "@/lib/creator";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
-import { reserveDailyGeneration } from "@/lib/daily-ceiling";
+import {
+  reserveDailyGeneration,
+  CEILING_UNAVAILABLE_MESSAGE,
+} from "@/lib/daily-ceiling";
 
 // Default wizard brief (four rounds) exceeds the platform's default function
 // timeout; see docs/portfolio-readiness.md "Reopened 2026-09-08" for the
@@ -122,6 +125,16 @@ export async function POST(req: NextRequest) {
   // and before any row is written. There is no identity in its key, so
   // rotating or dropping cookies does not move it.
   const daily = await reserveDailyGeneration(plan);
+  if (!daily.allowed && daily.unavailable) {
+    // The counter could not be reached, so the ceiling could not be checked
+    // and nothing is spent (N1). This is not "you are out of packs" and must
+    // not read like it: no limit, no allowance, no mention of the plan, and a
+    // Retry-After measured in seconds rather than until midnight.
+    return NextResponse.json(
+      { error: CEILING_UNAVAILABLE_MESSAGE, generationPaused: true },
+      { status: 503, headers: { "Retry-After": String(daily.retryAfterSeconds) } }
+    );
+  }
   if (!daily.allowed) {
     return NextResponse.json(
       {

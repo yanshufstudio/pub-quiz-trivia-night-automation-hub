@@ -1,4 +1,4 @@
-import { createFixedWindowCounter } from "@/lib/fixed-window-counter";
+import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-window-counter";
 
 /**
  * A hard ceiling on how many packs the whole deployment will generate in a
@@ -36,6 +36,24 @@ export const DEFAULT_PRO_DAILY_CEILING = 50;
 
 export const FREE_CEILING_ENV = "FREE_DAILY_PACK_CEILING";
 export const PRO_CEILING_ENV = "PRO_DAILY_PACK_CEILING";
+
+/**
+ * What a visitor is told when the counter itself is unreachable, as opposed to
+ * reached and over its ceiling. It says "for a moment" because that is the
+ * honest shape of the failure — an Upstash outage, not an exhausted allowance
+ * — and it deliberately does not mention limits, quotas or accounts, none of
+ * which are the reason.
+ */
+export const CEILING_UNAVAILABLE_MESSAGE =
+  "Pack generation is paused for a moment — please try again shortly.";
+
+/**
+ * How long a refused-because-unavailable caller is told to wait. Not the time
+ * until midnight, which is what an exhausted ceiling returns: nothing about
+ * this failure is tied to the day boundary, and telling someone to come back
+ * in nine hours because a cache blinked would be wrong.
+ */
+export const CEILING_UNAVAILABLE_RETRY_SECONDS = 30;
 
 /**
  * Anything that isn't a non-negative integer falls back to the documented
@@ -106,6 +124,14 @@ export type DailyReservation = {
   /** How many of today's allowance are spoken for, capped at `limit`. */
   used: number;
   retryAfterSeconds: number;
+  /**
+   * True when the refusal means "we could not count", not "you are over the
+   * ceiling". The two need different words and different status codes — a
+   * 503 that says come back shortly, against a refusal that says come back
+   * tomorrow — and only this flag can tell them apart. Never true when
+   * `allowed`.
+   */
+  unavailable?: boolean;
   /** Hand back an allowance that was reserved but not spent. Safe to call
    * more than once and safe to call on a refused reservation, where it is a
    * no-op. */
@@ -133,12 +159,44 @@ export async function reserveDailyGeneration(plan: string, now: Date = new Date(
   }
 
   const windowMs = ttlSeconds * 1000;
-  const count = await counter.hit(key, windowMs, now.getTime());
+
+  let count: number;
+  try {
+    count = await counter.hit(key, windowMs, now.getTime());
+  } catch (error) {
+    if (!isCounterUnavailable(error)) throw error;
+    // Fail closed, unlike the rate limiter (src/lib/rate-limit.ts), and for a
+    // reason that is not symmetry: this is the only thing standing between a
+    // runaway loop and the Anthropic bill. Letting generation through while
+    // the counter is away would mean no ceiling at all for the length of the
+    // outage, and the spend it would authorise cannot be taken back. A
+    // visitor turned away for a few minutes can come back.
+    console.error(
+      "daily-ceiling-redis-error: refusing generation because the shared daily counter is unreachable — " +
+        "nothing can be counted, so nothing is spent",
+      error
+    );
+    return {
+      allowed: false,
+      limit,
+      used: 0,
+      retryAfterSeconds: CEILING_UNAVAILABLE_RETRY_SECONDS,
+      unavailable: true,
+      release: NO_OP_RELEASE,
+    };
+  }
 
   if (count > limit) {
     // Over the line: give the unit straight back, so a refused request does
-    // not push the counter further past the ceiling on every retry.
-    await counter.release(key, windowMs);
+    // not push the counter further past the ceiling on every retry. If the
+    // store dies between the hit and the give-back the refusal still stands —
+    // the caller is over the ceiling either way, and turning that into a
+    // thrown error would answer a plain "too many" with a 500.
+    try {
+      await counter.release(key, windowMs);
+    } catch (error) {
+      if (!isCounterUnavailable(error)) throw error;
+    }
     return { allowed: false, limit, used: limit, retryAfterSeconds: ttlSeconds, release: NO_OP_RELEASE };
   }
 
@@ -151,7 +209,16 @@ export async function reserveDailyGeneration(plan: string, now: Date = new Date(
     release: async () => {
       if (released) return;
       released = true;
-      await counter.release(key, windowMs);
+      // A give-back that cannot be made is not worth failing the request
+      // over: by the time this runs the generation it was reserved for has
+      // already been decided, and the key expires at midnight regardless. The
+      // whole cost of swallowing it is one unit of today's allowance left
+      // reserved against work that did not happen.
+      try {
+        await counter.release(key, windowMs);
+      } catch (error) {
+        if (!isCounterUnavailable(error)) throw error;
+      }
     },
   };
 }
