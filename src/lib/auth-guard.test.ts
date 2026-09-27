@@ -28,6 +28,45 @@ describe("safeNextPath", () => {
     }
   });
 
+  it("refuses the reported payload: a tab that a browser strips into `//`", () => {
+    // /sign-in?next=%2F%09%2Fevil.com — the L1 report. Decoded it is
+    // "/<TAB>/evil.com", which starts with a single slash and so is neither
+    // "//" nor "/\\": every prefix check passed it. The URL parser then strips
+    // the tab (it strips tab, LF and CR anywhere in a URL, per WHATWG) leaving
+    // "//evil.com", which is protocol-relative and off-site.
+    expect(safeNextPath("/\t/evil.com")).toBe("/packs");
+    expect(safeNextPath("/\n/evil.com")).toBe("/packs");
+    expect(safeNextPath("/\r/evil.com")).toBe("/packs");
+
+    // The same trick with the separator the parser also folds into a slash.
+    expect(safeNextPath("/\t\\evil.com")).toBe("/packs");
+
+    // And what the query string actually carries, decoded exactly as
+    // URLSearchParams would hand it over.
+    expect(safeNextPath(new URLSearchParams("next=%2F%09%2Fevil.com").get("next"))).toBe("/packs");
+  });
+
+  it("refuses every other control character too", () => {
+    // Never legitimate in a redirect target, and a CR or LF in one is
+    // header-injection shaped, so they are rejected before any parsing.
+    for (const code of [0x00, 0x01, 0x08, 0x0b, 0x0c, 0x1f, 0x7f]) {
+      const hostile = `/packs${String.fromCharCode(code)}/evil.com`;
+      expect(safeNextPath(hostile), JSON.stringify(hostile)).toBe("/packs");
+    }
+  });
+
+  it("agrees with a URL parser about what stays on the site", () => {
+    // The deciding check is no longer a prefix test. Anything that resolves off
+    // a placeholder origin is refused, whatever it is spelled with — so a new
+    // trick does not need a new prefix rule to be caught.
+    const PROBE = "https://next.invalid";
+    for (const candidate of ["/packs", "/create?brief=hello", "/a/../../b", "/packs#top"]) {
+      const staysPut = new URL(candidate, PROBE).origin === PROBE;
+      expect(staysPut, candidate).toBe(true);
+      expect(safeNextPath(candidate), candidate).toBe(candidate);
+    }
+  });
+
   it("falls back for null and undefined", () => {
     expect(safeNextPath(null)).toBe("/packs");
     expect(safeNextPath(undefined)).toBe("/packs");
