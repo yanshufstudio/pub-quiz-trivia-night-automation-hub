@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { SESSION_STATUS } from "@/lib/session-state";
 import { packOwnership, type OwnerTarget } from "@/lib/pack-access";
@@ -50,7 +51,14 @@ export function staleSessionCutoff(now: Date = new Date()): Date {
 }
 
 /**
- * Is any session on this pack still live?
+ * The one definition of "live", as a Prisma filter, so the pages that *list*
+ * live games and the guard that *refuses* because of one cannot drift apart.
+ * "Your live games" on /packs shows exactly the sessions that would block an
+ * edit — if it showed a different set, a host would be told a game is blocking
+ * them and find nothing to end.
+ */
+/**
+ * What "live" means, once, as a Prisma filter.
  *
  * "Last activity" is `questionStartedAt` when the game has started and
  * `createdAt` while it is still in the lobby — questionStartedAt is stamped
@@ -63,18 +71,28 @@ export function staleSessionCutoff(now: Date = new Date()): Date {
  * cannot be edited at all, which is the failure a host cannot work around; a
  * pack wrongly treated as free can only be edited during a game that has been
  * silent for half a day.
+ *
+ * It is exported so that the page *listing* a host's live games and the guard
+ * *refusing* because of one cannot drift apart: "Your live games" on /packs
+ * shows exactly the sessions that would block an edit. A list built from a
+ * different rule would tell a host a game is in their way and give them
+ * nothing to end.
  */
-export async function packHasLiveGame(packId: string, now: Date = new Date()): Promise<boolean> {
+export function liveSessionWhere(now: Date = new Date()): Prisma.SessionWhereInput {
   const cutoff = staleSessionCutoff(now);
+  return {
+    status: { not: SESSION_STATUS.ENDED },
+    OR: [
+      { questionStartedAt: { gte: cutoff } },
+      { questionStartedAt: null, createdAt: { gte: cutoff } },
+    ],
+  };
+}
+
+/** Is any session on this pack still live? */
+export async function packHasLiveGame(packId: string, now: Date = new Date()): Promise<boolean> {
   const live = await db.session.findFirst({
-    where: {
-      packId,
-      status: { not: SESSION_STATUS.ENDED },
-      OR: [
-        { questionStartedAt: { gte: cutoff } },
-        { questionStartedAt: null, createdAt: { gte: cutoff } },
-      ],
-    },
+    where: { packId, ...liveSessionWhere(now) },
     select: { id: true },
   });
   return live !== null;

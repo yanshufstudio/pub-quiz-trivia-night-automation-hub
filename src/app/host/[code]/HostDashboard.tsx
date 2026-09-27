@@ -9,7 +9,8 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { TrophyIcon } from "@/components/icons";
 import { topScorers, winningNames } from "@/lib/scoreboard-summary";
 import { readHostToken, writeHostToken } from "@/lib/host-session";
-import { buildJoinUrl } from "@/lib/join-url";
+import { CopyButton } from "@/components/CopyButton";
+import { buildJoinUrl, buildHostUrl } from "@/lib/join-url";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import type { HostSessionState, HostTeam, SessionQuestion } from "@/lib/api-types";
 
@@ -55,9 +56,38 @@ export function HostDashboard({ code }: { code: string }) {
     // would make the client's first render diverge from the server-rendered
     // HTML (a hydration mismatch). Deferring to an effect, gated by
     // `hydrated`, keeps the first paint identical on server and client.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setHostToken(readHostToken(code));
-    setHydrated(true);
+    const stored = readHostToken(code);
+    if (stored) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHostToken(stored);
+      setHydrated(true);
+      return;
+    }
+
+    // No key in this browser. If this account started the game, the server
+    // hands its own key back (H4) — which is the whole difference between a
+    // host who has changed device and a host who is locked out of their own
+    // quiz. Anyone else still gets the paste-the-key screen below.
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(`/api/sessions/${code}/host-key`);
+        if (res.ok) {
+          const { hostToken: recovered } = (await res.json()) as { hostToken?: string };
+          if (recovered && !cancelled) {
+            writeHostToken(code, recovered);
+            setHostToken(recovered);
+          }
+        }
+      } catch {
+        // Offline, or the route refused: fall through to the paste screen.
+      } finally {
+        if (!cancelled) setHydrated(true);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [code]);
 
   const refresh = useCallback(async () => {
@@ -193,6 +223,9 @@ export function HostDashboard({ code }: { code: string }) {
       ? "End quiz"
       : "Next question";
   const { winners, topScore } = topScorers(state.scoreboard);
+  // Client component, so window is defined by the time this renders — the same
+  // reason JoinQr reads the origin this way.
+  const hostUrl = buildHostUrl(window.location.origin, state.code);
   const submissionsLabel =
     state.status === "QUESTION_ACTIVE" || state.status === "REVEAL" ? "Live submissions" : "Teams";
 
@@ -229,15 +262,15 @@ export function HostDashboard({ code }: { code: string }) {
               <p className="mt-2 text-stage-muted">
                 Share the code. Start when everyone is in — late joiners can still arrive during the lobby.
               </p>
-              {/* The one thing about hosting that is not guessable, said in
-                  the one place it can still be acted on: the key lives in
-                  this browser's local storage (src/lib/host-session.ts), so
-                  moving to another device mid-night means pasting the host
-                  key rather than simply signing in. Better to learn it in the
-                  lobby than in front of a room. */}
+              {/* Still worth saying in the lobby rather than in front of a
+                  room — but no longer a dead end. The key lives in this
+                  browser's local storage (src/lib/host-session.ts), and since
+                  H4 the account that started the game can ask the server for
+                  it back, so signing in on the new device is enough. Someone
+                  who is not this account still needs the key pasted. */}
               <p className="mt-2 text-sm text-stage-muted">
-                Keep this browser open — the host controls are tied to it. Anywhere else will ask for
-                this session&apos;s host key.
+                Best to keep this browser open. If you do move devices, sign in there and open the
+                host link below — anyone else will be asked for this session&apos;s host key.
               </p>
               <JoinQr code={state.code} />
               <button
@@ -410,6 +443,27 @@ export function HostDashboard({ code }: { code: string }) {
             <Scoreboard rows={state.scoreboard} dark />
           </section>
         </aside>
+
+        {/* H4: the host desk's own address, shown rather than assumed.
+            Until now the host key was generated once, returned once, and
+            written silently to local storage — so nothing on any screen told a
+            host how to get back to their own desk, and the desk itself asked
+            for a key they had never seen. The link carries no key on purpose
+            (see buildHostUrl): the account that started the game gets its key
+            back from the server, and a URL is the worst place to keep a
+            credential. */}
+        <section className="lg:col-span-2 rounded-2xl border border-white/10 p-5">
+          <h3 className="font-semibold">Host link</h3>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <code className="min-w-0 flex-1 break-all rounded-xl bg-black/30 px-3 py-2 font-mono text-sm">
+              {hostUrl}
+            </code>
+            <CopyButton value={hostUrl} className="bg-gold text-stage" />
+          </div>
+          <p className="mt-2 text-sm text-stage-muted">
+            Keep this link to reopen the host desk on another device.
+          </p>
+        </section>
 
         {/* The host's way out of a game, and the reason the pack's editor can
             trust that a live session means a live session: a lobby nobody

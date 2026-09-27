@@ -111,6 +111,20 @@ model Session {
   createdAt               DateTime  @default(now())
   teams                   Team[]
   answers                 Answer[]
+
+  // The account that started this game, when one did.
+  //
+  // Nullable, and not only for the rows that existed before this column: the
+  // host key is still the authority over a session (see isValidHostToken), and
+  // this is a second, weaker claim that lets the creator who started a game
+  // reopen its desk without the key — the key lives in one browser's local
+  // storage, so losing that browser used to mean losing the desk mid-night.
+  // onDelete: SetNull rather than Cascade: deleting an account must not delete
+  // the games it ran, or a pub's scoreboard would vanish with it.
+  creator                 Creator?  @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+  creatorId               String?
+
+  @@index([creatorId])
 }
 
 model Team {
@@ -155,6 +169,10 @@ model Creator {
   periodStartedAt        DateTime   @default(now())
   createdAt              DateTime   @default(now())
   packs                  QuizPack[]
+  // The game sessions this creator has started (H4). Not an ownership claim
+  // over the game itself — the host key is that — just the link that lets them
+  // find their own desks again.
+  sessions               Session[]
   // The account this creator belongs to. Nullable because every Creator
   // written before accounts existed has no account yet — those are the rows
   // a `pq_creator` cookie can still claim exactly once (src/lib/creator-claim.ts).

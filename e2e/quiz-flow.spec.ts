@@ -27,10 +27,12 @@ test("host runs a live round and a team answers correctly", async ({ browser, ba
   // baked in; a team that scans it lands on /play with the code prefilled.
   await expect(hostPage.getByRole("img", { name: "Scan to join" })).toBeVisible();
 
-  // And the lobby is the last moment the other unguessable fact is still
-  // cheap to act on: the host key lives in this browser, so moving devices
-  // mid-night means pasting it rather than signing in again.
-  await expect(hostPage.getByText(/host controls are tied to it/i)).toBeVisible();
+  // And the lobby still says what moving devices involves — but since H4 that
+  // is no longer a dead end for the host who started the game: they sign in on
+  // the new device and open the host link, which the desk now shows. Only
+  // somebody else needs the key pasted.
+  await expect(hostPage.getByText(/sign in there and open the host link/i)).toBeVisible();
+  await expect(hostPage.getByRole("heading", { name: "Host link", exact: true })).toBeVisible();
 
   const teamContext = await newAnonContext(browser);
   const teamPage = await teamContext.newPage();

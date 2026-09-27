@@ -17,3 +17,18 @@ export function readJoinCode(search: string): string {
   const cleaned = raw.toUpperCase().replace(/[^A-Z2-9]/g, "").slice(0, 5);
   return cleaned.length === 5 ? cleaned : "";
 }
+
+/**
+ * The host-facing desk link, the counterpart of the join link above.
+ *
+ * It deliberately carries no host key. The key is this browser's proof of
+ * authority over the session (src/lib/host-auth.ts), and a URL is the worst
+ * place to keep one — it lands in history, in referrers and in any log that
+ * records a path. The creator who started the game does not need it in the
+ * link: the desk asks the server for their own key back
+ * (GET /api/sessions/[code]/host-key), which only answers for the account that
+ * started that session.
+ */
+export function buildHostUrl(origin: string, code: string): string {
+  return `${origin.replace(/\/+$/, "")}/host/${encodeURIComponent(code.toUpperCase())}`;
+}
