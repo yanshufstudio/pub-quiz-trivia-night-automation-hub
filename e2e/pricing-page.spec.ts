@@ -102,7 +102,12 @@ test("/pricing says Pro lifts the free limit and states the daily limits", async
   await page.goto("/pricing");
   const main = page.getByRole("main");
 
-  await expect(main.getByText(`Pro lifts the ${FREE_PACK_ALLOWANCE}-pack limit`).first()).toBeVisible();
+  // Exactly once. It was said twice for one commit — as the card's headline and
+  // again opening the fair-use note — which left the card's only benefit bullet
+  // pointing at the note instead of carrying anything.
+  await expect(main.getByText(`Pro lifts the ${FREE_PACK_ALLOWANCE}-pack limit`)).toHaveCount(1);
+  await expect(main.getByText(/write a fresh quiz for every night of the week/i)).toBeVisible();
+  await expect(main.getByText(/see the fair-use note below/i)).toHaveCount(0);
   // "shared daily safety limit" until M12's third revision, which renamed both
   // limits so the per-account one is named too — a subscriber meeting the
   // fair-use limit was previously told about a "shared" limit that was not the

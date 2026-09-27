@@ -86,7 +86,7 @@ export default function PricingPage() {
                 <span className="font-medium text-foreground">
                   Pro lifts the {FREE_PACK_ALLOWANCE}-pack limit
                 </span>{" "}
-                — see the fair-use note below
+                — write a fresh quiz for every night of the week
               </li>
               <li>Everything in Free</li>
               <li>Cancel whenever you like; your packs stay yours</li>
@@ -133,12 +133,18 @@ export default function PricingPage() {
             a daily allowance and for the cap's own identifiers, so naming the
             variable here — even in a comment — would fail it. That is the right
             trade: a test that could tell a comment from code would be a test
-            with an exemption in it. */}
+            with an exemption in it.
+
+            This note no longer opens by repeating the Pro card's headline. It did
+            for one commit, which left the card's only benefit bullet pointing at
+            this paragraph ("see the fair-use note below") and the same sentence
+            printed twice on one page — a visitor reading the Pro card was sent
+            somewhere else for the substance. The bullet says what Pro is for; this
+            says what bounds it. */}
         <p className="mt-4 text-sm text-muted">
-          Pro lifts the {FREE_PACK_ALLOWANCE}-pack limit. To keep the service fair and running for
-          everyone, there is a daily fair-use limit on each account and a daily safety limit across
-          the whole service. If you reach either, the wizard tells you the limit and when it resets
-          (00:00 UTC).
+          To keep the service fair and running for everyone, there is a daily fair-use limit on each
+          account and a daily safety limit across the whole service. If you reach either, the wizard
+          tells you the limit and when it resets (00:00 UTC).
         </p>
       </main>
     </>
