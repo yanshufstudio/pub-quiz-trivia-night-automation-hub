@@ -29,6 +29,15 @@ export default defineConfig({
       // in src/test/sign-in-email-readback.integration.test.ts.
       SIGN_IN_EMAIL_CAPTURE: "1",
       RESEND_API_KEY: "",
+      // The suite signs in dozens of times over a run, and every one of those
+      // goes over HTTP through the real route — so they count against M2's
+      // per-day cap on sign-in codes (default 60). At 143 tests the run is under
+      // it, but not by much, and the failure mode is nasty: the cap is global for
+      // the day, so the tests that tripped it would fail with a 429 about email
+      // volume and nothing pointing at the real cause. Raised here rather than
+      // lowering the real default, which is a production number chosen against
+      // Resend's shared allowance.
+      SIGNIN_CODE_DAILY_LIMIT: "100000",
       BETTER_AUTH_SECRET: "e2e-suite-secret-not-used-anywhere-else",
       BETTER_AUTH_URL: `http://localhost:${PORT}`,
       // Paddle, with test values: enough for /pricing to offer checkout and
