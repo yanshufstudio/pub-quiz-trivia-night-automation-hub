@@ -24,8 +24,14 @@ export async function POST(req: NextRequest) {
 
   // Idempotent, matching the CLI seed script (prisma/seed.ts): reuse the
   // existing demo pack instead of piling up a fresh copy on every click.
+  // `creatorId: null` is load-bearing, not tidiness (M1). The lookup was by
+  // title alone, and a host who imports a pack called "Pub Quiz Classics —
+  // Demo Night" owns a row that matches it. The next visitor to press "Seed the
+  // demo pack" would have been handed *that* pack — somebody else's work, with
+  // its questions and answers — and since it is not ownerless they could not
+  // edit it, so it would simply look broken. Only the seeded demo is ownerless.
   const existing = await db.quizPack.findFirst({
-    where: { title: DEMO_PACK.title },
+    where: { title: DEMO_PACK.title, creatorId: null },
     include: { rounds: { include: { questions: true }, orderBy: { index: "asc" } } },
   });
   if (existing) {
