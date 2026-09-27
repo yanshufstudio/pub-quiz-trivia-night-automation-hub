@@ -184,6 +184,19 @@ export function SignInForm({
             {busy === "google" ? "Opening Google…" : "Continue with Google"}
           </button>
 
+          {/* Said to everyone, without sniffing anything.
+              Google refuses its sign-in inside some apps' embedded browsers, and
+              the person sees Google's own refusal rather than ours — so by the
+              time it fails there is nothing on our page explaining it, and the
+              email code sitting right below goes unnoticed. Detecting the
+              in-app browser from the user agent is a separate, narrower
+              improvement (N3); this line is true whether or not we guessed
+              right, which is why it is unconditional. */}
+          <p className="text-sm text-muted">
+            Opened this from LinkedIn or another app? If Google won&apos;t let you in, use the email
+            code below.
+          </p>
+
           <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-muted">
             <span className="h-px flex-1 bg-line" />
             or
