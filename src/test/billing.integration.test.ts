@@ -5,6 +5,7 @@ import { POST as portal } from "@/app/api/billing/portal/route";
 import { GET as status } from "@/app/api/creator/status/route";
 import { POST as webhook } from "@/app/api/paddle/webhook/route";
 import { db } from "@/lib/db";
+import { CONTACT_EMAIL } from "@/lib/site";
 import * as paddleClient from "@/lib/paddle/client";
 import { signInTestHost } from "./auth-fixture";
 import { TEST_WEBHOOK_SECRET, signedWebhookRequest, subscriptionPayload } from "./paddle-fixtures";
@@ -135,6 +136,32 @@ describe("POST /api/billing/portal", () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ url: "https://customer-portal.paddle.com/test" });
     expect(create).toHaveBeenCalledWith(`ctm_${host.id}`, [`sub_portal_${host.id}`]);
+  });
+
+  it("answers 502 with something a customer can act on when Paddle's API fails (L14)", async () => {
+    // This is the one button a paying customer presses when something is already
+    // wrong with their billing. Unhandled, the SDK's throw came out as a 500 and
+    // the page showed nothing useful.
+    const host = await signInTestHost();
+    await db.creator.update({
+      where: { id: host.id },
+      data: { paddleCustomerId: `ctm_fail_${host.id}` },
+    });
+    const create = vi.fn().mockRejectedValue(new Error("paddle is down"));
+    vi.spyOn(paddleClient, "getPaddle").mockReturnValue({ customerPortalSessions: { create } } as never);
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const res = await portal(post("/api/billing/portal", host.cookieHeader));
+
+    expect(res.status).toBe(502);
+    const body = await res.json();
+    // Two routes that do not depend on us, named.
+    expect(body.error).toContain("paddle.net");
+    expect(body.error).toContain(CONTACT_EMAIL);
+    expect(body.error).toMatch(/try again in a moment/i);
+    // The cause is logged, not shown.
+    expect(error.mock.calls.flat().join(" ")).toContain("paddle portal");
+    expect(JSON.stringify(body)).not.toContain("paddle is down");
   });
 });
 

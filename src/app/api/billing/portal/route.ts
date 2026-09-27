@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { getPaddle } from "@/lib/paddle/client";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -26,9 +27,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "This account has no subscription to manage." }, { status: 409 });
   }
 
-  const session = await getPaddle().customerPortalSessions.create(
-    paddleCustomerId,
-    paddleSubscriptionId ? [paddleSubscriptionId] : []
-  );
-  return NextResponse.json({ url: session.urls.general.overview });
+  // Paddle's API can be down, rate-limit us, or refuse a customer id it no
+  // longer recognises, and the SDK throws for all of it. Unhandled, that came
+  // out as a 500 and the page showed nothing useful — on the one button a
+  // paying customer presses when something is already wrong with their billing
+  // (L14). The cause goes to the log; the customer gets a sentence and the
+  // address that can actually help them.
+  try {
+    const session = await getPaddle().customerPortalSessions.create(
+      paddleCustomerId,
+      paddleSubscriptionId ? [paddleSubscriptionId] : []
+    );
+    return NextResponse.json({ url: session.urls.general.overview });
+  } catch (err) {
+    console.error("paddle portal: could not create a customer portal session", err);
+    return NextResponse.json(
+      {
+        error:
+          "We couldn't open the billing portal just now. Please try again in a moment — " +
+          `or manage your subscription directly at paddle.net, or email ${CONTACT_EMAIL}.`,
+      },
+      { status: 502 }
+    );
+  }
 }
