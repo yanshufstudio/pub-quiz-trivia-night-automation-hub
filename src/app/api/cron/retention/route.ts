@@ -28,6 +28,9 @@ export async function GET(req: NextRequest) {
   const sweep = await sweepExpiredAuthRows();
   // Counts only — no identifiers, no addresses. This is what Vercel's cron
   // log shows for each run.
-  console.info(`retention sweep: ${sweep.verifications} expired codes, ${sweep.sessions} expired sessions`);
+  console.info(
+    `retention sweep: ${sweep.verifications} expired codes, ${sweep.sessions} expired sessions, ` +
+      `${sweep.mailboxAllowances} orphaned mailbox allowances`
+  );
   return NextResponse.json(sweep);
 }

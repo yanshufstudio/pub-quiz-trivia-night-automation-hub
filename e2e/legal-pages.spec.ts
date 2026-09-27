@@ -144,15 +144,24 @@ test("/privacy discloses the free-allowance record, and that it outlives the acc
   // H1(b) added a row that deliberately survives account deletion, so the
   // deletion promise above it stops being true unless the page says so.
   await expect(page.getByText(/A free-allowance record/)).toBeVisible();
-  await expect(page.getByText(/one-way fingerprint/i).first()).toBeVisible();
-  await expect(page.getByText(/one inbox gets one free allowance/i)).toBeVisible();
+  await expect(page.getByText(/one mailbox gets one free allowance/i)).toBeVisible();
 
-  // It holds no address, and the page has to say that rather than imply it.
-  await expect(page.getByText(/It holds no address/i)).toBeVisible();
+  // It says hash, and says what a hash does and does not protect. The first
+  // version called it a "one-way fingerprint" that "cannot be turned back into"
+  // the address — true, and incomplete in the direction that flatters us:
+  // somebody who already knows an address can test it. Paul's instruction was to
+  // say that and not to call the record anonymous.
+  await expect(page.getByText(/holds a hash of your email address, not the address/i)).toBeVisible();
+  await expect(page.getByText(/somebody who already knew an address could hash it/i)).toBeVisible();
+  await expect(page.getByText(/not anonymous either/i)).toBeVisible();
 
   // The exception is stated where somebody reading about deletion will meet it,
-  // not only in the retention section further up.
+  // not only in the retention section further up — and now says the row is
+  // deleted on a delay rather than simply kept, which is what the retention
+  // sweep made true.
   await expect(page.getByText(/The one exception is the free-allowance record/i)).toBeVisible();
+  await expect(page.getByText(/deleted on a delay rather than with the account/i)).toBeVisible();
+  await expect(page.getByText(/30 days and a day/i)).toBeVisible();
 });
 
 test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ page }) => {

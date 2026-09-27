@@ -27,12 +27,15 @@ export default function PrivacyPage() {
             address is all we get.
           </li>
           <li>
-            <span className="font-medium text-foreground">A free-allowance record</span> — so one inbox
-            gets one free allowance however many accounts are opened from it. It holds no address: we
-            take a one-way fingerprint of your email address, which cannot be turned back into it, and
-            store that next to a count of free packs and the date the current 30 days began. Aliases of
-            one inbox share a fingerprint, so <span className="whitespace-nowrap">name+1@gmail.com</span>{" "}
-            and <span className="whitespace-nowrap">name+2@gmail.com</span> share one allowance. Pro
+            <span className="font-medium text-foreground">A free-allowance record</span> — it exists so
+            that one mailbox gets one free allowance rather than a fresh one for every account opened
+            from it. It holds a hash of your email address, not the address: a hash cannot be turned
+            back into the address it came from, but it is not anonymous either — somebody who already
+            knew an address could hash it and see whether it matches. Next to the hash we store a count
+            of free packs and the date the current 30 days began, and nothing else. Aliases of one
+            mailbox produce the same hash, so{" "}
+            <span className="whitespace-nowrap">name+1@gmail.com</span> and{" "}
+            <span className="whitespace-nowrap">name+2@gmail.com</span> share one allowance. Pro
             subscriptions are not counted here at all.
           </li>
           <li>
@@ -166,12 +169,13 @@ export default function PrivacyPage() {
           team names and answers — stay with the quiz they belong to.
         </LegalText>
         <LegalText>
-          The free-allowance record above is the one thing we keep after an account is gone, and we
-          keep it deliberately: if deleting an account also cleared it, the free allowance could be
-          claimed again and again by deleting and re-registering, which is the abuse it exists to
-          stop. It holds a one-way fingerprint rather than your address, so it is not a copy of your
-          email that outlives you — and it stops counting for anything 30 days after the last free
-          pack was made.
+          The free-allowance record above outlives the account it was made for, which is deliberate:
+          if deleting an account cleared it, the free allowance could be claimed again and again by
+          deleting and re-registering, which is the abuse it exists to stop. It is kept while any
+          account still uses that mailbox, and it stops counting for anything 30 days after the last
+          free pack was made. Once both are true — its 30 days are over and no account uses the
+          mailbox any more — a daily job deletes it, so the longest it survives past your last
+          account is 30 days and a day.
         </LegalText>
       </LegalSection>
 
@@ -182,9 +186,11 @@ export default function PrivacyPage() {
           from the address you signed in with. We delete your account, quiz packs and game data —
           including any uploaded images, your sign-in sessions, the subscription ids and status we
           hold, and the email address and name on the account — from our live database within 30
-          days. The one exception is the free-allowance record described above, which holds no
-          address and stays; deleting it would turn &ldquo;delete my account&rdquo; into a way to
-          collect free packs indefinitely. Encrypted backups kept by our database provider are overwritten on their normal
+          days. The one exception is the free-allowance record described above, which holds a
+          hash rather than an address and is deleted on a delay rather than with the account:
+          clearing it immediately would turn &ldquo;delete my account&rdquo; into a way to collect
+          free packs indefinitely. It goes once its 30 days are over and no account uses that
+          mailbox, which a daily job checks. Encrypted backups kept by our database provider are overwritten on their normal
           cycle, after which the data is gone. Billing records held by Paddle as merchant of record
           are theirs to keep or remove; see the{" "}
           <Link className="font-medium text-amber hover:underline" href="/refunds">

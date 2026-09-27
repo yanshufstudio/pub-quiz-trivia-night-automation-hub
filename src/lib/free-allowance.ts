@@ -214,7 +214,10 @@ export function freeAllowanceKey(email: string): string {
   return `${FREE_ALLOWANCE_KEY_VERSION}.${digest}`;
 }
 
-const MAILBOX_PERIOD_MS = 30 * 24 * 60 * 60 * 1000;
+/** Exported so the retention sweep cuts at exactly the boundary the reservation
+ * rolls at. Two definitions of "the period has ended" would eventually disagree,
+ * and the disagreeing one would be deleting rows that still count. */
+export const MAILBOX_PERIOD_MS = 30 * 24 * 60 * 60 * 1000;
 
 /**
  * What a host is told when the mailbox behind their account is out of free packs
