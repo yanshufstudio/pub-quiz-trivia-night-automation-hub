@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { emailOtp, signIn } from "@/lib/auth-client";
 import { googleSignInError, signInCodeError, signInSendError } from "@/lib/sign-in-errors";
+import { IN_APP_BROWSER_NOTICE, isInAppBrowser } from "@/lib/in-app-browser";
 
 /**
  * Two ways in, no passwords: Google, or a code mailed to the address.
@@ -32,6 +33,15 @@ export function SignInForm({
   const [busy, setBusy] = useState<"google" | "email" | "code" | null>(null);
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(initialError);
+  // Read after mount, not during render: this is a client component but Next still
+  // server-renders it, where there is no navigator — deciding on it in the render
+  // body would make the first client paint disagree with the server's HTML.
+  const [inAppBrowser, setInAppBrowser] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setInAppBrowser(isInAppBrowser(window.navigator.userAgent));
+  }, []);
 
   async function onGoogle() {
     setBusy("google");
@@ -192,10 +202,18 @@ export function SignInForm({
               in-app browser from the user agent is a separate, narrower
               improvement (N3); this line is true whether or not we guessed
               right, which is why it is unconditional. */}
-          <p className="text-sm text-muted">
-            Opened this from LinkedIn or another app? If Google won&apos;t let you in, use the email
-            code below.
-          </p>
+          {inAppBrowser ? (
+            /* N3: the narrower notice, when the user agent actually says so. It
+               replaces the unconditional line rather than stacking with it —
+               "you are in one" and "if you are in one" next to each other reads
+               like the page is unsure. */
+            <p className="text-sm font-medium text-foreground">{IN_APP_BROWSER_NOTICE}</p>
+          ) : (
+            <p className="text-sm text-muted">
+              Opened this from LinkedIn or another app? If Google won&apos;t let you in, use the email
+              code below.
+            </p>
+          )}
 
           <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-muted">
             <span className="h-px flex-1 bg-line" />
