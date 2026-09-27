@@ -76,10 +76,11 @@ export default function PrivacyPage() {
       <LegalSection id="processors" title="Who else processes it">
         <LegalList>
           <li>
-            <span className="font-medium text-foreground">Google</span> — only if you choose to sign in
-            with Google. They tell us your email address, your name and your Google account id; we
-            tell them nothing about you. Signing in with an emailed code instead involves Google not
-            at all.
+            <span className="font-medium text-foreground">Google sign-in</span> — only if you choose
+            it. If you sign in with Google we store your name, email address, profile photo link and
+            the sign-in tokens Google gives us. We use them only to sign you in. We tell Google
+            nothing about you, and signing in with an emailed code instead involves Google not at
+            all.
           </li>
           <li>
             <span className="font-medium text-foreground">Resend</span> — sends the sign-in email to
@@ -99,6 +100,11 @@ export default function PrivacyPage() {
           <li>
             <span className="font-medium text-foreground">Turso</span> — runs the database the above
             is stored in.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">Upstash</span> (rate limiting) — to stop
+            abuse we keep your IP address with short-lived counters, deleted automatically within a
+            day.
           </li>
           <li>
             <span className="font-medium text-foreground">Anthropic</span> — generates the questions.
@@ -154,13 +160,14 @@ export default function PrivacyPage() {
 
       <LegalSection id="deletion" title="Deleting your data">
         <LegalText>
-          Email{" "}
+          To delete your account, email{" "}
           <ContactLink />{" "}
-          and we will delete your account and everything held under it — your packs, any uploaded
-          images, your sign-in sessions, the subscription ids and status we hold, and the email
-          address and name on the account. We do this within 30 days and we do not keep a copy.
-          Billing records held by Paddle as merchant of record are theirs to keep or remove; see
-          the{" "}
+          from the address you signed in with. We delete your account, quiz packs and game data —
+          including any uploaded images, your sign-in sessions, the subscription ids and status we
+          hold, and the email address and name on the account — from our live database within 30
+          days. Encrypted backups kept by our database provider are overwritten on their normal
+          cycle, after which the data is gone. Billing records held by Paddle as merchant of record
+          are theirs to keep or remove; see the{" "}
           <Link className="font-medium text-amber hover:underline" href="/refunds">
             refund policy
           </Link>{" "}

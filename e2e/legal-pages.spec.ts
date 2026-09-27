@@ -108,3 +108,39 @@ test("/terms reserves the right to refuse repeat refund abusers and names Paddle
     "https://www.paddle.com/legal/invoiced-consumer-terms"
   );
 });
+
+/**
+ * The launch-batch copy corrections, asserted on the rendered pages.
+ *
+ * These are the sentences a Paddle reviewer and a customer act on, and two of
+ * them replace promises the product could not keep. So each one checks both
+ * halves: that the new wording is there, and that the old wording is not.
+ */
+test("/privacy describes deletion in terms we can actually keep (M9)", async ({ page }) => {
+  await page.goto("/privacy");
+
+  await expect(page.getByText(/email us from the address you signed in with|from the address you signed in with/i)).toBeVisible();
+  await expect(page.getByText(/within 30 days/i).first()).toBeVisible();
+  await expect(
+    page.getByText(/Encrypted backups kept by our database provider are overwritten/i)
+  ).toBeVisible();
+
+  // The promise that could not be kept: a backup we do not control is a copy,
+  // so "we do not keep a copy" was false the moment it was written.
+  await expect(page.getByText(/we do not keep a copy/i)).toHaveCount(0);
+});
+
+test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ page }) => {
+  await page.goto("/privacy");
+
+  // Upstash holds IP addresses and was not listed at all, which the free-tier
+  // per-address cap (H1a) makes more obviously wrong than it already was.
+  await expect(page.getByText(/Upstash/)).toBeVisible();
+  await expect(page.getByText(/we keep your IP address with short-lived counters/i)).toBeVisible();
+  await expect(page.getByText(/deleted automatically within a day/i)).toBeVisible();
+
+  await expect(
+    page.getByText(/profile photo link and the sign-in tokens Google gives us/i)
+  ).toBeVisible();
+  await expect(page.getByText(/We use them only to sign you in/i)).toBeVisible();
+});
