@@ -191,6 +191,20 @@ model Creator {
   subscriptionStatus     String?    // Paddle's subscription status
   subscriptionUpdatedAt  DateTime?  // occurred_at of the last applied event
 
+  // Pro packs generated in the current billing period (M8).
+  //
+  // /refunds states its terms in exactly these words, so the number a host is
+  // judged by has to be the number the page describes. The free tier's
+  // `packsGeneratedInPeriod` above cannot serve: it is a rolling 30 days
+  // (withRolledPeriod), which is near enough for a monthly subscription and
+  // plainly wrong for an annual one.
+  proPacksGeneratedInPeriod Int      @default(0)
+  // Start of the billing period the count above belongs to, as Paddle reports
+  // it (current_billing_period.starts_at on a subscription event). Null until
+  // the first event carrying one arrives, which is why the count only ever
+  // rolls on Paddle's word and never on a clock of ours.
+  proPeriodStartedAt     DateTime?
+
   // UNUSED. Added by 20260914120000_add_paddle_subscription for PR #4's first
   // draft, which stored the Paddle customer's email here for a /restore flow.
   // Accounts made both unnecessary: the address lives on User, and restoring

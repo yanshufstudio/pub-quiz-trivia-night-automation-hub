@@ -24,6 +24,10 @@ function event(creatorId: string, overrides: Partial<SubscriptionEvent> = {}): S
     subscriptionId: `sub_${creatorId}`,
     customerId: `ctm_${creatorId}`,
     status: "active",
+    // Most of this file's cases are about plan and ordering, not billing
+    // periods, so the default event reports none — which rolls nothing. The
+    // M8 cases below pass one explicitly.
+    currentBillingPeriodStartsAt: null,
     verifiedCreatorId: creatorId,
     ...overrides,
   };

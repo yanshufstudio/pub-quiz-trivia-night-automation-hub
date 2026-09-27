@@ -16,6 +16,11 @@ import {
   reserveDailyGeneration,
   CEILING_UNAVAILABLE_MESSAGE,
 } from "@/lib/daily-ceiling";
+import {
+  reserveProDailyGeneration,
+  proDailyLimitMessage,
+  countProGenerationInPeriod,
+} from "@/lib/pro-limits";
 
 // Default wizard brief (four rounds) exceeds the platform's default function
 // timeout; see docs/portfolio-readiness.md "Reopened 2026-09-08" for the
@@ -153,6 +158,43 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  /**
+   * And this subscriber's own share of it (H2).
+   *
+   * Taken after the shared ceiling on purpose: a deployment-wide pause should
+   * be reported as one, not as "you have made too many". The shared ceiling has
+   * no identity in its key, which is what makes it proof against rotating
+   * cookies — and also what means one Pro subscriber running a loop could eat
+   * the whole day's Pro capacity and lock out every other paying customer. This
+   * is their share of it.
+   *
+   * FREE callers skip it entirely: their bound is the per-creator free
+   * allowance below, and paying for a cap they are not subject to would be a
+   * wasted round trip on the commonest path.
+   */
+  const proDaily = plan === "PRO" ? await reserveProDailyGeneration(existing.id) : null;
+  if (proDaily && !proDaily.allowed) {
+    // Hand the shared unit back: this request is not going to spend it, and
+    // leaving it reserved would take capacity from somebody who would.
+    await daily.release();
+    if (proDaily.unavailable) {
+      return NextResponse.json(
+        { error: CEILING_UNAVAILABLE_MESSAGE, generationPaused: true },
+        { status: 503, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
+      );
+    }
+    // 429, not 403: this is a rate, and it resets. A 403 would read as "your
+    // subscription does not allow this", which is the opposite of true.
+    return NextResponse.json(
+      {
+        error: proDailyLimitMessage(proDaily.limit),
+        proDailyLimitReached: true,
+        limit: proDaily.limit,
+      },
+      { status: 429, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
+    );
+  }
+
   // Claimed before the model call, not counted after it: the check and the
   // increment are one atomic statement, so two concurrent requests from one
   // account can no longer both pass on the same stale read (M12).
@@ -193,7 +235,12 @@ export async function POST(req: NextRequest) {
     const nothingWasGenerated = err instanceof MissingApiKeyError || err instanceof Anthropic.APIError;
     try {
       await reservation.release();
-      if (nothingWasGenerated) await daily.release();
+      if (nothingWasGenerated) {
+        await daily.release();
+        // Same terms as the shared ceiling: this subscriber's daily unit comes
+        // back only when we are confident the model produced nothing.
+        await proDaily?.release();
+      }
     } catch (releaseErr) {
       // Never let bookkeeping replace the diagnosis. Without this, a database
       // blip or an Upstash timeout in here would throw straight out of the
@@ -257,6 +304,10 @@ export async function POST(req: NextRequest) {
     console.error("Generated pack could not be saved:", err);
     try {
       await reservation.release();
+      // The model ran and was billed, so the shared ceiling keeps its unit —
+      // but this subscriber has nothing to show for it, and one of their ten a
+      // day should not be spent on our storage failure.
+      await proDaily?.release();
     } catch (releaseErr) {
       console.error("Failed to release a generation reservation:", releaseErr);
     }
@@ -266,6 +317,13 @@ export async function POST(req: NextRequest) {
     );
     return res;
   }
+
+  // Counted now rather than reserved earlier, because this is a record of what
+  // was produced rather than a permit to produce it: /refunds quotes this number
+  // back to a host, and a pack that failed to save is not one they generated
+  // (M8). It never throws — losing a count is a smaller failure than answering
+  // 500 for a pack that exists.
+  if (proDaily) await countProGenerationInPeriod(existing.id);
 
   const res = NextResponse.json({ pack }, { status: 201 });
   return res;

@@ -69,7 +69,17 @@ export async function POST(req: NextRequest) {
       status: string;
       customerId: string;
       customData: Record<string, unknown> | null;
+      // Present on subscription events that sit inside a period; absent on
+      // some (a cancellation, for instance). The SDK hands these back in
+      // camelCase, like customerId and customData above.
+      currentBillingPeriod?: { startsAt?: string | null } | null;
     };
+    const periodStart = sub.currentBillingPeriod?.startsAt;
+    // Anything unparseable is treated as "no period reported" rather than as
+    // an Invalid Date, which would compare false against everything and roll
+    // the Pro count at unpredictable moments.
+    const currentBillingPeriodStartsAt =
+      periodStart && !Number.isNaN(Date.parse(periodStart)) ? new Date(periodStart) : null;
     const result = await applySubscriptionEvent({
       eventId: event.eventId,
       eventType: event.eventType,
@@ -77,6 +87,7 @@ export async function POST(req: NextRequest) {
       subscriptionId: sub.id,
       customerId: sub.customerId,
       status: sub.status,
+      currentBillingPeriodStartsAt,
       verifiedCreatorId: verifiedCreatorId(sub.customData),
     });
 

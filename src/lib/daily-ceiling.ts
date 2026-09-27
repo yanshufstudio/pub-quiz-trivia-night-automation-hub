@@ -106,14 +106,18 @@ function bucketFor(plan: string): "PRO" | "FREE" {
   return plan === "PRO" ? "PRO" : "FREE";
 }
 
-function utcDay(now: Date): string {
+/** Exported so the per-user Pro counter (src/lib/pro-limits.ts) cuts its day
+ * at exactly the same boundary this ceiling does. Two definitions of "today"
+ * would eventually disagree, and the one a host is refused by would not be the
+ * one the message names. */
+export function utcDay(now: Date): string {
   return now.toISOString().slice(0, 10);
 }
 
 /** Whole seconds until the next UTC midnight — the counter's TTL, and what a
  * refused caller is told to wait. Never zero: a Retry-After of 0 invites an
- * immediate retry. */
-function secondsUntilUtcMidnight(now: Date): number {
+ * immediate retry. Shared with src/lib/pro-limits.ts, as above. */
+export function secondsUntilUtcMidnight(now: Date): number {
   const nextMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
   return Math.max(1, Math.ceil((nextMidnight - now.getTime()) / 1000));
 }

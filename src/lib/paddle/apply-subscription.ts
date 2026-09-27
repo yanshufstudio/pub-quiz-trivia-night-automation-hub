@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { isNewerEvent, statusToPlan } from "./plan";
+import { shouldRollProPeriod } from "@/lib/pro-limits";
 
 export type SubscriptionEvent = {
   eventId: string;
@@ -9,6 +10,15 @@ export type SubscriptionEvent = {
   subscriptionId: string;
   customerId: string;
   status: string;
+  /**
+   * Paddle's `current_billing_period.starts_at`, when the event carries one.
+   *
+   * It is what rolls proPacksGeneratedInPeriod (M8): /refunds' terms are stated
+   * per billing period, so the boundary has to be Paddle's rather than a clock
+   * of ours. Null for an event that reports no period — a cancellation, or a
+   * status change outside a period — and a null never rolls anything.
+   */
+  currentBillingPeriodStartsAt: Date | null;
   /** From customData, and only if its signature verified (checkout-token.ts). */
   verifiedCreatorId: string | null;
 };
@@ -88,6 +98,16 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
         return "stale";
       }
 
+      // A new billing period zeroes the Pro pack count (M8). Rolled here, in
+      // the same transaction as the event that reports it, so the count and
+      // the period it belongs to can never be written apart — and only
+      // forwards: a retried or out-of-order event carrying an older period
+      // start must not reset a count the current period has accrued.
+      const rollsPeriod = shouldRollProPeriod(
+        event.currentBillingPeriodStartsAt,
+        creator.proPeriodStartedAt
+      );
+
       await tx.creator.update({
         where: { id: creator.id },
         data: {
@@ -96,6 +116,12 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
           subscriptionUpdatedAt: event.occurredAt,
           paddleSubscriptionId: event.subscriptionId,
           paddleCustomerId: event.customerId,
+          ...(rollsPeriod
+            ? {
+                proPeriodStartedAt: event.currentBillingPeriodStartsAt,
+                proPacksGeneratedInPeriod: 0,
+              }
+            : {}),
         },
       });
       await record(tx, event);
