@@ -13,6 +13,7 @@ import { CopyButton } from "@/components/CopyButton";
 import { buildJoinUrl, buildHostUrl } from "@/lib/join-url";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import type { HostSessionState, HostTeam, SessionQuestion } from "@/lib/api-types";
+import { countOf } from "@/lib/plural";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
  * anywhere but our own DB-backed bytes (see src/lib/media.ts). Renders
@@ -359,7 +360,7 @@ export function HostDashboard({ code }: { code: string }) {
               <h2 className="mt-2 font-serif text-4xl font-semibold leading-tight">{winningNames(winners)}</h2>
               {winners.length > 0 ? (
                 <p className="mt-2 text-stage-muted">
-                  {topScore} {topScore === 1 ? "point" : "points"} · {state.totalRounds} rounds
+                  {countOf(topScore, "point")} · {countOf(state.totalRounds, "round")}
                 </p>
               ) : null}
               <p className="mt-6 text-sm text-stage-muted">

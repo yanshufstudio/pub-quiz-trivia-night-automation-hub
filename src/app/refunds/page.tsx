@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
+import { countOf } from "@/lib/plural";
 
 export const metadata: Metadata = {
   title: "Refund Policy · TriviaFoundry",
@@ -111,7 +112,8 @@ export default function RefundsPage() {
       <LegalSection id="pricing" title="What a subscription costs">
         <LegalText>
           Pro is {formatUsd(PRICE_MONTHLY_USD)} per month or {formatUsd(PRICE_ANNUAL_USD)} per
-          year, and removes the free tier&apos;s limit of {FREE_PACK_ALLOWANCE} packs per 30 days.
+          year, and removes the free tier&apos;s limit of {countOf(FREE_PACK_ALLOWANCE, "pack")} per 30
+          days.
           The full breakdown is on our{" "}
           <Link className="font-medium text-amber hover:underline" href="/pricing">
             pricing

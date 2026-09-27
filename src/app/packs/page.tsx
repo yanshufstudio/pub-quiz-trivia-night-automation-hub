@@ -5,6 +5,7 @@ import { visiblePacksWhere } from "@/lib/pack-access";
 import { liveSessionWhere } from "@/lib/live-game-guard";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
+import { countOf } from "@/lib/plural";
 import { ImportPackButton } from "./ImportPackButton";
 
 export const dynamic = "force-dynamic";
@@ -104,7 +105,7 @@ export default async function PacksPage() {
                   >
                     <h2 className="font-serif text-lg font-semibold">{pack.title}</h2>
                     <p className="mt-2 text-sm text-muted">
-                      {pack.rounds.length} rounds · {questionCount} questions
+                      {countOf(pack.rounds.length, "round")} · {countOf(questionCount, "question")}
                     </p>
                     <p className="mt-1 text-xs text-muted">
                       {new Date(pack.createdAt).toLocaleDateString()}

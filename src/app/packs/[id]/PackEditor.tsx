@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { Pack, Question, QuestionType, Round } from "@/lib/api-types";
 import { writeHostToken } from "@/lib/host-session";
 import { SITE_URL } from "@/lib/site";
+import { countOf } from "@/lib/plural";
 
 type Draft = Pick<Question, "text" | "answer" | "points" | "type" | "options"> & {
   // Kept as the raw comma-separated text the host is typing, not a parsed
@@ -386,7 +387,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           </p>
           <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight">{pack.title}</h1>
           <p className="mt-2 text-sm text-muted">
-            {pack.rounds.length} rounds · {questionCount} questions
+            {countOf(pack.rounds.length, "round")} · {countOf(questionCount, "question")}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">

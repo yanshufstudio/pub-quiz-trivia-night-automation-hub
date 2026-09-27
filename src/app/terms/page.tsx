@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
+import { countOf } from "@/lib/plural";
 
 export const metadata: Metadata = {
   title: "Terms of Service · TriviaFoundry",
@@ -25,7 +26,7 @@ export default function TermsPage() {
           live portal where teams submit their answers from their own phones.
         </LegalText>
         <LegalList>
-          <li>Free accounts can generate {FREE_PACK_ALLOWANCE} packs every 30 days.</li>
+          <li>Free accounts can generate {countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days.</li>
           <li>
             Pro costs {formatUsd(PRICE_MONTHLY_USD)} per month or {formatUsd(PRICE_ANNUAL_USD)} per
             year and removes that cap.
