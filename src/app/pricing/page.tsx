@@ -5,6 +5,7 @@ import { ProCheckout } from "./ProCheckout";
 import {
   ANNUAL_MONTHS_FREE,
   FREE_PACK_ALLOWANCE,
+  PRO_DAILY_PACK_ALLOWANCE,
   PRICE_ANNUAL_USD,
   PRICE_MONTHLY_USD,
   formatUsd,
@@ -86,7 +87,7 @@ export default function PricingPage() {
                 <span className="font-medium text-foreground">
                   Pro lifts the {FREE_PACK_ALLOWANCE}-pack limit
                 </span>{" "}
-                — no cap on how many packs you make in 30 days
+                — up to {PRO_DAILY_PACK_ALLOWANCE} AI-generated packs a day
               </li>
               <li>Everything in Free</li>
               <li>Cancel whenever you like; your packs stay yours</li>
@@ -109,10 +110,21 @@ export default function PricingPage() {
           page.
         </p>
 
+        {/* M11: what the card statement will actually say. A descriptor nobody
+            recognises is the most common reason a legitimate charge is disputed,
+            and a dispute costs more than the subscription. */}
+        <p className="mt-4 text-muted">
+          Payments are handled by Paddle, our reseller and merchant of record. Your card statement
+          will show PADDLE.NET* YANSHUFST, and receipts come from Paddle on behalf of Yanshuf Studio.
+        </p>
+
+        {/* M12: the old wording promised "no cap" and called the shared limit
+            "well above normal use" — which described neither the per-subscriber
+            cap that now exists (H2) nor a number anyone could plan around. */}
         <p className="mt-4 text-sm text-muted">
-          To keep the service running for everyone, pack generation has a daily safety limit across
-          all accounts. It is set well above normal use and is not a limit on your subscription; if
-          it is ever reached, the wizard asks you to try again the next day.
+          Pro: up to {PRO_DAILY_PACK_ALLOWANCE} AI-generated packs a day. To keep the service running
+          for everyone there&apos;s also a shared daily safety limit; if it&apos;s reached, generation
+          pauses until 00:00 UTC.
         </p>
       </main>
     </>

@@ -93,14 +93,48 @@ test("the homepage's own top nav carries every header link, Pricing included", a
 // Planning, 25 Sep: "as many quiz packs as you want" overclaimed once a
 // service-wide daily generation ceiling existed (src/lib/daily-ceiling.ts).
 // The Pro benefit is lifting the free limit, in the words the studio site's
-// TriviaFoundry card quotes, and the daily safety limit is stated, not
-// contradicted.
+// TriviaFoundry card quotes, and the shared daily limit is stated, not
+// contradicted. The wording of that second half changed with M12: the page used
+// to call it "a daily safety limit across all accounts ... well above normal
+// use", which described neither the per-subscriber cap that now exists nor a
+// number anyone could plan around.
 test("/pricing says Pro lifts the free limit and states the daily safety limit", async ({ page }) => {
   await page.goto("/pricing");
   const main = page.getByRole("main");
 
   await expect(main.getByText(`Pro lifts the ${FREE_PACK_ALLOWANCE}-pack limit`)).toBeVisible();
-  await expect(main.getByText(/daily safety limit across\s+all accounts/)).toBeVisible();
+  await expect(main.getByText(/shared daily safety limit/)).toBeVisible();
   await expect(main.getByText(/as many (quiz )?packs as you want/i)).toHaveCount(0);
   await expect(main.getByText(/unlimited/i)).toHaveCount(0);
+});
+
+/**
+ * The launch-batch copy corrections on /pricing (M11, M12).
+ *
+ * Both replace claims that were wrong rather than merely thin, so each checks
+ * that the old wording is gone as well as that the new wording is there.
+ */
+test("/pricing states the Pro daily allowance and the shared limit (M12)", async ({ page }) => {
+  await page.goto("/pricing");
+
+  // Said twice on purpose — once as a Pro bullet, once in the limits note — so
+  // this asserts both rather than picking one.
+  await expect(page.getByText(/up to 10 AI-generated packs a day/i)).toHaveCount(2);
+  await expect(page.getByText(/shared daily safety limit/i)).toBeVisible();
+  await expect(page.getByText(/pauses until 00:00 UTC/i)).toBeVisible();
+
+  // "no cap" was never true — there was always a shared ceiling — and it is
+  // less true now that each subscriber has a daily allowance of their own.
+  await expect(page.getByText(/no cap/i)).toHaveCount(0);
+  await expect(page.getByText(/well above normal use/i)).toHaveCount(0);
+});
+
+test("/pricing says what the card statement will show (M11)", async ({ page }) => {
+  await page.goto("/pricing");
+
+  // A descriptor nobody recognises is the commonest reason a legitimate charge
+  // gets disputed, and a dispute costs more than the subscription.
+  await expect(page.getByText(/PADDLE\.NET\* YANSHUFST/)).toBeVisible();
+  await expect(page.getByText(/reseller and merchant of record/i)).toBeVisible();
+  await expect(page.getByText(/receipts come from Paddle on behalf of Yanshuf Studio/i)).toBeVisible();
 });

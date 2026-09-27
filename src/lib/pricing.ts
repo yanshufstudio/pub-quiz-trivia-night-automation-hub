@@ -61,3 +61,15 @@ export function formatUsd(amount: number): string {
  * changing this line.
  */
 export const FREE_PACK_ALLOWANCE = 2;
+
+/**
+ * What Pro allows in a day, for the pages that say so out loud.
+ *
+ * A literal for the same reason FREE_PACK_ALLOWANCE is: /pricing and /terms are
+ * statically rendered, so a value read from the environment would be baked in at
+ * build time and could disagree with the running deployment. src/lib/pricing.test.ts
+ * asserts it equals DEFAULT_PRO_USER_DAILY_LIMIT, so the copy and the cap cannot
+ * drift apart silently — which matters more here than for the free tier, because
+ * this number is a promise made to somebody who is paying.
+ */
+export const PRO_DAILY_PACK_ALLOWANCE = 10;

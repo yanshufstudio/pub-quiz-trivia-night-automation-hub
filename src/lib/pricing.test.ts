@@ -2,9 +2,11 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { DEFAULT_FREE_LIMIT } from "@/lib/creator";
+import { DEFAULT_PRO_USER_DAILY_LIMIT } from "@/lib/pro-limits";
 import {
   ANNUAL_MONTHS_FREE,
   FREE_PACK_ALLOWANCE,
+  PRO_DAILY_PACK_ALLOWANCE,
   PRICE_ANNUAL_USD,
   PRICE_MONTHLY_USD,
   formatUsd,
@@ -51,6 +53,10 @@ describe("pricing constants", () => {
     // how production runs. If someone changes the ceiling and not the copy,
     // the site advertises an allowance it does not give.
     expect(FREE_PACK_ALLOWANCE).toBe(DEFAULT_FREE_LIMIT);
+    // And the Pro number /pricing and /terms print is the one the generate route
+    // actually enforces (H2). Copy that overstates a paying customer's allowance
+    // is a promise the product breaks.
+    expect(PRO_DAILY_PACK_ALLOWANCE).toBe(DEFAULT_PRO_USER_DAILY_LIMIT);
   });
 
   it("formats whole dollars without stray decimals", () => {
