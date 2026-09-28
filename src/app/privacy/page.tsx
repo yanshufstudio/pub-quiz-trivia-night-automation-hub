@@ -204,8 +204,8 @@ export default function PrivacyPage() {
           <span className="font-medium text-foreground">Paddle&apos;s cookies during checkout.</span>{" "}
           Paddle&apos;s code is not loaded on any page until you press Subscribe. Its checkout then
           opens inside our page, and it is Paddle&apos;s: while you use it, it sets its own cookies,
-          to run the checkout and to guard against fraud. Those are Paddle&apos;s cookies, not ours,
-          and Paddle&apos;s own privacy policy covers them.
+          including ones it needs to run and secure the checkout. Those are Paddle&apos;s cookies,
+          not ours, and Paddle&apos;s own privacy policy covers them.
         </LegalText>
       </LegalSection>
 

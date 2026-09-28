@@ -80,4 +80,9 @@ test("/privacy describes that storage and Paddle's checkout cookies (L21)", asyn
 
   await expect(section).toContainText("Paddle's code is not loaded on any page until you press Subscribe");
   await expect(section).toContainText("it sets its own cookies");
+  // Paddle's privacy policy says its necessary cookies "operate and secure"
+  // the site; fraud is named only for data it shares, never as a cookie's
+  // purpose. So the page says what Paddle says, and not more.
+  await expect(section).toContainText("including ones it needs to run and secure the checkout");
+  await expect(section).not.toContainText("guard against fraud");
 });
