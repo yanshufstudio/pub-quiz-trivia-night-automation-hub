@@ -125,6 +125,7 @@ describe("POST /api/packs/generate — failure mapping", () => {
       droppedQuestions: 1,
       droppedRounds: 0,
       truncated: true,
+      usage: { model: "claude-sonnet-5", inputTokens: 1, outputTokens: 1, thinkingTokens: null, durationMs: 1 },
     });
 
     const res = await generate(generateRequest());

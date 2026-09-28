@@ -296,3 +296,71 @@ describe("generateQuizPack — a decline delivered through the tool", () => {
     }
   });
 });
+
+/**
+ * ACC6. The generator takes a configuration so the accuracy harness can
+ * measure other models and settings through this same code. Production's
+ * request must not change by a byte on the way.
+ */
+describe("generateQuizPack — configuration (ACC6)", () => {
+  it("sends production exactly what it sent before: forced tool, no thinking or effort parameter", async () => {
+    const req = await captureRequest();
+
+    expect(req.model).toBe("claude-sonnet-5");
+    expect(req.tool_choice).toEqual({ type: "tool", name: "emit_quiz_pack" });
+    expect(req).not.toHaveProperty("thinking");
+    expect(req).not.toHaveProperty("output_config");
+    expect(req.tools?.[0]).not.toHaveProperty("strict");
+    expect(JSON.stringify(req.tools?.[0])).toContain('"maximum":10');
+  });
+
+  it("asks Opus 5.5's way when told to: auto tool choice with a strict tool", async () => {
+    modelReplies(packInput());
+    await generateQuizPack("Four rounds.", {
+      model: "claude-opus-5-5",
+      effort: "low",
+      thinking: "default",
+      toolMode: "auto-strict",
+    });
+    const req = create.mock.calls[0][0] as Request;
+
+    expect(req.model).toBe("claude-opus-5-5");
+    expect(req.tool_choice).toEqual({ type: "auto" });
+    expect(req.tools?.[0]).toMatchObject({ name: "emit_quiz_pack", strict: true });
+    expect(req.output_config).toEqual({ effort: "low" });
+    expect(req).not.toHaveProperty("thinking");
+    // Strict schemas refuse numeric and length bounds; zod still enforces them.
+    const schema = JSON.stringify(req.tools?.[0]);
+    expect(schema).not.toMatch(/"(minimum|maximum|maxItems)"/);
+    expect(schema).toContain('"additionalProperties":false');
+  });
+
+  it("sends a thinking setting only when one is chosen", async () => {
+    modelReplies(packInput());
+    await generateQuizPack("Four rounds.", { model: "claude-sonnet-5", thinking: "disabled", toolMode: "forced" });
+
+    expect((create.mock.calls[0][0] as Request).thinking).toEqual({ type: "disabled" });
+  });
+
+  it("returns the call's tokens, thinking included, for cost logging", async () => {
+    create.mockResolvedValue({
+      stop_reason: "tool_use",
+      content: [{ type: "tool_use", id: "tu_1", name: "emit_quiz_pack", input: packInput() }],
+      usage: { input_tokens: 900, output_tokens: 2500, output_tokens_details: { thinking_tokens: 1200 } },
+    });
+
+    const { usage } = await generateQuizPack("Four rounds.");
+
+    expect(usage).toMatchObject({ model: "claude-sonnet-5", inputTokens: 900, outputTokens: 2500, thinkingTokens: 1200 });
+    expect(usage.durationMs).toBeGreaterThanOrEqual(0);
+  });
+
+  it("can leave ACC1's rules out, for the harness's before/after measurement only", async () => {
+    modelReplies(packInput());
+    await generateQuizPack("Four rounds.", { ...{ model: "claude-sonnet-5", thinking: "default", toolMode: "forced" }, promptRules: "before-acc1" });
+    const system = (create.mock.calls[0][0] as Request).system as string;
+
+    expect(system).not.toMatch(/certain of/);
+    expect(system).toMatch(/single unambiguous factual answer/);
+  });
+});

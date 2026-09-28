@@ -1,8 +1,27 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { getAnthropicClient } from "@/lib/anthropic";
 import { generatedPackSchema, salvageGeneratedPack, type GeneratedPack } from "@/lib/quiz-schema";
+import { callOptions, usageOf, type CallUsage, type ModelCallConfig } from "@/lib/model-call";
 
-const MODEL = "claude-sonnet-5";
+export type GeneratorConfig = ModelCallConfig & {
+  /**
+   * "before-acc1" drops the ACC1 sentence from the system prompt. It exists
+   * only so the accuracy harness can measure what ACC1 changed; production
+   * never sends it.
+   */
+  promptRules?: "current" | "before-acc1";
+};
+
+/**
+ * What production sends: Sonnet 5, forced tool choice, no `thinking` and no
+ * `effort` parameter — so the model's defaults, which on Sonnet 5 are
+ * adaptive thinking at "high" effort.
+ */
+export const PRODUCTION_GENERATOR: GeneratorConfig = {
+  model: "claude-sonnet-5",
+  thinking: "default",
+  toolMode: "forced",
+};
 
 /**
  * A four-round/40-question pack lands around 3-4k output tokens, but the
@@ -136,6 +155,8 @@ export type GenerationResult = {
   droppedRounds: number;
   /** The model hit MAX_TOKENS, so the pack is short of what the brief asked for. */
   truncated: boolean;
+  /** Tokens and time for the call, for cost logging. No brief text. */
+  usage: CallUsage;
 };
 
 /** The tool's own decline channel: a non-empty `decline_reason` on the tool
@@ -171,47 +192,58 @@ function declineReason(message: { stop_details?: { explanation?: string | null }
     .trim();
 }
 
-export async function generateQuizPack(userPrompt: string): Promise<GenerationResult> {
+/** ACC1: the wording is where the 28 Sep errors were, not the answers. */
+const CERTAIN_FACTS_ONLY =
+  "Put in a question only facts you are " +
+  "certain of, in the question as well as in the answer: a wrong detail in the " +
+  "wording gets challenged in the room just like a wrong answer. Use the fewest " +
+  "descriptors needed for one unambiguous answer, and don't add an incidental " +
+  "nationality, year, number or 'first', 'only' or 'largest' unless it is the point " +
+  "of the question. If you are unsure of a detail, leave it out rather than guess. ";
+
+function systemPrompt(rules: "current" | "before-acc1"): string {
+  return (
+    "You are a pub quiz question setter. Given a request describing the desired " +
+    "rounds and topics, produce a complete, well-researched quiz pack. Each question " +
+    "must have a single unambiguous factual answer. " +
+    (rules === "current" ? CERTAIN_FACTS_ONLY : "") +
+    "Every question must be answerable " +
+    "from its own text alone: the app shows players nothing but the words you write — " +
+    "there is no audio, image, video or map — so never set a question that depends on " +
+    "hearing or seeing something (no 'listen to the clip', 'identify the logo shown', " +
+    "'name this film still'), and if the brief asks for a picture or music round, cover " +
+    "that topic in words instead. Vary difficulty within each round " +
+    "from easy to hard. Do not repeat questions or trivia facts across rounds. Most " +
+    "questions should be free-text; sprinkle in the occasional multiple-choice question " +
+    "for variety, never more than one or two per round. Call the " +
+    `${TOOL_NAME} tool exactly once with the full pack.` +
+    "\n\nIf you will not write the quiz the brief asks for, call the tool with " +
+    "decline_reason set to a short explanation addressed to the quizmaster, and no " +
+    "rounds. Never substitute a different quiz for the one you were asked for, and " +
+    "never put an explanation, apology or refusal inside a question or an answer — a " +
+    "pack is printed and read aloud to a room, so a refusal written as question one " +
+    "reaches the players as a question."
+  );
+}
+
+export async function generateQuizPack(
+  userPrompt: string,
+  config: GeneratorConfig = PRODUCTION_GENERATOR
+): Promise<GenerationResult> {
   const anthropic = getAnthropicClient();
 
+  const started = Date.now();
   const message = await anthropic.messages.create({
-    model: MODEL,
     max_tokens: MAX_TOKENS,
-    system:
-      "You are a pub quiz question setter. Given a request describing the desired " +
-      "rounds and topics, produce a complete, well-researched quiz pack. Each question " +
-      "must have a single unambiguous factual answer. Put in a question only facts you are " +
-      "certain of, in the question as well as in the answer: a wrong detail in the " +
-      "wording gets challenged in the room just like a wrong answer. Use the fewest " +
-      "descriptors needed for one unambiguous answer, and don't add an incidental " +
-      "nationality, year, number or 'first', 'only' or 'largest' unless it is the point " +
-      "of the question. If you are unsure of a detail, leave it out rather than guess. " +
-      "Every question must be answerable " +
-      "from its own text alone: the app shows players nothing but the words you write — " +
-      "there is no audio, image, video or map — so never set a question that depends on " +
-      "hearing or seeing something (no 'listen to the clip', 'identify the logo shown', " +
-      "'name this film still'), and if the brief asks for a picture or music round, cover " +
-      "that topic in words instead. Vary difficulty within each round " +
-      "from easy to hard. Do not repeat questions or trivia facts across rounds. Most " +
-      "questions should be free-text; sprinkle in the occasional multiple-choice question " +
-      "for variety, never more than one or two per round. Call the " +
-      `${TOOL_NAME} tool exactly once with the full pack.` +
-      "\n\nIf you will not write the quiz the brief asks for, call the tool with " +
-      "decline_reason set to a short explanation addressed to the quizmaster, and no " +
-      "rounds. Never substitute a different quiz for the one you were asked for, and " +
-      "never put an explanation, apology or refusal inside a question or an answer — a " +
-      "pack is printed and read aloud to a room, so a refusal written as question one " +
-      "reaches the players as a question.",
-    tools: [
-      {
-        name: TOOL_NAME,
-        description: "Emit a complete generated quiz pack.",
-        input_schema: quizPackJsonSchema,
-      },
-    ],
-    tool_choice: { type: "tool", name: TOOL_NAME },
+    system: systemPrompt(config.promptRules ?? "current"),
+    ...callOptions(config, {
+      name: TOOL_NAME,
+      description: "Emit a complete generated quiz pack.",
+      input_schema: quizPackJsonSchema,
+    }),
     messages: [{ role: "user", content: userPrompt }],
   });
+  const usage = usageOf(message, config.model, Date.now() - started);
 
   // A response cut off at max_tokens carries a half-written tool call: the
   // questions before the cut are fine, the last one isn't. Track it so a
@@ -257,7 +289,7 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
 
   const parsed = generatedPackSchema.safeParse(toolUse.input);
   if (parsed.success) {
-    return { pack: parsed.data, droppedQuestions: 0, droppedRounds: 0, truncated };
+    return { pack: parsed.data, droppedQuestions: 0, droppedRounds: 0, truncated, usage };
   }
 
   // Strict validation is all-or-nothing, and one unusable question is not a
@@ -271,5 +303,5 @@ export async function generateQuizPack(userPrompt: string): Promise<GenerationRe
     );
   }
 
-  return { ...salvaged, truncated };
+  return { ...salvaged, truncated, usage };
 }
