@@ -1,0 +1,844 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "sport",
+    "prompt": "2 rounds of 8 questions on sport: football World Cups, then the Olympic Games.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1549,
+      "outputTokens": 1107,
+      "thinkingTokens": 0,
+      "durationMs": 10874
+    },
+    "costUsd": 0.028336,
+    "ms": 10874
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted the first FIFA World Cup, in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R1Q2",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country has won the men's FIFA World Cup the most times?",
+      "answer": "Brazil"
+    },
+    {
+      "id": "R1Q3",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which country won the 2010 World Cup in South Africa?",
+      "answer": "Spain",
+      "options": [
+        "Netherlands",
+        "Spain",
+        "Germany",
+        "Argentina"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Who scored a hat-trick for England in the 1966 World Cup final?",
+      "answer": "Geoff Hurst"
+    },
+    {
+      "id": "R1Q5",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Germany beat Brazil by what score in the semi-final of the 2014 World Cup?",
+      "answer": "7-1"
+    },
+    {
+      "id": "R1Q6",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which player holds the record for most goals scored across men's World Cup finals tournaments, with 16?",
+      "answer": "Miroslav Klose"
+    },
+    {
+      "id": "R1Q7",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which French player scored a hat-trick in the 2022 World Cup final but still ended up on the losing side?",
+      "answer": "Kylian Mbappé"
+    },
+    {
+      "id": "R1Q8",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which French striker scored 13 goals at the 1958 World Cup, still the record for a single tournament?",
+      "answer": "Just Fontaine"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "How many rings are there on the Olympic flag?",
+      "answer": "Five"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which city hosted the 2012 Summer Olympics?",
+      "answer": "London"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which swimmer has won the most Olympic gold medals, with 23?",
+      "answer": "Michael Phelps"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "In which city were the first modern Olympic Games held, in 1896?",
+      "answer": "Athens"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which American athlete won four gold medals at the 1936 Berlin Olympics?",
+      "answer": "Jesse Owens"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which gymnast scored the first perfect 10 in Olympic gymnastics, at Montreal 1976?",
+      "answer": "Nadia Comăneci"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Asian city hosted the Summer Olympics in both 1964 and 2021?",
+      "answer": "Tokyo",
+      "options": [
+        "Seoul",
+        "Beijing",
+        "Tokyo",
+        "Osaka"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Going for Gold",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "The Frenchman usually credited with founding the modern Olympic Games was Baron Pierre de what?",
+      "answer": "Coubertin"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.01764,
+      "ms": 10773,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2091,
+          "outputTokens": 903,
+          "thinkingTokens": 0,
+          "durationMs": 7797
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1509,
+          "outputTokens": 141,
+          "thinkingTokens": 0,
+          "durationMs": 2976
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Five and 5 are the same answer; no ambiguity."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "Tokyo hosted 1964 Games and the 2020 Games actually held in 2021; correct and unambiguous."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Spain",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "7-1",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Miroslav Klose",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Kylian Mbappé",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Just Fontaine",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "5",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Jesse Owens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Nadia Comăneci",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Tokyo",
+          "agreed": true,
+          "flags": [
+            "wording: The 2020 Summer Olympics were held in Tokyo in 2021 due to postponement from COVID-19, so calling it '2021' rather than '2020 Olympics' could be confusing but is factually accurate since the games occurred in 2021."
+          ]
+        },
+        "R2Q8": {
+          "answer": "Coubertin",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first FIFA World Cup, in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country has won the men's FIFA World Cup the most times?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country won the 2010 World Cup in South Africa?",
+          "answer": "Spain",
+          "options": [
+            "Netherlands",
+            "Spain",
+            "Germany",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Who scored a hat-trick for England in the 1966 World Cup final?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Germany beat Brazil by what score in the semi-final of the 2014 World Cup?",
+          "answer": "7-1"
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player holds the record for most goals scored across men's World Cup finals tournaments, with 16?",
+          "answer": "Miroslav Klose"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French player scored a hat-trick in the 2022 World Cup final but still ended up on the losing side?",
+          "answer": "Kylian Mbappé"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French striker scored 13 goals at the 1958 World Cup, still the record for a single tournament?",
+          "answer": "Just Fontaine"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which city hosted the 2012 Summer Olympics?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which swimmer has won the most Olympic gold medals, with 23?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held, in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which American athlete won four gold medals at the 1936 Berlin Olympics?",
+          "answer": "Jesse Owens"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which gymnast scored the first perfect 10 in Olympic gymnastics, at Montreal 1976?",
+          "answer": "Nadia Comăneci"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Asian city hosted the Summer Olympics in both 1964 and 2021?",
+          "answer": "Tokyo",
+          "options": [
+            "Seoul",
+            "Beijing",
+            "Tokyo",
+            "Osaka"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "The Frenchman usually credited with founding the modern Olympic Games was Baron Pierre de what?",
+          "answer": "Coubertin"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.027264,
+      "ms": 8985,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1916,
+          "outputTokens": 980,
+          "thinkingTokens": 113,
+          "durationMs": 8985
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Spain",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "7-1",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Miroslav Klose",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Kylian Mbappé",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Just Fontaine",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Jesse Owens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Nadia Comăneci",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Tokyo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Coubertin",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first FIFA World Cup, in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country has won the men's FIFA World Cup the most times?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country won the 2010 World Cup in South Africa?",
+          "answer": "Spain",
+          "options": [
+            "Netherlands",
+            "Spain",
+            "Germany",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Who scored a hat-trick for England in the 1966 World Cup final?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Germany beat Brazil by what score in the semi-final of the 2014 World Cup?",
+          "answer": "7-1"
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player holds the record for most goals scored across men's World Cup finals tournaments, with 16?",
+          "answer": "Miroslav Klose"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French player scored a hat-trick in the 2022 World Cup final but still ended up on the losing side?",
+          "answer": "Kylian Mbappé"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French striker scored 13 goals at the 1958 World Cup, still the record for a single tournament?",
+          "answer": "Just Fontaine"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which city hosted the 2012 Summer Olympics?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which swimmer has won the most Olympic gold medals, with 23?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held, in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which American athlete won four gold medals at the 1936 Berlin Olympics?",
+          "answer": "Jesse Owens"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which gymnast scored the first perfect 10 in Olympic gymnastics, at Montreal 1976?",
+          "answer": "Nadia Comăneci"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Asian city hosted the Summer Olympics in both 1964 and 2021?",
+          "answer": "Tokyo",
+          "options": [
+            "Seoul",
+            "Beijing",
+            "Tokyo",
+            "Osaka"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Going for Gold",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "The Frenchman usually credited with founding the modern Olympic Games was Baron Pierre de what?",
+          "answer": "Coubertin"
+        }
+      ]
+    }
+  ]
+}

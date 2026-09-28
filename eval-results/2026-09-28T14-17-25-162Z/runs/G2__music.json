@@ -1,0 +1,1295 @@
+{
+  "generator": "G2",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "adaptive",
+    "effort": "xhigh",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1772,
+      "outputTokens": 1360,
+      "thinkingTokens": 0,
+      "durationMs": 13888
+    },
+    "costUsd": 0.017144,
+    "ms": 13888
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which British band released the 1969 album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Robert Plant was the lead singer of which rock band?",
+      "answer": "Led Zeppelin"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist famously set fire to his guitar at the 1967 Monterey Pop Festival?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "The 1971 album 'Sticky Fingers', featuring a zipper on its cover, was released by which band?",
+      "answer": "The Rolling Stones"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which American rock band released the album 'Hotel California' in 1976?",
+      "answer": "Eagles"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which singer fronted The Doors?",
+      "answer": "Jim Morrison"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What is the name of Pink Floyd's 1973 concept album about mental illness and mortality?",
+      "answer": "The Dark Side of the Moon"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these bands was NOT formed in the 1960s?",
+      "answer": "Queen",
+      "options": [
+        "Queen",
+        "The Who",
+        "Cream",
+        "The Kinks"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the opera 'The Magic Flute'?",
+      "answer": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer continued composing symphonies after going almost completely deaf?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the ballet 'Swan Lake'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Baroque composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer's unfinished final work was a Requiem, completed after his death by a pupil?",
+      "answer": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Norwegian composer wrote 'Peer Gynt' and 'Piano Concerto in A minor'?",
+      "answer": "Edvard Grieg"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer, born in 1685, wrote the 'Brandenburg Concertos'?",
+      "answer": "Johann Sebastian Bach"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these composers was primarily associated with the Classical period rather than the Romantic period?",
+      "answer": "Franz Joseph Haydn",
+      "options": [
+        "Franz Joseph Haydn",
+        "Johannes Brahms",
+        "Frédéric Chopin",
+        "Franz Liszt"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had their only major hit with 'Mambo No. 5' in 1999?",
+      "answer": "Lou Bega"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which one-hit wonder band sang 'Take On Me' in 1985?",
+      "answer": "a-ha"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which British band scored their only US number one with 'Tainted Love' in 1981?",
+      "answer": "Soft Cell"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which artist is known for the 1997 hit 'Torn'?",
+      "answer": "Natalie Imbruglia"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which duo had a massive hit with 'Whoomp! (There It Is)' in 1993?",
+      "answer": "Tag Team"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band released 'Come On Eileen' in 1982, their only major chart-topper?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which artist had a one-hit wonder with 'Somebody That I Used to Know', featuring Kimbra, in 2011?",
+      "answer": "Gotye"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band's only significant hit was 'Video Killed the Radio Star' in 1979?",
+      "answer": "The Buggles"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.025534,
+      "ms": 13779,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2639,
+          "outputTokens": 1434,
+          "thinkingTokens": 0,
+          "durationMs": 10693
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1623,
+          "outputTokens": 267,
+          "thinkingTokens": 0,
+          "durationMs": 3086
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "Lou Bega is a solo artist, not a band; corrected wording.",
+          "text": "Which solo artist had their only major hit with 'Mambo No. 5' in 1999?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "fix",
+          "reason": "a-ha is not strictly a one-hit wonder; removed that framing while keeping the question.",
+          "text": "Which band sang 'Take On Me' in 1985?",
+          "answer": "a-ha"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "The Buggles is the correct spelling and answer; issue note contains no actual discrepancy."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Led Zeppelin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Rolling Stones",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Eagles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Jim Morrison",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Dark Side of the Moon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Edvard Grieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Johann Sebastian Bach",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Franz Joseph Haydn",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Lou Bega",
+          "agreed": true,
+          "flags": [
+            "wording: The question calls this act a 'band', but Lou Bega is a solo artist, not a band."
+          ]
+        },
+        "R3Q2": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": [
+            "wording: a-ha had other charting songs and are not strictly a one-hit wonder, though 'Take On Me' is by far their biggest hit."
+          ]
+        },
+        "R3Q3": {
+          "answer": "Soft Cell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Natalie Imbruglia",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Tag Team",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Gotye",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": [
+            "wording: The correct spelling is 'The Buggles', not 'The Buggles' (double-check spelling); band name is The Buggles."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q1",
+          "reason": "Lou Bega is a solo artist, not a band; corrected wording.",
+          "before": {
+            "text": "Which band had their only major hit with 'Mambo No. 5' in 1999?",
+            "answer": "Lou Bega"
+          },
+          "after": {
+            "text": "Which solo artist had their only major hit with 'Mambo No. 5' in 1999?",
+            "answer": "Lou Bega"
+          }
+        },
+        {
+          "id": "R3Q2",
+          "reason": "a-ha is not strictly a one-hit wonder; removed that framing while keeping the question.",
+          "before": {
+            "text": "Which one-hit wonder band sang 'Take On Me' in 1985?",
+            "answer": "a-ha"
+          },
+          "after": {
+            "text": "Which band sang 'Take On Me' in 1985?",
+            "answer": "a-ha"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which British band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Robert Plant was the lead singer of which rock band?",
+          "answer": "Led Zeppelin"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously set fire to his guitar at the 1967 Monterey Pop Festival?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "The 1971 album 'Sticky Fingers', featuring a zipper on its cover, was released by which band?",
+          "answer": "The Rolling Stones"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which American rock band released the album 'Hotel California' in 1976?",
+          "answer": "Eagles"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which singer fronted The Doors?",
+          "answer": "Jim Morrison"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What is the name of Pink Floyd's 1973 concept album about mental illness and mortality?",
+          "answer": "The Dark Side of the Moon"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these bands was NOT formed in the 1960s?",
+          "answer": "Queen",
+          "options": [
+            "Queen",
+            "The Who",
+            "Cream",
+            "The Kinks"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the opera 'The Magic Flute'?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued composing symphonies after going almost completely deaf?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballet 'Swan Lake'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Baroque composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer's unfinished final work was a Requiem, completed after his death by a pupil?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Norwegian composer wrote 'Peer Gynt' and 'Piano Concerto in A minor'?",
+          "answer": "Edvard Grieg"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer, born in 1685, wrote the 'Brandenburg Concertos'?",
+          "answer": "Johann Sebastian Bach"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these composers was primarily associated with the Classical period rather than the Romantic period?",
+          "answer": "Franz Joseph Haydn",
+          "options": [
+            "Franz Joseph Haydn",
+            "Johannes Brahms",
+            "Frédéric Chopin",
+            "Franz Liszt"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which solo artist had their only major hit with 'Mambo No. 5' in 1999?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band sang 'Take On Me' in 1985?",
+          "answer": "a-ha"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which British band scored their only US number one with 'Tainted Love' in 1981?",
+          "answer": "Soft Cell"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist is known for the 1997 hit 'Torn'?",
+          "answer": "Natalie Imbruglia"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which duo had a massive hit with 'Whoomp! (There It Is)' in 1993?",
+          "answer": "Tag Team"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band released 'Come On Eileen' in 1982, their only major chart-topper?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist had a one-hit wonder with 'Somebody That I Used to Know', featuring Kimbra, in 2011?",
+          "answer": "Gotye"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band's only significant hit was 'Video Killed the Radio Star' in 1979?",
+          "answer": "The Buggles"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.066844,
+      "ms": 23964,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2464,
+          "outputTokens": 2177,
+          "thinkingTokens": 431,
+          "durationMs": 19064
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1587,
+          "outputTokens": 355,
+          "thinkingTokens": 0,
+          "durationMs": 4899
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "Lou Bega is a solo artist, not a band.",
+          "text": "Which artist had a huge hit with 'Mambo No. 5' in 1999?"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "fix",
+          "reason": "a-ha had many hits outside the US, so calling them a one-hit wonder is only true in the US.",
+          "text": "Which Norwegian band sang 'Take On Me' in 1985?"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "fix",
+          "reason": "'Tainted Love' peaked at number 8 in the US, so it was never a US number one.",
+          "text": "Which British band had a 1981 hit with 'Tainted Love'?"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "fix",
+          "reason": "'Geno' was also a UK number one, in 1980.",
+          "text": "Which band released 'Come On Eileen' in 1982?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Led Zeppelin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Rolling Stones",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Eagles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Jim Morrison",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Dark Side of the Moon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Edvard Grieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Johann Sebastian Bach",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Franz Joseph Haydn",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Lou Bega",
+          "agreed": true,
+          "flags": [
+            "wording: 'Which band' – Lou Bega is a solo artist, not a band."
+          ]
+        },
+        "R3Q2": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": [
+            "wording: 'one-hit wonder band' – only true in the US; a-ha had many other hits, especially in the UK and Europe."
+          ]
+        },
+        "R3Q3": {
+          "answer": "Soft Cell",
+          "agreed": true,
+          "flags": [
+            "wording: 'only US number one' – 'Tainted Love' peaked at number 8 in the US; Soft Cell never had a US number one."
+          ]
+        },
+        "R3Q4": {
+          "answer": "Natalie Imbruglia",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Tag Team",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": [
+            "wording: 'their only major chart-topper' – Dexys also had a UK number one with 'Geno' in 1980."
+          ]
+        },
+        "R3Q7": {
+          "answer": "Gotye",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q1",
+          "reason": "Lou Bega is a solo artist, not a band.",
+          "before": {
+            "text": "Which band had their only major hit with 'Mambo No. 5' in 1999?",
+            "answer": "Lou Bega"
+          },
+          "after": {
+            "text": "Which artist had a huge hit with 'Mambo No. 5' in 1999?",
+            "answer": "Lou Bega"
+          }
+        },
+        {
+          "id": "R3Q2",
+          "reason": "a-ha had many hits outside the US, so calling them a one-hit wonder is only true in the US.",
+          "before": {
+            "text": "Which one-hit wonder band sang 'Take On Me' in 1985?",
+            "answer": "a-ha"
+          },
+          "after": {
+            "text": "Which Norwegian band sang 'Take On Me' in 1985?",
+            "answer": "a-ha"
+          }
+        },
+        {
+          "id": "R3Q3",
+          "reason": "'Tainted Love' peaked at number 8 in the US, so it was never a US number one.",
+          "before": {
+            "text": "Which British band scored their only US number one with 'Tainted Love' in 1981?",
+            "answer": "Soft Cell"
+          },
+          "after": {
+            "text": "Which British band had a 1981 hit with 'Tainted Love'?",
+            "answer": "Soft Cell"
+          }
+        },
+        {
+          "id": "R3Q6",
+          "reason": "'Geno' was also a UK number one, in 1980.",
+          "before": {
+            "text": "Which band released 'Come On Eileen' in 1982, their only major chart-topper?",
+            "answer": "Dexys Midnight Runners"
+          },
+          "after": {
+            "text": "Which band released 'Come On Eileen' in 1982?",
+            "answer": "Dexys Midnight Runners"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which British band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Robert Plant was the lead singer of which rock band?",
+          "answer": "Led Zeppelin"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously set fire to his guitar at the 1967 Monterey Pop Festival?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "The 1971 album 'Sticky Fingers', featuring a zipper on its cover, was released by which band?",
+          "answer": "The Rolling Stones"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which American rock band released the album 'Hotel California' in 1976?",
+          "answer": "Eagles"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which singer fronted The Doors?",
+          "answer": "Jim Morrison"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What is the name of Pink Floyd's 1973 concept album about mental illness and mortality?",
+          "answer": "The Dark Side of the Moon"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these bands was NOT formed in the 1960s?",
+          "answer": "Queen",
+          "options": [
+            "Queen",
+            "The Who",
+            "Cream",
+            "The Kinks"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the opera 'The Magic Flute'?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued composing symphonies after going almost completely deaf?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballet 'Swan Lake'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Baroque composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer's unfinished final work was a Requiem, completed after his death by a pupil?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Norwegian composer wrote 'Peer Gynt' and 'Piano Concerto in A minor'?",
+          "answer": "Edvard Grieg"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer, born in 1685, wrote the 'Brandenburg Concertos'?",
+          "answer": "Johann Sebastian Bach"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these composers was primarily associated with the Classical period rather than the Romantic period?",
+          "answer": "Franz Joseph Haydn",
+          "options": [
+            "Franz Joseph Haydn",
+            "Johannes Brahms",
+            "Frédéric Chopin",
+            "Franz Liszt"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist had a huge hit with 'Mambo No. 5' in 1999?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Norwegian band sang 'Take On Me' in 1985?",
+          "answer": "a-ha"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which British band had a 1981 hit with 'Tainted Love'?",
+          "answer": "Soft Cell"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist is known for the 1997 hit 'Torn'?",
+          "answer": "Natalie Imbruglia"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which duo had a massive hit with 'Whoomp! (There It Is)' in 1993?",
+          "answer": "Tag Team"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band released 'Come On Eileen' in 1982?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist had a one-hit wonder with 'Somebody That I Used to Know', featuring Kimbra, in 2011?",
+          "answer": "Gotye"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band's only significant hit was 'Video Killed the Radio Star' in 1979?",
+          "answer": "The Buggles"
+        }
+      ]
+    }
+  ]
+}

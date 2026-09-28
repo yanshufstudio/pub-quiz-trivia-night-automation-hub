@@ -1,0 +1,1371 @@
+{
+  "generator": "G1",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced",
+    "promptRules": "before-acc1"
+  },
+  "brief": {
+    "id": "science",
+    "prompt": "2 rounds of 10 questions on science: space and astronomy, then the human body. General audience.",
+    "questions": 20
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1614,
+      "outputTokens": 992,
+      "thinkingTokens": 0,
+      "durationMs": 9692
+    },
+    "costUsd": 0.013148,
+    "ms": 9693
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "What is the closest planet to the Sun?",
+      "answer": "Mercury"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "What galaxy do we live in?",
+      "answer": "The Milky Way"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "What force keeps planets in orbit around the Sun?",
+      "answer": "Gravity"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "What is the name of the first human to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "Which planet has the most moons in our solar system, according to current counts?",
+      "answer": "Saturn",
+      "options": [
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "What do astronomers call a star that suddenly increases greatly in brightness before fading, due to a catastrophic explosion?",
+      "answer": "Supernova"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "What is the name of the boundary around a black hole beyond which no light can escape?",
+      "answer": "Event horizon"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "Which space telescope, launched in 1990, has taken some of the most famous images of deep space?",
+      "answer": "Hubble Space Telescope"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Space and Astronomy",
+      "category": "Science: Space",
+      "type": "TEXT",
+      "text": "What term describes a star like our Sun that has exhausted its nuclear fuel and collapsed into a small, dense, hot remnant?",
+      "answer": "White dwarf"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "What is the largest organ in the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "How many chambers does the human heart have?",
+      "answer": "Four"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "What is the main function of red blood cells?",
+      "answer": "Carrying oxygen (around the body)"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "What is the longest bone in the human body?",
+      "answer": "The femur (thigh bone)"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "Which organ in the body is primarily responsible for filtering waste from the blood to produce urine?",
+      "answer": "The kidneys"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "What is the medical term for the voice box?",
+      "answer": "Larynx"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "Which part of the brain is primarily responsible for coordinating balance and muscle control?",
+      "answer": "The cerebellum",
+      "options": [
+        "The cerebellum",
+        "The cerebrum",
+        "The hippocampus",
+        "The medulla"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "What type of cell in the immune system is responsible for producing antibodies?",
+      "answer": "B cells (B lymphocytes)"
+    },
+    {
+      "id": "R2Q9",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "What is the name of the fluid-filled sac that surrounds and protects a developing fetus?",
+      "answer": "The amniotic sac"
+    },
+    {
+      "id": "R2Q10",
+      "round": "The Human Body",
+      "category": "Science: Human Biology",
+      "type": "TEXT",
+      "text": "What is the name of the small tube-like structure attached to the large intestine that can become inflamed, causing appendicitis?",
+      "answer": "The appendix"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.021548,
+      "ms": 11825,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2181,
+          "outputTokens": 1118,
+          "thinkingTokens": 0,
+          "durationMs": 8678
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1713,
+          "outputTokens": 258,
+          "thinkingTokens": 0,
+          "durationMs": 3147
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Saturn is currently confirmed to have the most moons (146+), matching setter's answer."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Checker's answer is just a more detailed phrasing of the same fact; setter's answer is correct and unambiguous."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Checker's answer is identical, just without the parenthetical name; setter's answer is correct."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Checker's answer is the same core fact (B cells) with added detail; setter's answer is correct."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Gravity",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: As of recent counts (2023-2024), Saturn has the most confirmed moons (146+), surpassing Jupiter. This is a recent development and could be contested depending on when counts were last updated, so answer may vary."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Supernova",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Event horizon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Hubble Space Telescope",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "White dwarf",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "To carry oxygen from the lungs to the rest of the body (and carbon dioxide back)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Femur",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Kidneys",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Larynx",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Cerebellum",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "B cells (B lymphocytes / plasma cells)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q9": {
+          "answer": "Amniotic sac",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Appendix",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the closest planet to the Sun?",
+          "answer": "Mercury"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What galaxy do we live in?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What force keeps planets in orbit around the Sun?",
+          "answer": "Gravity"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the name of the first human to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which planet has the most moons in our solar system, according to current counts?",
+          "answer": "Saturn",
+          "options": [
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What do astronomers call a star that suddenly increases greatly in brightness before fading, due to a catastrophic explosion?",
+          "answer": "Supernova"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the name of the boundary around a black hole beyond which no light can escape?",
+          "answer": "Event horizon"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which space telescope, launched in 1990, has taken some of the most famous images of deep space?",
+          "answer": "Hubble Space Telescope"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What term describes a star like our Sun that has exhausted its nuclear fuel and collapsed into a small, dense, hot remnant?",
+          "answer": "White dwarf"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "How many chambers does the human heart have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the main function of red blood cells?",
+          "answer": "Carrying oxygen (around the body)"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the longest bone in the human body?",
+          "answer": "The femur (thigh bone)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "Which organ in the body is primarily responsible for filtering waste from the blood to produce urine?",
+          "answer": "The kidneys"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the medical term for the voice box?",
+          "answer": "Larynx"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "Which part of the brain is primarily responsible for coordinating balance and muscle control?",
+          "answer": "The cerebellum",
+          "options": [
+            "The cerebellum",
+            "The cerebrum",
+            "The hippocampus",
+            "The medulla"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What type of cell in the immune system is responsible for producing antibodies?",
+          "answer": "B cells (B lymphocytes)"
+        },
+        {
+          "id": "R2Q9",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the name of the fluid-filled sac that surrounds and protects a developing fetus?",
+          "answer": "The amniotic sac"
+        },
+        {
+          "id": "R2Q10",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the name of the small tube-like structure attached to the large intestine that can become inflamed, causing appendicitis?",
+          "answer": "The appendix"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.048612,
+      "ms": 17512,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2006,
+          "outputTokens": 1212,
+          "thinkingTokens": 162,
+          "durationMs": 10447
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1572,
+          "outputTokens": 503,
+          "thinkingTokens": 167,
+          "durationMs": 7065
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "As worded, 'nova' is also defensible. Reworded so only supernova fits.",
+          "text": "What do astronomers call the catastrophic explosion of a star at the end of its life, which can briefly outshine an entire galaxy?",
+          "answer": "Supernova"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Both answers say the same thing."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Both answers say the same thing."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Kidney and kidneys are the same answer."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "Plasma cells are B cells that have matured, so accept both answers.",
+          "answer": "B cells (B lymphocytes / plasma cells)"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Gravity",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Supernova",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q8": {
+          "answer": "Event horizon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Hubble Space Telescope",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "White dwarf",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Carrying oxygen around the body (via haemoglobin)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Femur",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Kidney",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "Larynx",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Cerebellum",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "B cells (plasma cells)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q9": {
+          "answer": "Amniotic sac",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Appendix",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "As worded, 'nova' is also defensible. Reworded so only supernova fits.",
+          "before": {
+            "text": "What do astronomers call a star that suddenly increases greatly in brightness before fading, due to a catastrophic explosion?",
+            "answer": "Supernova"
+          },
+          "after": {
+            "text": "What do astronomers call the catastrophic explosion of a star at the end of its life, which can briefly outshine an entire galaxy?",
+            "answer": "Supernova"
+          }
+        },
+        {
+          "id": "R2Q8",
+          "reason": "Plasma cells are B cells that have matured, so accept both answers.",
+          "before": {
+            "text": "What type of cell in the immune system is responsible for producing antibodies?",
+            "answer": "B cells (B lymphocytes)"
+          },
+          "after": {
+            "text": "What type of cell in the immune system is responsible for producing antibodies?",
+            "answer": "B cells (B lymphocytes / plasma cells)"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the closest planet to the Sun?",
+          "answer": "Mercury"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What galaxy do we live in?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What force keeps planets in orbit around the Sun?",
+          "answer": "Gravity"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the name of the first human to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which planet has the most moons in our solar system, according to current counts?",
+          "answer": "Saturn",
+          "options": [
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What do astronomers call the catastrophic explosion of a star at the end of its life, which can briefly outshine an entire galaxy?",
+          "answer": "Supernova"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the name of the boundary around a black hole beyond which no light can escape?",
+          "answer": "Event horizon"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which space telescope, launched in 1990, has taken some of the most famous images of deep space?",
+          "answer": "Hubble Space Telescope"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What term describes a star like our Sun that has exhausted its nuclear fuel and collapsed into a small, dense, hot remnant?",
+          "answer": "White dwarf"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "How many chambers does the human heart have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the main function of red blood cells?",
+          "answer": "Carrying oxygen (around the body)"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the longest bone in the human body?",
+          "answer": "The femur (thigh bone)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "Which organ in the body is primarily responsible for filtering waste from the blood to produce urine?",
+          "answer": "The kidneys"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the medical term for the voice box?",
+          "answer": "Larynx"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "Which part of the brain is primarily responsible for coordinating balance and muscle control?",
+          "answer": "The cerebellum",
+          "options": [
+            "The cerebellum",
+            "The cerebrum",
+            "The hippocampus",
+            "The medulla"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What type of cell in the immune system is responsible for producing antibodies?",
+          "answer": "B cells (B lymphocytes / plasma cells)"
+        },
+        {
+          "id": "R2Q9",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the name of the fluid-filled sac that surrounds and protects a developing fetus?",
+          "answer": "The amniotic sac"
+        },
+        {
+          "id": "R2Q10",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the name of the small tube-like structure attached to the large intestine that can become inflamed, causing appendicitis?",
+          "answer": "The appendix"
+        }
+      ]
+    },
+    {
+      "checker": "C1s",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "single"
+      },
+      "costUsd": 0.012608,
+      "ms": 6548,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2659,
+          "outputTokens": 729,
+          "thinkingTokens": 0,
+          "durationMs": 6548
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "As of recent counts (2023), Saturn has surpassed Jupiter with 146+ confirmed moons vs Jupiter's 95, so Saturn is currently correct - kept as is.",
+          "text": "Which planet has the most moons in our solar system, according to current counts?",
+          "answer": "Saturn",
+          "options": []
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "Correct, Hubble launched 1990."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Correct, though technically applies to lower-mass stars like the Sun - acceptable as worded."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "Correct."
+        }
+      ],
+      "blindAnswers": {},
+      "fixed": [],
+      "dropped": [
+        {
+          "id": "R1Q6",
+          "reason": "As of recent counts (2023), Saturn has surpassed Jupiter with 146+ confirmed moons vs Jupiter's 95, so Saturn is currently correct - kept as is. (fix gave no correction)",
+          "before": {
+            "text": "Which planet has the most moons in our solar system, according to current counts?",
+            "answer": "Saturn"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the closest planet to the Sun?",
+          "answer": "Mercury"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What galaxy do we live in?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What force keeps planets in orbit around the Sun?",
+          "answer": "Gravity"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the name of the first human to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What do astronomers call a star that suddenly increases greatly in brightness before fading, due to a catastrophic explosion?",
+          "answer": "Supernova"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What is the name of the boundary around a black hole beyond which no light can escape?",
+          "answer": "Event horizon"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "Which space telescope, launched in 1990, has taken some of the most famous images of deep space?",
+          "answer": "Hubble Space Telescope"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Space and Astronomy",
+          "category": "Science: Space",
+          "type": "TEXT",
+          "text": "What term describes a star like our Sun that has exhausted its nuclear fuel and collapsed into a small, dense, hot remnant?",
+          "answer": "White dwarf"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "How many chambers does the human heart have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the main function of red blood cells?",
+          "answer": "Carrying oxygen (around the body)"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the longest bone in the human body?",
+          "answer": "The femur (thigh bone)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "Which organ in the body is primarily responsible for filtering waste from the blood to produce urine?",
+          "answer": "The kidneys"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the medical term for the voice box?",
+          "answer": "Larynx"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "Which part of the brain is primarily responsible for coordinating balance and muscle control?",
+          "answer": "The cerebellum",
+          "options": [
+            "The cerebellum",
+            "The cerebrum",
+            "The hippocampus",
+            "The medulla"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What type of cell in the immune system is responsible for producing antibodies?",
+          "answer": "B cells (B lymphocytes)"
+        },
+        {
+          "id": "R2Q9",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the name of the fluid-filled sac that surrounds and protects a developing fetus?",
+          "answer": "The amniotic sac"
+        },
+        {
+          "id": "R2Q10",
+          "round": "The Human Body",
+          "category": "Science: Human Biology",
+          "type": "TEXT",
+          "text": "What is the name of the small tube-like structure attached to the large intestine that can become inflamed, causing appendicitis?",
+          "answer": "The appendix"
+        }
+      ]
+    }
+  ]
+}

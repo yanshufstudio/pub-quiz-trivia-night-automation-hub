@@ -1,0 +1,1023 @@
+{
+  "generator": "G2",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "adaptive",
+    "effort": "xhigh",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1759,
+      "outputTokens": 1107,
+      "thinkingTokens": 0,
+      "durationMs": 10413
+    },
+    "costUsd": 0.014588,
+    "ms": 10414
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which actor won the Best Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+      "answer": "Heath Ledger"
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which film won the Academy Award for Best Picture in 1998, beating 'Saving Private Ryan'?",
+      "answer": "Shakespeare in Love"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which director won his first Best Director Oscar for 'Life of Pi'?",
+      "answer": "Ang Lee"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Who won the Best Actress Oscar for her role in 'La La Land'?",
+      "answer": "Emma Stone"
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which 1994 film won Tom Hanks his second consecutive Best Actor Oscar?",
+      "answer": "Forrest Gump"
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which animated film became the first of its kind to win the Academy Award for Best Picture nomination and later win Best Animated Feature, released in 2009 about a house lifted by balloons?",
+      "answer": "Up"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which actress has won the most competitive acting Oscars, with four wins?",
+      "answer": "Katharine Hepburn"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these films did NOT win the Best Picture Oscar?",
+      "answer": "Pulp Fiction",
+      "options": [
+        "Pulp Fiction",
+        "American Beauty",
+        "Gladiator",
+        "Chicago"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of Ross and Monica's parents' pet dog... actually, what is the name of Ross's pet monkey?",
+      "answer": "Marcel"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom is set in the fictional Springfield and features the Simpson family?",
+      "answer": "The Simpsons"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'The Office' (US), what company does Dunder Mifflin sell?",
+      "answer": "Paper"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which 1990s sitcom starred Will Smith as a teenager sent to live with wealthy relatives in Bel-Air?",
+      "answer": "The Fresh Prince of Bel-Air"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "What is the name of the coffee shop where the friends hang out in 'Friends'?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom features the character Sheldon Cooper?",
+      "answer": "The Big Bang Theory"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Seinfeld', what is the name of Jerry's neighbour who frequently bursts into his apartment?",
+      "answer": "Kramer"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which sitcom, set in Scranton, Pennsylvania, was based on a British series of the same name?",
+      "answer": "The Office",
+      "options": [
+        "The Office",
+        "Parks and Recreation",
+        "30 Rock",
+        "Community"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.023972,
+      "ms": 12873,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2257,
+          "outputTokens": 1084,
+          "thinkingTokens": 0,
+          "durationMs": 8401
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1889,
+          "outputTokens": 484,
+          "thinkingTokens": 0,
+          "durationMs": 4472
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "fix",
+          "reason": "Heath Ledger won Best Supporting Actor, not Best Actor, for the Joker role.",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+          "answer": "Heath Ledger"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "fix",
+          "reason": "Ang Lee had already won Best Director for 'Brokeback Mountain'; this was his second, not first, win.",
+          "text": "Which director won a Best Director Oscar for 'Life of Pi'?",
+          "answer": "Ang Lee"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "'Up' was not the first animated film nominated for Best Picture (Beauty and the Beast was), and it won Best Animated Feature, not Best Picture; question corrected to reflect only accurate facts.",
+          "text": "Which 2009 animated film about a house lifted by balloons won the Academy Award for Best Animated Feature?",
+          "answer": "Up"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "fix",
+          "reason": "Question wording was muddled with an irrelevant false start; cleaned up to just ask about Ross's pet monkey.",
+          "text": "In 'Friends', what is the name of Ross's pet monkey?",
+          "answer": "Marcel"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Heath Ledger",
+          "agreed": true,
+          "flags": [
+            "wording: Heath Ledger won Best Supporting Actor, not Best Actor, for his role as the Joker in 'The Dark Knight'."
+          ]
+        },
+        "R1Q2": {
+          "answer": "Shakespeare in Love",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Ang Lee",
+          "agreed": true,
+          "flags": [
+            "wording: This was not Ang Lee's first Best Director Oscar; he previously won for 'Brokeback Mountain' (2005)."
+          ]
+        },
+        "R1Q4": {
+          "answer": "Emma Stone",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Forrest Gump",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Up",
+          "agreed": true,
+          "flags": [
+            "wording: 'Up' was not the first animated film to be nominated for Best Picture; 'Beauty and the Beast' (1991) was nominated earlier. 'Up' also did not win Best Picture, only Best Animated Feature."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Pulp Fiction",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Marcel",
+          "agreed": true,
+          "flags": [
+            "wording: The question is poorly worded, mixing up 'Ross and Monica's parents' pet dog' with 'Ross's pet monkey' - it should just ask about Ross's monkey, whose name is Marcel."
+          ]
+        },
+        "R2Q2": {
+          "answer": "The Simpsons",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Paper",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "The Fresh Prince of Bel-Air",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Big Bang Theory",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Kramer",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q1",
+          "reason": "Heath Ledger won Best Supporting Actor, not Best Actor, for the Joker role.",
+          "before": {
+            "text": "Which actor won the Best Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          },
+          "after": {
+            "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          }
+        },
+        {
+          "id": "R1Q3",
+          "reason": "Ang Lee had already won Best Director for 'Brokeback Mountain'; this was his second, not first, win.",
+          "before": {
+            "text": "Which director won his first Best Director Oscar for 'Life of Pi'?",
+            "answer": "Ang Lee"
+          },
+          "after": {
+            "text": "Which director won a Best Director Oscar for 'Life of Pi'?",
+            "answer": "Ang Lee"
+          }
+        },
+        {
+          "id": "R1Q6",
+          "reason": "'Up' was not the first animated film nominated for Best Picture (Beauty and the Beast was), and it won Best Animated Feature, not Best Picture; question corrected to reflect only accurate facts.",
+          "before": {
+            "text": "Which animated film became the first of its kind to win the Academy Award for Best Picture nomination and later win Best Animated Feature, released in 2009 about a house lifted by balloons?",
+            "answer": "Up"
+          },
+          "after": {
+            "text": "Which 2009 animated film about a house lifted by balloons won the Academy Award for Best Animated Feature?",
+            "answer": "Up"
+          }
+        },
+        {
+          "id": "R2Q1",
+          "reason": "Question wording was muddled with an irrelevant false start; cleaned up to just ask about Ross's pet monkey.",
+          "before": {
+            "text": "In 'Friends', what is the name of Ross and Monica's parents' pet dog... actually, what is the name of Ross's pet monkey?",
+            "answer": "Marcel"
+          },
+          "after": {
+            "text": "In 'Friends', what is the name of Ross's pet monkey?",
+            "answer": "Marcel"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+          "answer": "Heath Ledger"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which film won the Academy Award for Best Picture in 1998, beating 'Saving Private Ryan'?",
+          "answer": "Shakespeare in Love"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which director won a Best Director Oscar for 'Life of Pi'?",
+          "answer": "Ang Lee"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Who won the Best Actress Oscar for her role in 'La La Land'?",
+          "answer": "Emma Stone"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which 1994 film won Tom Hanks his second consecutive Best Actor Oscar?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which 2009 animated film about a house lifted by balloons won the Academy Award for Best Animated Feature?",
+          "answer": "Up"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actress has won the most competitive acting Oscars, with four wins?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these films did NOT win the Best Picture Oscar?",
+          "answer": "Pulp Fiction",
+          "options": [
+            "Pulp Fiction",
+            "American Beauty",
+            "Gladiator",
+            "Chicago"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of Ross's pet monkey?",
+          "answer": "Marcel"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom is set in the fictional Springfield and features the Simpson family?",
+          "answer": "The Simpsons"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'The Office' (US), what company does Dunder Mifflin sell?",
+          "answer": "Paper"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starred Will Smith as a teenager sent to live with wealthy relatives in Bel-Air?",
+          "answer": "The Fresh Prince of Bel-Air"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "What is the name of the coffee shop where the friends hang out in 'Friends'?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom features the character Sheldon Cooper?",
+          "answer": "The Big Bang Theory"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Seinfeld', what is the name of Jerry's neighbour who frequently bursts into his apartment?",
+          "answer": "Kramer"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which sitcom, set in Scranton, Pennsylvania, was based on a British series of the same name?",
+          "answer": "The Office",
+          "options": [
+            "The Office",
+            "Parks and Recreation",
+            "30 Rock",
+            "Community"
+          ]
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.058928,
+      "ms": 18544,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2082,
+          "outputTokens": 1313,
+          "thinkingTokens": 0,
+          "durationMs": 11545
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2485,
+          "outputTokens": 720,
+          "thinkingTokens": 0,
+          "durationMs": 6999
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "fix",
+          "reason": "Ledger won Best Supporting Actor, not Best Actor.",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "fix",
+          "reason": "The award was given at the 1999 ceremony, so the year needed clarifying.",
+          "text": "Which film won the Academy Award for Best Picture at the 1999 ceremony, beating 'Saving Private Ryan'?"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "fix",
+          "reason": "Life of Pi was his second Best Director win.",
+          "text": "Which director won his second Best Director Oscar for 'Life of Pi'?"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Up was not the first animated Best Picture nominee, and the wording was garbled.",
+          "text": "Which 2009 Pixar film, about a house lifted by balloons, was nominated for Best Picture and won Best Animated Feature?"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "fix",
+          "reason": "Removed the spoken self-correction.",
+          "text": "In 'Friends', what is the name of Ross's pet monkey?"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "It ran through the 1990s and 2000s, and the answer is unambiguous."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "fix",
+          "reason": "Wording error: Dunder Mifflin is the company, so the question should ask what it sells.",
+          "text": "In 'The Office' (US), what product does the company Dunder Mifflin mainly sell?"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "fix",
+          "reason": "Young Sheldon was a second possible answer; now limited to the 2000s.",
+          "text": "Which sitcom that began in 2007 features the character Sheldon Cooper?"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Heath Ledger",
+          "agreed": true,
+          "flags": [
+            "wording: \"Best Actor Oscar\" is wrong. Heath Ledger won Best Supporting Actor (posthumously) for the Joker."
+          ]
+        },
+        "R1Q2": {
+          "answer": "Shakespeare in Love",
+          "agreed": true,
+          "flags": [
+            "wording: \"in 1998\" is ambiguous. Shakespeare in Love was a 1998 film, but it won at the 1999 ceremony (71st Academy Awards)."
+          ]
+        },
+        "R1Q3": {
+          "answer": "Ang Lee",
+          "agreed": true,
+          "flags": [
+            "wording: \"his first Best Director Oscar\" is false. Ang Lee's first Best Director Oscar was for Brokeback Mountain (2005). Life of Pi was his second."
+          ]
+        },
+        "R1Q4": {
+          "answer": "Emma Stone",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Forrest Gump",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Up",
+          "agreed": true,
+          "flags": [
+            "wording: \"first of its kind\" is false. Beauty and the Beast (1991) was the first animated film nominated for Best Picture; Up was the second. The wording is also garbled: you can't \"win\" a nomination, and Up won Best Animated Feature at the same ceremony, not \"later\"."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Pulp Fiction",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Marcel",
+          "agreed": true,
+          "flags": [
+            "wording: The question includes a spoken self-correction (\"pet dog... actually\"). Delete the first part before reading it out."
+          ]
+        },
+        "R2Q2": {
+          "answer": "The Simpsons",
+          "agreed": true,
+          "flags": [
+            "wording: The Simpsons started in 1989, so it doesn't strictly fit a round on 1990s and 2000s sitcoms. It's also an animated sitcom."
+          ]
+        },
+        "R2Q3": {
+          "answer": "Paper",
+          "agreed": true,
+          "flags": [
+            "wording: \"what company does Dunder Mifflin sell\" is wrong. Dunder Mifflin is itself the company, and it sells paper. The question should ask what Dunder Mifflin sells."
+          ]
+        },
+        "R2Q4": {
+          "answer": "The Fresh Prince of Bel-Air",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Big Bang Theory",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Young Sheldon also features Sheldon Cooper, and The Big Bang Theory started in 2007."
+          ]
+        },
+        "R2Q7": {
+          "answer": "Kramer (Cosmo Kramer)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q8": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q1",
+          "reason": "Ledger won Best Supporting Actor, not Best Actor.",
+          "before": {
+            "text": "Which actor won the Best Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          },
+          "after": {
+            "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          }
+        },
+        {
+          "id": "R1Q2",
+          "reason": "The award was given at the 1999 ceremony, so the year needed clarifying.",
+          "before": {
+            "text": "Which film won the Academy Award for Best Picture in 1998, beating 'Saving Private Ryan'?",
+            "answer": "Shakespeare in Love"
+          },
+          "after": {
+            "text": "Which film won the Academy Award for Best Picture at the 1999 ceremony, beating 'Saving Private Ryan'?",
+            "answer": "Shakespeare in Love"
+          }
+        },
+        {
+          "id": "R1Q3",
+          "reason": "Life of Pi was his second Best Director win.",
+          "before": {
+            "text": "Which director won his first Best Director Oscar for 'Life of Pi'?",
+            "answer": "Ang Lee"
+          },
+          "after": {
+            "text": "Which director won his second Best Director Oscar for 'Life of Pi'?",
+            "answer": "Ang Lee"
+          }
+        },
+        {
+          "id": "R1Q6",
+          "reason": "Up was not the first animated Best Picture nominee, and the wording was garbled.",
+          "before": {
+            "text": "Which animated film became the first of its kind to win the Academy Award for Best Picture nomination and later win Best Animated Feature, released in 2009 about a house lifted by balloons?",
+            "answer": "Up"
+          },
+          "after": {
+            "text": "Which 2009 Pixar film, about a house lifted by balloons, was nominated for Best Picture and won Best Animated Feature?",
+            "answer": "Up"
+          }
+        },
+        {
+          "id": "R2Q1",
+          "reason": "Removed the spoken self-correction.",
+          "before": {
+            "text": "In 'Friends', what is the name of Ross and Monica's parents' pet dog... actually, what is the name of Ross's pet monkey?",
+            "answer": "Marcel"
+          },
+          "after": {
+            "text": "In 'Friends', what is the name of Ross's pet monkey?",
+            "answer": "Marcel"
+          }
+        },
+        {
+          "id": "R2Q3",
+          "reason": "Wording error: Dunder Mifflin is the company, so the question should ask what it sells.",
+          "before": {
+            "text": "In 'The Office' (US), what company does Dunder Mifflin sell?",
+            "answer": "Paper"
+          },
+          "after": {
+            "text": "In 'The Office' (US), what product does the company Dunder Mifflin mainly sell?",
+            "answer": "Paper"
+          }
+        },
+        {
+          "id": "R2Q6",
+          "reason": "Young Sheldon was a second possible answer; now limited to the 2000s.",
+          "before": {
+            "text": "Which sitcom features the character Sheldon Cooper?",
+            "answer": "The Big Bang Theory"
+          },
+          "after": {
+            "text": "Which sitcom that began in 2007 features the character Sheldon Cooper?",
+            "answer": "The Big Bang Theory"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+          "answer": "Heath Ledger"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which film won the Academy Award for Best Picture at the 1999 ceremony, beating 'Saving Private Ryan'?",
+          "answer": "Shakespeare in Love"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which director won his second Best Director Oscar for 'Life of Pi'?",
+          "answer": "Ang Lee"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Who won the Best Actress Oscar for her role in 'La La Land'?",
+          "answer": "Emma Stone"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which 1994 film won Tom Hanks his second consecutive Best Actor Oscar?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which 2009 Pixar film, about a house lifted by balloons, was nominated for Best Picture and won Best Animated Feature?",
+          "answer": "Up"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actress has won the most competitive acting Oscars, with four wins?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these films did NOT win the Best Picture Oscar?",
+          "answer": "Pulp Fiction",
+          "options": [
+            "Pulp Fiction",
+            "American Beauty",
+            "Gladiator",
+            "Chicago"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of Ross's pet monkey?",
+          "answer": "Marcel"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom is set in the fictional Springfield and features the Simpson family?",
+          "answer": "The Simpsons"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'The Office' (US), what product does the company Dunder Mifflin mainly sell?",
+          "answer": "Paper"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starred Will Smith as a teenager sent to live with wealthy relatives in Bel-Air?",
+          "answer": "The Fresh Prince of Bel-Air"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "What is the name of the coffee shop where the friends hang out in 'Friends'?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom that began in 2007 features the character Sheldon Cooper?",
+          "answer": "The Big Bang Theory"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Seinfeld', what is the name of Jerry's neighbour who frequently bursts into his apartment?",
+          "answer": "Kramer"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which sitcom, set in Scranton, Pennsylvania, was based on a British series of the same name?",
+          "answer": "The Office",
+          "options": [
+            "The Office",
+            "Parks and Recreation",
+            "30 Rock",
+            "Community"
+          ]
+        }
+      ]
+    }
+  ]
+}

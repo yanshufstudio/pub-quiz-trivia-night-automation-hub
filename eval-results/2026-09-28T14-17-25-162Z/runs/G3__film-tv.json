@@ -1,0 +1,905 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1559,
+      "outputTokens": 1223,
+      "thinkingTokens": 0,
+      "durationMs": 12481
+    },
+    "costUsd": 0.030696,
+    "ms": 12482
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which 1997 film about a doomed ocean liner won 11 Academy Awards, including Best Picture?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which actor won Best Actor for both Philadelphia and Forrest Gump in consecutive years?",
+      "answer": "Tom Hanks"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which actress has won the most acting Oscars, with four Best Actress wins?",
+      "answer": "Katharine Hepburn",
+      "options": [
+        "Meryl Streep",
+        "Katharine Hepburn",
+        "Bette Davis",
+        "Frances McDormand"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Who became the first woman to win the Academy Award for Best Director, for The Hurt Locker?",
+      "answer": "Kathryn Bigelow"
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+      "answer": "The Joker"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record later equalled by Titanic?",
+      "answer": "Ben-Hur"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To...",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which film was mistakenly announced as Best Picture at the 2017 ceremony before the award was correctly given to Moonlight?",
+      "answer": "La La Land"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In Friends, what is the name of the coffee shop where the group hangs out?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom follows the staff of the Dunder Mifflin paper company's Scranton branch?",
+      "answer": "The Office (US)"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In Seinfeld, what is Kramer's first name?",
+      "answer": "Cosmo"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom starred Kelsey Grammer as a psychiatrist hosting a Seattle radio show?",
+      "answer": "Frasier"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In The Fresh Prince of Bel-Air, what is the name of Will's preppy cousin, famous for his dance?",
+      "answer": "Carlton"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In Arrested Development, what is the name of the family's frozen banana stand business family?",
+      "answer": "The Bluths"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom was set at Sacred Heart Hospital and starred Zach Braff as J.D.?",
+      "answer": "Scrubs"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In Father Ted, on which fictional island do the priests live?",
+      "answer": "Craggy Island",
+      "options": [
+        "Craggy Island",
+        "Rugged Island",
+        "Fanta Island",
+        "Rocky Island"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.018634,
+      "ms": 10773,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2213,
+          "outputTokens": 925,
+          "thinkingTokens": 0,
+          "durationMs": 6879
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1549,
+          "outputTokens": 186,
+          "thinkingTokens": 0,
+          "durationMs": 3894
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Carlton (Banks) is correct; 'Carlton' alone is unambiguous as the character's name."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "fix",
+          "reason": "Wording was garbled; clarified to ask for the family name behind the banana stand.",
+          "text": "In Arrested Development, what is the surname of the family who runs the frozen banana stand business?",
+          "answer": "Bluth"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Tom Hanks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Kathryn Bigelow",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Joker",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Ben-Hur",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "La La Land",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The Office (US)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Cosmo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Frasier",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Carlton Banks",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "Bluth's Original Frozen Banana Stand (the Bluth family)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The question asks for the name of the family's business but phrases it oddly ('frozen banana stand business family') - likely wants 'Bluth' or 'Bluth's Frozen Banana Stand'; wording is unclear/garbled."
+          ]
+        },
+        "R2Q7": {
+          "answer": "Scrubs",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q6",
+          "reason": "Wording was garbled; clarified to ask for the family name behind the banana stand.",
+          "before": {
+            "text": "In Arrested Development, what is the name of the family's frozen banana stand business family?",
+            "answer": "The Bluths"
+          },
+          "after": {
+            "text": "In Arrested Development, what is the surname of the family who runs the frozen banana stand business?",
+            "answer": "Bluth"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which 1997 film about a doomed ocean liner won 11 Academy Awards, including Best Picture?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor for both Philadelphia and Forrest Gump in consecutive years?",
+          "answer": "Tom Hanks"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which actress has won the most acting Oscars, with four Best Actress wins?",
+          "answer": "Katharine Hepburn",
+          "options": [
+            "Meryl Streep",
+            "Katharine Hepburn",
+            "Bette Davis",
+            "Frances McDormand"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Who became the first woman to win the Academy Award for Best Director, for The Hurt Locker?",
+          "answer": "Kathryn Bigelow"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record later equalled by Titanic?",
+          "answer": "Ben-Hur"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which film was mistakenly announced as Best Picture at the 2017 ceremony before the award was correctly given to Moonlight?",
+          "answer": "La La Land"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In Friends, what is the name of the coffee shop where the group hangs out?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom follows the staff of the Dunder Mifflin paper company's Scranton branch?",
+          "answer": "The Office (US)"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In Seinfeld, what is Kramer's first name?",
+          "answer": "Cosmo"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom starred Kelsey Grammer as a psychiatrist hosting a Seattle radio show?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In The Fresh Prince of Bel-Air, what is the name of Will's preppy cousin, famous for his dance?",
+          "answer": "Carlton"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In Arrested Development, what is the surname of the family who runs the frozen banana stand business?",
+          "answer": "Bluth"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom was set at Sacred Heart Hospital and starred Zach Braff as J.D.?",
+          "answer": "Scrubs"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In Father Ted, on which fictional island do the priests live?",
+          "answer": "Craggy Island",
+          "options": [
+            "Craggy Island",
+            "Rugged Island",
+            "Fanta Island",
+            "Rocky Island"
+          ]
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.051344,
+      "ms": 21922,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2038,
+          "outputTokens": 1374,
+          "thinkingTokens": 197,
+          "durationMs": 15326
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1478,
+          "outputTokens": 490,
+          "thinkingTokens": 155,
+          "durationMs": 6596
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "The question named Titanic, which is the answer to R1Q1, so I reworded it to keep the facts without giving that answer away.",
+          "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record that has since been equalled but never beaten?",
+          "answer": "Ben-Hur"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "'Carlton Banks' is the same answer as 'Carlton', just with his surname."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "fix",
+          "reason": "The garbled wording made it unclear whether the question wanted the stand's name or the family's, so I reworded it to ask for the family surname.",
+          "text": "In Arrested Development, what is the surname of the family that owns a frozen banana stand?",
+          "answer": "Bluth"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Tom Hanks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Kathryn Bigelow",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Joker",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Ben-Hur",
+          "agreed": true,
+          "flags": [
+            "wording: No factual error, but the question names Titanic, which is the answer to R1Q1."
+          ]
+        },
+        "R1Q8": {
+          "answer": "La La Land",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The Office (US)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Cosmo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Frasier",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Carlton Banks",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "Bluth's Original Frozen Banana",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: Garbled wording: 'frozen banana stand business family?' repeats 'family', so it's unclear whether the answer is the stand's name or the family name (Bluth)."
+          ]
+        },
+        "R2Q7": {
+          "answer": "Scrubs",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "The question named Titanic, which is the answer to R1Q1, so I reworded it to keep the facts without giving that answer away.",
+          "before": {
+            "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record later equalled by Titanic?",
+            "answer": "Ben-Hur"
+          },
+          "after": {
+            "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record that has since been equalled but never beaten?",
+            "answer": "Ben-Hur"
+          }
+        },
+        {
+          "id": "R2Q6",
+          "reason": "The garbled wording made it unclear whether the question wanted the stand's name or the family's, so I reworded it to ask for the family surname.",
+          "before": {
+            "text": "In Arrested Development, what is the name of the family's frozen banana stand business family?",
+            "answer": "The Bluths"
+          },
+          "after": {
+            "text": "In Arrested Development, what is the surname of the family that owns a frozen banana stand?",
+            "answer": "Bluth"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which 1997 film about a doomed ocean liner won 11 Academy Awards, including Best Picture?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor for both Philadelphia and Forrest Gump in consecutive years?",
+          "answer": "Tom Hanks"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which actress has won the most acting Oscars, with four Best Actress wins?",
+          "answer": "Katharine Hepburn",
+          "options": [
+            "Meryl Streep",
+            "Katharine Hepburn",
+            "Bette Davis",
+            "Frances McDormand"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Who became the first woman to win the Academy Award for Best Director, for The Hurt Locker?",
+          "answer": "Kathryn Bigelow"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record that has since been equalled but never beaten?",
+          "answer": "Ben-Hur"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which film was mistakenly announced as Best Picture at the 2017 ceremony before the award was correctly given to Moonlight?",
+          "answer": "La La Land"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In Friends, what is the name of the coffee shop where the group hangs out?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom follows the staff of the Dunder Mifflin paper company's Scranton branch?",
+          "answer": "The Office (US)"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In Seinfeld, what is Kramer's first name?",
+          "answer": "Cosmo"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom starred Kelsey Grammer as a psychiatrist hosting a Seattle radio show?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In The Fresh Prince of Bel-Air, what is the name of Will's preppy cousin, famous for his dance?",
+          "answer": "Carlton"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In Arrested Development, what is the surname of the family that owns a frozen banana stand?",
+          "answer": "Bluth"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom was set at Sacred Heart Hospital and starred Zach Braff as J.D.?",
+          "answer": "Scrubs"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In Father Ted, on which fictional island do the priests live?",
+          "answer": "Craggy Island",
+          "options": [
+            "Craggy Island",
+            "Rugged Island",
+            "Fanta Island",
+            "Rocky Island"
+          ]
+        }
+      ]
+    }
+  ]
+}

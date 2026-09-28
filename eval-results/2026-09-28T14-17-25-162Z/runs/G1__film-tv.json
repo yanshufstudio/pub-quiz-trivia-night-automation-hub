@@ -1,0 +1,1292 @@
+{
+  "generator": "G1",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced",
+    "promptRules": "before-acc1"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1624,
+      "outputTokens": 1144,
+      "thinkingTokens": 0,
+      "durationMs": 10673
+    },
+    "costUsd": 0.014688,
+    "ms": 10673
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which film won the Academy Award for Best Picture in 2020, becoming the first non-English-language film to do so?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which actor won Best Actor Oscars for both 'My Left Foot' and 'There Will Be Blood'?",
+      "answer": "Daniel Day-Lewis"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Who directed 'Titanic', winning the Best Director Oscar in 1998?",
+      "answer": "James Cameron"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which actress holds the record for most Best Actress wins, with four Oscars?",
+      "answer": "Katharine Hepburn"
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "MULTIPLE_CHOICE",
+      "text": "'The Godfather Part II' won Best Picture for which year's ceremony?",
+      "answer": "1975",
+      "options": [
+        "1973",
+        "1975",
+        "1977",
+        "1980"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which Pixar film won the first Academy Award for Best Animated Feature in 2002?",
+      "answer": "Shrek"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which actor won an Honorary Oscar in 2003 after being nominated eight times without a competitive win, before finally winning Best Actor for 'Training Day' in 2002?",
+      "answer": "Denzel Washington"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Winner Is...",
+      "category": "Oscar Winners",
+      "type": "TEXT",
+      "text": "Which 1997 film won 11 Academy Awards, tying the record for most wins at the time?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of Ross's pet monkey introduced in the early seasons?",
+      "answer": "Marcel"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which 1990s sitcom starred Jerry Seinfeld and was famously described as 'a show about nothing'?",
+      "answer": "Seinfeld"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'The Office' (US), what is the name of the paper company where the show is set?",
+      "answer": "Dunder Mifflin"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which British sitcom, starring Ricky Gervais, was the original basis for the American version of 'The Office'?",
+      "answer": "The Office (UK)"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Frasier', what is the name of Frasier Crane's father, played by John Mahoney?",
+      "answer": "Martin Crane"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which sitcom features the will-they-won't-they couple Jim Halpert and Pam Beesly?",
+      "answer": "The Office",
+      "options": [
+        "The Office",
+        "Parks and Recreation",
+        "30 Rock",
+        "Scrubs"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which 1990s sitcom set in a Boston bar was actually a spin-off... no wait, which sitcom was set in an apartment building and starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+      "answer": "Frasier"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Must-See TV",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Malcolm in the Middle', what is the name of the family's youngest son who narrates the show?",
+      "answer": "Malcolm"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.028654,
+      "ms": 17324,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2307,
+          "outputTokens": 1344,
+          "thinkingTokens": 0,
+          "durationMs": 10812
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2425,
+          "outputTokens": 575,
+          "thinkingTokens": 0,
+          "durationMs": 6512
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Ceremony held in 1975 for films of 1974 is correct and commonly accepted answer."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Shrek is a DreamWorks film, not Pixar; corrected studio attribution.",
+          "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+          "answer": "Shrek"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "drop",
+          "reason": "Description conflates Denzel Washington with another actor's honorary Oscar history; factually inaccurate and cannot be confidently fixed without changing the question."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Clarified the record was tied with Ben-Hur, which is accurate.",
+          "text": "Which 1997 film won 11 Academy Awards, tying the record for most wins previously held by 'Ben-Hur'?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Removed confusing mid-sentence self-correction referencing Cheers; kept clear clue.",
+          "text": "Which 1990s sitcom starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "Corrected: Malcolm is the narrator and is the middle child, not the youngest (Dewey is youngest).",
+          "text": "In 'Malcolm in the Middle', what is the name of the middle son who narrates the show?",
+          "answer": "Malcolm"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Daniel Day-Lewis",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "James Cameron",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "1975",
+          "agreed": true,
+          "flags": [
+            "wording: The ceremony was held in 1975 honoring films from 1974; question wording 'won Best Picture for which year's ceremony' is ambiguous but 1975 is the correct ceremony year."
+          ]
+        },
+        "R1Q6": {
+          "answer": "Shrek",
+          "agreed": true,
+          "flags": [
+            "wording: Shrek won the first Best Animated Feature Oscar (2002 ceremony), but Shrek is a DreamWorks film, not Pixar - this claim is false."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Denzel Washington",
+          "agreed": true,
+          "flags": [
+            "wording: Denzel Washington had won a Supporting Actor Oscar for 'Glory' (1990) before 'Training Day', and the Honorary Oscar in 2003 and eight nominations without competitive win seems inaccurate - this description appears to be conflated with someone else (possibly Peter O'Toole, who received an Honorary Oscar in 2003 after multiple nominations without a win). Denzel Washington won Best Actor for Training Day at the 2002 ceremony but did not receive an Honorary Oscar in 2003."
+          ]
+        },
+        "R1Q8": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": [
+            "wording: Titanic won 11 Oscars, tying the record held by Ben-Hur at the time (later matched by Lord of the Rings: Return of the King)."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Marcel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Seinfeld",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Dunder Mifflin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "The Office (UK)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Martin Crane",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Frasier",
+          "agreed": true,
+          "flags": [
+            "wording: The question has a confusing self-correction mid-sentence referencing 'a Boston bar' (Cheers) before switching to describe Frasier; this is awkward phrasing but the final question about Kelsey Grammer as psychiatrist relocating to Seattle correctly describes Frasier."
+          ]
+        },
+        "R2Q8": {
+          "answer": "Dewey",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The narrator of the show is actually Malcolm (the middle son), not the youngest son; the youngest son is Dewey. This is a factual error - Malcolm narrates and is the middle child, not youngest."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Shrek is a DreamWorks film, not Pixar; corrected studio attribution.",
+          "before": {
+            "text": "Which Pixar film won the first Academy Award for Best Animated Feature in 2002?",
+            "answer": "Shrek"
+          },
+          "after": {
+            "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+            "answer": "Shrek"
+          }
+        },
+        {
+          "id": "R1Q8",
+          "reason": "Clarified the record was tied with Ben-Hur, which is accurate.",
+          "before": {
+            "text": "Which 1997 film won 11 Academy Awards, tying the record for most wins at the time?",
+            "answer": "Titanic"
+          },
+          "after": {
+            "text": "Which 1997 film won 11 Academy Awards, tying the record for most wins previously held by 'Ben-Hur'?",
+            "answer": "Titanic"
+          }
+        },
+        {
+          "id": "R2Q7",
+          "reason": "Removed confusing mid-sentence self-correction referencing Cheers; kept clear clue.",
+          "before": {
+            "text": "Which 1990s sitcom set in a Boston bar was actually a spin-off... no wait, which sitcom was set in an apartment building and starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+            "answer": "Frasier"
+          },
+          "after": {
+            "text": "Which 1990s sitcom starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+            "answer": "Frasier"
+          }
+        },
+        {
+          "id": "R2Q8",
+          "reason": "Corrected: Malcolm is the narrator and is the middle child, not the youngest (Dewey is youngest).",
+          "before": {
+            "text": "In 'Malcolm in the Middle', what is the name of the family's youngest son who narrates the show?",
+            "answer": "Malcolm"
+          },
+          "after": {
+            "text": "In 'Malcolm in the Middle', what is the name of the middle son who narrates the show?",
+            "answer": "Malcolm"
+          }
+        }
+      ],
+      "dropped": [
+        {
+          "id": "R1Q7",
+          "reason": "Description conflates Denzel Washington with another actor's honorary Oscar history; factually inaccurate and cannot be confidently fixed without changing the question.",
+          "before": {
+            "text": "Which actor won an Honorary Oscar in 2003 after being nominated eight times without a competitive win, before finally winning Best Actor for 'Training Day' in 2002?",
+            "answer": "Denzel Washington"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which film won the Academy Award for Best Picture in 2020, becoming the first non-English-language film to do so?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor Oscars for both 'My Left Foot' and 'There Will Be Blood'?",
+          "answer": "Daniel Day-Lewis"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Who directed 'Titanic', winning the Best Director Oscar in 1998?",
+          "answer": "James Cameron"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actress holds the record for most Best Actress wins, with four Oscars?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "MULTIPLE_CHOICE",
+          "text": "'The Godfather Part II' won Best Picture for which year's ceremony?",
+          "answer": "1975",
+          "options": [
+            "1973",
+            "1975",
+            "1977",
+            "1980"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+          "answer": "Shrek"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which 1997 film won 11 Academy Awards, tying the record for most wins previously held by 'Ben-Hur'?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of Ross's pet monkey introduced in the early seasons?",
+          "answer": "Marcel"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starred Jerry Seinfeld and was famously described as 'a show about nothing'?",
+          "answer": "Seinfeld"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'The Office' (US), what is the name of the paper company where the show is set?",
+          "answer": "Dunder Mifflin"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which British sitcom, starring Ricky Gervais, was the original basis for the American version of 'The Office'?",
+          "answer": "The Office (UK)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier Crane's father, played by John Mahoney?",
+          "answer": "Martin Crane"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which sitcom features the will-they-won't-they couple Jim Halpert and Pam Beesly?",
+          "answer": "The Office",
+          "options": [
+            "The Office",
+            "Parks and Recreation",
+            "30 Rock",
+            "Scrubs"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Malcolm in the Middle', what is the name of the middle son who narrates the show?",
+          "answer": "Malcolm"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.055375999999999995,
+      "ms": 18294,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2132,
+          "outputTokens": 1595,
+          "thinkingTokens": 382,
+          "durationMs": 13299
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1902,
+          "outputTokens": 367,
+          "thinkingTokens": 0,
+          "durationMs": 4995
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Shrek is a DreamWorks film, not Pixar",
+          "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "False premise: Washington never got an Honorary Oscar and had already won for Glory",
+          "text": "Which actor won the Best Actor Oscar in 2002 for 'Training Day'?"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Garbled wording with a draft left in",
+          "text": "Which sitcom starred Kelsey Grammer as a psychiatrist who relocates from Boston to Seattle?"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "Malcolm is a middle child, not the youngest",
+          "text": "In 'Malcolm in the Middle', what is the name of the son who narrates the show?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Daniel Day-Lewis",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "James Cameron",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "1975",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Shrek",
+          "agreed": true,
+          "flags": [
+            "wording: 'Which Pixar film' is wrong. The first Best Animated Feature Oscar (2002 ceremony) went to Shrek, which is a DreamWorks film, not Pixar. Pixar's Monsters, Inc. was nominated but lost."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Denzel Washington",
+          "agreed": true,
+          "flags": [
+            "wording: The premise is false. Denzel Washington won Best Actor for Training Day at the 2002 ceremony, but he never received an Honorary Oscar in 2003. He had also already won a competitive Oscar (Best Supporting Actor for Glory, 1990). The timeline doesn't work either: an award 'in 2003' can't come 'before' a win in 2002. The honorary award at the 2002 ceremony went to Sidney Poitier."
+          ]
+        },
+        "R1Q8": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Marcel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Seinfeld",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Dunder Mifflin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "The Office (UK)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Martin Crane",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Frasier",
+          "agreed": true,
+          "flags": [
+            "wording: The wording is garbled and still contains a draft ('...no wait,'). It needs rewriting before it is read out. Also, the Boston bar sitcom is Cheers; Frasier was the spin-off from it, not the other way round."
+          ]
+        },
+        "R2Q8": {
+          "answer": "Malcolm",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: 'Youngest son' is wrong. Malcolm, the narrator, is a middle child, as the title says. The youngest sons are Dewey and later Jamie, so some players may answer Dewey."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Shrek is a DreamWorks film, not Pixar",
+          "before": {
+            "text": "Which Pixar film won the first Academy Award for Best Animated Feature in 2002?",
+            "answer": "Shrek"
+          },
+          "after": {
+            "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+            "answer": "Shrek"
+          }
+        },
+        {
+          "id": "R1Q7",
+          "reason": "False premise: Washington never got an Honorary Oscar and had already won for Glory",
+          "before": {
+            "text": "Which actor won an Honorary Oscar in 2003 after being nominated eight times without a competitive win, before finally winning Best Actor for 'Training Day' in 2002?",
+            "answer": "Denzel Washington"
+          },
+          "after": {
+            "text": "Which actor won the Best Actor Oscar in 2002 for 'Training Day'?",
+            "answer": "Denzel Washington"
+          }
+        },
+        {
+          "id": "R2Q7",
+          "reason": "Garbled wording with a draft left in",
+          "before": {
+            "text": "Which 1990s sitcom set in a Boston bar was actually a spin-off... no wait, which sitcom was set in an apartment building and starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+            "answer": "Frasier"
+          },
+          "after": {
+            "text": "Which sitcom starred Kelsey Grammer as a psychiatrist who relocates from Boston to Seattle?",
+            "answer": "Frasier"
+          }
+        },
+        {
+          "id": "R2Q8",
+          "reason": "Malcolm is a middle child, not the youngest",
+          "before": {
+            "text": "In 'Malcolm in the Middle', what is the name of the family's youngest son who narrates the show?",
+            "answer": "Malcolm"
+          },
+          "after": {
+            "text": "In 'Malcolm in the Middle', what is the name of the son who narrates the show?",
+            "answer": "Malcolm"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which film won the Academy Award for Best Picture in 2020, becoming the first non-English-language film to do so?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor Oscars for both 'My Left Foot' and 'There Will Be Blood'?",
+          "answer": "Daniel Day-Lewis"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Who directed 'Titanic', winning the Best Director Oscar in 1998?",
+          "answer": "James Cameron"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actress holds the record for most Best Actress wins, with four Oscars?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "MULTIPLE_CHOICE",
+          "text": "'The Godfather Part II' won Best Picture for which year's ceremony?",
+          "answer": "1975",
+          "options": [
+            "1973",
+            "1975",
+            "1977",
+            "1980"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+          "answer": "Shrek"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actor won the Best Actor Oscar in 2002 for 'Training Day'?",
+          "answer": "Denzel Washington"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which 1997 film won 11 Academy Awards, tying the record for most wins at the time?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of Ross's pet monkey introduced in the early seasons?",
+          "answer": "Marcel"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starred Jerry Seinfeld and was famously described as 'a show about nothing'?",
+          "answer": "Seinfeld"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'The Office' (US), what is the name of the paper company where the show is set?",
+          "answer": "Dunder Mifflin"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which British sitcom, starring Ricky Gervais, was the original basis for the American version of 'The Office'?",
+          "answer": "The Office (UK)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier Crane's father, played by John Mahoney?",
+          "answer": "Martin Crane"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which sitcom features the will-they-won't-they couple Jim Halpert and Pam Beesly?",
+          "answer": "The Office",
+          "options": [
+            "The Office",
+            "Parks and Recreation",
+            "30 Rock",
+            "Scrubs"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom starred Kelsey Grammer as a psychiatrist who relocates from Boston to Seattle?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Malcolm in the Middle', what is the name of the son who narrates the show?",
+          "answer": "Malcolm"
+        }
+      ]
+    },
+    {
+      "checker": "C1s",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "single"
+      },
+      "costUsd": 0.017602,
+      "ms": 11252,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2726,
+          "outputTokens": 1215,
+          "thinkingTokens": 0,
+          "durationMs": 11252
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Parasite won Best Picture at the 2020 ceremony (for 2019 films) and was the first non-English-language Best Picture winner."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Daniel Day-Lewis won Best Actor for both films, correct."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "James Cameron won Best Director for Titanic at the 1998 ceremony, correct."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Katharine Hepburn holds record of 4 Best Actress wins, correct."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "The Godfather Part II won Best Picture at the 1975 ceremony honoring 1974 films - option list is fine but let's confirm; actually this is correct as is, but flagging to double check options include correct answer 1975, which they do - no fix needed.",
+          "answer": "1975",
+          "options": [
+            "1973",
+            "1975",
+            "1977",
+            "1980"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Shrek is not a Pixar film (it's DreamWorks), and Shrek won the first Best Animated Feature Oscar in 2002 - the film is correctly named but wrongly attributed to Pixar in the question wording.",
+          "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+          "answer": "Shrek"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "Denzel Washington won Best Actor for Training Day at the 2002 ceremony (for 2001 film), and received an Honorary Oscar much later (2016), not 2003; also he'd only been nominated a few times before, not eight. Simplify to remove incorrect claims.",
+          "text": "Which actor won Best Actor for 'Training Day' at the 2002 ceremony?",
+          "answer": "Denzel Washington"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Titanic (1997) won 11 Oscars, tying Ben-Hur's record at the time - correct."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Marcel is correct, Ross's pet monkey in early Friends seasons."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Seinfeld, correct and famous description matches."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Dunder Mifflin is correct, the paper company in The Office (US)."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "The Office (UK) starring Ricky Gervais is correct as the basis for the US version."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Martin Crane, played by John Mahoney, correct."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "Jim and Pam are from The Office (US), correct answer among options."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Question wording is messy/self-correcting mid-sentence ('no wait') which is not proper quiz phrasing; also Frasier is not set in an apartment building throughout the whole premise in that framing - simplify.",
+          "text": "Which 1990s sitcom starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Malcolm is the narrator and title character, correct."
+        }
+      ],
+      "blindAnswers": {},
+      "fixed": [
+        {
+          "id": "R1Q5",
+          "reason": "The Godfather Part II won Best Picture at the 1975 ceremony honoring 1974 films - option list is fine but let's confirm; actually this is correct as is, but flagging to double check options include correct answer 1975, which they do - no fix needed.",
+          "before": {
+            "text": "'The Godfather Part II' won Best Picture for which year's ceremony?",
+            "answer": "1975"
+          },
+          "after": {
+            "text": "'The Godfather Part II' won Best Picture for which year's ceremony?",
+            "answer": "1975"
+          }
+        },
+        {
+          "id": "R1Q6",
+          "reason": "Shrek is not a Pixar film (it's DreamWorks), and Shrek won the first Best Animated Feature Oscar in 2002 - the film is correctly named but wrongly attributed to Pixar in the question wording.",
+          "before": {
+            "text": "Which Pixar film won the first Academy Award for Best Animated Feature in 2002?",
+            "answer": "Shrek"
+          },
+          "after": {
+            "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+            "answer": "Shrek"
+          }
+        },
+        {
+          "id": "R1Q7",
+          "reason": "Denzel Washington won Best Actor for Training Day at the 2002 ceremony (for 2001 film), and received an Honorary Oscar much later (2016), not 2003; also he'd only been nominated a few times before, not eight. Simplify to remove incorrect claims.",
+          "before": {
+            "text": "Which actor won an Honorary Oscar in 2003 after being nominated eight times without a competitive win, before finally winning Best Actor for 'Training Day' in 2002?",
+            "answer": "Denzel Washington"
+          },
+          "after": {
+            "text": "Which actor won Best Actor for 'Training Day' at the 2002 ceremony?",
+            "answer": "Denzel Washington"
+          }
+        },
+        {
+          "id": "R2Q7",
+          "reason": "Question wording is messy/self-correcting mid-sentence ('no wait') which is not proper quiz phrasing; also Frasier is not set in an apartment building throughout the whole premise in that framing - simplify.",
+          "before": {
+            "text": "Which 1990s sitcom set in a Boston bar was actually a spin-off... no wait, which sitcom was set in an apartment building and starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+            "answer": "Frasier"
+          },
+          "after": {
+            "text": "Which 1990s sitcom starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+            "answer": "Frasier"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which film won the Academy Award for Best Picture in 2020, becoming the first non-English-language film to do so?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor Oscars for both 'My Left Foot' and 'There Will Be Blood'?",
+          "answer": "Daniel Day-Lewis"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Who directed 'Titanic', winning the Best Director Oscar in 1998?",
+          "answer": "James Cameron"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actress holds the record for most Best Actress wins, with four Oscars?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "MULTIPLE_CHOICE",
+          "text": "'The Godfather Part II' won Best Picture for which year's ceremony?",
+          "answer": "1975",
+          "options": [
+            "1973",
+            "1975",
+            "1977",
+            "1980"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which DreamWorks film won the first Academy Award for Best Animated Feature in 2002?",
+          "answer": "Shrek"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor for 'Training Day' at the 2002 ceremony?",
+          "answer": "Denzel Washington"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Winner Is...",
+          "category": "Oscar Winners",
+          "type": "TEXT",
+          "text": "Which 1997 film won 11 Academy Awards, tying the record for most wins at the time?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of Ross's pet monkey introduced in the early seasons?",
+          "answer": "Marcel"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starred Jerry Seinfeld and was famously described as 'a show about nothing'?",
+          "answer": "Seinfeld"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'The Office' (US), what is the name of the paper company where the show is set?",
+          "answer": "Dunder Mifflin"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which British sitcom, starring Ricky Gervais, was the original basis for the American version of 'The Office'?",
+          "answer": "The Office (UK)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier Crane's father, played by John Mahoney?",
+          "answer": "Martin Crane"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which sitcom features the will-they-won't-they couple Jim Halpert and Pam Beesly?",
+          "answer": "The Office",
+          "options": [
+            "The Office",
+            "Parks and Recreation",
+            "30 Rock",
+            "Scrubs"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starred Kelsey Grammer as a psychiatrist relocating to Seattle?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Must-See TV",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Malcolm in the Middle', what is the name of the family's youngest son who narrates the show?",
+          "answer": "Malcolm"
+        }
+      ]
+    }
+  ]
+}

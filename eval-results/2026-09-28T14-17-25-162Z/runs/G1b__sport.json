@@ -1,0 +1,875 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "sport",
+    "prompt": "2 rounds of 8 questions on sport: football World Cups, then the Olympic Games.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1749,
+      "outputTokens": 1004,
+      "thinkingTokens": 0,
+      "durationMs": 8887
+    },
+    "costUsd": 0.013538,
+    "ms": 8887
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted the first FIFA World Cup in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R1Q2",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which player scored a hat-trick in the 1966 World Cup Final for England?",
+      "answer": "Geoff Hurst"
+    },
+    {
+      "id": "R1Q3",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which country has won the most FIFA World Cup titles?",
+      "answer": "Brazil",
+      "options": [
+        "Brazil",
+        "Germany",
+        "Italy",
+        "Argentina"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Diego Maradona's infamous 'Hand of God' goal was scored against which team in 1986?",
+      "answer": "England"
+    },
+    {
+      "id": "R1Q5",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country won the 2018 FIFA World Cup, held in Russia?",
+      "answer": "France"
+    },
+    {
+      "id": "R1Q6",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Who is the all-time top scorer in FIFA World Cup history?",
+      "answer": "Miroslav Klose"
+    },
+    {
+      "id": "R1Q7",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "The 2002 World Cup was jointly hosted by South Korea and which other country?",
+      "answer": "Japan"
+    },
+    {
+      "id": "R1Q8",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country became the first African nation to reach the World Cup semi-finals, in 2010?",
+      "answer": "Ghana"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "In which city were the first modern Olympic Games held in 1896?",
+      "answer": "Athens"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which gymnast famously scored a perfect 10 at the 1976 Montreal Olympics?",
+      "answer": "Nadia Comaneci"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many rings are there on the Olympic flag?",
+      "answer": "Five",
+      "options": [
+        "Four",
+        "Five",
+        "Six",
+        "Seven"
+      ]
+    },
+    {
+      "id": "R2Q4",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which sprinter won three consecutive Olympic 100m gold medals between 2008 and 2016?",
+      "answer": "Usain Bolt"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which country has won the most total Olympic medals in history?",
+      "answer": "United States"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "In which year were the Summer Olympics held in Beijing for the first time?",
+      "answer": "2008"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which swimmer holds the record for most Olympic gold medals won by any athlete?",
+      "answer": "Michael Phelps"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "The Winter Olympics and Summer Olympics were both held in the same year until which decade, after which they were staggered two years apart?",
+      "answer": "1990s"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.018734,
+      "ms": 10586,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2064,
+          "outputTokens": 974,
+          "thinkingTokens": 0,
+          "durationMs": 7771
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1608,
+          "outputTokens": 165,
+          "thinkingTokens": 0,
+          "durationMs": 2815
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Usain Bolt won 100m gold in 2008, 2012, and 2016 - three consecutive Games; answer is correct and unambiguous."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Both answers agree (1990s); 1992 was the last joint year, matching 'until the 1990s'."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "England",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "France",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Miroslav Klose",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Japan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Ghana",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Nadia Comăneci",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": [
+            "wording: Usain Bolt won Olympic 100m gold in 2008, 2012, and 2016 - three consecutive Games, which matches the question, though technically the wording 'between 2008 and 2016' is fine."
+          ]
+        },
+        "R2Q5": {
+          "answer": "United States",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "2008",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "1990s (1992 was the last year they coincided; from 1994 the Winter Olympics were staggered)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: Winter and Summer Olympics were held in the same year until 1992 (last joint year), then Winter Games moved to 1994 - so the answer could be phrased as '1990s' or specifically 1992/1994."
+          ]
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player scored a hat-trick in the 1966 World Cup Final for England?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has won the most FIFA World Cup titles?",
+          "answer": "Brazil",
+          "options": [
+            "Brazil",
+            "Germany",
+            "Italy",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Diego Maradona's infamous 'Hand of God' goal was scored against which team in 1986?",
+          "answer": "England"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the 2018 FIFA World Cup, held in Russia?",
+          "answer": "France"
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Who is the all-time top scorer in FIFA World Cup history?",
+          "answer": "Miroslav Klose"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "The 2002 World Cup was jointly hosted by South Korea and which other country?",
+          "answer": "Japan"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country became the first African nation to reach the World Cup semi-finals, in 2010?",
+          "answer": "Ghana"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which gymnast famously scored a perfect 10 at the 1976 Montreal Olympics?",
+          "answer": "Nadia Comaneci"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five",
+          "options": [
+            "Four",
+            "Five",
+            "Six",
+            "Seven"
+          ]
+        },
+        {
+          "id": "R2Q4",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which sprinter won three consecutive Olympic 100m gold medals between 2008 and 2016?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which country has won the most total Olympic medals in history?",
+          "answer": "United States"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which year were the Summer Olympics held in Beijing for the first time?",
+          "answer": "2008"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which swimmer holds the record for most Olympic gold medals won by any athlete?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "The Winter Olympics and Summer Olympics were both held in the same year until which decade, after which they were staggered two years apart?",
+          "answer": "1990s"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.042976,
+      "ms": 16179,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1889,
+          "outputTokens": 1107,
+          "thinkingTokens": 133,
+          "durationMs": 11162
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1510,
+          "outputTokens": 362,
+          "thinkingTokens": 76,
+          "durationMs": 5017
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Klose, with 16 goals, is correct. The checker gave the same answer."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "The premise was false: Ghana only reached the quarter-finals in 2010. Morocco was the first African semi-finalist, in 2022.",
+          "text": "Which country became the first African nation to reach the FIFA World Cup semi-finals, doing so in 2022?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "The 1990s is correct: the last shared year was 1992 and the Winter Games moved to 1994. The checker gave the same answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "England",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "France",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Miroslav Klose (16 goals)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q7": {
+          "answer": "Japan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "No African nation reached the semi-finals in 2010. Ghana got as far as the quarter-finals. The first African semi-finalist was Morocco, in 2022.",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: 'first African nation to reach the World Cup semi-finals, in 2010' is false. Ghana reached the quarter-finals in 2010, and Morocco became the first African semi-finalist in 2022."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Nadia Comăneci",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "United States",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "2008",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The 1990s (the last shared year was 1992, and the Winter Games moved to 1994)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q8",
+          "reason": "The premise was false: Ghana only reached the quarter-finals in 2010. Morocco was the first African semi-finalist, in 2022.",
+          "before": {
+            "text": "Which country became the first African nation to reach the World Cup semi-finals, in 2010?",
+            "answer": "Ghana"
+          },
+          "after": {
+            "text": "Which country became the first African nation to reach the FIFA World Cup semi-finals, doing so in 2022?",
+            "answer": "Morocco"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player scored a hat-trick in the 1966 World Cup Final for England?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has won the most FIFA World Cup titles?",
+          "answer": "Brazil",
+          "options": [
+            "Brazil",
+            "Germany",
+            "Italy",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Diego Maradona's infamous 'Hand of God' goal was scored against which team in 1986?",
+          "answer": "England"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the 2018 FIFA World Cup, held in Russia?",
+          "answer": "France"
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Who is the all-time top scorer in FIFA World Cup history?",
+          "answer": "Miroslav Klose"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "The 2002 World Cup was jointly hosted by South Korea and which other country?",
+          "answer": "Japan"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country became the first African nation to reach the FIFA World Cup semi-finals, doing so in 2022?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which gymnast famously scored a perfect 10 at the 1976 Montreal Olympics?",
+          "answer": "Nadia Comaneci"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five",
+          "options": [
+            "Four",
+            "Five",
+            "Six",
+            "Seven"
+          ]
+        },
+        {
+          "id": "R2Q4",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which sprinter won three consecutive Olympic 100m gold medals between 2008 and 2016?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which country has won the most total Olympic medals in history?",
+          "answer": "United States"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which year were the Summer Olympics held in Beijing for the first time?",
+          "answer": "2008"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which swimmer holds the record for most Olympic gold medals won by any athlete?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "The Winter Olympics and Summer Olympics were both held in the same year until which decade, after which they were staggered two years apart?",
+          "answer": "1990s"
+        }
+      ]
+    }
+  ]
+}

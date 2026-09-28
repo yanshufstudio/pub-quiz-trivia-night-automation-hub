@@ -1,0 +1,595 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1749,
+      "outputTokens": 552,
+      "thinkingTokens": 0,
+      "durationMs": 5472
+    },
+    "costUsd": 0.009018,
+    "ms": 5472
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the largest mammal in the world?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "8"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do you call a baby dog?",
+      "answer": "Puppy"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which animal is known as the 'King of the Jungle'?",
+      "answer": "Lion",
+      "options": [
+        "Lion",
+        "Tiger",
+        "Elephant",
+        "Gorilla"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird cannot fly but can run very fast and is the largest bird in the world?",
+      "answer": "Ostrich"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do bees make and store in their hives?",
+      "answer": "Honey"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which sea creature has eight arms?",
+      "answer": "Octopus"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a group of wolves called?",
+      "answer": "A pack"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which animal is famous for changing its colour to blend in with its surroundings?",
+      "answer": "Chameleon",
+      "options": [
+        "Chameleon",
+        "Frog",
+        "Snake",
+        "Parrot"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.014468000000000002,
+      "ms": 8621,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1581,
+          "outputTokens": 603,
+          "thinkingTokens": 0,
+          "durationMs": 5421
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1623,
+          "outputTokens": 203,
+          "thinkingTokens": 0,
+          "durationMs": 3198
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "8 and Eight are the same answer, no real discrepancy."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Lion is the well-known traditional nickname 'King of the Jungle'; question asks for the known nickname, not habitat accuracy."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Chameleon is the clearly intended and most famous answer among the options; no other option in the list changes color."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Puppy",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": [
+            "wording: Lions do not actually live in jungles (they live in grasslands/savannas); the phrase is a traditional but factually inaccurate nickname."
+          ]
+        },
+        "R1Q5": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Ostrich",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Honey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Octopus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Pack",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Chameleon",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Some frog species, octopuses, and cuttlefish also change color to camouflage, but chameleon is the intended and most famous answer."
+          ]
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest mammal in the world?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "8"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do you call a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion",
+          "options": [
+            "Lion",
+            "Tiger",
+            "Elephant",
+            "Gorilla"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird cannot fly but can run very fast and is the largest bird in the world?",
+          "answer": "Ostrich"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do bees make and store in their hives?",
+          "answer": "Honey"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of wolves called?",
+          "answer": "A pack"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which animal is famous for changing its colour to blend in with its surroundings?",
+          "answer": "Chameleon",
+          "options": [
+            "Chameleon",
+            "Frog",
+            "Snake",
+            "Parrot"
+          ]
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.025264,
+      "ms": 7924,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1406,
+          "outputTokens": 533,
+          "thinkingTokens": 0,
+          "durationMs": 4788
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1275,
+          "outputTokens": 194,
+          "thinkingTokens": 0,
+          "durationMs": 3136
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Eight and 8 are the same answer; spiders have eight legs."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Puppy is the standard answer; pup is a variant that can also be accepted."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Honey is the clear intended answer; beeswax is a minor alternative."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Puppy",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q4": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Ostrich",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Honey",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q8": {
+          "answer": "Octopus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "A pack",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Chameleon",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest mammal in the world?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "8"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do you call a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion",
+          "options": [
+            "Lion",
+            "Tiger",
+            "Elephant",
+            "Gorilla"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird cannot fly but can run very fast and is the largest bird in the world?",
+          "answer": "Ostrich"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do bees make and store in their hives?",
+          "answer": "Honey"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of wolves called?",
+          "answer": "A pack"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which animal is famous for changing its colour to blend in with its surroundings?",
+          "answer": "Chameleon",
+          "options": [
+            "Chameleon",
+            "Frog",
+            "Snake",
+            "Parrot"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1674 @@
+{
+  "generator": "G1",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced",
+    "promptRules": "before-acc1"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1637,
+      "outputTokens": 1466,
+      "thinkingTokens": 0,
+      "durationMs": 14439
+    },
+    "costUsd": 0.017934,
+    "ms": 14439
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which British band released the 1969 album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Robert Plant and Jimmy Page were founding members of which rock band?",
+      "answer": "Led Zeppelin"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist famously set his guitar on fire during a performance at the 1967 Monterey Pop Festival?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What is the title of Pink Floyd's 1973 concept album about time, money, and mental illness?",
+      "answer": "The Dark Side of the Moon"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which American band, fronted by Jim Morrison, released 'Light My Fire' in 1967?",
+      "answer": "The Doors"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Deep Purple's 'Smoke on the Water' was reportedly inspired by a fire at a casino in which country?",
+      "answer": "Switzerland",
+      "options": [
+        "Switzerland",
+        "France",
+        "Italy",
+        "Germany"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which rock band performed at Woodstock in 1969 and later released the album 'Volunteers'?",
+      "answer": "Jefferson Airplane"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Freddie Mercury's band Queen released their breakthrough hit 'Bohemian Rhapsody' in which year?",
+      "answer": "1975"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer continued composing after becoming completely deaf, producing his famous Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Who composed 'The Four Seasons', a set of four violin concertos?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Austrian child prodigy composed over 600 works before his death at age 35?",
+      "answer": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the '1812 Overture'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Well-Tempered Clavier' and was a master of the Baroque period?",
+      "answer": "Johann Sebastian Bach"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Polish composer and pianist is known for his nocturnes and was a leading figure of the Romantic era?",
+      "answer": "Frederic Chopin",
+      "options": [
+        "Frederic Chopin",
+        "Franz Liszt",
+        "Johannes Brahms",
+        "Robert Schumann"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer wrote the opera cycle 'Der Ring des Nibelungen'?",
+      "answer": "Richard Wagner"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Masters of the Score",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Finnish composer is best known for his tone poem 'Finlandia'?",
+      "answer": "Jean Sibelius"
+    },
+    {
+      "id": "R3Q1",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had their only major hit with 'Come On Eileen' in 1982?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q2",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Norwegian band A-ha is best remembered for which 1985 hit single?",
+      "answer": "Take on Me"
+    },
+    {
+      "id": "R3Q3",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which artist's sole big hit was 'Mambo No. 5' in 1999?",
+      "answer": "Lou Bega"
+    },
+    {
+      "id": "R3Q4",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "The band Right Said Fred had a one-hit wonder in the UK and US with which 1991 song?",
+      "answer": "I'm Too Sexy"
+    },
+    {
+      "id": "R3Q5",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which American band's only major hit was '867-5309/Jenny' in 1981?",
+      "answer": "Tommy Tutone"
+    },
+    {
+      "id": "R3Q6",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which one-hit wonder had a smash with 'Boom Boom Pow'? (Trick question band, exclude if known for other hits) — Instead: Which singer had a 1997 hit with 'Return of the Mack'?",
+      "answer": "Mark Morrison"
+    },
+    {
+      "id": "R3Q7",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band is known for the 1997 hit 'Tubthumping', with the memorable line 'I get knocked down'?",
+      "answer": "Chumbawamba"
+    },
+    {
+      "id": "R3Q8",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which artist's only major chart hit was 'Video Killed the Radio Star' in 1979?",
+      "answer": "The Buggles"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.024422,
+      "ms": 11940,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2759,
+          "outputTokens": 1447,
+          "thinkingTokens": 0,
+          "durationMs": 9783
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1497,
+          "outputTokens": 144,
+          "thinkingTokens": 0,
+          "durationMs": 2156
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "fix",
+          "reason": "Question text contains leftover editing notes and an abandoned first question; only the 'Return of the Mack' question is valid and matches the answer.",
+          "text": "Which singer had a 1997 hit with 'Return of the Mack'?",
+          "answer": "Mark Morrison"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Led Zeppelin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Dark Side of the Moon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Doors",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Switzerland",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Jefferson Airplane",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "1975",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Johann Sebastian Bach",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Frederic Chopin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Richard Wagner",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Jean Sibelius",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Take On Me",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Lou Bega",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "I'm Too Sexy",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Tommy Tutone",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Mark Morrison",
+          "agreed": true,
+          "flags": [
+            "wording: The question is malformed/self-contradictory: it starts asking about a 'Boom Boom Pow' one-hit wonder (which is actually by The Black Eyed Peas, a band with many hits, not a one-hit wonder), labels it a 'trick question', then abandons that and asks a different question about 'Return of the Mack'. This looks like leftover editing notes that should be cleaned up before reading aloud."
+          ]
+        },
+        "R3Q7": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q6",
+          "reason": "Question text contains leftover editing notes and an abandoned first question; only the 'Return of the Mack' question is valid and matches the answer.",
+          "before": {
+            "text": "Which one-hit wonder had a smash with 'Boom Boom Pow'? (Trick question band, exclude if known for other hits) — Instead: Which singer had a 1997 hit with 'Return of the Mack'?",
+            "answer": "Mark Morrison"
+          },
+          "after": {
+            "text": "Which singer had a 1997 hit with 'Return of the Mack'?",
+            "answer": "Mark Morrison"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which British band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Robert Plant and Jimmy Page were founding members of which rock band?",
+          "answer": "Led Zeppelin"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously set his guitar on fire during a performance at the 1967 Monterey Pop Festival?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What is the title of Pink Floyd's 1973 concept album about time, money, and mental illness?",
+          "answer": "The Dark Side of the Moon"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which American band, fronted by Jim Morrison, released 'Light My Fire' in 1967?",
+          "answer": "The Doors"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Deep Purple's 'Smoke on the Water' was reportedly inspired by a fire at a casino in which country?",
+          "answer": "Switzerland",
+          "options": [
+            "Switzerland",
+            "France",
+            "Italy",
+            "Germany"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which rock band performed at Woodstock in 1969 and later released the album 'Volunteers'?",
+          "answer": "Jefferson Airplane"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Freddie Mercury's band Queen released their breakthrough hit 'Bohemian Rhapsody' in which year?",
+          "answer": "1975"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued composing after becoming completely deaf, producing his famous Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Who composed 'The Four Seasons', a set of four violin concertos?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Austrian child prodigy composed over 600 works before his death at age 35?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the '1812 Overture'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Well-Tempered Clavier' and was a master of the Baroque period?",
+          "answer": "Johann Sebastian Bach"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Polish composer and pianist is known for his nocturnes and was a leading figure of the Romantic era?",
+          "answer": "Frederic Chopin",
+          "options": [
+            "Frederic Chopin",
+            "Franz Liszt",
+            "Johannes Brahms",
+            "Robert Schumann"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer wrote the opera cycle 'Der Ring des Nibelungen'?",
+          "answer": "Richard Wagner"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Finnish composer is best known for his tone poem 'Finlandia'?",
+          "answer": "Jean Sibelius"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had their only major hit with 'Come On Eileen' in 1982?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Norwegian band A-ha is best remembered for which 1985 hit single?",
+          "answer": "Take on Me"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist's sole big hit was 'Mambo No. 5' in 1999?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "The band Right Said Fred had a one-hit wonder in the UK and US with which 1991 song?",
+          "answer": "I'm Too Sexy"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which American band's only major hit was '867-5309/Jenny' in 1981?",
+          "answer": "Tommy Tutone"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1997 hit with 'Return of the Mack'?",
+          "answer": "Mark Morrison"
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band is known for the 1997 hit 'Tubthumping', with the memorable line 'I get knocked down'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist's only major chart hit was 'Video Killed the Radio Star' in 1979?",
+          "answer": "The Buggles"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.09663200000000001,
+      "ms": 36611,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2584,
+          "outputTokens": 3124,
+          "thinkingTokens": 569,
+          "durationMs": 27939
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1899,
+          "outputTokens": 811,
+          "thinkingTokens": 297,
+          "durationMs": 8672
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Removed the debatable 'breakthrough hit' claim; the answer stays 1975.",
+          "text": "Freddie Mercury's band Queen released 'Bohemian Rhapsody' in which year?"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "'Only major hit' is false in the UK because 'Geno' was a No. 1, so the claim is removed.",
+          "text": "Which band released the 1982 hit 'Come On Eileen'?"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "fix",
+          "reason": "They were not one-hit wonders in the UK because 'Deeply Dippy' was a No. 1, so the claim is removed.",
+          "text": "Which 1991 song was the debut hit single for the band Right Said Fred?"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "fix",
+          "reason": "Removed the setter's leftover draft text and changed the year to 1996, when the song was a UK No. 1.",
+          "text": "Which singer had a 1996 UK number one with 'Return of the Mack'?"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "fix",
+          "reason": "'Only major chart hit' is questionable because 'Living in the Plastic Age' also reached the UK top 20, so the claim is removed.",
+          "text": "Which band had a 1979 hit with 'Video Killed the Radio Star'?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Led Zeppelin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Dark Side of the Moon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Doors",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Switzerland",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Jefferson Airplane",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "1975",
+          "agreed": true,
+          "flags": [
+            "wording: 'breakthrough hit' is debatable: Queen's breakthrough was 'Killer Queen' (1974). The answer is unaffected."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Johann Sebastian Bach",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Frederic Chopin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Richard Wagner",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Jean Sibelius",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": [
+            "wording: 'their only major hit' is false in the UK: 'Geno' was a UK No. 1 in 1980. It is only true in the US."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Take On Me",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Lou Bega",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "I'm Too Sexy",
+          "agreed": true,
+          "flags": [
+            "wording: 'one-hit wonder in the UK' is false: 'Deeply Dippy' was a UK No. 1 in 1992, and 'Don't Talk Just Kiss' was also a top-5 hit."
+          ]
+        },
+        "R3Q5": {
+          "answer": "Tommy Tutone",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Mark Morrison",
+          "agreed": true,
+          "flags": [
+            "wording: The wording still contains the setter's discarded draft and note ('Boom Boom Pow'... 'Instead:'), which must be removed. Also, 'Return of the Mack' was released and reached UK No. 1 in 1996; 1997 is its US chart year."
+          ]
+        },
+        "R3Q7": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": [
+            "wording: 'only major chart hit' is a stretch: 'Living in the Plastic Age' also reached the UK top 20."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q8",
+          "reason": "Removed the debatable 'breakthrough hit' claim; the answer stays 1975.",
+          "before": {
+            "text": "Freddie Mercury's band Queen released their breakthrough hit 'Bohemian Rhapsody' in which year?",
+            "answer": "1975"
+          },
+          "after": {
+            "text": "Freddie Mercury's band Queen released 'Bohemian Rhapsody' in which year?",
+            "answer": "1975"
+          }
+        },
+        {
+          "id": "R3Q1",
+          "reason": "'Only major hit' is false in the UK because 'Geno' was a No. 1, so the claim is removed.",
+          "before": {
+            "text": "Which band had their only major hit with 'Come On Eileen' in 1982?",
+            "answer": "Dexys Midnight Runners"
+          },
+          "after": {
+            "text": "Which band released the 1982 hit 'Come On Eileen'?",
+            "answer": "Dexys Midnight Runners"
+          }
+        },
+        {
+          "id": "R3Q4",
+          "reason": "They were not one-hit wonders in the UK because 'Deeply Dippy' was a No. 1, so the claim is removed.",
+          "before": {
+            "text": "The band Right Said Fred had a one-hit wonder in the UK and US with which 1991 song?",
+            "answer": "I'm Too Sexy"
+          },
+          "after": {
+            "text": "Which 1991 song was the debut hit single for the band Right Said Fred?",
+            "answer": "I'm Too Sexy"
+          }
+        },
+        {
+          "id": "R3Q6",
+          "reason": "Removed the setter's leftover draft text and changed the year to 1996, when the song was a UK No. 1.",
+          "before": {
+            "text": "Which one-hit wonder had a smash with 'Boom Boom Pow'? (Trick question band, exclude if known for other hits) — Instead: Which singer had a 1997 hit with 'Return of the Mack'?",
+            "answer": "Mark Morrison"
+          },
+          "after": {
+            "text": "Which singer had a 1996 UK number one with 'Return of the Mack'?",
+            "answer": "Mark Morrison"
+          }
+        },
+        {
+          "id": "R3Q8",
+          "reason": "'Only major chart hit' is questionable because 'Living in the Plastic Age' also reached the UK top 20, so the claim is removed.",
+          "before": {
+            "text": "Which artist's only major chart hit was 'Video Killed the Radio Star' in 1979?",
+            "answer": "The Buggles"
+          },
+          "after": {
+            "text": "Which band had a 1979 hit with 'Video Killed the Radio Star'?",
+            "answer": "The Buggles"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which British band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Robert Plant and Jimmy Page were founding members of which rock band?",
+          "answer": "Led Zeppelin"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously set his guitar on fire during a performance at the 1967 Monterey Pop Festival?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What is the title of Pink Floyd's 1973 concept album about time, money, and mental illness?",
+          "answer": "The Dark Side of the Moon"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which American band, fronted by Jim Morrison, released 'Light My Fire' in 1967?",
+          "answer": "The Doors"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Deep Purple's 'Smoke on the Water' was reportedly inspired by a fire at a casino in which country?",
+          "answer": "Switzerland",
+          "options": [
+            "Switzerland",
+            "France",
+            "Italy",
+            "Germany"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which rock band performed at Woodstock in 1969 and later released the album 'Volunteers'?",
+          "answer": "Jefferson Airplane"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Freddie Mercury's band Queen released 'Bohemian Rhapsody' in which year?",
+          "answer": "1975"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued composing after becoming completely deaf, producing his famous Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Who composed 'The Four Seasons', a set of four violin concertos?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Austrian child prodigy composed over 600 works before his death at age 35?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the '1812 Overture'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Well-Tempered Clavier' and was a master of the Baroque period?",
+          "answer": "Johann Sebastian Bach"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Polish composer and pianist is known for his nocturnes and was a leading figure of the Romantic era?",
+          "answer": "Frederic Chopin",
+          "options": [
+            "Frederic Chopin",
+            "Franz Liszt",
+            "Johannes Brahms",
+            "Robert Schumann"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer wrote the opera cycle 'Der Ring des Nibelungen'?",
+          "answer": "Richard Wagner"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Finnish composer is best known for his tone poem 'Finlandia'?",
+          "answer": "Jean Sibelius"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band released the 1982 hit 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Norwegian band A-ha is best remembered for which 1985 hit single?",
+          "answer": "Take on Me"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist's sole big hit was 'Mambo No. 5' in 1999?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which 1991 song was the debut hit single for the band Right Said Fred?",
+          "answer": "I'm Too Sexy"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which American band's only major hit was '867-5309/Jenny' in 1981?",
+          "answer": "Tommy Tutone"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1996 UK number one with 'Return of the Mack'?",
+          "answer": "Mark Morrison"
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band is known for the 1997 hit 'Tubthumping', with the memorable line 'I get knocked down'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1979 hit with 'Video Killed the Radio Star'?",
+          "answer": "The Buggles"
+        }
+      ]
+    },
+    {
+      "checker": "C1s",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "single"
+      },
+      "costUsd": 0.016432,
+      "ms": 8135,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 3351,
+          "outputTokens": 973,
+          "thinkingTokens": 0,
+          "durationMs": 8135
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Correct, the Montreux Casino fire in Switzerland."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Correct, Mozart died at 35."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "Correct, though they had other minor hits, 'Come On Eileen' is their sole major hit."
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "fix",
+          "reason": "Question text is malformed, contains leftover drafting notes and a redundant trick-question aside; should just ask the real question cleanly.",
+          "text": "Which singer had a 1997 hit with 'Return of the Mack'?",
+          "answer": "Mark Morrison"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "Correct."
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "fix",
+          "reason": "'Video Killed the Radio Star' was released in 1979 by The Buggles, but The Buggles is a duo (Trevor Horn and Geoff Downes), not a solo artist; wording 'artist' is slightly off but answer is correct - minor fix to say 'band/act'.",
+          "text": "Which act's only major chart hit was 'Video Killed the Radio Star' in 1979?",
+          "answer": "The Buggles"
+        }
+      ],
+      "blindAnswers": {},
+      "fixed": [
+        {
+          "id": "R3Q6",
+          "reason": "Question text is malformed, contains leftover drafting notes and a redundant trick-question aside; should just ask the real question cleanly.",
+          "before": {
+            "text": "Which one-hit wonder had a smash with 'Boom Boom Pow'? (Trick question band, exclude if known for other hits) — Instead: Which singer had a 1997 hit with 'Return of the Mack'?",
+            "answer": "Mark Morrison"
+          },
+          "after": {
+            "text": "Which singer had a 1997 hit with 'Return of the Mack'?",
+            "answer": "Mark Morrison"
+          }
+        },
+        {
+          "id": "R3Q8",
+          "reason": "'Video Killed the Radio Star' was released in 1979 by The Buggles, but The Buggles is a duo (Trevor Horn and Geoff Downes), not a solo artist; wording 'artist' is slightly off but answer is correct - minor fix to say 'band/act'.",
+          "before": {
+            "text": "Which artist's only major chart hit was 'Video Killed the Radio Star' in 1979?",
+            "answer": "The Buggles"
+          },
+          "after": {
+            "text": "Which act's only major chart hit was 'Video Killed the Radio Star' in 1979?",
+            "answer": "The Buggles"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which British band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Robert Plant and Jimmy Page were founding members of which rock band?",
+          "answer": "Led Zeppelin"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously set his guitar on fire during a performance at the 1967 Monterey Pop Festival?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What is the title of Pink Floyd's 1973 concept album about time, money, and mental illness?",
+          "answer": "The Dark Side of the Moon"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which American band, fronted by Jim Morrison, released 'Light My Fire' in 1967?",
+          "answer": "The Doors"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Deep Purple's 'Smoke on the Water' was reportedly inspired by a fire at a casino in which country?",
+          "answer": "Switzerland",
+          "options": [
+            "Switzerland",
+            "France",
+            "Italy",
+            "Germany"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which rock band performed at Woodstock in 1969 and later released the album 'Volunteers'?",
+          "answer": "Jefferson Airplane"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Freddie Mercury's band Queen released their breakthrough hit 'Bohemian Rhapsody' in which year?",
+          "answer": "1975"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued composing after becoming completely deaf, producing his famous Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Who composed 'The Four Seasons', a set of four violin concertos?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Austrian child prodigy composed over 600 works before his death at age 35?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the '1812 Overture'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Well-Tempered Clavier' and was a master of the Baroque period?",
+          "answer": "Johann Sebastian Bach"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Polish composer and pianist is known for his nocturnes and was a leading figure of the Romantic era?",
+          "answer": "Frederic Chopin",
+          "options": [
+            "Frederic Chopin",
+            "Franz Liszt",
+            "Johannes Brahms",
+            "Robert Schumann"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer wrote the opera cycle 'Der Ring des Nibelungen'?",
+          "answer": "Richard Wagner"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Masters of the Score",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Finnish composer is best known for his tone poem 'Finlandia'?",
+          "answer": "Jean Sibelius"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had their only major hit with 'Come On Eileen' in 1982?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Norwegian band A-ha is best remembered for which 1985 hit single?",
+          "answer": "Take on Me"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist's sole big hit was 'Mambo No. 5' in 1999?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "The band Right Said Fred had a one-hit wonder in the UK and US with which 1991 song?",
+          "answer": "I'm Too Sexy"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which American band's only major hit was '867-5309/Jenny' in 1981?",
+          "answer": "Tommy Tutone"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1997 hit with 'Return of the Mack'?",
+          "answer": "Mark Morrison"
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band is known for the 1997 hit 'Tubthumping', with the memorable line 'I get knocked down'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which act's only major chart hit was 'Video Killed the Radio Star' in 1979?",
+          "answer": "The Buggles"
+        }
+      ]
+    }
+  ]
+}

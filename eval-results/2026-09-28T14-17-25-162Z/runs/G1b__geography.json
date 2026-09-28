@@ -1,0 +1,1069 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "geography",
+    "prompt": "2 rounds of 10 questions on world geography: capitals and rivers, then mountains and islands. Medium difficulty.",
+    "questions": 20
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1759,
+      "outputTokens": 864,
+      "thinkingTokens": 0,
+      "durationMs": 8655
+    },
+    "costUsd": 0.012158,
+    "ms": 8655
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Cairo before reaching the Mediterranean?",
+      "answer": "The Nile"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river forms much of the border between the United States and Mexico?",
+      "answer": "The Rio Grande"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which South American river is the second-longest in the world after the Nile?",
+      "answer": "The Amazon"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of New Zealand?",
+      "answer": "Wellington",
+      "options": [
+        "Wellington",
+        "Auckland",
+        "Christchurch",
+        "Hamilton"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Paris?",
+      "answer": "The Seine"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Vietnam?",
+      "answer": "Hanoi"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Baghdad?",
+      "answer": "The Tigris"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in Africa?",
+      "answer": "Kilimanjaro"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which island nation is located directly south of India, separated by the Palk Strait?",
+      "answer": "Sri Lanka"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the tallest mountain in North America?",
+      "answer": "Denali"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which is the largest island in the Mediterranean Sea?",
+      "answer": "Sicily"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which mountain range separates Europe from Asia, running through Russia?",
+      "answer": "The Ural Mountains"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the largest island in the world by area?",
+      "answer": "Greenland"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which mountain range runs along the western edge of South America?",
+      "answer": "The Andes",
+      "options": [
+        "The Andes",
+        "The Rockies",
+        "The Alps",
+        "The Atlas Mountains"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which volcanic island group belongs to Portugal and lies in the North Atlantic?",
+      "answer": "The Azores"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the second-highest mountain in the world, located on the border of Pakistan and China?",
+      "answer": "K2"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which large island lies off the southeast coast of Africa, separated by the Mozambique Channel?",
+      "answer": "Madagascar"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.021068,
+      "ms": 11641,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2120,
+          "outputTokens": 1089,
+          "thinkingTokens": 0,
+          "durationMs": 7902
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1639,
+          "outputTokens": 266,
+          "thinkingTokens": 0,
+          "durationMs": 3738
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Astana is currently the correct name of Kazakhstan's capital; naming history doesn't create real ambiguity."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Amazon / Amazon River are the same answer phrased differently, not a real discrepancy."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Kilimanjaro / Mount Kilimanjaro are the same answer phrased differently."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Denali / Denali (Mount McKinley) are the same peak; setter's answer is correct and unambiguous."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Nile",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Rio Grande",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Astana has been renamed multiple times (Akmola, Astana, Nur-Sultan, and back to Astana in 2022); currently it is Astana, which is correct, but some may know it under a different recent name."
+          ]
+        },
+        "R1Q6": {
+          "answer": "The Amazon River",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q7": {
+          "answer": "Wellington",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Seine",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Hanoi",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "The Tigris",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Mount Kilimanjaro",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Sri Lanka",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Denali (Mount McKinley)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Sicily",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "The Ural Mountains",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Greenland",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The Andes",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The Azores",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "K2",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Madagascar",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Cairo before reaching the Mediterranean?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river forms much of the border between the United States and Mexico?",
+          "answer": "The Rio Grande"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which South American river is the second-longest in the world after the Nile?",
+          "answer": "The Amazon"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of New Zealand?",
+          "answer": "Wellington",
+          "options": [
+            "Wellington",
+            "Auckland",
+            "Christchurch",
+            "Hamilton"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Paris?",
+          "answer": "The Seine"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Vietnam?",
+          "answer": "Hanoi"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Baghdad?",
+          "answer": "The Tigris"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in Africa?",
+          "answer": "Kilimanjaro"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which island nation is located directly south of India, separated by the Palk Strait?",
+          "answer": "Sri Lanka"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the tallest mountain in North America?",
+          "answer": "Denali"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which is the largest island in the Mediterranean Sea?",
+          "answer": "Sicily"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range separates Europe from Asia, running through Russia?",
+          "answer": "The Ural Mountains"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the largest island in the world by area?",
+          "answer": "Greenland"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which mountain range runs along the western edge of South America?",
+          "answer": "The Andes",
+          "options": [
+            "The Andes",
+            "The Rockies",
+            "The Alps",
+            "The Atlas Mountains"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which volcanic island group belongs to Portugal and lies in the North Atlantic?",
+          "answer": "The Azores"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the second-highest mountain in the world, located on the border of Pakistan and China?",
+          "answer": "K2"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which large island lies off the southeast coast of Africa, separated by the Mozambique Channel?",
+          "answer": "Madagascar"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.053635999999999996,
+      "ms": 20843,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1945,
+          "outputTokens": 1369,
+          "thinkingTokens": 166,
+          "durationMs": 13539
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1669,
+          "outputTokens": 590,
+          "thinkingTokens": 199,
+          "durationMs": 7304
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Most sources rank the Amazon second after the Nile, and the answer is the same whichever river is longer."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Kilimanjaro and Mount Kilimanjaro are the same answer."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "fix",
+          "reason": "Sri Lanka lies off India's southeast coast, not directly south of India.",
+          "text": "Which island nation lies off the southeast coast of India, separated from it by the Palk Strait?"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Denali and Mount McKinley are the same mountain."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "Madeira also fits the original wording. Saying 'mid-Atlantic' and naming São Miguel leaves only the Azores.",
+          "text": "Which volcanic Portuguese island group in the mid-Atlantic includes the island of São Miguel?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Nile",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Rio Grande",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Amazon",
+          "agreed": true,
+          "flags": [
+            "wording: Calling the Amazon second-longest after the Nile is the usual ranking, but it is disputed. Some measurements make the Amazon longer than the Nile."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Wellington",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Seine",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Hanoi",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "The Tigris",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Mount Kilimanjaro",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Sri Lanka",
+          "agreed": true,
+          "flags": [
+            "wording: 'Directly south of India' is a bit loose. Sri Lanka lies off India's southeast tip. The Palk Strait detail is correct."
+          ]
+        },
+        "R2Q3": {
+          "answer": "Denali (Mount McKinley)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Sicily",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "The Ural Mountains",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Greenland",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The Andes",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The Azores",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Madeira also fits: it is a volcanic Portuguese island group in the North Atlantic. The question needs a clue that picks out only one, e.g. 'mid-Atlantic' for the Azores."
+          ]
+        },
+        "R2Q9": {
+          "answer": "K2",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Madagascar",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q2",
+          "reason": "Sri Lanka lies off India's southeast coast, not directly south of India.",
+          "before": {
+            "text": "Which island nation is located directly south of India, separated by the Palk Strait?",
+            "answer": "Sri Lanka"
+          },
+          "after": {
+            "text": "Which island nation lies off the southeast coast of India, separated from it by the Palk Strait?",
+            "answer": "Sri Lanka"
+          }
+        },
+        {
+          "id": "R2Q8",
+          "reason": "Madeira also fits the original wording. Saying 'mid-Atlantic' and naming São Miguel leaves only the Azores.",
+          "before": {
+            "text": "Which volcanic island group belongs to Portugal and lies in the North Atlantic?",
+            "answer": "The Azores"
+          },
+          "after": {
+            "text": "Which volcanic Portuguese island group in the mid-Atlantic includes the island of São Miguel?",
+            "answer": "The Azores"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Cairo before reaching the Mediterranean?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river forms much of the border between the United States and Mexico?",
+          "answer": "The Rio Grande"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which South American river is the second-longest in the world after the Nile?",
+          "answer": "The Amazon"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of New Zealand?",
+          "answer": "Wellington",
+          "options": [
+            "Wellington",
+            "Auckland",
+            "Christchurch",
+            "Hamilton"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Paris?",
+          "answer": "The Seine"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Vietnam?",
+          "answer": "Hanoi"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Baghdad?",
+          "answer": "The Tigris"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in Africa?",
+          "answer": "Kilimanjaro"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which island nation lies off the southeast coast of India, separated from it by the Palk Strait?",
+          "answer": "Sri Lanka"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the tallest mountain in North America?",
+          "answer": "Denali"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which is the largest island in the Mediterranean Sea?",
+          "answer": "Sicily"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range separates Europe from Asia, running through Russia?",
+          "answer": "The Ural Mountains"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the largest island in the world by area?",
+          "answer": "Greenland"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which mountain range runs along the western edge of South America?",
+          "answer": "The Andes",
+          "options": [
+            "The Andes",
+            "The Rockies",
+            "The Alps",
+            "The Atlas Mountains"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which volcanic Portuguese island group in the mid-Atlantic includes the island of São Miguel?",
+          "answer": "The Azores"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the second-highest mountain in the world, located on the border of Pakistan and China?",
+          "answer": "K2"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which large island lies off the southeast coast of Africa, separated by the Mozambique Channel?",
+          "answer": "Madagascar"
+        }
+      ]
+    }
+  ]
+}

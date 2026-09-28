@@ -1,0 +1,1686 @@
+{
+  "generator": "G1",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced",
+    "promptRules": "before-acc1"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1628,
+      "outputTokens": 1562,
+      "thinkingTokens": 0,
+      "durationMs": 14866
+    },
+    "costUsd": 0.018876,
+    "ms": 14866
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In which year is Rome traditionally said to have been founded?",
+      "answer": "753 BC"
+    },
+    {
+      "id": "R1Q2",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Who was the legendary first king of Rome?",
+      "answer": "Romulus"
+    },
+    {
+      "id": "R1Q3",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What name was given to the period of civil unrest and violence following the assassination of Julius Caesar, ending with Octavian's victory at Actium?",
+      "answer": "The Final War of the Roman Republic (Liberators' Civil War/Augustan settlement period)"
+    },
+    {
+      "id": "R1Q4",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman emperor built a defensive wall across northern Britain, begun in AD 122?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q5",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What was the Roman Senate's main meeting building called?",
+      "answer": "The Curia"
+    },
+    {
+      "id": "R1Q6",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which battle in 9 AD saw three Roman legions annihilated by Germanic tribes under Arminius?",
+      "answer": "The Battle of the Teutoburg Forest"
+    },
+    {
+      "id": "R1Q7",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor, notorious for his cruelty and excess, allegedly 'fiddled while Rome burned' in AD 64?",
+      "answer": "Nero"
+    },
+    {
+      "id": "R1Q8",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What was the name of the Roman currency, a small silver coin, commonly used to pay soldiers' wages (giving us the word 'salary')?",
+      "answer": "Denarius",
+      "options": [
+        "Denarius",
+        "Sestertius",
+        "Aureus",
+        "As"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the code name for the Allied invasion of Normandy in June 1944?",
+      "answer": "Operation Overlord"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which battle, fought between August 1942 and February 1943, is often considered the turning point of the war on the Eastern Front?",
+      "answer": "The Battle of Stalingrad"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the German air campaign against Britain in 1940–41?",
+      "answer": "The Blitz"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which conference in February 1945 brought together Churchill, Roosevelt, and Stalin to plan the post-war order?",
+      "answer": "The Yalta Conference"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the name given to the German strategy of fast, concentrated armoured attacks used early in the war?",
+      "answer": "Blitzkrieg"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which Japanese city was hit by the second atomic bomb, on 9 August 1945?",
+      "answer": "Nagasaki"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Who was the commander of the German Afrika Korps, nicknamed the 'Desert Fox'?",
+      "answer": "Erwin Rommel"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Global Conflict",
+      "category": "The Second World War",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which treaty-defying event, on 1 September 1939, is generally considered the start of the war in Europe?",
+      "answer": "The German invasion of Poland",
+      "options": [
+        "The German invasion of Poland",
+        "The German invasion of France",
+        "The annexation of Austria",
+        "The invasion of Czechoslovakia"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Who is credited with inventing the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American inventor developed the alternating current (AC) electrical system, rivalling Edison?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Who invented the World Wide Web in 1989 while working at CERN?",
+      "answer": "Tim Berners-Lee"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English engineer is credited with developing the first practical steam locomotive, the Rocket?",
+      "answer": "George Stephenson"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Who invented the printing press with movable type in Europe around 1440?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which American inventor and businessman held over 1,000 patents, including for the phonograph and the practical incandescent light bulb?",
+      "answer": "Thomas Edison"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish inventor is credited with creating the first practical television system, demonstrated in 1926?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Who invented dynamite in 1867, later using his fortune to establish a famous set of prizes?",
+      "answer": "Alfred Nobel"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.032923999999999995,
+      "ms": 20190,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2695,
+          "outputTokens": 1738,
+          "thinkingTokens": 0,
+          "durationMs": 13952
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2492,
+          "outputTokens": 517,
+          "thinkingTokens": 0,
+          "durationMs": 6236
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "fix",
+          "reason": "No single fixed proper noun exists; the most standard/common name is 'The Final War of the Roman Republic', which matches setter's core answer.",
+          "answer": "The Final War of the Roman Republic"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "The Curia is the correct and standard name; Curia Julia is just a specific building of that name, not a contradiction."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Question says 'allegedly', correctly flagging the legend; Nero is the right answer."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Denarius is the standard quiz answer for the soldier's-pay coin tied to 'salary', despite the salt etymology nuance; correct as intended."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Operation Overlord is the standard, correct code name for the overall Normandy invasion; Neptune was only the naval assault component."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "Bell is the traditionally and popularly credited inventor of the telephone, as the question asks."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "fix",
+          "reason": "The Rocket was built by Robert Stephenson (with his father George's involvement); most standard credit for the Rocket itself goes to Robert Stephenson.",
+          "answer": "Robert Stephenson"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "753 BC",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Romulus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Final War of the Roman Republic (also known as the War of Actium/civil wars of the Second Triumvirate)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: There is no single universally 'traditional' name for this period; commonly it's referred to as the civil wars of the Second Triumvirate or Final War of the Roman Republic, not a fixed proper noun, so answers may vary."
+          ]
+        },
+        "R1Q4": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Curia (Curia Julia)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Battle of the Teutoburg Forest",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Nero",
+          "agreed": true,
+          "flags": [
+            "wording: The claim that Nero 'fiddled while Rome burned' is a legend; the fiddle didn't exist yet, and historical accuracy of the story is disputed. The question does say 'allegedly', so this is acceptable."
+          ]
+        },
+        "R1Q8": {
+          "answer": "Denarius",
+          "agreed": true,
+          "flags": [
+            "wording: The etymology of 'salary' is traditionally linked to 'salarium', which relates to salt (sal) allowance, not directly to the denarius. This is a commonly repeated but debated etymology; the connection to a coin (denarius) for soldiers' pay is somewhat conflated with the salt-based origin story."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Operation Overlord",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Could also refer to 'Operation Neptune' (the naval component/D-Day landings specifically); Overlord is the overall invasion codename."
+          ]
+        },
+        "R2Q2": {
+          "answer": "Battle of Stalingrad",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The Blitz",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Yalta Conference",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Blitzkrieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Nagasaki",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Erwin Rommel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The German invasion of Poland",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Credit for the telephone is disputed; Antonio Meucci and Elisha Gray also have claims, though Bell is the traditionally credited inventor."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Tim Berners-Lee",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "George Stephenson (and his son Robert Stephenson)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The Rocket was built by Robert Stephenson (son), though often credited jointly with George Stephenson; some sources attribute the Rocket specifically to Robert Stephenson's company."
+          ]
+        },
+        "R3Q5": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Thomas Edison",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q3",
+          "reason": "No single fixed proper noun exists; the most standard/common name is 'The Final War of the Roman Republic', which matches setter's core answer.",
+          "before": {
+            "text": "What name was given to the period of civil unrest and violence following the assassination of Julius Caesar, ending with Octavian's victory at Actium?",
+            "answer": "The Final War of the Roman Republic (Liberators' Civil War/Augustan settlement period)"
+          },
+          "after": {
+            "text": "What name was given to the period of civil unrest and violence following the assassination of Julius Caesar, ending with Octavian's victory at Actium?",
+            "answer": "The Final War of the Roman Republic"
+          }
+        },
+        {
+          "id": "R3Q4",
+          "reason": "The Rocket was built by Robert Stephenson (with his father George's involvement); most standard credit for the Rocket itself goes to Robert Stephenson.",
+          "before": {
+            "text": "Which English engineer is credited with developing the first practical steam locomotive, the Rocket?",
+            "answer": "George Stephenson"
+          },
+          "after": {
+            "text": "Which English engineer is credited with developing the first practical steam locomotive, the Rocket?",
+            "answer": "Robert Stephenson"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In which year is Rome traditionally said to have been founded?",
+          "answer": "753 BC"
+        },
+        {
+          "id": "R1Q2",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Who was the legendary first king of Rome?",
+          "answer": "Romulus"
+        },
+        {
+          "id": "R1Q3",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What name was given to the period of civil unrest and violence following the assassination of Julius Caesar, ending with Octavian's victory at Actium?",
+          "answer": "The Final War of the Roman Republic"
+        },
+        {
+          "id": "R1Q4",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor built a defensive wall across northern Britain, begun in AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q5",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the Roman Senate's main meeting building called?",
+          "answer": "The Curia"
+        },
+        {
+          "id": "R1Q6",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which battle in 9 AD saw three Roman legions annihilated by Germanic tribes under Arminius?",
+          "answer": "The Battle of the Teutoburg Forest"
+        },
+        {
+          "id": "R1Q7",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor, notorious for his cruelty and excess, allegedly 'fiddled while Rome burned' in AD 64?",
+          "answer": "Nero"
+        },
+        {
+          "id": "R1Q8",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What was the name of the Roman currency, a small silver coin, commonly used to pay soldiers' wages (giving us the word 'salary')?",
+          "answer": "Denarius",
+          "options": [
+            "Denarius",
+            "Sestertius",
+            "Aureus",
+            "As"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the code name for the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which battle, fought between August 1942 and February 1943, is often considered the turning point of the war on the Eastern Front?",
+          "answer": "The Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the German air campaign against Britain in 1940–41?",
+          "answer": "The Blitz"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 brought together Churchill, Roosevelt, and Stalin to plan the post-war order?",
+          "answer": "The Yalta Conference"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name given to the German strategy of fast, concentrated armoured attacks used early in the war?",
+          "answer": "Blitzkrieg"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which Japanese city was hit by the second atomic bomb, on 9 August 1945?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Who was the commander of the German Afrika Korps, nicknamed the 'Desert Fox'?",
+          "answer": "Erwin Rommel"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which treaty-defying event, on 1 September 1939, is generally considered the start of the war in Europe?",
+          "answer": "The German invasion of Poland",
+          "options": [
+            "The German invasion of Poland",
+            "The German invasion of France",
+            "The annexation of Austria",
+            "The invasion of Czechoslovakia"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who is credited with inventing the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor developed the alternating current (AC) electrical system, rivalling Edison?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the World Wide Web in 1989 while working at CERN?",
+          "answer": "Tim Berners-Lee"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English engineer is credited with developing the first practical steam locomotive, the Rocket?",
+          "answer": "Robert Stephenson"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the printing press with movable type in Europe around 1440?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which American inventor and businessman held over 1,000 patents, including for the phonograph and the practical incandescent light bulb?",
+          "answer": "Thomas Edison"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish inventor is credited with creating the first practical television system, demonstrated in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented dynamite in 1867, later using his fortune to establish a famous set of prizes?",
+          "answer": "Alfred Nobel"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.077384,
+      "ms": 28492,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2520,
+          "outputTokens": 2343,
+          "thinkingTokens": 452,
+          "durationMs": 21407
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2126,
+          "outputTokens": 597,
+          "thinkingTokens": 0,
+          "durationMs": 7084
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "drop",
+          "reason": "There is no single standard name for this period, so answers could not be marked fairly."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "The Curia is correct; Curia Julia and Curia Hostilia are specific Curia buildings, so the checker gave the same answer."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Removed the false claim about 'salary', which comes from salt, not the denarius.",
+          "text": "What was the name of the small silver coin that was the standard Roman currency, commonly used to pay soldiers' wages?"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Overlord is the standard answer; Neptune was the name for the landing phase only."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "fix",
+          "reason": "The question could fit either the Battle of Britain or the Blitz, so I pinned it to the bombing of cities.",
+          "text": "What name is given to the German bombing campaign against British cities from September 1940 to May 1941?"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "Removed the vague word 'treaty-defying'.",
+          "text": "Which event, on 1 September 1939, is generally considered the start of the Second World War in Europe?"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "fix",
+          "reason": "Rocket was not the first practical locomotive, and Robert Stephenson largely built it, so I reworded the question to avoid both problems.",
+          "text": "Which English engineer, known as the 'Father of Railways', built Locomotion No. 1 for the Stockton and Darlington Railway?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "753 BC",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Romulus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Final War of the Roman Republic / Liberators' civil war (Roman civil wars)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: There is no single standard name for this period, so answers will vary."
+          ]
+        },
+        "R1Q4": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Curia (Curia Julia / Curia Hostilia)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Battle of the Teutoburg Forest",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Nero",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Denarius",
+          "agreed": true,
+          "flags": [
+            "wording: 'giving us the word salary' is false: 'salary' comes from salt (Latin 'salarium'), not from the denarius."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Operation Overlord (landings: Operation Neptune)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Battle of Stalingrad",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The Blitz (or the Battle of Britain)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Yalta Conference",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Blitzkrieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Nagasaki",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Erwin Rommel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The German invasion of Poland",
+          "agreed": true,
+          "flags": [
+            "wording: 'treaty-defying' is vague and debatable; best removed."
+          ]
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Tim Berners-Lee",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "George Stephenson",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: The Rocket (1829) was not the first practical steam locomotive: Trevithick (1804), Blücher (1814) and Locomotion No. 1 (1825) came before it. It was also largely built by Robert Stephenson."
+          ]
+        },
+        "R3Q5": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Thomas Edison",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q8",
+          "reason": "Removed the false claim about 'salary', which comes from salt, not the denarius.",
+          "before": {
+            "text": "What was the name of the Roman currency, a small silver coin, commonly used to pay soldiers' wages (giving us the word 'salary')?",
+            "answer": "Denarius"
+          },
+          "after": {
+            "text": "What was the name of the small silver coin that was the standard Roman currency, commonly used to pay soldiers' wages?",
+            "answer": "Denarius"
+          }
+        },
+        {
+          "id": "R2Q3",
+          "reason": "The question could fit either the Battle of Britain or the Blitz, so I pinned it to the bombing of cities.",
+          "before": {
+            "text": "What was the name of the German air campaign against Britain in 1940–41?",
+            "answer": "The Blitz"
+          },
+          "after": {
+            "text": "What name is given to the German bombing campaign against British cities from September 1940 to May 1941?",
+            "answer": "The Blitz"
+          }
+        },
+        {
+          "id": "R2Q8",
+          "reason": "Removed the vague word 'treaty-defying'.",
+          "before": {
+            "text": "Which treaty-defying event, on 1 September 1939, is generally considered the start of the war in Europe?",
+            "answer": "The German invasion of Poland"
+          },
+          "after": {
+            "text": "Which event, on 1 September 1939, is generally considered the start of the Second World War in Europe?",
+            "answer": "The German invasion of Poland"
+          }
+        },
+        {
+          "id": "R3Q4",
+          "reason": "Rocket was not the first practical locomotive, and Robert Stephenson largely built it, so I reworded the question to avoid both problems.",
+          "before": {
+            "text": "Which English engineer is credited with developing the first practical steam locomotive, the Rocket?",
+            "answer": "George Stephenson"
+          },
+          "after": {
+            "text": "Which English engineer, known as the 'Father of Railways', built Locomotion No. 1 for the Stockton and Darlington Railway?",
+            "answer": "George Stephenson"
+          }
+        }
+      ],
+      "dropped": [
+        {
+          "id": "R1Q3",
+          "reason": "There is no single standard name for this period, so answers could not be marked fairly.",
+          "before": {
+            "text": "What name was given to the period of civil unrest and violence following the assassination of Julius Caesar, ending with Octavian's victory at Actium?",
+            "answer": "The Final War of the Roman Republic (Liberators' Civil War/Augustan settlement period)"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In which year is Rome traditionally said to have been founded?",
+          "answer": "753 BC"
+        },
+        {
+          "id": "R1Q2",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Who was the legendary first king of Rome?",
+          "answer": "Romulus"
+        },
+        {
+          "id": "R1Q3",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor built a defensive wall across northern Britain, begun in AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q4",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the Roman Senate's main meeting building called?",
+          "answer": "The Curia"
+        },
+        {
+          "id": "R1Q5",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which battle in 9 AD saw three Roman legions annihilated by Germanic tribes under Arminius?",
+          "answer": "The Battle of the Teutoburg Forest"
+        },
+        {
+          "id": "R1Q6",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor, notorious for his cruelty and excess, allegedly 'fiddled while Rome burned' in AD 64?",
+          "answer": "Nero"
+        },
+        {
+          "id": "R1Q7",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What was the name of the small silver coin that was the standard Roman currency, commonly used to pay soldiers' wages?",
+          "answer": "Denarius",
+          "options": [
+            "Denarius",
+            "Sestertius",
+            "Aureus",
+            "As"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the code name for the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which battle, fought between August 1942 and February 1943, is often considered the turning point of the war on the Eastern Front?",
+          "answer": "The Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What name is given to the German bombing campaign against British cities from September 1940 to May 1941?",
+          "answer": "The Blitz"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 brought together Churchill, Roosevelt, and Stalin to plan the post-war order?",
+          "answer": "The Yalta Conference"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name given to the German strategy of fast, concentrated armoured attacks used early in the war?",
+          "answer": "Blitzkrieg"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which Japanese city was hit by the second atomic bomb, on 9 August 1945?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Who was the commander of the German Afrika Korps, nicknamed the 'Desert Fox'?",
+          "answer": "Erwin Rommel"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which event, on 1 September 1939, is generally considered the start of the Second World War in Europe?",
+          "answer": "The German invasion of Poland",
+          "options": [
+            "The German invasion of Poland",
+            "The German invasion of France",
+            "The annexation of Austria",
+            "The invasion of Czechoslovakia"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who is credited with inventing the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor developed the alternating current (AC) electrical system, rivalling Edison?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the World Wide Web in 1989 while working at CERN?",
+          "answer": "Tim Berners-Lee"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English engineer, known as the 'Father of Railways', built Locomotion No. 1 for the Stockton and Darlington Railway?",
+          "answer": "George Stephenson"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the printing press with movable type in Europe around 1440?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which American inventor and businessman held over 1,000 patents, including for the phonograph and the practical incandescent light bulb?",
+          "answer": "Thomas Edison"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish inventor is credited with creating the first practical television system, demonstrated in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented dynamite in 1867, later using his fortune to establish a famous set of prizes?",
+          "answer": "Alfred Nobel"
+        }
+      ]
+    },
+    {
+      "checker": "C1s",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "single"
+      },
+      "costUsd": 0.019574,
+      "ms": 10181,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 3287,
+          "outputTokens": 1300,
+          "thinkingTokens": 0,
+          "durationMs": 10181
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Rome traditionally founded 753 BC, correct."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Romulus is correctly the legendary first king."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "fix",
+          "reason": "The setter's answer is vague/uncertain wording; the well-known term for this period's final conflict is the 'War of Actium' or more broadly the 'Final War of the Roman Republic' - simplify to a clear accepted term.",
+          "text": "What name is commonly given to the final civil war of the Roman Republic, fought between Octavian and Mark Antony, ending with Octavian's victory at Actium?",
+          "answer": "The Final War of the Roman Republic (also known as the War of Actium)"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Hadrian's Wall, begun AD 122, correct."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "The Curia was the Senate's meeting building, correct."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Battle of Teutoburg Forest, 9 AD, correct."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Nero, Great Fire of Rome AD 64, correct (though the fiddling story is legendary, commonly used in quizzes)."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Denarius is the correct answer among the options given."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Operation Overlord, correct."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Battle of Stalingrad dates and significance correct."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "The Blitz correctly describes the 1940-41 bombing campaign."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Yalta Conference, February 1945, correct attendees."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Blitzkrieg correctly described."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "Nagasaki was hit by the second atomic bomb on 9 August 1945, correct."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "Erwin Rommel, Desert Fox, correct."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "German invasion of Poland, 1 September 1939, correctly marks the start of WWII in Europe."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "Alexander Graham Bell, 1876 telephone patent, correct."
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "Nikola Tesla, Serbian-American, AC system, correct."
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "Tim Berners-Lee, 1989, CERN, correct."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "George Stephenson, English engineer, Rocket locomotive, correct."
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "Johannes Gutenberg, movable type printing press circa 1440, correct."
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "Thomas Edison, over 1,000 patents, phonograph and light bulb, correct."
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "John Logie Baird, Scottish inventor, first practical television, 1926 demonstration, correct."
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "Alfred Nobel, dynamite 1867, Nobel Prizes, correct."
+        }
+      ],
+      "blindAnswers": {},
+      "fixed": [
+        {
+          "id": "R1Q3",
+          "reason": "The setter's answer is vague/uncertain wording; the well-known term for this period's final conflict is the 'War of Actium' or more broadly the 'Final War of the Roman Republic' - simplify to a clear accepted term.",
+          "before": {
+            "text": "What name was given to the period of civil unrest and violence following the assassination of Julius Caesar, ending with Octavian's victory at Actium?",
+            "answer": "The Final War of the Roman Republic (Liberators' Civil War/Augustan settlement period)"
+          },
+          "after": {
+            "text": "What name is commonly given to the final civil war of the Roman Republic, fought between Octavian and Mark Antony, ending with Octavian's victory at Actium?",
+            "answer": "The Final War of the Roman Republic (also known as the War of Actium)"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In which year is Rome traditionally said to have been founded?",
+          "answer": "753 BC"
+        },
+        {
+          "id": "R1Q2",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Who was the legendary first king of Rome?",
+          "answer": "Romulus"
+        },
+        {
+          "id": "R1Q3",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What name is commonly given to the final civil war of the Roman Republic, fought between Octavian and Mark Antony, ending with Octavian's victory at Actium?",
+          "answer": "The Final War of the Roman Republic (also known as the War of Actium)"
+        },
+        {
+          "id": "R1Q4",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor built a defensive wall across northern Britain, begun in AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q5",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the Roman Senate's main meeting building called?",
+          "answer": "The Curia"
+        },
+        {
+          "id": "R1Q6",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which battle in 9 AD saw three Roman legions annihilated by Germanic tribes under Arminius?",
+          "answer": "The Battle of the Teutoburg Forest"
+        },
+        {
+          "id": "R1Q7",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor, notorious for his cruelty and excess, allegedly 'fiddled while Rome burned' in AD 64?",
+          "answer": "Nero"
+        },
+        {
+          "id": "R1Q8",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What was the name of the Roman currency, a small silver coin, commonly used to pay soldiers' wages (giving us the word 'salary')?",
+          "answer": "Denarius",
+          "options": [
+            "Denarius",
+            "Sestertius",
+            "Aureus",
+            "As"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the code name for the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which battle, fought between August 1942 and February 1943, is often considered the turning point of the war on the Eastern Front?",
+          "answer": "The Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the German air campaign against Britain in 1940–41?",
+          "answer": "The Blitz"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 brought together Churchill, Roosevelt, and Stalin to plan the post-war order?",
+          "answer": "The Yalta Conference"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name given to the German strategy of fast, concentrated armoured attacks used early in the war?",
+          "answer": "Blitzkrieg"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which Japanese city was hit by the second atomic bomb, on 9 August 1945?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Who was the commander of the German Afrika Korps, nicknamed the 'Desert Fox'?",
+          "answer": "Erwin Rommel"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Global Conflict",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which treaty-defying event, on 1 September 1939, is generally considered the start of the war in Europe?",
+          "answer": "The German invasion of Poland",
+          "options": [
+            "The German invasion of Poland",
+            "The German invasion of France",
+            "The annexation of Austria",
+            "The invasion of Czechoslovakia"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who is credited with inventing the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor developed the alternating current (AC) electrical system, rivalling Edison?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the World Wide Web in 1989 while working at CERN?",
+          "answer": "Tim Berners-Lee"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English engineer is credited with developing the first practical steam locomotive, the Rocket?",
+          "answer": "George Stephenson"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the printing press with movable type in Europe around 1440?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which American inventor and businessman held over 1,000 patents, including for the phonograph and the practical incandescent light bulb?",
+          "answer": "Thomas Edison"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish inventor is credited with creating the first practical television system, demonstrated in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented dynamite in 1867, later using his fortune to establish a famous set of prizes?",
+          "answer": "Alfred Nobel"
+        }
+      ]
+    }
+  ]
+}

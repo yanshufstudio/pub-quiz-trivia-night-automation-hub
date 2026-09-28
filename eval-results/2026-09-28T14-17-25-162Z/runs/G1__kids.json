@@ -1,0 +1,764 @@
+{
+  "generator": "G1",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced",
+    "promptRules": "before-acc1"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1614,
+      "outputTokens": 545,
+      "thinkingTokens": 0,
+      "durationMs": 5468
+    },
+    "costUsd": 0.008678,
+    "ms": 5468
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the largest land animal in the world?",
+      "answer": "African elephant"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "8"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do you call a baby dog?",
+      "answer": "Puppy"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird is famous for its colourful tail feathers that it fans out?",
+      "answer": "Peacock"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which animal is known as the 'King of the Jungle'?",
+      "answer": "Lion"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a group of fish called?",
+      "answer": "A school"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these animals can fly?",
+      "answer": "Bat",
+      "options": [
+        "Ostrich",
+        "Bat",
+        "Penguin",
+        "Kangaroo"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the fastest land animal in the world?",
+      "answer": "Cheetah"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which sea creature has eight arms?",
+      "answer": "Octopus"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do bees make and store in their hives?",
+      "answer": "Honey"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.013593999999999998,
+      "ms": 7263,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1534,
+          "outputTokens": 562,
+          "thinkingTokens": 0,
+          "durationMs": 4759
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1503,
+          "outputTokens": 190,
+          "thinkingTokens": 0,
+          "durationMs": 2504
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Eight and 8 are the same answer, no ambiguity."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Question asks for a traditional nickname, not a habitat fact; answer Lion is correct as written."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "School and shoal are both accepted equivalent terms for a group of fish; setter's answer stands."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "African elephant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Puppy",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Peacock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": [
+            "wording: Lions do not actually live in jungles (they live in savannas/grasslands); this is just a traditional nickname, not a factual claim about habitat."
+          ]
+        },
+        "R1Q6": {
+          "answer": "A school (or shoal)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q7": {
+          "answer": "Bat",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Octopus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Honey",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest land animal in the world?",
+          "answer": "African elephant"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "8"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do you call a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is famous for its colourful tail feathers that it fans out?",
+          "answer": "Peacock"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of fish called?",
+          "answer": "A school"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these animals can fly?",
+          "answer": "Bat",
+          "options": [
+            "Ostrich",
+            "Bat",
+            "Penguin",
+            "Kangaroo"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal in the world?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do bees make and store in their hives?",
+          "answer": "Honey"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.029248,
+      "ms": 11154,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1359,
+          "outputTokens": 541,
+          "thinkingTokens": 0,
+          "durationMs": 6003
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1538,
+          "outputTokens": 342,
+          "thinkingTokens": 0,
+          "durationMs": 5151
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "The African bush elephant is a kind of African elephant, so both answers are the same."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "8 and eight are the same answer."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Puppy is the standard answer. Pup is just a variant of it."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "A peacock is the male peafowl, and the male is the one that fans its tail."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Both school and shoal are correct, so accept either.",
+          "answer": "A school (or shoal)"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Honey is the obvious answer. Beeswax is a stretch, since the question points to what the hive stores."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "African bush elephant",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Puppy",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q4": {
+          "answer": "Peacock (peafowl)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q5": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "School (or shoal)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q7": {
+          "answer": "Bat",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Octopus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Honey",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Both school and shoal are correct, so accept either.",
+          "before": {
+            "text": "What is a group of fish called?",
+            "answer": "A school"
+          },
+          "after": {
+            "text": "What is a group of fish called?",
+            "answer": "A school (or shoal)"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest land animal in the world?",
+          "answer": "African elephant"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "8"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do you call a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is famous for its colourful tail feathers that it fans out?",
+          "answer": "Peacock"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of fish called?",
+          "answer": "A school (or shoal)"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these animals can fly?",
+          "answer": "Bat",
+          "options": [
+            "Ostrich",
+            "Bat",
+            "Penguin",
+            "Kangaroo"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal in the world?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do bees make and store in their hives?",
+          "answer": "Honey"
+        }
+      ]
+    },
+    {
+      "checker": "C1s",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "single"
+      },
+      "costUsd": 0.007864,
+      "ms": 4360,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1847,
+          "outputTokens": 417,
+          "thinkingTokens": 0,
+          "durationMs": 4360
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "African elephant is correct as the largest land animal."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Spiders have 8 legs, correct."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Puppy is correct."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Peacock is correct."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Lion is the traditional answer to this well-known nickname question."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "A school (or shoal) of fish is correct."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Bat is correct; ostrich, penguin, and kangaroo cannot fly."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Cheetah is correct."
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "Octopus has eight arms, correct."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Bees make and store honey, correct."
+        }
+      ],
+      "blindAnswers": {},
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest land animal in the world?",
+          "answer": "African elephant"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "8"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do you call a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is famous for its colourful tail feathers that it fans out?",
+          "answer": "Peacock"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of fish called?",
+          "answer": "A school"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these animals can fly?",
+          "answer": "Bat",
+          "options": [
+            "Ostrich",
+            "Bat",
+            "Penguin",
+            "Kangaroo"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal in the world?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do bees make and store in their hives?",
+          "answer": "Honey"
+        }
+      ]
+    }
+  ]
+}

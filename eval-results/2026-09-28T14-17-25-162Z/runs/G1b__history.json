@@ -1,0 +1,1229 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1763,
+      "outputTokens": 1309,
+      "thinkingTokens": 0,
+      "durationMs": 14581
+    },
+    "costUsd": 0.016616,
+    "ms": 14581
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In what year traditionally is Rome said to have been founded?",
+      "answer": "753 BC"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman general crossed the Rubicon in 49 BC, sparking civil war?",
+      "answer": "Julius Caesar"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What was the name of the elite guard that protected Roman emperors?",
+      "answer": "Praetorian Guard"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor built a wall across northern Britain, completed around AD 128?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What term described the Roman system of alliances and roads used to control conquered territory, literally meaning 'Roman peace'?",
+      "answer": "Pax Romana"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general famously crossed the Alps with elephants to invade Italy?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In Roman numerals, what number does the letter 'M' represent?",
+      "answer": "1000",
+      "options": [
+        "100",
+        "500",
+        "1000",
+        "5000"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Roman Glory",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman historian and senator wrote the 'Annals', chronicling the reigns of early emperors?",
+      "answer": "Tacitus"
+    },
+    {
+      "id": "R2Q1",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "On what date did Germany invade Poland, marking the start of the war in Europe?",
+      "answer": "1 September 1939"
+    },
+    {
+      "id": "R2Q2",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the Allied invasion of Normandy in June 1944?",
+      "answer": "Operation Overlord"
+    },
+    {
+      "id": "R2Q3",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which Japanese city was the second to be struck by an atomic bomb, on 9 August 1945?",
+      "answer": "Nagasaki"
+    },
+    {
+      "id": "R2Q4",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Who was the British Prime Minister for most of the war years from 1940?",
+      "answer": "Winston Churchill"
+    },
+    {
+      "id": "R2Q5",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the German strategy of fast, coordinated armoured attacks, meaning 'lightning war'?",
+      "answer": "Blitzkrieg"
+    },
+    {
+      "id": "R2Q6",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which major battle, fought over the winter of 1942–43, marked a decisive turning point on the Eastern Front?",
+      "answer": "Battle of Stalingrad"
+    },
+    {
+      "id": "R2Q7",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which conference in February 1945 saw Roosevelt, Churchill and Stalin plan the post-war order?",
+      "answer": "Yalta Conference"
+    },
+    {
+      "id": "R2Q8",
+      "round": "World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for Germany's failed 1941 invasion of the Soviet Union?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Who is credited with inventing the telephone, patenting it in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American inventor developed the alternating current (AC) electrical system?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Who invented the World Wide Web while working at CERN in 1989?",
+      "answer": "Tim Berners-Lee"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish engineer is credited with inventing the television, giving early demonstrations in the 1920s?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "What was the surname of the two American brothers who achieved the first powered aeroplane flight in 1903?",
+      "answer": "Wright"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German engineer built the first practical automobile powered by an internal combustion engine, patented in 1886?",
+      "answer": "Karl Benz"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Who invented the printing press with movable type in Europe around 1440?",
+      "answer": "Johannes Gutenberg",
+      "options": [
+        "Johannes Gutenberg",
+        "William Caxton",
+        "Aldus Manutius",
+        "Christopher Plantin"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Minds That Made the Modern World",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish inventor and chemist, best known for inventing dynamite, established a famous set of prizes in his will?",
+      "answer": "Alfred Nobel"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.026596,
+      "ms": 14977,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2558,
+          "outputTokens": 1441,
+          "thinkingTokens": 0,
+          "durationMs": 11186
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1925,
+          "outputTokens": 322,
+          "thinkingTokens": 0,
+          "durationMs": 3791
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Pax Romana is the well-known, unambiguous answer despite loose wording in the question."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Checker's answer 'Hannibal (Hannibal Barca)' is the same as setter's answer, just with extra detail."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Operation Overlord is the standard, unambiguous codename for the Normandy invasion."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "Bell is the traditionally credited and patented inventor; the standard, unambiguous quiz answer."
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "Checker's answer 'Wright (Wright brothers)' matches setter's answer, just phrased differently."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "753 BC",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Julius Caesar",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Praetorian Guard",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Pax Romana",
+          "agreed": true,
+          "flags": [
+            "wording: The term 'Pax Romana' literally means 'Roman peace' and refers primarily to the long period of relative peace and stability, not specifically 'a system of alliances and roads used to control conquered territory' - that description is more fitting for Roman infrastructure/administration generally, but the term itself is well known and the answer is unambiguous."
+          ]
+        },
+        "R1Q6": {
+          "answer": "Hannibal (Hannibal Barca)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q7": {
+          "answer": "1000",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Tacitus",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "1 September 1939",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Operation Overlord",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q3": {
+          "answer": "Nagasaki",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Winston Churchill",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Blitzkrieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Battle of Stalingrad",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Yalta Conference",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: The invention of the telephone is disputed, with claims also made for Antonio Meucci and Elisha Gray, but Bell is the traditionally credited answer and holds the 1876 patent."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Tim Berners-Lee",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Wright (Wright brothers)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q6": {
+          "answer": "Karl Benz",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In what year traditionally is Rome said to have been founded?",
+          "answer": "753 BC"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman general crossed the Rubicon in 49 BC, sparking civil war?",
+          "answer": "Julius Caesar"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the name of the elite guard that protected Roman emperors?",
+          "answer": "Praetorian Guard"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor built a wall across northern Britain, completed around AD 128?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What term described the Roman system of alliances and roads used to control conquered territory, literally meaning 'Roman peace'?",
+          "answer": "Pax Romana"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general famously crossed the Alps with elephants to invade Italy?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In Roman numerals, what number does the letter 'M' represent?",
+          "answer": "1000",
+          "options": [
+            "100",
+            "500",
+            "1000",
+            "5000"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman historian and senator wrote the 'Annals', chronicling the reigns of early emperors?",
+          "answer": "Tacitus"
+        },
+        {
+          "id": "R2Q1",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "On what date did Germany invade Poland, marking the start of the war in Europe?",
+          "answer": "1 September 1939"
+        },
+        {
+          "id": "R2Q2",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q3",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which Japanese city was the second to be struck by an atomic bomb, on 9 August 1945?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q4",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Who was the British Prime Minister for most of the war years from 1940?",
+          "answer": "Winston Churchill"
+        },
+        {
+          "id": "R2Q5",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the German strategy of fast, coordinated armoured attacks, meaning 'lightning war'?",
+          "answer": "Blitzkrieg"
+        },
+        {
+          "id": "R2Q6",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which major battle, fought over the winter of 1942–43, marked a decisive turning point on the Eastern Front?",
+          "answer": "Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q7",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 saw Roosevelt, Churchill and Stalin plan the post-war order?",
+          "answer": "Yalta Conference"
+        },
+        {
+          "id": "R2Q8",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for Germany's failed 1941 invasion of the Soviet Union?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who is credited with inventing the telephone, patenting it in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor developed the alternating current (AC) electrical system?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the World Wide Web while working at CERN in 1989?",
+          "answer": "Tim Berners-Lee"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer is credited with inventing the television, giving early demonstrations in the 1920s?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "What was the surname of the two American brothers who achieved the first powered aeroplane flight in 1903?",
+          "answer": "Wright"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German engineer built the first practical automobile powered by an internal combustion engine, patented in 1886?",
+          "answer": "Karl Benz"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the printing press with movable type in Europe around 1440?",
+          "answer": "Johannes Gutenberg",
+          "options": [
+            "Johannes Gutenberg",
+            "William Caxton",
+            "Aldus Manutius",
+            "Christopher Plantin"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish inventor and chemist, best known for inventing dynamite, established a famous set of prizes in his will?",
+          "answer": "Alfred Nobel"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.051472000000000004,
+      "ms": 18391,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2383,
+          "outputTokens": 1579,
+          "thinkingTokens": 210,
+          "durationMs": 13767
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1355,
+          "outputTokens": 247,
+          "thinkingTokens": 0,
+          "durationMs": 4624
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Pax Romana was a period of peace, not a system of alliances and roads; the wording is corrected.",
+          "text": "What Latin term, literally meaning 'Roman peace', describes the long period of relative stability across the Roman Empire from roughly 27 BC to AD 180?",
+          "answer": "Pax Romana"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Overlord is the standard codename for the invasion. Neptune was the name for the assault phase within it, and the checker's answer agrees with Overlord."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "753 BC",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Julius Caesar",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Praetorian Guard",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Pax Romana",
+          "agreed": true,
+          "flags": [
+            "wording: 'Roman system of alliances and roads used to control conquered territory' is wrong: Pax Romana means the long period of relative peace and stability across the Roman Empire (roughly 27 BC to AD 180). It was not a system of alliances and roads."
+          ]
+        },
+        "R1Q6": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "1000",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Tacitus",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "1 September 1939",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Operation Overlord (landings: Neptune / D-Day)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q3": {
+          "answer": "Nagasaki",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Winston Churchill",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Blitzkrieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Battle of Stalingrad",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Yalta Conference",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Tim Berners-Lee",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Wright",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Karl Benz",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q5",
+          "reason": "Pax Romana was a period of peace, not a system of alliances and roads; the wording is corrected.",
+          "before": {
+            "text": "What term described the Roman system of alliances and roads used to control conquered territory, literally meaning 'Roman peace'?",
+            "answer": "Pax Romana"
+          },
+          "after": {
+            "text": "What Latin term, literally meaning 'Roman peace', describes the long period of relative stability across the Roman Empire from roughly 27 BC to AD 180?",
+            "answer": "Pax Romana"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In what year traditionally is Rome said to have been founded?",
+          "answer": "753 BC"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman general crossed the Rubicon in 49 BC, sparking civil war?",
+          "answer": "Julius Caesar"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the name of the elite guard that protected Roman emperors?",
+          "answer": "Praetorian Guard"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor built a wall across northern Britain, completed around AD 128?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What Latin term, literally meaning 'Roman peace', describes the long period of relative stability across the Roman Empire from roughly 27 BC to AD 180?",
+          "answer": "Pax Romana"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general famously crossed the Alps with elephants to invade Italy?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In Roman numerals, what number does the letter 'M' represent?",
+          "answer": "1000",
+          "options": [
+            "100",
+            "500",
+            "1000",
+            "5000"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Roman Glory",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman historian and senator wrote the 'Annals', chronicling the reigns of early emperors?",
+          "answer": "Tacitus"
+        },
+        {
+          "id": "R2Q1",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "On what date did Germany invade Poland, marking the start of the war in Europe?",
+          "answer": "1 September 1939"
+        },
+        {
+          "id": "R2Q2",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q3",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which Japanese city was the second to be struck by an atomic bomb, on 9 August 1945?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q4",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Who was the British Prime Minister for most of the war years from 1940?",
+          "answer": "Winston Churchill"
+        },
+        {
+          "id": "R2Q5",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the German strategy of fast, coordinated armoured attacks, meaning 'lightning war'?",
+          "answer": "Blitzkrieg"
+        },
+        {
+          "id": "R2Q6",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which major battle, fought over the winter of 1942–43, marked a decisive turning point on the Eastern Front?",
+          "answer": "Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q7",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 saw Roosevelt, Churchill and Stalin plan the post-war order?",
+          "answer": "Yalta Conference"
+        },
+        {
+          "id": "R2Q8",
+          "round": "World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for Germany's failed 1941 invasion of the Soviet Union?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who is credited with inventing the telephone, patenting it in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor developed the alternating current (AC) electrical system?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the World Wide Web while working at CERN in 1989?",
+          "answer": "Tim Berners-Lee"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer is credited with inventing the television, giving early demonstrations in the 1920s?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "What was the surname of the two American brothers who achieved the first powered aeroplane flight in 1903?",
+          "answer": "Wright"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German engineer built the first practical automobile powered by an internal combustion engine, patented in 1886?",
+          "answer": "Karl Benz"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Who invented the printing press with movable type in Europe around 1440?",
+          "answer": "Johannes Gutenberg",
+          "options": [
+            "Johannes Gutenberg",
+            "William Caxton",
+            "Aldus Manutius",
+            "Christopher Plantin"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Minds That Made the Modern World",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish inventor and chemist, best known for inventing dynamite, established a famous set of prizes in his will?",
+          "answer": "Alfred Nobel"
+        }
+      ]
+    }
+  ]
+}

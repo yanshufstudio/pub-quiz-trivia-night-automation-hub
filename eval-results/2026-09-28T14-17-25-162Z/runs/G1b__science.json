@@ -1,0 +1,1043 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "science",
+    "prompt": "2 rounds of 10 questions on science: space and astronomy, then the human body. General audience.",
+    "questions": 20
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1749,
+      "outputTokens": 914,
+      "thinkingTokens": 0,
+      "durationMs": 8245
+    },
+    "costUsd": 0.012638,
+    "ms": 8245
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the closest planet to the Sun?",
+      "answer": "Mercury"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What galaxy do we live in?",
+      "answer": "The Milky Way"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What force keeps planets in orbit around the Sun?",
+      "answer": "Gravity"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet is known for its prominent ring system visible from Earth with a small telescope?",
+      "answer": "Saturn"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What do we call a star that explodes at the end of its life?",
+      "answer": "Supernova"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which was the first man-made satellite to orbit Earth?",
+      "answer": "Sputnik 1"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many moons does Mars have?",
+      "answer": "Two",
+      "options": [
+        "One",
+        "Two",
+        "Four",
+        "None"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the boundary around a black hole beyond which light cannot escape?",
+      "answer": "Event horizon"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which astronomer proposed that the Earth and planets orbit the Sun, challenging the geocentric model?",
+      "answer": "Nicolaus Copernicus"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Space Odyssey",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the term for the point in a planet's orbit when it is closest to the Sun?",
+      "answer": "Perihelion"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the largest organ in the human body?",
+      "answer": "Skin"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "How many chambers does the human heart have?",
+      "answer": "Four"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the hardest substance in the human body?",
+      "answer": "Tooth enamel"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which organ produces insulin?",
+      "answer": "The pancreas"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the body's largest artery?",
+      "answer": "The aorta"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "How many bones are in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which part of the brain is responsible for balance and coordination?",
+      "answer": "The cerebellum"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What type of blood cells are primarily responsible for fighting infection?",
+      "answer": "White blood cells",
+      "options": [
+        "Red blood cells",
+        "White blood cells",
+        "Platelets",
+        "Plasma cells"
+      ]
+    },
+    {
+      "id": "R2Q9",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the longest bone in the human body?",
+      "answer": "The femur"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Body Basics",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which gland in the brain is often called the 'master gland' because it controls other hormone glands?",
+      "answer": "The pituitary gland"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.01894,
+      "ms": 10473,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2165,
+          "outputTokens": 1035,
+          "thinkingTokens": 0,
+          "durationMs": 8177
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1390,
+          "outputTokens": 148,
+          "thinkingTokens": 0,
+          "durationMs": 2296
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Skin is the standard, unambiguous answer for largest organ (by surface area/weight); no other organ defensibly qualifies."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Both answers agree (tooth enamel); correct and unambiguous."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Gravity",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Supernova",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Sputnik 1",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Two",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Event horizon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Nicolaus Copernicus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Perihelion",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Enamel (tooth enamel)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Aorta",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Cerebellum",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "White blood cells",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Femur",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Pituitary gland",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the closest planet to the Sun?",
+          "answer": "Mercury"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What galaxy do we live in?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What force keeps planets in orbit around the Sun?",
+          "answer": "Gravity"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet is known for its prominent ring system visible from Earth with a small telescope?",
+          "answer": "Saturn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What do we call a star that explodes at the end of its life?",
+          "answer": "Supernova"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which was the first man-made satellite to orbit Earth?",
+          "answer": "Sputnik 1"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many moons does Mars have?",
+          "answer": "Two",
+          "options": [
+            "One",
+            "Two",
+            "Four",
+            "None"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the boundary around a black hole beyond which light cannot escape?",
+          "answer": "Event horizon"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which astronomer proposed that the Earth and planets orbit the Sun, challenging the geocentric model?",
+          "answer": "Nicolaus Copernicus"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the term for the point in a planet's orbit when it is closest to the Sun?",
+          "answer": "Perihelion"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "Skin"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "How many chambers does the human heart have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the hardest substance in the human body?",
+          "answer": "Tooth enamel"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ produces insulin?",
+          "answer": "The pancreas"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the body's largest artery?",
+          "answer": "The aorta"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which part of the brain is responsible for balance and coordination?",
+          "answer": "The cerebellum"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What type of blood cells are primarily responsible for fighting infection?",
+          "answer": "White blood cells",
+          "options": [
+            "Red blood cells",
+            "White blood cells",
+            "Platelets",
+            "Plasma cells"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the longest bone in the human body?",
+          "answer": "The femur"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which gland in the brain is often called the 'master gland' because it controls other hormone glands?",
+          "answer": "The pituitary gland"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.041588,
+      "ms": 15396,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1990,
+          "outputTokens": 1205,
+          "thinkingTokens": 176,
+          "durationMs": 10955
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1167,
+          "outputTokens": 243,
+          "thinkingTokens": 69,
+          "durationMs": 4441
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "fix",
+          "reason": "Aristarchus of Samos proposed heliocentrism earlier, so the question needs to say which era it means",
+          "text": "Which 16th-century Polish astronomer proposed that the Earth and planets orbit the Sun, challenging the geocentric model?",
+          "answer": "Nicolaus Copernicus"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Gravity",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "A supernova",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Sputnik 1",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Two",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The event horizon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Nicolaus Copernicus",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q10": {
+          "answer": "Perihelion",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "The skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Tooth enamel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "The pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "The aorta",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The cerebellum",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "White blood cells",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "The femur",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "The pituitary gland",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q9",
+          "reason": "Aristarchus of Samos proposed heliocentrism earlier, so the question needs to say which era it means",
+          "before": {
+            "text": "Which astronomer proposed that the Earth and planets orbit the Sun, challenging the geocentric model?",
+            "answer": "Nicolaus Copernicus"
+          },
+          "after": {
+            "text": "Which 16th-century Polish astronomer proposed that the Earth and planets orbit the Sun, challenging the geocentric model?",
+            "answer": "Nicolaus Copernicus"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the closest planet to the Sun?",
+          "answer": "Mercury"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What galaxy do we live in?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What force keeps planets in orbit around the Sun?",
+          "answer": "Gravity"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet is known for its prominent ring system visible from Earth with a small telescope?",
+          "answer": "Saturn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What do we call a star that explodes at the end of its life?",
+          "answer": "Supernova"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which was the first man-made satellite to orbit Earth?",
+          "answer": "Sputnik 1"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many moons does Mars have?",
+          "answer": "Two",
+          "options": [
+            "One",
+            "Two",
+            "Four",
+            "None"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the boundary around a black hole beyond which light cannot escape?",
+          "answer": "Event horizon"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which 16th-century Polish astronomer proposed that the Earth and planets orbit the Sun, challenging the geocentric model?",
+          "answer": "Nicolaus Copernicus"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Space Odyssey",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the term for the point in a planet's orbit when it is closest to the Sun?",
+          "answer": "Perihelion"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "Skin"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "How many chambers does the human heart have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the hardest substance in the human body?",
+          "answer": "Tooth enamel"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ produces insulin?",
+          "answer": "The pancreas"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the body's largest artery?",
+          "answer": "The aorta"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which part of the brain is responsible for balance and coordination?",
+          "answer": "The cerebellum"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What type of blood cells are primarily responsible for fighting infection?",
+          "answer": "White blood cells",
+          "options": [
+            "Red blood cells",
+            "White blood cells",
+            "Platelets",
+            "Plasma cells"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the longest bone in the human body?",
+          "answer": "The femur"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Body Basics",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which gland in the brain is often called the 'master gland' because it controls other hormone glands?",
+          "answer": "The pituitary gland"
+        }
+      ]
+    }
+  ]
+}

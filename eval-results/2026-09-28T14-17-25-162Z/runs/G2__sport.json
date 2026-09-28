@@ -1,0 +1,916 @@
+{
+  "generator": "G2",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "adaptive",
+    "effort": "xhigh",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "sport",
+    "prompt": "2 rounds of 8 questions on sport: football World Cups, then the Olympic Games.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1749,
+      "outputTokens": 862,
+      "thinkingTokens": 0,
+      "durationMs": 8665
+    },
+    "costUsd": 0.012118,
+    "ms": 8666
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country won the first FIFA World Cup in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R1Q2",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which player scored a hat-trick in the 1966 World Cup Final?",
+      "answer": "Geoff Hurst"
+    },
+    {
+      "id": "R1Q3",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted the 2014 FIFA World Cup?",
+      "answer": "Brazil"
+    },
+    {
+      "id": "R1Q4",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which player won the Golden Boot at the 2018 World Cup?",
+      "answer": "Harry Kane"
+    },
+    {
+      "id": "R1Q5",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Brazil, Germany, Italy, Argentina, Uruguay and France have all won the World Cup. Which of these has won it the most times?",
+      "answer": "Brazil",
+      "options": [
+        "Brazil",
+        "Germany",
+        "Italy",
+        "Argentina"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country lost the 1950 World Cup Final match known as the 'Maracanazo', held on home soil?",
+      "answer": "Brazil"
+    },
+    {
+      "id": "R1Q7",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which goalkeeper captained Italy to victory at the 2006 World Cup?",
+      "answer": "Gianluigi Buffon"
+    },
+    {
+      "id": "R1Q8",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which African country reached the quarter-finals of the 2010 World Cup, the furthest any African nation had gone at that point?",
+      "answer": "Ghana"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "In which Greek city were the first modern Olympic Games held in 1896?",
+      "answer": "Athens"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which American swimmer has won the most Olympic gold medals of any athlete?",
+      "answer": "Michael Phelps"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which country hosted the 2016 Summer Olympics?",
+      "answer": "Brazil"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "How many rings are there on the Olympic flag?",
+      "answer": "Five"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which Jamaican sprinter won the 100m gold at three consecutive Olympic Games?",
+      "answer": "Usain Bolt"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "In which sport did Nadia Comaneci score the first perfect 10 at the 1976 Olympics?",
+      "answer": "Gymnastics",
+      "options": [
+        "Gymnastics",
+        "Diving",
+        "Figure skating",
+        "Swimming"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which city was scheduled to host, and did host, the 2020 Summer Olympics, despite the event taking place in 2021?",
+      "answer": "Tokyo"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which South Korean city hosted the 2018 Winter Olympics?",
+      "answer": "Pyeongchang"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.017258000000000003,
+      "ms": 10139,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2044,
+          "outputTokens": 840,
+          "thinkingTokens": 0,
+          "durationMs": 6387
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1405,
+          "outputTokens": 196,
+          "thinkingTokens": 0,
+          "durationMs": 3752
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "Fabio Cannavaro, not Buffon, captained Italy to victory at the 2006 World Cup; Buffon was the goalkeeper but not the captain.",
+          "text": "Which player captained Italy to victory at the 2006 World Cup?",
+          "answer": "Fabio Cannavaro"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Both answers are equivalent (Five = 5)."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Harry Kane",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Fabio Cannavaro",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q8": {
+          "answer": "Ghana",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "5",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Gymnastics",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Tokyo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Pyeongchang",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "Fabio Cannavaro, not Buffon, captained Italy to victory at the 2006 World Cup; Buffon was the goalkeeper but not the captain.",
+          "before": {
+            "text": "Which goalkeeper captained Italy to victory at the 2006 World Cup?",
+            "answer": "Gianluigi Buffon"
+          },
+          "after": {
+            "text": "Which player captained Italy to victory at the 2006 World Cup?",
+            "answer": "Fabio Cannavaro"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the first FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player scored a hat-trick in the 1966 World Cup Final?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the 2014 FIFA World Cup?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player won the Golden Boot at the 2018 World Cup?",
+          "answer": "Harry Kane"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Brazil, Germany, Italy, Argentina, Uruguay and France have all won the World Cup. Which of these has won it the most times?",
+          "answer": "Brazil",
+          "options": [
+            "Brazil",
+            "Germany",
+            "Italy",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country lost the 1950 World Cup Final match known as the 'Maracanazo', held on home soil?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player captained Italy to victory at the 2006 World Cup?",
+          "answer": "Fabio Cannavaro"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which African country reached the quarter-finals of the 2010 World Cup, the furthest any African nation had gone at that point?",
+          "answer": "Ghana"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which Greek city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which American swimmer has won the most Olympic gold medals of any athlete?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which country hosted the 2016 Summer Olympics?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which Jamaican sprinter won the 100m gold at three consecutive Olympic Games?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which sport did Nadia Comaneci score the first perfect 10 at the 1976 Olympics?",
+          "answer": "Gymnastics",
+          "options": [
+            "Gymnastics",
+            "Diving",
+            "Figure skating",
+            "Swimming"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city was scheduled to host, and did host, the 2020 Summer Olympics, despite the event taking place in 2021?",
+          "answer": "Tokyo"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which South Korean city hosted the 2018 Winter Olympics?",
+          "answer": "Pyeongchang"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.049408,
+      "ms": 15935,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1869,
+          "outputTokens": 1299,
+          "thinkingTokens": 206,
+          "durationMs": 11489
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1803,
+          "outputTokens": 437,
+          "thinkingTokens": 0,
+          "durationMs": 4446
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "The 1950 tournament had no final; the Maracanazo was the deciding match of the final round.",
+          "text": "Which host country lost the deciding match of the 1950 World Cup, known as the 'Maracanazo'?"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "Cannavaro was the captain in 2006, not Buffon. Reworded to ask about the goalkeeper.",
+          "text": "Who was Italy's goalkeeper when they won the 2006 World Cup?"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Cameroon (1990) and Senegal (2002) had already reached the quarter-finals, so Ghana only equalled the record.",
+          "text": "Which African country reached the quarter-finals of the 2010 World Cup, the only African team to get out of the group stage that year?"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer, Brazil, with the host city added."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer, gymnastics, with the event added."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Harry Kane",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": [
+            "wording: '1950 World Cup Final match': the 1950 tournament had no final. It ended with a four-team final round, and the Maracanazo (Uruguay 2–1 Brazil) was the deciding last match of that round, a de facto final. Better to call it 'the deciding match'."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Gianluigi Buffon",
+          "agreed": true,
+          "flags": [
+            "wording: 'Which goalkeeper captained Italy': Italy's captain in 2006 was Fabio Cannavaro, a defender, not a goalkeeper. Buffon was the goalkeeper but not the captain. The question needs rewording."
+          ]
+        },
+        "R1Q8": {
+          "answer": "Ghana",
+          "agreed": true,
+          "flags": [
+            "wording: 'the furthest any African nation had gone at that point': Cameroon (1990) and Senegal (2002) had already reached the quarter-finals, so Ghana only equalled the record and did not beat it."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Brazil (Rio de Janeiro)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Gymnastics (uneven bars)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q7": {
+          "answer": "Tokyo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Pyeongchang",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "The 1950 tournament had no final; the Maracanazo was the deciding match of the final round.",
+          "before": {
+            "text": "Which country lost the 1950 World Cup Final match known as the 'Maracanazo', held on home soil?",
+            "answer": "Brazil"
+          },
+          "after": {
+            "text": "Which host country lost the deciding match of the 1950 World Cup, known as the 'Maracanazo'?",
+            "answer": "Brazil"
+          }
+        },
+        {
+          "id": "R1Q7",
+          "reason": "Cannavaro was the captain in 2006, not Buffon. Reworded to ask about the goalkeeper.",
+          "before": {
+            "text": "Which goalkeeper captained Italy to victory at the 2006 World Cup?",
+            "answer": "Gianluigi Buffon"
+          },
+          "after": {
+            "text": "Who was Italy's goalkeeper when they won the 2006 World Cup?",
+            "answer": "Gianluigi Buffon"
+          }
+        },
+        {
+          "id": "R1Q8",
+          "reason": "Cameroon (1990) and Senegal (2002) had already reached the quarter-finals, so Ghana only equalled the record.",
+          "before": {
+            "text": "Which African country reached the quarter-finals of the 2010 World Cup, the furthest any African nation had gone at that point?",
+            "answer": "Ghana"
+          },
+          "after": {
+            "text": "Which African country reached the quarter-finals of the 2010 World Cup, the only African team to get out of the group stage that year?",
+            "answer": "Ghana"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the first FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player scored a hat-trick in the 1966 World Cup Final?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the 2014 FIFA World Cup?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player won the Golden Boot at the 2018 World Cup?",
+          "answer": "Harry Kane"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Brazil, Germany, Italy, Argentina, Uruguay and France have all won the World Cup. Which of these has won it the most times?",
+          "answer": "Brazil",
+          "options": [
+            "Brazil",
+            "Germany",
+            "Italy",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which host country lost the deciding match of the 1950 World Cup, known as the 'Maracanazo'?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Who was Italy's goalkeeper when they won the 2006 World Cup?",
+          "answer": "Gianluigi Buffon"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which African country reached the quarter-finals of the 2010 World Cup, the only African team to get out of the group stage that year?",
+          "answer": "Ghana"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which Greek city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which American swimmer has won the most Olympic gold medals of any athlete?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which country hosted the 2016 Summer Olympics?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which Jamaican sprinter won the 100m gold at three consecutive Olympic Games?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which sport did Nadia Comaneci score the first perfect 10 at the 1976 Olympics?",
+          "answer": "Gymnastics",
+          "options": [
+            "Gymnastics",
+            "Diving",
+            "Figure skating",
+            "Swimming"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city was scheduled to host, and did host, the 2020 Summer Olympics, despite the event taking place in 2021?",
+          "answer": "Tokyo"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which South Korean city hosted the 2018 Winter Olympics?",
+          "answer": "Pyeongchang"
+        }
+      ]
+    }
+  ]
+}

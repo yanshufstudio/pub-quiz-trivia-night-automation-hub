@@ -1,0 +1,348 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1736,
+      "outputTokens": 401,
+      "thinkingTokens": 0,
+      "durationMs": 5002
+    },
+    "costUsd": 0.007482,
+    "ms": 5002
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Spice Girl was known as 'Posh Spice'?",
+      "answer": "Victoria Beckham"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Canadian singer released the 1997 album 'Let's Talk About Love', featuring 'My Heart Will Go On'?",
+      "answer": "Celine Dion"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which boy band released the 1999 hit 'I Want It That Way'?",
+      "answer": "Backstreet Boys",
+      "options": [
+        "Backstreet Boys",
+        "NSYNC",
+        "Boyz II Men",
+        "Take That"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Whitney Houston's cover of which Dolly Parton song became a huge hit in 1992?",
+      "answer": "I Will Always Love You"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "What was the debut single by the Spice Girls, released in 1996?",
+      "answer": "Wannabe"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.009294,
+      "ms": 7037,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1419,
+          "outputTokens": 295,
+          "thinkingTokens": 0,
+          "durationMs": 5323
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1323,
+          "outputTokens": 86,
+          "thinkingTokens": 0,
+          "durationMs": 1714
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Both answers refer to the same person, Victoria Beckham; no ambiguity."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Victoria Beckham (née Adams)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Celine Dion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Backstreet Boys",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "I Will Always Love You",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Wannabe",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Spice Girl was known as 'Posh Spice'?",
+          "answer": "Victoria Beckham"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released the 1997 album 'Let's Talk About Love', featuring 'My Heart Will Go On'?",
+          "answer": "Celine Dion"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which boy band released the 1999 hit 'I Want It That Way'?",
+          "answer": "Backstreet Boys",
+          "options": [
+            "Backstreet Boys",
+            "NSYNC",
+            "Boyz II Men",
+            "Take That"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Whitney Houston's cover of which Dolly Parton song became a huge hit in 1992?",
+          "answer": "I Will Always Love You"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "What was the debut single by the Spice Girls, released in 1996?",
+          "answer": "Wannabe"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.018012,
+      "ms": 10227,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1244,
+          "outputTokens": 317,
+          "thinkingTokens": 0,
+          "durationMs": 4368
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1154,
+          "outputTokens": 104,
+          "thinkingTokens": 0,
+          "durationMs": 5859
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Same answer; Victoria Adams is her maiden name, now Victoria Beckham."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Victoria Beckham (Victoria Adams)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Celine Dion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Backstreet Boys",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "I Will Always Love You",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Wannabe",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Spice Girl was known as 'Posh Spice'?",
+          "answer": "Victoria Beckham"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released the 1997 album 'Let's Talk About Love', featuring 'My Heart Will Go On'?",
+          "answer": "Celine Dion"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which boy band released the 1999 hit 'I Want It That Way'?",
+          "answer": "Backstreet Boys",
+          "options": [
+            "Backstreet Boys",
+            "NSYNC",
+            "Boyz II Men",
+            "Take That"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Whitney Houston's cover of which Dolly Parton song became a huge hit in 1992?",
+          "answer": "I Will Always Love You"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "What was the debut single by the Spice Girls, released in 1996?",
+          "answer": "Wannabe"
+        }
+      ]
+    }
+  ]
+}

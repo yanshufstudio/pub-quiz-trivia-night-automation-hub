@@ -1,0 +1,3235 @@
+{
+  "generator": "G1",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced",
+    "promptRules": "before-acc1"
+  },
+  "brief": {
+    "id": "large",
+    "prompt": "5 rounds of 10 questions for adults in a pub, medium difficulty: 80s music, world geography, famous film quotes, science, general knowledge.",
+    "questions": 50
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1634,
+      "outputTokens": 2377,
+      "thinkingTokens": 0,
+      "durationMs": 24062
+    },
+    "costUsd": 0.027038,
+    "ms": 24063
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which British duo topped charts with 'Wake Me Up Before You Go-Go' in 1984?",
+      "answer": "Wham!"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Michael Jackson's 'Thriller' album was released in which year?",
+      "answer": "1982"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which female singer released the album 'Like a Virgin' in 1984?",
+      "answer": "Madonna"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "The band A-ha, famous for 'Take On Me', hails from which country?",
+      "answer": "Norway"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which iconic rock band released the album 'The Joshua Tree' in 1987?",
+      "answer": "U2"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Whitney Houston's debut self-titled album was released in which year?",
+      "answer": "1985",
+      "options": [
+        "1983",
+        "1985",
+        "1987",
+        "1989"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which artist is known for the 1984 hit 'When Doves Cry'?",
+      "answer": "Prince"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which British new wave band recorded 'Enjoy the Silence'?",
+      "answer": "Depeche Mode"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "What was the name of Duran Duran's 1982 hit that shares its name with a spy film-style theme?",
+      "answer": "Rio"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Like, Totally Radio",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which song by Cyndi Lauper became an anthem for female empowerment in 1983?",
+      "answer": "Girls Just Want to Have Fun"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in the world?",
+      "answer": "The Nile"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which country has the most natural lakes?",
+      "answer": "Canada"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Mount Kilimanjaro is located in which country?",
+      "answer": "Tanzania"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the smallest country in the world by area?",
+      "answer": "Vatican City"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which desert is the largest hot desert in the world?",
+      "answer": "The Sahara"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "The Strait of Gibraltar separates Spain from which country?",
+      "answer": "Morocco"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which is the only continent through which the Equator, the Tropic of Cancer, and the Tropic of Capricorn all pass?",
+      "answer": "Africa"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R2Q9",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which sea is the saltiest body of water on Earth?",
+      "answer": "The Dead Sea"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which mountain range separates Europe from Asia within Russia?",
+      "answer": "The Ural Mountains"
+    },
+    {
+      "id": "R3Q1",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "\"May the Force be with you\" originates from which 1977 film?",
+      "answer": "Star Wars"
+    },
+    {
+      "id": "R3Q2",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line \"I'm gonna make him an offer he can't refuse\"?",
+      "answer": "The Godfather"
+    },
+    {
+      "id": "R3Q3",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "\"Here's looking at you, kid\" is a famous line from which 1942 classic?",
+      "answer": "Casablanca"
+    },
+    {
+      "id": "R3Q4",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film includes the quote \"You can't handle the truth!\"?",
+      "answer": "A Few Good Men"
+    },
+    {
+      "id": "R3Q5",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "\"I'll be back\" is most associated with which action movie franchise?",
+      "answer": "The Terminator"
+    },
+    {
+      "id": "R3Q6",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film has the line \"Life is like a box of chocolates\"?",
+      "answer": "Forrest Gump"
+    },
+    {
+      "id": "R3Q7",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "\"Why so serious?\" is a chilling line spoken by which character?",
+      "answer": "The Joker"
+    },
+    {
+      "id": "R3Q8",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which 1975 film features the line \"You're gonna need a bigger boat\"?",
+      "answer": "Jaws"
+    },
+    {
+      "id": "R3Q9",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "\"There's no place like home\" is famously said in which classic film?",
+      "answer": "The Wizard of Oz"
+    },
+    {
+      "id": "R3Q10",
+      "round": "You Talkin' To Me?",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which movie features the quote \"Say hello to my little friend!\"?",
+      "answer": "Scarface"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "How many bones are in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What gas do plants primarily absorb from the atmosphere for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the powerhouse of the cell?",
+      "answer": "Mitochondria"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which scientist developed the theory of general relativity?",
+      "answer": "Albert Einstein"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the speed of light in a vacuum, approximately, in kilometres per second?",
+      "answer": "300,000 km/s",
+      "options": [
+        "150,000 km/s",
+        "300,000 km/s",
+        "450,000 km/s",
+        "600,000 km/s"
+      ]
+    },
+    {
+      "id": "R4Q8",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the most abundant gas in Earth's atmosphere?",
+      "answer": "Nitrogen"
+    },
+    {
+      "id": "R4Q9",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the pH value of pure water considered to be?",
+      "answer": "7"
+    },
+    {
+      "id": "R4Q10",
+      "round": "Lab Coats and Light Bulbs",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen"
+    },
+    {
+      "id": "R5Q1",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the currency used in Japan?",
+      "answer": "Yen"
+    },
+    {
+      "id": "R5Q2",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who painted the Mona Lisa?",
+      "answer": "Leonardo da Vinci"
+    },
+    {
+      "id": "R5Q3",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many strings does a standard guitar have?",
+      "answer": "6"
+    },
+    {
+      "id": "R5Q4",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R5Q5",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which sport would you perform a slam dunk?",
+      "answer": "Basketball"
+    },
+    {
+      "id": "R5Q6",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the name of the fictional wizarding school in Harry Potter?",
+      "answer": "Hogwarts"
+    },
+    {
+      "id": "R5Q7",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which planet has the most moons in our solar system?",
+      "answer": "Saturn",
+      "options": [
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune"
+      ]
+    },
+    {
+      "id": "R5Q8",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the largest organ in the human body?",
+      "answer": "Skin"
+    },
+    {
+      "id": "R5Q9",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which country invented the sport of golf?",
+      "answer": "Scotland"
+    },
+    {
+      "id": "R5Q10",
+      "round": "The Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What year did the Berlin Wall fall?",
+      "answer": "1989"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.044132,
+      "ms": 24718,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 3826,
+          "outputTokens": 2817,
+          "thinkingTokens": 0,
+          "durationMs": 20564
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2170,
+          "outputTokens": 397,
+          "thinkingTokens": 0,
+          "durationMs": 4154
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "fix",
+          "reason": "Question wording about 'spy film-style theme' is inaccurate/misleading for Rio; better to ask straightforwardly about the 1982 hit.",
+          "text": "What was the name of Duran Duran's hit single from their 1982 album of the same name?",
+          "answer": "Rio"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "The Nile is the conventionally accepted correct answer at pub quiz level, despite academic debate."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Checker answer is the same as setter's, just phrased differently ('Sahara' vs 'The Sahara')."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "Checker answer matches setter's, just more detailed."
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "Checker answer matches setter's, just more detailed."
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "ok",
+          "reason": "Saturn is currently confirmed to have the most moons, matching setter's answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Wham!",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "1982",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Norway",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "U2",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "1985",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Prince",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Depeche Mode",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "'The Reflex' or possibly 'Wild Boys' - but the described 'spy film-style theme' most likely refers to 'A View to a Kill' (1985), which is a Bond theme, not from 1982.",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The question is ambiguous/possibly incorrect: Duran Duran's most famous 'spy film-style theme' is 'A View to a Kill' (1985 Bond theme), not a 1982 song. Their 1982 hits include 'Hungry Like the Wolf' and 'Rio', neither of which is a spy-film theme."
+          ]
+        },
+        "R1Q10": {
+          "answer": "Girls Just Want to Have Fun",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Nile (or Amazon, depending on measurement method)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: There is ongoing scientific debate between the Nile and Amazon as the longest river; commonly the Nile is cited as longest, but some studies argue the Amazon is longer."
+          ]
+        },
+        "R2Q2": {
+          "answer": "Canada",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Vatican City",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Sahara Desert",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "Morocco",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Africa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Dead Sea",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Ural Mountains",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Star Wars (Episode IV: A New Hope)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q2": {
+          "answer": "The Godfather",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Casablanca",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "A Few Good Men",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "The Terminator",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Forrest Gump",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "The Joker (in The Dark Knight)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q8": {
+          "answer": "Jaws",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "The Wizard of Oz",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Scarface",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Mitochondria",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Albert Einstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "300,000 km/s",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Nitrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "7",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q1": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q2": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q3": {
+          "answer": "6",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q4": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q5": {
+          "answer": "Basketball",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q6": {
+          "answer": "Hogwarts",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q7": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: As of recent counts (2023), Saturn has the most confirmed moons (146+), surpassing Jupiter; this ranking has changed over time and could vary depending on when the quiz was written, so 'Jupiter' might have been the expected older answer."
+          ]
+        },
+        "R5Q8": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q9": {
+          "answer": "Scotland",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q10": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q9",
+          "reason": "Question wording about 'spy film-style theme' is inaccurate/misleading for Rio; better to ask straightforwardly about the 1982 hit.",
+          "before": {
+            "text": "What was the name of Duran Duran's 1982 hit that shares its name with a spy film-style theme?",
+            "answer": "Rio"
+          },
+          "after": {
+            "text": "What was the name of Duran Duran's hit single from their 1982 album of the same name?",
+            "answer": "Rio"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British duo topped charts with 'Wake Me Up Before You Go-Go' in 1984?",
+          "answer": "Wham!"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Michael Jackson's 'Thriller' album was released in which year?",
+          "answer": "1982"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which female singer released the album 'Like a Virgin' in 1984?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "The band A-ha, famous for 'Take On Me', hails from which country?",
+          "answer": "Norway"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which iconic rock band released the album 'The Joshua Tree' in 1987?",
+          "answer": "U2"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Whitney Houston's debut self-titled album was released in which year?",
+          "answer": "1985",
+          "options": [
+            "1983",
+            "1985",
+            "1987",
+            "1989"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which artist is known for the 1984 hit 'When Doves Cry'?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British new wave band recorded 'Enjoy the Silence'?",
+          "answer": "Depeche Mode"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "What was the name of Duran Duran's hit single from their 1982 album of the same name?",
+          "answer": "Rio"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which song by Cyndi Lauper became an anthem for female empowerment in 1983?",
+          "answer": "Girls Just Want to Have Fun"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in the world?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which country has the most natural lakes?",
+          "answer": "Canada"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is located in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the smallest country in the world by area?",
+          "answer": "Vatican City"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which desert is the largest hot desert in the world?",
+          "answer": "The Sahara"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The Strait of Gibraltar separates Spain from which country?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which is the only continent through which the Equator, the Tropic of Cancer, and the Tropic of Capricorn all pass?",
+          "answer": "Africa"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which sea is the saltiest body of water on Earth?",
+          "answer": "The Dead Sea"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range separates Europe from Asia within Russia?",
+          "answer": "The Ural Mountains"
+        },
+        {
+          "id": "R3Q1",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"May the Force be with you\" originates from which 1977 film?",
+          "answer": "Star Wars"
+        },
+        {
+          "id": "R3Q2",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line \"I'm gonna make him an offer he can't refuse\"?",
+          "answer": "The Godfather"
+        },
+        {
+          "id": "R3Q3",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"Here's looking at you, kid\" is a famous line from which 1942 classic?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R3Q4",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film includes the quote \"You can't handle the truth!\"?",
+          "answer": "A Few Good Men"
+        },
+        {
+          "id": "R3Q5",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"I'll be back\" is most associated with which action movie franchise?",
+          "answer": "The Terminator"
+        },
+        {
+          "id": "R3Q6",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film has the line \"Life is like a box of chocolates\"?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R3Q7",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"Why so serious?\" is a chilling line spoken by which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R3Q8",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which 1975 film features the line \"You're gonna need a bigger boat\"?",
+          "answer": "Jaws"
+        },
+        {
+          "id": "R3Q9",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"There's no place like home\" is famously said in which classic film?",
+          "answer": "The Wizard of Oz"
+        },
+        {
+          "id": "R3Q10",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which movie features the quote \"Say hello to my little friend!\"?",
+          "answer": "Scarface"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do plants primarily absorb from the atmosphere for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the powerhouse of the cell?",
+          "answer": "Mitochondria"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which scientist developed the theory of general relativity?",
+          "answer": "Albert Einstein"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the speed of light in a vacuum, approximately, in kilometres per second?",
+          "answer": "300,000 km/s",
+          "options": [
+            "150,000 km/s",
+            "300,000 km/s",
+            "450,000 km/s",
+            "600,000 km/s"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the most abundant gas in Earth's atmosphere?",
+          "answer": "Nitrogen"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the pH value of pure water considered to be?",
+          "answer": "7"
+        },
+        {
+          "id": "R4Q10",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R5Q1",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the currency used in Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R5Q2",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who painted the Mona Lisa?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R5Q3",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many strings does a standard guitar have?",
+          "answer": "6"
+        },
+        {
+          "id": "R5Q4",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R5Q5",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which sport would you perform a slam dunk?",
+          "answer": "Basketball"
+        },
+        {
+          "id": "R5Q6",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name of the fictional wizarding school in Harry Potter?",
+          "answer": "Hogwarts"
+        },
+        {
+          "id": "R5Q7",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet has the most moons in our solar system?",
+          "answer": "Saturn",
+          "options": [
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune"
+          ]
+        },
+        {
+          "id": "R5Q8",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "Skin"
+        },
+        {
+          "id": "R5Q9",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which country invented the sport of golf?",
+          "answer": "Scotland"
+        },
+        {
+          "id": "R5Q10",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What year did the Berlin Wall fall?",
+          "answer": "1989"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.11102000000000001,
+      "ms": 40589,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 3651,
+          "outputTokens": 3805,
+          "thinkingTokens": 960,
+          "durationMs": 34136
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2039,
+          "outputTokens": 608,
+          "thinkingTokens": 0,
+          "durationMs": 6452
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Correct answer. The single was released in 1990 but recorded in 1989, and the question only asks who recorded it."
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "fix",
+          "reason": "No 1982 Duran Duran hit is a spy theme. Reframed the question around their Bond theme.",
+          "text": "Which 1985 James Bond theme did Duran Duran record?",
+          "answer": "A View to a Kill"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "fix",
+          "reason": "Some measurements make the Amazon longer than the Nile, so the question now allows both.",
+          "text": "Which African river is traditionally considered the longest in the world?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "fix",
+          "reason": "The Dead Sea is not the saltiest body of water on Earth (Don Juan Pond is saltier). Reworded to ask for the Jordan-Israel border location.",
+          "text": "Which famously salty body of water lies on the border between Jordan and Israel and the West Bank?",
+          "answer": "The Dead Sea"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "fix",
+          "reason": "Corrected the misquote to the line as spoken in the film.",
+          "text": "Which film has the line \"My mama always said life was like a box of chocolates\"?"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "The independent answer is the same one put another way."
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "Same answer, written as a word instead of a number."
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "Scotland is the standard answer for where modern golf began."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Wham!",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "1982",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Norway",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "U2",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "1985",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Prince",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Depeche Mode",
+          "agreed": true,
+          "flags": [
+            "wording: Not a false claim, but 'Enjoy the Silence' came out in 1990, so it doesn't really fit an 80s round."
+          ]
+        },
+        "R1Q9": {
+          "answer": "A View to a Kill",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: '1982 hit': Duran Duran's spy-film song is 'A View to a Kill', an actual James Bond theme from 1985. Their 1982 hits (Hungry Like the Wolf, Rio, Save a Prayer) have nothing to do with spy films."
+          ]
+        },
+        "R1Q10": {
+          "answer": "Girls Just Want to Have Fun",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Nile",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Canada",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Vatican City",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Sahara",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Morocco",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Africa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Dead Sea",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: 'saltiest body of water on Earth': the Dead Sea is not the saltiest. Don Juan Pond in Antarctica and Gaet'ale Pond in Ethiopia are saltier. Also, the Dead Sea is really a lake."
+          ]
+        },
+        "R2Q10": {
+          "answer": "Ural Mountains",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Star Wars",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "The Godfather",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Casablanca",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "A Few Good Men",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "The Terminator",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Forrest Gump",
+          "agreed": true,
+          "flags": [
+            "wording: Misquote: the line in the film is 'My mama always said life was like a box of chocolates', not 'is like'."
+          ]
+        },
+        "R3Q7": {
+          "answer": "The Joker (The Dark Knight)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q8": {
+          "answer": "Jaws",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "The Wizard of Oz",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Scarface",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Mitochondria",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Albert Einstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "300,000 km/s",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Nitrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "7",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q1": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q2": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q3": {
+          "answer": "Six",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q4": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q5": {
+          "answer": "Basketball",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q6": {
+          "answer": "Hogwarts",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q7": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q8": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q9": {
+          "answer": "Scotland",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R5Q10": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q9",
+          "reason": "No 1982 Duran Duran hit is a spy theme. Reframed the question around their Bond theme.",
+          "before": {
+            "text": "What was the name of Duran Duran's 1982 hit that shares its name with a spy film-style theme?",
+            "answer": "Rio"
+          },
+          "after": {
+            "text": "Which 1985 James Bond theme did Duran Duran record?",
+            "answer": "A View to a Kill"
+          }
+        },
+        {
+          "id": "R2Q1",
+          "reason": "Some measurements make the Amazon longer than the Nile, so the question now allows both.",
+          "before": {
+            "text": "What is the longest river in the world?",
+            "answer": "The Nile"
+          },
+          "after": {
+            "text": "Which African river is traditionally considered the longest in the world?",
+            "answer": "The Nile"
+          }
+        },
+        {
+          "id": "R2Q9",
+          "reason": "The Dead Sea is not the saltiest body of water on Earth (Don Juan Pond is saltier). Reworded to ask for the Jordan-Israel border location.",
+          "before": {
+            "text": "Which sea is the saltiest body of water on Earth?",
+            "answer": "The Dead Sea"
+          },
+          "after": {
+            "text": "Which famously salty body of water lies on the border between Jordan and Israel and the West Bank?",
+            "answer": "The Dead Sea"
+          }
+        },
+        {
+          "id": "R3Q6",
+          "reason": "Corrected the misquote to the line as spoken in the film.",
+          "before": {
+            "text": "Which film has the line \"Life is like a box of chocolates\"?",
+            "answer": "Forrest Gump"
+          },
+          "after": {
+            "text": "Which film has the line \"My mama always said life was like a box of chocolates\"?",
+            "answer": "Forrest Gump"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British duo topped charts with 'Wake Me Up Before You Go-Go' in 1984?",
+          "answer": "Wham!"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Michael Jackson's 'Thriller' album was released in which year?",
+          "answer": "1982"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which female singer released the album 'Like a Virgin' in 1984?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "The band A-ha, famous for 'Take On Me', hails from which country?",
+          "answer": "Norway"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which iconic rock band released the album 'The Joshua Tree' in 1987?",
+          "answer": "U2"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Whitney Houston's debut self-titled album was released in which year?",
+          "answer": "1985",
+          "options": [
+            "1983",
+            "1985",
+            "1987",
+            "1989"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which artist is known for the 1984 hit 'When Doves Cry'?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British new wave band recorded 'Enjoy the Silence'?",
+          "answer": "Depeche Mode"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which 1985 James Bond theme did Duran Duran record?",
+          "answer": "A View to a Kill"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which song by Cyndi Lauper became an anthem for female empowerment in 1983?",
+          "answer": "Girls Just Want to Have Fun"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which African river is traditionally considered the longest in the world?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which country has the most natural lakes?",
+          "answer": "Canada"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is located in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the smallest country in the world by area?",
+          "answer": "Vatican City"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which desert is the largest hot desert in the world?",
+          "answer": "The Sahara"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The Strait of Gibraltar separates Spain from which country?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which is the only continent through which the Equator, the Tropic of Cancer, and the Tropic of Capricorn all pass?",
+          "answer": "Africa"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which famously salty body of water lies on the border between Jordan and Israel and the West Bank?",
+          "answer": "The Dead Sea"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range separates Europe from Asia within Russia?",
+          "answer": "The Ural Mountains"
+        },
+        {
+          "id": "R3Q1",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"May the Force be with you\" originates from which 1977 film?",
+          "answer": "Star Wars"
+        },
+        {
+          "id": "R3Q2",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line \"I'm gonna make him an offer he can't refuse\"?",
+          "answer": "The Godfather"
+        },
+        {
+          "id": "R3Q3",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"Here's looking at you, kid\" is a famous line from which 1942 classic?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R3Q4",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film includes the quote \"You can't handle the truth!\"?",
+          "answer": "A Few Good Men"
+        },
+        {
+          "id": "R3Q5",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"I'll be back\" is most associated with which action movie franchise?",
+          "answer": "The Terminator"
+        },
+        {
+          "id": "R3Q6",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film has the line \"My mama always said life was like a box of chocolates\"?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R3Q7",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"Why so serious?\" is a chilling line spoken by which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R3Q8",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which 1975 film features the line \"You're gonna need a bigger boat\"?",
+          "answer": "Jaws"
+        },
+        {
+          "id": "R3Q9",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"There's no place like home\" is famously said in which classic film?",
+          "answer": "The Wizard of Oz"
+        },
+        {
+          "id": "R3Q10",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which movie features the quote \"Say hello to my little friend!\"?",
+          "answer": "Scarface"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do plants primarily absorb from the atmosphere for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the powerhouse of the cell?",
+          "answer": "Mitochondria"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which scientist developed the theory of general relativity?",
+          "answer": "Albert Einstein"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the speed of light in a vacuum, approximately, in kilometres per second?",
+          "answer": "300,000 km/s",
+          "options": [
+            "150,000 km/s",
+            "300,000 km/s",
+            "450,000 km/s",
+            "600,000 km/s"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the most abundant gas in Earth's atmosphere?",
+          "answer": "Nitrogen"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the pH value of pure water considered to be?",
+          "answer": "7"
+        },
+        {
+          "id": "R4Q10",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R5Q1",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the currency used in Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R5Q2",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who painted the Mona Lisa?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R5Q3",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many strings does a standard guitar have?",
+          "answer": "6"
+        },
+        {
+          "id": "R5Q4",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R5Q5",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which sport would you perform a slam dunk?",
+          "answer": "Basketball"
+        },
+        {
+          "id": "R5Q6",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name of the fictional wizarding school in Harry Potter?",
+          "answer": "Hogwarts"
+        },
+        {
+          "id": "R5Q7",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet has the most moons in our solar system?",
+          "answer": "Saturn",
+          "options": [
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune"
+          ]
+        },
+        {
+          "id": "R5Q8",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "Skin"
+        },
+        {
+          "id": "R5Q9",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which country invented the sport of golf?",
+          "answer": "Scotland"
+        },
+        {
+          "id": "R5Q10",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What year did the Berlin Wall fall?",
+          "answer": "1989"
+        }
+      ]
+    },
+    {
+      "checker": "C1s",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "single"
+      },
+      "costUsd": 0.034288,
+      "ms": 18088,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 4664,
+          "outputTokens": 2496,
+          "thinkingTokens": 0,
+          "durationMs": 18088
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Correct - Wham! topped charts with this 1984 hit."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "fix",
+          "reason": "Thriller was released in 1982... wait, actually Thriller was released November 30, 1982. Setter answer is correct.",
+          "text": "Michael Jackson's 'Thriller' album was released in which year?",
+          "answer": "1982"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Correct - Madonna released Like a Virgin in 1984."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Correct - a-ha is from Norway."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Correct - U2's The Joshua Tree was released in 1987."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Whitney Houston's debut self-titled album was released in 1985, correct as is.",
+          "options": [
+            "1983",
+            "1985",
+            "1987",
+            "1989"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Correct - Prince, 'When Doves Cry' 1984."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Correct - Depeche Mode, British new wave band."
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "Correct - Duran Duran's 'Rio' 1982."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Correct - Cyndi Lauper's 'Girls Just Want to Have Fun' 1983."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "fix",
+          "reason": "The longest river is disputed between the Nile and the Amazon, with many recent measurements favoring the Amazon as longer; this is ambiguous and should be dropped for safety, but traditionally Nile is the standard quiz answer.",
+          "text": "What is the longest river in the world?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Correct - Canada has the most natural lakes."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Correct - Kilimanjaro is in Tanzania."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Correct - Vatican City is the smallest country by area."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "fix",
+          "reason": "The Sahara is the largest hot desert, but Antarctica is the largest desert overall; question specifies 'hot desert' so this is correct.",
+          "text": "Which desert is the largest hot desert in the world?",
+          "answer": "The Sahara"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "Correct - Strait of Gibraltar separates Spain from Morocco."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "Correct - Africa is the only continent crossed by all three lines."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Correct - Canberra is the capital of Australia."
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "fix",
+          "reason": "The Dead Sea is commonly cited as saltiest, but some hypersaline lakes (like Don Juan Pond) are saltier; among seas, Dead Sea is the standard quiz answer.",
+          "text": "Which sea is the saltiest body of water on Earth?",
+          "answer": "The Dead Sea"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "Correct - Ural Mountains separate Europe from Asia in Russia."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "Correct - Star Wars (1977)."
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "Correct - The Godfather."
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "Correct - Casablanca (1942)."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "Correct - A Few Good Men."
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "Correct - The Terminator franchise."
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "Correct - Forrest Gump."
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "Correct - The Joker (from The Dark Knight)."
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "Correct - Jaws (1975)."
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "Correct - The Wizard of Oz."
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "Correct - Scarface."
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "Correct - Au is gold's chemical symbol."
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "Correct - 206 bones in adult human body."
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "Correct - Mars is the Red Planet."
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "Correct - Carbon dioxide is absorbed for photosynthesis."
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "Correct - Mitochondria is the powerhouse of the cell."
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "Correct - Albert Einstein developed general relativity."
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "Correct - speed of light is approximately 300,000 km/s."
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "Correct - Nitrogen is most abundant gas in Earth's atmosphere."
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "Correct - pH of pure water is 7."
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "Correct - Hydrogen has atomic number 1."
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "Correct - Yen is Japan's currency."
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "Correct - Leonardo da Vinci painted the Mona Lisa."
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "Correct - standard guitar has 6 strings."
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "Correct - Giraffe is the tallest animal."
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "Correct - slam dunk is in basketball."
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "Correct - Hogwarts is the wizarding school in Harry Potter."
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "fix",
+          "reason": "As of recent discoveries, Saturn has surpassed Jupiter in confirmed moon count (146 vs 95), making Saturn correct.",
+          "options": [
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune"
+          ]
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "Correct - Skin is the largest organ."
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "Correct - Scotland invented golf."
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "Correct - Berlin Wall fell in 1989."
+        }
+      ],
+      "blindAnswers": {},
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Whitney Houston's debut self-titled album was released in 1985, correct as is.",
+          "before": {
+            "text": "Whitney Houston's debut self-titled album was released in which year?",
+            "answer": "1985"
+          },
+          "after": {
+            "text": "Whitney Houston's debut self-titled album was released in which year?",
+            "answer": "1985"
+          }
+        },
+        {
+          "id": "R5Q7",
+          "reason": "As of recent discoveries, Saturn has surpassed Jupiter in confirmed moon count (146 vs 95), making Saturn correct.",
+          "before": {
+            "text": "Which planet has the most moons in our solar system?",
+            "answer": "Saturn"
+          },
+          "after": {
+            "text": "Which planet has the most moons in our solar system?",
+            "answer": "Saturn"
+          }
+        }
+      ],
+      "dropped": [
+        {
+          "id": "R1Q2",
+          "reason": "Thriller was released in 1982... wait, actually Thriller was released November 30, 1982. Setter answer is correct. (fix gave no correction)",
+          "before": {
+            "text": "Michael Jackson's 'Thriller' album was released in which year?",
+            "answer": "1982"
+          }
+        },
+        {
+          "id": "R2Q1",
+          "reason": "The longest river is disputed between the Nile and the Amazon, with many recent measurements favoring the Amazon as longer; this is ambiguous and should be dropped for safety, but traditionally Nile is the standard quiz answer. (fix gave no correction)",
+          "before": {
+            "text": "What is the longest river in the world?",
+            "answer": "The Nile"
+          }
+        },
+        {
+          "id": "R2Q5",
+          "reason": "The Sahara is the largest hot desert, but Antarctica is the largest desert overall; question specifies 'hot desert' so this is correct. (fix gave no correction)",
+          "before": {
+            "text": "Which desert is the largest hot desert in the world?",
+            "answer": "The Sahara"
+          }
+        },
+        {
+          "id": "R2Q9",
+          "reason": "The Dead Sea is commonly cited as saltiest, but some hypersaline lakes (like Don Juan Pond) are saltier; among seas, Dead Sea is the standard quiz answer. (fix gave no correction)",
+          "before": {
+            "text": "Which sea is the saltiest body of water on Earth?",
+            "answer": "The Dead Sea"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British duo topped charts with 'Wake Me Up Before You Go-Go' in 1984?",
+          "answer": "Wham!"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which female singer released the album 'Like a Virgin' in 1984?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "The band A-ha, famous for 'Take On Me', hails from which country?",
+          "answer": "Norway"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which iconic rock band released the album 'The Joshua Tree' in 1987?",
+          "answer": "U2"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Whitney Houston's debut self-titled album was released in which year?",
+          "answer": "1985",
+          "options": [
+            "1983",
+            "1985",
+            "1987",
+            "1989"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which artist is known for the 1984 hit 'When Doves Cry'?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British new wave band recorded 'Enjoy the Silence'?",
+          "answer": "Depeche Mode"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "What was the name of Duran Duran's 1982 hit that shares its name with a spy film-style theme?",
+          "answer": "Rio"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Like, Totally Radio",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which song by Cyndi Lauper became an anthem for female empowerment in 1983?",
+          "answer": "Girls Just Want to Have Fun"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which country has the most natural lakes?",
+          "answer": "Canada"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is located in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the smallest country in the world by area?",
+          "answer": "Vatican City"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The Strait of Gibraltar separates Spain from which country?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which is the only continent through which the Equator, the Tropic of Cancer, and the Tropic of Capricorn all pass?",
+          "answer": "Africa"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range separates Europe from Asia within Russia?",
+          "answer": "The Ural Mountains"
+        },
+        {
+          "id": "R3Q1",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"May the Force be with you\" originates from which 1977 film?",
+          "answer": "Star Wars"
+        },
+        {
+          "id": "R3Q2",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line \"I'm gonna make him an offer he can't refuse\"?",
+          "answer": "The Godfather"
+        },
+        {
+          "id": "R3Q3",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"Here's looking at you, kid\" is a famous line from which 1942 classic?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R3Q4",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film includes the quote \"You can't handle the truth!\"?",
+          "answer": "A Few Good Men"
+        },
+        {
+          "id": "R3Q5",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"I'll be back\" is most associated with which action movie franchise?",
+          "answer": "The Terminator"
+        },
+        {
+          "id": "R3Q6",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film has the line \"Life is like a box of chocolates\"?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R3Q7",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"Why so serious?\" is a chilling line spoken by which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R3Q8",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which 1975 film features the line \"You're gonna need a bigger boat\"?",
+          "answer": "Jaws"
+        },
+        {
+          "id": "R3Q9",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "\"There's no place like home\" is famously said in which classic film?",
+          "answer": "The Wizard of Oz"
+        },
+        {
+          "id": "R3Q10",
+          "round": "You Talkin' To Me?",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which movie features the quote \"Say hello to my little friend!\"?",
+          "answer": "Scarface"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do plants primarily absorb from the atmosphere for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the powerhouse of the cell?",
+          "answer": "Mitochondria"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which scientist developed the theory of general relativity?",
+          "answer": "Albert Einstein"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the speed of light in a vacuum, approximately, in kilometres per second?",
+          "answer": "300,000 km/s",
+          "options": [
+            "150,000 km/s",
+            "300,000 km/s",
+            "450,000 km/s",
+            "600,000 km/s"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the most abundant gas in Earth's atmosphere?",
+          "answer": "Nitrogen"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the pH value of pure water considered to be?",
+          "answer": "7"
+        },
+        {
+          "id": "R4Q10",
+          "round": "Lab Coats and Light Bulbs",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R5Q1",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the currency used in Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R5Q2",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who painted the Mona Lisa?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R5Q3",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many strings does a standard guitar have?",
+          "answer": "6"
+        },
+        {
+          "id": "R5Q4",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R5Q5",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which sport would you perform a slam dunk?",
+          "answer": "Basketball"
+        },
+        {
+          "id": "R5Q6",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name of the fictional wizarding school in Harry Potter?",
+          "answer": "Hogwarts"
+        },
+        {
+          "id": "R5Q7",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet has the most moons in our solar system?",
+          "answer": "Saturn",
+          "options": [
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune"
+          ]
+        },
+        {
+          "id": "R5Q8",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the largest organ in the human body?",
+          "answer": "Skin"
+        },
+        {
+          "id": "R5Q9",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which country invented the sport of golf?",
+          "answer": "Scotland"
+        },
+        {
+          "id": "R5Q10",
+          "round": "The Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What year did the Berlin Wall fall?",
+          "answer": "1989"
+        }
+      ]
+    }
+  ]
+}

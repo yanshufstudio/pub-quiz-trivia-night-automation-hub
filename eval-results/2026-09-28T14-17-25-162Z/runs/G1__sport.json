@@ -1,0 +1,1163 @@
+{
+  "generator": "G1",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced",
+    "promptRules": "before-acc1"
+  },
+  "brief": {
+    "id": "sport",
+    "prompt": "2 rounds of 8 questions on sport: football World Cups, then the Olympic Games.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1614,
+      "outputTokens": 832,
+      "thinkingTokens": 0,
+      "durationMs": 9244
+    },
+    "costUsd": 0.011548,
+    "ms": 9245
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted the first ever FIFA World Cup in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which player has scored the most goals in World Cup tournament history?",
+      "answer": "Miroslav Klose"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country won the 2018 FIFA World Cup, held in Russia?",
+      "answer": "France"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "In the 1986 World Cup, which player scored the famous 'Hand of God' goal?",
+      "answer": "Diego Maradona"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which two countries co-hosted the 2002 FIFA World Cup?",
+      "answer": "South Korea and Japan"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which country has won the most FIFA World Cup titles?",
+      "answer": "Brazil",
+      "options": [
+        "Brazil",
+        "Germany",
+        "Italy",
+        "Argentina"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "The 2022 World Cup Final between Argentina and France went to penalties after which player scored a hat-trick for France?",
+      "answer": "Kylian Mbappé"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Beautiful Game, Global Stage",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country was the first to win the World Cup on home soil, in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "In which city were the first modern Olympic Games held in 1896?",
+      "answer": "Athens"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which country has won the most Olympic gold medals overall, across Summer and Winter Games combined?",
+      "answer": "United States"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which sprinter won three consecutive Olympic 100m titles from 2008 to 2016?",
+      "answer": "Usain Bolt"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "What are the five colours of the Olympic rings?",
+      "answer": "Blue, yellow, black, green, red"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which city was the first to host the Summer Olympics three times?",
+      "answer": "London"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How often are the Winter Olympic Games held?",
+      "answer": "Every four years",
+      "options": [
+        "Every two years",
+        "Every three years",
+        "Every four years",
+        "Every five years"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which gymnast is the most decorated Olympian in history by total medal count?",
+      "answer": "Michael Phelps"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Faster, Higher, Stronger",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "In which year did women first compete at the Olympic Games?",
+      "answer": "1900"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.01828,
+      "ms": 10511,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2037,
+          "outputTokens": 944,
+          "thinkingTokens": 0,
+          "durationMs": 7839
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1518,
+          "outputTokens": 173,
+          "thinkingTokens": 0,
+          "durationMs": 2671
+        }
+      ],
+      "complete": false,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Phelps is a swimmer, not a gymnast; the most decorated Olympian who is a gymnast is Larisa Latynina, so 'gymnast' was likely an error - correcting question to ask for most decorated Olympian overall.",
+          "text": "Who is the most decorated Olympian in history by total medal count?",
+          "answer": "Michael Phelps"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Miroslav Klose",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "France",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Diego Maradona",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "South Korea and Japan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Kylian Mbappé",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "United States",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Blue, yellow, black, green, red",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Every four years",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Larisa Latynina (tied with Michael Phelps in medal count discussions, but Phelps has more total medals - 28 vs 18; however 'most decorated Olympian' commonly refers to Michael Phelps due to his 28 medals, though he is a swimmer not gymnast)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The question specifies 'gymnast' but the most decorated Olympian overall by total medal count is Michael Phelps, a swimmer, not a gymnast. If restricting to gymnasts, Larisa Latynina holds the record among gymnasts, but she is not the most decorated Olympian overall - Phelps is."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q7",
+          "reason": "Phelps is a swimmer, not a gymnast; the most decorated Olympian who is a gymnast is Larisa Latynina, so 'gymnast' was likely an error - correcting question to ask for most decorated Olympian overall.",
+          "before": {
+            "text": "Which gymnast is the most decorated Olympian in history by total medal count?",
+            "answer": "Michael Phelps"
+          },
+          "after": {
+            "text": "Who is the most decorated Olympian in history by total medal count?",
+            "answer": "Michael Phelps"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [
+        "R2Q8"
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first ever FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player has scored the most goals in World Cup tournament history?",
+          "answer": "Miroslav Klose"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the 2018 FIFA World Cup, held in Russia?",
+          "answer": "France"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "In the 1986 World Cup, which player scored the famous 'Hand of God' goal?",
+          "answer": "Diego Maradona"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which two countries co-hosted the 2002 FIFA World Cup?",
+          "answer": "South Korea and Japan"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has won the most FIFA World Cup titles?",
+          "answer": "Brazil",
+          "options": [
+            "Brazil",
+            "Germany",
+            "Italy",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "The 2022 World Cup Final between Argentina and France went to penalties after which player scored a hat-trick for France?",
+          "answer": "Kylian Mbappé"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country was the first to win the World Cup on home soil, in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which country has won the most Olympic gold medals overall, across Summer and Winter Games combined?",
+          "answer": "United States"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which sprinter won three consecutive Olympic 100m titles from 2008 to 2016?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "What are the five colours of the Olympic rings?",
+          "answer": "Blue, yellow, black, green, red"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city was the first to host the Summer Olympics three times?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How often are the Winter Olympic Games held?",
+          "answer": "Every four years",
+          "options": [
+            "Every two years",
+            "Every three years",
+            "Every four years",
+            "Every five years"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Who is the most decorated Olympian in history by total medal count?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which year did women first compete at the Olympic Games?",
+          "answer": "1900"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.052008,
+      "ms": 21954,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1862,
+          "outputTokens": 1424,
+          "thinkingTokens": 231,
+          "durationMs": 15961
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1615,
+          "outputTokens": 481,
+          "thinkingTokens": 129,
+          "durationMs": 5993
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "The wording made it sound like the hat-trick caused the shootout. The facts were correct.",
+          "text": "Which French player scored a hat-trick in the 2022 World Cup Final against Argentina, a match that went to penalties?"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Correct: Uruguay hosted and won in 1930. Sharing an answer with another question doesn't make this one wrong."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "The independent answer is the same one, just worded differently."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Phelps is a swimmer, not a gymnast. Changing 'gymnast' to 'athlete' leaves Phelps as the only answer.",
+          "text": "Which athlete is the most decorated Olympian in history by total medal count?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Miroslav Klose",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "France",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Diego Maradona",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "South Korea and Japan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Kylian Mbappé",
+          "agreed": true,
+          "flags": [
+            "wording: The facts are right, but 'went to penalties after which player scored' makes it sound like the hat-trick caused the shootout. Suggest: 'which French player scored a hat-trick in the final, which went to penalties?'"
+          ]
+        },
+        "R1Q8": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": [
+            "wording: This has the same answer as R1Q1 (Uruguay)."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "United States",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Blue, yellow, black, green and red",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Every four years",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: 'Which gymnast' is wrong. The most decorated Olympian by total medals is Michael Phelps (28), who is a swimmer. The most decorated gymnast is Larisa Latynina (18)."
+          ]
+        },
+        "R2Q8": {
+          "answer": "1900",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "The wording made it sound like the hat-trick caused the shootout. The facts were correct.",
+          "before": {
+            "text": "The 2022 World Cup Final between Argentina and France went to penalties after which player scored a hat-trick for France?",
+            "answer": "Kylian Mbappé"
+          },
+          "after": {
+            "text": "Which French player scored a hat-trick in the 2022 World Cup Final against Argentina, a match that went to penalties?",
+            "answer": "Kylian Mbappé"
+          }
+        },
+        {
+          "id": "R2Q7",
+          "reason": "Phelps is a swimmer, not a gymnast. Changing 'gymnast' to 'athlete' leaves Phelps as the only answer.",
+          "before": {
+            "text": "Which gymnast is the most decorated Olympian in history by total medal count?",
+            "answer": "Michael Phelps"
+          },
+          "after": {
+            "text": "Which athlete is the most decorated Olympian in history by total medal count?",
+            "answer": "Michael Phelps"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first ever FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player has scored the most goals in World Cup tournament history?",
+          "answer": "Miroslav Klose"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the 2018 FIFA World Cup, held in Russia?",
+          "answer": "France"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "In the 1986 World Cup, which player scored the famous 'Hand of God' goal?",
+          "answer": "Diego Maradona"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which two countries co-hosted the 2002 FIFA World Cup?",
+          "answer": "South Korea and Japan"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has won the most FIFA World Cup titles?",
+          "answer": "Brazil",
+          "options": [
+            "Brazil",
+            "Germany",
+            "Italy",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French player scored a hat-trick in the 2022 World Cup Final against Argentina, a match that went to penalties?",
+          "answer": "Kylian Mbappé"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country was the first to win the World Cup on home soil, in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which country has won the most Olympic gold medals overall, across Summer and Winter Games combined?",
+          "answer": "United States"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which sprinter won three consecutive Olympic 100m titles from 2008 to 2016?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "What are the five colours of the Olympic rings?",
+          "answer": "Blue, yellow, black, green, red"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city was the first to host the Summer Olympics three times?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How often are the Winter Olympic Games held?",
+          "answer": "Every four years",
+          "options": [
+            "Every two years",
+            "Every three years",
+            "Every four years",
+            "Every five years"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which athlete is the most decorated Olympian in history by total medal count?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which year did women first compete at the Olympic Games?",
+          "answer": "1900"
+        }
+      ]
+    },
+    {
+      "checker": "C1s",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "single"
+      },
+      "costUsd": 0.015024,
+      "ms": 7935,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2452,
+          "outputTokens": 1012,
+          "thinkingTokens": 0,
+          "durationMs": 7935
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Uruguay correctly hosted and won the first FIFA World Cup in 1930."
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Miroslav Klose holds the all-time World Cup scoring record with 16 goals."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "France won the 2018 World Cup in Russia."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Diego Maradona scored the 'Hand of God' goal in the 1986 World Cup."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "South Korea and Japan co-hosted the 2002 World Cup."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Brazil has won the most World Cup titles (5)."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "Mbappé scored a hat-trick in the 2022 final."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Uruguay was indeed the first host nation to win the World Cup in 1930."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Athens hosted the first modern Olympics in 1896."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "The United States has the most Olympic gold medals overall."
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "fix",
+          "reason": "Bolt won consecutive 100m titles in 2008, 2012, and 2016, but that is three titles over those years, not literally 'three consecutive from 2008 to 2016' worded oddly - actually this is correct as stated (2008, 2012, 2016 are the three consecutive Olympics he won). No error.",
+          "text": "Which sprinter won three consecutive Olympic 100m titles from 2008 to 2016?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "The five Olympic ring colours are correctly listed."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "fix",
+          "reason": "London hosted the Summer Olympics three times (1908, 1948, 2012), but was not the first to do so a third time before others—actually London was indeed the first city to host three times (2012), so this is correct.",
+          "text": "Which city was the first to host the Summer Olympics three times?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "Winter Olympics are held every four years."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Michael Phelps is a swimmer, not a gymnast; the question mislabels his sport.",
+          "text": "Which swimmer is the most decorated Olympian in history by total medal count?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Women first competed at the 1900 Paris Olympics."
+        }
+      ],
+      "blindAnswers": {},
+      "fixed": [
+        {
+          "id": "R2Q7",
+          "reason": "Michael Phelps is a swimmer, not a gymnast; the question mislabels his sport.",
+          "before": {
+            "text": "Which gymnast is the most decorated Olympian in history by total medal count?",
+            "answer": "Michael Phelps"
+          },
+          "after": {
+            "text": "Which swimmer is the most decorated Olympian in history by total medal count?",
+            "answer": "Michael Phelps"
+          }
+        }
+      ],
+      "dropped": [
+        {
+          "id": "R2Q3",
+          "reason": "Bolt won consecutive 100m titles in 2008, 2012, and 2016, but that is three titles over those years, not literally 'three consecutive from 2008 to 2016' worded oddly - actually this is correct as stated (2008, 2012, 2016 are the three consecutive Olympics he won). No error. (fix gave no correction)",
+          "before": {
+            "text": "Which sprinter won three consecutive Olympic 100m titles from 2008 to 2016?",
+            "answer": "Usain Bolt"
+          }
+        },
+        {
+          "id": "R2Q5",
+          "reason": "London hosted the Summer Olympics three times (1908, 1948, 2012), but was not the first to do so a third time before others—actually London was indeed the first city to host three times (2012), so this is correct. (fix gave no correction)",
+          "before": {
+            "text": "Which city was the first to host the Summer Olympics three times?",
+            "answer": "London"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first ever FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player has scored the most goals in World Cup tournament history?",
+          "answer": "Miroslav Klose"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the 2018 FIFA World Cup, held in Russia?",
+          "answer": "France"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "In the 1986 World Cup, which player scored the famous 'Hand of God' goal?",
+          "answer": "Diego Maradona"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which two countries co-hosted the 2002 FIFA World Cup?",
+          "answer": "South Korea and Japan"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has won the most FIFA World Cup titles?",
+          "answer": "Brazil",
+          "options": [
+            "Brazil",
+            "Germany",
+            "Italy",
+            "Argentina"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "The 2022 World Cup Final between Argentina and France went to penalties after which player scored a hat-trick for France?",
+          "answer": "Kylian Mbappé"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Beautiful Game, Global Stage",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country was the first to win the World Cup on home soil, in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which country has won the most Olympic gold medals overall, across Summer and Winter Games combined?",
+          "answer": "United States"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "What are the five colours of the Olympic rings?",
+          "answer": "Blue, yellow, black, green, red"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How often are the Winter Olympic Games held?",
+          "answer": "Every four years",
+          "options": [
+            "Every two years",
+            "Every three years",
+            "Every four years",
+            "Every five years"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which swimmer is the most decorated Olympian in history by total medal count?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Faster, Higher, Stronger",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which year did women first compete at the Olympic Games?",
+          "answer": "1900"
+        }
+      ]
+    }
+  ]
+}

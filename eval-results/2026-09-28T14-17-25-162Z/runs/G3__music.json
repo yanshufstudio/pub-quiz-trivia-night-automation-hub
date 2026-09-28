@@ -1,0 +1,1265 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1572,
+      "outputTokens": 1796,
+      "thinkingTokens": 0,
+      "durationMs": 17040
+    },
+    "costUsd": 0.042208,
+    "ms": 17040
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+      "answer": "Pink Floyd"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "TEXT",
+      "text": "Which Led Zeppelin song, from their untitled fourth album, begins with the line 'There's a lady who's sure all that glitters is gold'?",
+      "answer": "Stairway to Heaven"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "TEXT",
+      "text": "Who was the lead singer of The Who?",
+      "answer": "Roger Daltrey"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "TEXT",
+      "text": "Which Queen song from 1975 includes the words 'Scaramouche' and 'Galileo'?",
+      "answer": "Bohemian Rhapsody"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "TEXT",
+      "text": "Which guitarist performed 'The Star-Spangled Banner' at Woodstock in 1969?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Fleetwood Mac's 1977 album 'Rumours' was a huge seller. Which member sang lead on 'Dreams'?",
+      "answer": "Stevie Nicks",
+      "options": [
+        "Christine McVie",
+        "Stevie Nicks",
+        "Lindsey Buckingham",
+        "John McVie"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "TEXT",
+      "text": "What was the name of the Rolling Stones' founding guitarist who died in 1969?",
+      "answer": "Brian Jones"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Sixties & Seventies Rock",
+      "category": "Rock Music",
+      "type": "TEXT",
+      "text": "Which Beatles album, released in 1969, has a cover showing the band walking across a zebra crossing?",
+      "answer": "Abbey Road"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "TEXT",
+      "text": "Which composer kept writing music after going deaf, including his Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "TEXT",
+      "text": "Who composed 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "TEXT",
+      "text": "In which Austrian city was Wolfgang Amadeus Mozart born?",
+      "answer": "Salzburg"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "TEXT",
+      "text": "Which English composer wrote the 'Enigma Variations'?",
+      "answer": "Edward Elgar"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which composer wrote 'The Planets' suite?",
+      "answer": "Gustav Holst",
+      "options": [
+        "Ralph Vaughan Williams",
+        "Gustav Holst",
+        "Benjamin Britten",
+        "Edward Elgar"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "TEXT",
+      "text": "Which Norwegian composer wrote 'In the Hall of the Mountain King'?",
+      "answer": "Edvard Grieg"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Great Composers",
+      "category": "Classical Music",
+      "type": "TEXT",
+      "text": "Which French composer wrote 'Boléro'?",
+      "answer": "Maurice Ravel"
+    },
+    {
+      "id": "R3Q1",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1982 UK number one with 'Come On Eileen'?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q2",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Who sang the 1997 hit 'Tubthumping', with its line 'I get knocked down, but I get up again'?",
+      "answer": "Chumbawamba"
+    },
+    {
+      "id": "R3Q3",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Norwegian-born... no — which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+      "answer": "4 Non Blondes"
+    },
+    {
+      "id": "R3Q4",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Spanish duo had a worldwide dance-craze hit with 'Macarena'?",
+      "answer": "Los del Río"
+    },
+    {
+      "id": "R3Q5",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Who had a 1981 hit with 'Tainted Love'?",
+      "answer": "Soft Cell"
+    },
+    {
+      "id": "R3Q6",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band recorded the 1998 hit 'Blue (Da Ba Dee)'?",
+      "answer": "Eiffel 65",
+      "options": [
+        "Eiffel 65",
+        "Vengaboys",
+        "Aqua",
+        "Alice Deejay"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Canadian band had a 1995 hit with 'Mmm Mmm Mmm Mmm'?",
+      "answer": "Crash Test Dummies"
+    },
+    {
+      "id": "R3Q8",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Who sang the 1979 hit 'Video Killed the Radio Star'?",
+      "answer": "The Buggles"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.023448,
+      "ms": 12664,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2710,
+          "outputTokens": 1383,
+          "thinkingTokens": 0,
+          "durationMs": 10012
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1409,
+          "outputTokens": 138,
+          "thinkingTokens": 0,
+          "durationMs": 2650
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "fix",
+          "reason": "Garbled leftover editing text at start should be removed; band is American, not Norwegian.",
+          "text": "Which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+          "answer": "4 Non Blondes"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Stairway to Heaven",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Roger Daltrey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Stevie Nicks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Brian Jones",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Abbey Road",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Edward Elgar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Edvard Grieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": [
+            "wording: The question wording is garbled, starting with an incomplete phrase 'Which Norwegian-born... no —' which appears to be a leftover editing error and should be removed; 4 Non Blondes are American, not Norwegian."
+          ]
+        },
+        "R3Q4": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Soft Cell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Eiffel 65",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Crash Test Dummies",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q3",
+          "reason": "Garbled leftover editing text at start should be removed; band is American, not Norwegian.",
+          "before": {
+            "text": "Which Norwegian-born... no — which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+            "answer": "4 Non Blondes"
+          },
+          "after": {
+            "text": "Which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+            "answer": "4 Non Blondes"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+          "answer": "Pink Floyd"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which Led Zeppelin song, from their untitled fourth album, begins with the line 'There's a lady who's sure all that glitters is gold'?",
+          "answer": "Stairway to Heaven"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of The Who?",
+          "answer": "Roger Daltrey"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which Queen song from 1975 includes the words 'Scaramouche' and 'Galileo'?",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which guitarist performed 'The Star-Spangled Banner' at Woodstock in 1969?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Fleetwood Mac's 1977 album 'Rumours' was a huge seller. Which member sang lead on 'Dreams'?",
+          "answer": "Stevie Nicks",
+          "options": [
+            "Christine McVie",
+            "Stevie Nicks",
+            "Lindsey Buckingham",
+            "John McVie"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "What was the name of the Rolling Stones' founding guitarist who died in 1969?",
+          "answer": "Brian Jones"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which Beatles album, released in 1969, has a cover showing the band walking across a zebra crossing?",
+          "answer": "Abbey Road"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which composer kept writing music after going deaf, including his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Who composed 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "In which Austrian city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which English composer wrote the 'Enigma Variations'?",
+          "answer": "Edward Elgar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer wrote 'The Planets' suite?",
+          "answer": "Gustav Holst",
+          "options": [
+            "Ralph Vaughan Williams",
+            "Gustav Holst",
+            "Benjamin Britten",
+            "Edward Elgar"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which Norwegian composer wrote 'In the Hall of the Mountain King'?",
+          "answer": "Edvard Grieg"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1982 UK number one with 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who sang the 1997 hit 'Tubthumping', with its line 'I get knocked down, but I get up again'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+          "answer": "4 Non Blondes"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Spanish duo had a worldwide dance-craze hit with 'Macarena'?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who had a 1981 hit with 'Tainted Love'?",
+          "answer": "Soft Cell"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band recorded the 1998 hit 'Blue (Da Ba Dee)'?",
+          "answer": "Eiffel 65",
+          "options": [
+            "Eiffel 65",
+            "Vengaboys",
+            "Aqua",
+            "Alice Deejay"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Canadian band had a 1995 hit with 'Mmm Mmm Mmm Mmm'?",
+          "answer": "Crash Test Dummies"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who sang the 1979 hit 'Video Killed the Radio Star'?",
+          "answer": "The Buggles"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.058956,
+      "ms": 20362,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2535,
+          "outputTokens": 1928,
+          "thinkingTokens": 335,
+          "durationMs": 16222
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1389,
+          "outputTokens": 235,
+          "thinkingTokens": 0,
+          "durationMs": 4139
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "fix",
+          "reason": "Removed leftover drafting text; the answer 4 Non Blondes is correct.",
+          "text": "Which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "fix",
+          "reason": "The song was a hit in 1993–94, not 1995. Changed the question to say 1990s.",
+          "text": "Which Canadian band had a 1990s hit with 'Mmm Mmm Mmm Mmm'?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Stairway to Heaven",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Roger Daltrey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Stevie Nicks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Brian Jones",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Abbey Road",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Edward Elgar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Edvard Grieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": [
+            "wording: The wording has leftover drafting text, 'Which Norwegian-born... no —', which must be removed. The song is by 4 Non Blondes (1993)."
+          ]
+        },
+        "R3Q4": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Soft Cell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Eiffel 65",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Crash Test Dummies",
+          "agreed": true,
+          "flags": [
+            "wording: 'a 1995 hit' is wrong: 'Mmm Mmm Mmm Mmm' was released in 1993 and was a hit in 1993–94, not 1995."
+          ]
+        },
+        "R3Q8": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q3",
+          "reason": "Removed leftover drafting text; the answer 4 Non Blondes is correct.",
+          "before": {
+            "text": "Which Norwegian-born... no — which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+            "answer": "4 Non Blondes"
+          },
+          "after": {
+            "text": "Which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+            "answer": "4 Non Blondes"
+          }
+        },
+        {
+          "id": "R3Q7",
+          "reason": "The song was a hit in 1993–94, not 1995. Changed the question to say 1990s.",
+          "before": {
+            "text": "Which Canadian band had a 1995 hit with 'Mmm Mmm Mmm Mmm'?",
+            "answer": "Crash Test Dummies"
+          },
+          "after": {
+            "text": "Which Canadian band had a 1990s hit with 'Mmm Mmm Mmm Mmm'?",
+            "answer": "Crash Test Dummies"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+          "answer": "Pink Floyd"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which Led Zeppelin song, from their untitled fourth album, begins with the line 'There's a lady who's sure all that glitters is gold'?",
+          "answer": "Stairway to Heaven"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of The Who?",
+          "answer": "Roger Daltrey"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which Queen song from 1975 includes the words 'Scaramouche' and 'Galileo'?",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which guitarist performed 'The Star-Spangled Banner' at Woodstock in 1969?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Fleetwood Mac's 1977 album 'Rumours' was a huge seller. Which member sang lead on 'Dreams'?",
+          "answer": "Stevie Nicks",
+          "options": [
+            "Christine McVie",
+            "Stevie Nicks",
+            "Lindsey Buckingham",
+            "John McVie"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "What was the name of the Rolling Stones' founding guitarist who died in 1969?",
+          "answer": "Brian Jones"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Sixties & Seventies Rock",
+          "category": "Rock Music",
+          "type": "TEXT",
+          "text": "Which Beatles album, released in 1969, has a cover showing the band walking across a zebra crossing?",
+          "answer": "Abbey Road"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which composer kept writing music after going deaf, including his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Who composed 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "In which Austrian city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which English composer wrote the 'Enigma Variations'?",
+          "answer": "Edward Elgar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer wrote 'The Planets' suite?",
+          "answer": "Gustav Holst",
+          "options": [
+            "Ralph Vaughan Williams",
+            "Gustav Holst",
+            "Benjamin Britten",
+            "Edward Elgar"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which Norwegian composer wrote 'In the Hall of the Mountain King'?",
+          "answer": "Edvard Grieg"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Music",
+          "type": "TEXT",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1982 UK number one with 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who sang the 1997 hit 'Tubthumping', with its line 'I get knocked down, but I get up again'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1990s hit with 'What's Up?', with its chorus 'What's going on?'",
+          "answer": "4 Non Blondes"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Spanish duo had a worldwide dance-craze hit with 'Macarena'?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who had a 1981 hit with 'Tainted Love'?",
+          "answer": "Soft Cell"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band recorded the 1998 hit 'Blue (Da Ba Dee)'?",
+          "answer": "Eiffel 65",
+          "options": [
+            "Eiffel 65",
+            "Vengaboys",
+            "Aqua",
+            "Alice Deejay"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Canadian band had a 1990s hit with 'Mmm Mmm Mmm Mmm'?",
+          "answer": "Crash Test Dummies"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who sang the 1979 hit 'Video Killed the Radio Star'?",
+          "answer": "The Buggles"
+        }
+      ]
+    }
+  ]
+}

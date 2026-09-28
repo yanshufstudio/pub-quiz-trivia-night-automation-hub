@@ -1,0 +1,571 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1549,
+      "outputTokens": 605,
+      "thinkingTokens": 0,
+      "durationMs": 7720
+    },
+    "costUsd": 0.018296,
+    "ms": 7720
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which black-and-white bear from China eats mostly bamboo?",
+      "answer": "Giant panda"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do caterpillars turn into?",
+      "answer": "Butterflies or moths"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird is known for its large, colourful tail feathers, which the male fans out to show off?",
+      "answer": "Peacock"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which is the largest animal that has ever lived?",
+      "answer": "Blue whale",
+      "options": [
+        "African elephant",
+        "Blue whale",
+        "Tyrannosaurus rex",
+        "Great white shark"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the fastest land animal?",
+      "answer": "Cheetah"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the name for a group of lions?",
+      "answer": "Pride"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "A frog is an example of which group of animals: mammals, reptiles or amphibians?",
+      "answer": "Amphibians"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.012050000000000002,
+      "ms": 7210,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1569,
+          "outputTokens": 522,
+          "thinkingTokens": 0,
+          "durationMs": 4130
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1306,
+          "outputTokens": 108,
+          "thinkingTokens": 0,
+          "durationMs": 3079
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Setter's answer already accounts for both valid outcomes (butterflies or moths), matching checker; not ambiguous, just a two-part correct answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Butterflies (or moths)",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Peacock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Pride",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Amphibians",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black-and-white bear from China eats mostly bamboo?",
+          "answer": "Giant panda"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do caterpillars turn into?",
+          "answer": "Butterflies or moths"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is known for its large, colourful tail feathers, which the male fans out to show off?",
+          "answer": "Peacock"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the largest animal that has ever lived?",
+          "answer": "Blue whale",
+          "options": [
+            "African elephant",
+            "Blue whale",
+            "Tyrannosaurus rex",
+            "Great white shark"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the name for a group of lions?",
+          "answer": "Pride"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A frog is an example of which group of animals: mammals, reptiles or amphibians?",
+          "answer": "Amphibians"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.026340000000000002,
+      "ms": 10915,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1394,
+          "outputTokens": 635,
+          "thinkingTokens": 87,
+          "durationMs": 7778
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1236,
+          "outputTokens": 156,
+          "thinkingTokens": 0,
+          "durationMs": 3137
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "The setter's answer already accepts both butterflies and moths, and the checker gave the same answer."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Peacock and peafowl are the same answer; the male peafowl is the peacock."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Butterflies (or moths)",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Peacock (peafowl)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q7": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Pride",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Amphibians",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black-and-white bear from China eats mostly bamboo?",
+          "answer": "Giant panda"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do caterpillars turn into?",
+          "answer": "Butterflies or moths"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is known for its large, colourful tail feathers, which the male fans out to show off?",
+          "answer": "Peacock"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the largest animal that has ever lived?",
+          "answer": "Blue whale",
+          "options": [
+            "African elephant",
+            "Blue whale",
+            "Tyrannosaurus rex",
+            "Great white shark"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the name for a group of lions?",
+          "answer": "Pride"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A frog is an example of which group of animals: mammals, reptiles or amphibians?",
+          "answer": "Amphibians"
+        }
+      ]
+    }
+  ]
+}

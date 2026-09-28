@@ -1,0 +1,1260 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1554,
+      "outputTokens": 2815,
+      "thinkingTokens": 958,
+      "durationMs": 35106
+    },
+    "costUsd": 0.062516,
+    "ms": 35106
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה הוכרזה הקמת מדינת ישראל?",
+      "answer": "1948"
+    },
+    {
+      "id": "R1Q2",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R1Q3",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו עיר נקראה מגילת העצמאות?",
+      "answer": "תל אביב",
+      "options": [
+        "ירושלים",
+        "תל אביב",
+        "חיפה",
+        "נתניה"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R1Q5",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+      "answer": "1967"
+    },
+    {
+      "id": "R1Q6",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "עם איזו מדינה חתמה ישראל על הסכם שלום ב-1979?",
+      "answer": "מצרים"
+    },
+    {
+      "id": "R1Q7",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה נשיא המדינה הראשון של ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R1Q8",
+      "round": "מהכרזה ועד היום",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מבצע שלמה (1991) העלה לישראל יהודים מאיזו מדינה?",
+      "answer": "אתיופיה"
+    },
+    {
+      "id": "R2Q1",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+      "answer": "נטע ברזילי"
+    },
+    {
+      "id": "R2Q2",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו שנה זכתה דנה אינטרנשיונל באירוויזיון עם השיר \"Diva\"?",
+      "answer": "1998",
+      "options": [
+        "1994",
+        "1998",
+        "2000",
+        "2003"
+      ]
+    },
+    {
+      "id": "R2Q3",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכו יזהר כהן ולהקת אלפבתא באירוויזיון 1978?",
+      "answer": "א-ב-ני-בי"
+    },
+    {
+      "id": "R2Q4",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזו להקה זכתה גלי עטרי באירוויזיון 1979 בשיר \"הללויה\"?",
+      "answer": "חלב ודבש"
+    },
+    {
+      "id": "R2Q5",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה עפרה חזה במקום השני באירוויזיון 1983?",
+      "answer": "חי"
+    },
+    {
+      "id": "R2Q6",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזה זמר ייצג את ישראל באירוויזיון 2015 עם השיר \"Golden Boy\"?",
+      "answer": "נדב גדג'"
+    },
+    {
+      "id": "R2Q7",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו להקה ייצגה את ישראל באירוויזיון 1974 עם השיר \"נתתי לה חיי\"?",
+      "answer": "כוורת"
+    },
+    {
+      "id": "R2Q8",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "באיזו שלישייה חבר אריק איינשטיין לשמוליק קראוס ולג'וזי כץ בשנות ה-60?",
+      "answer": "החלונות הגבוהים"
+    },
+    {
+      "id": "R3Q1",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראים כדורים מטוגנים העשויים מחומוס טחון?",
+      "answer": "פלאפל"
+    },
+    {
+      "id": "R3Q2",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא המאכל של ביצים המבושלות ברוטב עגבניות?",
+      "answer": "שקשוקה"
+    },
+    {
+      "id": "R3Q3",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזה אגוז (בעצם קטנייה) עשוי החטיף במבה?",
+      "answer": "בוטנים"
+    },
+    {
+      "id": "R3Q4",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה מאפה מטוגן ממולא בריבה נהוג לאכול בחנוכה?",
+      "answer": "סופגנייה"
+    },
+    {
+      "id": "R3Q5",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזה זרע מכינים טחינה?",
+      "answer": "שומשום"
+    },
+    {
+      "id": "R3Q6",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזה ירק מטוגן הוא מרכיב מרכזי בסביח?",
+      "answer": "חציל",
+      "options": [
+        "קישוא",
+        "חציל",
+        "כרובית",
+        "תפוח אדמה"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא התבשיל האשכנזי לשבת שמתבשל כל הלילה, ובמטבחים אחרים נקרא חמין?",
+      "answer": "צ'ולנט"
+    },
+    {
+      "id": "R3Q8",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא המאפה התימני של בצק מגולגל שנאפה כל הלילה ומוגש בשבת בבוקר?",
+      "answer": "ג'חנון"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.02927,
+      "ms": 23152,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2874,
+          "outputTokens": 1477,
+          "thinkingTokens": 0,
+          "durationMs": 14108
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1946,
+          "outputTokens": 486,
+          "thinkingTokens": 0,
+          "durationMs": 9043
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "fix",
+          "reason": "השם הנכון של השיר הוא א-בא-ני-בי (A-Ba-Ni-Bi)",
+          "answer": "א-בא-ני-בי"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "fix",
+          "reason": "גלי עטרי זכתה עם הזמר אבי טולדנו, לא עם להקה - יש לתקן את הניסוח ואת התשובה",
+          "text": "עם איזה זמר זכתה גלי עטרי באירוויזיון 1979 בשיר \"הללויה\"?",
+          "answer": "אבי טולדנו"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "שם השיר הוא \"חי\" (באנגלית Hi) - שתי התשובות זהות, רק תעתיק שונה"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "את ישראל באירוויזיון 1974 עם השיר 'נתתי לה חיי' ייצגה להקת פוש (Poogy הופיעו בשם אחר), התשובה הנכונה היא כוורת שהופיעה בשם 'פוגי' - יש לוודא, אך המידע המהימן ביותר הוא שזו הייתה להקת כוורת",
+          "answer": "כוורת"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "1967",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "מצרים",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "אתיופיה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "נטע ברזילי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "1998",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "א-בא-ני-בי",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "אבי טולדנו",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "wording: עלי לציין: גלי עטרי זכתה באירוויזיון 1979 יחד עם אבי טולדנו (כזמר סולן, לא כ'להקה'), לא עם להקה. הניסוח 'עם איזו להקה' עלול להיות מטעה - זה היה זמר, לא להקה."
+          ]
+        },
+        "R2Q5": {
+          "answer": "חי (Hi)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "נדב גדג'",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "פוטש (להקת פוש - קבוצת כוורת בעצם לא זו) - יש לבדוק",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: בדיקה: את ישראל באירוויזיון 1974 ייצגה קבוצת 'פוטש' עם השיר 'נתתי לה חיי'. יש לוודא שם הלהקה המדויק."
+          ]
+        },
+        "R2Q8": {
+          "answer": "החלונות הגבוהים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "פלאפל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "שקשוקה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "בוטנים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "סופגנייה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "שומשום",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "חציל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "צ'ולנט",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "ג'חנון",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q3",
+          "reason": "השם הנכון של השיר הוא א-בא-ני-בי (A-Ba-Ni-Bi)",
+          "before": {
+            "text": "עם איזה שיר זכו יזהר כהן ולהקת אלפבתא באירוויזיון 1978?",
+            "answer": "א-ב-ני-בי"
+          },
+          "after": {
+            "text": "עם איזה שיר זכו יזהר כהן ולהקת אלפבתא באירוויזיון 1978?",
+            "answer": "א-בא-ני-בי"
+          }
+        },
+        {
+          "id": "R2Q4",
+          "reason": "גלי עטרי זכתה עם הזמר אבי טולדנו, לא עם להקה - יש לתקן את הניסוח ואת התשובה",
+          "before": {
+            "text": "עם איזו להקה זכתה גלי עטרי באירוויזיון 1979 בשיר \"הללויה\"?",
+            "answer": "חלב ודבש"
+          },
+          "after": {
+            "text": "עם איזה זמר זכתה גלי עטרי באירוויזיון 1979 בשיר \"הללויה\"?",
+            "answer": "אבי טולדנו"
+          }
+        }
+      ],
+      "dropped": [
+        {
+          "id": "R2Q7",
+          "reason": "את ישראל באירוויזיון 1974 עם השיר 'נתתי לה חיי' ייצגה להקת פוש (Poogy הופיעו בשם אחר), התשובה הנכונה היא כוורת שהופיעה בשם 'פוגי' - יש לוודא, אך המידע המהימן ביותר הוא שזו הייתה להקת כוורת (fix gave no correction)",
+          "before": {
+            "text": "איזו להקה ייצגה את ישראל באירוויזיון 1974 עם השיר \"נתתי לה חיי\"?",
+            "answer": "כוורת"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה הוכרזה הקמת מדינת ישראל?",
+          "answer": "1948"
+        },
+        {
+          "id": "R1Q2",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R1Q3",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו עיר נקראה מגילת העצמאות?",
+          "answer": "תל אביב",
+          "options": [
+            "ירושלים",
+            "תל אביב",
+            "חיפה",
+            "נתניה"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R1Q5",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+          "answer": "1967"
+        },
+        {
+          "id": "R1Q6",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "עם איזו מדינה חתמה ישראל על הסכם שלום ב-1979?",
+          "answer": "מצרים"
+        },
+        {
+          "id": "R1Q7",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה נשיא המדינה הראשון של ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R1Q8",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מבצע שלמה (1991) העלה לישראל יהודים מאיזו מדינה?",
+          "answer": "אתיופיה"
+        },
+        {
+          "id": "R2Q1",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+          "answer": "נטע ברזילי"
+        },
+        {
+          "id": "R2Q2",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו שנה זכתה דנה אינטרנשיונל באירוויזיון עם השיר \"Diva\"?",
+          "answer": "1998",
+          "options": [
+            "1994",
+            "1998",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "id": "R2Q3",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכו יזהר כהן ולהקת אלפבתא באירוויזיון 1978?",
+          "answer": "א-בא-ני-בי"
+        },
+        {
+          "id": "R2Q4",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה זמר זכתה גלי עטרי באירוויזיון 1979 בשיר \"הללויה\"?",
+          "answer": "אבי טולדנו"
+        },
+        {
+          "id": "R2Q5",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה עפרה חזה במקום השני באירוויזיון 1983?",
+          "answer": "חי"
+        },
+        {
+          "id": "R2Q6",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזה זמר ייצג את ישראל באירוויזיון 2015 עם השיר \"Golden Boy\"?",
+          "answer": "נדב גדג'"
+        },
+        {
+          "id": "R2Q7",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "באיזו שלישייה חבר אריק איינשטיין לשמוליק קראוס ולג'וזי כץ בשנות ה-60?",
+          "answer": "החלונות הגבוהים"
+        },
+        {
+          "id": "R3Q1",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראים כדורים מטוגנים העשויים מחומוס טחון?",
+          "answer": "פלאפל"
+        },
+        {
+          "id": "R3Q2",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא המאכל של ביצים המבושלות ברוטב עגבניות?",
+          "answer": "שקשוקה"
+        },
+        {
+          "id": "R3Q3",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזה אגוז (בעצם קטנייה) עשוי החטיף במבה?",
+          "answer": "בוטנים"
+        },
+        {
+          "id": "R3Q4",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה מאפה מטוגן ממולא בריבה נהוג לאכול בחנוכה?",
+          "answer": "סופגנייה"
+        },
+        {
+          "id": "R3Q5",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזה זרע מכינים טחינה?",
+          "answer": "שומשום"
+        },
+        {
+          "id": "R3Q6",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה ירק מטוגן הוא מרכיב מרכזי בסביח?",
+          "answer": "חציל",
+          "options": [
+            "קישוא",
+            "חציל",
+            "כרובית",
+            "תפוח אדמה"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא התבשיל האשכנזי לשבת שמתבשל כל הלילה, ובמטבחים אחרים נקרא חמין?",
+          "answer": "צ'ולנט"
+        },
+        {
+          "id": "R3Q8",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא המאפה התימני של בצק מגולגל שנאפה כל הלילה ומוגש בשבת בבוקר?",
+          "answer": "ג'חנון"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.060312,
+      "ms": 24761,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2699,
+          "outputTokens": 2029,
+          "thinkingTokens": 477,
+          "durationMs": 21013
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1174,
+          "outputTokens": 212,
+          "thinkingTokens": 71,
+          "durationMs": 3748
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "The song that won Eurovision 1978 is 'A-Ba-Ni-Bi'. The setter's answer is the common Hebrew spelling, and the checker's answer is the same song written a different way."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "1967",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "מצרים",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "אתיופיה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "נטע ברזילי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "1998",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "א-בה-ני-בי",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "חלב ודבש",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "חי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "נדב גדג'",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "כוורת",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "החלונות הגבוהים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "פלאפל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "שקשוקה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "בוטנים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "סופגנייה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "שומשום",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "חציל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "צ'ולנט",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "ג'חנון",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה הוכרזה הקמת מדינת ישראל?",
+          "answer": "1948"
+        },
+        {
+          "id": "R1Q2",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R1Q3",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו עיר נקראה מגילת העצמאות?",
+          "answer": "תל אביב",
+          "options": [
+            "ירושלים",
+            "תל אביב",
+            "חיפה",
+            "נתניה"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R1Q5",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+          "answer": "1967"
+        },
+        {
+          "id": "R1Q6",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "עם איזו מדינה חתמה ישראל על הסכם שלום ב-1979?",
+          "answer": "מצרים"
+        },
+        {
+          "id": "R1Q7",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה נשיא המדינה הראשון של ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R1Q8",
+          "round": "מהכרזה ועד היום",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מבצע שלמה (1991) העלה לישראל יהודים מאיזו מדינה?",
+          "answer": "אתיופיה"
+        },
+        {
+          "id": "R2Q1",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+          "answer": "נטע ברזילי"
+        },
+        {
+          "id": "R2Q2",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו שנה זכתה דנה אינטרנשיונל באירוויזיון עם השיר \"Diva\"?",
+          "answer": "1998",
+          "options": [
+            "1994",
+            "1998",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "id": "R2Q3",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכו יזהר כהן ולהקת אלפבתא באירוויזיון 1978?",
+          "answer": "א-ב-ני-בי"
+        },
+        {
+          "id": "R2Q4",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזו להקה זכתה גלי עטרי באירוויזיון 1979 בשיר \"הללויה\"?",
+          "answer": "חלב ודבש"
+        },
+        {
+          "id": "R2Q5",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה עפרה חזה במקום השני באירוויזיון 1983?",
+          "answer": "חי"
+        },
+        {
+          "id": "R2Q6",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזה זמר ייצג את ישראל באירוויזיון 2015 עם השיר \"Golden Boy\"?",
+          "answer": "נדב גדג'"
+        },
+        {
+          "id": "R2Q7",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו להקה ייצגה את ישראל באירוויזיון 1974 עם השיר \"נתתי לה חיי\"?",
+          "answer": "כוורת"
+        },
+        {
+          "id": "R2Q8",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "באיזו שלישייה חבר אריק איינשטיין לשמוליק קראוס ולג'וזי כץ בשנות ה-60?",
+          "answer": "החלונות הגבוהים"
+        },
+        {
+          "id": "R3Q1",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראים כדורים מטוגנים העשויים מחומוס טחון?",
+          "answer": "פלאפל"
+        },
+        {
+          "id": "R3Q2",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא המאכל של ביצים המבושלות ברוטב עגבניות?",
+          "answer": "שקשוקה"
+        },
+        {
+          "id": "R3Q3",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזה אגוז (בעצם קטנייה) עשוי החטיף במבה?",
+          "answer": "בוטנים"
+        },
+        {
+          "id": "R3Q4",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה מאפה מטוגן ממולא בריבה נהוג לאכול בחנוכה?",
+          "answer": "סופגנייה"
+        },
+        {
+          "id": "R3Q5",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזה זרע מכינים טחינה?",
+          "answer": "שומשום"
+        },
+        {
+          "id": "R3Q6",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה ירק מטוגן הוא מרכיב מרכזי בסביח?",
+          "answer": "חציל",
+          "options": [
+            "קישוא",
+            "חציל",
+            "כרובית",
+            "תפוח אדמה"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא התבשיל האשכנזי לשבת שמתבשל כל הלילה, ובמטבחים אחרים נקרא חמין?",
+          "answer": "צ'ולנט"
+        },
+        {
+          "id": "R3Q8",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא המאפה התימני של בצק מגולגל שנאפה כל הלילה ומוגש בשבת בבוקר?",
+          "answer": "ג'חנון"
+        }
+      ]
+    }
+  ]
+}

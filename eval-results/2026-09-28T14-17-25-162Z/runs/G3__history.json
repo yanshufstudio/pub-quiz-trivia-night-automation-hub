@@ -1,0 +1,571 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1563,
+      "outputTokens": 619,
+      "thinkingTokens": 0,
+      "durationMs": 8643
+    },
+    "costUsd": 0.018632,
+    "ms": 8643
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "According to legend, which twin brother of Romulus was killed during the founding of Rome?",
+      "answer": "Remus"
+    },
+    {
+      "id": "R1Q2",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+      "answer": "The Rubicon"
+    },
+    {
+      "id": "R1Q3",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman emperor made his horse Incitatus a priest and, reportedly, planned to make it consul?",
+      "answer": "Caligula"
+    },
+    {
+      "id": "R1Q4",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q5",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q6",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which emperor's reign began the long peace known as the Pax Romana?",
+      "answer": "Augustus",
+      "options": [
+        "Augustus",
+        "Nero",
+        "Trajan",
+        "Hadrian",
+        "][0:0]",
+        "Claudius"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Queen of the Iceni led a revolt against Roman rule in Britain around AD 60?",
+      "answer": "Boudica"
+    },
+    {
+      "id": "R1Q8",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Under which emperor did the Roman Empire reach its greatest territorial extent, in AD 117?",
+      "answer": "Trajan"
+    },
+    {
+      "id": "R1Q9",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Thracian gladiator led a major slave revolt against Rome in 73–71 BC?",
+      "answer": "Spartacus"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.013465999999999999,
+      "ms": 7116,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1679,
+          "outputTokens": 532,
+          "thinkingTokens": 0,
+          "durationMs": 4702
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1499,
+          "outputTokens": 179,
+          "thinkingTokens": 0,
+          "durationMs": 2414
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Setter answer 'Hannibal' and checker answer 'Hannibal Barca' are the same person; no discrepancy."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Removed malformed option '][0:0]', leaving a clean valid option list.",
+          "options": [
+            "Augustus",
+            "Nero",
+            "Trajan",
+            "Hadrian",
+            "Claudius"
+          ]
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Remus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Caligula",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Hannibal (Hannibal Barca)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Augustus",
+          "agreed": true,
+          "flags": [
+            "wording: The options list contains a malformed entry '][0:0]' which is not a valid answer choice and should be removed/fixed."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Boudica",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Trajan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Spartacus",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Removed malformed option '][0:0]', leaving a clean valid option list.",
+          "before": {
+            "text": "Which emperor's reign began the long peace known as the Pax Romana?",
+            "answer": "Augustus"
+          },
+          "after": {
+            "text": "Which emperor's reign began the long peace known as the Pax Romana?",
+            "answer": "Augustus"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "According to legend, which twin brother of Romulus was killed during the founding of Rome?",
+          "answer": "Remus"
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+          "answer": "The Rubicon"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor made his horse Incitatus a priest and, reportedly, planned to make it consul?",
+          "answer": "Caligula"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which emperor's reign began the long peace known as the Pax Romana?",
+          "answer": "Augustus",
+          "options": [
+            "Augustus",
+            "Nero",
+            "Trajan",
+            "Hadrian",
+            "Claudius"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Queen of the Iceni led a revolt against Roman rule in Britain around AD 60?",
+          "answer": "Boudica"
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Under which emperor did the Roman Empire reach its greatest territorial extent, in AD 117?",
+          "answer": "Trajan"
+        },
+        {
+          "id": "R1Q9",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Thracian gladiator led a major slave revolt against Rome in 73–71 BC?",
+          "answer": "Spartacus"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.031156,
+      "ms": 11596,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1504,
+          "outputTokens": 886,
+          "thinkingTokens": 186,
+          "durationMs": 9282
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1205,
+          "outputTokens": 130,
+          "thinkingTokens": 0,
+          "durationMs": 2314
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Removed the garbage option \"][0:0]\". Augustus is correct.",
+          "options": [
+            "Augustus",
+            "Nero",
+            "Trajan",
+            "Hadrian",
+            "Claudius"
+          ]
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Remus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Caligula",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Augustus",
+          "agreed": true,
+          "flags": [
+            "wording: The options list includes a garbage entry \"][0:0]\" that should be removed."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Boudica",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Trajan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Spartacus",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Removed the garbage option \"][0:0]\". Augustus is correct.",
+          "before": {
+            "text": "Which emperor's reign began the long peace known as the Pax Romana?",
+            "answer": "Augustus"
+          },
+          "after": {
+            "text": "Which emperor's reign began the long peace known as the Pax Romana?",
+            "answer": "Augustus"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "According to legend, which twin brother of Romulus was killed during the founding of Rome?",
+          "answer": "Remus"
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+          "answer": "The Rubicon"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor made his horse Incitatus a priest and, reportedly, planned to make it consul?",
+          "answer": "Caligula"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which emperor's reign began the long peace known as the Pax Romana?",
+          "answer": "Augustus",
+          "options": [
+            "Augustus",
+            "Nero",
+            "Trajan",
+            "Hadrian",
+            "Claudius"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Queen of the Iceni led a revolt against Roman rule in Britain around AD 60?",
+          "answer": "Boudica"
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Under which emperor did the Roman Empire reach its greatest territorial extent, in AD 117?",
+          "answer": "Trajan"
+        },
+        {
+          "id": "R1Q9",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Thracian gladiator led a major slave revolt against Rome in 73–71 BC?",
+          "answer": "Spartacus"
+        }
+      ]
+    }
+  ]
+}

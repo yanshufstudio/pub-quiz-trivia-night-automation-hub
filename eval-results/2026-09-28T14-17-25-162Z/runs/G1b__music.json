@@ -1,0 +1,1336 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1772,
+      "outputTokens": 1984,
+      "thinkingTokens": 0,
+      "durationMs": 19136
+    },
+    "costUsd": 0.023384,
+    "ms": 19137
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which British band released the 1969 album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Who sang lead vocals for Led Zeppelin?",
+      "answer": "Robert Plant"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist famously set fire to his guitar at the 1967 Monterey Pop Festival?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which 1971 song by The Who begins with a synthesizer riff and includes the line 'Meet the new boss, same as the old boss'?",
+      "answer": "Won't Get Fooled Again"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which American band was fronted by Jim Morrison?",
+      "answer": "The Doors"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What was the name of the 1969 music festival held on a dairy farm in New York State?",
+      "answer": "Woodstock"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Fleetwood Mac album, released in 1977, became one of the best-selling albums of all time?",
+      "answer": "Rumours"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rock On: 60s & 70s",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band's members included Mick Jagger and Keith Richards?",
+      "answer": "The Rolling Stones",
+      "options": [
+        "The Rolling Stones",
+        "The Kinks",
+        "The Who",
+        "Cream"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer continued composing after going deaf, producing his Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Four Seasons', a set of four violin concertos?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Austrian composer wrote 'The Magic Flute' and died at the age of 35?",
+      "answer": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the ballet 'Swan Lake'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer's 'Requiem' was left unfinished at his death and completed by his pupil?",
+      "answer": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Polish composer and pianist is known for his nocturnes and mazurkas for solo piano?",
+      "answer": "Frédéric Chopin"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer wrote 'The Ride of the Valkyries' as part of his Ring Cycle operas?",
+      "answer": "Richard Wagner"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Masters of Melody",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which composer wrote 'Peter and the Wolf', a piece intended to introduce children to orchestral instruments?",
+      "answer": "Sergei Prokofiev",
+      "options": [
+        "Sergei Prokofiev",
+        "Igor Stravinsky",
+        "Dmitri Shostakovich",
+        "Aaron Copland"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band's only major hit was 'Come On Eileen' in 1982?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which act had a 1997 hit with 'Tubthumping', featuring the line 'I get knocked down, but I get up again'?",
+      "answer": "Chumbawamba"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which one-hit wonder band recorded 'Video Killed the Radio Star' in 1979?",
+      "answer": "The Buggles"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer's only major hit was 'Mickey' in 1982?",
+      "answer": "Toni Basil"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band is known solely for their 1991 hit 'Groove Is in the Heart'?",
+      "answer": "Deee-Lite"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a one-off hit with 'Whoomp! (There It Is)' in 1993?",
+      "answer": "Tag Team"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which singer is remembered for the 1979 disco hit 'I Will Survive'... only kidding, name the one-hit act behind 1997's 'MMMBop'.",
+      "answer": "Hanson",
+      "options": [
+        "Hanson",
+        "S Club 7",
+        "Aqua",
+        "Vengaboys"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Gone in a Flash",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which British singer's only US hit was 'Torn' in 1997, though her career continued strongly at home?",
+      "answer": "Natalie Imbruglia"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.028756000000000004,
+      "ms": 14609,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2776,
+          "outputTokens": 1499,
+          "thinkingTokens": 0,
+          "durationMs": 10234
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1902,
+          "outputTokens": 441,
+          "thinkingTokens": 0,
+          "durationMs": 4375
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Setter's answer is correct; checker's answer is just a more detailed phrasing of the same answer."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "Dexys Midnight Runners had other hits like 'Geno', so calling it their 'only major hit' is inaccurate; rephrase to focus on their one major international/US hit.",
+          "text": "Which band's only major international hit was 'Come On Eileen' in 1982?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "fix",
+          "reason": "Remove the confusing unrelated joke reference to 'I Will Survive' and just ask about MMMBop.",
+          "text": "Name the one-hit act behind 1997's 'MMMBop'.",
+          "answer": "Hanson",
+          "options": [
+            "Hanson",
+            "S Club 7",
+            "Aqua",
+            "Vengaboys"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "fix",
+          "reason": "Natalie Imbruglia is Australian, not British.",
+          "text": "Which Australian singer's only US hit was 'Torn' in 1997, though her career continued strongly at home?",
+          "answer": "Natalie Imbruglia"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Robert Plant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Won't Get Fooled Again",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Doors",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Woodstock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Rumours",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Rolling Stones",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Wolfgang Amadeus Mozart (Requiem completed by Franz Xaver Süssmayr)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "Frédéric Chopin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Richard Wagner",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Sergei Prokofiev",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": [
+            "wording: Dexys Midnight Runners had other UK chart hits (e.g., 'Geno' reached number 1 in 1980), so calling them a strict one-hit wonder is debatable, though 'Come On Eileen' is by far their only major US/international hit."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Toni Basil",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Deee-Lite",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Tag Team",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Hanson",
+          "agreed": true,
+          "flags": [
+            "wording: The question is oddly worded, mixing in an unrelated joke reference to Gloria Gaynor's 'I Will Survive' before asking about Hanson; this could confuse readers."
+          ]
+        },
+        "R3Q8": {
+          "answer": "Natalie Imbruglia",
+          "agreed": true,
+          "flags": [
+            "wording: Natalie Imbruglia is Australian, not British."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q1",
+          "reason": "Dexys Midnight Runners had other hits like 'Geno', so calling it their 'only major hit' is inaccurate; rephrase to focus on their one major international/US hit.",
+          "before": {
+            "text": "Which band's only major hit was 'Come On Eileen' in 1982?",
+            "answer": "Dexys Midnight Runners"
+          },
+          "after": {
+            "text": "Which band's only major international hit was 'Come On Eileen' in 1982?",
+            "answer": "Dexys Midnight Runners"
+          }
+        },
+        {
+          "id": "R3Q7",
+          "reason": "Remove the confusing unrelated joke reference to 'I Will Survive' and just ask about MMMBop.",
+          "before": {
+            "text": "Which singer is remembered for the 1979 disco hit 'I Will Survive'... only kidding, name the one-hit act behind 1997's 'MMMBop'.",
+            "answer": "Hanson"
+          },
+          "after": {
+            "text": "Name the one-hit act behind 1997's 'MMMBop'.",
+            "answer": "Hanson"
+          }
+        },
+        {
+          "id": "R3Q8",
+          "reason": "Natalie Imbruglia is Australian, not British.",
+          "before": {
+            "text": "Which British singer's only US hit was 'Torn' in 1997, though her career continued strongly at home?",
+            "answer": "Natalie Imbruglia"
+          },
+          "after": {
+            "text": "Which Australian singer's only US hit was 'Torn' in 1997, though her career continued strongly at home?",
+            "answer": "Natalie Imbruglia"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which British band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Who sang lead vocals for Led Zeppelin?",
+          "answer": "Robert Plant"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously set fire to his guitar at the 1967 Monterey Pop Festival?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which 1971 song by The Who begins with a synthesizer riff and includes the line 'Meet the new boss, same as the old boss'?",
+          "answer": "Won't Get Fooled Again"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which American band was fronted by Jim Morrison?",
+          "answer": "The Doors"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What was the name of the 1969 music festival held on a dairy farm in New York State?",
+          "answer": "Woodstock"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Fleetwood Mac album, released in 1977, became one of the best-selling albums of all time?",
+          "answer": "Rumours"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band's members included Mick Jagger and Keith Richards?",
+          "answer": "The Rolling Stones",
+          "options": [
+            "The Rolling Stones",
+            "The Kinks",
+            "The Who",
+            "Cream"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued composing after going deaf, producing his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Four Seasons', a set of four violin concertos?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Austrian composer wrote 'The Magic Flute' and died at the age of 35?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballet 'Swan Lake'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer's 'Requiem' was left unfinished at his death and completed by his pupil?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Polish composer and pianist is known for his nocturnes and mazurkas for solo piano?",
+          "answer": "Frédéric Chopin"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer wrote 'The Ride of the Valkyries' as part of his Ring Cycle operas?",
+          "answer": "Richard Wagner"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer wrote 'Peter and the Wolf', a piece intended to introduce children to orchestral instruments?",
+          "answer": "Sergei Prokofiev",
+          "options": [
+            "Sergei Prokofiev",
+            "Igor Stravinsky",
+            "Dmitri Shostakovich",
+            "Aaron Copland"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band's only major international hit was 'Come On Eileen' in 1982?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which act had a 1997 hit with 'Tubthumping', featuring the line 'I get knocked down, but I get up again'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which one-hit wonder band recorded 'Video Killed the Radio Star' in 1979?",
+          "answer": "The Buggles"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer's only major hit was 'Mickey' in 1982?",
+          "answer": "Toni Basil"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band is known solely for their 1991 hit 'Groove Is in the Heart'?",
+          "answer": "Deee-Lite"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a one-off hit with 'Whoomp! (There It Is)' in 1993?",
+          "answer": "Tag Team"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Name the one-hit act behind 1997's 'MMMBop'.",
+          "answer": "Hanson",
+          "options": [
+            "Hanson",
+            "S Club 7",
+            "Aqua",
+            "Vengaboys"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Australian singer's only US hit was 'Torn' in 1997, though her career continued strongly at home?",
+          "answer": "Natalie Imbruglia"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.074256,
+      "ms": 26165,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2601,
+          "outputTokens": 2346,
+          "thinkingTokens": 427,
+          "durationMs": 19997
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1843,
+          "outputTokens": 478,
+          "thinkingTokens": 0,
+          "durationMs": 6168
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "The checker's 'Mozart' is the same answer. Süssmayr completed the Requiem."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "'Only major hit' is false because 'Geno' was a UK No.1. The question now asks for the band that had a 1982 No.1 with the song.",
+          "text": "Which band had a 1982 UK and US number one with 'Come On Eileen'?"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "fix",
+          "reason": "The Buggles had another UK hit, so the 'one-hit wonder' label was removed.",
+          "text": "Which band recorded 'Video Killed the Radio Star' in 1979?"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "fix",
+          "reason": "Removed the messy joke. Hanson had other top-10 hits, so they are not a one-hit act.",
+          "text": "Which band had a 1997 hit with 'MMMBop'?"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "fix",
+          "reason": "Imbruglia is Australian, not British, and the 'only US hit' claim is doubtful. The question now asks only who released 'Torn' in 1997.",
+          "text": "Which Australian singer released a hit version of 'Torn' in 1997?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Robert Plant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Won't Get Fooled Again",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Doors",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Woodstock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Rumours",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Rolling Stones",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Mozart",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "Frédéric Chopin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Richard Wagner",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Sergei Prokofiev",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": [
+            "wording: 'only major hit' is false: 'Geno' was a UK No.1 in 1980; they are a one-hit wonder only in the US."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": [
+            "wording: Slightly loose: the Buggles also had a UK top-20 hit with 'Living in the Plastic Age'."
+          ]
+        },
+        "R3Q4": {
+          "answer": "Toni Basil",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Deee-Lite",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Tag Team",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Hanson",
+          "agreed": true,
+          "flags": [
+            "wording: The 'only kidding' joke makes the wording messy. Also, Hanson were not a one-hit act: 'Where's the Love' and 'I Will Come to You' were UK top-10 hits."
+          ]
+        },
+        "R3Q8": {
+          "answer": "Natalie Imbruglia",
+          "agreed": true,
+          "flags": [
+            "wording: 'British singer' is false: Natalie Imbruglia is Australian. 'Only US hit' is also doubtful, since 'Wishing I Was There' charted in the US."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q1",
+          "reason": "'Only major hit' is false because 'Geno' was a UK No.1. The question now asks for the band that had a 1982 No.1 with the song.",
+          "before": {
+            "text": "Which band's only major hit was 'Come On Eileen' in 1982?",
+            "answer": "Dexys Midnight Runners"
+          },
+          "after": {
+            "text": "Which band had a 1982 UK and US number one with 'Come On Eileen'?",
+            "answer": "Dexys Midnight Runners"
+          }
+        },
+        {
+          "id": "R3Q3",
+          "reason": "The Buggles had another UK hit, so the 'one-hit wonder' label was removed.",
+          "before": {
+            "text": "Which one-hit wonder band recorded 'Video Killed the Radio Star' in 1979?",
+            "answer": "The Buggles"
+          },
+          "after": {
+            "text": "Which band recorded 'Video Killed the Radio Star' in 1979?",
+            "answer": "The Buggles"
+          }
+        },
+        {
+          "id": "R3Q7",
+          "reason": "Removed the messy joke. Hanson had other top-10 hits, so they are not a one-hit act.",
+          "before": {
+            "text": "Which singer is remembered for the 1979 disco hit 'I Will Survive'... only kidding, name the one-hit act behind 1997's 'MMMBop'.",
+            "answer": "Hanson"
+          },
+          "after": {
+            "text": "Which band had a 1997 hit with 'MMMBop'?",
+            "answer": "Hanson"
+          }
+        },
+        {
+          "id": "R3Q8",
+          "reason": "Imbruglia is Australian, not British, and the 'only US hit' claim is doubtful. The question now asks only who released 'Torn' in 1997.",
+          "before": {
+            "text": "Which British singer's only US hit was 'Torn' in 1997, though her career continued strongly at home?",
+            "answer": "Natalie Imbruglia"
+          },
+          "after": {
+            "text": "Which Australian singer released a hit version of 'Torn' in 1997?",
+            "answer": "Natalie Imbruglia"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which British band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Who sang lead vocals for Led Zeppelin?",
+          "answer": "Robert Plant"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously set fire to his guitar at the 1967 Monterey Pop Festival?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which 1971 song by The Who begins with a synthesizer riff and includes the line 'Meet the new boss, same as the old boss'?",
+          "answer": "Won't Get Fooled Again"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which American band was fronted by Jim Morrison?",
+          "answer": "The Doors"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What was the name of the 1969 music festival held on a dairy farm in New York State?",
+          "answer": "Woodstock"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Fleetwood Mac album, released in 1977, became one of the best-selling albums of all time?",
+          "answer": "Rumours"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock On: 60s & 70s",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band's members included Mick Jagger and Keith Richards?",
+          "answer": "The Rolling Stones",
+          "options": [
+            "The Rolling Stones",
+            "The Kinks",
+            "The Who",
+            "Cream"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued composing after going deaf, producing his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Four Seasons', a set of four violin concertos?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Austrian composer wrote 'The Magic Flute' and died at the age of 35?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballet 'Swan Lake'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer's 'Requiem' was left unfinished at his death and completed by his pupil?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Polish composer and pianist is known for his nocturnes and mazurkas for solo piano?",
+          "answer": "Frédéric Chopin"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer wrote 'The Ride of the Valkyries' as part of his Ring Cycle operas?",
+          "answer": "Richard Wagner"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Masters of Melody",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer wrote 'Peter and the Wolf', a piece intended to introduce children to orchestral instruments?",
+          "answer": "Sergei Prokofiev",
+          "options": [
+            "Sergei Prokofiev",
+            "Igor Stravinsky",
+            "Dmitri Shostakovich",
+            "Aaron Copland"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1982 UK and US number one with 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which act had a 1997 hit with 'Tubthumping', featuring the line 'I get knocked down, but I get up again'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band recorded 'Video Killed the Radio Star' in 1979?",
+          "answer": "The Buggles"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer's only major hit was 'Mickey' in 1982?",
+          "answer": "Toni Basil"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band is known solely for their 1991 hit 'Groove Is in the Heart'?",
+          "answer": "Deee-Lite"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a one-off hit with 'Whoomp! (There It Is)' in 1993?",
+          "answer": "Tag Team"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band had a 1997 hit with 'MMMBop'?",
+          "answer": "Hanson",
+          "options": [
+            "Hanson",
+            "S Club 7",
+            "Aqua",
+            "Vengaboys"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Gone in a Flash",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Australian singer released a hit version of 'Torn' in 1997?",
+          "answer": "Natalie Imbruglia"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,953 @@
+{
+  "generator": "G1b",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "default",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1759,
+      "outputTokens": 1165,
+      "thinkingTokens": 0,
+      "durationMs": 10466
+    },
+    "costUsd": 0.015168,
+    "ms": 10466
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor won the Best Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+      "answer": "Heath Ledger"
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1997 film won the Academy Award for Best Picture and became the highest-grossing film of its time?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "TEXT",
+      "text": "Which actress has won the most Best Actress Oscars, with four wins?",
+      "answer": "Katharine Hepburn"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "TEXT",
+      "text": "'Parasite' won the Best Picture Oscar for which year's ceremony, becoming the first non-English-language film to do so?",
+      "answer": "2020"
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "TEXT",
+      "text": "Which director won his first Best Director Oscar for 'The Revenant' in 2016?",
+      "answer": "Alejandro G. Iñárritu"
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these actors has NEVER won a competitive acting Oscar?",
+      "answer": "Johnny Depp",
+      "options": [
+        "Leonardo DiCaprio",
+        "Tom Hanks",
+        "Johnny Depp",
+        "Denzel Washington"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "TEXT",
+      "text": "Frances McDormand won a Best Actress Oscar for playing police chief Marge Gunderson in which 1996 film?",
+      "answer": "Fargo"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To...",
+      "category": "Film - Academy Awards",
+      "type": "TEXT",
+      "text": "Which composer has won the most Academy Awards for Best Original Score, including for 'Star Wars' and 'Jaws'?",
+      "answer": "John Williams"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of Ross Geller's pet monkey?",
+      "answer": "Marcel"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom is set in the fictional Pawnee, Indiana, and follows the Parks and Recreation department?",
+      "answer": "Parks and Recreation"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Seinfeld', what is the name of Jerry's eccentric neighbor who frequently bursts into his apartment?",
+      "answer": "Kramer"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom starring Steve Carell is based on a British series of the same name and set at Dunder Mifflin?",
+      "answer": "The Office"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Frasier', what is the name of Frasier Crane's father, a retired police officer?",
+      "answer": "Martin Crane"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which 1990s sitcom starring Will Smith was about a street-smart teen sent to live with his wealthy relatives in Bel-Air?",
+      "answer": "The Fresh Prince of Bel-Air"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'How I Met Your Mother', what is the name of Barney Stinson's catchphrase-worthy pickup guide?",
+      "answer": "The Playbook"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Must-See TV",
+      "category": "Television - 90s & 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these sitcoms is set primarily in a coffee shop called Central Perk?",
+      "answer": "Friends",
+      "options": [
+        "Friends",
+        "Frasier",
+        "Cheers",
+        "Seinfeld"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.022362,
+      "ms": 11867,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2350,
+          "outputTokens": 949,
+          "thinkingTokens": 0,
+          "durationMs": 7044
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1771,
+          "outputTokens": 463,
+          "thinkingTokens": 0,
+          "durationMs": 4823
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "fix",
+          "reason": "Ledger won Best Supporting Actor, not Best Actor, for the Joker in 'The Dark Knight'.",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+          "answer": "Heath Ledger"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Parasite won Best Picture at the 2020 ceremony; the checker's parenthetical about release year is just additional detail, not a different answer.",
+          "answer": "2020"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Iñárritu's Revenant win was his second consecutive Best Director Oscar, not his first.",
+          "text": "Which director won his second consecutive Best Director Oscar for 'The Revenant' in 2016?",
+          "answer": "Alejandro G. Iñárritu"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Barney's pickup guide is called 'The Playbook'; 'The Bro Code' is a different book about friendship rules.",
+          "text": "In 'How I Met Your Mother', what is the name of Barney Stinson's catchphrase-worthy pickup guide?",
+          "answer": "The Playbook"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Heath Ledger",
+          "agreed": true,
+          "flags": [
+            "wording: Heath Ledger won Best Supporting Actor, not Best Actor, for playing the Joker in 'The Dark Knight'."
+          ]
+        },
+        "R1Q2": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "2020 (for films released in 2019)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q5": {
+          "answer": "Alejandro G. Iñárritu",
+          "agreed": true,
+          "flags": [
+            "wording: This was actually Iñárritu's second consecutive Best Director win (he won the previous year for 'Birdman'), not his first."
+          ]
+        },
+        "R1Q6": {
+          "answer": "Johnny Depp",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Fargo",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "John Williams",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Marcel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Parks and Recreation",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Kramer",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Martin Crane",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Fresh Prince of Bel-Air",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The Bro Code",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q8": {
+          "answer": "Friends",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q1",
+          "reason": "Ledger won Best Supporting Actor, not Best Actor, for the Joker in 'The Dark Knight'.",
+          "before": {
+            "text": "Which actor won the Best Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          },
+          "after": {
+            "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          }
+        },
+        {
+          "id": "R1Q5",
+          "reason": "Iñárritu's Revenant win was his second consecutive Best Director Oscar, not his first.",
+          "before": {
+            "text": "Which director won his first Best Director Oscar for 'The Revenant' in 2016?",
+            "answer": "Alejandro G. Iñárritu"
+          },
+          "after": {
+            "text": "Which director won his second consecutive Best Director Oscar for 'The Revenant' in 2016?",
+            "answer": "Alejandro G. Iñárritu"
+          }
+        }
+      ],
+      "dropped": [
+        {
+          "id": "R2Q7",
+          "reason": "Barney's pickup guide is called 'The Playbook'; 'The Bro Code' is a different book about friendship rules. (fix gave no correction)",
+          "before": {
+            "text": "In 'How I Met Your Mother', what is the name of Barney Stinson's catchphrase-worthy pickup guide?",
+            "answer": "The Playbook"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+          "answer": "Heath Ledger"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film won the Academy Award for Best Picture and became the highest-grossing film of its time?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which actress has won the most Best Actress Oscars, with four wins?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "'Parasite' won the Best Picture Oscar for which year's ceremony, becoming the first non-English-language film to do so?",
+          "answer": "2020"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which director won his second consecutive Best Director Oscar for 'The Revenant' in 2016?",
+          "answer": "Alejandro G. Iñárritu"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these actors has NEVER won a competitive acting Oscar?",
+          "answer": "Johnny Depp",
+          "options": [
+            "Leonardo DiCaprio",
+            "Tom Hanks",
+            "Johnny Depp",
+            "Denzel Washington"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Frances McDormand won a Best Actress Oscar for playing police chief Marge Gunderson in which 1996 film?",
+          "answer": "Fargo"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which composer has won the most Academy Awards for Best Original Score, including for 'Star Wars' and 'Jaws'?",
+          "answer": "John Williams"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of Ross Geller's pet monkey?",
+          "answer": "Marcel"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom is set in the fictional Pawnee, Indiana, and follows the Parks and Recreation department?",
+          "answer": "Parks and Recreation"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Seinfeld', what is the name of Jerry's eccentric neighbor who frequently bursts into his apartment?",
+          "answer": "Kramer"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom starring Steve Carell is based on a British series of the same name and set at Dunder Mifflin?",
+          "answer": "The Office"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier Crane's father, a retired police officer?",
+          "answer": "Martin Crane"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starring Will Smith was about a street-smart teen sent to live with his wealthy relatives in Bel-Air?",
+          "answer": "The Fresh Prince of Bel-Air"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these sitcoms is set primarily in a coffee shop called Central Perk?",
+          "answer": "Friends",
+          "options": [
+            "Friends",
+            "Frasier",
+            "Cheers",
+            "Seinfeld"
+          ]
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.070508,
+      "ms": 25929,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2175,
+          "outputTokens": 1885,
+          "thinkingTokens": 483,
+          "durationMs": 17440
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1957,
+          "outputTokens": 814,
+          "thinkingTokens": 297,
+          "durationMs": 8489
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "fix",
+          "reason": "Ledger won Best Supporting Actor, not Best Actor.",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer. Parasite won at the 2020 ceremony (the 92nd)."
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "The Revenant was his second Best Director win. His first was for Birdman.",
+          "text": "Which director won his second consecutive Best Director Oscar for 'The Revenant' in 2016?"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "The claim that he has won the most score Oscars is false (Alfred Newman won more), so I removed it.",
+          "text": "Which composer won Best Original Score Oscars for both 'Star Wars' and 'Jaws'?"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer, just in fuller form."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Reworded so the question clearly points to The Playbook rather than the Bro Code.",
+          "text": "In 'How I Met Your Mother', what is the name of Barney Stinson's book of elaborate schemes for picking up women?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Heath Ledger",
+          "agreed": true,
+          "flags": [
+            "wording: 'won the Best Actor Oscar' is wrong: Heath Ledger won Best Supporting Actor for the Joker, awarded after his death."
+          ]
+        },
+        "R1Q2": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "2020 (92nd Academy Awards)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q5": {
+          "answer": "Alejandro González Iñárritu",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "wording: 'his first Best Director Oscar' is wrong: The Revenant was Iñárritu's second Best Director Oscar. His first was for Birdman in 2015."
+          ]
+        },
+        "R1Q6": {
+          "answer": "Johnny Depp",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Fargo",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "John Williams",
+          "agreed": true,
+          "flags": [
+            "wording: 'has won the most Academy Awards for Best Original Score' can't be confirmed and is probably wrong: Williams has four score Oscars (Jaws, Star Wars, E.T., Schindler's List), while Alfred Newman won nine Oscars for scoring."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Marcel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Parks and Recreation",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Kramer (Cosmo Kramer)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Martin Crane",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Fresh Prince of Bel-Air",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The Playbook",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q8": {
+          "answer": "Friends",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q1",
+          "reason": "Ledger won Best Supporting Actor, not Best Actor.",
+          "before": {
+            "text": "Which actor won the Best Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          },
+          "after": {
+            "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+            "answer": "Heath Ledger"
+          }
+        },
+        {
+          "id": "R1Q5",
+          "reason": "The Revenant was his second Best Director win. His first was for Birdman.",
+          "before": {
+            "text": "Which director won his first Best Director Oscar for 'The Revenant' in 2016?",
+            "answer": "Alejandro G. Iñárritu"
+          },
+          "after": {
+            "text": "Which director won his second consecutive Best Director Oscar for 'The Revenant' in 2016?",
+            "answer": "Alejandro G. Iñárritu"
+          }
+        },
+        {
+          "id": "R1Q8",
+          "reason": "The claim that he has won the most score Oscars is false (Alfred Newman won more), so I removed it.",
+          "before": {
+            "text": "Which composer has won the most Academy Awards for Best Original Score, including for 'Star Wars' and 'Jaws'?",
+            "answer": "John Williams"
+          },
+          "after": {
+            "text": "Which composer won Best Original Score Oscars for both 'Star Wars' and 'Jaws'?",
+            "answer": "John Williams"
+          }
+        },
+        {
+          "id": "R2Q7",
+          "reason": "Reworded so the question clearly points to The Playbook rather than the Bro Code.",
+          "before": {
+            "text": "In 'How I Met Your Mother', what is the name of Barney Stinson's catchphrase-worthy pickup guide?",
+            "answer": "The Playbook"
+          },
+          "after": {
+            "text": "In 'How I Met Your Mother', what is the name of Barney Stinson's book of elaborate schemes for picking up women?",
+            "answer": "The Playbook"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won the Best Supporting Actor Oscar for his role as the Joker in 'The Dark Knight'?",
+          "answer": "Heath Ledger"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film won the Academy Award for Best Picture and became the highest-grossing film of its time?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which actress has won the most Best Actress Oscars, with four wins?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "'Parasite' won the Best Picture Oscar for which year's ceremony, becoming the first non-English-language film to do so?",
+          "answer": "2020"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which director won his second consecutive Best Director Oscar for 'The Revenant' in 2016?",
+          "answer": "Alejandro G. Iñárritu"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these actors has NEVER won a competitive acting Oscar?",
+          "answer": "Johnny Depp",
+          "options": [
+            "Leonardo DiCaprio",
+            "Tom Hanks",
+            "Johnny Depp",
+            "Denzel Washington"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Frances McDormand won a Best Actress Oscar for playing police chief Marge Gunderson in which 1996 film?",
+          "answer": "Fargo"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Film - Academy Awards",
+          "type": "TEXT",
+          "text": "Which composer won Best Original Score Oscars for both 'Star Wars' and 'Jaws'?",
+          "answer": "John Williams"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of Ross Geller's pet monkey?",
+          "answer": "Marcel"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom is set in the fictional Pawnee, Indiana, and follows the Parks and Recreation department?",
+          "answer": "Parks and Recreation"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Seinfeld', what is the name of Jerry's eccentric neighbor who frequently bursts into his apartment?",
+          "answer": "Kramer"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom starring Steve Carell is based on a British series of the same name and set at Dunder Mifflin?",
+          "answer": "The Office"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier Crane's father, a retired police officer?",
+          "answer": "Martin Crane"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 1990s sitcom starring Will Smith was about a street-smart teen sent to live with his wealthy relatives in Bel-Air?",
+          "answer": "The Fresh Prince of Bel-Air"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'How I Met Your Mother', what is the name of Barney Stinson's book of elaborate schemes for picking up women?",
+          "answer": "The Playbook"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Must-See TV",
+          "category": "Television - 90s & 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these sitcoms is set primarily in a coffee shop called Central Perk?",
+          "answer": "Friends",
+          "options": [
+            "Friends",
+            "Frasier",
+            "Cheers",
+            "Seinfeld"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,602 @@
+{
+  "generator": "G2",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "adaptive",
+    "effort": "xhigh",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1749,
+      "outputTokens": 537,
+      "thinkingTokens": 0,
+      "durationMs": 5926
+    },
+    "costUsd": 0.008868,
+    "ms": 5926
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the largest mammal in the world?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which animal is known as the 'King of the Jungle'?",
+      "answer": "Lion"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight",
+      "options": [
+        "Six",
+        "Eight",
+        "Ten",
+        "Twelve"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do you call a baby dog?",
+      "answer": "Puppy"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird is famous for saying words when taught by humans?",
+      "answer": "Parrot"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which sea creature has eight arms?",
+      "answer": "Octopus"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the fastest land animal?",
+      "answer": "Cheetah"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which animal is black and white and looks like a horse with stripes?",
+      "answer": "Zebra"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What do bees make and store in a hive?",
+      "answer": "Honey",
+      "options": [
+        "Honey",
+        "Sugar",
+        "Syrup",
+        "Jam"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.012586,
+      "ms": 7165,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1564,
+          "outputTokens": 567,
+          "thinkingTokens": 0,
+          "durationMs": 4666
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1349,
+          "outputTokens": 109,
+          "thinkingTokens": 0,
+          "durationMs": 2499
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "'King of the Jungle' is the well-known common phrase for lions; the setter's answer is correct and unambiguous as written despite the ecological misnomer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": [
+            "wording: Note: lions do not actually live in jungles (they live in savannas/grasslands), so the nickname is a factual misnomer, though it is the well-known common phrase."
+          ]
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Puppy",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Parrot",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Octopus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Zebra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Honey",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest mammal in the world?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight",
+          "options": [
+            "Six",
+            "Eight",
+            "Ten",
+            "Twelve"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do you call a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is famous for saying words when taught by humans?",
+          "answer": "Parrot"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is black and white and looks like a horse with stripes?",
+          "answer": "Zebra"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What do bees make and store in a hive?",
+          "answer": "Honey",
+          "options": [
+            "Honey",
+            "Sugar",
+            "Syrup",
+            "Jam"
+          ]
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.02572,
+      "ms": 11639,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1389,
+          "outputTokens": 533,
+          "thinkingTokens": 0,
+          "durationMs": 8135
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1131,
+          "outputTokens": 249,
+          "thinkingTokens": 99,
+          "durationMs": 3503
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Mynah birds also copy human speech, so the question needs to point to parrots specifically.",
+          "text": "Which type of bird, including the African grey and the macaw, is famous for saying words when taught by humans?",
+          "answer": "Parrot"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Puppy",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Parrot",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Octopus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Zebra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Honey",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q5",
+          "reason": "Mynah birds also copy human speech, so the question needs to point to parrots specifically.",
+          "before": {
+            "text": "Which bird is famous for saying words when taught by humans?",
+            "answer": "Parrot"
+          },
+          "after": {
+            "text": "Which type of bird, including the African grey and the macaw, is famous for saying words when taught by humans?",
+            "answer": "Parrot"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest mammal in the world?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight",
+          "options": [
+            "Six",
+            "Eight",
+            "Ten",
+            "Twelve"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do you call a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which type of bird, including the African grey and the macaw, is famous for saying words when taught by humans?",
+          "answer": "Parrot"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is black and white and looks like a horse with stripes?",
+          "answer": "Zebra"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What do bees make and store in a hive?",
+          "answer": "Honey",
+          "options": [
+            "Honey",
+            "Sugar",
+            "Syrup",
+            "Jam"
+          ]
+        }
+      ]
+    }
+  ]
+}

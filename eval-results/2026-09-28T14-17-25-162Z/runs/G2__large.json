@@ -1,0 +1,2636 @@
+{
+  "generator": "G2",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "adaptive",
+    "effort": "xhigh",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "large",
+    "prompt": "5 rounds of 10 questions for adults in a pub, medium difficulty: 80s music, world geography, famous film quotes, science, general knowledge.",
+    "questions": 50
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1769,
+      "outputTokens": 2528,
+      "thinkingTokens": 0,
+      "durationMs": 22341
+    },
+    "costUsd": 0.028818,
+    "ms": 22341
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which British band released the 1984 single 'Relax', which was banned by the BBC?",
+      "answer": "Frankie Goes to Hollywood"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Michael Jackson's 'Thriller' album was released in which year?",
+      "answer": "1982"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which female singer released the album 'Like a Virgin' in 1984?",
+      "answer": "Madonna"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Norwegian band had a hit with 'Take On Me' in 1985?",
+      "answer": "a-ha"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which duo had 80s hits with 'Wake Me Up Before You Go-Go' and 'Careless Whisper'?",
+      "answer": "Wham!"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which British rock band released the album 'The Joshua Tree' in 1987?",
+      "answer": "U2"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which artist recorded the theme song for the James Bond film 'A View to a Kill'?",
+      "answer": "Duran Duran"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "What was the title of the 1985 charity single recorded by Band Aid?",
+      "answer": "Do They Know It's Christmas?"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which American singer released the album 'Purple Rain' in 1984?",
+      "answer": "Prince"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these songs won the Grammy Award for Record of the Year in 1983? ",
+      "answer": "Rosanna",
+      "options": [
+        "Rosanna",
+        "Billie Jean",
+        "Every Breath You Take",
+        "Beat It"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which is the longest river in the world?",
+      "answer": "The Nile"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Mount Kilimanjaro is located in which country?",
+      "answer": "Tanzania"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which desert is the largest hot desert in the world?",
+      "answer": "The Sahara"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Europe from Africa at their closest point?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the smallest country in the world by area?",
+      "answer": "Vatican City"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which South American country has Spanish and Guarani as official languages?",
+      "answer": "Paraguay"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "The Great Barrier Reef lies off the coast of which country?",
+      "answer": "Australia"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which mountain range separates Spain from France?",
+      "answer": "The Pyrenees"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Around the Globe",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which country has the most time zones of any country?",
+      "answer": "France",
+      "options": [
+        "France",
+        "Russia",
+        "United States",
+        "China"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'I'm gonna make him an offer he can't refuse'?",
+      "answer": "The Godfather"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "In 'Jaws', which character says 'You're gonna need a bigger boat'?",
+      "answer": "Brody (Chief Brody)"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'Here's looking at you, kid'?",
+      "answer": "Casablanca"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "In 'The Wizard of Oz', which character says 'Toto, I've a feeling we're not in Kansas anymore'?",
+      "answer": "Dorothy"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film has the line 'May the Force be with you'?",
+      "answer": "Star Wars"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which villain says 'No, I am your father' in a well-known Star Wars scene?",
+      "answer": "Darth Vader"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'You can't handle the truth!'?",
+      "answer": "A Few Good Men"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film has the line 'Life is like a box of chocolates'?",
+      "answer": "Forrest Gump"
+    },
+    {
+      "id": "R3Q9",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the quote 'I'll be back'?",
+      "answer": "The Terminator"
+    },
+    {
+      "id": "R3Q10",
+      "round": "Cinema Sound Bites",
+      "category": "Famous Film Quotes",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which 1990 film has the line 'They call me Mister Tibbs!'?",
+      "answer": "In the Heat of the Night",
+      "options": [
+        "In the Heat of the Night",
+        "The Defiant Ones",
+        "Guess Who's Coming to Dinner",
+        "To Sir, with Love"
+      ]
+    },
+    {
+      "id": "R4Q1",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the powerhouse of the cell, responsible for producing energy?",
+      "answer": "Mitochondria"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What force keeps planets in orbit around the sun?",
+      "answer": "Gravity"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the atmosphere for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the hardest natural substance on Earth?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the name for a substance that speeds up a chemical reaction without being consumed?",
+      "answer": "Catalyst"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What planet in our solar system has the most moons confirmed?",
+      "answer": "Saturn"
+    },
+    {
+      "id": "R4Q8",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the SI unit of electrical resistance?",
+      "answer": "Ohm"
+    },
+    {
+      "id": "R4Q9",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which blood type is known as the universal donor?",
+      "answer": "O negative"
+    },
+    {
+      "id": "R4Q10",
+      "round": "Lab and Beyond",
+      "category": "Science",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which scientist formulated the theory of general relativity?",
+      "answer": "Albert Einstein",
+      "options": [
+        "Albert Einstein",
+        "Isaac Newton",
+        "Niels Bohr",
+        "Max Planck"
+      ]
+    },
+    {
+      "id": "R5Q1",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the currency used in Japan?",
+      "answer": "Yen"
+    },
+    {
+      "id": "R5Q2",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many players are on a standard football (soccer) team on the pitch at once?",
+      "answer": "11"
+    },
+    {
+      "id": "R5Q3",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote the play 'Romeo and Juliet'?",
+      "answer": "William Shakespeare"
+    },
+    {
+      "id": "R5Q4",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R5Q5",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city would you find the Colosseum?",
+      "answer": "Rome"
+    },
+    {
+      "id": "R5Q6",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the main ingredient in traditional guacamole?",
+      "answer": "Avocado"
+    },
+    {
+      "id": "R5Q7",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R5Q8",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the national sport of Japan?",
+      "answer": "Sumo wrestling"
+    },
+    {
+      "id": "R5Q9",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who painted the ceiling of the Sistine Chapel?",
+      "answer": "Michelangelo"
+    },
+    {
+      "id": "R5Q10",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which organisation uses the acronym NATO?",
+      "answer": "North Atlantic Treaty Organization"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.050774,
+      "ms": 29441,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 3868,
+          "outputTokens": 2847,
+          "thinkingTokens": 0,
+          "durationMs": 19617
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2624,
+          "outputTokens": 932,
+          "thinkingTokens": 0,
+          "durationMs": 9824
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Question only asks for the year and correctly answered 1982, no false premise stated."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Band Aid's 'Do They Know It's Christmas?' was released in 1984, not 1985.",
+          "text": "What was the title of the 1984 charity single recorded by Band Aid?",
+          "answer": "Do They Know It's Christmas?"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "fix",
+          "reason": "Grammy year framing is ambiguous between award ceremony year and recording year; clarify to remove ambiguity - Rosanna won at the 1983 ceremony for 1982 recordings.",
+          "text": "Which of these songs won the Grammy Award for Record of the Year at the 1983 ceremony?",
+          "answer": "Rosanna",
+          "options": [
+            "Rosanna",
+            "Billie Jean",
+            "Every Breath You Take",
+            "Beat It"
+          ]
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "fix",
+          "reason": "Nile is the traditionally accepted answer for quiz purposes; clarify wording to avoid ambiguity with Amazon debate.",
+          "text": "Which river is traditionally considered the longest in the world?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Sahara is correct; checker answer matches setter answer just phrased differently."
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "France does have the most time zones due to overseas territories; correct as written."
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "Both answers refer to the same character, Chief Martin Brody."
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "fix",
+          "reason": "The actual quote is often misremembered; the real line is 'No, I am your father' but question wording is fine and answer Darth Vader is correct.",
+          "text": "Which villain says 'No, I am your father' in a well-known Star Wars scene?",
+          "answer": "Darth Vader"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "fix",
+          "reason": "The line is most iconically associated with the original 1984 film; specify to remove ambiguity.",
+          "text": "Which 1984 film features the quote 'I'll be back'?",
+          "answer": "The Terminator"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "fix",
+          "reason": "In the Heat of the Night was released in 1967, not 1990; correct the year.",
+          "text": "Which 1967 film has the line 'They call me Mister Tibbs!'?",
+          "answer": "In the Heat of the Night",
+          "options": [
+            "In the Heat of the Night",
+            "The Defiant Ones",
+            "Guess Who's Coming to Dinner",
+            "To Sir, with Love"
+          ]
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Frankie Goes to Hollywood",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "1982",
+          "agreed": true,
+          "flags": [
+            "wording: Thriller was released in 1982, not 1984 as implied could be a trap; the question just asks the year, no false claim stated explicitly since it doesn't assert a year itself."
+          ]
+        },
+        "R1Q3": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Wham!",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "U2",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Duran Duran",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Do They Know It's Christmas?",
+          "agreed": true,
+          "flags": [
+            "wording: The original Band Aid single was released in 1984, not 1985."
+          ]
+        },
+        "R1Q9": {
+          "answer": "Prince",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Rosanna",
+          "agreed": true,
+          "flags": [
+            "wording: The 1983 Grammy (for 1982 recordings) Record of the Year was won by 'Rosanna' by Toto. However, this could be confused with the 1984 ceremony (for 1983) where 'Beat It' won Record of the Year, so the year framing is ambiguous/confusing."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Nile (or Amazon, depending on measurement method)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: There is ongoing scientific debate whether the Nile or Amazon is longest."
+          ]
+        },
+        "R2Q3": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Sahara Desert",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Vatican City",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Paraguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Australia",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "The Pyrenees",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "France",
+          "agreed": true,
+          "flags": [
+            "wording: France has the most time zones (12) due to its overseas territories, which may surprise some but is correct."
+          ]
+        },
+        "R3Q1": {
+          "answer": "The Godfather",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Chief Brody (Martin Brody)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q3": {
+          "answer": "Casablanca",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Dorothy",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Star Wars",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Darth Vader",
+          "agreed": true,
+          "flags": [
+            "wording: The actual line is 'No, I am your father,' though commonly misquoted as 'Luke, I am your father'; this is correctly phrased here."
+          ]
+        },
+        "R3Q7": {
+          "answer": "A Few Good Men",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Forrest Gump",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "The Terminator",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: The line appears in multiple Terminator films, so the exact film could vary."
+          ]
+        },
+        "R3Q10": {
+          "answer": "In the Heat of the Night",
+          "agreed": true,
+          "flags": [
+            "wording: In the Heat of the Night was released in 1967, not 1990 as stated in the question."
+          ]
+        },
+        "R4Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Mitochondria",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Gravity",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Catalyst",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Ohm",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "O negative",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Albert Einstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q1": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q2": {
+          "answer": "11",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q3": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q4": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q5": {
+          "answer": "Rome",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q6": {
+          "answer": "Avocado",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q7": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q8": {
+          "answer": "Sumo wrestling",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q9": {
+          "answer": "Michelangelo",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q10": {
+          "answer": "North Atlantic Treaty Organization",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q8",
+          "reason": "Band Aid's 'Do They Know It's Christmas?' was released in 1984, not 1985.",
+          "before": {
+            "text": "What was the title of the 1985 charity single recorded by Band Aid?",
+            "answer": "Do They Know It's Christmas?"
+          },
+          "after": {
+            "text": "What was the title of the 1984 charity single recorded by Band Aid?",
+            "answer": "Do They Know It's Christmas?"
+          }
+        },
+        {
+          "id": "R1Q10",
+          "reason": "Grammy year framing is ambiguous between award ceremony year and recording year; clarify to remove ambiguity - Rosanna won at the 1983 ceremony for 1982 recordings.",
+          "before": {
+            "text": "Which of these songs won the Grammy Award for Record of the Year in 1983? ",
+            "answer": "Rosanna"
+          },
+          "after": {
+            "text": "Which of these songs won the Grammy Award for Record of the Year at the 1983 ceremony?",
+            "answer": "Rosanna"
+          }
+        },
+        {
+          "id": "R2Q2",
+          "reason": "Nile is the traditionally accepted answer for quiz purposes; clarify wording to avoid ambiguity with Amazon debate.",
+          "before": {
+            "text": "Which is the longest river in the world?",
+            "answer": "The Nile"
+          },
+          "after": {
+            "text": "Which river is traditionally considered the longest in the world?",
+            "answer": "The Nile"
+          }
+        },
+        {
+          "id": "R3Q9",
+          "reason": "The line is most iconically associated with the original 1984 film; specify to remove ambiguity.",
+          "before": {
+            "text": "Which film features the quote 'I'll be back'?",
+            "answer": "The Terminator"
+          },
+          "after": {
+            "text": "Which 1984 film features the quote 'I'll be back'?",
+            "answer": "The Terminator"
+          }
+        },
+        {
+          "id": "R3Q10",
+          "reason": "In the Heat of the Night was released in 1967, not 1990; correct the year.",
+          "before": {
+            "text": "Which 1990 film has the line 'They call me Mister Tibbs!'?",
+            "answer": "In the Heat of the Night"
+          },
+          "after": {
+            "text": "Which 1967 film has the line 'They call me Mister Tibbs!'?",
+            "answer": "In the Heat of the Night"
+          }
+        }
+      ],
+      "dropped": [
+        {
+          "id": "R3Q6",
+          "reason": "The actual quote is often misremembered; the real line is 'No, I am your father' but question wording is fine and answer Darth Vader is correct. (fix gave no correction)",
+          "before": {
+            "text": "Which villain says 'No, I am your father' in a well-known Star Wars scene?",
+            "answer": "Darth Vader"
+          }
+        }
+      ],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British band released the 1984 single 'Relax', which was banned by the BBC?",
+          "answer": "Frankie Goes to Hollywood"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Michael Jackson's 'Thriller' album was released in which year?",
+          "answer": "1982"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which female singer released the album 'Like a Virgin' in 1984?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which Norwegian band had a hit with 'Take On Me' in 1985?",
+          "answer": "a-ha"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which duo had 80s hits with 'Wake Me Up Before You Go-Go' and 'Careless Whisper'?",
+          "answer": "Wham!"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British rock band released the album 'The Joshua Tree' in 1987?",
+          "answer": "U2"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which artist recorded the theme song for the James Bond film 'A View to a Kill'?",
+          "answer": "Duran Duran"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "What was the title of the 1984 charity single recorded by Band Aid?",
+          "answer": "Do They Know It's Christmas?"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which American singer released the album 'Purple Rain' in 1984?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these songs won the Grammy Award for Record of the Year at the 1983 ceremony?",
+          "answer": "Rosanna",
+          "options": [
+            "Rosanna",
+            "Billie Jean",
+            "Every Breath You Take",
+            "Beat It"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river is traditionally considered the longest in the world?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is located in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which desert is the largest hot desert in the world?",
+          "answer": "The Sahara"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Europe from Africa at their closest point?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the smallest country in the world by area?",
+          "answer": "Vatican City"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which South American country has Spanish and Guarani as official languages?",
+          "answer": "Paraguay"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The Great Barrier Reef lies off the coast of which country?",
+          "answer": "Australia"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range separates Spain from France?",
+          "answer": "The Pyrenees"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has the most time zones of any country?",
+          "answer": "France",
+          "options": [
+            "France",
+            "Russia",
+            "United States",
+            "China"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'I'm gonna make him an offer he can't refuse'?",
+          "answer": "The Godfather"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "In 'Jaws', which character says 'You're gonna need a bigger boat'?",
+          "answer": "Brody (Chief Brody)"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'Here's looking at you, kid'?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "In 'The Wizard of Oz', which character says 'Toto, I've a feeling we're not in Kansas anymore'?",
+          "answer": "Dorothy"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film has the line 'May the Force be with you'?",
+          "answer": "Star Wars"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'You can't handle the truth!'?",
+          "answer": "A Few Good Men"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film has the line 'Life is like a box of chocolates'?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which 1984 film features the quote 'I'll be back'?",
+          "answer": "The Terminator"
+        },
+        {
+          "id": "R3Q9",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which 1967 film has the line 'They call me Mister Tibbs!'?",
+          "answer": "In the Heat of the Night",
+          "options": [
+            "In the Heat of the Night",
+            "The Defiant Ones",
+            "Guess Who's Coming to Dinner",
+            "To Sir, with Love"
+          ]
+        },
+        {
+          "id": "R4Q1",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the powerhouse of the cell, responsible for producing energy?",
+          "answer": "Mitochondria"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What force keeps planets in orbit around the sun?",
+          "answer": "Gravity"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the atmosphere for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the hardest natural substance on Earth?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the name for a substance that speeds up a chemical reaction without being consumed?",
+          "answer": "Catalyst"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What planet in our solar system has the most moons confirmed?",
+          "answer": "Saturn"
+        },
+        {
+          "id": "R4Q8",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the SI unit of electrical resistance?",
+          "answer": "Ohm"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which blood type is known as the universal donor?",
+          "answer": "O negative"
+        },
+        {
+          "id": "R4Q10",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which scientist formulated the theory of general relativity?",
+          "answer": "Albert Einstein",
+          "options": [
+            "Albert Einstein",
+            "Isaac Newton",
+            "Niels Bohr",
+            "Max Planck"
+          ]
+        },
+        {
+          "id": "R5Q1",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the currency used in Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R5Q2",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many players are on a standard football (soccer) team on the pitch at once?",
+          "answer": "11"
+        },
+        {
+          "id": "R5Q3",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote the play 'Romeo and Juliet'?",
+          "answer": "William Shakespeare"
+        },
+        {
+          "id": "R5Q4",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R5Q5",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city would you find the Colosseum?",
+          "answer": "Rome"
+        },
+        {
+          "id": "R5Q6",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the main ingredient in traditional guacamole?",
+          "answer": "Avocado"
+        },
+        {
+          "id": "R5Q7",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R5Q8",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the national sport of Japan?",
+          "answer": "Sumo wrestling"
+        },
+        {
+          "id": "R5Q9",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who painted the ceiling of the Sistine Chapel?",
+          "answer": "Michelangelo"
+        },
+        {
+          "id": "R5Q10",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which organisation uses the acronym NATO?",
+          "answer": "North Atlantic Treaty Organization"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.142456,
+      "ms": 49921,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 3693,
+          "outputTokens": 4093,
+          "thinkingTokens": 747,
+          "durationMs": 32439
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2646,
+          "outputTokens": 1762,
+          "thinkingTokens": 556,
+          "durationMs": 17482
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "fix",
+          "reason": "Relax was released in 1983; the ban came in 1984.",
+          "text": "Which British band's single 'Relax' was banned by the BBC in 1984?"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Careless Whisper was a George Michael solo release in the UK; swapped in Last Christmas.",
+          "text": "Which duo had 80s hits with 'Wake Me Up Before You Go-Go' and 'Last Christmas'?"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "U2 are Irish.",
+          "text": "Which Irish rock band released the album 'The Joshua Tree' in 1987?"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Released in 1984.",
+          "text": "What was the title of the 1984 charity single recorded by Band Aid?"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "fix",
+          "reason": "Named the ceremony to remove ambiguity.",
+          "text": "Which of these songs won Record of the Year at the 1983 Grammy Awards ceremony?"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "fix",
+          "reason": "Nile vs Amazon length is disputed.",
+          "text": "Which river is traditionally regarded as the longest in the world?"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Bolivia also lists Guarani as official; added the currency clue.",
+          "text": "Which South American country has Spanish and Guarani as official languages and uses the guaraní as its currency?"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "Same answer."
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "fix",
+          "reason": "The line is in many films; asked for the franchise.",
+          "text": "Which film franchise is famous for the line 'May the Force be with you'?"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "The expected answer is clear."
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "fix",
+          "reason": "The film is from 1967.",
+          "text": "Which 1967 film has the line 'They call me Mister Tibbs!'?"
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "Sumo and sumo wrestling are the same answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Frankie Goes to Hollywood",
+          "agreed": true,
+          "flags": [
+            "wording: '1984 single' – 'Relax' was released in October 1983; the BBC ban came in January 1984."
+          ]
+        },
+        "R1Q2": {
+          "answer": "1982",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Wham!",
+          "agreed": true,
+          "flags": [
+            "wording: Minor: in the UK 'Careless Whisper' was a George Michael solo release (in the US it was credited to Wham! featuring George Michael)."
+          ]
+        },
+        "R1Q6": {
+          "answer": "U2",
+          "agreed": true,
+          "flags": [
+            "wording: 'British rock band' – U2 are Irish."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Duran Duran",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Do They Know It's Christmas?",
+          "agreed": true,
+          "flags": [
+            "wording: '1985 charity single' – it was released in December 1984."
+          ]
+        },
+        "R1Q9": {
+          "answer": "Prince",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Rosanna",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: 'In 1983' is ambiguous: 'Rosanna' won at the 1983 ceremony, but 'Beat It' won for 1983 records (at the 1984 ceremony)."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Nile",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Disputed – some measurements make the Amazon longer."
+          ]
+        },
+        "R2Q3": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Sahara",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Vatican City",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Paraguay",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Bolivia also lists Spanish and Guarani among its official languages."
+          ]
+        },
+        "R2Q8": {
+          "answer": "Australia",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Pyrenees",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "France",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "The Godfather",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Chief Martin Brody",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q3": {
+          "answer": "Casablanca",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Dorothy",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Star Wars (1977)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The line is said in many Star Wars films."
+          ]
+        },
+        "R3Q6": {
+          "answer": "Darth Vader",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "A Few Good Men",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Forrest Gump",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "The Terminator",
+          "agreed": true,
+          "flags": [
+            "wording: Minor: Schwarzenegger says 'I'll be back' in other films too, but The Terminator is the expected answer."
+          ]
+        },
+        "R3Q10": {
+          "answer": "In the Heat of the Night",
+          "agreed": true,
+          "flags": [
+            "wording: '1990 film' – In the Heat of the Night is from 1967."
+          ]
+        },
+        "R4Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Mitochondria",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Gravity",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Catalyst",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Ohm",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "O negative",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Albert Einstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q1": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q2": {
+          "answer": "11",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q3": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q4": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q5": {
+          "answer": "Rome",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q6": {
+          "answer": "Avocado",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q7": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q8": {
+          "answer": "Sumo",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "wording: Minor: Japan has never officially named a national sport; sumo is traditionally called that."
+          ]
+        },
+        "R5Q9": {
+          "answer": "Michelangelo",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q10": {
+          "answer": "North Atlantic Treaty Organization",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q1",
+          "reason": "Relax was released in 1983; the ban came in 1984.",
+          "before": {
+            "text": "Which British band released the 1984 single 'Relax', which was banned by the BBC?",
+            "answer": "Frankie Goes to Hollywood"
+          },
+          "after": {
+            "text": "Which British band's single 'Relax' was banned by the BBC in 1984?",
+            "answer": "Frankie Goes to Hollywood"
+          }
+        },
+        {
+          "id": "R1Q5",
+          "reason": "Careless Whisper was a George Michael solo release in the UK; swapped in Last Christmas.",
+          "before": {
+            "text": "Which duo had 80s hits with 'Wake Me Up Before You Go-Go' and 'Careless Whisper'?",
+            "answer": "Wham!"
+          },
+          "after": {
+            "text": "Which duo had 80s hits with 'Wake Me Up Before You Go-Go' and 'Last Christmas'?",
+            "answer": "Wham!"
+          }
+        },
+        {
+          "id": "R1Q6",
+          "reason": "U2 are Irish.",
+          "before": {
+            "text": "Which British rock band released the album 'The Joshua Tree' in 1987?",
+            "answer": "U2"
+          },
+          "after": {
+            "text": "Which Irish rock band released the album 'The Joshua Tree' in 1987?",
+            "answer": "U2"
+          }
+        },
+        {
+          "id": "R1Q8",
+          "reason": "Released in 1984.",
+          "before": {
+            "text": "What was the title of the 1985 charity single recorded by Band Aid?",
+            "answer": "Do They Know It's Christmas?"
+          },
+          "after": {
+            "text": "What was the title of the 1984 charity single recorded by Band Aid?",
+            "answer": "Do They Know It's Christmas?"
+          }
+        },
+        {
+          "id": "R1Q10",
+          "reason": "Named the ceremony to remove ambiguity.",
+          "before": {
+            "text": "Which of these songs won the Grammy Award for Record of the Year in 1983? ",
+            "answer": "Rosanna"
+          },
+          "after": {
+            "text": "Which of these songs won Record of the Year at the 1983 Grammy Awards ceremony?",
+            "answer": "Rosanna"
+          }
+        },
+        {
+          "id": "R2Q2",
+          "reason": "Nile vs Amazon length is disputed.",
+          "before": {
+            "text": "Which is the longest river in the world?",
+            "answer": "The Nile"
+          },
+          "after": {
+            "text": "Which river is traditionally regarded as the longest in the world?",
+            "answer": "The Nile"
+          }
+        },
+        {
+          "id": "R2Q7",
+          "reason": "Bolivia also lists Guarani as official; added the currency clue.",
+          "before": {
+            "text": "Which South American country has Spanish and Guarani as official languages?",
+            "answer": "Paraguay"
+          },
+          "after": {
+            "text": "Which South American country has Spanish and Guarani as official languages and uses the guaraní as its currency?",
+            "answer": "Paraguay"
+          }
+        },
+        {
+          "id": "R3Q5",
+          "reason": "The line is in many films; asked for the franchise.",
+          "before": {
+            "text": "Which film has the line 'May the Force be with you'?",
+            "answer": "Star Wars"
+          },
+          "after": {
+            "text": "Which film franchise is famous for the line 'May the Force be with you'?",
+            "answer": "Star Wars"
+          }
+        },
+        {
+          "id": "R3Q10",
+          "reason": "The film is from 1967.",
+          "before": {
+            "text": "Which 1990 film has the line 'They call me Mister Tibbs!'?",
+            "answer": "In the Heat of the Night"
+          },
+          "after": {
+            "text": "Which 1967 film has the line 'They call me Mister Tibbs!'?",
+            "answer": "In the Heat of the Night"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which British band's single 'Relax' was banned by the BBC in 1984?",
+          "answer": "Frankie Goes to Hollywood"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Michael Jackson's 'Thriller' album was released in which year?",
+          "answer": "1982"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which female singer released the album 'Like a Virgin' in 1984?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which Norwegian band had a hit with 'Take On Me' in 1985?",
+          "answer": "a-ha"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which duo had 80s hits with 'Wake Me Up Before You Go-Go' and 'Last Christmas'?",
+          "answer": "Wham!"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which Irish rock band released the album 'The Joshua Tree' in 1987?",
+          "answer": "U2"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which artist recorded the theme song for the James Bond film 'A View to a Kill'?",
+          "answer": "Duran Duran"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "What was the title of the 1984 charity single recorded by Band Aid?",
+          "answer": "Do They Know It's Christmas?"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which American singer released the album 'Purple Rain' in 1984?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these songs won Record of the Year at the 1983 Grammy Awards ceremony?",
+          "answer": "Rosanna",
+          "options": [
+            "Rosanna",
+            "Billie Jean",
+            "Every Breath You Take",
+            "Beat It"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river is traditionally regarded as the longest in the world?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is located in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which desert is the largest hot desert in the world?",
+          "answer": "The Sahara"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Europe from Africa at their closest point?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the smallest country in the world by area?",
+          "answer": "Vatican City"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which South American country has Spanish and Guarani as official languages and uses the guaraní as its currency?",
+          "answer": "Paraguay"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The Great Barrier Reef lies off the coast of which country?",
+          "answer": "Australia"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range separates Spain from France?",
+          "answer": "The Pyrenees"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Around the Globe",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has the most time zones of any country?",
+          "answer": "France",
+          "options": [
+            "France",
+            "Russia",
+            "United States",
+            "China"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'I'm gonna make him an offer he can't refuse'?",
+          "answer": "The Godfather"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "In 'Jaws', which character says 'You're gonna need a bigger boat'?",
+          "answer": "Brody (Chief Brody)"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'Here's looking at you, kid'?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "In 'The Wizard of Oz', which character says 'Toto, I've a feeling we're not in Kansas anymore'?",
+          "answer": "Dorothy"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film franchise is famous for the line 'May the Force be with you'?",
+          "answer": "Star Wars"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which villain says 'No, I am your father' in a well-known Star Wars scene?",
+          "answer": "Darth Vader"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'You can't handle the truth!'?",
+          "answer": "A Few Good Men"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film has the line 'Life is like a box of chocolates'?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R3Q9",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the quote 'I'll be back'?",
+          "answer": "The Terminator"
+        },
+        {
+          "id": "R3Q10",
+          "round": "Cinema Sound Bites",
+          "category": "Famous Film Quotes",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which 1967 film has the line 'They call me Mister Tibbs!'?",
+          "answer": "In the Heat of the Night",
+          "options": [
+            "In the Heat of the Night",
+            "The Defiant Ones",
+            "Guess Who's Coming to Dinner",
+            "To Sir, with Love"
+          ]
+        },
+        {
+          "id": "R4Q1",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the powerhouse of the cell, responsible for producing energy?",
+          "answer": "Mitochondria"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What force keeps planets in orbit around the sun?",
+          "answer": "Gravity"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the atmosphere for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the hardest natural substance on Earth?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the name for a substance that speeds up a chemical reaction without being consumed?",
+          "answer": "Catalyst"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What planet in our solar system has the most moons confirmed?",
+          "answer": "Saturn"
+        },
+        {
+          "id": "R4Q8",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the SI unit of electrical resistance?",
+          "answer": "Ohm"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which blood type is known as the universal donor?",
+          "answer": "O negative"
+        },
+        {
+          "id": "R4Q10",
+          "round": "Lab and Beyond",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which scientist formulated the theory of general relativity?",
+          "answer": "Albert Einstein",
+          "options": [
+            "Albert Einstein",
+            "Isaac Newton",
+            "Niels Bohr",
+            "Max Planck"
+          ]
+        },
+        {
+          "id": "R5Q1",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the currency used in Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R5Q2",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many players are on a standard football (soccer) team on the pitch at once?",
+          "answer": "11"
+        },
+        {
+          "id": "R5Q3",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote the play 'Romeo and Juliet'?",
+          "answer": "William Shakespeare"
+        },
+        {
+          "id": "R5Q4",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R5Q5",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city would you find the Colosseum?",
+          "answer": "Rome"
+        },
+        {
+          "id": "R5Q6",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the main ingredient in traditional guacamole?",
+          "answer": "Avocado"
+        },
+        {
+          "id": "R5Q7",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R5Q8",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the national sport of Japan?",
+          "answer": "Sumo wrestling"
+        },
+        {
+          "id": "R5Q9",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who painted the ceiling of the Sistine Chapel?",
+          "answer": "Michelangelo"
+        },
+        {
+          "id": "R5Q10",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which organisation uses the acronym NATO?",
+          "answer": "North Atlantic Treaty Organization"
+        }
+      ]
+    }
+  ]
+}

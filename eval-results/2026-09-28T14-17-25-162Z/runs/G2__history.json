@@ -1,0 +1,1213 @@
+{
+  "generator": "G2",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "adaptive",
+    "effort": "xhigh",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1763,
+      "outputTokens": 1993,
+      "thinkingTokens": 0,
+      "durationMs": 17499
+    },
+    "costUsd": 0.023456,
+    "ms": 17499
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In 509 BC, the Romans expelled their last king and established what form of government?",
+      "answer": "The Republic"
+    },
+    {
+      "id": "R1Q2",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman general crossed the Rubicon in 49 BC, precipitating civil war?",
+      "answer": "Julius Caesar"
+    },
+    {
+      "id": "R1Q3",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What was the name of the Carthaginian general who crossed the Alps with elephants to invade Italy during the Second Punic War?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q4",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman emperor built a famous defensive wall across northern Britain, begun around AD 122?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q5",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What term described the informal political alliance formed by Julius Caesar, Pompey, and Crassus in 60 BC?",
+      "answer": "The First Triumvirate"
+    },
+    {
+      "id": "R1Q6",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcanic eruption in AD 79 buried the Roman city of Pompeii?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q7",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these was NOT one of the traditional 'Five Good Emperors'?",
+      "answer": "Nero",
+      "options": [
+        "Trajan",
+        "Nero",
+        "Marcus Aurelius",
+        "Antoninus Pius"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "SPQR",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In 391 AD, which emperor issued edicts effectively banning traditional Roman pagan religious practices in favour of Christianity?",
+      "answer": "Theodosius I"
+    },
+    {
+      "id": "R2Q1",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the codename given to the Allied invasion of Normandy in June 1944?",
+      "answer": "Operation Overlord"
+    },
+    {
+      "id": "R2Q2",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which battle, fought between August 1942 and February 1943, is often seen as the turning point of the war on the Eastern Front?",
+      "answer": "The Battle of Stalingrad"
+    },
+    {
+      "id": "R2Q3",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which conference in February 1945 saw Churchill, Roosevelt, and Stalin discuss the post-war reorganisation of Europe?",
+      "answer": "The Yalta Conference"
+    },
+    {
+      "id": "R2Q4",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the German plan for the invasion of the Soviet Union, launched in June 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q5",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which British codebreaking site was central to deciphering German Enigma communications?",
+      "answer": "Bletchley Park"
+    },
+    {
+      "id": "R2Q6",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which country's surrender in September 1943 knocked one of the original Axis powers out of the war?",
+      "answer": "Italy"
+    },
+    {
+      "id": "R2Q7",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which US Navy fleet was devastated in the Japanese surprise attack of December 1941?",
+      "answer": "Pacific Fleet",
+      "options": [
+        "Third Fleet",
+        "Pacific Fleet",
+        "Atlantic Fleet",
+        "Seventh Fleet"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the second atomic bomb dropped on Japan, on Nagasaki in August 1945?",
+      "answer": "Fat Man"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish inventor is credited with patenting the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which prolific American inventor held patents for the phonograph and the practical incandescent light bulb?",
+      "answer": "Thomas Edison"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American inventor developed the alternating current (AC) induction motor and clashed commercially with Edison?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which brothers are credited with achieving the first powered, controlled flight in 1903?",
+      "answer": "The Wright brothers"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish inventor and industrialist, who invented dynamite, established a set of prizes bearing his name?",
+      "answer": "Alfred Nobel"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Italian inventor is credited with developing a practical system of long-distance radio transmission, earning a Nobel Prize in 1909?",
+      "answer": "Guglielmo Marconi"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German engineer built the first practical automobile powered by an internal combustion engine, patented in 1886?",
+      "answer": "Karl Benz"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English mathematician designed the Analytical Engine, a mechanical general-purpose computer, in the 19th century?",
+      "answer": "Charles Babbage"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.024163999999999998,
+      "ms": 12618,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 2766,
+          "outputTokens": 1182,
+          "thinkingTokens": 0,
+          "durationMs": 8587
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1866,
+          "outputTokens": 308,
+          "thinkingTokens": 0,
+          "durationMs": 4031
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Checker's answer is the same fact phrased with an extra word; setter's answer is correct."
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Checker's answer is the same fact with full name added; Hannibal is correct."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Checker's answer is the same fact phrased differently; Mount Vesuvius is correct."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "The question specifically asks for the codename, which is Operation Overlord; D-Day/Neptune are not the answer to 'codename'."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "Checker's answer is the same fact with names added; the Wright brothers are correct."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Roman Republic",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Julius Caesar",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Hannibal (Hannibal Barca)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q4": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The First Triumvirate",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The eruption of Mount Vesuvius",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q7": {
+          "answer": "Nero",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Theodosius I",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Overlord (D-Day landings, sometimes specifically 'Operation Neptune' for the naval assault)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: Some may answer 'D-Day' or 'Operation Neptune' (the naval component) rather than 'Overlord', both are defensible depending on interpretation."
+          ]
+        },
+        "R2Q2": {
+          "answer": "The Battle of Stalingrad",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The Yalta Conference",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Bletchley Park",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Italy",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Pacific Fleet",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Fat Man",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Thomas Edison",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "The Wright brothers (Orville and Wilbur Wright)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q5": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Guglielmo Marconi",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Karl Benz",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Charles Babbage",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In 509 BC, the Romans expelled their last king and established what form of government?",
+          "answer": "The Republic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman general crossed the Rubicon in 49 BC, precipitating civil war?",
+          "answer": "Julius Caesar"
+        },
+        {
+          "id": "R1Q3",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the name of the Carthaginian general who crossed the Alps with elephants to invade Italy during the Second Punic War?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q4",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor built a famous defensive wall across northern Britain, begun around AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q5",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What term described the informal political alliance formed by Julius Caesar, Pompey, and Crassus in 60 BC?",
+          "answer": "The First Triumvirate"
+        },
+        {
+          "id": "R1Q6",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcanic eruption in AD 79 buried the Roman city of Pompeii?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q7",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these was NOT one of the traditional 'Five Good Emperors'?",
+          "answer": "Nero",
+          "options": [
+            "Trajan",
+            "Nero",
+            "Marcus Aurelius",
+            "Antoninus Pius"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In 391 AD, which emperor issued edicts effectively banning traditional Roman pagan religious practices in favour of Christianity?",
+          "answer": "Theodosius I"
+        },
+        {
+          "id": "R2Q1",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the codename given to the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which battle, fought between August 1942 and February 1943, is often seen as the turning point of the war on the Eastern Front?",
+          "answer": "The Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q3",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 saw Churchill, Roosevelt, and Stalin discuss the post-war reorganisation of Europe?",
+          "answer": "The Yalta Conference"
+        },
+        {
+          "id": "R2Q4",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the German plan for the invasion of the Soviet Union, launched in June 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q5",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which British codebreaking site was central to deciphering German Enigma communications?",
+          "answer": "Bletchley Park"
+        },
+        {
+          "id": "R2Q6",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which country's surrender in September 1943 knocked one of the original Axis powers out of the war?",
+          "answer": "Italy"
+        },
+        {
+          "id": "R2Q7",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which US Navy fleet was devastated in the Japanese surprise attack of December 1941?",
+          "answer": "Pacific Fleet",
+          "options": [
+            "Third Fleet",
+            "Pacific Fleet",
+            "Atlantic Fleet",
+            "Seventh Fleet"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the second atomic bomb dropped on Japan, on Nagasaki in August 1945?",
+          "answer": "Fat Man"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish inventor is credited with patenting the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which prolific American inventor held patents for the phonograph and the practical incandescent light bulb?",
+          "answer": "Thomas Edison"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor developed the alternating current (AC) induction motor and clashed commercially with Edison?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which brothers are credited with achieving the first powered, controlled flight in 1903?",
+          "answer": "The Wright brothers"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish inventor and industrialist, who invented dynamite, established a set of prizes bearing his name?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Italian inventor is credited with developing a practical system of long-distance radio transmission, earning a Nobel Prize in 1909?",
+          "answer": "Guglielmo Marconi"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German engineer built the first practical automobile powered by an internal combustion engine, patented in 1886?",
+          "answer": "Karl Benz"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English mathematician designed the Analytical Engine, a mechanical general-purpose computer, in the 19th century?",
+          "answer": "Charles Babbage"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.060927999999999996,
+      "ms": 21527,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2591,
+          "outputTokens": 2062,
+          "thinkingTokens": 447,
+          "durationMs": 17799
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1146,
+          "outputTokens": 237,
+          "thinkingTokens": 105,
+          "durationMs": 3727
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Overlord is the standard codename for the invasion. Neptune was only the assault phase inside it, so the answer is fine as written; a quizmaster could accept Neptune too."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "A republic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Julius Caesar",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The First Triumvirate",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Nero",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Theodosius I",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Overlord",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Battle of Stalingrad",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Yalta Conference",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Bletchley Park",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Italy",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Pacific Fleet",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Fat Man",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Thomas Edison",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "The Wright brothers",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Guglielmo Marconi",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Karl Benz",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Charles Babbage",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In 509 BC, the Romans expelled their last king and established what form of government?",
+          "answer": "The Republic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman general crossed the Rubicon in 49 BC, precipitating civil war?",
+          "answer": "Julius Caesar"
+        },
+        {
+          "id": "R1Q3",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the name of the Carthaginian general who crossed the Alps with elephants to invade Italy during the Second Punic War?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q4",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor built a famous defensive wall across northern Britain, begun around AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q5",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What term described the informal political alliance formed by Julius Caesar, Pompey, and Crassus in 60 BC?",
+          "answer": "The First Triumvirate"
+        },
+        {
+          "id": "R1Q6",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcanic eruption in AD 79 buried the Roman city of Pompeii?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q7",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these was NOT one of the traditional 'Five Good Emperors'?",
+          "answer": "Nero",
+          "options": [
+            "Trajan",
+            "Nero",
+            "Marcus Aurelius",
+            "Antoninus Pius"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "SPQR",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In 391 AD, which emperor issued edicts effectively banning traditional Roman pagan religious practices in favour of Christianity?",
+          "answer": "Theodosius I"
+        },
+        {
+          "id": "R2Q1",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the codename given to the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which battle, fought between August 1942 and February 1943, is often seen as the turning point of the war on the Eastern Front?",
+          "answer": "The Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q3",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 saw Churchill, Roosevelt, and Stalin discuss the post-war reorganisation of Europe?",
+          "answer": "The Yalta Conference"
+        },
+        {
+          "id": "R2Q4",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the German plan for the invasion of the Soviet Union, launched in June 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q5",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which British codebreaking site was central to deciphering German Enigma communications?",
+          "answer": "Bletchley Park"
+        },
+        {
+          "id": "R2Q6",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which country's surrender in September 1943 knocked one of the original Axis powers out of the war?",
+          "answer": "Italy"
+        },
+        {
+          "id": "R2Q7",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which US Navy fleet was devastated in the Japanese surprise attack of December 1941?",
+          "answer": "Pacific Fleet",
+          "options": [
+            "Third Fleet",
+            "Pacific Fleet",
+            "Atlantic Fleet",
+            "Seventh Fleet"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the second atomic bomb dropped on Japan, on Nagasaki in August 1945?",
+          "answer": "Fat Man"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish inventor is credited with patenting the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which prolific American inventor held patents for the phonograph and the practical incandescent light bulb?",
+          "answer": "Thomas Edison"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor developed the alternating current (AC) induction motor and clashed commercially with Edison?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which brothers are credited with achieving the first powered, controlled flight in 1903?",
+          "answer": "The Wright brothers"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish inventor and industrialist, who invented dynamite, established a set of prizes bearing his name?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Italian inventor is credited with developing a practical system of long-distance radio transmission, earning a Nobel Prize in 1909?",
+          "answer": "Guglielmo Marconi"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German engineer built the first practical automobile powered by an internal combustion engine, patented in 1886?",
+          "answer": "Karl Benz"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English mathematician designed the Analytical Engine, a mechanical general-purpose computer, in the 19th century?",
+          "answer": "Charles Babbage"
+        }
+      ]
+    }
+  ]
+}

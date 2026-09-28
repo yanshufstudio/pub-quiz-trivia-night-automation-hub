@@ -1,0 +1,395 @@
+{
+  "generator": "G2",
+  "config": {
+    "model": "claude-sonnet-5",
+    "thinking": "adaptive",
+    "effort": "xhigh",
+    "toolMode": "forced"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "usage": {
+      "model": "claude-sonnet-5",
+      "inputTokens": 1736,
+      "outputTokens": 425,
+      "thinkingTokens": 0,
+      "durationMs": 4810
+    },
+    "costUsd": 0.007722,
+    "ms": 4810
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which British-Irish girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Canadian singer released the 1997 album 'Let's Talk About Love', featuring 'My Heart Will Go On'?",
+      "answer": "Celine Dion"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which American boy band released 'I Want It That Way' in 1999?",
+      "answer": "Backstreet Boys",
+      "options": [
+        "Backstreet Boys",
+        "NSYNC",
+        "Boyz II Men",
+        "98 Degrees"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Whitney Houston's hit 'I Will Always Love You' was the lead single from the soundtrack of which 1992 film?",
+      "answer": "The Bodyguard"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Totally 90s",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which German pop duo scored a 1990s hit with 'Cotton Eye Joe'?",
+      "answer": "Rednex"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C1",
+      "config": {
+        "model": "claude-sonnet-5",
+        "thinking": "default",
+        "toolMode": "forced",
+        "mode": "blind"
+      },
+      "costUsd": 0.01042,
+      "ms": 9365,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1447,
+          "outputTokens": 342,
+          "thinkingTokens": 0,
+          "durationMs": 4400
+        },
+        {
+          "model": "claude-sonnet-5",
+          "inputTokens": 1373,
+          "outputTokens": 136,
+          "thinkingTokens": 0,
+          "durationMs": 4965
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Rednex is a Swedish group with multiple members, not a German duo; corrected nationality/description.",
+          "text": "Which Swedish group scored a 1990s hit with 'Cotton Eye Joe'?",
+          "answer": "Rednex"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Celine Dion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Backstreet Boys",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Bodyguard",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Rednex",
+          "agreed": true,
+          "flags": [
+            "wording: Rednex is a Swedish group, not German, and is generally considered a multi-member group rather than simply a 'duo' (it had a rotating lineup of around 5-6 members)."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q5",
+          "reason": "Rednex is a Swedish group with multiple members, not a German duo; corrected nationality/description.",
+          "before": {
+            "text": "Which German pop duo scored a 1990s hit with 'Cotton Eye Joe'?",
+            "answer": "Rednex"
+          },
+          "after": {
+            "text": "Which Swedish group scored a 1990s hit with 'Cotton Eye Joe'?",
+            "answer": "Rednex"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which British-Irish girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released the 1997 album 'Let's Talk About Love', featuring 'My Heart Will Go On'?",
+          "answer": "Celine Dion"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which American boy band released 'I Want It That Way' in 1999?",
+          "answer": "Backstreet Boys",
+          "options": [
+            "Backstreet Boys",
+            "NSYNC",
+            "Boyz II Men",
+            "98 Degrees"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Whitney Houston's hit 'I Will Always Love You' was the lead single from the soundtrack of which 1992 film?",
+          "answer": "The Bodyguard"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Swedish group scored a 1990s hit with 'Cotton Eye Joe'?",
+          "answer": "Rednex"
+        }
+      ]
+    },
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.027496,
+      "ms": 11255,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1272,
+          "outputTokens": 634,
+          "thinkingTokens": 118,
+          "durationMs": 7468
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1327,
+          "outputTokens": 221,
+          "thinkingTokens": 0,
+          "durationMs": 3786
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "fix",
+          "reason": "The Spice Girls were a British group, not British-Irish.",
+          "text": "Which British girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Rednex are a Swedish group, not a German duo.",
+          "text": "Which Swedish group scored a 1990s hit with 'Cotton Eye Joe'?",
+          "answer": "Rednex"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": [
+            "wording: 'British-Irish girl group' is wrong: the Spice Girls were a British girl group."
+          ]
+        },
+        "R1Q2": {
+          "answer": "Celine Dion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Backstreet Boys",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Bodyguard",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Rednex",
+          "agreed": true,
+          "flags": [
+            "wording: 'German pop duo' is wrong: Rednex, who had the 1994 hit 'Cotton Eye Joe', are a Swedish group, not a German duo."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q1",
+          "reason": "The Spice Girls were a British group, not British-Irish.",
+          "before": {
+            "text": "Which British-Irish girl group released the 1996 debut single 'Wannabe'?",
+            "answer": "Spice Girls"
+          },
+          "after": {
+            "text": "Which British girl group released the 1996 debut single 'Wannabe'?",
+            "answer": "Spice Girls"
+          }
+        },
+        {
+          "id": "R1Q5",
+          "reason": "Rednex are a Swedish group, not a German duo.",
+          "before": {
+            "text": "Which German pop duo scored a 1990s hit with 'Cotton Eye Joe'?",
+            "answer": "Rednex"
+          },
+          "after": {
+            "text": "Which Swedish group scored a 1990s hit with 'Cotton Eye Joe'?",
+            "answer": "Rednex"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which British girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released the 1997 album 'Let's Talk About Love', featuring 'My Heart Will Go On'?",
+          "answer": "Celine Dion"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which American boy band released 'I Want It That Way' in 1999?",
+          "answer": "Backstreet Boys",
+          "options": [
+            "Backstreet Boys",
+            "NSYNC",
+            "Boyz II Men",
+            "98 Degrees"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Whitney Houston's hit 'I Will Always Love You' was the lead single from the soundtrack of which 1992 film?",
+          "answer": "The Bodyguard"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Totally 90s",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Swedish group scored a 1990s hit with 'Cotton Eye Joe'?",
+          "answer": "Rednex"
+        }
+      ]
+    }
+  ]
+}
