@@ -315,6 +315,12 @@ function answersAgree(q: GeneratedQuestion, blind: string): boolean {
   return isLikelyCorrect(blind, q.answer) || isLikelyCorrect(q.answer, blind);
 }
 
+/** By content: a checker returns a new array even when nothing in it changed. */
+function sameOptions(a: string[] | undefined, b: string[] | undefined): boolean {
+  if (!a || !b) return a === b;
+  return a.length === b.length && a.every((o, i) => o === b[i]);
+}
+
 /**
  * Apply verdicts to a pack. Pure, so every rule is tested without a model.
  *
@@ -358,7 +364,7 @@ export function applyVerdicts(
           answer: v.answer ?? q.answer,
           ...(q.type === QUESTION_TYPE.MULTIPLE_CHOICE && v.options ? { options: v.options } : {}),
         };
-        if (next.text === q.text && next.answer === q.answer && next.options === q.options) {
+        if (next.text === q.text && next.answer === q.answer && sameOptions(next.options, q.options)) {
           dropped.push({ id, reason: `${v.reason} (fix gave no correction)`, before });
           return [];
         }

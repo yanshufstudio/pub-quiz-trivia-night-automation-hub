@@ -127,6 +127,15 @@ describe("applyVerdicts", () => {
     expect(out.fixed).toEqual([]);
   });
 
+  it("treats a multiple-choice fix that returns the same options as a drop too", () => {
+    const out = applyVerdicts(nineties(), [
+      { id: "R2Q1", verdict: "fix", reason: "wrong band", options: ["Blur", "Oasis", "Pulp"] },
+    ]);
+
+    expect(out.dropped).toEqual([expect.objectContaining({ id: "R2Q1" })]);
+    expect(out.fixed).toEqual([]);
+  });
+
   it("removes a round left empty", () => {
     const out = applyVerdicts(nineties(), [{ id: "R2Q1", verdict: "drop", reason: "ambiguous" }]);
 
