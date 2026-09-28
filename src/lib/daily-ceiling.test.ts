@@ -46,9 +46,8 @@ describe("parseCeiling", () => {
 
 describe("the default ceilings", () => {
   // Pinned, not derived. These are the owner's API budget expressed as a
-  // number of packs — at roughly $0.18 for a pack that runs to the full 16k
-  // max_tokens, 20 + 50 is about $12.60 a day of worst-case spend — so they
-  // are not free to drift. The two buckets are independent and therefore ADD:
+  // number of packs — at ACC5's measured $0.075 a pack (Opus 5.5 generating
+  // and checking), 20 + 50 is about $5 a day — so they are not free to drift. The two buckets are independent and therefore ADD:
   // a change to either one changes the daily exposure, which is why this
   // asserts the values rather than just that they exist.
   it("are the budgeted numbers", () => {

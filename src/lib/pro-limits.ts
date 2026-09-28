@@ -23,9 +23,9 @@ export const PRO_USER_DAILY_LIMIT_ENV = "PRO_USER_DAILY_PACK_LIMIT";
 
 /**
  * Ten a day. Chosen to sit far above a real host's use — a quiz night needs
- * one pack — and far below what a loop can spend: at roughly $0.18 for a pack
- * that runs to the full 16k max_tokens, ten is about $1.80 of worst-case spend
- * per subscriber per day.
+ * one pack — and far below what a loop can spend: at ACC5's measured $0.075 a
+ * pack ($0.136 for five rounds of ten), ten is about $0.75-1.40 per subscriber
+ * per day, and at most about $14 if every call ran to its 16k max_tokens.
  */
 export const DEFAULT_PRO_USER_DAILY_LIMIT = 10;
 
