@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getAnthropicClient, isAnthropicCreditExhausted } from "@/lib/anthropic";
-import { callOptions, usageOf, type CallUsage, type ModelCallConfig } from "@/lib/model-call";
+import { callOptions, todayIso, usageOf, type CallUsage, type ModelCallConfig } from "@/lib/model-call";
 import { degradeInvalidMultipleChoice, type GeneratedPack, type GeneratedQuestion } from "@/lib/quiz-schema";
 import { QUESTION_TYPE } from "@/lib/question-types";
 import { isLikelyCorrect } from "@/lib/scoring";
@@ -119,6 +119,12 @@ function questionsFor(pack: GeneratedPack, withAnswers: boolean) {
       ...(withAnswers ? { setter_answer: q.answer } : {}),
     }))
   );
+}
+
+/** ACC10: every ACC5 checker run missed Klose, the World Cup's top scorer
+ * only until July 2026. A model can't judge "current" without the date. */
+function dateRule(): string {
+  return `Today's date is ${todayIso()}. Judge a current record, title or office holder as of today.`;
 }
 
 const LANGUAGE_RULE =
@@ -401,7 +407,7 @@ async function reviewSingle(
     "names, titles, 'first', 'only', 'largest' — not only the answer: a question with the right " +
     "answer and a wrong detail gets challenged just the same. A question whose answer you " +
     "disagree with, that has more than one defensible answer, or whose wording is wrong must be " +
-    `fixed or dropped. ${FIX_RULES} ${NOT_A_QUESTION} ${LANGUAGE_RULE} Call the ${VERDICT_TOOL.name} ` +
+    `fixed or dropped. ${FIX_RULES} ${NOT_A_QUESTION} ${LANGUAGE_RULE} ${dateRule()}Call the ${VERDICT_TOOL.name} ` +
     "tool once, with a verdict for every id.";
   const input = await callTool(
     config,
@@ -428,7 +434,7 @@ async function reviewBlind(
     "whether a well-informed player could defensibly give a different correct answer; and check " +
     "every factual claim in the question's wording — nationalities, dates, numbers, names, titles, " +
     "'first', 'only', 'largest' — reporting any claim that is false or that you cannot confirm. " +
-    `Mark anything that is not a quiz question. ${LANGUAGE_RULE} Call the ${BLIND_TOOL.name} tool ` +
+    `Mark anything that is not a quiz question. ${LANGUAGE_RULE} ${dateRule()}Call the ${BLIND_TOOL.name} tool ` +
     "once, covering every id.";
   const blind = parseBlind(
     await callTool(config, BLIND_TOOL, blindSystem, JSON.stringify(questionsFor(pack, false)), options, usage),
@@ -468,7 +474,7 @@ async function reviewBlind(
     "The independent answer can itself be wrong, or be the same answer put another way. Decide: " +
     "ok if the question and the setter's answer are correct and unambiguous as written; fix if " +
     `they can be corrected with confidence; drop otherwise. ${FIX_RULES} ${NOT_A_QUESTION} ` +
-    `${LANGUAGE_RULE} Call the ${VERDICT_TOOL.name} tool once, with a verdict for every id.`;
+    `${LANGUAGE_RULE} ${dateRule()}Call the ${VERDICT_TOOL.name} tool once, with a verdict for every id.`;
   const remaining = deadline ? Math.max(1, deadline - Date.now()) : undefined;
   const adjudicated = parseVerdicts(
     await callTool(config, VERDICT_TOOL, adjudicateSystem, JSON.stringify(detail), { timeoutMs: remaining }, usage),

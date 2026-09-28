@@ -1,7 +1,7 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { getAnthropicClient } from "@/lib/anthropic";
 import { generatedPackSchema, salvageGeneratedPack, type GeneratedPack } from "@/lib/quiz-schema";
-import { callOptions, usageOf, type CallUsage, type ModelCallConfig } from "@/lib/model-call";
+import { callOptions, todayIso, usageOf, type CallUsage, type ModelCallConfig } from "@/lib/model-call";
 import { QUESTION_TYPE } from "@/lib/question-types";
 
 export type GeneratorConfig = ModelCallConfig & {
@@ -258,12 +258,23 @@ const CERTAIN_FACTS_ONLY =
   "nationality, year, number or 'first', 'only' or 'largest' unless it is the point " +
   "of the question. If you are unsure of a detail, leave it out rather than guess. ";
 
+/** ACC10: ACC5's G3 named Klose as the World Cup's top scorer, true only
+ * until July 2026. Without the date the model can't know a record moved. */
+function currentFacts(): string {
+  return (
+    `Today's date is ${todayIso()}. Avoid questions whose answer is a current record or a ` +
+    "current holder that can change (the most World Cup goals, a reigning champion, a " +
+    "sitting leader); if you do set one, state the year it is true for in the question. "
+  );
+}
+
 function systemPrompt(rules: "current" | "before-acc1"): string {
   return (
     "You are a pub quiz question setter. Given a request describing the desired " +
     "rounds and topics, produce a complete, well-researched quiz pack. Each question " +
     "must have a single unambiguous factual answer. " +
-    (rules === "current" ? CERTAIN_FACTS_ONLY : "") +
+    // The harness's "before-acc1" run measures the 28 Sep prompt, so it gets neither.
+    (rules === "current" ? CERTAIN_FACTS_ONLY + currentFacts() : "") +
     "Every question must be answerable " +
     "from its own text alone: the app shows players nothing but the words you write — " +
     "there is no audio, image, video or map — so never set a question that depends on " +

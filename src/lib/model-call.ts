@@ -40,6 +40,11 @@ export type CallUsage = {
   durationMs: number;
 };
 
+/** Today as YYYY-MM-DD (UTC), for the prompts' date line (ACC10). */
+export function todayIso(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
 export function usageOf(message: Anthropic.Message, model: string, durationMs: number): CallUsage {
   return {
     model,

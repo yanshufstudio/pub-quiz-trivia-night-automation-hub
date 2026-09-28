@@ -98,6 +98,24 @@ describe("generateQuizPack — the brief sent to the model", () => {
     expect(system).toMatch(/decline_reason/);
   });
 
+  /**
+   * ACC10. ACC5's sport round named Klose as the World Cup's top scorer, true
+   * until July 2026, and no checker caught it: neither model knew the date.
+   */
+  it("gives the model today's date and asks it to date or avoid current records", async () => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-09-28T12:00:00Z"));
+    try {
+      const system = (await captureRequest()).system as string;
+
+      expect(system).toContain("Today's date is 2026-09-28.");
+      expect(system).toMatch(/current record or a current holder/i);
+      expect(system).toMatch(/state the year it is true for/i);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("asks for exactly one call to the pack tool", async () => {
     // Auto tool choice (Opus 5.5 refuses forced), so the prompt is what asks.
     const req = await captureRequest();

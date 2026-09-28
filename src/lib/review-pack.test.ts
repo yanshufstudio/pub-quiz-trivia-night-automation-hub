@@ -168,6 +168,29 @@ describe("reviewPack — production's checker", () => {
     expect(req.tool_choice).toEqual({ type: "auto" });
     expect(req.tools?.[0]).toMatchObject({ name: "emit_blind_check", strict: true });
   });
+
+  // ACC10: every checker run in ACC5 missed Klose, out of date since July 2026.
+  it("tells every checker call today's date", async () => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-09-28T12:00:00Z"));
+    try {
+      create
+        .mockResolvedValueOnce(blindChecks({ R1Q1: { answer: "Spice Girls" }, R1Q2: { answer: "Alanis Morissette" }, R1Q3: { answer: "Cher" }, R2Q1: { answer: "Blur" } }))
+        .mockResolvedValueOnce(reply("emit_review", { reviews: [{ id: "R2Q1", verdict: "ok", reason: "" }] }));
+      await reviewPack(nineties(), BLIND);
+      create.mockResolvedValueOnce(reply("emit_review", { reviews: [] }));
+      await reviewPack(nineties(), SINGLE);
+
+      const systems = create.mock.calls.map((call) => (call[0] as Request).system as string);
+      expect(systems).toHaveLength(3);
+      for (const system of systems) {
+        expect(system).toContain("Today's date is 2026-09-28.");
+        expect(system).toMatch(/as of today/i);
+      }
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
 
 describe("reviewPack — blind", () => {
