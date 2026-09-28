@@ -1,5 +1,26 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type FileChooser, type Page } from "@playwright/test";
 import { signedInContext } from "./sign-in-helper";
+
+/**
+ * Press "Import pack" and return the file chooser it opens.
+ *
+ * The picker opens from React's onClick on the button, so a press that lands
+ * before /packs has hydrated does nothing and no chooser ever comes. A plain
+ * click-then-wait loses that race whenever the page's scripts are slow — it
+ * failed that way in CI on 28 Sep, and fails every time with the scripts
+ * delayed. Pressing again until a chooser opens waits for hydration without
+ * guessing at a signal for it; a button that never opens one still fails.
+ */
+async function openImportChooser(page: Page): Promise<FileChooser> {
+  let chooser: FileChooser | undefined;
+  await expect(async () => {
+    [chooser] = await Promise.all([
+      page.waitForEvent("filechooser", { timeout: 2_000 }),
+      page.getByRole("button", { name: "Import pack" }).click(),
+    ]);
+  }).toPass({ timeout: 20_000 });
+  return chooser!;
+}
 
 // Export from the editor's "Export JSON", import through the /packs "Import
 // pack" file picker, and land on a fresh copy — the two buttons are the only
@@ -19,9 +40,7 @@ test("a pack exported from the editor can be imported back from the packs list",
   const path = await download.path();
 
   await page.goto("/packs");
-  const chooserPromise = page.waitForEvent("filechooser");
-  await page.getByRole("button", { name: "Import pack" }).click();
-  const chooser = await chooserPromise;
+  const chooser = await openImportChooser(page);
   await chooser.setFiles(path);
 
   await page.waitForURL(/\/packs\/(?!.*friday)[a-z0-9]+$/i);
@@ -35,9 +54,7 @@ test("importing something that isn't a pack file shows the error inline", async 
   const { context } = await signedInContext(browser, baseURL!);
   const page = await context.newPage();
   await page.goto("/packs");
-  const chooserPromise = page.waitForEvent("filechooser");
-  await page.getByRole("button", { name: "Import pack" }).click();
-  const chooser = await chooserPromise;
+  const chooser = await openImportChooser(page);
   await chooser.setFiles({
     name: "notes.json",
     mimeType: "application/json",
