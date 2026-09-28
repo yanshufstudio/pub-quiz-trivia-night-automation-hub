@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { createPackFromGenerated } from "@/lib/create-pack";
-import { generateQuizPack, ModelDeclinedError, UnusableModelOutputError, type GenerationResult } from "@/lib/generate-pack";
+import {
+  generateQuizPack,
+  IncompletePackError,
+  ModelDeclinedError,
+  UnusableModelOutputError,
+  type GenerationResult,
+} from "@/lib/generate-pack";
 import { reviewForSaving, type ReviewedForSaving } from "@/lib/review-pack";
 import { wizardRequestSchema } from "@/lib/quiz-schema";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
@@ -69,6 +75,7 @@ function logGeneration(generated: GenerationResult, reviewed: ReviewedForSaving)
         ` fixed=${reviewed.record.fixed} dropped=${reviewed.record.dropped}` +
         ` gen_model=${g?.model ?? "?"} gen_in=${g?.inputTokens ?? "?"} gen_out=${g?.outputTokens ?? "?"}` +
         ` gen_thinking=${g?.thinkingTokens ?? "?"} gen_ms=${g?.durationMs ?? "?"}` +
+        ` gen_attempts=${generated.attempts ?? "?"} gen_surplus=${generated.surplusQuestions ?? "?"}` +
         ` review_calls=${reviewed.usage.length} review_model=${reviewed.usage[0]?.model ?? "-"}` +
         ` review_in=${sum("inputTokens")} review_out=${sum("outputTokens")}` +
         ` review_thinking=${reviewThinking} review_ms=${sum("durationMs")}`
@@ -121,6 +128,11 @@ function failureBody(err: unknown): {
       error: err.reason || "The question generator declined this brief. Try describing a different quiz.",
       declined: true,
     };
+  }
+  // ACC8: short or malformed twice. The generator words it, since only it
+  // knows what came back ("asked for 24 questions, got 9").
+  if (err instanceof IncompletePackError) {
+    return { error: err.hostMessage };
   }
   if (err instanceof UnusableModelOutputError && err.truncated) {
     return {

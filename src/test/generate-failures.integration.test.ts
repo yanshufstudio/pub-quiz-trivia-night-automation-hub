@@ -10,7 +10,7 @@ vi.mock("@/lib/generate-pack", async (importOriginal) => ({
   generateQuizPack: vi.fn(),
 }));
 
-import { generateQuizPack, UnusableModelOutputError } from "@/lib/generate-pack";
+import { generateQuizPack, IncompletePackError, UnusableModelOutputError } from "@/lib/generate-pack";
 import { POST as generate } from "@/app/api/packs/generate/route";
 import { signInTestHost } from "./auth-fixture";
 
@@ -107,6 +107,21 @@ describe("POST /api/packs/generate — failure mapping", () => {
     expect(data.error).toMatch(/try again/i);
   });
 
+  it("502s a pack that came back short twice, with the generator's own words for the host", async () => {
+    vi.mocked(generateQuizPack).mockRejectedValue(
+      new IncompletePackError(
+        "short pack: 9 of 24 questions",
+        "The pack came back incomplete (asked for 24 questions, got 9). Please generate again."
+      )
+    );
+
+    const res = await generate(generateRequest());
+    const data = await res.json();
+
+    expect(res.status).toBe(502);
+    expect(data.error).toBe("The pack came back incomplete (asked for 24 questions, got 9). Please generate again.");
+  });
+
   it("201s with the questions that survived a truncated generation", async () => {
     vi.mocked(generateQuizPack).mockResolvedValue({
       pack: {
@@ -126,6 +141,8 @@ describe("POST /api/packs/generate — failure mapping", () => {
       droppedRounds: 0,
       truncated: true,
       usage: { model: "claude-sonnet-5", inputTokens: 1, outputTokens: 1, thinkingTokens: null, durationMs: 1 },
+      attempts: 1,
+      surplusQuestions: 0,
     });
 
     const res = await generate(generateRequest());

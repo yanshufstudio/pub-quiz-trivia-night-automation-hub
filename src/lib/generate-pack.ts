@@ -2,6 +2,7 @@ import type Anthropic from "@anthropic-ai/sdk";
 import { getAnthropicClient } from "@/lib/anthropic";
 import { generatedPackSchema, salvageGeneratedPack, type GeneratedPack } from "@/lib/quiz-schema";
 import { callOptions, usageOf, type CallUsage, type ModelCallConfig } from "@/lib/model-call";
+import { QUESTION_TYPE } from "@/lib/question-types";
 
 export type GeneratorConfig = ModelCallConfig & {
   /**
@@ -38,7 +39,25 @@ const TOOL_NAME = "emit_quiz_pack";
 
 const quizPackJsonSchema: Anthropic.Tool.InputSchema = {
   type: "object",
+  // The counts come first on purpose: properties are generated in schema
+  // order, so the model commits to what the brief asked for before it writes
+  // a round, and the pack is then checked against its own statement (ACC8).
   properties: {
+    requested_rounds: {
+      type: "integer",
+      minimum: 1,
+      description:
+        "Fill this in first, before any round: how many rounds the brief asks for. If the " +
+        "brief gives no number, the number of rounds you are about to write.",
+    },
+    requested_questions_per_round: {
+      type: "array",
+      items: { type: "integer", minimum: 1 },
+      description:
+        "Fill this in second, before any round: how many questions the brief asks for in each " +
+        "round, one number per round, in order. If the brief gives no numbers, the numbers you " +
+        "are about to write.",
+    },
     decline_reason: {
       type: "string",
       description:
@@ -119,6 +138,33 @@ export class UnusableModelOutputError extends Error {
   }
 }
 
+/**
+ * ACC8: the pack came back short of what the model itself said the brief
+ * asked for, or with an option set that can't be read aloud, twice in a row.
+ * Not a size problem (that is `truncated`), so another generation may well
+ * work; `hostMessage` says what happened in words the host can act on.
+ */
+export class IncompletePackError extends UnusableModelOutputError {
+  readonly hostMessage: string;
+
+  constructor(message: string, hostMessage: string) {
+    super(message, false);
+    this.name = "IncompletePackError";
+    this.hostMessage = hostMessage;
+  }
+}
+
+/** One attempt's structural fault. Internal: retried once, then surfaced as
+ * IncompletePackError. */
+class MalformedPackError extends Error {
+  constructor(
+    message: string,
+    readonly hostMessage: string
+  ) {
+    super(message);
+  }
+}
+
 /** The longest decline we will repeat back to the user. The text comes from
  * the model, so it is arbitrary-length content being put on a page; a couple
  * of sentences is all a decline ever needs, and the cap keeps a runaway
@@ -155,8 +201,12 @@ export type GenerationResult = {
   droppedRounds: number;
   /** The model hit MAX_TOKENS, so the pack is short of what the brief asked for. */
   truncated: boolean;
-  /** Tokens and time for the call, for cost logging. No brief text. */
+  /** Tokens and time for every call made, for cost logging. No brief text. */
   usage: CallUsage;
+  /** 1, or 2 when the first pack was short or malformed (ACC8). */
+  attempts: number;
+  /** Questions beyond what the model said the brief asked for: kept, logged. */
+  surplusQuestions: number;
 };
 
 /** The tool's own decline channel: a non-empty `decline_reason` on the tool
@@ -226,10 +276,139 @@ function systemPrompt(rules: "current" | "before-acc1"): string {
   );
 }
 
+const MALFORMED_MESSAGE = "The pack came back malformed. Please generate again.";
+const BROKEN_CHOICE_MESSAGE =
+  "The pack came back with a broken multiple-choice question. Please generate again.";
+
+/**
+ * A fragment of the tool call's own JSON inside an option, like ACC5's
+ * "][0:0]": back-to-back brackets, an index like [0:0], a brace, a quote
+ * against a colon, or an escaped quote. A lone colon, quote or bracket pair is
+ * punctuation ("Star Wars: A New Hope", 'The "Iron Lady"').
+ */
+const LEAKED_SYNTAX = /\]\[|\[\d+:\d+\]|[{}]|":|\\"/;
+
+/** The counts the model said the brief asked for, one per round; null when
+ * it didn't say, or said something that isn't a count. */
+function requestedCounts(input: { requested_rounds?: unknown; requested_questions_per_round?: unknown }): number[] | null {
+  const rounds = input.requested_rounds;
+  const perRound = input.requested_questions_per_round;
+  if (typeof rounds !== "number" || !Number.isInteger(rounds) || rounds < 1) return null;
+  if (!Array.isArray(perRound) || !perRound.every((n) => Number.isInteger(n) && n >= 1)) return null;
+  if (perRound.length === rounds) return perRound;
+  // "Four rounds of ten" stated once rather than four times.
+  if (perRound.length === 1) return Array(rounds).fill(perRound[0]);
+  return null;
+}
+
+/**
+ * A multiple-choice option set as it will be read aloud. Blank and duplicate
+ * options are removed here (duplicates trimmed and case-insensitive, keeping
+ * the answer's spelling); what can't be repaired — leaked syntax, fewer than
+ * two options, the answer not among them — is a malformed pack. Other
+ * question types pass through untouched.
+ */
+function repairQuestion(raw: unknown): unknown {
+  if (typeof raw !== "object" || raw === null) return raw;
+  const q = raw as { type?: unknown; answer?: unknown; options?: unknown };
+  if (q.type !== QUESTION_TYPE.MULTIPLE_CHOICE) return raw;
+
+  const answer = typeof q.answer === "string" ? q.answer.trim() : "";
+  const byKey = new Map<string, string>();
+  for (const option of Array.isArray(q.options) ? q.options : []) {
+    if (typeof option !== "string" || !option.trim()) continue;
+    const text = option.trim();
+    if (LEAKED_SYNTAX.test(text)) {
+      throw new MalformedPackError(`leaked syntax in an option: ${JSON.stringify(text)}`, BROKEN_CHOICE_MESSAGE);
+    }
+    const key = text.toLowerCase();
+    if (!byKey.has(key) || text === answer) byKey.set(key, text);
+  }
+  const options = [...byKey.values()];
+  if (options.length < 2) {
+    throw new MalformedPackError("a multiple-choice question has fewer than two distinct options", BROKEN_CHOICE_MESSAGE);
+  }
+  if (!options.includes(answer)) {
+    throw new MalformedPackError("a multiple-choice answer is not one of its options", BROKEN_CHOICE_MESSAGE);
+  }
+  return { ...q, options };
+}
+
+function repairRounds(rounds: unknown): unknown {
+  if (!Array.isArray(rounds)) return rounds;
+  return rounds.map((round) => {
+    if (typeof round !== "object" || round === null) return round;
+    const r = round as { questions?: unknown };
+    return Array.isArray(r.questions) ? { ...r, questions: r.questions.map(repairQuestion) } : round;
+  });
+}
+
+/** Throws when the pack is short of what was asked, in total or in any one
+ * round; returns how many questions it has beyond that. */
+function checkCounts(pack: GeneratedPack, requested: number[]): number {
+  const got = pack.rounds.map((round) => round.questions.length);
+  const total = (counts: number[]) => counts.reduce((sum, n) => sum + n, 0);
+  const asked = total(requested);
+  const produced = total(got);
+
+  if (produced < asked) {
+    throw new MalformedPackError(
+      `short pack: ${produced} of ${asked} questions, rounds ${JSON.stringify(got)} of ${JSON.stringify(requested)}`,
+      `The pack came back incomplete (asked for ${asked} questions, got ${produced}). Please generate again.`
+    );
+  }
+  const shortRound = requested.findIndex((n, i) => (got[i] ?? 0) < n);
+  if (shortRound >= 0) {
+    throw new MalformedPackError(
+      `short round: rounds ${JSON.stringify(got)} of ${JSON.stringify(requested)}`,
+      `The pack came back incomplete (round ${shortRound + 1} has ${got[shortRound] ?? 0} of the ` +
+        `${requested[shortRound]} questions asked for). Please generate again.`
+    );
+  }
+  return produced - asked;
+}
+
+function combinedUsage(usages: CallUsage[], model: string): CallUsage {
+  const sum = (key: "inputTokens" | "outputTokens" | "durationMs") => usages.reduce((total, u) => total + u[key], 0);
+  const thinking = usages.map((u) => u.thinkingTokens);
+  return {
+    model,
+    inputTokens: sum("inputTokens"),
+    outputTokens: sum("outputTokens"),
+    thinkingTokens: thinking.every((t) => t === null) ? null : thinking.reduce<number>((total, t) => total + (t ?? 0), 0),
+    durationMs: sum("durationMs"),
+  };
+}
+
+/**
+ * ACC8: a pack short of what was asked, or with an option set that can't be
+ * read aloud, gets one more attempt and then fails with a message saying so.
+ * It is never returned short. Truncation, declines and API errors are not
+ * retried here: asking for less, changing the brief or the SDK's own retries
+ * are what fix those.
+ */
 export async function generateQuizPack(
   userPrompt: string,
   config: GeneratorConfig = PRODUCTION_GENERATOR
 ): Promise<GenerationResult> {
+  const usages: CallUsage[] = [];
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const result = await generateOnce(userPrompt, config, usages);
+      return { ...result, attempts: attempt, usage: combinedUsage(usages, config.model) };
+    } catch (err) {
+      if (!(err instanceof MalformedPackError)) throw err;
+      if (attempt === 2) throw new IncompletePackError(err.message, err.hostMessage);
+      console.warn(`Quiz pack attempt ${attempt} unusable (${err.message}); trying once more.`);
+    }
+  }
+}
+
+async function generateOnce(
+  userPrompt: string,
+  config: GeneratorConfig,
+  usages: CallUsage[]
+): Promise<Omit<GenerationResult, "attempts" | "usage">> {
   const anthropic = getAnthropicClient();
 
   const started = Date.now();
@@ -243,7 +422,7 @@ export async function generateQuizPack(
     }),
     messages: [{ role: "user", content: userPrompt }],
   });
-  const usage = usageOf(message, config.model, Date.now() - started);
+  usages.push(usageOf(message, config.model, Date.now() - started));
 
   // A response cut off at max_tokens carries a half-written tool call: the
   // questions before the cut are fine, the last one isn't. Track it so a
@@ -287,21 +466,34 @@ export async function generateQuizPack(
   const declined = declineReasonFromTool(toolUse.input);
   if (declined) throw new ModelDeclinedError(declined);
 
-  const parsed = generatedPackSchema.safeParse(toolUse.input);
-  if (parsed.success) {
-    return { pack: parsed.data, droppedQuestions: 0, droppedRounds: 0, truncated, usage };
+  // A truncated pack is short by definition and the brief is why, so it keeps
+  // the handling it always had: salvage what came, and say "ask for less".
+  let input = toolUse.input;
+  let requested: number[] | null = null;
+  if (!truncated) {
+    const raw = (typeof input === "object" && input !== null ? input : {}) as Record<string, unknown>;
+    requested = requestedCounts(raw);
+    if (!requested) {
+      throw new MalformedPackError("the model did not state the counts it was asked for", MALFORMED_MESSAGE);
+    }
+    input = { ...raw, rounds: repairRounds(raw.rounds) };
   }
 
+  const parsed = generatedPackSchema.safeParse(input);
   // Strict validation is all-or-nothing, and one unusable question is not a
   // reason to throw away the other thirty-nine. Keep every question that
   // stands on its own; fail only when nothing does.
-  const salvaged = salvageGeneratedPack(toolUse.input);
+  const salvaged = parsed.success
+    ? { pack: parsed.data, droppedQuestions: 0, droppedRounds: 0 }
+    : salvageGeneratedPack(input);
   if (!salvaged) {
     throw new UnusableModelOutputError(
-      `Generated quiz pack failed validation: ${parsed.error.message}`,
+      `Generated quiz pack failed validation: ${parsed.error?.message}`,
       truncated
     );
   }
 
-  return { ...salvaged, truncated, usage };
+  // Questions salvage had to drop count against the pack like missing ones.
+  const surplusQuestions = requested ? checkCounts(salvaged.pack, requested) : 0;
+  return { ...salvaged, truncated, surplusQuestions };
 }

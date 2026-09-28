@@ -58,6 +58,8 @@ function generates(pack: GeneratedPack, dropped = 0) {
     droppedRounds: 0,
     truncated: dropped > 0,
     usage: USAGE,
+    attempts: 1,
+    surplusQuestions: 0,
   });
 }
 
