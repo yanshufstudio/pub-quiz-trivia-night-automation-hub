@@ -27,7 +27,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { generateQuizPack, PRODUCTION_GENERATOR, type GeneratorConfig } from "@/lib/generate-pack";
+import { generateQuizPack, type GeneratorConfig } from "@/lib/generate-pack";
 import { reviewPack, questionId, type ReviewerConfig, type ReviewOutcome } from "@/lib/review-pack";
 import type { CallUsage } from "@/lib/model-call";
 import type { GeneratedPack } from "@/lib/quiz-schema";
@@ -53,14 +53,19 @@ const BRIEFS: Brief[] = [
 
 // ---------------------------------------------------------------- configs
 
+/** Production's generator until ACC9, pinned here so G1/G1b keep measuring it. */
+const SONNET_FORCED: GeneratorConfig = { model: "claude-sonnet-5", thinking: "default", toolMode: "forced" };
+
 /**
- * G1 is what produced the 28 Sep pack: production's settings, before ACC1's
- * prompt change. G1b is production as this branch ships it. G2 asks Sonnet 5
- * to think harder. G3 is Opus 5.5 at low effort, which needs auto tool choice.
+ * G1 is what produced the 28 Sep pack: Sonnet 5 with forced tool choice,
+ * before ACC1's prompt change. G1b is the same with ACC1. G2 asks Sonnet 5 to
+ * think harder (with forced tool choice it did not think at all). G3 is Opus
+ * 5.5 at low effort, which needs auto tool choice; since ACC9 it is
+ * production's generator, and C2 production's checker.
  */
 const GENERATORS: Record<string, GeneratorConfig> = {
-  G1: { ...PRODUCTION_GENERATOR, promptRules: "before-acc1" },
-  G1b: { ...PRODUCTION_GENERATOR },
+  G1: { ...SONNET_FORCED, promptRules: "before-acc1" },
+  G1b: { ...SONNET_FORCED },
   G2: { model: "claude-sonnet-5", thinking: "adaptive", effort: "xhigh", toolMode: "forced" },
   G3: { model: "claude-opus-5-5", thinking: "default", effort: "low", toolMode: "auto-strict" },
 };

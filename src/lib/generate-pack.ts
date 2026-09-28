@@ -14,14 +14,21 @@ export type GeneratorConfig = ModelCallConfig & {
 };
 
 /**
- * What production sends: Sonnet 5, forced tool choice, no `thinking` and no
- * `effort` parameter — so the model's defaults, which on Sonnet 5 are
- * adaptive thinking at "high" effort.
+ * What production sends: Opus 5.5 at low effort, no `thinking` parameter,
+ * auto tool choice with a strict tool — ACC5's G3, which made 2.6 errors per
+ * 100 questions against 12-17 for the Sonnet 5 configurations it replaced
+ * (Paul, 28 Sep). Opus 5.5 refuses forced tool choice, so the model and the
+ * tool mode go together.
+ *
+ * Until then it was Sonnet 5 with forced tool choice. ACC5 measured 0
+ * thinking tokens on every forced call: a forced tool call opens the
+ * response, so the model never thought, whatever the defaults say.
  */
 export const PRODUCTION_GENERATOR: GeneratorConfig = {
-  model: "claude-sonnet-5",
+  model: "claude-opus-5-5",
   thinking: "default",
-  toolMode: "forced",
+  effort: "low",
+  toolMode: "auto-strict",
 };
 
 /**
@@ -30,7 +37,7 @@ export const PRODUCTION_GENERATOR: GeneratorConfig = {
  * ordinary thing for a quizmaster to ask for, and at 8000 the model ran out
  * of budget mid-tool-call and the response came back truncated. Truncation
  * is deterministic per brief, so "please try again" was never going to clear
- * it. Sonnet's ceiling is far above this; the real limit on pack size is the
+ * it. The model's ceiling is far above this; the real limit on pack size is the
  * route's 300s maxDuration, not this number.
  */
 const MAX_TOKENS = 16000;

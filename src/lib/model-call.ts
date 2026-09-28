@@ -22,8 +22,8 @@ export type ModelCallConfig = {
    */
   thinking: "default" | "adaptive" | "disabled";
   /**
-   * "forced" is `tool_choice: {type: "tool"}` — what production has always
-   * sent. Opus 5.5 rejects forced tool choice with a 400, so "auto-strict"
+   * "forced" is `tool_choice: {type: "tool"}` — what production sent until
+   * ACC9, and it leaves no room to think first. Opus 5.5 rejects forced tool choice with a 400, so "auto-strict"
    * sends `tool_choice: {type: "auto"}` with `strict: true` on the tool and
    * relies on the prompt to ask for the call; a response without one is
    * handled as the caller already handles it.

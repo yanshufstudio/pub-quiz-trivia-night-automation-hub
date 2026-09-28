@@ -151,6 +151,25 @@ describe("applyVerdicts", () => {
   });
 });
 
+describe("reviewPack — production's checker", () => {
+  // ACC5, Paul's pick: C2 caught 73-94% of the errors G1/G1b/G2 left in,
+  // against 27-60% for Sonnet 5. Opus 5.5 refuses forced tool choice.
+  it("is Opus 5.5 at low effort, blind, asked with auto tool choice and a strict tool", async () => {
+    create.mockResolvedValueOnce(
+      blindChecks({ R1Q1: { answer: "Spice Girls" }, R1Q2: { answer: "Alanis Morissette" }, R1Q3: { answer: "Cher" }, R2Q1: { answer: "Oasis" } })
+    );
+
+    await reviewPack(nineties());
+    const req = create.mock.calls[0][0] as Request;
+
+    expect(req.model).toBe("claude-opus-5-5");
+    expect(req.output_config).toEqual({ effort: "low" });
+    expect(req).not.toHaveProperty("thinking");
+    expect(req.tool_choice).toEqual({ type: "auto" });
+    expect(req.tools?.[0]).toMatchObject({ name: "emit_blind_check", strict: true });
+  });
+});
+
 describe("reviewPack — blind", () => {
   it("never shows the checker our answers in the blind pass", async () => {
     create.mockResolvedValueOnce(

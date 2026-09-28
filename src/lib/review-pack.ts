@@ -36,13 +36,16 @@ export type ReviewMode = "blind" | "single";
 export type ReviewerConfig = ModelCallConfig & { mode: ReviewMode };
 
 /**
- * Provisional until the ACC5 measurement picks the checker (Paul decides).
- * Sonnet 5 as the generator runs it, blind.
+ * ACC5's C2, Paul's pick (28 Sep): Opus 5.5 at low effort, blind. It caught
+ * 73-94% of the errors in the Sonnet 5 packs against 27-60% for Sonnet 5 as
+ * the checker, with no bad fixes on G2 or G3 output. Opus 5.5 refuses forced
+ * tool choice, hence auto-strict.
  */
 export const PRODUCTION_REVIEWER: ReviewerConfig = {
-  model: "claude-sonnet-5",
+  model: "claude-opus-5-5",
   thinking: "default",
-  toolMode: "forced",
+  effort: "low",
+  toolMode: "auto-strict",
   mode: "blind",
 };
 
