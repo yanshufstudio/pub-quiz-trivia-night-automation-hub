@@ -155,7 +155,12 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
 
         <form onSubmit={onSubmit} className="mt-8 space-y-5">
           <label className="block">
-            <span className="text-sm font-medium">Brief</span>
+            <span className="flex items-baseline justify-between gap-3">
+              <span className="text-sm font-medium">Brief</span>
+              <Link href="/how-it-works#brief-tips" className="text-sm font-medium text-amber hover:underline">
+                Tips for a good brief
+              </Link>
+            </span>
             <textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
