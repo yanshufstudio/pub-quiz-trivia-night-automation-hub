@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import QRCode from "react-qr-code";
 import { Countdown } from "@/components/Countdown";
@@ -50,6 +50,12 @@ export function HostDashboard({ code }: { code: string }) {
   // rather than window.confirm: a native dialog on a phone covers the screen
   // it is asking about, and this one can be read from across the pub.
   const [confirmingEnd, setConfirmingEnd] = useState(false);
+  // Set only by a press that lands on "Yes, end the game" itself — a pointer
+  // down or an Enter/Space key down — after the panel opened. A click that
+  // arrives without one (synthesised, programmatic, or the tail of a press
+  // that began somewhere else) does nothing. See endGameConfirmed below.
+  const endArmedRef = useRef(false);
+  const keepPlayingRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     // localStorage isn't available during SSR, so the real value can only be
@@ -141,6 +147,29 @@ export function HostDashboard({ code }: { code: string }) {
     }
   }
 
+  function openEndConfirmation() {
+    endArmedRef.current = false;
+    setConfirmingEnd(true);
+  }
+
+  /**
+   * The only way a game is ended from this desk (L9). A live walk on the
+   * preview saw a game end ~2.5s after "End game" was pressed, with nobody
+   * touching the machine, and the request matched this handler exactly. It
+   * did not reproduce in Chromium at any width, and nothing in the app
+   * synthesises a click — but a destructive action this close to a room full
+   * of people should not depend on that, so it demands an explicit press:
+   * a trusted click whose own pointer-down or key-down landed on this button
+   * after the panel opened. The button is also laid out away from where
+   * "End game" was, and focus goes to "Keep playing", never to this.
+   */
+  function endGameConfirmed(event: React.MouseEvent<HTMLButtonElement>) {
+    if (!event.isTrusted || !endArmedRef.current) return;
+    endArmedRef.current = false;
+    setConfirmingEnd(false);
+    void advance("end");
+  }
+
   async function overrideAnswer(team: HostTeam, isCorrect: boolean) {
     // The id is only sent from the reveal onwards, along with everything else
     // about the answer — so this is unreachable before then, and the buttons
@@ -162,6 +191,12 @@ export function HostDashboard({ code }: { code: string }) {
     setHostToken(value);
     setError(null);
   }
+
+  useEffect(() => {
+    // The safe choice takes focus when the panel opens, so a stray Enter or
+    // Space — a key held down, a remote's OK button — can only back out.
+    if (confirmingEnd) keepPlayingRef.current?.focus();
+  }, [confirmingEnd]);
 
   if (!hydrated) {
     return <div className="min-h-dvh bg-stage" />;
@@ -481,22 +516,30 @@ export function HostDashboard({ code }: { code: string }) {
                   Teams stop being able to answer and the scoreboard becomes final. The pack can be
                   edited again afterwards. This cannot be undone.
                 </p>
-                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                {/* "End game" always sits at the right edge (ml-auto below), so
+                    "Keep playing" takes that spot and "Yes" is kept to the left
+                    of it at every width — never under a pointer that has just
+                    pressed "End game". */}
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-end">
                   <button
                     type="button"
-                    onClick={() => {
-                      setConfirmingEnd(false);
-                      void advance("end");
+                    onPointerDown={() => {
+                      endArmedRef.current = true;
                     }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") endArmedRef.current = true;
+                    }}
+                    onClick={endGameConfirmed}
                     disabled={busy}
-                    className="h-12 min-h-12 rounded-xl bg-red-500/90 px-5 text-sm font-semibold text-white disabled:opacity-40"
+                    className="h-12 min-h-12 self-start rounded-xl bg-red-500/90 px-5 text-sm font-semibold text-white disabled:opacity-40 sm:self-auto"
                   >
                     Yes, end the game
                   </button>
                   <button
+                    ref={keepPlayingRef}
                     type="button"
                     onClick={() => setConfirmingEnd(false)}
-                    className="h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
+                    className="h-12 min-h-12 self-end rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg sm:self-auto"
                   >
                     Keep playing
                   </button>
@@ -510,8 +553,8 @@ export function HostDashboard({ code }: { code: string }) {
                 </p>
                 <button
                   type="button"
-                  onClick={() => setConfirmingEnd(true)}
-                  className="h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
+                  onClick={openEndConfirmation}
+                  className="ml-auto h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
                 >
                   End game
                 </button>
