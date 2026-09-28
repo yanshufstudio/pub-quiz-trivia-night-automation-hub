@@ -190,7 +190,19 @@ test("/privacy lists Vercel Web Analytics and no longer says there is none (SEO3
 
   const entry = page.getByRole("listitem").filter({ hasText: /^Vercel Web Analytics/ });
   await expect(entry).toHaveCount(1);
-  await expect(entry).toContainText("It sets no cookies and stores nothing in your browser");
+  // What Vercel's docs say is attributed to Vercel; what we measured on our own
+  // pages (e2e/analytics.spec.ts) is stated as ours. Vercel's docs do not say
+  // "sets no cookies", locate from an IP address, or stop a visit being followed
+  // "from one day to the next", so none of those may come back as fact.
+  await expect(entry).toContainText("Vercel says it doesn't rely on cookies");
+  await expect(entry).toContainText("on our pages its script sets none and stores nothing in your browser");
+  await expect(entry).toContainText("a country, region and city, and your browser");
+  await expect(entry).not.toContainText("It sets no cookies");
+  await expect(entry).not.toContainText("IP address");
+  await expect(entry).not.toContainText("one day to the next");
+  const noTracking = page.locator("#no-tracking");
+  await expect(noTracking).toContainText("On our pages it sets no cookies and stores nothing in your browser");
+  await expect(noTracking).not.toContainText("with no cookies, nothing stored in your browser");
   // The query-string sentence is only true because SiteAnalytics strips it —
   // e2e/analytics.spec.ts is the test that holds the code to it.
   await expect(entry).toContainText("we remove anything after a ? or # before it is sent");
