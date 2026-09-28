@@ -85,8 +85,9 @@ const ENTRIES: Entry[] = [
     question: "How long does a pack take?",
     answer: (
       <>
-        Normally less than a minute. A four-round, forty-question pack is the usual size, and
-        the page tells you when it is done. Bigger briefs take longer.
+        Normally less than a minute, including the accuracy check: about 15 seconds for a
+        single five-question round, and about 50 for five rounds of ten. The page tells you
+        when it is done. Bigger briefs take longer.
       </>
     ),
   },
