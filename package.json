@@ -14,7 +14,8 @@
     "db:seed": "tsx prisma/seed.ts",
     "screenshots": "tsx scripts/capture-screenshots.ts",
     "icons": "tsx scripts/render-icons.ts",
-    "og": "tsx scripts/render-og.ts"
+    "og": "tsx scripts/render-og.ts",
+    "eval:accuracy": "tsx scripts/eval-accuracy.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
