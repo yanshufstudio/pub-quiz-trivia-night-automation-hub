@@ -72,6 +72,24 @@ describe("generateQuizPack — the brief sent to the model", () => {
     expect(system).toMatch(/in words instead/i);
   });
 
+  /**
+   * ACC1. A production pack on 28 Sep called the Spice Girls "British-Irish"
+   * and Alanis Morissette "US" — both answers right, both questions wrong,
+   * both from a nationality nobody needed. The review pass catches what gets
+   * through; this is the instruction that stops most of it being written.
+   */
+  it("asks for certain facts only, in the question as well as the answer", async () => {
+    const system = (await captureRequest()).system as string;
+
+    expect(system).toMatch(/only facts you are\s+certain of, in the question as well as in the answer/i);
+    expect(system).toMatch(/fewest\s+descriptors needed for one unambiguous answer/i);
+    expect(system).toMatch(/incidental\s+nationality, year, number or 'first', 'only' or 'largest'/i);
+    expect(system).toMatch(/unsure of a detail, leave it out rather than guess/i);
+    // Additions, not replacements: the rules that were there stay.
+    expect(system).toMatch(/single unambiguous factual answer/i);
+    expect(system).toMatch(/decline_reason/);
+  });
+
   it("forces exactly one call to the pack tool", async () => {
     const req = await captureRequest();
 
