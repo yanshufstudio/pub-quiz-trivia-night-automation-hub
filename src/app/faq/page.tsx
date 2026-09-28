@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ANNUAL_MONTHS_FREE, formatUsd, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD } from "@/lib/pricing";
 import { SITE_URL } from "@/lib/site";
+import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
 
 export const metadata: Metadata = {
   title: "Questions and answers · TriviaFoundry",
@@ -100,6 +101,11 @@ const ENTRIES: Entry[] = [
         writes is fixed.
       </>
     ),
+  },
+  {
+    id: "accuracy",
+    question: "Is every question right?",
+    answer: <>{AI_DISCLAIMER}</>,
   },
   {
     id: "teams",

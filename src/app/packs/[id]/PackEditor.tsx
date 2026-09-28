@@ -8,6 +8,7 @@ import { writeHostToken } from "@/lib/host-session";
 import { SITE_URL } from "@/lib/site";
 import { countOf } from "@/lib/plural";
 import { UncheckedPackBanner } from "./UncheckedPackBanner";
+import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
 
 /**
  * What an expired session is told while editing (M5).
@@ -468,6 +469,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           <p className="mt-2 text-sm text-muted">
             {countOf(pack.rounds.length, "round")} · {countOf(questionCount, "question")}
           </p>
+          <p className="mt-1 text-xs text-muted">{AI_DISCLAIMER}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <a
