@@ -17,6 +17,15 @@
  * not tell a stranger.
  */
 
+import {
+  EMAIL_TOO_LONG_CODE,
+  EMAIL_TOO_LONG_MESSAGE,
+  SIGN_IN_CODES_PAUSED_CODE,
+  SIGN_IN_CODES_PAUSED_MESSAGE,
+  TOO_MANY_CODES_FOR_ADDRESS_CODE,
+  TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
+} from "@/lib/sign-in-limit-messages";
+
 /** The shape every Better Auth client call reports a failure in. */
 export type SignInFailure = { status?: number; code?: string } | null | undefined;
 
@@ -43,6 +52,15 @@ export function isRateLimited(err: SignInFailure): boolean {
 
 /** Asking for a code. */
 export function signInSendError(err: SignInFailure): string {
+  // Ahead of the generic 429 wording, because both of these *are* 429s and
+  // "wait a minute and try again" would be false for either: one resets in an
+  // hour and the other tomorrow, and both have a working alternative sitting
+  // above the form (M2).
+  // Not a throttle at all: a 400 that no amount of waiting fixes, so it is
+  // ahead of everything and says what to change.
+  if (err?.code === EMAIL_TOO_LONG_CODE) return EMAIL_TOO_LONG_MESSAGE;
+  if (err?.code === SIGN_IN_CODES_PAUSED_CODE) return SIGN_IN_CODES_PAUSED_MESSAGE;
+  if (err?.code === TOO_MANY_CODES_FOR_ADDRESS_CODE) return TOO_MANY_CODES_FOR_ADDRESS_MESSAGE;
   if (isRateLimited(err)) return RATE_LIMITED_MESSAGE;
   return "Couldn't send that code. Check the address and try again.";
 }

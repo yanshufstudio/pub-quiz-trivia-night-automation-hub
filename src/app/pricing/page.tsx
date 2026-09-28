@@ -86,7 +86,7 @@ export default function PricingPage() {
                 <span className="font-medium text-foreground">
                   Pro lifts the {FREE_PACK_ALLOWANCE}-pack limit
                 </span>{" "}
-                — no cap on how many packs you make in 30 days
+                — write a fresh quiz for every night of the week
               </li>
               <li>Everything in Free</li>
               <li>Cancel whenever you like; your packs stay yours</li>
@@ -109,10 +109,42 @@ export default function PricingPage() {
           page.
         </p>
 
+        {/* M11: what the card statement will actually say. A descriptor nobody
+            recognises is the most common reason a legitimate charge is disputed,
+            and a dispute costs more than the subscription. */}
+        <p className="mt-4 text-muted">
+          Payments are handled by Paddle, our reseller and merchant of record. Your card statement
+          will show PADDLE.NET* YANSHUFST, and receipts come from Paddle on behalf of Yanshuf Studio.
+        </p>
+
+        {/* M12, in three goes. The original promised "no cap" and called the
+            shared limit "well above normal use", which described neither the
+            per-subscriber cap (H2) nor anything anyone could plan around. The
+            second version printed the figure, which made a daily number a
+            published promise — so raising or lowering the cap became a pricing
+            change, and a deploy that moved the cap's environment variable
+            without editing this page would make the page false. This version
+            names the limits and where to read them, and no number at all. The
+            enforcement is unchanged: the wizard shows the real figure and its
+            reset at the moment somebody meets it (proDailyLimitMessage in
+            src/lib/pro-limits.ts).
+
+            The test that keeps this true walks page sources for a number next to
+            a daily allowance and for the cap's own identifiers, so naming the
+            variable here — even in a comment — would fail it. That is the right
+            trade: a test that could tell a comment from code would be a test
+            with an exemption in it.
+
+            This note no longer opens by repeating the Pro card's headline. It did
+            for one commit, which left the card's only benefit bullet pointing at
+            this paragraph ("see the fair-use note below") and the same sentence
+            printed twice on one page — a visitor reading the Pro card was sent
+            somewhere else for the substance. The bullet says what Pro is for; this
+            says what bounds it. */}
         <p className="mt-4 text-sm text-muted">
-          To keep the service running for everyone, pack generation has a daily safety limit across
-          all accounts. It is set well above normal use and is not a limit on your subscription; if
-          it is ever reached, the wizard asks you to try again the next day.
+          To keep the service fair and running for everyone, there is a daily fair-use limit on each
+          account and a daily safety limit across the whole service. If you reach either, the wizard
+          tells you the limit and when it resets (00:00 UTC).
         </p>
       </main>
     </>

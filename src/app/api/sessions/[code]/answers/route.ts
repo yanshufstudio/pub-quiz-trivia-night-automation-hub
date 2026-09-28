@@ -93,25 +93,78 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const isCorrect = isLikelyCorrect(text, question.answer, parseOptions(question.acceptableAnswers));
   const pointsAwarded = isCorrect ? question.points : 0;
 
-  const answer = await db.answer.upsert({
-    where: {
-      teamId_roundIndex_questionIndex: {
+  /**
+   * The write, conditional on the question still being open (L3).
+   *
+   * The status check at the top of this route is several awaits away from here —
+   * a team lookup, a pack read and a rate-limit round trip in between — and the
+   * host can reveal inside that gap. Two things went wrong as a result: an answer
+   * could be scored after time was up, and a resubmission could overwrite a mark
+   * the host had just set by hand at the reveal.
+   *
+   * So the session is re-read inside a transaction and the write only happens if
+   * it is still QUESTION_ACTIVE *at the same position*. The position matters as
+   * well as the status: a host who reveals and advances lands back on
+   * QUESTION_ACTIVE, and without it a submission for the previous question would
+   * be accepted against the new one.
+   *
+   * The `hostOverride` check is belt and braces. A host can only override from the
+   * reveal onwards, which the status check already excludes — but "the UI does not
+   * send that yet" is not a guarantee, and a human's mark should not be
+   * overwritable by a race.
+   */
+  const written = await db.$transaction(async (tx) => {
+    const fresh = await tx.session.findUnique({
+      where: { id: session.id },
+      select: { status: true, currentRoundIndex: true, currentQuestionIndex: true },
+    });
+    if (
+      !fresh ||
+      fresh.status !== SESSION_STATUS.QUESTION_ACTIVE ||
+      fresh.currentRoundIndex !== session.currentRoundIndex ||
+      fresh.currentQuestionIndex !== session.currentQuestionIndex
+    ) {
+      return null;
+    }
+
+    const existing = await tx.answer.findUnique({
+      where: {
+        teamId_roundIndex_questionIndex: {
+          teamId: team.id,
+          roundIndex: session.currentRoundIndex,
+          questionIndex: session.currentQuestionIndex,
+        },
+      },
+      select: { hostOverride: true },
+    });
+    if (existing?.hostOverride) return null;
+
+    return tx.answer.upsert({
+      where: {
+        teamId_roundIndex_questionIndex: {
+          teamId: team.id,
+          roundIndex: session.currentRoundIndex,
+          questionIndex: session.currentQuestionIndex,
+        },
+      },
+      update: { text, isCorrect, pointsAwarded },
+      create: {
+        sessionId: session.id,
         teamId: team.id,
         roundIndex: session.currentRoundIndex,
         questionIndex: session.currentQuestionIndex,
+        text,
+        isCorrect,
+        pointsAwarded,
       },
-    },
-    update: { text, isCorrect, pointsAwarded },
-    create: {
-      sessionId: session.id,
-      teamId: team.id,
-      roundIndex: session.currentRoundIndex,
-      questionIndex: session.currentQuestionIndex,
-      text,
-      isCorrect,
-      pointsAwarded,
-    },
+    });
   });
 
-  return NextResponse.json({ answer: { id: answer.id, text: answer.text } }, { status: 201 });
+  if (!written) {
+    // The same answer the top of the route gives, because it is the same fact:
+    // this question stopped accepting answers. It just stopped a moment later.
+    return NextResponse.json({ error: "This question is no longer accepting answers" }, { status: 409 });
+  }
+
+  return NextResponse.json({ answer: { id: written.id, text: written.text } }, { status: 201 });
 }

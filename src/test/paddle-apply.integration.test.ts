@@ -24,6 +24,14 @@ function event(creatorId: string, overrides: Partial<SubscriptionEvent> = {}): S
     subscriptionId: `sub_${creatorId}`,
     customerId: `ctm_${creatorId}`,
     status: "active",
+    // Most of this file's cases are about plan and ordering, not billing
+    // periods, so the default event reports none — which rolls nothing. The
+    // M8 cases below pass one explicitly.
+    currentBillingPeriodStartsAt: null,
+    // No prices named, which priceOwnership reads as "cannot tell" rather than
+    // "not ours" — so these cases keep the handling they had before C2. The
+    // foreign-price cases name prices explicitly.
+    priceIds: [],
     verifiedCreatorId: creatorId,
     ...overrides,
   };

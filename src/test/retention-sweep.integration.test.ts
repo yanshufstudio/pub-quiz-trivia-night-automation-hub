@@ -2,7 +2,12 @@ import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { GET as runSweep } from "@/app/api/cron/retention/route";
 import { CRON_SECRET_ENV } from "@/lib/cron-auth";
-import { sweepExpiredAuthRows } from "@/lib/retention";
+import { sweepExpiredAuthRows, sweepOrphanedMailboxAllowances } from "@/lib/retention";
+import {
+  MAILBOX_PERIOD_MS,
+  freeAllowanceKey,
+  reserveMailboxGeneration,
+} from "@/lib/free-allowance";
 import { db } from "@/lib/db";
 import { requestSignInCode, signInTestHost } from "./auth-fixture";
 
@@ -166,5 +171,129 @@ describe("Better Auth's own cleanup, which the sweep backs up", () => {
     await signInTestHost(address("somebody-else"));
 
     expect(await exists.code(stale.id)).toBe(false);
+  });
+});
+
+/**
+ * The mailbox free-allowance rows (H1b), which are the one thing in this sweep
+ * that deliberately outlives the account it was created for.
+ *
+ * The rule: delete once the row's period has ended AND no existing account's
+ * normalised mailbox maps to it. The first condition is what makes deleting safe
+ * and the second is what makes /privacy's retention promise true.
+ */
+describe("orphaned mailbox free-allowance rows", () => {
+  const anchor = () => new Date();
+
+  /** A row for `email`, with one pack claimed against it. */
+  async function rowFor(email: string) {
+    const reservation = await reserveMailboxGeneration(email, anchor());
+    expect(reservation.reserved).toBe(true);
+    return freeAllowanceKey(email);
+  }
+
+  const ended = () => new Date(Date.now() - MAILBOX_PERIOD_MS - DAY);
+
+  it("deletes a row whose period ended and whose accounts are gone", async () => {
+    const email = address("orphan");
+    const key = await rowFor(email);
+    await db.mailboxAllowance.update({ where: { key }, data: { periodStartedAt: ended() } });
+
+    expect(await sweepOrphanedMailboxAllowances()).toBeGreaterThanOrEqual(1);
+    expect(await db.mailboxAllowance.findUnique({ where: { key } })).toBeNull();
+  });
+
+  it("keeps a row whose period is still live, even with no account behind it", async () => {
+    // The condition that makes deleting safe at all. A live period is the only
+    // state in which the row is doing anything.
+    const key = await rowFor(address("live-period"));
+    await sweepOrphanedMailboxAllowances();
+    expect(await db.mailboxAllowance.findUnique({ where: { key } })).not.toBeNull();
+  });
+
+  it("keeps a row whose account still exists, however long the period has been over", async () => {
+    // A real host who keeps their account keeps their row, so the count they are
+    // subject to stays continuous rather than being deleted and recreated.
+    const email = address("still-here");
+    await signInTestHost(email);
+    const key = await rowFor(email);
+    await db.mailboxAllowance.update({ where: { key }, data: { periodStartedAt: ended() } });
+
+    await sweepOrphanedMailboxAllowances();
+    expect(await db.mailboxAllowance.findUnique({ where: { key } })).not.toBeNull();
+  });
+
+  it("matches an account through the alias folding, not by string equality", async () => {
+    // The row is keyed on the normalised mailbox, so the account that keeps it
+    // alive may be signed up under any alias of it. A sweep that compared
+    // addresses literally would delete this row while its owner still had an
+    // account.
+    const stem = `alias-${Math.random().toString(36).slice(2, 8)}`;
+    await signInTestHost(`${stem}+signup@gmail.com`);
+    const key = await rowFor(`${stem}+other@gmail.com`);
+    await db.mailboxAllowance.update({ where: { key }, data: { periodStartedAt: ended() } });
+
+    await sweepOrphanedMailboxAllowances();
+    expect(await db.mailboxAllowance.findUnique({ where: { key } })).not.toBeNull();
+  });
+
+  it("grants nothing by deleting: an ended row and a missing row behave identically", async () => {
+    // This is the argument the whole design rests on, so it is asserted rather
+    // than reasoned about. reserveMailboxGeneration resets an ended period to
+    // zero, so the row only carries force while its period is live — which means
+    // deleting an ended row does early what the next generation would have done
+    // anyway.
+    const kept = address("kept");
+    const swept = address("swept");
+
+    // Both spend their whole allowance, both age out.
+    for (const email of [kept, swept]) {
+      let reservation = await reserveMailboxGeneration(email, anchor(), 1);
+      expect(reservation.reserved).toBe(true);
+      reservation = await reserveMailboxGeneration(email, anchor(), 1);
+      expect(reservation.reserved).toBe(false);
+      await db.mailboxAllowance.update({
+        where: { key: freeAllowanceKey(email) },
+        data: { periodStartedAt: ended() },
+      });
+    }
+
+    // One row is deleted, the other left in place.
+    await db.mailboxAllowance.delete({ where: { key: freeAllowanceKey(swept) } });
+
+    const afterKept = await reserveMailboxGeneration(kept, anchor(), 1);
+    const afterSwept = await reserveMailboxGeneration(swept, anchor(), 1);
+
+    expect(afterKept.reserved).toBe(true);
+    expect(afterSwept.reserved).toBe(afterKept.reserved);
+    expect(afterSwept.used).toBe(afterKept.used);
+
+    // And both are now spent again to exactly the same degree.
+    expect((await reserveMailboxGeneration(kept, anchor(), 1)).reserved).toBe(false);
+    expect((await reserveMailboxGeneration(swept, anchor(), 1)).reserved).toBe(false);
+  });
+
+  it("is reported by the cron route in the same line as the rest", async () => {
+    vi.stubEnv(CRON_SECRET_ENV, SECRET);
+    const key = await rowFor(address("cron-reported"));
+    await db.mailboxAllowance.update({ where: { key }, data: { periodStartedAt: ended() } });
+
+    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    try {
+      const res = await runSweep(cronCall(`Bearer ${SECRET}`));
+      expect(res.status).toBe(200);
+      await expect(res.json()).resolves.toMatchObject({ mailboxAllowances: expect.any(Number) });
+      // Singular at one, which is the whole point of countOf being here: the
+      // line used to read "1 orphaned mailbox allowances".
+      expect(info).toHaveBeenCalledWith(expect.stringContaining("1 orphaned mailbox allowance"));
+      expect(info).not.toHaveBeenCalledWith(expect.stringContaining("1 orphaned mailbox allowances"));
+      // And the two counts that were always in this line are pluralised too, so
+      // the sentence does not disagree with itself at one.
+      expect(info).toHaveBeenCalledWith(expect.stringContaining("0 expired codes"));
+      expect(info).toHaveBeenCalledWith(expect.stringContaining("0 expired sessions"));
+    } finally {
+      info.mockRestore();
+    }
+    expect(await db.mailboxAllowance.findUnique({ where: { key } })).toBeNull();
   });
 });

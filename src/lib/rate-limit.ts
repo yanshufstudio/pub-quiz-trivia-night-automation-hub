@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { createFixedWindowCounter } from "@/lib/fixed-window-counter";
+import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-window-counter";
 
 /**
  * Upstash Redis when configured, an in-process Map otherwise — see
@@ -11,7 +11,11 @@ import { createFixedWindowCounter } from "@/lib/fixed-window-counter";
  */
 const counter = createFixedWindowCounter();
 
-function clientIp(req: NextRequest): string {
+/** Exported so a limiter that is not keyed on a bucket name — the per-IP free
+ * generation cap in src/lib/free-allowance.ts — attributes a request to the same
+ * address this one does. Two ideas of "who is calling" would be two different
+ * caps wearing one name. */
+export function clientIp(req: NextRequest): string {
   return (
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     req.headers.get("x-real-ip") ||
@@ -53,9 +57,65 @@ export async function consumeRateLimit(
   // One clock reading for both calls, so the fallback store measures the
   // wait from the same instant it counted at.
   const now = Date.now();
-  const count = await counter.hit(bucketKey, windowMs, now);
-  if (count > limit) {
-    return { allowed: false, retryAfterSeconds: await counter.secondsLeft(bucketKey, now) };
+  try {
+    const count = await counter.hit(bucketKey, windowMs, now);
+    if (count > limit) {
+      return { allowed: false, retryAfterSeconds: await counter.secondsLeft(bucketKey, now) };
+    }
+    return { allowed: true, retryAfterSeconds: 0 };
+  } catch (error) {
+    if (!isCounterUnavailable(error)) throw error;
+    // Fail open. A limiter that cannot count must not become an outage: on
+    // 27 Sep a bad Upstash token made every call here throw, and because
+    // Better Auth runs its own rate limiting through this function
+    // (customStorage in src/lib/auth.ts) the throw surfaced as a 500 from
+    // /api/auth/get-session — sign-in was down for everyone because the
+    // *throttle* was broken. Letting the request through loses abuse
+    // protection for as long as the store is away, which is the smaller of
+    // the two failures and the reversible one.
+    //
+    // The cost ceiling makes the opposite choice on purpose, because what it
+    // protects is a bill rather than a nuisance: see reserveDailyGeneration
+    // in src/lib/daily-ceiling.ts.
+    warnCounterUnavailable(bucketKey, error, now);
+    return { allowed: true, retryAfterSeconds: 0 };
   }
-  return { allowed: true, retryAfterSeconds: 0 };
+}
+
+/**
+ * At most one warning a minute, whatever the traffic.
+ *
+ * An outage here is per-request, so a busy minute would write thousands of
+ * identical lines — enough to bury the rest of the log and to cost real money
+ * on a metered log drain. One a minute is enough to see that it is happening
+ * and how long it lasted.
+ */
+const WARN_INTERVAL_MS = 60_000;
+let lastWarnedAtMs: number | null = null;
+
+/** Exposed for tests: the throttle is module-level and outlives a test. */
+export function __resetRateLimitWarnThrottle() {
+  lastWarnedAtMs = null;
+}
+
+/**
+ * Exported so every limiter that fails open reports it the same way and under
+ * one throttle. src/lib/sign-in-limits.ts is the other caller: one string to
+ * alert on beats two, and one throttle beats two that each allow a line a
+ * minute.
+ */
+export function warnCounterUnavailable(bucketKey: string, error: unknown, nowMs: number) {
+  if (lastWarnedAtMs !== null && nowMs - lastWarnedAtMs < WARN_INTERVAL_MS) return;
+  lastWarnedAtMs = nowMs;
+  // "ratelimit-redis-error" is the string to alert on. The bucket key says
+  // which limiter was affected; it is already namespaced and carries no
+  // secret, though it can carry a client IP, which is why the key is the only
+  // request detail logged.
+  console.warn(
+    `ratelimit-redis-error: rate limiting failed open for "${bucketKey}" — the shared counter is unreachable, ` +
+      `so requests are being allowed without being counted. Further warnings are suppressed for ${
+        WARN_INTERVAL_MS / 1000
+      }s.`,
+    error
+  );
 }

@@ -2,6 +2,7 @@ import { Document, Image, Page, Text, View, StyleSheet } from "@react-pdf/render
 import type { PackWithRoundsAndMedia } from "@/lib/session-state";
 import { parseOptions, QUESTION_TYPE } from "@/lib/question-types";
 import { toDataUri } from "@/lib/media";
+import { countOf } from "@/lib/plural";
 
 type PackWithMedia = PackWithRoundsAndMedia;
 type PdfQuestion = PackWithMedia["rounds"][number]["questions"][number];
@@ -76,7 +77,7 @@ function Header({ pack, kicker }: { pack: PackWithMedia; kicker: string }) {
       <Text style={styles.kicker}>{kicker}</Text>
       <Text style={styles.title}>{pack.title}</Text>
       <Text style={styles.subtitle}>
-        {pack.rounds.length} rounds · keep this copy at the lectern
+        {countOf(pack.rounds.length, "round")} · keep this copy at the lectern
       </Text>
     </View>
   );

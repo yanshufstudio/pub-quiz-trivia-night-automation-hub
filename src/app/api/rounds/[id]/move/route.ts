@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
+import { refuseIfLiveGame } from "@/lib/live-game-guard";
 
 const moveSchema = z.object({ direction: z.enum(["up", "down"]) });
 
@@ -22,6 +23,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   }
   const forbidden = await requirePackOwner(host.creator.id, { packId: round.packId });
   if (forbidden) return forbidden;
+
+  // A swap changes which round index means which round, so a live session's
+  // position would point at different content than the answers it has already
+  // collected (H5).
+  const live = await refuseIfLiveGame(round.packId);
+  if (live) return live;
 
   const targetIndex = parsed.data.direction === "up" ? round.index - 1 : round.index + 1;
   const swapWith = await db.round.findUnique({

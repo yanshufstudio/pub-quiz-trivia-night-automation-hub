@@ -61,3 +61,31 @@ export function formatUsd(amount: number): string {
  * changing this line.
  */
 export const FREE_PACK_ALLOWANCE = 2;
+
+/**
+ * There is deliberately no PRO_DAILY_PACK_ALLOWANCE here any more (M12, Paul,
+ * 27 Sep).
+ *
+ * It existed so /pricing and /terms could print the per-subscriber daily cap,
+ * and a test tied it to DEFAULT_PRO_USER_DAILY_LIMIT so the copy could not drift
+ * from the enforcement. That solved the drift and created a worse problem: a
+ * number on a public page is a promise, so changing the cap became a pricing
+ * change, and lowering it during an incident would make the page false until
+ * somebody edited it.
+ *
+ * So the pages describe the shape — a daily fair-use limit per account and a
+ * service-wide daily safety limit — and the *product* states the number at the
+ * only moment it matters, when somebody reaches it (proDailyLimitMessage in
+ * src/lib/pro-limits.ts, which reads the live limit). Nothing about the
+ * enforcement changed: PRO_USER_DAILY_PACK_LIMIT still defaults to 10, the 429
+ * still names the figure and its reset, the kill switch still answers 503, and
+ * the shared ceiling is still PRO_DAILY_PACK_CEILING.
+ *
+ * `noPublishedProDailyNumber` in src/lib/pricing.test.ts walks the two pages and
+ * fails if either puts a digit next to a daily Pro allowance, so this cannot be
+ * quietly undone by adding the number back to a page.
+ *
+ * FREE_PACK_ALLOWANCE above stays: "2 packs every 30 days" is the offer itself
+ * rather than a fair-use guard, a visitor cannot choose the free tier without
+ * knowing it, and it does not move during an incident.
+ */

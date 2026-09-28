@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { FREE_LIMIT, withRolledPeriod } from "@/lib/creator";
+import { FREE_LIMIT, effectivePlan, withRolledPeriod } from "@/lib/creator";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 /**
@@ -16,7 +16,8 @@ export async function GET(req: NextRequest) {
 
   const rolled = withRolledPeriod(host.creator);
   return NextResponse.json({
-    plan: rolled.plan,
+    // What this deployment will act on, so the UI and the route agree (C1).
+    plan: effectivePlan(rolled),
     packsGeneratedInPeriod: rolled.packsGeneratedInPeriod,
     limit: FREE_LIMIT,
     email: host.user.email,

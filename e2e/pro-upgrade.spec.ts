@@ -59,15 +59,24 @@ function paddleSignature(body: string) {
   return `ts=${ts};h1=${createHmac("sha256", WEBHOOK_SECRET).update(`${ts}:${body}`).digest("hex")}`;
 }
 
-function subscriptionCreated(customData: Opened["customData"], subscriptionId: string) {
+let eventCounter = 0;
+
+function subscriptionCreated(
+  customData: Opened["customData"],
+  subscriptionId: string,
+  // A subscription that Paddle has paused, or that the host cancelled, is the
+  // case L13 is about — the host most in need of the billing portal.
+  { status = "active", eventType = "subscription.created" }: { status?: string; eventType?: string } = {}
+) {
+  eventCounter += 1;
   return JSON.stringify({
-    event_id: `evt_e2e_${Date.now()}`,
-    event_type: "subscription.created",
+    event_id: `evt_e2e_${Date.now()}_${eventCounter}`,
+    event_type: eventType,
     occurred_at: new Date().toISOString(),
     notification_id: `ntf_e2e_${Date.now()}`,
     data: {
       id: subscriptionId,
-      status: "active",
+      status,
       customer_id: "ctm_e2e",
       address_id: "add_e2e",
       business_id: null,
@@ -170,4 +179,78 @@ test("a checkout whose account was edited in the browser switches nobody's Pro o
 
   await victim.context.close();
   await attacker.context.close();
+});
+
+/**
+ * L13: the billing portal is reachable whenever a subscription exists, not only
+ * while it is paying for Pro.
+ *
+ * /pricing keyed "Manage subscription" on `plan === "PRO"`, and `plan` is derived
+ * from Paddle's status — so a subscription Paddle had `paused`, or one the host
+ * had cancelled, showed the Subscribe buttons and no way into the portal at all.
+ * That is the person who most needs it: resuming a paused subscription, or
+ * replacing the card behind a failed payment, happens in Paddle's portal and
+ * nowhere else.
+ */
+test("a paused subscription still gets into the billing portal", async ({ browser, baseURL }) => {
+  const { context, api } = await signedInContext(browser, baseURL!);
+  await warmWebhook(api);
+
+  const page = await context.newPage();
+  await page.route("https://cdn.paddle.com/paddle/v2/paddle.js", (route) =>
+    route.fulfill({ contentType: "application/javascript", body: PADDLE_JS_STAND_IN })
+  );
+  await page.goto("/pricing");
+
+  // Buy, so there is a subscription to pause. The opened-checkout stand-in gives
+  // us the signed customData the page handed to Paddle.
+  await page.getByRole("button", { name: `Subscribe yearly · ${formatUsd(PRICE_ANNUAL_USD)}` }).click();
+  const opened = (await (
+    await page.waitForFunction(() => (window as unknown as { __paddle?: { opened?: unknown } }).__paddle?.opened)
+  ).jsonValue()) as Opened;
+  const subscriptionId = `sub_e2e_paused_${Date.now()}`;
+
+  const active = subscriptionCreated(opened.customData, subscriptionId);
+  expect(
+    (
+      await context.request.post("/api/paddle/webhook", {
+        headers: { "content-type": "application/json", "paddle-signature": paddleSignature(active) },
+        data: active,
+      })
+    ).status()
+  ).toBe(200);
+
+  await page.reload();
+  await expect(page.getByRole("main").getByRole("button", { name: "Manage subscription" })).toBeVisible();
+
+  // Now Paddle pauses it. statusToPlan maps `paused` to FREE, so the account is
+  // off Pro — but the subscription is still there.
+  const paused = subscriptionCreated(opened.customData, subscriptionId, {
+    status: "paused",
+    eventType: "subscription.paused",
+  });
+  expect(
+    (
+      await context.request.post("/api/paddle/webhook", {
+        headers: { "content-type": "application/json", "paddle-signature": paddleSignature(paused) },
+        data: paused,
+      })
+    ).status()
+  ).toBe(200);
+
+  await page.reload();
+  const main = page.getByRole("main");
+
+  // The portal is still one click away, and the page says what is going on.
+  await expect(main.getByRole("button", { name: "Manage subscription" })).toBeVisible();
+  await expect(main.getByText("Your subscription is not active right now.")).toBeVisible();
+  await expect(main.getByText(/Resuming it[\s\S]*are in the billing portal/)).toBeVisible();
+
+  // And a way back for a subscription that cannot be resumed.
+  await expect(
+    main.getByRole("button", { name: `Subscribe yearly · ${formatUsd(PRICE_ANNUAL_USD)}` })
+  ).toBeVisible();
+
+  // It no longer claims they are on Pro.
+  await expect(main.getByText("You are on Pro. Thank you.")).toHaveCount(0);
 });

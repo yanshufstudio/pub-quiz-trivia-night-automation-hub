@@ -27,6 +27,18 @@ export default function PrivacyPage() {
             address is all we get.
           </li>
           <li>
+            <span className="font-medium text-foreground">A free-allowance record</span> — it exists so
+            that one mailbox gets one free allowance rather than a fresh one for every account opened
+            from it. It holds a hash of your email address, not the address: a hash cannot be turned
+            back into the address it came from, but it is not anonymous either — somebody who already
+            knew an address could hash it and see whether it matches. Next to the hash we store a count
+            of free packs and the date the current 30 days began, and nothing else. Aliases of one
+            mailbox produce the same hash, so{" "}
+            <span className="whitespace-nowrap">name+1@gmail.com</span> and{" "}
+            <span className="whitespace-nowrap">name+2@gmail.com</span> share one allowance. Pro
+            subscriptions are not counted here at all.
+          </li>
+          <li>
             <span className="font-medium text-foreground">Your sign-in code</span> — the six digits we
             email you, and the link in the same email that carries them. We keep the code hashed, not
             in the clear, and it stops working once you use it or 15 minutes after we send it,
@@ -76,10 +88,11 @@ export default function PrivacyPage() {
       <LegalSection id="processors" title="Who else processes it">
         <LegalList>
           <li>
-            <span className="font-medium text-foreground">Google</span> — only if you choose to sign in
-            with Google. They tell us your email address, your name and your Google account id; we
-            tell them nothing about you. Signing in with an emailed code instead involves Google not
-            at all.
+            <span className="font-medium text-foreground">Google sign-in</span> — only if you choose
+            it. If you sign in with Google we store your name, email address, profile photo link and
+            the sign-in tokens Google gives us. We use them only to sign you in. We tell Google
+            nothing about you, and signing in with an emailed code instead involves Google not at
+            all.
           </li>
           <li>
             <span className="font-medium text-foreground">Resend</span> — sends the sign-in email to
@@ -99,6 +112,11 @@ export default function PrivacyPage() {
           <li>
             <span className="font-medium text-foreground">Turso</span> — runs the database the above
             is stored in.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">Upstash</span> (rate limiting) — to stop
+            abuse we keep your IP address with short-lived counters, deleted automatically within a
+            day.
           </li>
           <li>
             <span className="font-medium text-foreground">Anthropic</span> — generates the questions.
@@ -150,17 +168,31 @@ export default function PrivacyPage() {
           minutes after we send it; a code is deleted the moment it is used. Live session entries —
           team names and answers — stay with the quiz they belong to.
         </LegalText>
+        <LegalText>
+          The free-allowance record above outlives the account it was made for, which is deliberate:
+          if deleting an account cleared it, the free allowance could be claimed again and again by
+          deleting and re-registering, which is the abuse it exists to stop. It is kept while any
+          account still uses that mailbox, and it stops counting for anything 30 days after the last
+          free pack was made. Once both are true — its 30 days are over and no account uses the
+          mailbox any more — a daily job deletes it, so the longest it survives past your last
+          account is 30 days and a day.
+        </LegalText>
       </LegalSection>
 
       <LegalSection id="deletion" title="Deleting your data">
         <LegalText>
-          Email{" "}
+          To delete your account, email{" "}
           <ContactLink />{" "}
-          and we will delete your account and everything held under it — your packs, any uploaded
-          images, your sign-in sessions, the subscription ids and status we hold, and the email
-          address and name on the account. We do this within 30 days and we do not keep a copy.
-          Billing records held by Paddle as merchant of record are theirs to keep or remove; see
-          the{" "}
+          from the address you signed in with. We delete your account, quiz packs and game data —
+          including any uploaded images, your sign-in sessions, the subscription ids and status we
+          hold, and the email address and name on the account — from our live database within 30
+          days. The one exception is the free-allowance record described above, which holds a
+          hash rather than an address and is deleted on a delay rather than with the account:
+          clearing it immediately would turn &ldquo;delete my account&rdquo; into a way to collect
+          free packs indefinitely. It goes once its 30 days are over and no account uses that
+          mailbox, which a daily job checks. Encrypted backups kept by our database provider are overwritten on their normal
+          cycle, after which the data is gone. Billing records held by Paddle as merchant of record
+          are theirs to keep or remove; see the{" "}
           <Link className="font-medium text-amber hover:underline" href="/refunds">
             refund policy
           </Link>{" "}

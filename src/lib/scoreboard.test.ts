@@ -17,6 +17,7 @@ function answer(teamId: string, points: number, roundIndex = 0, questionIndex = 
     isCorrect: points > 0,
     pointsAwarded: points,
     submittedAt: new Date(),
+    hostOverride: false,
   };
 }
 

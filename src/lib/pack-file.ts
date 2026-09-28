@@ -42,6 +42,16 @@ export const PACK_LIMITS = {
   answer: 500,
   option: 300,
   acceptableAnswer: 200,
+  /**
+   * How many alternates one question may carry.
+   *
+   * Named here, and used by both the pack-file schema and the editor's PATCH
+   * route, because the two disagreed: import accepted 20 of up to 200 characters
+   * and the editor accepted 10 of up to 100. A pack imported with a dozen
+   * alternates, or one alternate longer than a tweet, could not then be saved from
+   * the editor at all — the host got "Couldn't save" and no reason (M5).
+   */
+  acceptableAnswersPerQuestion: 20,
 } as const;
 
 const fileImageSchema = z.object({
@@ -58,7 +68,10 @@ const fileQuestionSchema = generatedQuestionFields
     text: z.string().min(1).max(PACK_LIMITS.questionText),
     answer: z.string().min(1).max(PACK_LIMITS.answer),
     options: z.array(z.string().min(1).max(PACK_LIMITS.option)).max(6).optional(),
-    acceptableAnswers: z.array(z.string().min(1).max(PACK_LIMITS.acceptableAnswer)).max(20).optional(),
+    acceptableAnswers: z
+      .array(z.string().min(1).max(PACK_LIMITS.acceptableAnswer))
+      .max(PACK_LIMITS.acceptableAnswersPerQuestion)
+      .optional(),
     image: fileImageSchema.optional(),
   })
   .transform(degradeInvalidMultipleChoice);

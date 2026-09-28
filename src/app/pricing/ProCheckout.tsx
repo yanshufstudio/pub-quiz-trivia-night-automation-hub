@@ -16,8 +16,11 @@ import { PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
  *
  *   signed out            "Sign in to subscribe" — a subscription belongs to
  *                         an account, so there is nothing to buy without one.
- *   signed in, on Pro     "Manage subscription" — Paddle's customer portal.
- *   signed in, not on Pro the two Subscribe buttons.
+ *   signed in, has a       "Manage subscription" — Paddle's customer portal —
+ *   subscription           plus the Subscribe buttons when the subscription is
+ *                          not currently paying for Pro (L13).
+ *   signed in, never had   the two Subscribe buttons.
+ *   one
  *   checkout not set up   a plain sentence instead of dead buttons. Only a
  *                         local or CI build can show this: next.config.ts
  *                         fails a production build without the
@@ -38,7 +41,9 @@ const PADDLE_ENV = process.env.NEXT_PUBLIC_PADDLE_ENV === "production" ? "produc
 
 // `null` while loading; "unknown" if the status endpoint refused (a session
 // that expired while the page was open), which is shown as signed out.
-type Status = { plan: string } | "unknown";
+type Status =
+  | { plan: string; hasSubscription: boolean; subscriptionStatus: string | null }
+  | "unknown";
 
 /** Reserved so the card does not change height when the session resolves. */
 const SLOT = "mt-6 min-h-[7.5rem]";
@@ -57,7 +62,17 @@ export function ProCheckout() {
     fetch("/api/creator/status", { cache: "no-store" })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (!cancelled) setStatus(data ? { plan: data.plan } : "unknown");
+        if (!cancelled) {
+          setStatus(
+            data
+              ? {
+                  plan: data.plan,
+                  hasSubscription: Boolean(data.hasSubscription),
+                  subscriptionStatus: data.subscriptionStatus ?? null,
+                }
+              : "unknown"
+          );
+        }
       })
       .catch(() => {
         if (!cancelled) setStatus("unknown");
@@ -122,6 +137,34 @@ export function ProCheckout() {
   const button =
     "inline-flex min-h-12 w-full items-center justify-center rounded-xl px-4 text-sm font-semibold disabled:opacity-60";
 
+  /**
+   * The two Subscribe buttons, defined once.
+   *
+   * Both the never-subscribed branch and the has-a-subscription-but-not-on-Pro
+   * branch (L13) render them, and rendering them twice with their own labels is
+   * how two names for one action get into a product.
+   */
+  const subscribeButtons = (
+    <div className="grid gap-3">
+      <button
+        type="button"
+        onClick={() => subscribe("month")}
+        disabled={busy !== null}
+        className={`${button} bg-amber text-white hover:bg-amber-hover`}
+      >
+        {busy === "month" ? "Opening checkout…" : `Subscribe monthly · ${formatUsd(PRICE_MONTHLY_USD)}`}
+      </button>
+      <button
+        type="button"
+        onClick={() => subscribe("year")}
+        disabled={busy !== null}
+        className={`${button} border border-amber text-amber hover:bg-amber hover:text-white`}
+      >
+        {busy === "year" ? "Opening checkout…" : `Subscribe yearly · ${formatUsd(PRICE_ANNUAL_USD)}`}
+      </button>
+    </div>
+  );
+
   let body: React.ReactNode = null;
   if (isPending || (signedIn && !status)) {
     body = null;
@@ -134,11 +177,39 @@ export function ProCheckout() {
         Sign in to subscribe
       </Link>
     );
-  } else if (status?.plan === "PRO") {
+  } else if (status?.hasSubscription) {
+    /**
+     * L13: keyed on *having a subscription*, not on being on Pro.
+     *
+     * It used to require `plan === "PRO"`, and `plan` is derived from Paddle's
+     * status — so a subscription that Paddle had `paused`, or that the host had
+     * cancelled and not yet replaced, showed the Subscribe buttons and no way
+     * into the portal at all. That is exactly the person who most needs it:
+     * resuming a paused subscription, or fixing the card behind a failed
+     * payment, happens in Paddle's portal and nowhere else.
+     *
+     * `past_due` already counted as PRO (statusToPlan keeps Pro on through
+     * dunning), so this is about `paused` and `canceled`.
+     */
+    const onPro = status.plan === "PRO";
     body = (
       <>
-        <p className="font-medium text-foreground">You are on Pro. Thank you.</p>
-        <p className="mt-1 text-sm text-muted">Invoices, your card and cancelling are in the billing portal.</p>
+        {onPro ? (
+          <>
+            <p className="font-medium text-foreground">You are on Pro. Thank you.</p>
+            <p className="mt-1 text-sm text-muted">
+              Invoices, your card and cancelling are in the billing portal.
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="font-medium text-foreground">Your subscription is not active right now.</p>
+            <p className="mt-1 text-sm text-muted">
+              Resuming it, and your invoices and payment method, are in the billing portal. You can also
+              start a new subscription below.
+            </p>
+          </>
+        )}
         <button
           type="button"
           onClick={manage}
@@ -147,31 +218,13 @@ export function ProCheckout() {
         >
           {busy === "portal" ? "Opening…" : "Manage subscription"}
         </button>
+        {!onPro && CLIENT_TOKEN ? <div className="mt-3">{subscribeButtons}</div> : null}
       </>
     );
   } else if (!CLIENT_TOKEN) {
     body = <p className="text-sm text-muted">Checkout is not switched on for this deployment.</p>;
   } else {
-    body = (
-      <div className="grid gap-3">
-        <button
-          type="button"
-          onClick={() => subscribe("month")}
-          disabled={busy !== null}
-          className={`${button} bg-amber text-white hover:bg-amber-hover`}
-        >
-          {busy === "month" ? "Opening checkout…" : `Subscribe monthly · ${formatUsd(PRICE_MONTHLY_USD)}`}
-        </button>
-        <button
-          type="button"
-          onClick={() => subscribe("year")}
-          disabled={busy !== null}
-          className={`${button} border border-amber text-amber hover:bg-amber hover:text-white`}
-        >
-          {busy === "year" ? "Opening checkout…" : `Subscribe yearly · ${formatUsd(PRICE_ANNUAL_USD)}`}
-        </button>
-      </div>
-    );
+    body = subscribeButtons;
   }
 
   return (

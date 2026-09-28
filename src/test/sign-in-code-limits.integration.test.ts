@@ -1,0 +1,209 @@
+import { afterAll, afterEach, beforeEach, describe, expect, it } from "vitest";
+import { POST as authRoute } from "@/app/api/auth/[...all]/route";
+import { db } from "@/lib/db";
+import {
+  DAILY_LIMIT_ENV,
+  PER_ADDRESS_HOURLY_ENV,
+  __resetSignInLimitCounters,
+} from "@/lib/sign-in-limits";
+import {
+  EMAIL_TOO_LONG_CODE,
+  EMAIL_TOO_LONG_MESSAGE,
+  MAX_EMAIL_LENGTH,
+  SIGN_IN_CODES_PAUSED_CODE,
+  SIGN_IN_CODES_PAUSED_MESSAGE,
+  TOO_MANY_CODES_FOR_ADDRESS_CODE,
+  TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
+} from "@/lib/sign-in-limit-messages";
+import { capturedSignInEmails, clearCapturedSignInEmails } from "@/lib/sign-in-email";
+
+/**
+ * The caps, through Better Auth's own endpoint (M2).
+ *
+ * The unit tests pin the counting. This file pins the thing they cannot: that a
+ * refusal actually reaches the caller as a 429 carrying a code the sign-in form
+ * can recognise.
+ *
+ * It drives the route handler rather than `auth.api`, because that is where the
+ * caps live and why. Raising them inside Better Auth's sendVerificationOTP
+ * callback does not work: Better Auth swallows the throw, answers
+ * 200 {"success":true}, and sends nothing — so the person gets a "check your
+ * email" screen for a code that was never coming. That was measured, not
+ * assumed.
+ */
+
+const savedEnv: Record<string, string | undefined> = {};
+const KEYS = [PER_ADDRESS_HOURLY_ENV, DAILY_LIMIT_ENV];
+
+// A distinct caller address per request: Better Auth's own per-IP rule
+// (5 per 60s on this path) sits in front of these caps and would refuse first.
+let ip = 0;
+function headers() {
+  ip += 1;
+  return new Headers({
+    "content-type": "application/json",
+    "x-forwarded-for": `198.19.0.${(ip % 250) + 1}`,
+  });
+}
+
+function send(email: string, type = "sign-in") {
+  return authRoute(
+    new Request("http://localhost:3000/api/auth/email-otp/send-verification-otp", {
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify({ email, type }),
+    })
+  );
+}
+
+function address(prefix: string) {
+  return `${prefix}-${Math.random().toString(36).slice(2)}@example.test`;
+}
+
+beforeEach(() => {
+  for (const k of KEYS) {
+    savedEnv[k] = process.env[k];
+    delete process.env[k];
+  }
+  __resetSignInLimitCounters();
+  clearCapturedSignInEmails();
+});
+
+afterEach(() => {
+  for (const k of KEYS) {
+    if (savedEnv[k] === undefined) delete process.env[k];
+    else process.env[k] = savedEnv[k];
+  }
+  __resetSignInLimitCounters();
+  clearCapturedSignInEmails();
+});
+
+afterAll(async () => {
+  await db.$disconnect();
+});
+
+describe("asking for a sign-in code too often", () => {
+  it("answers 429 with a code the form can recognise, after the address's allowance", async () => {
+    process.env[PER_ADDRESS_HOURLY_ENV] = "2";
+    const email = address("addrcap");
+
+    expect((await send(email)).status).toBe(200);
+    expect((await send(email)).status).toBe(200);
+
+    const refused = await send(email);
+    expect(refused.status).toBe(429);
+    const body = await refused.json();
+    expect(body.code).toBe(TOO_MANY_CODES_FOR_ADDRESS_CODE);
+    expect(body.message).toBe(TOO_MANY_CODES_FOR_ADDRESS_MESSAGE);
+
+    // Two emails, not three: the refusal did not send one.
+    expect(capturedSignInEmails().filter((sent) => sent.email === email)).toHaveLength(2);
+  });
+
+  it("answers the paused message once the day's allowance is gone", async () => {
+    process.env[DAILY_LIMIT_ENV] = "1";
+    expect((await send(address("dayone"))).status).toBe(200);
+
+    const refused = await send(address("daytwo"));
+    expect(refused.status).toBe(429);
+    const body = await refused.json();
+    expect(body.code).toBe(SIGN_IN_CODES_PAUSED_CODE);
+    expect(body.message).toBe(SIGN_IN_CODES_PAUSED_MESSAGE);
+    // It points at the sign-in that still works.
+    expect(body.message).toContain("Google");
+  });
+
+  it("does not mint a code it is not going to email", async () => {
+    // A refused request that still burned one of the code's five attempts, or
+    // left a verification row behind, would be a slow leak in both directions.
+    process.env[DAILY_LIMIT_ENV] = "0";
+    const email = address("nocode");
+    const before = await db.verification.count();
+
+    expect((await send(email)).status).toBe(429);
+
+    expect(capturedSignInEmails().filter((sent) => sent.email === email)).toHaveLength(0);
+    expect(await db.verification.count()).toBe(before);
+  });
+
+  it("still lets a different address through while one is capped", async () => {
+    process.env[PER_ADDRESS_HOURLY_ENV] = "1";
+    const capped = address("capped");
+    expect((await send(capped)).status).toBe(200);
+    expect((await send(capped)).status).toBe(429);
+    expect((await send(address("other"))).status).toBe(200);
+  });
+
+  it("gives the unit back when Better Auth refuses the request itself", async () => {
+    // The cap is taken on the way in, before Better Auth has looked at the
+    // request at all — so a request it then rejects has cost us nothing to send
+    // and must not have cost an allowance either. This is also the case that
+    // caught a real bug: the give-back used to re-read the body with
+    // `req.clone()` after Better Auth had consumed it, which throws, and the
+    // throw was swallowed as bookkeeping. One "Invalid email" 400 was enough to
+    // lock a valid address out of its whole hourly allowance.
+    process.env[PER_ADDRESS_HOURLY_ENV] = "1";
+
+    const rejected = await send("not-an-email");
+    expect(rejected.status).toBe(400);
+
+    // The same address again: the unit it did not spend is back, so this one is
+    // allowed rather than 429.
+    expect((await send("not-an-email")).status).toBe(400);
+  });
+
+  it("keeps the day's allowance intact when Better Auth refuses", async () => {
+    process.env[DAILY_LIMIT_ENV] = "1";
+
+    expect((await send("also-not-an-email")).status).toBe(400);
+
+    // The day's one unit was never spent, so a real address can still have it.
+    expect((await send(address("afterreject"))).status).toBe(200);
+  });
+
+  it("treats the same mailbox in different case as one address", async () => {
+    process.env[PER_ADDRESS_HOURLY_ENV] = "1";
+    const lower = address("caseless");
+    expect((await send(lower)).status).toBe(200);
+    expect((await send(lower.toUpperCase())).status).toBe(429);
+  });
+});
+
+describe("an address too long to be a mailbox", () => {
+  const tooLong = () => `${"a".repeat(MAX_EMAIL_LENGTH)}@example.test`;
+
+  it("is refused 400, with no code created and none sent", async () => {
+    // Better Auth accepts an address of any length: measured before this existed
+    // with a 20,000-character local part, it validated, wrote a verification row
+    // and had a code sent to it — which in production means handing the address
+    // to Resend. So the refusal has to be in front of it, not behind.
+    const before = await db.verification.count();
+
+    const res = await send(tooLong());
+    expect(res.status).toBe(400);
+    const body = await res.json();
+    expect(body.code).toBe(EMAIL_TOO_LONG_CODE);
+    expect(body.message).toBe(EMAIL_TOO_LONG_MESSAGE);
+
+    expect(await db.verification.count()).toBe(before);
+    expect(capturedSignInEmails().filter((sent) => sent.email.length > MAX_EMAIL_LENGTH)).toHaveLength(0);
+  });
+
+  it("does not spend the address's allowance or the day's on its way to being refused", async () => {
+    // It is checked ahead of the caps, so a junk address cannot burn a unit of
+    // either. With the day's allowance at 1, a real address must still get through
+    // after any number of over-long ones.
+    process.env[DAILY_LIMIT_ENV] = "1";
+    for (let i = 0; i < 3; i++) expect((await send(tooLong())).status).toBe(400);
+    expect((await send(address("after-too-long"))).status).toBe(200);
+  });
+
+  it("takes an address of exactly the maximum", async () => {
+    // 254 is allowed, 255 is not. A limit that refused the boundary would turn a
+    // legitimate — if absurd — address away.
+    const domain = "@example.test";
+    const atLimit = `${"a".repeat(MAX_EMAIL_LENGTH - domain.length)}${domain}`;
+    expect(atLimit).toHaveLength(MAX_EMAIL_LENGTH);
+    expect((await send(atLimit)).status).toBe(200);
+  });
+});

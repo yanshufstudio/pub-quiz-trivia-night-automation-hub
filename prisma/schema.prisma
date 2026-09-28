@@ -111,6 +111,20 @@ model Session {
   createdAt               DateTime  @default(now())
   teams                   Team[]
   answers                 Answer[]
+
+  // The account that started this game, when one did.
+  //
+  // Nullable, and not only for the rows that existed before this column: the
+  // host key is still the authority over a session (see isValidHostToken), and
+  // this is a second, weaker claim that lets the creator who started a game
+  // reopen its desk without the key — the key lives in one browser's local
+  // storage, so losing that browser used to mean losing the desk mid-night.
+  // onDelete: SetNull rather than Cascade: deleting an account must not delete
+  // the games it ran, or a pub's scoreboard would vanish with it.
+  creator                 Creator?  @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+  creatorId               String?
+
+  @@index([creatorId])
 }
 
 model Team {
@@ -137,6 +151,13 @@ model Answer {
   isCorrect     Boolean?
   pointsAwarded Int      @default(0)
   submittedAt   DateTime @default(now())
+  /// The host has marked this answer by hand (PATCH .../answers/[answerId]).
+  ///
+  /// Two things need to know. Rescoring at reveal (M7) recomputes marks from the
+  /// current answer key and must leave a human decision alone — a host who
+  /// accepted "Canberra, Australia" does not want it re-marked wrong. And a late
+  /// resubmission (L3) must not overwrite one.
+  hostOverride  Boolean  @default(false)
 
   @@unique([teamId, roundIndex, questionIndex])
   // Every poll of GET /api/sessions/[code] — one per host and per team every
@@ -147,6 +168,30 @@ model Answer {
   @@index([sessionId, roundIndex, questionIndex])
 }
 
+/// One free allowance per mailbox, shared by every account behind it (H1b).
+///
+/// Signing up is free and one person can hold any number of accounts, so a
+/// per-Creator allowance bounded nothing: `someone+1@gmail.com`,
+/// `someone+2@gmail.com` and `some.one@googlemail.com` are one inbox that
+/// Google delivers all of, and each was a separate account with its own two
+/// free packs. This row is the allowance those accounts share.
+///
+/// It is a table rather than a column on Creator because the shared allowance
+/// needs its own clock: it rolls on its own 30-day period, the same rule a
+/// Creator's does. Hanging it off one of the accounts would anchor everybody's
+/// period to whichever account happened to generate first.
+///
+/// `key` is a digest, not an address — see freeAllowanceKey in
+/// src/lib/free-allowance.ts. The row has to outlive account deletion or the
+/// cap would be one "delete my account" away from resetting, and a row that
+/// outlives the account must not be a stored copy of the person's address.
+model MailboxAllowance {
+  key             String   @id
+  packsGenerated  Int      @default(0)
+  periodStartedAt DateTime @default(now())
+  createdAt       DateTime @default(now())
+}
+
 model Creator {
   id                     String     @id @default(cuid())
   deviceKey              String     @unique
@@ -155,6 +200,10 @@ model Creator {
   periodStartedAt        DateTime   @default(now())
   createdAt              DateTime   @default(now())
   packs                  QuizPack[]
+  // The game sessions this creator has started (H4). Not an ownership claim
+  // over the game itself — the host key is that — just the link that lets them
+  // find their own desks again.
+  sessions               Session[]
   // The account this creator belongs to. Nullable because every Creator
   // written before accounts existed has no account yet — those are the rows
   // a `pq_creator` cookie can still claim exactly once (src/lib/creator-claim.ts).
@@ -172,6 +221,34 @@ model Creator {
   paddleSubscriptionId   String?    @unique
   subscriptionStatus     String?    // Paddle's subscription status
   subscriptionUpdatedAt  DateTime?  // occurred_at of the last applied event
+
+  // Pro packs generated in the current billing period (M8).
+  //
+  // /refunds states its terms in exactly these words, so the number a host is
+  // judged by has to be the number the page describes. The free tier's
+  // `packsGeneratedInPeriod` above cannot serve: it is a rolling 30 days
+  // (withRolledPeriod), which is near enough for a monthly subscription and
+  // plainly wrong for an annual one.
+  proPacksGeneratedInPeriod Int      @default(0)
+  // Start of the billing period the count above belongs to, as Paddle reports
+  // it (current_billing_period.starts_at on a subscription event). Null until
+  // the first event carrying one arrives, which is why the count only ever
+  // rolls on Paddle's word and never on a clock of ours.
+  proPeriodStartedAt     DateTime?
+
+  /// Which Paddle environment granted this row's Pro (C1).
+  ///
+  /// Preview deployments share the production database and talk to Paddle's
+  /// sandbox, and BETTER_AUTH_SECRET is set separately for Preview — so a
+  /// sandbox checkout on a preview is signed and verified by that preview, and
+  /// then writes plan: "PRO" to the same Creator row production reads. A test
+  /// purchase that costs nothing could hand out real Pro.
+  ///
+  /// So a grant records where it came from, and a read only honours Pro when
+  /// the environment matches this deployment's (effectivePlan in
+  /// src/lib/creator.ts). Null means "written before this column existed",
+  /// which is treated as production: no current subscriber changes state.
+  proEnvironment         String?
 
   // UNUSED. Added by 20260914120000_add_paddle_subscription for PR #4's first
   // draft, which stored the Paddle customer's email here for a /restore flow.

@@ -143,17 +143,48 @@ export function signInPathFor(next: string): string {
 }
 
 /**
+ * The origin a candidate `?next=` is resolved against to see whether it stays
+ * put. Any host would do; `.invalid` is reserved by RFC 2606 and can never be
+ * registered, so nothing can ever answer on it.
+ */
+const SAME_SITE_PROBE_ORIGIN = "https://next.invalid";
+
+/**
  * A `?next=` value that is safe to redirect to: an absolute path on this
  * site, nothing else.
  *
- * Rejects anything with a scheme or an authority — including `//evil.test`
- * (protocol-relative) and `/\evil.test`, which some browsers normalise into
- * one. Anything rejected falls back to `/packs`.
+ * The prefix checks below are not enough on their own, and that is the L1
+ * report: `/sign-in?next=%2F%09%2Fevil.com` decodes to `/<TAB>/evil.com`, which
+ * starts with a single slash and is therefore neither `//` nor `/\` — so it
+ * passed. The URL parser then **strips the tab** (it strips tab, newline and
+ * carriage return anywhere in a URL, per WHATWG), leaving `//evil.com`: a
+ * protocol-relative URL, and an open redirect off the site.
+ *
+ * So the deciding check is no longer a prefix test but the parser itself:
+ * resolved against a placeholder origin, a genuinely same-site path cannot move
+ * off it, whatever it is spelled with. Control characters are rejected outright
+ * first, before any parsing — they are never legitimate in a redirect target,
+ * and a CR or LF in one is header-injection shaped.
+ *
+ * The prefix checks are kept in front, both because they are cheaper and
+ * because they say plainly what shape is expected. Anything rejected falls back
+ * to `/packs`.
+ *
+ * The original string is returned rather than the parser's normalised output:
+ * normalising would silently rewrite `/a b` to `/a%20b` for no security gain,
+ * and `..` segments cannot escape an origin anyway.
  */
 export function safeNextPath(next: string | null | undefined, fallback = "/packs"): string {
   if (!next) return fallback;
+  if (/[\u0000-\u001f\u007f]/.test(next)) return fallback;
   if (!next.startsWith("/")) return fallback;
   if (next.startsWith("//") || next.startsWith("/\\")) return fallback;
+  try {
+    if (new URL(next, SAME_SITE_PROBE_ORIGIN).origin !== SAME_SITE_PROBE_ORIGIN) return fallback;
+  } catch {
+    // Unparseable as a URL at all: not something to hand to a redirect.
+    return fallback;
+  }
   return next;
 }
 

@@ -133,3 +133,13 @@ describe("the sign-in code's limits", () => {
     expect(Object.keys(rules).some((path) => path.includes("magic-link"))).toBe(false);
   });
 });
+
+describe("email-and-password sign-in", () => {
+  it("is off, so there is never a password to phish, leak, reuse or reset", () => {
+    // Correct at src/lib/auth.ts:182 since it was written, and asserted by
+    // nothing until now — so a future edit enabling it, or a Better Auth default
+    // changing under us, would have shipped in silence. Three lines, which is
+    // what it costs to make a deliberate choice stay deliberate.
+    expect(auth.options.emailAndPassword?.enabled).toBe(false);
+  });
+});

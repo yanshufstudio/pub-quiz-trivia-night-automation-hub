@@ -105,8 +105,13 @@ test("a team sees the picture, and a stranger cannot fetch it", async ({ browser
   // --- the desk ---
   const deskPage = await host.context.newPage();
   await deskPage.goto(`/host/${session.code}`);
-  await deskPage.getByPlaceholder("Host key").fill(hostToken);
-  await deskPage.getByRole("button", { name: "Use key" }).click();
+  // No key is pasted here any more. This session was started by this account,
+  // and since H4 the desk asks the server for its own key back
+  // (GET /api/sessions/[code]/host-key) when the browser has none — which is
+  // why this page has never seen one and still opens. Pasting is now only for
+  // somebody who is not the account that started the game; that path is
+  // covered in e2e/host-link-recovery.spec.ts.
+  await expect(deskPage.getByRole("heading", { name: "Host key needed" })).toHaveCount(0);
   await expect(deskPage.getByText(QUESTION_TEXT)).toBeVisible({ timeout: 10_000 });
   const deskImage = deskPage.locator('img[src*="/media"]').first();
   await expect

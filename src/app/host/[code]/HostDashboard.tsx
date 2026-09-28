@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import QRCode from "react-qr-code";
 import { Countdown } from "@/components/Countdown";
@@ -9,9 +9,11 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { TrophyIcon } from "@/components/icons";
 import { topScorers, winningNames } from "@/lib/scoreboard-summary";
 import { readHostToken, writeHostToken } from "@/lib/host-session";
-import { buildJoinUrl } from "@/lib/join-url";
+import { CopyButton } from "@/components/CopyButton";
+import { buildJoinUrl, buildHostUrl } from "@/lib/join-url";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import type { HostSessionState, HostTeam, SessionQuestion } from "@/lib/api-types";
+import { countOf } from "@/lib/plural";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
  * anywhere but our own DB-backed bytes (see src/lib/media.ts). Renders
@@ -43,6 +45,17 @@ export function HostDashboard({ code }: { code: string }) {
   const [state, setState] = useState<HostSessionState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // Two taps to end a game, because this desk sits on a TV within reach of a
+  // room full of people and the action cannot be undone. An inline panel
+  // rather than window.confirm: a native dialog on a phone covers the screen
+  // it is asking about, and this one can be read from across the pub.
+  const [confirmingEnd, setConfirmingEnd] = useState(false);
+  // Set only by a press that lands on "Yes, end the game" itself — a pointer
+  // down or an Enter/Space key down — after the panel opened. A click that
+  // arrives without one (synthesised, programmatic, or the tail of a press
+  // that began somewhere else) does nothing. See endGameConfirmed below.
+  const endArmedRef = useRef(false);
+  const keepPlayingRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     // localStorage isn't available during SSR, so the real value can only be
@@ -50,9 +63,38 @@ export function HostDashboard({ code }: { code: string }) {
     // would make the client's first render diverge from the server-rendered
     // HTML (a hydration mismatch). Deferring to an effect, gated by
     // `hydrated`, keeps the first paint identical on server and client.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setHostToken(readHostToken(code));
-    setHydrated(true);
+    const stored = readHostToken(code);
+    if (stored) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHostToken(stored);
+      setHydrated(true);
+      return;
+    }
+
+    // No key in this browser. If this account started the game, the server
+    // hands its own key back (H4) — which is the whole difference between a
+    // host who has changed device and a host who is locked out of their own
+    // quiz. Anyone else still gets the paste-the-key screen below.
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(`/api/sessions/${code}/host-key`);
+        if (res.ok) {
+          const { hostToken: recovered } = (await res.json()) as { hostToken?: string };
+          if (recovered && !cancelled) {
+            writeHostToken(code, recovered);
+            setHostToken(recovered);
+          }
+        }
+      } catch {
+        // Offline, or the route refused: fall through to the paste screen.
+      } finally {
+        if (!cancelled) setHydrated(true);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [code]);
 
   const refresh = useCallback(async () => {
@@ -86,7 +128,7 @@ export function HostDashboard({ code }: { code: string }) {
     return () => window.clearInterval(id);
   }, [refresh, hostToken]);
 
-  async function advance(action: "start" | "reveal" | "next") {
+  async function advance(action: "start" | "reveal" | "next" | "end") {
     if (!hostToken) return;
     setBusy(true);
     try {
@@ -103,6 +145,29 @@ export function HostDashboard({ code }: { code: string }) {
     } finally {
       setBusy(false);
     }
+  }
+
+  function openEndConfirmation() {
+    endArmedRef.current = false;
+    setConfirmingEnd(true);
+  }
+
+  /**
+   * The only way a game is ended from this desk (L9). A live walk on the
+   * preview saw a game end ~2.5s after "End game" was pressed, with nobody
+   * touching the machine, and the request matched this handler exactly. It
+   * did not reproduce in Chromium at any width, and nothing in the app
+   * synthesises a click — but a destructive action this close to a room full
+   * of people should not depend on that, so it demands an explicit press:
+   * a trusted click whose own pointer-down or key-down landed on this button
+   * after the panel opened. The button is also laid out away from where
+   * "End game" was, and focus goes to "Keep playing", never to this.
+   */
+  function endGameConfirmed(event: React.MouseEvent<HTMLButtonElement>) {
+    if (!event.isTrusted || !endArmedRef.current) return;
+    endArmedRef.current = false;
+    setConfirmingEnd(false);
+    void advance("end");
   }
 
   async function overrideAnswer(team: HostTeam, isCorrect: boolean) {
@@ -126,6 +191,12 @@ export function HostDashboard({ code }: { code: string }) {
     setHostToken(value);
     setError(null);
   }
+
+  useEffect(() => {
+    // The safe choice takes focus when the panel opens, so a stray Enter or
+    // Space — a key held down, a remote's OK button — can only back out.
+    if (confirmingEnd) keepPlayingRef.current?.focus();
+  }, [confirmingEnd]);
 
   if (!hydrated) {
     return <div className="min-h-dvh bg-stage" />;
@@ -188,6 +259,9 @@ export function HostDashboard({ code }: { code: string }) {
       ? "End quiz"
       : "Next question";
   const { winners, topScore } = topScorers(state.scoreboard);
+  // Client component, so window is defined by the time this renders — the same
+  // reason JoinQr reads the origin this way.
+  const hostUrl = buildHostUrl(window.location.origin, state.code);
   const submissionsLabel =
     state.status === "QUESTION_ACTIVE" || state.status === "REVEAL" ? "Live submissions" : "Teams";
 
@@ -224,15 +298,15 @@ export function HostDashboard({ code }: { code: string }) {
               <p className="mt-2 text-stage-muted">
                 Share the code. Start when everyone is in — late joiners can still arrive during the lobby.
               </p>
-              {/* The one thing about hosting that is not guessable, said in
-                  the one place it can still be acted on: the key lives in
-                  this browser's local storage (src/lib/host-session.ts), so
-                  moving to another device mid-night means pasting the host
-                  key rather than simply signing in. Better to learn it in the
-                  lobby than in front of a room. */}
+              {/* Still worth saying in the lobby rather than in front of a
+                  room — but no longer a dead end. The key lives in this
+                  browser's local storage (src/lib/host-session.ts), and since
+                  H4 the account that started the game can ask the server for
+                  it back, so signing in on the new device is enough. Someone
+                  who is not this account still needs the key pasted. */}
               <p className="mt-2 text-sm text-stage-muted">
-                Keep this browser open — the host controls are tied to it. Anywhere else will ask for
-                this session&apos;s host key.
+                Best to keep this browser open. If you do move devices, sign in there and open the
+                host link below — anyone else will be asked for this session&apos;s host key.
               </p>
               <JoinQr code={state.code} />
               <button
@@ -321,7 +395,7 @@ export function HostDashboard({ code }: { code: string }) {
               <h2 className="mt-2 font-serif text-4xl font-semibold leading-tight">{winningNames(winners)}</h2>
               {winners.length > 0 ? (
                 <p className="mt-2 text-stage-muted">
-                  {topScore} {topScore === 1 ? "point" : "points"} · {state.totalRounds} rounds
+                  {countOf(topScore, "point")} · {countOf(state.totalRounds, "round")}
                 </p>
               ) : null}
               <p className="mt-6 text-sm text-stage-muted">
@@ -405,6 +479,89 @@ export function HostDashboard({ code }: { code: string }) {
             <Scoreboard rows={state.scoreboard} dark />
           </section>
         </aside>
+
+        {/* H4: the host desk's own address, shown rather than assumed.
+            Until now the host key was generated once, returned once, and
+            written silently to local storage — so nothing on any screen told a
+            host how to get back to their own desk, and the desk itself asked
+            for a key they had never seen. The link carries no key on purpose
+            (see buildHostUrl): the account that started the game gets its key
+            back from the server, and a URL is the worst place to keep a
+            credential. */}
+        <section className="lg:col-span-2 rounded-2xl border border-white/10 p-5">
+          <h3 className="font-semibold">Host link</h3>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <code className="min-w-0 flex-1 break-all rounded-xl bg-black/30 px-3 py-2 font-mono text-sm">
+              {hostUrl}
+            </code>
+            <CopyButton value={hostUrl} className="bg-gold text-stage" />
+          </div>
+          <p className="mt-2 text-sm text-stage-muted">
+            Keep this link to reopen the host desk on another device.
+          </p>
+        </section>
+
+        {/* The host's way out of a game, and the reason the pack's editor can
+            trust that a live session means a live session: a lobby nobody
+            joined, or a question the room walked out on, otherwise stays
+            un-ENDED and blocks structural edits to the pack until the
+            12-hour staleness window passes (L9, and the guard in
+            src/lib/live-game-guard.ts). */}
+        {state.status !== "ENDED" ? (
+          <section className="lg:col-span-2 rounded-2xl border border-white/10 p-5">
+            {confirmingEnd ? (
+              <>
+                <h3 className="font-semibold">End this game for everyone?</h3>
+                <p className="mt-1 text-sm text-stage-muted">
+                  Teams stop being able to answer and the scoreboard becomes final. The pack can be
+                  edited again afterwards. This cannot be undone.
+                </p>
+                {/* "End game" always sits at the right edge (ml-auto below), so
+                    "Keep playing" takes that spot and "Yes" is kept to the left
+                    of it at every width — never under a pointer that has just
+                    pressed "End game". */}
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-end">
+                  <button
+                    type="button"
+                    onPointerDown={() => {
+                      endArmedRef.current = true;
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") endArmedRef.current = true;
+                    }}
+                    onClick={endGameConfirmed}
+                    disabled={busy}
+                    className="h-12 min-h-12 self-start rounded-xl bg-red-500/90 px-5 text-sm font-semibold text-white disabled:opacity-40 sm:self-auto"
+                  >
+                    Yes, end the game
+                  </button>
+                  <button
+                    ref={keepPlayingRef}
+                    type="button"
+                    onClick={() => setConfirmingEnd(false)}
+                    className="h-12 min-h-12 self-end rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg sm:self-auto"
+                  >
+                    Keep playing
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="text-sm text-stage-muted">
+                  Finished early, or opened this session by mistake? Ending the game unlocks the pack
+                  for editing.
+                </p>
+                <button
+                  type="button"
+                  onClick={openEndConfirmation}
+                  className="ml-auto h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
+                >
+                  End game
+                </button>
+              </div>
+            )}
+          </section>
+        ) : null}
 
         <p className="lg:col-span-2 text-center text-sm text-stage-muted">
           Teams join at{" "}

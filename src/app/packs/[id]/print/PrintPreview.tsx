@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@/components/icons";
 import type { Pack, Question } from "@/lib/api-types";
+import { countOf } from "@/lib/plural";
 
 function OptionsLine({ question }: { question: Question }) {
   if (question.type !== "MULTIPLE_CHOICE" || question.options.length === 0) return null;
@@ -83,7 +84,7 @@ export function PrintPreview({ pack }: { pack: Pack }) {
           </p>
           <h2 className="mt-2 font-serif text-3xl font-bold tracking-tight">{pack.title}</h2>
           <p className="mt-1 text-sm text-muted">
-            {pack.rounds.length} rounds · keep this copy at the lectern
+            {countOf(pack.rounds.length, "round")} · keep this copy at the lectern
           </p>
         </header>
 

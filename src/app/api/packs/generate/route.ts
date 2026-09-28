@@ -3,16 +3,36 @@ import Anthropic from "@anthropic-ai/sdk";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { generateQuizPack, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
 import { wizardRequestSchema } from "@/lib/quiz-schema";
-import { rateLimit } from "@/lib/rate-limit";
-import { MissingApiKeyError } from "@/lib/anthropic";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
+import {
+  MissingApiKeyError,
+  isAnthropicCreditExhausted,
+  CREDIT_EXHAUSTED_LOG,
+  GENERATION_PAUSED_MESSAGE,
+} from "@/lib/anthropic";
 import {
   canGenerate,
+  effectivePlan,
   reserveFreeGeneration,
   withRolledPeriod,
   FREE_LIMIT,
 } from "@/lib/creator";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
-import { reserveDailyGeneration } from "@/lib/daily-ceiling";
+import {
+  reserveDailyGeneration,
+  CEILING_UNAVAILABLE_MESSAGE,
+} from "@/lib/daily-ceiling";
+import {
+  reserveFreeIpDaily,
+  FREE_IP_LIMIT_MESSAGE,
+  reserveMailboxGeneration,
+  MAILBOX_LIMIT_MESSAGE,
+} from "@/lib/free-allowance";
+import {
+  reserveProDailyGeneration,
+  proDailyLimitMessage,
+  countProGenerationInPeriod,
+} from "@/lib/pro-limits";
 
 // Default wizard brief (four rounds) exceeds the platform's default function
 // timeout; see docs/portfolio-readiness.md "Reopened 2026-09-08" for the
@@ -31,18 +51,32 @@ export const maxDuration = 300;
  *   generation holds, or the model declined to write it. Either way the user
  *   has to change it, and retrying unchanged cannot help.
  * - 503: the upstream model API is rate-limiting or down. Retrying works,
- *   and the SDK has already retried twice by the time we get here.
+ *   and the SDK has already retried twice by the time we get here. An exhausted
+ *   Anthropic account is also 503, because generation really is unavailable —
+ *   but with its own message, since retrying is the one thing that cannot fix
+ *   it (H3).
  * - 502: everything else — an unusable response we can't attribute. Still
  *   worth retrying, so the message keeps saying so.
  */
 function failureStatus(err: unknown): number {
+  if (isAnthropicCreditExhausted(err)) return 503;
   if (err instanceof ModelDeclinedError) return 422;
   if (err instanceof UnusableModelOutputError && err.truncated) return 422;
   if (err instanceof Anthropic.APIError && (err.status === 429 || (err.status ?? 0) >= 500)) return 503;
   return 502;
 }
 
-function failureBody(err: unknown): { error: string; declined?: true; notConfigured?: true } {
+function failureBody(err: unknown): {
+  error: string;
+  declined?: true;
+  notConfigured?: true;
+  generationPaused?: true;
+} {
+  // Ahead of everything else: an exhausted account is a 400 from the SDK, so the
+  // rate-limit branch below would not catch it and the generic 502 message would.
+  if (isAnthropicCreditExhausted(err)) {
+    return { error: GENERATION_PAUSED_MESSAGE, generationPaused: true };
+  }
   // The model's own explanation, verbatim — it is the only thing that tells
   // the user what to change. `declined` is what stops /create offering a
   // retry that cannot succeed.
@@ -98,7 +132,13 @@ export async function POST(req: NextRequest) {
   // full allowance. There is no "brand-new creator per request" any more —
   // an account has exactly one, and clearing cookies does not make another.
   const existing = host.creator;
-  const plan = existing.plan === "PRO" ? "PRO" : "FREE";
+  // effectivePlan, not existing.plan: a sandbox grant must not buy production
+  // generation, and a preview must not read production's (C1). It matters beyond
+  // the free allowance — which canGenerate and reserveFreeGeneration already gate
+  // — because this is also what decides which daily ceiling bucket the request
+  // spends from, whether the per-address free cap applies, and whether a Pro
+  // per-subscriber unit is reserved.
+  const plan = effectivePlan(existing);
 
   // Settle this creator's own cap first, against the row we already have.
   // reserveFreeGeneration below is still the authority — this read cannot be
@@ -118,10 +158,41 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  /**
+   * H1(a) — how many free packs one address may take in a day.
+   *
+   * Signing up is free, so a caller with a supply of addresses had an unbounded
+   * supply of free allowances; the per-IP limiter above is 5 per 10 minutes,
+   * about 720 a day, which is a throttle and not a cap. FREE only: a Pro
+   * subscriber has paid, and a pub's shared address must not throttle the person
+   * running the quiz on it.
+   *
+   * Ahead of the shared ceiling so a refused caller never touches it.
+   */
+  const freeIp =
+    plan === "PRO" ? null : await reserveFreeIpDaily(clientIp(req));
+  if (freeIp && !freeIp.allowed) {
+    return NextResponse.json(
+      { error: FREE_IP_LIMIT_MESSAGE, freeIpLimitReached: true, limit: freeIp.limit },
+      { status: 429, headers: { "Retry-After": String(freeIp.retryAfterSeconds) } }
+    );
+  }
+
   // The ceiling that actually bounds the bill, taken before anything is spent
   // and before any row is written. There is no identity in its key, so
   // rotating or dropping cookies does not move it.
   const daily = await reserveDailyGeneration(plan);
+  if (!daily.allowed) await freeIp?.release();
+  if (!daily.allowed && daily.unavailable) {
+    // The counter could not be reached, so the ceiling could not be checked
+    // and nothing is spent (N1). This is not "you are out of packs" and must
+    // not read like it: no limit, no allowance, no mention of the plan, and a
+    // Retry-After measured in seconds rather than until midnight.
+    return NextResponse.json(
+      { error: CEILING_UNAVAILABLE_MESSAGE, generationPaused: true },
+      { status: 503, headers: { "Retry-After": String(daily.retryAfterSeconds) } }
+    );
+  }
   if (!daily.allowed) {
     return NextResponse.json(
       {
@@ -140,12 +211,60 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  /**
+   * And this subscriber's own share of it (H2).
+   *
+   * Taken after the shared ceiling on purpose: a deployment-wide pause should
+   * be reported as one, not as "you have made too many". The shared ceiling has
+   * no identity in its key, which is what makes it proof against rotating
+   * cookies — and also what means one Pro subscriber running a loop could eat
+   * the whole day's Pro capacity and lock out every other paying customer. This
+   * is their share of it.
+   *
+   * FREE callers skip it entirely: their bound is the per-creator free
+   * allowance below, and paying for a cap they are not subject to would be a
+   * wasted round trip on the commonest path.
+   */
+  const proDaily = plan === "PRO" ? await reserveProDailyGeneration(existing.id) : null;
+  if (proDaily && !proDaily.allowed) {
+    // Hand the shared unit back: this request is not going to spend it, and
+    // leaving it reserved would take capacity from somebody who would.
+    await daily.release();
+    if (proDaily.unavailable) {
+      return NextResponse.json(
+        { error: CEILING_UNAVAILABLE_MESSAGE, generationPaused: true },
+        { status: 503, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
+      );
+    }
+    if (proDaily.generationOff) {
+      // The owner has set PRO_USER_DAILY_PACK_LIMIT to 0. That is the service
+      // being off, not this subscriber being over a limit, so it gets 503 rather
+      // than 429 and the short Retry-After — a 429 with eleven hours on it would
+      // contradict a message that says "try again later" and blames us.
+      return NextResponse.json(
+        { error: proDailyLimitMessage(proDaily.limit), generationPaused: true },
+        { status: 503, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
+      );
+    }
+    // 429, not 403: this is a rate, and it resets. A 403 would read as "your
+    // subscription does not allow this", which is the opposite of true.
+    return NextResponse.json(
+      {
+        error: proDailyLimitMessage(proDaily.limit),
+        proDailyLimitReached: true,
+        limit: proDaily.limit,
+      },
+      { status: 429, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
+    );
+  }
+
   // Claimed before the model call, not counted after it: the check and the
   // increment are one atomic statement, so two concurrent requests from one
   // account can no longer both pass on the same stale read (M12).
   const reservation = await reserveFreeGeneration(existing);
   if (!reservation.reserved) {
     await daily.release();
+    await freeIp?.release();
     const res = NextResponse.json(
       {
         error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
@@ -155,6 +274,41 @@ export async function POST(req: NextRequest) {
       { status: 403 }
     );
     return res;
+  }
+
+  /**
+   * H1(b) — and one of the *mailbox's*, which is the allowance a supply of
+   * aliases cannot rotate around.
+   *
+   * After the per-account claim rather than before it, so an account that is
+   * simply out of its own two packs is told that by the check that knows it,
+   * and the shared row is not touched on the way to a refusal it had no part
+   * in. FREE only: `reserveFreeGeneration` reserves nothing for PRO, and a
+   * subscriber has no free allowance to share.
+   *
+   * The message is deliberately the same one above — see MAILBOX_LIMIT_MESSAGE.
+   *
+   * `periodStartedAt` is passed so the shared allowance is anchored to the oldest
+   * account behind the mailbox rather than to its first generation. Without it an
+   * honest host who signs up and generates three weeks later is refused for the
+   * rest of the month after their own period has rolled.
+   */
+  const mailbox =
+    plan === "PRO"
+      ? null
+      : await reserveMailboxGeneration(host.user.email, existing.periodStartedAt);
+  if (mailbox && !mailbox.reserved) {
+    await reservation.release();
+    await daily.release();
+    await freeIp?.release();
+    return NextResponse.json(
+      {
+        error: MAILBOX_LIMIT_MESSAGE,
+        packsGeneratedInPeriod: mailbox.used,
+        limit: mailbox.limit,
+      },
+      { status: 403 }
+    );
   }
 
   /**
@@ -180,7 +334,16 @@ export async function POST(req: NextRequest) {
     const nothingWasGenerated = err instanceof MissingApiKeyError || err instanceof Anthropic.APIError;
     try {
       await reservation.release();
-      if (nothingWasGenerated) await daily.release();
+      await mailbox?.release();
+      // The free-tier fairness counters are not a bill: whatever went wrong,
+      // the caller has no pack, so their allowance comes back either way.
+      await freeIp?.release();
+      if (nothingWasGenerated) {
+        await daily.release();
+        // Same terms as the shared ceiling: this subscriber's daily unit comes
+        // back only when we are confident the model produced nothing.
+        await proDaily?.release();
+      }
     } catch (releaseErr) {
       // Never let bookkeeping replace the diagnosis. Without this, a database
       // blip or an Upstash timeout in here would throw straight out of the
@@ -217,7 +380,16 @@ export async function POST(req: NextRequest) {
     // internals (model names, request ids, etc.) to the client. A decline is
     // not a failure — the model worked, it just said no — so it is not logged
     // as one, or every refused brief would read like an outage.
-    if (err instanceof ModelDeclinedError) {
+    if (isAnthropicCreditExhausted(err)) {
+      // The one generation failure that needs somebody to do something about it
+      // rather than a retry, so it is logged as its own thing and with a string
+      // worth alerting on.
+      console.error(
+        `${CREDIT_EXHAUSTED_LOG}: the Anthropic account cannot be charged, so no pack can be ` +
+          `generated until it is topped up. Retrying will not help.`,
+        err
+      );
+    } else if (err instanceof ModelDeclinedError) {
       console.warn("Quiz pack brief declined by the model:", err.reason || "(no reason given)");
     } else {
       console.error("Quiz pack generation failed:", err);
@@ -244,6 +416,12 @@ export async function POST(req: NextRequest) {
     console.error("Generated pack could not be saved:", err);
     try {
       await reservation.release();
+      await mailbox?.release();
+      await freeIp?.release();
+      // The model ran and was billed, so the shared ceiling keeps its unit —
+      // but this subscriber has nothing to show for it, and one of their ten a
+      // day should not be spent on our storage failure.
+      await proDaily?.release();
     } catch (releaseErr) {
       console.error("Failed to release a generation reservation:", releaseErr);
     }
@@ -253,6 +431,13 @@ export async function POST(req: NextRequest) {
     );
     return res;
   }
+
+  // Counted now rather than reserved earlier, because this is a record of what
+  // was produced rather than a permit to produce it: /refunds quotes this number
+  // back to a host, and a pack that failed to save is not one they generated
+  // (M8). It never throws — losing a count is a smaller failure than answering
+  // 500 for a pack that exists.
+  if (proDaily) await countProGenerationInPeriod(existing.id);
 
   const res = NextResponse.json({ pack }, { status: 201 });
   return res;

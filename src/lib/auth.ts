@@ -243,6 +243,14 @@ export const auth = betterAuth({
         // handling they need.
         if (type !== "sign-in") return;
 
+        // The volume caps are NOT here. Better Auth swallows anything this
+        // callback throws — the endpoint still answers 200 {"success":true} and
+        // no email is sent — so a refusal raised here would show the person a
+        // "check your email" screen for a code that was never coming. They are
+        // enforced at the HTTP boundary instead, in
+        // src/app/api/auth/[...all]/route.ts, which is the only way in from the
+        // internet and the only place that can answer 429 (M2).
+
         // The origin Better Auth resolved for *this* request, which is the
         // only thing that is right on the production domain, on a preview
         // whose hostname changes every push, and on localhost in the e2e

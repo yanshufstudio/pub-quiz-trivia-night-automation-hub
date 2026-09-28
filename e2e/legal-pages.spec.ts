@@ -83,9 +83,15 @@ test("the footer stays off the surfaces that carry no chrome", async ({ browser,
 test("/refunds ties the first-payment refund to the free allowance and puts statutory rights first", async ({ page }) => {
   await page.goto("/refunds");
 
+  // M8 restated this in the unit the code actually counts: Pro packs in the
+  // current billing period, rather than a 30-day window that only matched a
+  // monthly subscription. The number is still the free plan's.
   await expect(
-    page.getByText(`no more packs than the free plan allows (currently ${FREE_PACK_ALLOWANCE} per 30 days)`)
+    page.getByText(
+      new RegExp(`no more than ${FREE_PACK_ALLOWANCE} packs in the current billing\\s+period`)
+    )
   ).toBeVisible();
+  await expect(page.getByText(/the same number the free plan allows/i)).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your legal rights come first" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Paddle Buyer Terms" })).toHaveAttribute(
     "href",
@@ -107,4 +113,151 @@ test("/terms reserves the right to refuse repeat refund abusers and names Paddle
     "href",
     "https://www.paddle.com/legal/invoiced-consumer-terms"
   );
+});
+
+/**
+ * The launch-batch copy corrections, asserted on the rendered pages.
+ *
+ * These are the sentences a Paddle reviewer and a customer act on, and two of
+ * them replace promises the product could not keep. So each one checks both
+ * halves: that the new wording is there, and that the old wording is not.
+ */
+test("/privacy describes deletion in terms we can actually keep (M9)", async ({ page }) => {
+  await page.goto("/privacy");
+
+  await expect(page.getByText(/email us from the address you signed in with|from the address you signed in with/i)).toBeVisible();
+  await expect(page.getByText(/within 30 days/i).first()).toBeVisible();
+  await expect(
+    page.getByText(/Encrypted backups kept by our database provider are overwritten/i)
+  ).toBeVisible();
+
+  // The promise that could not be kept: a backup we do not control is a copy,
+  // so "we do not keep a copy" was false the moment it was written.
+  await expect(page.getByText(/we do not keep a copy/i)).toHaveCount(0);
+});
+
+test("/privacy discloses the free-allowance record, and that it outlives the account (H1b)", async ({
+  page,
+}) => {
+  await page.goto("/privacy");
+
+  // H1(b) added a row that deliberately survives account deletion, so the
+  // deletion promise above it stops being true unless the page says so.
+  await expect(page.getByText(/A free-allowance record/)).toBeVisible();
+  await expect(page.getByText(/one mailbox gets one free allowance/i)).toBeVisible();
+
+  // It says hash, and says what a hash does and does not protect. The first
+  // version called it a "one-way fingerprint" that "cannot be turned back into"
+  // the address — true, and incomplete in the direction that flatters us:
+  // somebody who already knows an address can test it. Paul's instruction was to
+  // say that and not to call the record anonymous.
+  await expect(page.getByText(/holds a hash of your email address, not the address/i)).toBeVisible();
+  await expect(page.getByText(/somebody who already knew an address could hash it/i)).toBeVisible();
+  await expect(page.getByText(/not anonymous either/i)).toBeVisible();
+
+  // The exception is stated where somebody reading about deletion will meet it,
+  // not only in the retention section further up — and now says the row is
+  // deleted on a delay rather than simply kept, which is what the retention
+  // sweep made true.
+  await expect(page.getByText(/The one exception is the free-allowance record/i)).toBeVisible();
+  await expect(page.getByText(/deleted on a delay rather than with the account/i)).toBeVisible();
+  await expect(page.getByText(/30 days and a day/i)).toBeVisible();
+});
+
+test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ page }) => {
+  await page.goto("/privacy");
+
+  // Upstash holds IP addresses and was not listed at all, which the free-tier
+  // per-address cap (H1a) makes more obviously wrong than it already was.
+  await expect(page.getByText(/Upstash/)).toBeVisible();
+  await expect(page.getByText(/we keep your IP address with short-lived counters/i)).toBeVisible();
+  await expect(page.getByText(/deleted automatically within a day/i)).toBeVisible();
+
+  await expect(
+    page.getByText(/profile photo link and the sign-in tokens Google gives us/i)
+  ).toBeVisible();
+  await expect(page.getByText(/We use them only to sign you in/i)).toBeVisible();
+});
+
+test("/pricing and /terms state no Pro daily number, but do state the limits (M12)", async ({
+  page,
+}) => {
+  // The pages used to print the per-subscriber cap. A number on a public page is
+  // a promise: changing the cap became a pricing change, and lowering it during
+  // an incident would leave the page false until somebody edited it. The
+  // enforcement is unchanged — the wizard names the live figure when somebody
+  // reaches it.
+  //
+  // This reads the rendered text, which is the half a source scan cannot do: a
+  // number arriving through an expression looks like nothing in the source.
+  const NUMBER_NEAR_DAILY =
+    /(\b\d+\b[^.\n]{0,40}\bpacks?\s+(a|per)\s+day\b)|(\bup\s+to\s+\d+\b)|(\b\d+\s*\/\s*day\b)/i;
+
+  for (const path of ["/pricing", "/terms"]) {
+    await page.goto(path);
+    const text = (await page.locator("main").innerText()).replace(/\s+/g, " ");
+
+    const offender = text.match(NUMBER_NEAR_DAILY);
+    expect(offender?.[0], `${path} publishes a Pro daily number: ${offender?.[0]}`).toBeUndefined();
+
+    // And it has not simply gone quiet: somebody deciding whether to pay is
+    // entitled to know a fair-use limit exists.
+    expect(text, path).toMatch(/fair-use limit/i);
+    expect(text, path).toMatch(/safety limit/i);
+  }
+
+  // /pricing says where the real number comes from.
+  await page.goto("/pricing");
+  await expect(page.getByText(/the wizard tells you the limit and when it resets/i)).toBeVisible();
+
+  // /refunds keeps its M8 counting wording — that is a refund term, not a
+  // published allowance, and it names no daily figure.
+  await page.goto("/refunds");
+  await expect(page.getByText(/no packs in the current billing period/i).first()).toBeVisible();
+});
+
+test("/refunds counts what the code counts, and says what the statement shows (M8, M11)", async ({
+  page,
+}) => {
+  await page.goto("/refunds");
+
+  // M8: the rule is now stated in the unit the code actually keeps —
+  // Creator.proPacksGeneratedInPeriod, rolled by Paddle's billing period — rather
+  // than in a 30-day window that only matched a monthly subscription.
+  await expect(page.getByText(/in the current billing period/i).first()).toBeVisible();
+  await expect(page.getByText(/no packs in the current billing period/i)).toBeVisible();
+  await expect(page.getByText(/any packs in that period/i)).toHaveCount(0);
+
+  // M11: the descriptor, on the page somebody reads when checking a charge.
+  await expect(page.getByText(/PADDLE\.NET\* YANSHUFST/)).toBeVisible();
+
+  // The approved terms themselves are unchanged.
+  await expect(page.getByText(/within 14 days of the charge/i).first()).toBeVisible();
+  await expect(page.getByText(/no reason needed/i)).toBeVisible();
+});
+
+test("/terms states the Pro limits without a number, and the minimum ages (M12, M13)", async ({
+  page,
+}) => {
+  await page.goto("/terms");
+
+  // M12, third revision (Paul, 27 Sep). This used to assert "up to 10
+  // AI-generated packs a day" — the number the generate route enforces. The
+  // number is deliberately no longer published: on a public page it is a
+  // promise, so changing the cap became a pricing change. What /terms states now
+  // is the shape, and that the product names the figure when somebody meets it.
+  await expect(page.getByText(/removes the free plan's pack allowance/i)).toBeVisible();
+  await expect(page.getByText(/daily fair-use limit per account/i)).toBeVisible();
+  await expect(page.getByText(/service-wide daily safety limit/i)).toBeVisible();
+  await expect(page.getByText(/the wizard shows the current limit/i)).toBeVisible();
+  // The three claims this page has now outgrown, in order of when they were
+  // wrong: "removes that cap" made Pro sound uncapped, and the number itself.
+  await expect(page.getByText(/removes that cap/i)).toHaveCount(0);
+  await expect(page.getByText(/up to 10/i)).toHaveCount(0);
+
+  // M13: an account minimum, which the page did not have at all — it said there
+  // was no age requirement for a free account.
+  await expect(page.getByText(/at least 16 to create an account/i)).toBeVisible();
+  await expect(page.getByText(/at least 18 to buy Pro/i)).toBeVisible();
+  await expect(page.getByText(/no age requirement/i)).toHaveCount(0);
 });

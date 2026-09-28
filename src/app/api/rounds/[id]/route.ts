@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
+import { refuseIfLiveGame } from "@/lib/live-game-guard";
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const host = await hostSessionForRequest(req);
@@ -13,6 +14,11 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   }
   const forbidden = await requirePackOwner(host.creator.id, { packId: existing.packId });
   if (forbidden) return forbidden;
+
+  // The round's questions cascade away with it and every later round shifts
+  // down, so a game in progress would lose its place entirely (H5).
+  const live = await refuseIfLiveGame(existing.packId);
+  if (live) return live;
 
   const siblingCount = await db.round.count({ where: { packId: existing.packId } });
   if (siblingCount <= 1) {

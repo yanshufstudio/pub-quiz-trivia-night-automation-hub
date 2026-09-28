@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { effectivePlan } from "@/lib/creator";
 import { PaddleConfigError, publicPaddleConfig } from "@/lib/paddle/config";
 import { CheckoutSigningError, signCreatorId } from "@/lib/paddle/checkout-token";
 
@@ -39,7 +40,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "interval must be \"month\" or \"year\"" }, { status: 400 });
   }
 
-  if (host.creator.plan === "PRO") {
+  // effectivePlan: a row carrying a sandbox grant is FREE here, and must be able
+  // to buy the real thing rather than being told it already has it (C1).
+  if (effectivePlan(host.creator) === "PRO") {
     return NextResponse.json({ error: "You are already on Pro.", alreadyPro: true }, { status: 409 });
   }
 

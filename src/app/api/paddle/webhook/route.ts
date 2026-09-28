@@ -69,7 +69,20 @@ export async function POST(req: NextRequest) {
       status: string;
       customerId: string;
       customData: Record<string, unknown> | null;
+      // Present on subscription events that sit inside a period; absent on
+      // some (a cancellation, for instance). The SDK hands these back in
+      // camelCase, like customerId and customData above.
+      currentBillingPeriod?: { startsAt?: string | null } | null;
+      // What was bought. Used to tell our own subscriptions from the other
+      // product's on the same Paddle account (C2).
+      items?: ReadonlyArray<{ price?: { id?: string | null } | null } | null> | null;
     };
+    const periodStart = sub.currentBillingPeriod?.startsAt;
+    // Anything unparseable is treated as "no period reported" rather than as
+    // an Invalid Date, which would compare false against everything and roll
+    // the Pro count at unpredictable moments.
+    const currentBillingPeriodStartsAt =
+      periodStart && !Number.isNaN(Date.parse(periodStart)) ? new Date(periodStart) : null;
     const result = await applySubscriptionEvent({
       eventId: event.eventId,
       eventType: event.eventType,
@@ -77,8 +90,28 @@ export async function POST(req: NextRequest) {
       subscriptionId: sub.id,
       customerId: sub.customerId,
       status: sub.status,
+      priceIds: (sub.items ?? [])
+        .map((item) => item?.price?.id)
+        .filter((id): id is string => typeof id === "string" && id.trim() !== ""),
+      currentBillingPeriodStartsAt,
       verifiedCreatorId: verifiedCreatorId(sub.customData),
     });
+
+    if (result === "foreign-price") {
+      // Another product on the same Paddle account. Acknowledged so Paddle stops
+      // retrying it — before C2 this answered 500 and the other product's
+      // ordinary business showed up as three days of failing deliveries on our
+      // endpoint. Logged at info level with ids only: it is expected traffic,
+      // not a fault, but it is worth being able to see that it is arriving.
+      console.info(
+        "paddle webhook: ignoring an event for a price we do not sell",
+        "subscription",
+        sub.id,
+        "event",
+        event.eventId
+      );
+      return NextResponse.json({ received: true, result });
+    }
 
     if (result === "unmatched") {
       // Ids only: no customer details in the log.

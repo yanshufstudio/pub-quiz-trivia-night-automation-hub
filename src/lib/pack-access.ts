@@ -76,7 +76,7 @@ export function canReadPack(pack: { creatorId: string | null }, creatorId: strin
   return pack.creatorId === null || pack.creatorId === creatorId;
 }
 
-type OwnerTarget = { packId: string } | { roundId: string } | { questionId: string };
+export type OwnerTarget = { packId: string } | { roundId: string } | { questionId: string };
 
 /** Walks question → round → pack as needed. Null when the target row is gone. */
 export async function packOwnership(target: OwnerTarget): Promise<{ packId: string; creatorId: string | null } | null> {

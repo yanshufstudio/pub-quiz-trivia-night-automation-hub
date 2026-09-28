@@ -24,6 +24,81 @@ if (process.env.VERCEL_ENV === "production") {
   }
 }
 
-const nextConfig: NextConfig = {};
+/**
+ * Response headers every path gets (L17).
+ *
+ * What each one is actually for here, rather than because a checklist said so:
+ *
+ * - **X-Frame-Options: DENY** — nothing on this site should ever be framed. The
+ *   host desk carries the controls that advance a live quiz and the answers for
+ *   the current question; the editor carries every answer in a pack. Framing
+ *   either is the setup for a clickjack.
+ *
+ *   This governs *our* pages being framed by somebody else. It does **not**
+ *   affect Paddle's overlay checkout, which is Paddle's iframe inside our page —
+ *   the framed document there is Paddle's and carries Paddle's headers. Google
+ *   sign-in is a full-page redirect to accounts.google.com, not a frame, so it is
+ *   unaffected too.
+ *
+ * - **Referrer-Policy: strict-origin-when-cross-origin** — paths on this site
+ *   carry things worth not leaking in a Referer: a five-character join code, a
+ *   pack id, and `/sign-in/confirm`, whose query string carries a live sign-in
+ *   code. Cross-origin requests now send only the origin.
+ *
+ * - **Permissions-Policy** — the app itself asks for no camera, microphone or
+ *   location and never has, so `microphone=()` and `geolocation=()` are
+ *   statements that stay true rather than restrictions on anything.
+ *
+ *   `camera` is the exception, because this header applies to embedded frames as
+ *   well as to us, and Paddle's overlay checkout is an embedded frame that may
+ *   offer to scan a card. `camera=()` would have blocked that — a payment feature
+ *   broken by our header, on the one page where a failure costs money. So the
+ *   checkout's own origins are allowed and nothing else is:
+ *
+ *     camera=("https://buy.paddle.com" "https://sandbox-buy.paddle.com")
+ *
+ *   **Exact origins, not `https://*.paddle.com`.** Chrome has accepted wildcard
+ *   origins in this header since M108, but they are a Chrome extension rather
+ *   than part of the W3C Permissions Policy origin-list grammar, and header
+ *   support in Firefox and Safari is partial at best — an item a browser cannot
+ *   parse risks taking the directive with it. Two exact origins are valid
+ *   everywhere the header is understood. Both are listed because previews run
+ *   against Paddle's sandbox and production against live, and a deployment should
+ *   not need a different header from its own previews.
+ *
+ *   `self` is deliberately absent: our own pages never ask for the camera, so
+ *   naming ourselves would widen the policy to no purpose.
+ *
+ *   **This is necessary and not sufficient, and nobody should read it as a
+ *   guarantee that card scanning works.** A cross-origin frame gets a permission
+ *   only where the embedder's policy allows the origin AND the `<iframe>` itself
+ *   carries `allow="camera"`. That attribute is set by Paddle.js, which builds
+ *   the frame — we cannot set it and did not test it, because the real overlay
+ *   cannot be driven from the sandbox. What changed here is that our header is no
+ *   longer the thing standing in the way.
+ *
+ * - **X-Content-Type-Options: nosniff** — the app serves uploaded image bytes
+ *   from its own origin (/api/questions/[id]/media). Those responses already set
+ *   a Content-Type derived from the bytes' own magic number rather than from
+ *   anything the uploader said, and this is the second lock: a browser must not
+ *   reconsider that type and decide something is a script.
+ */
+const SECURITY_HEADERS = [
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value:
+      'camera=("https://buy.paddle.com" "https://sandbox-buy.paddle.com"), ' +
+      "microphone=(), geolocation=()",
+  },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+] as const;
+
+const nextConfig: NextConfig = {
+  async headers() {
+    return [{ source: "/:path*", headers: [...SECURITY_HEADERS] }];
+  },
+};
 
 export default nextConfig;

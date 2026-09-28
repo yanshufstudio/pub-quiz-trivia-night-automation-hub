@@ -1,0 +1,21 @@
+-- Which Paddle environment granted a row's Pro (C1).
+--
+-- Purely additive: one new nullable column on Creator. No index, no foreign
+-- key, nothing dropped, rebuilt or rewritten, and no existing row changes — a
+-- plain ADD COLUMN, which SQLite does in place.
+--
+-- Why it exists: preview deployments share the production database and talk to
+-- Paddle's sandbox, and BETTER_AUTH_SECRET is set separately for Preview, so a
+-- sandbox checkout on a preview is signed and verified by that preview — and
+-- then writes plan = 'PRO' to the same Creator row production reads. A test
+-- purchase that costs nothing could hand out real Pro. C2's price check does not
+-- close it: a sandbox price id is exactly what a preview's own
+-- NEXT_PUBLIC_PADDLE_PRICE_* are set to, so the event is ours as far as that
+-- check can tell.
+--
+-- NULL is the value every existing row gets, and it is read as 'production'.
+-- That is deliberate: every Pro row that exists today was granted by production,
+-- so nobody's plan changes when this ships. It also means the column can only
+-- ever take Pro away from a grant that recorded itself as sandbox — never from
+-- one we are unsure about.
+ALTER TABLE "Creator" ADD COLUMN "proEnvironment" TEXT;

@@ -63,6 +63,11 @@ export async function POST(req: NextRequest) {
       code,
       hostToken,
       questionDurationSeconds: parsed.data.questionDurationSeconds ?? null,
+      // Who started it (H4). The host key below is still the authority over
+      // the session; this is the weaker claim that lets this creator find
+      // their own desk again from another device, where the key — which lives
+      // in one browser's local storage — is not.
+      creatorId: host.creator.id,
     },
   });
 

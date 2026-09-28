@@ -5,9 +5,15 @@ import { NextRequest } from "next/server";
 // and the route's status mapping all stay real, so this is the whole path a
 // live decline takes — which is the path the 18 Sep run showed was broken.
 const create = vi.fn();
-vi.mock("@/lib/anthropic", () => ({
+// Spread the real module rather than listing what this file happens to use.
+// It used to replace @/lib/anthropic with just these two names, so the moment
+// the generate route imported anything else from it (H3's
+// isAnthropicCreditExhausted) every test here failed on a missing export —
+// which is a mock that has to be edited whenever unrelated code grows, and a
+// failure that says nothing about what it is testing.
+vi.mock("@/lib/anthropic", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/anthropic")>()),
   getAnthropicClient: () => ({ messages: { create } }),
-  MissingApiKeyError: class MissingApiKeyError extends Error {},
 }));
 
 import { POST as generate } from "@/app/api/packs/generate/route";

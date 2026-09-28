@@ -17,6 +17,9 @@ function creator(overrides: Partial<Creator> = {}): Creator {
     paddleSubscriptionId: null,
     subscriptionStatus: null,
     subscriptionUpdatedAt: null,
+    proPacksGeneratedInPeriod: 0,
+    proPeriodStartedAt: null,
+    proEnvironment: null,
     email: null,
     ...overrides,
   };

@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
-import { SESSION_STATUS } from "@/lib/session-state";
+import { SESSION_STATUS, packWithRoundsArgs, type PackWithRounds } from "@/lib/session-state";
+import { rescoreCurrentQuestion } from "@/lib/rescore";
 import type { Session } from "@prisma/client";
 
 /**
@@ -44,6 +45,15 @@ export async function autoRevealIfExpired(session: Session): Promise<Session> {
     // re-fetch so the caller sees the current truth instead of assuming REVEAL.
     return db.session.findUniqueOrThrow({ where: { id: session.id } });
   }
+
+  // This is the other way into REVEAL, so it rescores too — a question whose key
+  // was fixed while it was open must not be marked by the old key just because the
+  // timer got there before the host did (M7).
+  const pack = (await db.quizPack.findUnique({
+    where: { id: session.packId },
+    ...packWithRoundsArgs,
+  })) as PackWithRounds | null;
+  await rescoreCurrentQuestion(session, pack);
 
   return { ...session, status: SESSION_STATUS.REVEAL };
 }

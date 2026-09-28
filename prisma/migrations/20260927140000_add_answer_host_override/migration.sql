@@ -1,0 +1,12 @@
+-- Whether the host marked an answer by hand (M7, L3).
+--
+-- Purely additive: one new column with a default, no index, no foreign key, so no
+-- table rebuild. Existing rows become `false`, which is correct — nothing had been
+-- overridden through a route that did not record it.
+--
+-- Two things need to know. Rescoring at reveal recomputes marks from the current
+-- answer key, and must leave a human decision alone: a host who accepted
+-- "Canberra, Australia" does not want it re-marked wrong a second later. And a
+-- submission that lands after the host has marked an answer must not overwrite that
+-- mark.
+ALTER TABLE "Answer" ADD COLUMN "hostOverride" BOOLEAN NOT NULL DEFAULT false;
