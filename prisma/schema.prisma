@@ -24,6 +24,15 @@ model QuizPack {
   sessions  Session[]
   creator   Creator?  @relation(fields: [creatorId], references: [id])
   creatorId String?
+  /// ACC2: "checked" or "not_checked" for a generated pack; null for packs
+  /// that were never generated through the review (older packs, imports,
+  /// the demo). Only "not_checked" shows the host a banner.
+  reviewStatus  String?
+  reviewFixed   Int?
+  reviewDropped Int?
+  /// For support and logs, never shown to the host: which questions the
+  /// review fixed or dropped and why, or why the review did not run (JSON).
+  reviewNotes   String?
 
   @@index([creatorId])
 }

@@ -33,6 +33,10 @@ const pack: PackWithRounds = {
   prompt: "",
   createdAt: new Date(),
   creatorId: null,
+  reviewStatus: null,
+  reviewFixed: null,
+  reviewDropped: null,
+  reviewNotes: null,
   rounds: [round(0, 2), round(1, 1)],
 };
 

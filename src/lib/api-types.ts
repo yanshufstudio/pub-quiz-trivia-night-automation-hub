@@ -40,6 +40,8 @@ export type Pack = {
   prompt: string;
   createdAt: string;
   rounds: Round[];
+  /** ACC2: "not_checked" is the only value the editor acts on. */
+  reviewStatus?: string | null;
 };
 
 export type ScoreboardRow = {
