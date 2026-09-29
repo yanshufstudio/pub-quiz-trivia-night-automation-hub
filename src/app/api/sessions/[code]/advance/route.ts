@@ -16,7 +16,7 @@ import {
   type RoundAction,
 } from "@/lib/round-state";
 import { isValidHostToken } from "@/lib/host-auth";
-import { rescoreCurrentQuestion } from "@/lib/rescore";
+import { rescoreCurrentQuestion, rescoreRound } from "@/lib/rescore";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 const QUESTION_ACTIONS = ["start", "reveal", "next", "end"] as const;
@@ -253,6 +253,13 @@ async function advanceRound(
   // not a lost race. Every other action that matched nothing lost one.
   if (count === 0 && body.action !== "end") {
     return NextResponse.json({ error: "The game moved on — refresh and try again" }, { status: 409 });
+  }
+  if (body.action === "close_round") {
+    // The key may have been fixed while the round was open, and every answer
+    // in so far was marked against the old one. Nothing can be submitted from
+    // here on (the answers route re-checks ROUND_OPEN inside its write), so
+    // this is the last moment the marks can be corrected quietly (M7).
+    await rescoreRound(session, pack);
   }
 
   return NextResponse.json({
