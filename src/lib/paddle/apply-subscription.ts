@@ -141,6 +141,10 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
         event.currentBillingPeriodStartsAt,
         creator.proPeriodStartedAt
       );
+      // PRC10: the first paid period after a trial moves the period start but
+      // keeps the count, because /refunds judges the first payment on the packs
+      // generated since the trial began.
+      const endsTrial = creator.subscriptionStatus === "trialing" && event.status !== "trialing";
 
       await tx.creator.update({
         where: { id: creator.id },
@@ -160,7 +164,7 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
           ...(rollsPeriod
             ? {
                 proPeriodStartedAt: event.currentBillingPeriodStartsAt,
-                proPacksGeneratedInPeriod: 0,
+                ...(endsTrial ? {} : { proPacksGeneratedInPeriod: 0 }),
               }
             : {}),
         },
