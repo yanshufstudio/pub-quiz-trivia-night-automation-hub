@@ -9,6 +9,7 @@ import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route"
 import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { db } from "@/lib/db";
 import { signInTestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 
@@ -48,6 +49,9 @@ describe("per-question timer", () => {
       jsonRequest(`${BASE}/api/sessions`, "POST", { packId, questionDurationSeconds })
     );
     const data = await json(res);
+    // The per-question timer belongs to sessions that were already running
+    // when round mode shipped; a new session cannot ask for one (RM0).
+    await switchToQuestionMode(data.session.code, { questionDurationSeconds });
     return { code: data.session.code as string, hostToken: data.hostToken as string };
   }
 
