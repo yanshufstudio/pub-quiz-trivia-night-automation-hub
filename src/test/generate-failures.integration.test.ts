@@ -122,6 +122,26 @@ describe("POST /api/packs/generate — failure mapping", () => {
     expect(data.error).toBe("The pack came back incomplete (asked for 24 questions, got 9). Please generate again.");
   });
 
+  // ACC13: the tokens of a failed generation are still spent, so they are logged.
+  it("logs the tokens a failed generation spent", async () => {
+    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    const err = new IncompletePackError("short pack", "The pack came back incomplete. Please generate again.");
+    Object.assign(err, {
+      attempts: 2,
+      usage: { model: "claude-opus-5-5", inputTokens: 1800, outputTokens: 4200, thinkingTokens: 0, durationMs: 61000 },
+    });
+    vi.mocked(generateQuizPack).mockRejectedValue(err);
+
+    await generate(generateRequest());
+
+    expect(info).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /^pack-generation-failed: error=IncompletePackError gen_model=claude-opus-5-5 gen_in=1800 gen_out=4200 gen_thinking=0 gen_ms=61000 gen_attempts=2$/
+      )
+    );
+    info.mockRestore();
+  });
+
   it("201s with the questions that survived a truncated generation", async () => {
     vi.mocked(generateQuizPack).mockResolvedValue({
       pack: {

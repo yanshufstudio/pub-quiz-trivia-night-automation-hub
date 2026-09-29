@@ -121,11 +121,11 @@ const quizPackJsonSchema: Anthropic.Tool.InputSchema = {
       },
     },
   },
-  // Nothing is required at the top level, because a decline is a valid
-  // response and carries neither a title nor rounds. The parse in
-  // generateQuizPack enforces the real contract: either a decline_reason, or
-  // a pack with a title and at least one round.
-  required: [],
+  // Only the counts are required (ACC13): a decline states them too, and
+  // carries neither a title nor rounds. Left optional, Opus 5.5 sometimes
+  // skipped them on a correct pack. The parse in generateQuizPack enforces the
+  // rest: either a decline_reason, or a pack with at least one round.
+  required: ["requested_rounds", "requested_questions_per_round"],
 };
 
 /**
@@ -137,6 +137,9 @@ const quizPackJsonSchema: Anthropic.Tool.InputSchema = {
  */
 export class UnusableModelOutputError extends Error {
   readonly truncated: boolean;
+  /** Tokens and time of every call made before the failure (ACC13). */
+  usage?: CallUsage;
+  attempts?: number;
 
   constructor(message: string, truncated: boolean) {
     super(message);
@@ -193,6 +196,9 @@ export class ModelDeclinedError extends Error {
   /** The model's own words, trimmed and capped. Empty when it declined
    * without saying anything. */
   readonly reason: string;
+  /** Tokens and time of the call that declined (ACC13). */
+  usage?: CallUsage;
+  attempts?: number;
 
   constructor(reason: string) {
     super(reason || "The question generator declined this brief");
@@ -294,7 +300,6 @@ function systemPrompt(rules: "current" | "before-acc1"): string {
   );
 }
 
-const MALFORMED_MESSAGE = "The pack came back malformed. Please generate again.";
 const BROKEN_CHOICE_MESSAGE =
   "The pack came back with a broken multiple-choice question. Please generate again.";
 
@@ -410,13 +415,19 @@ export async function generateQuizPack(
   config: GeneratorConfig = PRODUCTION_GENERATOR
 ): Promise<GenerationResult> {
   const usages: CallUsage[] = [];
+  // ACC13: a failure after a paid call still carries what it cost.
+  const withUsage = <E extends UnusableModelOutputError | ModelDeclinedError>(err: E, attempts: number): E => {
+    if (usages.length > 0) Object.assign(err, { usage: combinedUsage(usages, config.model), attempts });
+    return err;
+  };
   for (let attempt = 1; ; attempt++) {
     try {
       const result = await generateOnce(userPrompt, config, usages);
       return { ...result, attempts: attempt, usage: combinedUsage(usages, config.model) };
     } catch (err) {
+      if (err instanceof UnusableModelOutputError || err instanceof ModelDeclinedError) throw withUsage(err, attempt);
       if (!(err instanceof MalformedPackError)) throw err;
-      if (attempt === 2) throw new IncompletePackError(err.message, err.hostMessage);
+      if (attempt === 2) throw withUsage(new IncompletePackError(err.message, err.hostMessage), attempt);
       console.warn(`Quiz pack attempt ${attempt} unusable (${err.message}); trying once more.`);
     }
   }
@@ -491,9 +502,10 @@ async function generateOnce(
   if (!truncated) {
     const raw = (typeof input === "object" && input !== null ? input : {}) as Record<string, unknown>;
     requested = requestedCounts(raw);
-    if (!requested) {
-      throw new MalformedPackError("the model did not state the counts it was asked for", MALFORMED_MESSAGE);
-    }
+    // ACC13: required in the schema, so this should not happen. If it does,
+    // a correct pack must not fail for it: keep it, skip only the count
+    // check, and warn so a regression shows up in the logs.
+    if (!requested) console.warn("Quiz pack stated no requested counts; count check skipped.");
     input = { ...raw, rounds: repairRounds(raw.rounds) };
   }
 

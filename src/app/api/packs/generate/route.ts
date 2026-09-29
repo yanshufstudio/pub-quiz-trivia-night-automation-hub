@@ -85,6 +85,22 @@ function logGeneration(generated: GenerationResult, reviewed: ReviewedForSaving)
   }
 }
 
+/** ACC13: a failed generation was still paid for, so its tokens are logged too. */
+function logFailedGeneration(err: unknown) {
+  try {
+    const failed = err as { name?: string; usage?: GenerationResult["usage"]; attempts?: number };
+    const g = failed.usage;
+    if (!g) return;
+    console.info(
+      `pack-generation-failed: error=${failed.name ?? "?"} gen_model=${g.model} gen_in=${g.inputTokens}` +
+        ` gen_out=${g.outputTokens} gen_thinking=${g.thinkingTokens ?? "?"} gen_ms=${g.durationMs}` +
+        ` gen_attempts=${failed.attempts ?? "?"}`
+    );
+  } catch (logErr) {
+    console.error("Could not log a failed pack generation:", logErr);
+  }
+}
+
 /**
  * Every generation failure used to come back as one 502 saying "Please try
  * again", including the failures where trying again provably cannot help.
@@ -407,6 +423,7 @@ export async function POST(req: NextRequest) {
     generated = await generateQuizPack(parsed.data.prompt);
   } catch (err) {
     await releaseReservations(err);
+    logFailedGeneration(err);
     if (err instanceof MissingApiKeyError) {
       // Not an upstream failure — nothing to hide, and "please try again"
       // would be actively misleading here since retrying can't help.

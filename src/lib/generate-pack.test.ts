@@ -232,14 +232,59 @@ describe("generateQuizPack — the pack it was asked for (ACC8)", () => {
     await expect(generateQuizPack("Two rounds of five.")).rejects.toBeInstanceOf(IncompletePackError);
   });
 
-  it("treats a pack with no counts stated as malformed, not as a decline", async () => {
-    const noCounts: Record<string, unknown> = packWith([2], [2]);
+  /**
+   * ACC13. The 29 Sep smoke test: asked for 3 rounds of 8, Opus 5.5 returned
+   * a correct [8,8,8] pack twice without stating the counts, and ACC8 failed
+   * it as malformed. The counts are now required in the schema; if they are
+   * still missing, the pack is kept and the gap is logged.
+   */
+  it("requires the counts in the schema, so a decline states them too", async () => {
+    const schema = (await captureRequest()).tools?.[0] as Anthropic.Tool;
+
+    expect(schema.input_schema.required).toEqual(["requested_rounds", "requested_questions_per_round"]);
+  });
+
+  it("keeps a correct pack that states no counts, and warns so it shows in the logs", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const noCounts: Record<string, unknown> = packWith([8, 8, 8], [8, 8, 8]);
     delete noCounts.requested_rounds;
     delete noCounts.requested_questions_per_round;
-    modelRepliesInTurn(noCounts, noCounts);
+    modelRepliesInTurn(noCounts);
 
-    await expect(generateQuizPack("A round.")).rejects.toBeInstanceOf(IncompletePackError);
-    expect(create).toHaveBeenCalledTimes(2);
+    const result = await generateQuizPack("3 rounds of 8 questions.");
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(result.pack.rounds.map((r) => r.questions.length)).toEqual([8, 8, 8]);
+    expect(warn).toHaveBeenCalledWith(expect.stringMatching(/stated no requested counts/));
+    warn.mockRestore();
+  });
+
+  it("still checks the options of a pack that states no counts", async () => {
+    const pack: Record<string, unknown> = withChoices(["Augustus", "Nero"]);
+    delete pack.requested_rounds;
+    delete pack.requested_questions_per_round;
+    modelRepliesInTurn(pack, pack);
+
+    await expect(generateQuizPack("x")).rejects.toBeInstanceOf(IncompletePackError);
+  });
+
+  it("reads a decline that also states counts as a decline", async () => {
+    modelRepliesInTurn({ requested_rounds: 3, requested_questions_per_round: [8, 8, 8], decline_reason: "Not writing that." });
+
+    const err = await generateQuizPack("x").catch((e) => e);
+
+    expect(err).toBeInstanceOf(ModelDeclinedError);
+    expect(create).toHaveBeenCalledTimes(1);
+  });
+
+  it("carries the tokens of every attempt on a failure, so the cost is not lost", async () => {
+    modelRepliesInTurn(packWith([8, 8, 8], [9]), packWith([8, 8, 8], [9]));
+
+    const err = await generateQuizPack("3 rounds of 8 questions.").catch((e) => e);
+
+    expect(err).toBeInstanceOf(IncompletePackError);
+    expect(err.usage).toMatchObject({ model: "claude-opus-5-5", inputTokens: 200, outputTokens: 2000 });
+    expect(err.attempts).toBe(2);
   });
 
   it("keeps extra questions, and says how many there were", async () => {
