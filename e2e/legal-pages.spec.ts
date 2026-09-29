@@ -206,9 +206,16 @@ test("/pricing and /terms state no Pro daily number, but do state the limits (M1
     expect(text, path).toMatch(/safety limit/i);
   }
 
-  // /pricing says where the real number comes from.
-  await page.goto("/pricing");
-  await expect(page.getByText(/the wizard tells you the limit and when it resets/i)).toBeVisible();
+  // PRC6: Pro fair use over a rolling 30 days, on /pricing, /terms and /faq,
+  // with no number (the 30-day figure is unpublished on the same terms).
+  for (const path of ["/pricing", "/terms", "/faq"]) {
+    await page.goto(path);
+    const text = (await page.locator("main").innerText()).replace(/\s+/g, " ");
+    expect(text, path).toMatch(/fair use/i);
+    expect(text, path).toMatch(/rolling 30 days/i);
+    expect(text, path).toMatch(/the wizard tells you when it resets/i);
+    expect(text, path).not.toMatch(/\b40\b/);
+  }
 
   // /refunds keeps its M8 counting wording — that is a refund term, not a
   // published allowance, and it names no daily figure.
@@ -249,7 +256,8 @@ test("/terms states the Pro limits without a number, and the minimum ages (M12, 
   await expect(page.getByText(/removes the free plan's pack allowance/i)).toBeVisible();
   await expect(page.getByText(/daily fair-use limit per account/i)).toBeVisible();
   await expect(page.getByText(/service-wide daily safety limit/i)).toBeVisible();
-  await expect(page.getByText(/the wizard shows the current limit/i)).toBeVisible();
+  await expect(page.getByText(/Pro is subject to fair use/i)).toBeVisible();
+  await expect(page.getByText(/the wizard shows the current limit/i)).toHaveCount(0);
   // The three claims this page has now outgrown, in order of when they were
   // wrong: "removes that cap" made Pro sound uncapped, and the number itself.
   await expect(page.getByText(/removes that cap/i)).toHaveCount(0);

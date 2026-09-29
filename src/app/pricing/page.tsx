@@ -87,7 +87,7 @@ export default function PricingPage() {
                 <span className="font-medium text-foreground">
                   Pro lifts the {FREE_PACK_ALLOWANCE}-pack limit
                 </span>{" "}
-                — write a fresh quiz for every night of the week
+                — to a fair-use allowance, with room for several quizzes a week
               </li>
               <li>Everything in Free</li>
               <li>Cancel whenever you like; your packs stay yours</li>
@@ -146,11 +146,15 @@ export default function PricingPage() {
             this paragraph ("see the fair-use note below") and the same sentence
             printed twice on one page — a visitor reading the Pro card was sent
             somewhere else for the substance. The bullet says what Pro is for; this
-            says what bounds it. */}
+            says what bounds it.
+
+            PRC6: the 30-day fair-use limit is described the same way, with no
+            number; its refusal names only the reset date. */}
         <p className="mt-4 text-sm text-muted">
-          To keep the service fair and running for everyone, there is a daily fair-use limit on each
-          account and a daily safety limit across the whole service. If you reach either, the wizard
-          tells you the limit and when it resets (00:00 UTC).
+          To keep the service fair and running for everyone, Pro is subject to fair use: there is a
+          daily fair-use limit on each account, a fair-use limit on each account over rolling 30 days,
+          and a daily safety limit across the whole service. If you reach one,{" "}
+          the wizard tells you when it resets (the daily ones at 00:00 UTC).
         </p>
       </main>
     </>

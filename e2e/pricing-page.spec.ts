@@ -126,7 +126,9 @@ test("/pricing says Pro lifts the free limit and states the daily limits", async
   // again opening the fair-use note — which left the card's only benefit bullet
   // pointing at the note instead of carrying anything.
   await expect(main.getByText(`Pro lifts the ${FREE_PACK_ALLOWANCE}-pack limit`)).toHaveCount(1);
-  await expect(main.getByText(/write a fresh quiz for every night of the week/i)).toBeVisible();
+  // PRC6: the card says what Pro lifts the limit *to*, so it no longer reads
+  // as uncapped.
+  await expect(main.getByText(/to a fair-use allowance/i)).toBeVisible();
   await expect(main.getByText(/see the fair-use note below/i)).toHaveCount(0);
   // "shared daily safety limit" until M12's third revision, which renamed both
   // limits so the per-account one is named too — a subscriber meeting the
@@ -157,7 +159,7 @@ test("/pricing describes both daily limits and publishes neither number (M12)", 
 
   await expect(page.getByText(/daily fair-use limit on each account/i)).toBeVisible();
   await expect(page.getByText(/daily safety limit across the whole service/i)).toBeVisible();
-  await expect(page.getByText(/the wizard tells you the limit and when it resets/i)).toBeVisible();
+  await expect(page.getByText(/the wizard tells you when it resets/i)).toBeVisible();
   await expect(page.getByText(/00:00 UTC/i)).toBeVisible();
 
   // "no cap" was never true — there was always a shared ceiling — and it is

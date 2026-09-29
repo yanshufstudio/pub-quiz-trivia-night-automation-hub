@@ -120,7 +120,25 @@ describe("no public page publishes a Pro daily number", () => {
     for (const [rel, source] of appSources()) {
       if (!/(^|\/)page\.tsx$/.test(rel)) continue;
       expect(source, rel).not.toMatch(/PRO_DAILY_PACK_ALLOWANCE|PRO_USER_DAILY_PACK_LIMIT/);
+      // PRC5's 30-day fair-use cap is unpublished on the same terms.
+      expect(source, rel).not.toMatch(
+        /PRO_USER_PERIOD_PACK_LIMIT|PRO_TRIAL_PACK_LIMIT|DEFAULT_PRO_PERIOD_LIMIT|DEFAULT_PRO_TRIAL_LIMIT|proFairUseLimit\b/
+      );
     }
+  });
+
+  it("says Pro is subject to fair use over 30 days, and that the wizard says when it resets (PRC6)", () => {
+    for (const page of [...PUBLIC_PAGES, "faq/page.tsx"]) {
+      const [, source] = appSources().find(([rel]) => rel === page)!;
+      expect(source, page).toMatch(/fair use/);
+      expect(source, page).toMatch(/rolling 30 days/);
+      expect(source, page).toMatch(/the wizard tells you when it resets/);
+    }
+  });
+
+  it("does not let the Pro card read as if Pro had no cap (PRC6)", () => {
+    const [, source] = appSources().find(([rel]) => rel === "pricing/page.tsx")!;
+    expect(source).toMatch(/fair-use allowance/);
   });
 
   it("still describes the shape of the limits, so the pages are not merely silent", () => {

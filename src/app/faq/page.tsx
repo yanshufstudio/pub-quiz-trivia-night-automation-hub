@@ -158,10 +158,12 @@ const ENTRIES: Entry[] = [
     answer: (
       <>
         A free account gets two quiz packs every thirty days, with everything: the wizard,
-        the editor, the printed sheets and the live game. Pro lifts the two-pack limit, at{" "}
-        {formatUsd(PRICE_MONTHLY_USD)} a month or {formatUsd(PRICE_ANNUAL_USD)} a year (
-        {ANNUAL_MONTHS_FREE} months free). Pro is on sale now; a daily
-        safety limit on generation applies across the whole service. Details on the{" "}
+        the editor, the printed sheets and the live game. Pro lifts the two-pack limit to a
+        fair-use allowance, at {formatUsd(PRICE_MONTHLY_USD)} a month or{" "}
+        {formatUsd(PRICE_ANNUAL_USD)} a year ({ANNUAL_MONTHS_FREE} months free). Pro is subject
+        to fair use — a daily limit and one over rolling 30 days, per account — and a daily
+        safety limit applies across the whole service; if you reach one,{" "}
+        the wizard tells you when it resets. Details on the{" "}
         <Link className={link} href="/pricing">
           pricing page
         </Link>
