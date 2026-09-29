@@ -34,10 +34,11 @@ describe("pricing constants", () => {
     // has to actually be a discount. A copy-paste that made them equal would
     // otherwise ship.
     expect(PRICE_ANNUAL_USD).toBeLessThan(PRICE_MONTHLY_USD * 12);
-    // Pinned, not derived: $45 a year is the owner's decision (2026-09-21),
-    // and the live Paddle annual price is created at 4500 cents to match.
-    expect(PRICE_MONTHLY_USD).toBe(5);
-    expect(PRICE_ANNUAL_USD).toBe(45);
+    // Pinned, not derived: $10 a month and $90 a year are the owner's decision
+    // (2026-09-28), and the live Paddle prices are created at 1000 and 9000
+    // cents to match.
+    expect(PRICE_MONTHLY_USD).toBe(10);
+    expect(PRICE_ANNUAL_USD).toBe(90);
   });
 
   it("states the annual saving the two prices actually give", () => {
@@ -57,8 +58,8 @@ describe("pricing constants", () => {
   });
 
   it("formats whole dollars without stray decimals", () => {
-    expect(formatUsd(PRICE_MONTHLY_USD)).toBe("$5");
-    expect(formatUsd(PRICE_ANNUAL_USD)).toBe("$45");
+    expect(formatUsd(PRICE_MONTHLY_USD)).toBe("$10");
+    expect(formatUsd(PRICE_ANNUAL_USD)).toBe("$90");
     expect(formatUsd(0)).toBe("$0");
   });
 });
