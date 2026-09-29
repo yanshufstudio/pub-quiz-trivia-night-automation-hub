@@ -15,7 +15,8 @@ import {
 } from "@/lib/team-session";
 import { readJoinCode } from "@/lib/join-url";
 import { questionMediaUrl } from "@/lib/question-media-url";
-import type { SessionQuestion, TeamSessionState } from "@/lib/api-types";
+import type { RoundTeamState, SessionQuestion, TeamSessionState } from "@/lib/api-types";
+import { RoundTeamPlay } from "./RoundTeamPlay";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
  * anywhere but our own DB-backed bytes (see src/lib/media.ts). Renders
@@ -50,7 +51,7 @@ export function TeamPortal() {
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
   const [answer, setAnswer] = useState("");
-  const [state, setState] = useState<TeamSessionState | null>(null);
+  const [state, setState] = useState<TeamSessionState | RoundTeamState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   // The id of the question the `answer` draft belongs to. When the host
@@ -259,7 +260,14 @@ export function TeamPortal() {
       <main className="mx-auto mt-6 flex w-full max-w-md flex-1 flex-col">
         {error ? <p className="mb-4 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
 
-        {!state || state.status === "LOBBY" ? (
+        {/* Every game started since round mode shipped (RM8); the panels
+            below are the one-question-at-a-time flow, kept for games that
+            were already running. */}
+        {state?.mode === "ROUND" ? (
+          <RoundTeamPlay state={state} team={stored} onChanged={() => refresh(stored)} />
+        ) : null}
+
+        {state?.mode === "ROUND" ? null : !state || state.status === "LOBBY" ? (
           <LobbyPanel teamName={stored.teamName} state={state} />
         ) : null}
 
@@ -320,7 +328,7 @@ export function TeamPortal() {
         ) : null}
 
         {state?.status === "REVEAL" ? <RevealPanel state={state} team={stored} /> : null}
-        {state?.status === "ENDED" ? <EndedPanel state={state} /> : null}
+        {state?.mode === "QUESTION" && state.status === "ENDED" ? <EndedPanel state={state} /> : null}
       </main>
     </div>
   );
