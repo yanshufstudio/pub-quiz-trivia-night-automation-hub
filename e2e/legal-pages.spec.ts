@@ -269,3 +269,16 @@ test("/terms states the Pro limits without a number, and the minimum ages (M12, 
   await expect(page.getByText(/at least 18 to buy Pro/i)).toBeVisible();
   await expect(page.getByText(/no age requirement/i)).toHaveCount(0);
 });
+
+test("/pricing, /faq and /refunds describe the free trial and its first charge (PRC11)", async ({ page }) => {
+  for (const path of ["/pricing", "/faq", "/refunds"]) {
+    await page.goto(path);
+    const text = (await page.locator("main").innerText()).replace(/\s+/g, " ");
+    expect(text, path).toMatch(/14-day free trial, card required/i);
+    expect(text, path).toMatch(/charged when the trial ends/i);
+  }
+
+  // The first payment's refund condition counts from the trial's start (PRC10).
+  await page.goto("/refunds");
+  await expect(page.getByText(/packs you generate during the trial count/i)).toBeVisible();
+});

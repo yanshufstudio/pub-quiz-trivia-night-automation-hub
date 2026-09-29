@@ -43,6 +43,13 @@ export const PRICE_ANNUAL_USD = 90;
  */
 export const ANNUAL_MONTHS_FREE = Math.floor(12 - PRICE_ANNUAL_USD / PRICE_MONTHLY_USD);
 
+/**
+ * The free trial on PADDLE_PRICE_*_TRIAL (PRC11). Paddle, not this constant,
+ * decides the trial's length: it is set on those two prices in the catalogue,
+ * and this must say the same.
+ */
+export const TRIAL_DAYS = 14;
+
 /** `$5`, `$45` — one renderer so the pages cannot format differently. */
 export function formatUsd(amount: number): string {
   return `$${amount}`;

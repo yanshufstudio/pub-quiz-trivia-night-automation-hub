@@ -8,6 +8,7 @@ import {
   FREE_PACK_ALLOWANCE,
   PRICE_ANNUAL_USD,
   PRICE_MONTHLY_USD,
+  TRIAL_DAYS,
   formatUsd,
 } from "@/lib/pricing";
 
@@ -82,6 +83,10 @@ export default function PricingPage() {
             <p className="mt-1 text-sm text-muted">
               or {formatUsd(PRICE_ANNUAL_USD)} per year, {ANNUAL_MONTHS_FREE} months free
             </p>
+            <p className="mt-3 text-sm text-muted">
+              New subscribers get a {TRIAL_DAYS}-day free trial, card required. You&apos;re
+              charged when the trial ends, unless you cancel before then.
+            </p>
             <ul className="mt-5 list-disc space-y-2 pl-5 text-muted">
               <li>
                 <span className="font-medium text-foreground">
@@ -152,8 +157,8 @@ export default function PricingPage() {
             number; its refusal names only the reset date. */}
         <p className="mt-4 text-sm text-muted">
           To keep the service fair and running for everyone, Pro is subject to fair use: there is a
-          daily fair-use limit on each account, a fair-use limit on each account over rolling 30 days,
-          and a daily safety limit across the whole service. If you reach one,{" "}
+          daily fair-use limit on each account, a fair-use limit on each account over rolling 30 days
+          (lower during the free trial), and a daily safety limit across the whole service. If you reach one,{" "}
           the wizard tells you when it resets (the daily ones at 00:00 UTC).
         </p>
       </main>
