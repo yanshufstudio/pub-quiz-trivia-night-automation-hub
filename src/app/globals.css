@@ -103,6 +103,13 @@ html:has(.stage-surface) body {
   background: var(--stage);
 }
 
+/* The TV is one fixed, scaled stage (src/app/tv/[code]/TvDisplay.tsx):
+   nothing on it scrolls, and a TV browser must never show a scrollbar. */
+html:has(.tv-surface),
+html:has(.tv-surface) body {
+  overflow: hidden;
+}
+
 /* The display face (Alfa Slab One) ships in a single weight and no italic.
    Headings across the app still ask for font-semibold/font-bold out of
    habit; without this the browser would smear on a faux bold, which turns
