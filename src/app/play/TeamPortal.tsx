@@ -15,7 +15,7 @@ import {
 } from "@/lib/team-session";
 import { readJoinCode } from "@/lib/join-url";
 import { questionMediaUrl } from "@/lib/question-media-url";
-import type { RoundTeamState, SessionQuestion, TeamSessionState } from "@/lib/api-types";
+import type { RoundTeamState, ScoreboardRow, SessionQuestion, TeamSessionState } from "@/lib/api-types";
 import { RoundTeamPlay } from "./RoundTeamPlay";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
@@ -328,7 +328,11 @@ export function TeamPortal() {
         ) : null}
 
         {state?.status === "REVEAL" ? <RevealPanel state={state} team={stored} /> : null}
-        {state?.mode === "QUESTION" && state.status === "ENDED" ? <EndedPanel state={state} /> : null}
+        {/* The same ending in both modes: the champions treatment, the
+            place, the final scores. */}
+        {state?.status === "ENDED" && state.scoreboard ? (
+          <EndedPanel scoreboard={state.scoreboard} teamName={state.teamName} />
+        ) : null}
       </main>
     </div>
   );
@@ -389,7 +393,8 @@ function RevealPanel({ state, team }: { state: TeamSessionState; team: StoredTea
   );
 }
 
-function EndedPanel({ state }: { state: TeamSessionState }) {
+function EndedPanel({ scoreboard, teamName }: { scoreboard: ScoreboardRow[]; teamName: string }) {
+  const state = { scoreboard, teamName };
   const mine = state.scoreboard.find((row) => row.name === state.teamName);
   const place = mine ? rankOf(state.scoreboard, mine.teamId) : null;
   const { winners } = topScorers(state.scoreboard);

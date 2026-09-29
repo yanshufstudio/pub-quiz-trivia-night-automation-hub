@@ -103,6 +103,14 @@ html:has(.stage-surface) body {
   background: var(--stage);
 }
 
+/* The round-mode host desk keeps its next action in a bar fixed to the
+   bottom of the screen. Anything scrolled into view — by focus, by a link, by
+   the browser — must land above that bar, not under it, where a tap would hit
+   the bar instead. */
+html:has(.has-action-bar) {
+  scroll-padding-bottom: 11rem;
+}
+
 /* The TV is one fixed, scaled stage (src/app/tv/[code]/TvDisplay.tsx):
    nothing on it scrolls, and a TV browser must never show a scrollbar. */
 html:has(.tv-surface),

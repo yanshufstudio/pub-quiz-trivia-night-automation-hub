@@ -45,13 +45,16 @@ test("the host desk shows its own link, and the owner reopens it on another devi
   const code = firstDevice.url().split("/host/")[1];
 
   // Part 1: the desk states its own address, with a way to take it away.
+  // In a round-mode game it sits in the desk's menu (RM7).
+  await firstDevice.getByRole("button", { name: "Menu" }).click();
   const hostLink = firstDevice.getByRole("heading", { name: "Host link", exact: true });
   await expect(hostLink).toBeVisible();
   await expect(firstDevice.getByText(`/host/${code}`)).toBeVisible();
   await expect(
     firstDevice.getByText("Keep this link to reopen the host desk on another device")
   ).toBeVisible();
-  await expect(firstDevice.getByRole("button", { name: "Copy" })).toBeVisible();
+  // Two in the menu: the TV link's and this one's.
+  await expect(firstDevice.getByRole("button", { name: "Copy" })).toHaveCount(2);
 
   // The link carries no credential — that is the reason it is safe to copy.
   const shownLink = await firstDevice.getByText(`/host/${code}`).innerText();
@@ -70,6 +73,7 @@ test("the host desk shows its own link, and the owner reopens it on another devi
   // And the desk opens: the controls, not the paste-a-key screen.
   await expect(secondPage.getByRole("heading", { name: "Host key needed" })).toHaveCount(0);
   await expect(secondPage.getByText("Waiting for teams")).toBeVisible({ timeout: 10_000 });
+  await secondPage.getByRole("button", { name: "Menu" }).click();
   await expect(secondPage.getByRole("button", { name: "End game" })).toBeVisible();
 
   // A different account holding the same code is still a stranger to it.

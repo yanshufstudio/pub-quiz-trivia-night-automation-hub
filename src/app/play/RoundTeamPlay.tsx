@@ -73,15 +73,8 @@ export function RoundTeamPlay({
     );
   }
 
-  if (state.status === "ENDED") {
-    return (
-      <div className="flex flex-1 flex-col">
-        <h2 className="font-serif text-3xl font-semibold">Quiz over</h2>
-        <p className="mt-3 text-lg text-stage-muted">Thanks for playing.</p>
-        {state.scoreboard ? <ScoreboardPanel state={state} title="Final scores" /> : null}
-      </div>
-    );
-  }
+  // The ending is TeamPortal's EndedPanel, the same in both modes.
+  if (state.status === "ENDED") return null;
 
   // Newest first: the question the host has just asked is the one on top.
   const newestFirst = [...state.questions].reverse();

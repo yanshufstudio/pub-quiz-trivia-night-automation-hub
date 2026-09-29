@@ -119,7 +119,7 @@ export function RoundHostDesk({
   }
 
   return (
-    <div className="stage-surface min-h-dvh bg-stage pb-44 text-stage-fg">
+    <div className="stage-surface has-action-bar min-h-dvh bg-stage pb-44 text-stage-fg">
       <header className="border-b border-white/10 px-4 py-3 sm:px-8">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
           <div className="min-w-0">
