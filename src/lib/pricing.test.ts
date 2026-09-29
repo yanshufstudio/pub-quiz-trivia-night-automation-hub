@@ -20,7 +20,9 @@ function appSources(dir = APP_DIR): Array<[string, string]> {
     const full = path.join(dir, item.name);
     if (item.isDirectory()) out.push(...appSources(full));
     else if (/\.tsx?$/.test(item.name) && !item.name.endsWith(".test.ts")) {
-      out.push([path.relative(APP_DIR, full), readFileSync(full, "utf8")]);
+      // "/" on every OS: callers match "pricing/page.tsx", and on Windows
+      // path.relative returns backslashes.
+      out.push([path.relative(APP_DIR, full).split(path.sep).join("/"), readFileSync(full, "utf8")]);
     }
   }
   return out;
