@@ -124,7 +124,8 @@ test("a host subscribes yearly: checkout opens for their account, and Pro switch
 
   expect(init.environment).toBe("sandbox");
   expect(init.init.token).toBe("test_e2e_client_token");
-  expect(opened.items).toEqual([{ priceId: "pri_e2e_annual", quantity: 1 }]);
+  // A brand-new account is sold the trial price (PRC9).
+  expect(opened.items).toEqual([{ priceId: "pri_e2e_annual_trial", quantity: 1 }]);
   expect(opened.customer).toEqual({ email });
   expect(opened.settings.successUrl).toBe(`${baseURL}/create?upgraded=1`);
   expect(opened.customData.creatorId).toBeTruthy();

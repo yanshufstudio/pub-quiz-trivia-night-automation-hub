@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import type { Creator, Prisma } from "@prisma/client";
+import { db } from "@/lib/db";
 import { normaliseMailbox } from "@/lib/email-normalise";
 
 /**
@@ -12,6 +13,21 @@ import { normaliseMailbox } from "@/lib/email-normalise";
  */
 export function trialMailboxKey(email: string): string {
   return `v1.${createHash("sha256").update(normaliseMailbox(email)).digest("hex")}`;
+}
+
+/**
+ * Whether the checkout may offer this account the trial price (PRC9): it has
+ * never had a subscription, and neither it nor its mailbox has trialled.
+ */
+export async function trialEligible(
+  creator: Pick<Creator, "id" | "paddleSubscriptionId" | "subscriptionStatus">,
+  email: string
+): Promise<boolean> {
+  if (creator.paddleSubscriptionId !== null || creator.subscriptionStatus !== null) return false;
+  const claim = await db.trialClaim.findFirst({
+    where: { OR: [{ creatorId: creator.id }, { mailboxKey: trialMailboxKey(email) }] },
+  });
+  return claim === null;
 }
 
 /** Logged when a trial starts that the claim table says should not have: two

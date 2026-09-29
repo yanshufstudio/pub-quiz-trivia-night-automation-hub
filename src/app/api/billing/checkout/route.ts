@@ -3,6 +3,8 @@ import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { effectivePlan } from "@/lib/creator";
 import { PaddleConfigError, publicPaddleConfig } from "@/lib/paddle/config";
 import { CheckoutSigningError, signCreatorId } from "@/lib/paddle/checkout-token";
+import { TRIAL_PRICE_ENV } from "@/lib/paddle/prices";
+import { trialEligible } from "@/lib/trial";
 
 export const dynamic = "force-dynamic";
 
@@ -27,8 +29,9 @@ export const dynamic = "force-dynamic";
  *   409  already on Pro — a second subscription would double-bill them;
  *        /pricing shows Manage subscription instead.
  *   503  checkout is not configured on this deployment (the NEXT_PUBLIC_PADDLE_*
- *        values or the signing secret are missing). Production cannot get
- *        here: next.config.ts fails the build without the public values.
+ *        values or the signing secret are missing, or — for an account offered
+ *        the trial — PADDLE_PRICE_*_TRIAL). Production cannot get here:
+ *        next.config.ts fails the build without any of them.
  */
 export async function POST(req: NextRequest) {
   const host = await hostSessionForRequest(req);
@@ -61,8 +64,27 @@ export async function POST(req: NextRequest) {
     throw err;
   }
 
+  // PRC9: the trial price only for an account that has never subscribed and
+  // whose mailbox has never trialled; everyone else, the same price without it.
+  const trial = await trialEligible(host.creator, host.user.email);
+  let priceId = interval === "month" ? config.priceMonthly : config.priceAnnual;
+  if (trial) {
+    const trialPrice = process.env[TRIAL_PRICE_ENV[interval]]?.trim();
+    if (!trialPrice) {
+      // Not quietly downgraded to the no-trial price: /pricing promises the
+      // trial, so a deployment without the trial prices must say it is broken.
+      console.error(`paddle-trial-price-missing: ${TRIAL_PRICE_ENV[interval]} is empty on this deployment`);
+      return NextResponse.json(
+        { error: "Checkout is not switched on for this deployment.", notConfigured: true },
+        { status: 503 }
+      );
+    }
+    priceId = trialPrice;
+  }
+
   return NextResponse.json({
-    priceId: interval === "month" ? config.priceMonthly : config.priceAnnual,
+    priceId,
+    trial,
     customData: { creatorId: host.creator.id, creatorSig },
     customerEmail: host.user.email,
   });

@@ -50,6 +50,8 @@ export default defineConfig({
       NEXT_PUBLIC_PADDLE_CLIENT_TOKEN: "test_e2e_client_token",
       NEXT_PUBLIC_PADDLE_PRICE_MONTHLY: "pri_e2e_monthly",
       NEXT_PUBLIC_PADDLE_PRICE_ANNUAL: "pri_e2e_annual",
+      PADDLE_PRICE_MONTHLY_TRIAL: "pri_e2e_monthly_trial",
+      PADDLE_PRICE_ANNUAL_TRIAL: "pri_e2e_annual_trial",
       PADDLE_NOTIFICATION_WEBHOOK_SECRET: "e2e-paddle-webhook-secret-not-used-anywhere-else",
     },
   },
