@@ -108,6 +108,24 @@ export function roundBase(session: Session, pack: PackWithRounds, now: Date) {
   };
 }
 
+function roundClosed(session: Session) {
+  return session.status === ROUND_MARKING || session.status === ROUND_REVEAL || session.status === ENDED;
+}
+
+/**
+ * Whether a team took part in the current round: it answered something in it,
+ * or the host typed a total for it. A phone team that did neither — most often
+ * one that joined after the round closed — sits the closed round out: its phone
+ * shows no "No answer" cards, and the host's marks grid leaves it out.
+ */
+function playedRound(session: LoadedSession, teamId: string) {
+  const round = session.currentRoundIndex;
+  return (
+    session.answers.some((a) => a.teamId === teamId && a.roundIndex === round) ||
+    session.roundScores.some((s) => s.teamId === teamId && s.roundIndex === round)
+  );
+}
+
 export function roundTeamView(session: LoadedSession, pack: PackWithRounds, team: Team, now: Date): RoundTeamState {
   const inPlay = session.status !== LOBBY;
   const mine = inPlay
@@ -115,10 +133,12 @@ export function roundTeamView(session: LoadedSession, pack: PackWithRounds, team
         .filter((a) => a.teamId === team.id && a.roundIndex === session.currentRoundIndex)
         .sort((a, b) => a.questionIndex - b.questionIndex)
     : [];
-  const fullyRevealed = roundFullyRevealed(session, pack);
+  const sitsOutRound = roundClosed(session) && !playedRound(session, team.id);
+  const fullyRevealed = !sitsOutRound && roundFullyRevealed(session, pack);
   return {
     ...roundBase(session, pack, now),
-    questions: askedQuestions(session, pack, false),
+    questions: sitsOutRound ? [] : askedQuestions(session, pack, false),
+    sitsOutRound,
     scoreboard: scoreboardVisible(session) ? roundScoreboard(session, pack) : null,
     teamName: team.name,
     myAnswers: mine.map((a) => {
@@ -160,7 +180,7 @@ export function roundDisplayView(session: LoadedSession, pack: PackWithRounds, n
 }
 
 export function roundHostView(session: LoadedSession, pack: PackWithRounds, now: Date): RoundHostState {
-  const closed = session.status === ROUND_MARKING || session.status === ROUND_REVEAL || session.status === ENDED;
+  const closed = roundClosed(session);
   const inPlay = session.status !== LOBBY;
   const roundAnswers = session.answers.filter((a) => a.roundIndex === session.currentRoundIndex);
 
@@ -184,6 +204,7 @@ export function roundHostView(session: LoadedSession, pack: PackWithRounds, now:
     marks: closed
       ? roundTotals(session.teams, session.answers, session.roundScores, session.currentRoundIndex).map((row) => ({
           ...row,
+          sitsOut: !row.isPaper && !playedRound(session, row.teamId),
           answers: roundAnswers
             .filter((a) => a.teamId === row.teamId)
             .sort((a, b) => a.questionIndex - b.questionIndex)

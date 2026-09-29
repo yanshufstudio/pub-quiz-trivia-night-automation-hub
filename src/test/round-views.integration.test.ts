@@ -47,6 +47,11 @@ async function hostBody(code: string, hostToken: string) {
   return res.json();
 }
 
+async function teamId(code: string, token: string) {
+  const row = await db.team.findFirstOrThrow({ where: { token, session: { code } }, select: { id: true } });
+  return row.id;
+}
+
 function expectNoKeys(body: unknown, except: string[] = []) {
   const text = JSON.stringify(body);
   for (const key of KEYS) if (!except.includes(key)) expect(text, key).not.toContain(key);
@@ -113,6 +118,42 @@ describe("the team's view of a round-mode game (RM4)", () => {
     await game.advance(code, hostToken, "close_round");
     await game.advance(code, hostToken, "reveal_all");
     expect((await teamBody(code, team)).myRoundTotal).toBe(1);
+  });
+
+  it("a team that joins while the round is being marked sits it out, and plays the next one", async () => {
+    const { code, hostToken, team } = await setup();
+    for (const a of ["start", "ask_next", "ask_next"]) await game.advance(code, hostToken, a);
+    await game.answer(code, team, 0, "Sydney");
+    await game.advance(code, hostToken, "close_round");
+    const late = await game.join(code, "Late Arrivals");
+
+    const marking = await teamBody(code, late);
+    expect(marking).toMatchObject({ status: "ROUND_MARKING", sitsOutRound: true, questions: [], myAnswers: [] });
+    expect(JSON.stringify(marking)).not.toContain(R1.questions[0].text);
+
+    await game.advance(code, hostToken, "reveal_all");
+    const revealed = await teamBody(code, late);
+    expect(revealed).toMatchObject({ status: "ROUND_REVEAL", sitsOutRound: true, questions: [], myRoundTotal: null });
+    expectNoKeys(revealed);
+    // The team that played the round still sees it.
+    expect(await teamBody(code, team)).toMatchObject({ sitsOutRound: false, myRoundTotal: 0 });
+
+    await game.advance(code, hostToken, "next_round");
+    const next = await teamBody(code, late);
+    expect(next).toMatchObject({ status: "ROUND_OPEN", sitsOutRound: false });
+    expect(next.questions.map((q: { text: string }) => q.text)).toEqual([R2.questions[0].text]);
+  });
+
+  it("a team with a typed total for the round did play it, on paper", async () => {
+    const { code, hostToken, team } = await setup();
+    for (const a of ["start", "ask_next", "ask_next", "close_round"]) await game.advance(code, hostToken, a);
+    const res = await setRoundScore(
+      game.request(`/api/sessions/${code}/round-scores`, "PUT", { hostToken, teamId: await teamId(code, team), roundIndex: 0, points: 2 }),
+      params(code)
+    );
+    expect(res.status).toBe(200);
+    await game.advance(code, hostToken, "reveal_all");
+    expect(await teamBody(code, team)).toMatchObject({ sitsOutRound: false, myRoundTotal: 2 });
   });
 
   it("no scoreboard until the host shows it, and then only finished rounds", async () => {
@@ -203,6 +244,29 @@ describe("the host's view of a round-mode game (RM4)", () => {
     ]);
     expect(phone).toMatchObject({ auto: 1, typed: null, total: 1 });
     expect(body.marks.find((m: { teamId: string }) => m.teamId === paperId)).toMatchObject({ isPaper: true, total: 0 });
+  });
+
+  it("a phone team with nothing in the round is flagged as sitting it out; paper teams never are", async () => {
+    const { code, hostToken, team, paperId } = await setup();
+    for (const a of ["start", "ask_next", "ask_next"]) await game.advance(code, hostToken, a);
+    await game.answer(code, team, 0, "Sydney");
+    await game.advance(code, hostToken, "close_round");
+    await game.join(code, "Late Arrivals");
+
+    const body = await hostBody(code, hostToken);
+    const sitsOut = (name: string) => body.marks.find((m: { name: string }) => m.name === name).sitsOut;
+    expect(sitsOut("Late Arrivals")).toBe(true);
+    expect(sitsOut("Wrong Every Time")).toBe(false);
+    expect(body.marks.find((m: { teamId: string }) => m.teamId === paperId).sitsOut).toBe(false);
+
+    // A total typed for it means the team played the round after all (on a sheet).
+    const lateId = body.marks.find((m: { name: string }) => m.name === "Late Arrivals").teamId;
+    await setRoundScore(
+      game.request(`/api/sessions/${code}/round-scores`, "PUT", { hostToken, teamId: lateId, roundIndex: 0, points: 1 }),
+      params(code)
+    );
+    const after = await hostBody(code, hostToken);
+    expect(after.marks.find((m: { teamId: string }) => m.teamId === lateId).sitsOut).toBe(false);
   });
 
   it("never carries a team token or the host key", async () => {

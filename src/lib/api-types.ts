@@ -93,6 +93,11 @@ export type RoundTeamState = RoundBase & {
   /** Null unless the host is showing it (or the quiz has ended). */
   scoreboard: ScoreboardRow[] | null;
   teamName: string;
+  /**
+   * The round is closed and this team took no part in it (it joined late):
+   * no questions are sent, and the phone waits for the next round.
+   */
+  sitsOutRound: boolean;
   myAnswers: {
     questionIndex: number;
     text: string;
@@ -122,6 +127,12 @@ export type RoundHostState = RoundBase & {
         auto: number;
         typed: number | null;
         total: number;
+        /**
+         * A phone team with no answer and no typed total in this round (most
+         * often it joined late). Left out of the marks grid; still offered a
+         * typed total, for a team that played the round on a sheet.
+         */
+        sitsOut: boolean;
         answers: {
           questionIndex: number;
           id: string;

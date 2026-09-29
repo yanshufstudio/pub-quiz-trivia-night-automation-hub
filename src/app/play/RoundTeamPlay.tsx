@@ -89,7 +89,15 @@ export function RoundTeamPlay({
         {open ? <RoundCountdown countdown={state.countdown} serverNow={state.serverNow} /> : null}
       </div>
 
-      {state.status === "ROUND_MARKING" ? (
+      {state.sitsOutRound ? (
+        // Joined after the round closed: nothing of it to show, only when to play.
+        <p className="mt-4 rounded-2xl bg-white/5 px-4 py-4 text-lg font-semibold">
+          <span dir="auto">You’re in, {state.teamName}.</span>{" "}
+          {state.roundNumber < state.totalRounds
+            ? `You’ll play from round ${state.roundNumber + 1}.`
+            : "That was the last round — the final scores are on their way."}
+        </p>
+      ) : state.status === "ROUND_MARKING" ? (
         <p className="mt-4 rounded-2xl bg-white/5 px-4 py-4 text-lg font-semibold">
           Answers are in. The host is checking them.
         </p>

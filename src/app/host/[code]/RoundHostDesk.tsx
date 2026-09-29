@@ -466,6 +466,8 @@ function Marking({
   onClearTotal: (teamId: string) => Promise<void>;
 }) {
   const marks = state.marks ?? [];
+  // A phone team that sat the round out (joined late) has nothing to mark.
+  const marked = marks.filter((row) => !row.sitsOut);
   const n = state.roundNumber;
   return (
     <section className="space-y-5">
@@ -497,7 +499,7 @@ function Marking({
               </tr>
             </thead>
             <tbody>
-              {marks.map((row) => (
+              {marked.map((row) => (
                 <tr key={row.teamId}>
                   <th scope="row" className="max-w-40 truncate px-2 text-left font-medium" dir="auto">
                     {row.name}
@@ -590,7 +592,7 @@ function RoundTotalRow({
           {row.name}
         </span>
         <span className="text-sm tabular-nums text-stage-muted">
-          {row.typed !== null ? `${row.total} pts` : `${row.auto} pts auto`}
+          {row.typed !== null ? `${row.total} pts` : row.sitsOut ? "No answers this round" : `${row.auto} pts auto`}
         </span>
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-2">
