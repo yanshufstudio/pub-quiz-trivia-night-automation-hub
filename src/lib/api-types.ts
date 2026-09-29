@@ -82,6 +82,12 @@ type RoundBase = {
   revealedCount: number;
   round: SessionRound | null;
   scoreboardShown: boolean;
+  /**
+   * How many rounds the scoreboard counts (only fully revealed ones). While it
+   * is 0 every team is on 0, so the screens say when scores appear instead of
+   * ranking everyone 1st.
+   */
+  countedRounds: number;
   tvShowsAll: boolean;
   countdown: CountdownInfo;
   /** The server's clock when this was sent, so a countdown agrees on every screen. */

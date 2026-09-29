@@ -1,5 +1,13 @@
 import type { ScoreboardRow } from "@/lib/api-types";
 
+/** Shown instead of a round-mode scoreboard until a round counts, when every
+ *  team would be tied 1st on 0. The final scores are always a ranking. */
+export const NO_SCORES_YET = "Scores appear after the first round is revealed.";
+
+export function noScoresYet(state: { countedRounds: number; status: string }): boolean {
+  return state.countedRounds === 0 && state.status !== "ENDED";
+}
+
 /** Every team tied for first place, and what that score was. Ties are real
  *  in a pub quiz (two teams both nail every question), so this is never
  *  just "the first row". */

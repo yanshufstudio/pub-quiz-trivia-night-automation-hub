@@ -7,6 +7,7 @@ import { Scoreboard } from "@/components/Scoreboard";
 import type { RoundQuestionView, RoundTeamState } from "@/lib/api-types";
 import { questionLabel } from "@/lib/question-number";
 import { questionMediaUrl } from "@/lib/question-media-url";
+import { NO_SCORES_YET, noScoresYet } from "@/lib/scoreboard-summary";
 import type { StoredTeam } from "@/lib/team-session";
 
 /**
@@ -275,7 +276,11 @@ function ScoreboardPanel({ state, title }: { state: RoundTeamState; title: strin
   return (
     <section className="mt-8 rounded-2xl bg-white/5 p-4">
       <h3 className="mb-3 font-semibold">{title}</h3>
-      <Scoreboard rows={state.scoreboard ?? []} highlightName={state.teamName} dark />
+      {noScoresYet(state) ? (
+        <p className="text-stage-muted">{NO_SCORES_YET}</p>
+      ) : (
+        <Scoreboard rows={state.scoreboard ?? []} highlightName={state.teamName} dark />
+      )}
     </section>
   );
 }

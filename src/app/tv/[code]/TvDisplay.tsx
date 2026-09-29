@@ -8,7 +8,7 @@ import type { RoundDisplayState, RoundQuestionView, ScoreboardRow } from "@/lib/
 import { buildJoinUrl } from "@/lib/join-url";
 import { questionLabel } from "@/lib/question-number";
 import { questionMediaUrl } from "@/lib/question-media-url";
-import { rankOf } from "@/lib/scoreboard-summary";
+import { NO_SCORES_YET, noScoresYet, rankOf } from "@/lib/scoreboard-summary";
 
 /**
  * The pub's TV (RM9).
@@ -351,17 +351,21 @@ function ScoreboardScreen({ state, rows }: { state: RoundDisplayState; rows: Sco
   return (
     <div className="flex h-full flex-col px-24 py-16">
       <p className="text-[56px] font-semibold text-gold">{ended ? "Final scores" : "Scoreboard"}</p>
-      <ol className="mt-10 grid min-h-0 flex-1 grid-flow-col grid-rows-8 gap-x-12 gap-y-4 overflow-hidden">
-        {rows.map((row) => (
-          <li key={row.teamId} className="flex items-center gap-6 rounded-2xl bg-white/10 px-8 text-[40px]">
-            <span className="w-16 shrink-0 font-semibold tabular-nums text-gold">{rankOf(rows, row.teamId)}</span>
-            <span dir="auto" className="min-w-0 flex-1 truncate">
-              {row.name}
-            </span>
-            <span className="shrink-0 font-semibold tabular-nums">{row.score}</span>
-          </li>
-        ))}
-      </ol>
+      {noScoresYet(state) ? (
+        <p className="mt-10 font-serif text-[72px] leading-[1.1] text-stage-muted">{NO_SCORES_YET}</p>
+      ) : (
+        <ol className="mt-10 grid min-h-0 flex-1 grid-flow-col grid-rows-8 gap-x-12 gap-y-4 overflow-hidden">
+          {rows.map((row) => (
+            <li key={row.teamId} className="flex items-center gap-6 rounded-2xl bg-white/10 px-8 text-[40px]">
+              <span className="w-16 shrink-0 font-semibold tabular-nums text-gold">{rankOf(rows, row.teamId)}</span>
+              <span dir="auto" className="min-w-0 flex-1 truncate">
+                {row.name}
+              </span>
+              <span className="shrink-0 font-semibold tabular-nums">{row.score}</span>
+            </li>
+          ))}
+        </ol>
+      )}
       {ended ? <p className="mt-8 text-center text-[32px] text-stage-muted">Made with TriviaFoundry</p> : null}
     </div>
   );

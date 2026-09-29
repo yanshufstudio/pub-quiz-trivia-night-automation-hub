@@ -99,6 +99,7 @@ export function roundBase(session: Session, pack: PackWithRounds, now: Date) {
     revealedCount: session.revealedCount,
     round: inPlay && round ? { title: round.title, category: round.category } : null,
     scoreboardShown: session.scoreboardShown,
+    countedRounds: countedRounds(session, roundLengths(pack)),
     tvShowsAll: session.tvShowsAll,
     countdown:
       session.countdownStartedAt && session.countdownSeconds

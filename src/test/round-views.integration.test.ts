@@ -184,6 +184,17 @@ describe("the team's view of a round-mode game (RM4)", () => {
     expect((await teamBody(code, team)).scoreboard).toBeNull();
   });
 
+  it("says how many rounds the scoreboard counts, so no screen ranks a room of zeros", async () => {
+    const { code, hostToken, team } = await setup();
+    expect((await teamBody(code, team)).countedRounds).toBe(0);
+    for (const a of ["start", "ask_next", "ask_next", "close_round", "reveal_next"]) await game.advance(code, hostToken, a);
+    expect((await teamBody(code, team)).countedRounds).toBe(0);
+    expect((await hostBody(code, hostToken)).countedRounds).toBe(0);
+    await game.advance(code, hostToken, "reveal_all");
+    expect((await teamBody(code, team)).countedRounds).toBe(1);
+    expect((await hostBody(code, hostToken)).countedRounds).toBe(1);
+  });
+
   it("the final scoreboard shows at the end whether or not the host showed it", async () => {
     const { code, hostToken, team } = await setup();
     await game.advance(code, hostToken, "end");

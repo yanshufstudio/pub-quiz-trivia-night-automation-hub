@@ -13,7 +13,7 @@ import { buildHostUrl } from "@/lib/join-url";
 import { countOf } from "@/lib/plural";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import { questionLabel } from "@/lib/question-number";
-import { topScorers, winningNames } from "@/lib/scoreboard-summary";
+import { NO_SCORES_YET, noScoresYet, topScorers, winningNames } from "@/lib/scoreboard-summary";
 
 /**
  * The host desk for a round-mode game (RM7).
@@ -278,7 +278,11 @@ export function RoundHostDesk({
               Rounds count once every answer in them is revealed.
             </p>
             <div className="mt-3">
-              <Scoreboard rows={state.scoreboard} dark />
+              {noScoresYet(state) ? (
+                <p className="text-stage-muted">{NO_SCORES_YET}</p>
+              ) : (
+                <Scoreboard rows={state.scoreboard} dark />
+              )}
             </div>
           </section>
         ) : null}
