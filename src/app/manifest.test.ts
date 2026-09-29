@@ -13,10 +13,12 @@ function cssToken(name: string): string {
 describe("web app manifest", () => {
   const m = manifest();
 
-  it("names the app and opens at the root in standalone mode", () => {
+  it("names the app and opens at the host's packs in standalone mode", () => {
+    // Whoever installs it is a host, and the packs list is where a host
+    // starts — the marketing home page is for people who have not yet.
     expect(m.name).toBe("TriviaFoundry");
     expect(m.short_name).toBe("TriviaFoundry");
-    expect(m.start_url).toBe("/");
+    expect(m.start_url).toBe("/packs");
     expect(m.display).toBe("standalone");
   });
 
@@ -25,9 +27,11 @@ describe("web app manifest", () => {
     expect(m.theme_color).toBe(cssToken("stage"));
   });
 
-  it("offers 256 and 512 PNG icons plus a maskable one, all from public/", () => {
+  it("offers 192, 256 and 512 PNG icons plus a maskable one, all from public/", () => {
     const icons = m.icons ?? [];
     const sizes = icons.map((i) => i.sizes);
+    // 192 is the size Android's install prompt asks for.
+    expect(sizes).toContain("192x192");
     expect(sizes).toContain("256x256");
     expect(sizes).toContain("512x512");
     for (const icon of icons) {

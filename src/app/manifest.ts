@@ -12,11 +12,13 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "TriviaFoundry",
     short_name: "TriviaFoundry",
     description: "Writes your pub quiz or trivia night, then runs it live.",
-    start_url: "/",
+    // A host installs it, and a host starts from their packs.
+    start_url: "/packs",
     display: "standalone",
     background_color: "#182c21",
     theme_color: "#182c21",
     icons: [
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/icon-256.png", sizes: "256x256", type: "image/png", purpose: "any" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
       { src: "/icon-512-square.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
