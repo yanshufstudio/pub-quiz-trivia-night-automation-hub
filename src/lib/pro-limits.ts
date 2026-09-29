@@ -1,5 +1,6 @@
 import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-window-counter";
 import { parseCeiling, secondsUntilUtcMidnight, utcDay } from "@/lib/daily-ceiling";
+import type { Creator } from "@prisma/client";
 import { db } from "@/lib/db";
 
 /**
@@ -215,6 +216,116 @@ export async function countProGenerationInPeriod(creatorId: string): Promise<voi
   } catch (error) {
     console.error("Failed to count a Pro generation against the billing period:", error);
   }
+}
+
+/**
+ * Pro fair use (PRC5): a rolling 30-day cap on top of the ten a day.
+ *
+ * Not the M8 count above. That one rolls on Paddle's billing period, which is
+ * a year on the annual price, and a comped account has no period at all — so
+ * this keeps its own window on the Creator, rolled like the free tier's.
+ *
+ * The number is unpublished (M12), so nothing a host is shown carries it: the
+ * refusal names the date the window resets, never the size of the window.
+ */
+export const PRO_PERIOD_LIMIT_ENV = "PRO_USER_PERIOD_PACK_LIMIT";
+export const PRO_TRIAL_LIMIT_ENV = "PRO_TRIAL_PACK_LIMIT";
+export const DEFAULT_PRO_PERIOD_LIMIT = 40;
+export const DEFAULT_PRO_TRIAL_LIMIT = 10;
+
+const WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
+
+/** The cap for this subscription status; 0 means the cap is off. Read per
+ * request, like the daily limit, so a changed value needs no rebuild. */
+export function proFairUseLimit(subscriptionStatus: string | null): number {
+  if (subscriptionStatus === "trialing") {
+    return parseCeiling(process.env[PRO_TRIAL_LIMIT_ENV], DEFAULT_PRO_TRIAL_LIMIT);
+  }
+  return parseCeiling(process.env[PRO_PERIOD_LIMIT_ENV], DEFAULT_PRO_PERIOD_LIMIT);
+}
+
+/** True when there is no window yet, or the current one has run its 30 days —
+ * at which point the date the refusal promised has arrived. */
+export function proWindowExpired(startedAt: Date | null, now: Date): boolean {
+  return startedAt === null || now.getTime() - startedAt.getTime() >= WINDOW_MS;
+}
+
+export function proFairUseLimitMessage(resetsAt: Date): string {
+  const date = resetsAt.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+  return `You've reached Pro's fair-use limit for now. It resets on ${date}.`;
+}
+
+export const PRO_TRIAL_LIMIT_MESSAGE =
+  "You've reached the trial's limit. Pro continues when your subscription starts.";
+
+export type ProFairUseReservation =
+  | { allowed: true; release: () => Promise<void> }
+  | { allowed: false; message: string; retryAfterSeconds: number };
+
+/**
+ * Take one pack from this account's window before the model runs.
+ *
+ * The same race-safe shape as reserveFreeGeneration: roll an expired window
+ * conditional on the start we read, then claim with a conditional updateMany,
+ * so the database decides who got the last pack. A reservation is handed back
+ * on any failure, since a host should not lose a pack to ours.
+ */
+export async function reserveProFairUse(
+  creator: Pick<Creator, "id" | "subscriptionStatus" | "proWindowStartedAt">,
+  now: Date = new Date()
+): Promise<ProFairUseReservation> {
+  const limit = proFairUseLimit(creator.subscriptionStatus);
+  if (limit === 0) return { allowed: true, release: NO_OP_RELEASE };
+
+  let windowStart: Date;
+  if (creator.proWindowStartedAt === null || proWindowExpired(creator.proWindowStartedAt, now)) {
+    await db.creator.updateMany({
+      where: { id: creator.id, proWindowStartedAt: creator.proWindowStartedAt },
+      data: { proWindowCount: 0, proWindowStartedAt: now },
+    });
+    windowStart = now;
+  } else {
+    windowStart = creator.proWindowStartedAt;
+  }
+
+  const claimed = await db.creator.updateMany({
+    where: { id: creator.id, proWindowCount: { lt: limit } },
+    data: { proWindowCount: { increment: 1 } },
+  });
+
+  if (claimed.count === 0) {
+    const current = await db.creator.findUnique({ where: { id: creator.id } });
+    const resetsAt = new Date((current?.proWindowStartedAt ?? windowStart).getTime() + WINDOW_MS);
+    return {
+      allowed: false,
+      message:
+        creator.subscriptionStatus === "trialing"
+          ? PRO_TRIAL_LIMIT_MESSAGE
+          : proFairUseLimitMessage(resetsAt),
+      retryAfterSeconds: Math.max(1, Math.ceil((resetsAt.getTime() - now.getTime()) / 1000)),
+    };
+  }
+
+  // Conditional on the window it was taken from, so a release that lands
+  // after a roll does not refund the old window against the new one.
+  const claimedWindow = windowStart;
+  let released = false;
+  return {
+    allowed: true,
+    release: async () => {
+      if (released) return;
+      released = true;
+      await db.creator.updateMany({
+        where: { id: creator.id, proWindowStartedAt: claimedWindow, proWindowCount: { gt: 0 } },
+        data: { proWindowCount: { decrement: 1 } },
+      });
+    },
+  };
 }
 
 /**

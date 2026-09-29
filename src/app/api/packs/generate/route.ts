@@ -39,6 +39,7 @@ import {
   reserveProDailyGeneration,
   proDailyLimitMessage,
   countProGenerationInPeriod,
+  reserveProFairUse,
 } from "@/lib/pro-limits";
 
 // Default wizard brief (four rounds) exceeds the platform's default function
@@ -323,6 +324,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // PRC5: Pro fair use, a rolling 30-day window. The body carries the reset
+  // date and never the number, which stays unpublished (M12).
+  const fairUse = plan === "PRO" ? await reserveProFairUse(existing) : null;
+  if (fairUse && !fairUse.allowed) {
+    await proDaily?.release();
+    await daily.release();
+    return NextResponse.json(
+      { error: fairUse.message, proFairUseLimitReached: true },
+      { status: 429, headers: { "Retry-After": String(fairUse.retryAfterSeconds) } }
+    );
+  }
+
   // Claimed before the model call, not counted after it: the check and the
   // increment are one atomic statement, so two concurrent requests from one
   // account can no longer both pass on the same stale read (M12).
@@ -400,6 +413,8 @@ export async function POST(req: NextRequest) {
     try {
       await reservation.release();
       await mailbox?.release();
+      // Fair use is a host's allowance too, so it comes back whatever failed.
+      await fairUse?.release();
       // The free-tier fairness counters are not a bill: whatever went wrong,
       // the caller has no pack, so their allowance comes back either way.
       await freeIp?.release();
@@ -496,6 +511,7 @@ export async function POST(req: NextRequest) {
       await reservation.release();
       await mailbox?.release();
       await freeIp?.release();
+      await fairUse?.release();
       // The model ran and was billed, so the shared ceiling keeps its unit —
       // but this subscriber has nothing to show for it, and one of their ten a
       // day should not be spent on our storage failure.

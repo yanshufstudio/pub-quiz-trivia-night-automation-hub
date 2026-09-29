@@ -123,9 +123,9 @@ export const COOKIE_NAME = "pq_creator";
  * process, decides who got the last one. `count === 0` means somebody else
  * took it.
  *
- * PRO reserves nothing and is never counted: Pro has no per-user cap, which
- * is what /pricing's "Pro lifts the 2-pack limit" promises. Its spend
- * is bounded by the global daily ceiling instead (src/lib/daily-ceiling.ts).
+ * PRO reserves nothing here: its limits are its own (src/lib/pro-limits.ts —
+ * ten a day, and fair use over a rolling 30 days), under the global daily
+ * ceiling (src/lib/daily-ceiling.ts).
  */
 export async function reserveFreeGeneration(
   creator: Creator,

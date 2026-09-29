@@ -245,6 +245,13 @@ model Creator {
   // rolls on Paddle's word and never on a clock of ours.
   proPeriodStartedAt     DateTime?
 
+  // Pro fair use (PRC5): packs generated in a rolling 30-day window, and when
+  // that window started. Not the M8 count above, which rolls on Paddle's
+  // billing period — yearly on the annual price, and never for a comped
+  // account, which has no period at all. Null until the first Pro generation.
+  proWindowCount         Int        @default(0)
+  proWindowStartedAt     DateTime?
+
   /// Which Paddle environment granted this row's Pro (C1).
   ///
   /// Preview deployments share the production database and talk to Paddle's
