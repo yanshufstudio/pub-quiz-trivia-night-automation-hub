@@ -31,3 +31,14 @@ export function teamNameKey(name: string): string {
 }
 
 export const TEAM_NAME_MAX = 40;
+
+/**
+ * The join code is printed on the table QR and read out to the room, so it
+ * is not a secret and the join route cannot be authenticated — anyone who can
+ * see the code can join, by design. What it can be is bounded: without a
+ * ceiling, one person with the code could spawn teams until the host's
+ * scoreboard was unreadable and the quiz unrunnable. A pub quiz is 5-25
+ * teams; 60 leaves room for a big charity night and still bounds the damage.
+ * Paper teams the host adds count toward the same ceiling.
+ */
+export const MAX_TEAMS_PER_SESSION = 60;
