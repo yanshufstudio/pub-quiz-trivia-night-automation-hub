@@ -131,6 +131,7 @@ describe("GET /api/sessions/[code] in the lobby", () => {
     const created = await createSession(ownedRequest("/api/sessions", "POST", { packId: pack.id }));
     const { session, hostToken } = await created.json();
     const code = session.code as string;
+    await switchToQuestionMode(code);
 
     const desk = await readSession(
       new NextRequest(`${BASE}/api/sessions/${code}?as=host&hostToken=${encodeURIComponent(hostToken)}`),

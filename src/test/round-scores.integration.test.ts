@@ -1,5 +1,4 @@
 import { afterAll, describe, expect, it } from "vitest";
-import { NextRequest } from "next/server";
 
 import { POST as addTeam } from "@/app/api/sessions/[code]/teams/route";
 import { DELETE as clearRoundScore, PUT as setRoundScore } from "@/app/api/sessions/[code]/round-scores/route";

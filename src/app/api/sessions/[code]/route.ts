@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { roundHostView, roundTeamView } from "@/lib/round-views";
 import {
+  SESSION_MODE,
   SESSION_STATUS,
   getCurrentQuestion,
   getCurrentRound,
@@ -15,7 +17,7 @@ import { parseOptions, type QuestionType } from "@/lib/question-types";
 async function loadSession(code: string) {
   const session = await db.session.findUnique({
     where: { code: code.toUpperCase() },
-    include: { teams: true, answers: true },
+    include: { teams: true, answers: true, roundScores: true },
   });
   if (!session) return null;
 
@@ -58,6 +60,16 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
     if (!team) {
       return NextResponse.json({ error: "Invalid team token" }, { status: 401 });
     }
+    // A paper team's token never leaves the server; if one ever did, it
+    // still opens nothing (RM3).
+    if (team.isPaper) {
+      return NextResponse.json({ error: "This team plays on paper" }, { status: 403 });
+    }
+  }
+
+  if (session.mode === SESSION_MODE.ROUND) {
+    const now = new Date();
+    return NextResponse.json(asHost ? roundHostView(session, pack, now) : roundTeamView(session, pack, team!, now));
   }
 
   const round = getCurrentRound(pack, session.currentRoundIndex);
@@ -86,6 +98,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   );
 
   const base = {
+    mode: "QUESTION" as const,
     code: session.code,
     status: session.status,
     packTitle: pack.title,

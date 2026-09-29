@@ -1,0 +1,177 @@
+import type { Answer, RoundScore, Session, Team } from "@prisma/client";
+import type { PackWithRounds } from "@/lib/session-state";
+import { SESSION_STATUS } from "@/lib/session-state";
+import { parseOptions, type QuestionType } from "@/lib/question-types";
+import { computeRoundScoreboard, countedRounds, roundTotals } from "@/lib/round-scoreboard";
+import type {
+  RoundHostState,
+  RoundQuestionView,
+  RoundTeamState,
+  ScoreboardRow,
+} from "@/lib/api-types";
+
+/**
+ * What each screen of a round-mode game is sent (RM4). One rule runs through
+ * all of it, and it is the whole point of the file: a screen cannot show what
+ * it was never sent.
+ *
+ * - A question is sent only once it has been asked (index < askedCount), and
+ *   nothing at all in the lobby (L2).
+ * - A question's answer, and any team's mark for it, is sent to a team only
+ *   once that question is revealed (index < revealedCount).
+ * - The scoreboard goes to a team only while the host is showing it, or at the
+ *   end, and even then counts only fully revealed rounds (round-scoreboard.ts).
+ * - The host's desk is private in round mode — the room watches the TV — so
+ *   from the close of the round it gets every answer, the key and the marks it
+ *   needs to check. While the round is open it gets who has answered, not what,
+ *   the same no-peek rule the one-question desk has always had.
+ */
+
+export type LoadedSession = Session & { teams: Team[]; answers: Answer[]; roundScores: RoundScore[] };
+
+const { LOBBY, ROUND_MARKING, ROUND_REVEAL, ENDED } = SESSION_STATUS;
+
+function questionView(
+  question: PackWithRounds["rounds"][number]["questions"][number],
+  index: number,
+  showAnswer: boolean
+): RoundQuestionView {
+  return {
+    index,
+    id: question.id,
+    text: question.text,
+    points: question.points,
+    type: question.type as QuestionType,
+    options: parseOptions(question.options),
+    hasMedia: question.media != null,
+    answer: showAnswer ? question.answer : null,
+  };
+}
+
+/** The questions asked so far in the current round; none in the lobby. */
+export function askedQuestions(session: Session, pack: PackWithRounds, showAllAnswers: boolean) {
+  if (session.status === LOBBY) return [];
+  const round = pack.rounds[session.currentRoundIndex];
+  if (!round) return [];
+  return round.questions
+    .slice(0, session.askedCount)
+    .map((q, i) => questionView(q, i, showAllAnswers || i < session.revealedCount));
+}
+
+function roundLengths(pack: PackWithRounds) {
+  return pack.rounds.map((r) => r.questions.length);
+}
+
+export function roundScoreboard(session: LoadedSession, pack: PackWithRounds): ScoreboardRow[] {
+  return computeRoundScoreboard(
+    session.teams,
+    session.answers,
+    session.roundScores,
+    countedRounds(session, roundLengths(pack))
+  );
+}
+
+/** Whether the room may see the scoreboard right now. */
+export function scoreboardVisible(session: Session) {
+  return session.scoreboardShown || session.status === ENDED;
+}
+
+function roundFullyRevealed(session: Session, pack: PackWithRounds) {
+  return (
+    (session.status === ROUND_REVEAL || session.status === ENDED) &&
+    session.revealedCount >= (pack.rounds[session.currentRoundIndex]?.questions.length ?? 0)
+  );
+}
+
+export function roundBase(session: Session, pack: PackWithRounds, now: Date) {
+  const inPlay = session.status !== LOBBY;
+  const round = pack.rounds[session.currentRoundIndex];
+  return {
+    mode: "ROUND" as const,
+    code: session.code,
+    status: session.status as RoundTeamState["status"],
+    packTitle: pack.title,
+    roundNumber: session.currentRoundIndex + 1,
+    totalRounds: pack.rounds.length,
+    totalQuestionsInRound: round?.questions.length ?? 0,
+    askedCount: inPlay ? session.askedCount : 0,
+    revealedCount: session.revealedCount,
+    round: inPlay && round ? { title: round.title, category: round.category } : null,
+    scoreboardShown: session.scoreboardShown,
+    tvShowsAll: session.tvShowsAll,
+    countdown:
+      session.countdownStartedAt && session.countdownSeconds
+        ? { startedAt: session.countdownStartedAt.toISOString(), durationSeconds: session.countdownSeconds }
+        : null,
+    serverNow: now.toISOString(),
+  };
+}
+
+export function roundTeamView(session: LoadedSession, pack: PackWithRounds, team: Team, now: Date): RoundTeamState {
+  const inPlay = session.status !== LOBBY;
+  const mine = inPlay
+    ? session.answers
+        .filter((a) => a.teamId === team.id && a.roundIndex === session.currentRoundIndex)
+        .sort((a, b) => a.questionIndex - b.questionIndex)
+    : [];
+  const fullyRevealed = roundFullyRevealed(session, pack);
+  return {
+    ...roundBase(session, pack, now),
+    questions: askedQuestions(session, pack, false),
+    scoreboard: scoreboardVisible(session) ? roundScoreboard(session, pack) : null,
+    teamName: team.name,
+    myAnswers: mine.map((a) => {
+      const revealed = a.questionIndex < session.revealedCount;
+      return {
+        questionIndex: a.questionIndex,
+        text: a.text,
+        isCorrect: revealed ? a.isCorrect : null,
+        pointsAwarded: revealed ? a.pointsAwarded : null,
+      };
+    }),
+    myRoundTotal: fullyRevealed
+      ? (roundTotals([team], session.answers, session.roundScores, session.currentRoundIndex)[0]?.total ?? 0)
+      : null,
+  };
+}
+
+export function roundHostView(session: LoadedSession, pack: PackWithRounds, now: Date): RoundHostState {
+  const closed = session.status === ROUND_MARKING || session.status === ROUND_REVEAL || session.status === ENDED;
+  const inPlay = session.status !== LOBBY;
+  const roundAnswers = session.answers.filter((a) => a.roundIndex === session.currentRoundIndex);
+
+  return {
+    ...roundBase(session, pack, now),
+    questions: askedQuestions(session, pack, closed),
+    // Counted rounds only, as the room would see it — so the host previews
+    // exactly what "Show scoreboard" will put up.
+    scoreboard: roundScoreboard(session, pack),
+    teams: session.teams.map((t) => ({
+      id: t.id,
+      name: t.name,
+      isPaper: t.isPaper,
+      answered: inPlay
+        ? roundAnswers
+            .filter((a) => a.teamId === t.id)
+            .map((a) => a.questionIndex)
+            .sort((a, b) => a - b)
+        : [],
+    })),
+    marks: closed
+      ? roundTotals(session.teams, session.answers, session.roundScores, session.currentRoundIndex).map((row) => ({
+          ...row,
+          answers: roundAnswers
+            .filter((a) => a.teamId === row.teamId)
+            .sort((a, b) => a.questionIndex - b.questionIndex)
+            .map((a) => ({
+              questionIndex: a.questionIndex,
+              id: a.id,
+              text: a.text,
+              isCorrect: a.isCorrect,
+              pointsAwarded: a.pointsAwarded,
+              hostOverride: a.hostOverride,
+            })),
+        }))
+      : null,
+  };
+}

@@ -52,6 +52,81 @@ export type ScoreboardRow = {
 
 export type SessionStatus = "LOBBY" | "QUESTION_ACTIVE" | "REVEAL" | "ENDED";
 
+/** A round-mode game's statuses (src/lib/round-state.ts). */
+export type RoundStatus = "LOBBY" | "ROUND_OPEN" | "ROUND_MARKING" | "ROUND_REVEAL" | "ENDED";
+
+/** One asked question of the current round. `answer` is null until revealed. */
+export type RoundQuestionView = {
+  index: number;
+  id: string;
+  text: string;
+  points: number;
+  type: QuestionType;
+  options: string[];
+  hasMedia: boolean;
+  answer: string | null;
+};
+
+/** The host's optional countdown, stamped by the server. */
+export type CountdownInfo = { startedAt: string; durationSeconds: number } | null;
+
+type RoundBase = {
+  mode: "ROUND";
+  code: string;
+  status: RoundStatus;
+  packTitle: string;
+  roundNumber: number;
+  totalRounds: number;
+  totalQuestionsInRound: number;
+  askedCount: number;
+  revealedCount: number;
+  round: SessionRound | null;
+  scoreboardShown: boolean;
+  tvShowsAll: boolean;
+  countdown: CountdownInfo;
+  /** The server's clock when this was sent, so a countdown agrees on every screen. */
+  serverNow: string;
+  questions: RoundQuestionView[];
+};
+
+export type RoundTeamState = RoundBase & {
+  /** Null unless the host is showing it (or the quiz has ended). */
+  scoreboard: ScoreboardRow[] | null;
+  teamName: string;
+  myAnswers: {
+    questionIndex: number;
+    text: string;
+    isCorrect: boolean | null;
+    pointsAwarded: number | null;
+  }[];
+  /** The team's total for the round, once every answer in it is revealed. */
+  myRoundTotal: number | null;
+};
+
+export type RoundHostState = RoundBase & {
+  scoreboard: ScoreboardRow[];
+  teams: { id: string; name: string; isPaper: boolean; answered: number[] }[];
+  /** Null while the round is open. */
+  marks:
+    | {
+        teamId: string;
+        name: string;
+        isPaper: boolean;
+        auto: number;
+        typed: number | null;
+        total: number;
+        answers: {
+          questionIndex: number;
+          id: string;
+          text: string;
+          isCorrect: boolean | null;
+          pointsAwarded: number;
+          hostOverride: boolean;
+        }[];
+      }[]
+    | null;
+};
+
 export type SessionQuestion = {
   id: string;
   text: string;
