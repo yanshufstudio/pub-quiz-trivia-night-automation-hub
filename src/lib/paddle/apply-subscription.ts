@@ -4,6 +4,7 @@ import { isNewerEvent, statusToPlan } from "./plan";
 import { shouldRollProPeriod } from "@/lib/pro-limits";
 import { priceOwnership } from "./prices";
 import { paddleEnv } from "./config";
+import { recordTrialClaim } from "@/lib/trial";
 
 export type SubscriptionEvent = {
   eventId: string;
@@ -164,6 +165,8 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
             : {}),
         },
       });
+      // PRC8: the checkout offers a trial only where none was claimed.
+      if (event.status === "trialing") await recordTrialClaim(tx, creator, event.subscriptionId);
       await record(tx, event);
       return "applied";
     });

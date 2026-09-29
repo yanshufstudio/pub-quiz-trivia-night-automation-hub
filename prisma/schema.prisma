@@ -201,6 +201,21 @@ model MailboxAllowance {
   createdAt       DateTime @default(now())
 }
 
+/// One Pro trial per account and per mailbox (PRC8).
+///
+/// Written by the Paddle webhook on a subscription's first "trialing" event;
+/// read by the checkout, which offers the trial price only when neither the
+/// account nor its mailbox has a row here. Like MailboxAllowance, `mailboxKey`
+/// is a digest rather than an address, and the row has no foreign key: it has
+/// to outlive account deletion, or a second trial would be one "delete my
+/// account" away.
+model TrialClaim {
+  mailboxKey     String   @id
+  creatorId      String   @unique
+  subscriptionId String
+  createdAt      DateTime @default(now())
+}
+
 model Creator {
   id                     String     @id @default(cuid())
   deviceKey              String     @unique
