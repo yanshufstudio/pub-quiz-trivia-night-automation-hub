@@ -17,6 +17,7 @@ import {
 } from "@/lib/round-state";
 import { isValidHostToken } from "@/lib/host-auth";
 import { rescoreCurrentQuestion, rescoreRound } from "@/lib/rescore";
+import { forgetDisplay } from "@/lib/display-cache";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
 const QUESTION_ACTIONS = ["start", "reveal", "next", "end"] as const;
@@ -254,6 +255,7 @@ async function advanceRound(
   if (count === 0 && body.action !== "end") {
     return NextResponse.json({ error: "The game moved on — refresh and try again" }, { status: 409 });
   }
+  forgetDisplay(session.code);
   if (body.action === "close_round") {
     // The key may have been fixed while the round was open, and every answer
     // in so far was marked against the old one. Nothing can be submitted from

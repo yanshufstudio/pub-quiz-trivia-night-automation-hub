@@ -103,6 +103,13 @@ export type RoundTeamState = RoundBase & {
   myRoundTotal: number | null;
 };
 
+/** GET /api/sessions/[code]/display — the TV. */
+export type RoundDisplayState = RoundBase & {
+  teams: { name: string }[];
+  /** Null unless the host is showing it (or the quiz has ended). */
+  scoreboard: ScoreboardRow[] | null;
+};
+
 export type RoundHostState = RoundBase & {
   scoreboard: ScoreboardRow[];
   teams: { id: string; name: string; isPaper: boolean; answered: number[] }[];

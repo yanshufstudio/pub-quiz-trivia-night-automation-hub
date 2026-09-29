@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { generateTeamToken } from "@/lib/codes";
 import { hostSessionRequest } from "@/lib/host-route";
+import { forgetDisplay } from "@/lib/display-cache";
 import { SESSION_STATUS } from "@/lib/session-state";
 import { MAX_TEAMS_PER_SESSION, TEAM_NAME_MAX, normalizeTeamName, teamNameKey } from "@/lib/team-name";
 
@@ -42,5 +43,6 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const team = await db.team.create({
     data: { sessionId: session.id, name: body.name, token: generateTeamToken(), isPaper: true },
   });
+  forgetDisplay(session.code);
   return NextResponse.json({ team: { id: team.id, name: team.name, isPaper: true } }, { status: 201 });
 }

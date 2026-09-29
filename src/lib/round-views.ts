@@ -4,6 +4,7 @@ import { SESSION_STATUS } from "@/lib/session-state";
 import { parseOptions, type QuestionType } from "@/lib/question-types";
 import { computeRoundScoreboard, countedRounds, roundTotals } from "@/lib/round-scoreboard";
 import type {
+  RoundDisplayState,
   RoundHostState,
   RoundQuestionView,
   RoundTeamState,
@@ -132,6 +133,29 @@ export function roundTeamView(session: LoadedSession, pack: PackWithRounds, team
     myRoundTotal: fullyRevealed
       ? (roundTotals([team], session.answers, session.roundScores, session.currentRoundIndex)[0]?.total ?? 0)
       : null,
+  };
+}
+
+/**
+ * The TV (RM5). The room's view and nothing more: while the round is open, the
+ * question being asked (or every asked question, if the host switches the TV
+ * to that); nothing while the round is being marked; the revealed questions
+ * with their answers during the reveal; team names; the scoreboard only while
+ * the host shows it. Never a mark, a team's answer, a token or the host key.
+ */
+export function roundDisplayView(session: LoadedSession, pack: PackWithRounds, now: Date): RoundDisplayState {
+  let questions: RoundQuestionView[] = [];
+  if (session.status === SESSION_STATUS.ROUND_OPEN) {
+    const asked = askedQuestions(session, pack, false);
+    questions = session.tvShowsAll ? asked : asked.slice(-1);
+  } else if (session.status === ROUND_REVEAL) {
+    questions = askedQuestions(session, pack, false).slice(0, session.revealedCount);
+  }
+  return {
+    ...roundBase(session, pack, now),
+    questions,
+    teams: session.teams.map((t) => ({ name: t.name })),
+    scoreboard: scoreboardVisible(session) ? roundScoreboard(session, pack) : null,
   };
 }
 

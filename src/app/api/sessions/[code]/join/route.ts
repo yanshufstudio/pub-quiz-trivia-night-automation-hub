@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { generateTeamToken } from "@/lib/codes";
 import { rateLimit } from "@/lib/rate-limit";
 import { SESSION_STATUS } from "@/lib/session-state";
+import { forgetDisplay } from "@/lib/display-cache";
 import { MAX_TEAMS_PER_SESSION, TEAM_NAME_MAX, normalizeTeamName, teamNameKey } from "@/lib/team-name";
 
 const joinSchema = z.object({
@@ -71,5 +72,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     data: { sessionId: session.id, name, token: generateTeamToken() },
   });
 
+  // The TV's lobby lists teams as they join.
+  forgetDisplay(session.code);
   return NextResponse.json({ token: team.token, teamId: team.id, teamName: team.name }, { status: 201 });
 }

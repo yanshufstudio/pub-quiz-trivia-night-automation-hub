@@ -23,9 +23,13 @@ export const MEDIA_TEAM_TOKEN_PARAM = "token";
 export const MEDIA_HOST_TOKEN_PARAM = "hostToken";
 
 /** A team on its own phone, or the desk holding this session's host key. */
+/** The TV display: no credential, only the join code (see question-media-access). */
+export const MEDIA_DISPLAY_PARAM = "display";
+
 export type QuestionMediaViewer =
-  | { code: string; token: string; hostToken?: undefined }
-  | { code: string; hostToken: string; token?: undefined };
+  | { code: string; token: string; hostToken?: undefined; display?: undefined }
+  | { code: string; hostToken: string; token?: undefined; display?: undefined }
+  | { code: string; display: true; token?: undefined; hostToken?: undefined };
 
 /**
  * `viewer` is null on the surfaces that carry a session cookie instead — the
@@ -38,5 +42,6 @@ export function questionMediaUrl(questionId: string, viewer?: QuestionMediaViewe
   const params = new URLSearchParams({ [MEDIA_SESSION_CODE_PARAM]: viewer.code });
   if (viewer.token) params.set(MEDIA_TEAM_TOKEN_PARAM, viewer.token);
   if (viewer.hostToken) params.set(MEDIA_HOST_TOKEN_PARAM, viewer.hostToken);
+  if (viewer.display) params.set(MEDIA_DISPLAY_PARAM, "1");
   return `${path}?${params.toString()}`;
 }

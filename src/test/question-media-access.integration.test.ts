@@ -241,6 +241,9 @@ describe("a question's image is not served to whoever holds the id", () => {
     const lobby = await packWithAnImage(owner);
     const created = await createSession(json("/api/sessions", { packId: lobby.pack.id }, owner.cookie));
     const { session } = await created.json();
+    // A one-question-at-a-time session; a round-mode lobby serves no picture
+    // at all (round-display.integration.test.ts).
+    await switchToQuestionMode(session.code);
     const joined = await joinSession(
       json(`/api/sessions/${session.code}/join`, { name: `Early ${Math.random().toString(36).slice(2)}` }),
       codeParams(session.code)

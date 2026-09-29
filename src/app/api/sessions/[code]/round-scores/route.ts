@@ -3,6 +3,7 @@ import type { Session } from "@prisma/client";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { hostSessionRequest } from "@/lib/host-route";
+import { forgetDisplay } from "@/lib/display-cache";
 import { SESSION_MODE, SESSION_STATUS } from "@/lib/session-state";
 
 /**
@@ -61,6 +62,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     update: { points: body.points },
     create: { ...key, points: body.points },
   });
+  forgetDisplay(session.code);
   return NextResponse.json({ roundScore: { teamId: body.teamId, roundIndex: body.roundIndex, points: body.points } });
 }
 
@@ -77,5 +79,6 @@ export async function DELETE(req: NextRequest, { params }: Params) {
   await db.roundScore.deleteMany({
     where: { sessionId: session.id, teamId: body.teamId, roundIndex: body.roundIndex },
   });
+  forgetDisplay(session.code);
   return NextResponse.json({ roundScore: null });
 }
