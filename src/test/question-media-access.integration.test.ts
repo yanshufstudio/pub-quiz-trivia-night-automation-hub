@@ -10,6 +10,7 @@ import { db } from "@/lib/db";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import { realPngBytes } from "./image-fixtures";
 import { signInTestHost, type TestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 /**
  * Who may fetch a question's image.
@@ -101,6 +102,7 @@ async function liveSession(host: TestHost, packId: string) {
   const created = await createSession(json("/api/sessions", { packId }, host.cookie));
   if (created.status !== 201) throw new Error(`session create failed: ${created.status}`);
   const { session, hostToken } = await created.json();
+  await switchToQuestionMode(session.code);
 
   const joined = await joinSession(
     json(`/api/sessions/${session.code}/join`, { name: `Team ${Math.random().toString(36).slice(2)}` }),

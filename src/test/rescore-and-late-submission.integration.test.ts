@@ -14,6 +14,7 @@ import { db } from "@/lib/db";
 import { SESSION_STATUS } from "@/lib/session-state";
 import * as rateLimitModule from "@/lib/rate-limit";
 import { signInTestHost, type TestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 const codeParams = (code: string) => ({ params: Promise.resolve({ code }) });
@@ -78,6 +79,7 @@ async function liveGame(answer = "Canberra", points = 1) {
   const created = await createSession(ownedRequest("/api/sessions", "POST", { packId: pack.id }));
   const { session, hostToken } = await created.json();
   const code = session.code as string;
+  await switchToQuestionMode(code);
 
   const question = pack.rounds[0].questions.find((q) => q.text.startsWith("What is"))!;
   return { pack, code, hostToken, questionId: question.id };

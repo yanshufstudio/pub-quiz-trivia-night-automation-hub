@@ -11,6 +11,7 @@ import { PATCH as overrideAnswer } from "@/app/api/sessions/[code]/answers/[answ
 import { DEMO_PACK } from "@/lib/demo-pack";
 import { db } from "@/lib/db";
 import { signInTestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 
@@ -53,6 +54,7 @@ describe("full session lifecycle", () => {
     expect(res.status).toBe(201);
     const data = await json(res);
     code = data.session.code;
+    await switchToQuestionMode(code);
     hostToken = data.hostToken;
     expect(code).toMatch(/^[A-Z0-9]{5}$/);
     expect(hostToken).toBeTruthy();
