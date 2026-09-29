@@ -88,6 +88,23 @@ describe("POST /api/billing/checkout", () => {
     expect(await res.json()).toMatchObject({ alreadyPro: true });
   });
 
+  // PRC4: an owner-comped account is Pro without a subscription, so there is
+  // nothing to sell it — and no trial to start.
+  it("409s an owner-comped account, and reports it as Pro with no subscription", async () => {
+    const host = await signInTestHost(`comp-${Date.now()}@example.test`);
+    vi.stubEnv("PRO_COMP_EMAILS", `someone-else@example.test, ${host.email.toUpperCase()}`);
+
+    const res = await checkout(post("/api/billing/checkout", host.cookieHeader, { interval: "month" }));
+    expect(res.status).toBe(409);
+    expect(await res.json()).toMatchObject({ alreadyPro: true });
+
+    const s = await status(new NextRequest(`${BASE}/api/creator/status`, { headers: host.cookieHeader }));
+    expect(await s.json()).toMatchObject({ plan: "PRO", hasSubscription: false });
+
+    // Nothing was written: the row itself is still FREE.
+    expect(await db.creator.findUnique({ where: { id: host.id } })).toMatchObject({ plan: "FREE" });
+  });
+
   it("503s, saying so, on a deployment without the Paddle values", async () => {
     const host = await signInTestHost();
     vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_ANNUAL", "");

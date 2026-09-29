@@ -192,6 +192,22 @@ test("a checkout whose account was edited in the browser switches nobody's Pro o
  * replacing the card behind a failed payment, happens in Paddle's portal and
  * nowhere else.
  */
+// PRC4: an owner-comped account (PRO_COMP_EMAILS in playwright.config.ts) is
+// Pro with no subscription, so /pricing offers it neither a checkout nor a
+// trial — and does not send it to a portal it has nothing in.
+test("an owner-comped account is told it has Pro, and offered no checkout", async ({ browser, baseURL }) => {
+  const { context } = await signedInContext(browser, baseURL!, "comp-owner+pricing@example.test");
+  const page = await context.newPage();
+
+  await page.goto("/pricing");
+  const main = page.getByRole("main");
+  await expect(main.getByText("You have Pro on this account.")).toBeVisible();
+  await expect(main.getByRole("button", { name: /^Subscribe/ })).toHaveCount(0);
+  await expect(main.getByRole("button", { name: "Manage subscription" })).toHaveCount(0);
+
+  await context.close();
+});
+
 test("a paused subscription still gets into the billing portal", async ({ browser, baseURL }) => {
   const { context, api } = await signedInContext(browser, baseURL!);
   await warmWebhook(api);

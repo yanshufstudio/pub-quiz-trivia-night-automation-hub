@@ -3,6 +3,7 @@ import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-wind
 import { warnCounterUnavailable } from "@/lib/rate-limit";
 import { parseCeiling, secondsUntilUtcMidnight, utcDay } from "@/lib/daily-ceiling";
 import { FREE_LIMIT } from "@/lib/creator";
+import { normaliseMailbox } from "@/lib/email-normalise";
 import { db } from "@/lib/db";
 
 /**
@@ -58,10 +59,10 @@ export function freeIpDailyLimit(): number {
   return parseCeiling(process.env[FREE_IP_DAILY_LIMIT_ENV], DEFAULT_FREE_IP_DAILY_LIMIT);
 }
 
-const GMAIL_DOMAINS = new Set(["gmail.com", "googlemail.com"]);
-
 /**
- * The mailbox behind an address, **for free-allowance counting only**.
+ * The mailbox behind an address, **for counting allowances and matching
+ * entitlements only** (the free allowance here; owner comp and the trial use
+ * the same rule). The code lives in src/lib/email-normalise.ts.
  *
  * This is emphatically not an identity. Sign-in, account lookup and every
  * `User.email` comparison are untouched and must stay untouched: an account
@@ -95,27 +96,7 @@ const GMAIL_DOMAINS = new Set(["gmail.com", "googlemail.com"]);
  * otherwise untouched: it cannot be reasoned about, and it cannot have signed in
  * either, since Better Auth validates the address first.
  */
-export function normaliseForFreeAllowance(email: string): string {
-  const trimmed = email.trim().toLowerCase();
-  const at = trimmed.lastIndexOf("@");
-  if (at <= 0 || at === trimmed.length - 1) return trimmed;
-
-  let local = trimmed.slice(0, at);
-  const domain = trimmed.slice(at + 1);
-
-  // Strip the tag everywhere. "+tag" with an empty local part ("+a@x.com") is
-  // left alone rather than reduced to nothing.
-  const plus = local.indexOf("+");
-  if (plus > 0) local = local.slice(0, plus);
-
-  if (GMAIL_DOMAINS.has(domain)) {
-    const withoutDots = local.replace(/\./g, "");
-    // Only if something survives: "...@gmail.com" must not become "@gmail.com".
-    return `${withoutDots || local}@gmail.com`;
-  }
-
-  return `${local}@${domain}`;
-}
+export const normaliseForFreeAllowance = normaliseMailbox;
 
 const counter = createFixedWindowCounter();
 

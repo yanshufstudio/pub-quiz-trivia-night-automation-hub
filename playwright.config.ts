@@ -38,6 +38,8 @@ export default defineConfig({
       // lowering the real default, which is a production number chosen against
       // Resend's shared allowance.
       SIGNIN_CODE_DAILY_LIMIT: "100000",
+      // PRC4: one comped mailbox, for pro-upgrade.spec.ts's owner-comp test.
+      PRO_COMP_EMAILS: "comp-owner@example.test",
       BETTER_AUTH_SECRET: "e2e-suite-secret-not-used-anywhere-else",
       BETTER_AUTH_URL: `http://localhost:${PORT}`,
       // Paddle, with test values: enough for /pricing to offer checkout and

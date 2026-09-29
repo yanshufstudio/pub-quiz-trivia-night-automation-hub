@@ -1,6 +1,7 @@
 import type { Creator } from "@prisma/client";
 import { db } from "@/lib/db";
 import { paddleEnv } from "@/lib/paddle/config";
+import { isCompEmail } from "@/lib/comp";
 
 export const DEFAULT_FREE_LIMIT = 2;
 
@@ -67,7 +68,13 @@ export function withRolledPeriod(creator: Creator): Creator {
  * leaving any of them reading `creator.plan` directly would be a surface where
  * sandbox Pro still worked.
  */
-export function effectivePlan(creator: Pick<Creator, "plan" | "proEnvironment">): "FREE" | "PRO" {
+export function effectivePlan(
+  creator: Pick<Creator, "plan" | "proEnvironment">,
+  // The account's email, for owner comp (PRC4, src/lib/comp.ts). A caller that
+  // leaves it out gets the row's own plan, never more.
+  email?: string | null
+): "FREE" | "PRO" {
+  if (isCompEmail(email)) return "PRO";
   if (creator.plan !== "PRO") return "FREE";
   if (creator.proEnvironment === null || creator.proEnvironment === undefined) return "PRO";
   return creator.proEnvironment === paddleEnv() ? "PRO" : "FREE";
@@ -82,8 +89,8 @@ export function isProFromAnotherEnvironment(
   return creator.plan === "PRO" && effectivePlan(creator) === "FREE";
 }
 
-export function canGenerate(creator: Creator): boolean {
-  if (effectivePlan(creator) === "PRO") return true;
+export function canGenerate(creator: Creator, email?: string | null): boolean {
+  if (effectivePlan(creator, email) === "PRO") return true;
   return withRolledPeriod(creator).packsGeneratedInPeriod < FREE_LIMIT;
 }
 
@@ -121,9 +128,10 @@ export const COOKIE_NAME = "pq_creator";
  * is bounded by the global daily ceiling instead (src/lib/daily-ceiling.ts).
  */
 export async function reserveFreeGeneration(
-  creator: Creator
+  creator: Creator,
+  email?: string | null
 ): Promise<{ reserved: boolean; used: number; limit: number; release: () => Promise<void> }> {
-  if (effectivePlan(creator) === "PRO") {
+  if (effectivePlan(creator, email) === "PRO") {
     return {
       reserved: true,
       used: creator.packsGeneratedInPeriod,

@@ -203,7 +203,7 @@ export async function POST(req: NextRequest) {
   // — because this is also what decides which daily ceiling bucket the request
   // spends from, whether the per-address free cap applies, and whether a Pro
   // per-subscriber unit is reserved.
-  const plan = effectivePlan(existing);
+  const plan = effectivePlan(existing, host.user.email);
 
   // Settle this creator's own cap first, against the row we already have.
   // reserveFreeGeneration below is still the authority — this read cannot be
@@ -212,7 +212,7 @@ export async function POST(req: NextRequest) {
   // 403. At the ceiling boundary that churn can make a genuine visitor whose
   // request interleaves read one over the limit and be refused capacity that
   // is not actually in use.
-  if (!canGenerate(existing)) {
+  if (!canGenerate(existing, host.user.email)) {
     return NextResponse.json(
       {
         error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
@@ -326,7 +326,7 @@ export async function POST(req: NextRequest) {
   // Claimed before the model call, not counted after it: the check and the
   // increment are one atomic statement, so two concurrent requests from one
   // account can no longer both pass on the same stale read (M12).
-  const reservation = await reserveFreeGeneration(existing);
+  const reservation = await reserveFreeGeneration(existing, host.user.email);
   if (!reservation.reserved) {
     await daily.release();
     await freeIp?.release();

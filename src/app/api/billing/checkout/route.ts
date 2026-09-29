@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
   // effectivePlan: a row carrying a sandbox grant is FREE here, and must be able
   // to buy the real thing rather than being told it already has it (C1).
-  if (effectivePlan(host.creator) === "PRO") {
+  if (effectivePlan(host.creator, host.user.email) === "PRO") {
     return NextResponse.json({ error: "You are already on Pro.", alreadyPro: true }, { status: 409 });
   }
 
