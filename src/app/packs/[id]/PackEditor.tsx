@@ -7,6 +7,8 @@ import type { Pack, Question, QuestionType, Round } from "@/lib/api-types";
 import { writeHostToken } from "@/lib/host-session";
 import { SITE_URL } from "@/lib/site";
 import { countOf } from "@/lib/plural";
+import { UncheckedPackBanner } from "./UncheckedPackBanner";
+import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
 
 /**
  * What an expired session is told while editing (M5).
@@ -467,6 +469,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           <p className="mt-2 text-sm text-muted">
             {countOf(pack.rounds.length, "round")} · {countOf(questionCount, "question")}
           </p>
+          <p className="mt-1 text-xs text-muted">{AI_DISCLAIMER}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <a
@@ -521,6 +524,8 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       </p>
 
       {error ? <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800">{error}</p> : null}
+
+      {pack.reviewStatus === "not_checked" ? <UncheckedPackBanner packId={pack.id} /> : null}
 
       {!canEdit ? (
         <p className="mt-4 rounded-lg border border-line bg-white px-3 py-2 text-sm text-muted" role="note">

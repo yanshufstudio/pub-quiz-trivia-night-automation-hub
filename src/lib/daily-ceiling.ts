@@ -25,9 +25,12 @@ import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-wind
  */
 
 /**
- * Set to the owner's API budget, not to a guess at demand: at roughly $0.18
- * for a pack that runs to the full 16k max_tokens, 20 + 50 is about $12.60 of
- * worst-case spend a day. The defaults exist so that a deploy which forgets
+ * Set to the owner's API budget, not to a guess at demand. Measured in ACC5
+ * for Opus 5.5 generating and checking, a pack costs about $0.075 on average
+ * and $0.136 for five rounds of ten, so 20 + 50 is about $5 a day, or $9.50
+ * if every pack were that large. A pack whose every call ran to its 16k
+ * max_tokens, retried once, could cost about $1.40; these ceilings are what
+ * bound that. The defaults exist so that a deploy which forgets
  * the environment variables is still bounded by something the owner has
  * agreed to pay, rather than by a number that merely sounded cautious.
  */

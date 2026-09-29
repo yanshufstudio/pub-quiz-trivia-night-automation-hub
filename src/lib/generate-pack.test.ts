@@ -10,12 +10,20 @@ vi.mock("@/lib/anthropic", () => ({
   MissingApiKeyError: class MissingApiKeyError extends Error {},
 }));
 
-import { generateQuizPack, MAX_DECLINE_REASON_CHARS, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
+import {
+  generateQuizPack,
+  IncompletePackError,
+  MAX_DECLINE_REASON_CHARS,
+  ModelDeclinedError,
+  UnusableModelOutputError,
+} from "@/lib/generate-pack";
 
 type Request = Anthropic.MessageCreateParamsNonStreaming;
 
 function packInput() {
   return {
+    requested_rounds: 1,
+    requested_questions_per_round: [1],
     title: "Friday Night Quiz",
     rounds: [
       {
@@ -72,11 +80,48 @@ describe("generateQuizPack — the brief sent to the model", () => {
     expect(system).toMatch(/in words instead/i);
   });
 
-  it("forces exactly one call to the pack tool", async () => {
+  /**
+   * ACC1. A production pack on 28 Sep called the Spice Girls "British-Irish"
+   * and Alanis Morissette "US" — both answers right, both questions wrong,
+   * both from a nationality nobody needed. The review pass catches what gets
+   * through; this is the instruction that stops most of it being written.
+   */
+  it("asks for certain facts only, in the question as well as the answer", async () => {
+    const system = (await captureRequest()).system as string;
+
+    expect(system).toMatch(/only facts you are\s+certain of, in the question as well as in the answer/i);
+    expect(system).toMatch(/fewest\s+descriptors needed for one unambiguous answer/i);
+    expect(system).toMatch(/incidental\s+nationality, year, number or 'first', 'only' or 'largest'/i);
+    expect(system).toMatch(/unsure of a detail, leave it out rather than guess/i);
+    // Additions, not replacements: the rules that were there stay.
+    expect(system).toMatch(/single unambiguous factual answer/i);
+    expect(system).toMatch(/decline_reason/);
+  });
+
+  /**
+   * ACC10. ACC5's sport round named Klose as the World Cup's top scorer, true
+   * until July 2026, and no checker caught it: neither model knew the date.
+   */
+  it("gives the model today's date and asks it to date or avoid current records", async () => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-09-28T12:00:00Z"));
+    try {
+      const system = (await captureRequest()).system as string;
+
+      expect(system).toContain("Today's date is 2026-09-28.");
+      expect(system).toMatch(/current record or a current holder/i);
+      expect(system).toMatch(/state the year it is true for/i);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("asks for exactly one call to the pack tool", async () => {
+    // Auto tool choice (Opus 5.5 refuses forced), so the prompt is what asks.
     const req = await captureRequest();
 
-    expect(req.tool_choice).toEqual({ type: "tool", name: "emit_quiz_pack" });
     expect(req.tools?.[0]).toMatchObject({ name: "emit_quiz_pack" });
+    expect(req.system as string).toMatch(/Call the emit_quiz_pack tool exactly once/);
   });
 
   /**
@@ -104,6 +149,209 @@ describe("generateQuizPack — reading the response", () => {
     modelReplies(packInput(), "max_tokens");
 
     expect((await generateQuizPack("Eight rounds of fifteen.")).truncated).toBe(true);
+  });
+});
+
+/**
+ * ACC8. ACC5's G3 history pack came back as one round of 9 where three rounds
+ * of 8 were asked, with a stray "][0:0]" among its options, and nothing
+ * flagged it: not truncated, nothing dropped, saved as a good pack. The model
+ * now states the counts it was asked for before it writes a round, and a pack
+ * short of them, or with a broken option set, gets one more attempt.
+ */
+function question(n: number, extra: Record<string, unknown> = {}) {
+  return { text: `Question ${n}?`, answer: `Answer ${n}`, points: 1, ...extra };
+}
+
+function roundOf(size: number, title = "Rome") {
+  return { title, category: "History", questions: Array.from({ length: size }, (_, i) => question(i + 1)) };
+}
+
+function packWith(requested: number[], sizes: number[], title = "History Night") {
+  return {
+    requested_rounds: requested.length,
+    requested_questions_per_round: requested,
+    title,
+    rounds: sizes.map((size, i) => roundOf(size, `Round ${String.fromCharCode(65 + i)}`)),
+  };
+}
+
+function modelRepliesInTurn(...inputs: unknown[]) {
+  for (const input of inputs) {
+    create.mockResolvedValueOnce({
+      stop_reason: "tool_use",
+      content: [{ type: "tool_use", id: "tu_1", name: "emit_quiz_pack", input }],
+      usage: { input_tokens: 100, output_tokens: 1000, output_tokens_details: { thinking_tokens: 0 } },
+    });
+  }
+}
+
+function withChoices(options: unknown, answer = "Answer 1") {
+  const pack = packWith([2], [2]);
+  pack.rounds[0].questions[0] = question(1, { type: "MULTIPLE_CHOICE", answer, options }) as never;
+  return pack;
+}
+
+describe("generateQuizPack — the pack it was asked for (ACC8)", () => {
+  it("asks for the requested counts first, before the title and the rounds", async () => {
+    const schema = (await captureRequest()).tools?.[0] as Anthropic.Tool;
+    const keys = Object.keys(schema.input_schema.properties as object);
+
+    expect(keys.slice(0, 2)).toEqual(["requested_rounds", "requested_questions_per_round"]);
+    expect(keys.indexOf("title")).toBeGreaterThan(1);
+    expect(JSON.stringify(schema)).toMatch(/before (you write )?any round/i);
+  });
+
+  it("tries once more when the pack is short of what was asked, and keeps the second", async () => {
+    modelRepliesInTurn(packWith([8, 8, 8], [9]), packWith([8, 8, 8], [8, 8, 8]));
+
+    const result = await generateQuizPack("3 rounds of 8 questions.");
+
+    expect(create).toHaveBeenCalledTimes(2);
+    expect(result.pack.rounds.map((r) => r.questions.length)).toEqual([8, 8, 8]);
+    expect(result.attempts).toBe(2);
+    // Both calls were paid for, so both are in the cost log.
+    expect(result.usage).toMatchObject({ inputTokens: 200, outputTokens: 2000 });
+  });
+
+  it("fails with a message the host can act on when the second attempt is short too", async () => {
+    modelRepliesInTurn(packWith([8, 8, 8], [9]), packWith([8, 8, 8], [9]));
+
+    const err = await generateQuizPack("3 rounds of 8 questions.").catch((e) => e);
+
+    expect(create).toHaveBeenCalledTimes(2);
+    expect(err).toBeInstanceOf(IncompletePackError);
+    expect(err.truncated).toBe(false);
+    expect(err.hostMessage).toMatch(/asked for 24 questions, got 9/);
+    expect(err.hostMessage).toMatch(/generate again/i);
+  });
+
+  it("counts a short round even when the total is right", async () => {
+    modelRepliesInTurn(packWith([5, 5], [7, 3]), packWith([5, 5], [7, 3]));
+
+    await expect(generateQuizPack("Two rounds of five.")).rejects.toBeInstanceOf(IncompletePackError);
+  });
+
+  /**
+   * ACC13. The 29 Sep smoke test: asked for 3 rounds of 8, Opus 5.5 returned
+   * a correct [8,8,8] pack twice without stating the counts, and ACC8 failed
+   * it as malformed. The counts are now required in the schema; if they are
+   * still missing, the pack is kept and the gap is logged.
+   */
+  it("requires the counts in the schema, so a decline states them too", async () => {
+    const schema = (await captureRequest()).tools?.[0] as Anthropic.Tool;
+
+    expect(schema.input_schema.required).toEqual(["requested_rounds", "requested_questions_per_round"]);
+  });
+
+  it("keeps a correct pack that states no counts, and warns so it shows in the logs", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const noCounts: Record<string, unknown> = packWith([8, 8, 8], [8, 8, 8]);
+    delete noCounts.requested_rounds;
+    delete noCounts.requested_questions_per_round;
+    modelRepliesInTurn(noCounts);
+
+    const result = await generateQuizPack("3 rounds of 8 questions.");
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(result.pack.rounds.map((r) => r.questions.length)).toEqual([8, 8, 8]);
+    expect(warn).toHaveBeenCalledWith(expect.stringMatching(/stated no requested counts/));
+    warn.mockRestore();
+  });
+
+  it("still checks the options of a pack that states no counts", async () => {
+    const pack: Record<string, unknown> = withChoices(["Augustus", "Nero"]);
+    delete pack.requested_rounds;
+    delete pack.requested_questions_per_round;
+    modelRepliesInTurn(pack, pack);
+
+    await expect(generateQuizPack("x")).rejects.toBeInstanceOf(IncompletePackError);
+  });
+
+  it("reads a decline that also states counts as a decline", async () => {
+    modelRepliesInTurn({ requested_rounds: 3, requested_questions_per_round: [8, 8, 8], decline_reason: "Not writing that." });
+
+    const err = await generateQuizPack("x").catch((e) => e);
+
+    expect(err).toBeInstanceOf(ModelDeclinedError);
+    expect(create).toHaveBeenCalledTimes(1);
+  });
+
+  it("carries the tokens of every attempt on a failure, so the cost is not lost", async () => {
+    modelRepliesInTurn(packWith([8, 8, 8], [9]), packWith([8, 8, 8], [9]));
+
+    const err = await generateQuizPack("3 rounds of 8 questions.").catch((e) => e);
+
+    expect(err).toBeInstanceOf(IncompletePackError);
+    expect(err.usage).toMatchObject({ model: "claude-opus-5-5", inputTokens: 200, outputTokens: 2000 });
+    expect(err.attempts).toBe(2);
+  });
+
+  it("keeps extra questions, and says how many there were", async () => {
+    modelRepliesInTurn(packWith([5], [6]));
+
+    const result = await generateQuizPack("One round of five.");
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(result.pack.rounds[0].questions).toHaveLength(6);
+    expect(result.surplusQuestions).toBe(1);
+  });
+
+  it("does not retry a truncated pack: asking for less is the fix, as before", async () => {
+    create.mockResolvedValueOnce({
+      stop_reason: "max_tokens",
+      content: [{ type: "tool_use", id: "tu_1", name: "emit_quiz_pack", input: packWith([15, 15, 15], [15, 4]) }],
+    });
+
+    const result = await generateQuizPack("Three rounds of fifteen.");
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(result.truncated).toBe(true);
+  });
+
+  it("repairs blank and duplicate options without another attempt", async () => {
+    modelRepliesInTurn(withChoices(["Answer 1", " ", "answer 1 ", "Rome", "Rome"]));
+
+    const q = (await generateQuizPack("x")).pack.rounds[0].questions[0];
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(q).toMatchObject({ type: "MULTIPLE_CHOICE", options: ["Answer 1", "Rome"] });
+  });
+
+  it("keeps options whose colons, quotes or brackets are just punctuation", async () => {
+    const options = ["Star Wars: A New Hope", 'The "Iron Lady"', "Hey Jude [Remastered]", "Answer 1"];
+    modelRepliesInTurn(withChoices(options));
+
+    const q = (await generateQuizPack("x")).pack.rounds[0].questions[0];
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(q).toMatchObject({ type: "MULTIPLE_CHOICE", options });
+  });
+
+  it.each(["][0:0]", "[0:0]", 'Rome":', '{"text"', 'Nero"}', "{", "}", 'Nero\\"'])(
+    "tries once more on the leaked fragment %s in an option, then fails",
+    async (leak) => {
+      const options = ["Augustus", "Nero", leak, "Answer 1"];
+      modelRepliesInTurn(withChoices(options), withChoices(options));
+
+      await expect(generateQuizPack("x")).rejects.toBeInstanceOf(IncompletePackError);
+      expect(create).toHaveBeenCalledTimes(2);
+    }
+  );
+
+  it.each([
+    ["leaked syntax in an option", ["Augustus", "Nero", "][0:0]", "Answer 1"]],
+    ["the answer missing from the options", ["Augustus", "Nero"]],
+    ["fewer than two distinct options once repaired", ["Answer 1", "answer 1", " "]],
+    ["no options at all", undefined],
+  ])("tries once more on %s, then fails", async (_case, options) => {
+    modelRepliesInTurn(withChoices(options), withChoices(options));
+
+    const err = await generateQuizPack("x").catch((e) => e);
+
+    expect(create).toHaveBeenCalledTimes(2);
+    expect(err).toBeInstanceOf(IncompletePackError);
+    expect(err.hostMessage).toMatch(/generate again/i);
   });
 });
 
@@ -276,5 +524,70 @@ describe("generateQuizPack — a decline delivered through the tool", () => {
       const result = await generateQuizPack("Four rounds of pub trivia.");
       expect(result.pack.rounds).toHaveLength(1);
     }
+  });
+});
+
+/**
+ * ACC6. The generator takes a configuration so the accuracy harness can
+ * measure other models and settings through this same code.
+ */
+describe("generateQuizPack — configuration (ACC6)", () => {
+  // ACC5, Paul's pick: G3 made 2.6 errors per 100 questions against 12-17 for
+  // the Sonnet 5 configurations. Opus 5.5 refuses forced tool choice, so the
+  // model and the tool mode go together.
+  it("sends production Opus 5.5 at low effort: auto tool choice with a strict tool", async () => {
+    const req = await captureRequest();
+
+    expect(req.model).toBe("claude-opus-5-5");
+    expect(req.tool_choice).toEqual({ type: "auto" });
+    expect(req.tools?.[0]).toMatchObject({ name: "emit_quiz_pack", strict: true });
+    expect(req.output_config).toEqual({ effort: "low" });
+    expect(req).not.toHaveProperty("thinking");
+    // Strict schemas refuse numeric and length bounds; zod still enforces them.
+    const schema = JSON.stringify(req.tools?.[0]);
+    expect(schema).not.toMatch(/"(minimum|maximum|maxItems)"/);
+    expect(schema).toContain('"additionalProperties":false');
+  });
+
+  it("still sends Sonnet 5's forced way when told to, for the harness", async () => {
+    modelReplies(packInput());
+    await generateQuizPack("Four rounds.", { model: "claude-sonnet-5", thinking: "default", toolMode: "forced" });
+    const req = create.mock.calls[0][0] as Request;
+
+    expect(req.model).toBe("claude-sonnet-5");
+    expect(req.tool_choice).toEqual({ type: "tool", name: "emit_quiz_pack" });
+    expect(req).not.toHaveProperty("thinking");
+    expect(req).not.toHaveProperty("output_config");
+    expect(req.tools?.[0]).not.toHaveProperty("strict");
+    expect(JSON.stringify(req.tools?.[0])).toContain('"maximum":10');
+  });
+
+  it("sends a thinking setting only when one is chosen", async () => {
+    modelReplies(packInput());
+    await generateQuizPack("Four rounds.", { model: "claude-sonnet-5", thinking: "disabled", toolMode: "forced" });
+
+    expect((create.mock.calls[0][0] as Request).thinking).toEqual({ type: "disabled" });
+  });
+
+  it("returns the call's tokens, thinking included, for cost logging", async () => {
+    create.mockResolvedValue({
+      stop_reason: "tool_use",
+      content: [{ type: "tool_use", id: "tu_1", name: "emit_quiz_pack", input: packInput() }],
+      usage: { input_tokens: 900, output_tokens: 2500, output_tokens_details: { thinking_tokens: 1200 } },
+    });
+
+    const { usage } = await generateQuizPack("Four rounds.");
+
+    expect(usage).toMatchObject({ model: "claude-opus-5-5", inputTokens: 900, outputTokens: 2500, thinkingTokens: 1200 });
+    expect(usage.durationMs).toBeGreaterThanOrEqual(0);
+  });
+
+  it("can leave ACC1's rules out, for the harness's before/after measurement only", async () => {
+    modelReplies(packInput());
+    await generateQuizPack("Four rounds.", { ...{ model: "claude-sonnet-5", thinking: "default", toolMode: "forced" }, promptRules: "before-acc1" });
+    const system = (create.mock.calls[0][0] as Request).system as string;
+
+    expect(system).not.toMatch(/certain of/);
+    expect(system).toMatch(/single unambiguous factual answer/);
   });
 });

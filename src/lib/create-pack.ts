@@ -11,15 +11,38 @@ type PackInput = Omit<GeneratedPack, "rounds"> & {
   rounds: (Omit<GeneratedPack["rounds"][number], "questions"> & { questions: QuestionInput[] })[];
 };
 
+/** What the accuracy review (ACC2) recorded about a generated pack. Import
+ * and the demo pass none, which leaves every field NULL. */
+export type PackReviewRecord = {
+  status: "checked" | "not_checked";
+  fixed: number;
+  dropped: number;
+  /** JSON, for support: which questions changed and why, or why no review. */
+  notes: string;
+};
+
 /** `creatorId` null makes an ownerless pack: listed for everyone, editable by
  * no one (see src/lib/pack-access.ts). The seeded demo pack is the one
  * intended case; generate and import always pass a real creator. */
-export async function createPackFromGenerated(generated: PackInput, prompt: string, creatorId: string | null = null) {
+export async function createPackFromGenerated(
+  generated: PackInput,
+  prompt: string,
+  creatorId: string | null = null,
+  review?: PackReviewRecord
+) {
   return db.quizPack.create({
     data: {
       title: generated.title,
       prompt,
       creatorId,
+      ...(review
+        ? {
+            reviewStatus: review.status,
+            reviewFixed: review.fixed,
+            reviewDropped: review.dropped,
+            reviewNotes: review.notes,
+          }
+        : {}),
       rounds: {
         create: generated.rounds.map((round, roundIndex) => ({
           index: roundIndex,

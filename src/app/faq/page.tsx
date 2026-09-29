@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ANNUAL_MONTHS_FREE, formatUsd, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD } from "@/lib/pricing";
 import { SITE_URL } from "@/lib/site";
+import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
 
 export const metadata: Metadata = {
   title: "Questions and answers · TriviaFoundry",
@@ -84,8 +85,9 @@ const ENTRIES: Entry[] = [
     question: "How long does a pack take?",
     answer: (
       <>
-        Normally less than a minute. A four-round, forty-question pack is the usual size, and
-        the page tells you when it is done. Bigger briefs take longer.
+        Normally less than a minute, including the accuracy check: about 15 seconds for a
+        single five-question round, and about 50 for five rounds of ten. The page tells you
+        when it is done. Bigger briefs take longer.
       </>
     ),
   },
@@ -100,6 +102,11 @@ const ENTRIES: Entry[] = [
         writes is fixed.
       </>
     ),
+  },
+  {
+    id: "accuracy",
+    question: "Is every question right?",
+    answer: <>{AI_DISCLAIMER}</>,
   },
   {
     id: "teams",

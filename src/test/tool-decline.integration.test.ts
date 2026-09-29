@@ -132,6 +132,8 @@ describe("a decline that arrives through the tool", () => {
 
   it("still saves an ordinary pack", async () => {
     modelCallsToolWith({
+      requested_rounds: 1,
+      requested_questions_per_round: [1],
       title: "Friday Night Quiz",
       rounds: [
         {

@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { createPackFromGenerated } from "@/lib/create-pack";
-import { generateQuizPack, ModelDeclinedError, UnusableModelOutputError } from "@/lib/generate-pack";
+import {
+  generateQuizPack,
+  IncompletePackError,
+  ModelDeclinedError,
+  UnusableModelOutputError,
+  type GenerationResult,
+} from "@/lib/generate-pack";
+import { reviewForSaving, type ReviewedForSaving } from "@/lib/review-pack";
 import { wizardRequestSchema } from "@/lib/quiz-schema";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
 import {
@@ -41,6 +48,58 @@ import {
 // 800s. A large brief killed at 60s has already spent the model tokens it
 // burned getting there, so the low ceiling cost money and returned nothing.
 export const maxDuration = 300;
+
+/**
+ * What the review may spend of maxDuration: the rest after generation, less
+ * enough to save the pack and answer. The review's own timeout is set from
+ * this, so a slow review ends as "not checked" rather than as a killed
+ * function that loses the pack the host already paid for in time.
+ */
+const SAVE_MARGIN_MS = 15_000;
+
+/**
+ * One line per generated pack, for cost and accuracy tracking: tokens for
+ * both calls, time, and what the review did. No brief text and nothing about
+ * the host.
+ */
+function logGeneration(generated: GenerationResult, reviewed: ReviewedForSaving) {
+  // A log line must never be what fails a generation that has been paid for.
+  try {
+    const g = generated.usage as GenerationResult["usage"] | undefined;
+    const sum = (key: "inputTokens" | "outputTokens" | "durationMs") =>
+      reviewed.usage.reduce((total, u) => total + u[key], 0);
+    const reviewThinking = reviewed.usage.reduce((total, u) => total + (u.thinkingTokens ?? 0), 0);
+    console.info(
+      `pack-generated: review=${reviewed.record.status}` +
+        (reviewed.failure ? ` review_failure=${reviewed.failure}` : "") +
+        ` fixed=${reviewed.record.fixed} dropped=${reviewed.record.dropped}` +
+        ` gen_model=${g?.model ?? "?"} gen_in=${g?.inputTokens ?? "?"} gen_out=${g?.outputTokens ?? "?"}` +
+        ` gen_thinking=${g?.thinkingTokens ?? "?"} gen_ms=${g?.durationMs ?? "?"}` +
+        ` gen_attempts=${generated.attempts ?? "?"} gen_surplus=${generated.surplusQuestions ?? "?"}` +
+        ` review_calls=${reviewed.usage.length} review_model=${reviewed.usage[0]?.model ?? "-"}` +
+        ` review_in=${sum("inputTokens")} review_out=${sum("outputTokens")}` +
+        ` review_thinking=${reviewThinking} review_ms=${sum("durationMs")}`
+    );
+  } catch (err) {
+    console.error("Could not log a pack generation:", err);
+  }
+}
+
+/** ACC13: a failed generation was still paid for, so its tokens are logged too. */
+function logFailedGeneration(err: unknown) {
+  try {
+    const failed = err as { name?: string; usage?: GenerationResult["usage"]; attempts?: number };
+    const g = failed.usage;
+    if (!g) return;
+    console.info(
+      `pack-generation-failed: error=${failed.name ?? "?"} gen_model=${g.model} gen_in=${g.inputTokens}` +
+        ` gen_out=${g.outputTokens} gen_thinking=${g.thinkingTokens ?? "?"} gen_ms=${g.durationMs}` +
+        ` gen_attempts=${failed.attempts ?? "?"}`
+    );
+  } catch (logErr) {
+    console.error("Could not log a failed pack generation:", logErr);
+  }
+}
 
 /**
  * Every generation failure used to come back as one 502 saying "Please try
@@ -86,6 +145,11 @@ function failureBody(err: unknown): {
       declined: true,
     };
   }
+  // ACC8: short or malformed twice. The generator words it, since only it
+  // knows what came back ("asked for 24 questions, got 9").
+  if (err instanceof IncompletePackError) {
+    return { error: err.hostMessage };
+  }
   if (err instanceof UnusableModelOutputError && err.truncated) {
     return {
       error:
@@ -100,6 +164,7 @@ function failureBody(err: unknown): {
 }
 
 export async function POST(req: NextRequest) {
+  const startedAt = Date.now();
   // Each call spends real Anthropic API credit, so this is throttled
   // per-IP to bound the cost of a scripted abuse loop hitting a public URL.
   const limited = await rateLimit(req, "packs:generate", { limit: 5, windowMs: 10 * 60 * 1000 });
@@ -358,6 +423,7 @@ export async function POST(req: NextRequest) {
     generated = await generateQuizPack(parsed.data.prompt);
   } catch (err) {
     await releaseReservations(err);
+    logFailedGeneration(err);
     if (err instanceof MissingApiKeyError) {
       // Not an upstream failure — nothing to hide, and "please try again"
       // would be actively misleading here since retrying can't help.
@@ -405,9 +471,21 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  /**
+   * ACC2: the accuracy review. It runs after the generation has been paid for
+   * and counted, and it cannot undo either: whatever goes wrong in it, the
+   * unreviewed pack is saved and marked not checked, and nothing reserved
+   * above is released for it — the generation happened. It never throws.
+   */
+  const reviewed = await reviewForSaving(
+    generated.pack,
+    maxDuration * 1000 - (Date.now() - startedAt) - SAVE_MARGIN_MS
+  );
+  logGeneration(generated, reviewed);
+
   let pack;
   try {
-    pack = await createPackFromGenerated(generated.pack, parsed.data.prompt, existing.id);
+    pack = await createPackFromGenerated(reviewed.pack, parsed.data.prompt, existing.id, reviewed.record);
   } catch (err) {
     // The model ran and was billed, so the daily unit stays spent — but the
     // caller has nothing to show for it, and charging them a free pack for
