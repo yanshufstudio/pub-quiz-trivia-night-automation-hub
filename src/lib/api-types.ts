@@ -173,6 +173,7 @@ export type HostTeam = {
 };
 
 export type HostSessionState = {
+  mode: "QUESTION";
   code: string;
   status: SessionStatus;
   packTitle: string;
@@ -188,6 +189,7 @@ export type HostSessionState = {
 };
 
 export type TeamSessionState = {
+  mode: "QUESTION";
   code: string;
   status: SessionStatus;
   packTitle: string;

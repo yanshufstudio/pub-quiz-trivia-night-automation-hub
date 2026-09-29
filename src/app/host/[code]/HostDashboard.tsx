@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import QRCode from "react-qr-code";
+import { JoinQr } from "@/components/JoinQr";
 import { Countdown } from "@/components/Countdown";
 import { Scoreboard } from "@/components/Scoreboard";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -10,9 +10,10 @@ import { TrophyIcon } from "@/components/icons";
 import { topScorers, winningNames } from "@/lib/scoreboard-summary";
 import { readHostToken, writeHostToken } from "@/lib/host-session";
 import { CopyButton } from "@/components/CopyButton";
-import { buildJoinUrl, buildHostUrl } from "@/lib/join-url";
+import { buildHostUrl } from "@/lib/join-url";
 import { questionMediaUrl } from "@/lib/question-media-url";
-import type { HostSessionState, HostTeam, SessionQuestion } from "@/lib/api-types";
+import type { HostSessionState, HostTeam, RoundHostState, SessionQuestion } from "@/lib/api-types";
+import { RoundHostDesk } from "./RoundHostDesk";
 import { countOf } from "@/lib/plural";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
@@ -42,7 +43,7 @@ export function HostDashboard({ code }: { code: string }) {
   const [hostToken, setHostToken] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [pastedToken, setPastedToken] = useState("");
-  const [state, setState] = useState<HostSessionState | null>(null);
+  const [state, setState] = useState<HostSessionState | RoundHostState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   // Two taps to end a game, because this desk sits on a TV within reach of a
@@ -174,7 +175,7 @@ export function HostDashboard({ code }: { code: string }) {
     // The id is only sent from the reveal onwards, along with everything else
     // about the answer — so this is unreachable before then, and the buttons
     // that call it are not rendered either.
-    if (!team.currentAnswer?.id || !state?.question || !hostToken) return;
+    if (!team.currentAnswer?.id || state?.mode !== "QUESTION" || !state.question || !hostToken) return;
     await fetch(`/api/sessions/${code}/answers/${team.currentAnswer.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -199,12 +200,12 @@ export function HostDashboard({ code }: { code: string }) {
   }, [confirmingEnd]);
 
   if (!hydrated) {
-    return <div className="min-h-dvh bg-stage" />;
+    return <div className="stage-surface min-h-dvh bg-stage" />;
   }
 
   if (!hostToken) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-stage px-5 text-stage-fg">
+      <div className="flex stage-surface min-h-dvh items-center justify-center bg-stage px-5 text-stage-fg">
         <div className="w-full max-w-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Host desk</p>
           <h1 className="mt-2 font-serif text-2xl font-semibold">Host key needed</h1>
@@ -236,10 +237,16 @@ export function HostDashboard({ code }: { code: string }) {
 
   if (!state) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-stage text-stage-muted">
+      <div className="flex stage-surface min-h-dvh items-center justify-center bg-stage text-stage-muted">
         {error ?? "Loading host desk…"}
       </div>
     );
+  }
+
+  // Every game started since round mode shipped (RM7). Everything below this
+  // line is the one-question-at-a-time desk, kept for games already running.
+  if (state.mode === "ROUND") {
+    return <RoundHostDesk code={code} hostToken={hostToken} state={state} error={error} onError={setError} refresh={refresh} />;
   }
 
   const submitted = state.teams.filter((team) => team.currentAnswer).length;
@@ -266,7 +273,7 @@ export function HostDashboard({ code }: { code: string }) {
     state.status === "QUESTION_ACTIVE" || state.status === "REVEAL" ? "Live submissions" : "Teams";
 
   return (
-    <div className="min-h-dvh bg-stage text-stage-fg">
+    <div className="stage-surface min-h-dvh bg-stage text-stage-fg">
       <header className="border-b border-white/10 px-5 py-4 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
           <div>
@@ -571,23 +578,5 @@ export function HostDashboard({ code }: { code: string }) {
         </p>
       </main>
     </div>
-  );
-}
-
-// Scannable join link for the lobby. The origin is read at render time so
-// the same build works on localhost, a preview URL, and production. This is
-// a client component, so window is always defined by the time it renders.
-function JoinQr({ code }: { code: string }) {
-  const joinUrl = buildJoinUrl(window.location.origin, code);
-  return (
-    <figure className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:gap-5">
-      <div className="rounded-xl bg-white p-3">
-        <QRCode value={joinUrl} size={168} role="img" aria-label="Scan to join" />
-      </div>
-      <figcaption className="text-center text-sm text-stage-muted sm:text-left">
-        <span className="block font-semibold text-stage-fg">Scan to join</span>
-        <span className="mt-1 block break-all font-mono text-xs">{joinUrl}</span>
-      </figcaption>
-    </figure>
   );
 }
