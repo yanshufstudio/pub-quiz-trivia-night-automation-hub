@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ContactLink } from "@/components/LegalPage";
 import { ProCheckout } from "./ProCheckout";
 import {
   ANNUAL_MONTHS_FREE,
@@ -94,6 +95,11 @@ export default function PricingPage() {
             <ProCheckout />
           </section>
         </div>
+
+        <p className="mt-5 text-muted">
+          Running quizzes for a venue, or several nights a week? <ContactLink>Get in touch</ContactLink> —
+          we&apos;re shaping a plan for you.
+        </p>
 
         <p className="mt-8 text-muted">
           Pro subscriptions are sold by Paddle.com, which acts as the merchant of record and

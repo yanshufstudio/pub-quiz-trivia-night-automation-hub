@@ -6,6 +6,7 @@ import {
   PRICE_MONTHLY_USD,
   formatUsd,
 } from "@/lib/pricing";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 // Paddle's domain review checks that pricing is visible on the live site and
 // that the policy pages are reachable from the navigation. /pricing exists for
@@ -41,6 +42,25 @@ test("/pricing is served publicly and states both prices", async ({ page, reques
   // what a host pays for.
   await expect(page.getByRole("main").getByText(/no account/i)).toHaveCount(0);
   await expect(page.getByText("A free account, no card")).toBeVisible();
+});
+
+// PRC2: venues and frequent hosts get a line, not a card, while the plan is
+// shaped. It sits under the two cards and writes to the published address.
+test("/pricing invites venues to get in touch, under the cards", async ({ page }) => {
+  await page.goto("/pricing");
+
+  const line = page.getByText(/Running quizzes for a venue, or several nights a week\?/);
+  await expect(line).toBeVisible();
+  await expect(line).toContainText("we're shaping a plan for you.");
+  const link = line.getByRole("link", { name: "Get in touch" });
+  await expect(link).toHaveAttribute("href", `mailto:${CONTACT_EMAIL}`);
+
+  // Below the Pro card, not inside either card.
+  const proCard = page.locator("section[aria-labelledby=plan-pro]");
+  await expect(proCard.getByText(/Running quizzes for a venue/)).toHaveCount(0);
+  const cardBottom = await proCard.evaluate((el) => el.getBoundingClientRect().bottom);
+  const lineTop = await line.evaluate((el) => el.getBoundingClientRect().top);
+  expect(lineTop).toBeGreaterThan(cardBottom);
 });
 
 test("a signed-out visitor is asked to sign in, not shown a checkout", async ({ page }) => {

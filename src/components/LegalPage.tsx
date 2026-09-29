@@ -55,10 +55,10 @@ export function LegalList({ children }: { children: ReactNode }) {
  * the GitHub organisation publishes. One component, one address, from
  * `src/lib/site.ts`.
  */
-export function ContactLink() {
+export function ContactLink({ children }: { children?: ReactNode } = {}) {
   return (
     <a className="font-medium text-amber hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
-      {CONTACT_EMAIL}
+      {children ?? CONTACT_EMAIL}
     </a>
   );
 }
