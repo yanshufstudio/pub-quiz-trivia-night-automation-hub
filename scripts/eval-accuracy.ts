@@ -21,6 +21,7 @@
  *   npm run eval:accuracy -- --dry-run          plan and cost estimate, no API calls
  *   npm run eval:accuracy                       the full run (stops at --budget)
  *   npm run eval:accuracy -- --generators G1b --checkers C1 --briefs 90s-pop
+ *   npm run eval:accuracy -- --generators G3,G4 --checkers C2 --briefs short-6 --repeat 10
  *
  * Needs ANTHROPIC_API_KEY in the environment or in .env.local. Use a key of
  * its own with a spend limit, not the production key.
@@ -49,6 +50,8 @@ const BRIEFS: Brief[] = [
   { id: "hebrew", prompt: "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.", questions: 24 },
   { id: "kids", prompt: "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.", questions: 10 },
   { id: "large", prompt: "5 rounds of 10 questions for adults in a pub, medium difficulty: 80s music, world geography, famous film quotes, science, general knowledge.", questions: 50 },
+  // ACC6: the brief production's generator failed 2 of 3 times on the #40 sandbox walk.
+  { id: "short-6", prompt: "A short pub quiz: 2 rounds of 3 questions each. Round 1: 90s pop music. Round 2: UK geography. Keep answers short.", questions: 6 },
 ];
 
 // ---------------------------------------------------------------- configs
@@ -148,6 +151,8 @@ function arg(name: string): string | undefined {
 }
 const DRY_RUN = process.argv.includes("--dry-run");
 const BUDGET = Number(arg("budget") ?? 10);
+/** ACC6: generate each selected brief this many times; runs after the first are "<brief>#<n>". */
+const REPEAT = Number(arg("repeat") ?? 1);
 
 function selected<T>(all: Record<string, T> | T[], list: string | undefined, key: (t: T) => string = (t) => String(t)) {
   const entries = Array.isArray(all) ? all.map((t) => [key(t), t] as const) : Object.entries(all);
@@ -194,7 +199,10 @@ function csvCell(value: unknown): string {
 }
 
 async function main() {
-  const briefs = selected(BRIEFS, arg("briefs"), (b) => b.id).map(([, b]) => b);
+  if (!Number.isInteger(REPEAT) || REPEAT < 1) throw new Error(`--repeat must be a whole number of at least 1`);
+  const briefs = selected(BRIEFS, arg("briefs"), (b) => b.id).flatMap(([, b]) =>
+    Array.from({ length: REPEAT }, (_, i) => ({ ...b, run: i === 0 ? b.id : `${b.id}#${i + 1}` }))
+  );
   const generators = selected(GENERATORS, arg("generators"));
   const checkerFilter = arg("checkers")?.split(",").map((s) => s.trim());
 
@@ -236,7 +244,7 @@ async function main() {
         console.log(`Budget of $${BUDGET} reached ($${spent.toFixed(2)} spent); stopping.`);
         break outer;
       }
-      process.stdout.write(`${gid} × ${brief.id}: generating… `);
+      process.stdout.write(`${gid} × ${brief.run}: generating… `);
       const genStart = Date.now();
       let generated;
       try {
@@ -244,8 +252,8 @@ async function main() {
       } catch (err) {
         const message = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
         console.log(`failed (${message})`);
-        writeFileSync(path.join(outDir, "runs", `${gid}__${brief.id}.json`), JSON.stringify({ generator: gid, config: g, brief, failed: message }, null, 2));
-        summary.push(`| ${gid} | ${brief.id} | generation failed: ${message.replace(/\|/g, "/")} | | | | | |`);
+        writeFileSync(path.join(outDir, "runs", `${gid}__${brief.run}.json`), JSON.stringify({ generator: gid, config: g, brief, failed: message }, null, 2));
+        summary.push(`| ${gid} | ${brief.run} | generation failed: ${message.replace(/\|/g, "/")} | | | | | |`);
         continue;
       }
       const genMs = Date.now() - genStart;
@@ -276,7 +284,7 @@ async function main() {
       }
 
       writeFileSync(
-        path.join(outDir, "runs", `${gid}__${brief.id}.json`),
+        path.join(outDir, "runs", `${gid}__${brief.run}.json`),
         JSON.stringify(
           {
             generator: gid,
@@ -323,11 +331,11 @@ async function main() {
           const v = r.outcome.verdicts.find((x) => x.id === q.id);
           return [v?.verdict ?? "none", v?.reason ?? "", v?.text ?? "", v?.answer ?? "", r.outcome.blindAnswers[q.id]?.answer ?? ""];
         });
-        csv.push([gid, brief.id, q.id, q.round, q.type, q.text, q.answer, (q.options ?? []).join(" | "), ...cols, "", "", ""].map(csvCell).join(","));
+        csv.push([gid, brief.run,q.id, q.round, q.type, q.text, q.answer, (q.options ?? []).join(" | "), ...cols, "", "", ""].map(csvCell).join(","));
       }
 
       summary.push(
-        `| ${gid} | ${brief.id} | ${before.length} | ${generated.usage.inputTokens}/${generated.usage.outputTokens}/${generated.usage.thinkingTokens ?? "?"} | $${genCost.toFixed(3)} | ${(genMs / 1000).toFixed(1)}s | ` +
+        `| ${gid} | ${brief.run} | ${before.length} | ${generated.usage.inputTokens}/${generated.usage.outputTokens}/${generated.usage.thinkingTokens ?? "?"} | $${genCost.toFixed(3)} | ${(genMs / 1000).toFixed(1)}s | ` +
           results
             .map((r) =>
               "outcome" in r
