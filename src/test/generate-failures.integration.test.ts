@@ -10,7 +10,12 @@ vi.mock("@/lib/generate-pack", async (importOriginal) => ({
   generateQuizPack: vi.fn(),
 }));
 
-import { generateQuizPack, IncompletePackError, UnusableModelOutputError } from "@/lib/generate-pack";
+import {
+  generateQuizPack,
+  GenerationTimedOutError,
+  IncompletePackError,
+  UnusableModelOutputError,
+} from "@/lib/generate-pack";
 import { POST as generate } from "@/app/api/packs/generate/route";
 import { signInTestHost } from "./auth-fixture";
 
@@ -140,6 +145,32 @@ describe("POST /api/packs/generate — failure mapping", () => {
       )
     );
     info.mockRestore();
+  });
+
+  /**
+   * GH5. The function has 300s. Generation used to get the SDK's default ten
+   * minutes per attempt, so a slow call could outlive the function and lose
+   * the pack, the refunds and the cost log together.
+   */
+  it("gives generation a deadline inside the function's 300s, with room left to save", async () => {
+    vi.mocked(generateQuizPack).mockRejectedValue(new UnusableModelOutputError("x", false));
+    const before = Date.now();
+
+    await generate(generateRequest());
+    const options = vi.mocked(generateQuizPack).mock.calls[0][2];
+
+    expect(options?.deadline).toBeGreaterThan(before);
+    expect(options?.deadline).toBeLessThanOrEqual(before + 300_000 - 15_000 + 1_000);
+  });
+
+  it("422s a generation that ran out of time, and says what to change", async () => {
+    vi.mocked(generateQuizPack).mockRejectedValue(new GenerationTimedOutError());
+
+    const res = await generate(generateRequest());
+    const data = await res.json();
+
+    expect(res.status).toBe(422);
+    expect(data.error).toMatch(/fewer rounds/i);
   });
 
   it("201s with the questions that survived a truncated generation", async () => {

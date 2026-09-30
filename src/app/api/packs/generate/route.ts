@@ -420,7 +420,12 @@ export async function POST(req: NextRequest) {
 
   let generated;
   try {
-    generated = await generateQuizPack(parsed.data.prompt);
+    // GH5: generation, its retries and ACC8's second attempt all end inside
+    // the function's time, with room left to save. What is left after it
+    // goes to the review, which ends as "not checked" if it runs short.
+    generated = await generateQuizPack(parsed.data.prompt, undefined, {
+      deadline: startedAt + maxDuration * 1000 - SAVE_MARGIN_MS,
+    });
   } catch (err) {
     await releaseReservations(err);
     logFailedGeneration(err);
@@ -456,7 +461,7 @@ export async function POST(req: NextRequest) {
         err
       );
     } else if (err instanceof ModelDeclinedError) {
-      console.warn("Quiz pack brief declined by the model:", err.reason || "(no reason given)");
+      console.warn("Quiz pack brief declined by the model:", err.reason || err.detail || "(no reason given)");
     } else {
       console.error("Quiz pack generation failed:", err);
     }

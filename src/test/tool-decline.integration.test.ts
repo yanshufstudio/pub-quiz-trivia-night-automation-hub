@@ -79,6 +79,27 @@ describe("a decline that arrives through the tool", () => {
     expect(body.error).toBe(reason);
   });
 
+  // GH4: ACC7's refusals carried the API's note to integrators as their
+  // explanation, and the host was shown it as the reason.
+  it("answers a refusal with our own plain words, never the API's explanation", async () => {
+    create.mockResolvedValue({
+      stop_reason: "refusal",
+      stop_details: {
+        type: "refusal",
+        explanation: "API integrators: you can reduce refusals for your users by configuring a fallback model",
+      },
+      content: [],
+    });
+
+    const res = await generate(await generateRequest());
+    const body = await res.json();
+
+    expect(res.status).toBe(422);
+    expect(body.declined).toBe(true);
+    expect(body.error).not.toMatch(/integrators|fallback/i);
+    expect(body.error).toMatch(/declined this brief/i);
+  });
+
   it("saves nothing when the model substitutes a quiz alongside the refusal", async () => {
     const before = await db.quizPack.count();
     modelCallsToolWith({
