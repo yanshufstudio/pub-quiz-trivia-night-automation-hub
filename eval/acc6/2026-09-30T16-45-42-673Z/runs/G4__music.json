@@ -1,0 +1,763 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "run": "music"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1826,
+      "outputTokens": 1426,
+      "thinkingTokens": 0,
+      "durationMs": 10346
+    },
+    "costUsd": 0.017912,
+    "ms": 10346
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released the 1969 album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Who was the lead singer of The Doors?",
+      "answer": "Jim Morrison"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Led Zeppelin song opens with a famous acoustic intro and builds to a guitar solo, appearing on their untitled fourth album?",
+      "answer": "Stairway to Heaven"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released the 1973 album 'The Dark Side of the Moon'?",
+      "answer": "Pink Floyd"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist performed a famous version of 'All Along the Watchtower' in 1968, a song written by Bob Dylan?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Queen song from 1975 features an operatic middle section and was on the album 'A Night at the Opera'?",
+      "answer": "Bohemian Rhapsody"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which festival, held in upstate New York in August 1969, featured Jimi Hendrix closing the show?",
+      "answer": "Woodstock"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rock Revolution",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band's 1971 album 'Sticky Fingers' featured a zipper on its cover designed by Andy Warhol?",
+      "answer": "The Rolling Stones"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer continued to compose after going deaf, completing nine symphonies including the 'Choral'?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+      "answer": "Tchaikovsky"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Austrian composer wrote the opera 'The Magic Flute'?",
+      "answer": "Mozart"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Brandenburg Concertos'?",
+      "answer": "Johann Sebastian Bach"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which French composer wrote 'Boléro'?",
+      "answer": "Maurice Ravel"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Planets' suite?",
+      "answer": "Gustav Holst"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Classical Greats",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote 'The Rite of Spring', whose 1913 Paris premiere caused a near riot?",
+      "answer": "Igor Stravinsky"
+    },
+    {
+      "id": "R3Q1",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which act had a 1982 hit with 'Come On Eileen'?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q2",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which artist sang 'Mambo No. 5 (A Little Bit of...)' in 1999?",
+      "answer": "Lou Bega"
+    },
+    {
+      "id": "R3Q3",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1983 hit with 'Tainted Love'... no, which band sang 'Video Killed the Radio Star'?",
+      "answer": "The Buggles"
+    },
+    {
+      "id": "R3Q4",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Icelandic-born... no, which Swedish group's Eurovision-unrelated 1993 hit was 'Mr. Vain'?",
+      "answer": "Culture Beat"
+    },
+    {
+      "id": "R3Q5",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Canadian-born singer had a 1980s hit with 'Take On Me'?",
+      "answer": "a-ha"
+    },
+    {
+      "id": "R3Q6",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which one-hit wonder sang 'Macarena' in 1996?",
+      "answer": "Los del Río"
+    },
+    {
+      "id": "R3Q7",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer had a 2001 hit with 'Who Let the Dogs Out'?",
+      "answer": "Baha Men"
+    },
+    {
+      "id": "R3Q8",
+      "round": "One-Hit Wonders",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band sang 'Tubthumping' in 1997?",
+      "answer": "Chumbawamba"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.071588,
+      "ms": 28562,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2483,
+          "outputTokens": 2251,
+          "thinkingTokens": 420,
+          "durationMs": 21878
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1889,
+          "outputTokens": 454,
+          "thinkingTokens": 0,
+          "durationMs": 6684
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer with his full name."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer with his full name."
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "fix",
+          "reason": "Removed the unedited draft wording and the wrong 1983 date for 'Tainted Love'.",
+          "text": "Which band sang 'Video Killed the Radio Star'?"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "fix",
+          "reason": "Culture Beat are German, not Swedish. Also removed the leftover draft wording.",
+          "text": "Which German group had a 1993 hit with 'Mr. Vain'?"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "fix",
+          "reason": "'Take On Me' is by a Norwegian band, not a Canadian-born singer.",
+          "text": "Which Norwegian band had a 1980s hit with 'Take On Me'?"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "fix",
+          "reason": "Baha Men are a band, not a singer, and the song came out in 2000. Removed the year.",
+          "text": "Which band had a hit with 'Who Let the Dogs Out'?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Jim Morrison",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Stairway to Heaven",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Woodstock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Rolling Stones",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Johann Sebastian Bach",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Igor Stravinsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Lou Bega",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": [
+            "wording: Unedited draft wording; also 'a 1983 hit with Tainted Love' is wrong - Soft Cell's hit was 1981."
+          ]
+        },
+        "R3Q4": {
+          "answer": "Culture Beat",
+          "agreed": true,
+          "flags": [
+            "wording: 'Swedish group' is false - Culture Beat are German. Draft wording ('Icelandic-born... no') left in."
+          ]
+        },
+        "R3Q5": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": [
+            "wording: 'Canadian-born singer' is false - 'Take On Me' is by a-ha, a Norwegian band."
+          ]
+        },
+        "R3Q6": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Baha Men",
+          "agreed": true,
+          "flags": [
+            "wording: '2001 hit' - released 2000 (hit 2000-01); Baha Men are a band, not a single singer."
+          ]
+        },
+        "R3Q8": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q3",
+          "reason": "Removed the unedited draft wording and the wrong 1983 date for 'Tainted Love'.",
+          "before": {
+            "text": "Which band had a 1983 hit with 'Tainted Love'... no, which band sang 'Video Killed the Radio Star'?",
+            "answer": "The Buggles"
+          },
+          "after": {
+            "text": "Which band sang 'Video Killed the Radio Star'?",
+            "answer": "The Buggles"
+          }
+        },
+        {
+          "id": "R3Q4",
+          "reason": "Culture Beat are German, not Swedish. Also removed the leftover draft wording.",
+          "before": {
+            "text": "Which Icelandic-born... no, which Swedish group's Eurovision-unrelated 1993 hit was 'Mr. Vain'?",
+            "answer": "Culture Beat"
+          },
+          "after": {
+            "text": "Which German group had a 1993 hit with 'Mr. Vain'?",
+            "answer": "Culture Beat"
+          }
+        },
+        {
+          "id": "R3Q5",
+          "reason": "'Take On Me' is by a Norwegian band, not a Canadian-born singer.",
+          "before": {
+            "text": "Which Canadian-born singer had a 1980s hit with 'Take On Me'?",
+            "answer": "a-ha"
+          },
+          "after": {
+            "text": "Which Norwegian band had a 1980s hit with 'Take On Me'?",
+            "answer": "a-ha"
+          }
+        },
+        {
+          "id": "R3Q7",
+          "reason": "Baha Men are a band, not a singer, and the song came out in 2000. Removed the year.",
+          "before": {
+            "text": "Which singer had a 2001 hit with 'Who Let the Dogs Out'?",
+            "answer": "Baha Men"
+          },
+          "after": {
+            "text": "Which band had a hit with 'Who Let the Dogs Out'?",
+            "answer": "Baha Men"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released the 1969 album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Who was the lead singer of The Doors?",
+          "answer": "Jim Morrison"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Led Zeppelin song opens with a famous acoustic intro and builds to a guitar solo, appearing on their untitled fourth album?",
+          "answer": "Stairway to Heaven"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released the 1973 album 'The Dark Side of the Moon'?",
+          "answer": "Pink Floyd"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist performed a famous version of 'All Along the Watchtower' in 1968, a song written by Bob Dylan?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Queen song from 1975 features an operatic middle section and was on the album 'A Night at the Opera'?",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which festival, held in upstate New York in August 1969, featured Jimi Hendrix closing the show?",
+          "answer": "Woodstock"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock Revolution",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band's 1971 album 'Sticky Fingers' featured a zipper on its cover designed by Andy Warhol?",
+          "answer": "The Rolling Stones"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer continued to compose after going deaf, completing nine symphonies including the 'Choral'?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Austrian composer wrote the opera 'The Magic Flute'?",
+          "answer": "Mozart"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Brandenburg Concertos'?",
+          "answer": "Johann Sebastian Bach"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Planets' suite?",
+          "answer": "Gustav Holst"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Classical Greats",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote 'The Rite of Spring', whose 1913 Paris premiere caused a near riot?",
+          "answer": "Igor Stravinsky"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which act had a 1982 hit with 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist sang 'Mambo No. 5 (A Little Bit of...)' in 1999?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band sang 'Video Killed the Radio Star'?",
+          "answer": "The Buggles"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which German group had a 1993 hit with 'Mr. Vain'?",
+          "answer": "Culture Beat"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Norwegian band had a 1980s hit with 'Take On Me'?",
+          "answer": "a-ha"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which one-hit wonder sang 'Macarena' in 1996?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q7",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a hit with 'Who Let the Dogs Out'?",
+          "answer": "Baha Men"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One-Hit Wonders",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band sang 'Tubthumping' in 1997?",
+          "answer": "Chumbawamba"
+        }
+      ]
+    }
+  ]
+}

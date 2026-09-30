@@ -1,0 +1,742 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24,
+    "run": "hebrew"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1808,
+      "outputTokens": 2686,
+      "thinkingTokens": 850,
+      "durationMs": 35492
+    },
+    "costUsd": 0.060952,
+    "ms": 35493
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה לועזית הוכרזה הקמת מדינת ישראל?",
+      "answer": "1948",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R1Q3",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו עיר הוקראה מגילת העצמאות?",
+      "answer": "תל אביב"
+    },
+    {
+      "id": "R1Q4",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו שנה לועזית פרצה מלחמת ששת הימים?",
+      "answer": "1967",
+      "options": [
+        "1956",
+        "1967",
+        "1973",
+        "1982"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R1Q6",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R1Q7",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "איזה נשיא מצרי ביקר בירושלים ונאם בכנסת בשנת 1977?",
+      "answer": "אנואר סאדאת"
+    },
+    {
+      "id": "R1Q8",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מה היה שמה של אוניית המעפילים שנתפסה בידי הבריטים בשנת 1947 ונוסעיה הוחזרו לאירופה?",
+      "answer": "אקסודוס (יציאת אירופה תש\"ז)"
+    },
+    {
+      "id": "R2Q1",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה נטע ברזילי באירוויזיון 2018?",
+      "answer": "Toy"
+    },
+    {
+      "id": "R2Q2",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+      "answer": "דיווה"
+    },
+    {
+      "id": "R2Q3",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר ייצגה נועה קירל את ישראל באירוויזיון 2023?",
+      "answer": "Unicorn"
+    },
+    {
+      "id": "R2Q4",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו זמרת הפכה את השיר \"אם ננעלו\" ללהיט בינלאומי?",
+      "answer": "עפרה חזה"
+    },
+    {
+      "id": "R2Q5",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי ייצגה את ישראל באירוויזיון 2024 עם השיר \"Hurricane\"?",
+      "answer": "עדן גולן"
+    },
+    {
+      "id": "R2Q6",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכו יזהר כהן והאלפבתא באירוויזיון 1978?",
+      "answer": "א-ב-ני-בי"
+    },
+    {
+      "id": "R2Q7",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזו להקה ביצעה את \"נתתי לה חיי\" באירוויזיון 1974?",
+      "answer": "כוורת",
+      "options": [
+        "כוורת",
+        "משינה",
+        "טיפקס",
+        "החלונות הגבוהים"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "פופ ישראלי",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+      "answer": "חלב ודבש"
+    },
+    {
+      "id": "R3Q1",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראים כדורי החומוס המטוגנים שמוגשים בפיתה?",
+      "answer": "פלאפל"
+    },
+    {
+      "id": "R3Q2",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראת המנה של ביצים שמבושלות ברוטב עגבניות?",
+      "answer": "שקשוקה"
+    },
+    {
+      "id": "R3Q3",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא הממרח שמכינים משומשום טחון?",
+      "answer": "טחינה"
+    },
+    {
+      "id": "R3Q4",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזה חג אוכלים באופן מסורתי סופגניות?",
+      "answer": "חנוכה",
+      "options": [
+        "פורים",
+        "חנוכה",
+        "שבועות",
+        "סוכות"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה חטיף בוטנים של אסם הוא אחד החטיפים הנמכרים בישראל?",
+      "answer": "במבה"
+    },
+    {
+      "id": "R3Q6",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזו מנה ירושלמית עשויה מבשר עוף ופנימיות צלויים על פלנצ'ה?",
+      "answer": "מעורב ירושלמי"
+    },
+    {
+      "id": "R3Q7",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא מאפה הבצק התימני המגולגל שנאפה לאורך כל הלילה ומוגש בשבת בבוקר?",
+      "answer": "ג'חנון"
+    },
+    {
+      "id": "R3Q8",
+      "round": "מה יש לאכול?",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא הכריך ממקור עיראקי שבו חציל מטוגן וביצה קשה מוגשים בפיתה?",
+      "answer": "סביח"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.055360000000000006,
+      "ms": 22121,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2746,
+          "outputTokens": 1692,
+          "thinkingTokens": 425,
+          "durationMs": 17856
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1479,
+          "outputTokens": 231,
+          "thinkingTokens": 0,
+          "durationMs": 4264
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Both answers name the Exodus; the checker's is the same ship written differently."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Diva and דיווה are the same song, one in English and one in Hebrew."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Milk and Honey (חלב ודבש) sang Hallelujah and won Eurovision 1979; Gali Atari was the singer with the band, but the answer is correct as written."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "1967",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "אנואר סאדאת",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "אקסודוס 1947 (יציאת אירופה תש\"ז)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Toy",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Diva",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q3": {
+          "answer": "Unicorn",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "עפרה חזה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "עדן גולן",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "א-ב-ני-בי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "כוורת",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "חלב ודבש",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R3Q1": {
+          "answer": "פלאפל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "שקשוקה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "טחינה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "חנוכה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "במבה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "מעורב ירושלמי",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "ג'חנון",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "סביח",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה לועזית הוכרזה הקמת מדינת ישראל?",
+          "answer": "1948",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R1Q3",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו עיר הוקראה מגילת העצמאות?",
+          "answer": "תל אביב"
+        },
+        {
+          "id": "R1Q4",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו שנה לועזית פרצה מלחמת ששת הימים?",
+          "answer": "1967",
+          "options": [
+            "1956",
+            "1967",
+            "1973",
+            "1982"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R1Q6",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R1Q7",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "איזה נשיא מצרי ביקר בירושלים ונאם בכנסת בשנת 1977?",
+          "answer": "אנואר סאדאת"
+        },
+        {
+          "id": "R1Q8",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מה היה שמה של אוניית המעפילים שנתפסה בידי הבריטים בשנת 1947 ונוסעיה הוחזרו לאירופה?",
+          "answer": "אקסודוס (יציאת אירופה תש\"ז)"
+        },
+        {
+          "id": "R2Q1",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה נטע ברזילי באירוויזיון 2018?",
+          "answer": "Toy"
+        },
+        {
+          "id": "R2Q2",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+          "answer": "דיווה"
+        },
+        {
+          "id": "R2Q3",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר ייצגה נועה קירל את ישראל באירוויזיון 2023?",
+          "answer": "Unicorn"
+        },
+        {
+          "id": "R2Q4",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו זמרת הפכה את השיר \"אם ננעלו\" ללהיט בינלאומי?",
+          "answer": "עפרה חזה"
+        },
+        {
+          "id": "R2Q5",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי ייצגה את ישראל באירוויזיון 2024 עם השיר \"Hurricane\"?",
+          "answer": "עדן גולן"
+        },
+        {
+          "id": "R2Q6",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכו יזהר כהן והאלפבתא באירוויזיון 1978?",
+          "answer": "א-ב-ני-בי"
+        },
+        {
+          "id": "R2Q7",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזו להקה ביצעה את \"נתתי לה חיי\" באירוויזיון 1974?",
+          "answer": "כוורת",
+          "options": [
+            "כוורת",
+            "משינה",
+            "טיפקס",
+            "החלונות הגבוהים"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "פופ ישראלי",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+          "answer": "חלב ודבש"
+        },
+        {
+          "id": "R3Q1",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראים כדורי החומוס המטוגנים שמוגשים בפיתה?",
+          "answer": "פלאפל"
+        },
+        {
+          "id": "R3Q2",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראת המנה של ביצים שמבושלות ברוטב עגבניות?",
+          "answer": "שקשוקה"
+        },
+        {
+          "id": "R3Q3",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא הממרח שמכינים משומשום טחון?",
+          "answer": "טחינה"
+        },
+        {
+          "id": "R3Q4",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזה חג אוכלים באופן מסורתי סופגניות?",
+          "answer": "חנוכה",
+          "options": [
+            "פורים",
+            "חנוכה",
+            "שבועות",
+            "סוכות"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה חטיף בוטנים של אסם הוא אחד החטיפים הנמכרים בישראל?",
+          "answer": "במבה"
+        },
+        {
+          "id": "R3Q6",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזו מנה ירושלמית עשויה מבשר עוף ופנימיות צלויים על פלנצ'ה?",
+          "answer": "מעורב ירושלמי"
+        },
+        {
+          "id": "R3Q7",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא מאפה הבצק התימני המגולגל שנאפה לאורך כל הלילה ומוגש בשבת בבוקר?",
+          "answer": "ג'חנון"
+        },
+        {
+          "id": "R3Q8",
+          "round": "מה יש לאכול?",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא הכריך ממקור עיראקי שבו חציל מטוגן וביצה קשה מוגשים בפיתה?",
+          "answer": "סביח"
+        }
+      ]
+    }
+  ]
+}

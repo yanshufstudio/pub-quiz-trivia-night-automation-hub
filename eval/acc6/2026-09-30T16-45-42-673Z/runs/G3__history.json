@@ -1,0 +1,740 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24,
+    "run": "history"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1817,
+      "outputTokens": 1744,
+      "thinkingTokens": 0,
+      "durationMs": 15379
+    },
+    "costUsd": 0.042148,
+    "ms": 15379
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+      "answer": "Rubicon"
+    },
+    {
+      "id": "R1Q2",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor ordered a wall built across northern Britain in the 120s AD?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q3",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano buried Pompeii and Herculaneum in AD 79?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q4",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The Battle of Actium in 31 BC was fought mainly on land or at sea?",
+      "answer": "At sea",
+      "options": [
+        "On land",
+        "At sea"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q6",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 BC?",
+      "answer": "Spartacus"
+    },
+    {
+      "id": "R1Q7",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What was the name of the Roman emperor's elite bodyguard unit, notorious for making and unmaking emperors?",
+      "answer": "Praetorian Guard"
+    },
+    {
+      "id": "R1Q8",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In which year AD is Romulus Augustulus traditionally said to have been deposed, marking the end of the Western Roman Empire?",
+      "answer": "476"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the Allied invasion of Normandy?",
+      "answer": "Operation Overlord"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which German city was the target of the Allied firebombing raids of February 1945?",
+      "answer": "Dresden"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the German invasion of the Soviet Union in 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which Pacific battle of June 1942 saw the US Navy sink four Japanese aircraft carriers?",
+      "answer": "Battle of Midway"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the B-29 bomber that dropped the atomic bomb on Hiroshima?",
+      "answer": "Enola Gay"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Who was British Prime Minister when war was declared on Germany in September 1939?",
+      "answer": "Neville Chamberlain"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the evacuation of Allied troops from Dunkirk in 1940?",
+      "answer": "Operation Dynamo"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "In which Crimean resort did Churchill, Roosevelt and Stalin meet in February 1945?",
+      "answer": "Yalta"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German goldsmith introduced movable-type printing to Europe in the 15th century?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish chemist invented dynamite?",
+      "answer": "Alfred Nobel"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish inventor gave the first public demonstration of a working television in London in 1926?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English computer scientist invented the World Wide Web?",
+      "answer": "Tim Berners-Lee"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Thomas Edison's research laboratory was located in which New Jersey town, earning him a famous nickname?",
+      "answer": "Menlo Park"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which British engineer designed the Analytical Engine, an early mechanical general-purpose computer?",
+      "answer": "Charles Babbage"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which physicist invented the alternating-current induction motor and gave his name to the SI unit of magnetic flux density?",
+      "answer": "Nikola Tesla",
+      "options": [
+        "Nikola Tesla",
+        "Michael Faraday",
+        "James Clerk Maxwell",
+        "Wilhelm Weber"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.055076,
+      "ms": 19798,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2484,
+          "outputTokens": 1408,
+          "thinkingTokens": 0,
+          "durationMs": 12055
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1590,
+          "outputTokens": 531,
+          "thinkingTokens": 242,
+          "durationMs": 7743
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Overlord is the standard codename for the whole invasion. Neptune was only the assault phase, so the question has one answer."
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "The nickname clue ('Wizard of Menlo Park') rules out West Orange, so Menlo Park is the only answer."
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "fix",
+          "reason": "Tesla is better described as an inventor or engineer than a physicist. Reworded to 'inventor'; the answer stays Tesla.",
+          "text": "Which inventor developed the alternating-current induction motor and gave his name to the SI unit of magnetic flux density?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "At sea",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Spartacus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Praetorian Guard",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "476",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Overlord",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Dresden",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Battle of Midway",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Enola Gay",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Neville Chamberlain",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Operation Dynamo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Yalta",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Tim Berners-Lee",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Menlo Park (the 'Wizard of Menlo Park')",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: Edison moved his lab to West Orange, NJ in 1887, so 'West Orange' is also defensible; the nickname points to Menlo Park."
+          ]
+        },
+        "R3Q7": {
+          "answer": "Charles Babbage",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": [
+            "wording: 'Invented the AC induction motor': Galileo Ferraris developed one independently at about the same time, but crediting Tesla is standard. Also, Tesla is usually called an inventor or engineer rather than a physicist."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q8",
+          "reason": "Tesla is better described as an inventor or engineer than a physicist. Reworded to 'inventor'; the answer stays Tesla.",
+          "before": {
+            "text": "Which physicist invented the alternating-current induction motor and gave his name to the SI unit of magnetic flux density?",
+            "answer": "Nikola Tesla"
+          },
+          "after": {
+            "text": "Which inventor developed the alternating-current induction motor and gave his name to the SI unit of magnetic flux density?",
+            "answer": "Nikola Tesla"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+          "answer": "Rubicon"
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor ordered a wall built across northern Britain in the 120s AD?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano buried Pompeii and Herculaneum in AD 79?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The Battle of Actium in 31 BC was fought mainly on land or at sea?",
+          "answer": "At sea",
+          "options": [
+            "On land",
+            "At sea"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 BC?",
+          "answer": "Spartacus"
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the name of the Roman emperor's elite bodyguard unit, notorious for making and unmaking emperors?",
+          "answer": "Praetorian Guard"
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In which year AD is Romulus Augustulus traditionally said to have been deposed, marking the end of the Western Roman Empire?",
+          "answer": "476"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the Allied invasion of Normandy?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which German city was the target of the Allied firebombing raids of February 1945?",
+          "answer": "Dresden"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the German invasion of the Soviet Union in 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which Pacific battle of June 1942 saw the US Navy sink four Japanese aircraft carriers?",
+          "answer": "Battle of Midway"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the B-29 bomber that dropped the atomic bomb on Hiroshima?",
+          "answer": "Enola Gay"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Who was British Prime Minister when war was declared on Germany in September 1939?",
+          "answer": "Neville Chamberlain"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the evacuation of Allied troops from Dunkirk in 1940?",
+          "answer": "Operation Dynamo"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "In which Crimean resort did Churchill, Roosevelt and Stalin meet in February 1945?",
+          "answer": "Yalta"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German goldsmith introduced movable-type printing to Europe in the 15th century?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish chemist invented dynamite?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish inventor gave the first public demonstration of a working television in London in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English computer scientist invented the World Wide Web?",
+          "answer": "Tim Berners-Lee"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Thomas Edison's research laboratory was located in which New Jersey town, earning him a famous nickname?",
+          "answer": "Menlo Park"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which British engineer designed the Analytical Engine, an early mechanical general-purpose computer?",
+          "answer": "Charles Babbage"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which inventor developed the alternating-current induction motor and gave his name to the SI unit of magnetic flux density?",
+          "answer": "Nikola Tesla",
+          "options": [
+            "Nikola Tesla",
+            "Michael Faraday",
+            "James Clerk Maxwell",
+            "Wilhelm Weber"
+          ]
+        }
+      ]
+    }
+  ]
+}

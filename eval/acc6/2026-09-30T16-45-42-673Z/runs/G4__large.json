@@ -1,0 +1,1498 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "large",
+    "prompt": "5 rounds of 10 questions for adults in a pub, medium difficulty: 80s music, world geography, famous film quotes, science, general knowledge.",
+    "questions": 50,
+    "run": "large"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1823,
+      "outputTokens": 2212,
+      "thinkingTokens": 0,
+      "durationMs": 14791
+    },
+    "costUsd": 0.025766,
+    "ms": 14791
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which artist released the 1982 album 'Thriller'?",
+      "answer": "Michael Jackson"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band had a 1983 hit with 'Every Breath You Take'?",
+      "answer": "The Police"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which duo, made up of Andrew Ridgeley and George Michael, had hits including 'Wake Me Up Before You Go-Go'?",
+      "answer": "Wham!"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Madonna song from 1984 shares its name with a type of sleeping-bed-like 'virgin' phrase: 'Like a ...' what?",
+      "answer": "Like a Virgin"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which 1985 charity single by Band Aid raised money for famine relief in Ethiopia?",
+      "answer": "Do They Know It's Christmas?"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Scottish band had a 1987 hit with 'I Still Haven't Found What I'm Looking For'? (Hint: they are Irish, not Scottish.) Name the band.",
+      "answer": "U2"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band, fronted by Simon Le Bon, released 'Rio' in 1982?",
+      "answer": "Duran Duran"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which a-ha song, released in 1985, featured a famous pencil-sketch animated video?",
+      "answer": "Take On Me"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Prince album and film of 1984 contained 'When Doves Cry'?",
+      "answer": "Purple Rain"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Eighties Jukebox",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band's 1986 album 'Slippery When Wet' included 'Livin' on a Prayer'?",
+      "answer": "Bon Jovi"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Baghdad?",
+      "answer": "Tigris"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which African country has the city of Timbuktu?",
+      "answer": "Mali"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in Europe, flowing into the Caspian Sea?",
+      "answer": "Volga"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Spain from Morocco?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which country has the most time zones when counting overseas territories?",
+      "answer": "France"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which desert covers much of Mongolia and northern China?",
+      "answer": "Gobi Desert"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Lake Titicaca lies on the border of Peru and which other country?",
+      "answer": "Bolivia"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'Here's looking at you, kid'?",
+      "answer": "Casablanca"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'I'll be back'?",
+      "answer": "The Terminator"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film gave us 'You're gonna need a bigger boat'?",
+      "answer": "Jaws"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features 'May the Force be with you' first?",
+      "answer": "Star Wars"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "In which film does a character say 'Life is like a box of chocolates'?",
+      "answer": "Forrest Gump"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which 1980 film features the line 'Here's Johnny!'?",
+      "answer": "The Shining"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'Frankly, my dear, I don't give a damn'?",
+      "answer": "Gone with the Wind"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features 'Nobody puts Baby in a corner'?",
+      "answer": "Dirty Dancing"
+    },
+    {
+      "id": "R3Q9",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film has the line 'Keep your friends close, but your enemies closer'?",
+      "answer": "The Godfather Part II"
+    },
+    {
+      "id": "R3Q10",
+      "round": "Movie Lines",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which actor says 'Show me the money!' in Jerry Maguire?",
+      "answer": "Cuba Gooding Jr."
+    },
+    {
+      "id": "R4Q1",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the atmosphere for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "How many bones are in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which scientist proposed the theory of natural selection?",
+      "answer": "Charles Darwin"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the powerhouse of the cell?",
+      "answer": "Mitochondria"
+    },
+    {
+      "id": "R4Q8",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the SI unit of force?",
+      "answer": "Newton"
+    },
+    {
+      "id": "R4Q9",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which element has atomic number 1?",
+      "answer": "Hydrogen"
+    },
+    {
+      "id": "R4Q10",
+      "round": "Science Lab",
+      "category": "Science",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the most abundant gas in Earth's atmosphere?",
+      "answer": "Nitrogen",
+      "options": [
+        "Nitrogen",
+        "Oxygen",
+        "Argon",
+        "Carbon dioxide"
+      ]
+    },
+    {
+      "id": "R5Q1",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many strings does a standard violin have?",
+      "answer": "Four"
+    },
+    {
+      "id": "R5Q2",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which city hosted the 2016 Summer Olympics?",
+      "answer": "Rio de Janeiro"
+    },
+    {
+      "id": "R5Q3",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who painted the Mona Lisa?",
+      "answer": "Leonardo da Vinci"
+    },
+    {
+      "id": "R5Q4",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989"
+    },
+    {
+      "id": "R5Q5",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the currency of Japan?",
+      "answer": "Yen"
+    },
+    {
+      "id": "R5Q6",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote 'Pride and Prejudice'?",
+      "answer": "Jane Austen"
+    },
+    {
+      "id": "R5Q7",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which sport is played at Wimbledon?",
+      "answer": "Tennis"
+    },
+    {
+      "id": "R5Q8",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the largest mammal in the world?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R5Q9",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which company created the iPhone?",
+      "answer": "Apple"
+    },
+    {
+      "id": "R5Q10",
+      "round": "Mixed Bag",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.107784,
+      "ms": 37834,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 3606,
+          "outputTokens": 3544,
+          "thinkingTokens": 430,
+          "durationMs": 29205
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2095,
+          "outputTokens": 705,
+          "thinkingTokens": 0,
+          "durationMs": 8629
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "fix",
+          "reason": "The wording was garbled, so I simplified it.",
+          "text": "Which 1984 Madonna song begins with the words 'Like a...'? Give the full title.",
+          "answer": "Like a Virgin"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "The single was released in 1984, not 1985.",
+          "text": "Which 1984 charity single by Band Aid raised money for famine relief in Ethiopia?"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "The question contradicted itself on the band's nationality.",
+          "text": "Which Irish band had a 1987 hit with 'I Still Haven't Found What I'm Looking For'?"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "The 1985 re-release with the famous video makes the date acceptable."
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "fix",
+          "reason": "The line is repeated in several later Terminator films, so the question should ask for the first.",
+          "text": "Which 1984 film first featured Arnold Schwarzenegger's line 'I'll be back'?"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "fix",
+          "reason": "The wording was awkward. The checker's answer means the same thing.",
+          "text": "Which 1977 film first featured the line 'May the Force be with you'?",
+          "answer": "Star Wars (A New Hope)"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "fix",
+          "reason": "Tom Cruise shouts the line as well, so the question now asks who says it first.",
+          "text": "In Jerry Maguire, which actor first demands 'Show me the money!' as the character Rod Tidwell?"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "fix",
+          "reason": "Alfred Russel Wallace came up with the theory at the same time, so I added the book to make Darwin the only answer.",
+          "text": "Which scientist set out the theory of natural selection in 'On the Origin of Species' (1859)?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Michael Jackson",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Police",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Wham!",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Like a Virgin",
+          "agreed": true,
+          "flags": [
+            "wording: The phrase 'shares its name with a type of sleeping-bed-like 'virgin' phrase' is garbled and makes no sense. The 1984 date is correct."
+          ]
+        },
+        "R1Q5": {
+          "answer": "Do They Know It's Christmas?",
+          "agreed": true,
+          "flags": [
+            "wording: The Band Aid single came out in December 1984, not 1985."
+          ]
+        },
+        "R1Q6": {
+          "answer": "U2",
+          "agreed": true,
+          "flags": [
+            "wording: 'Which Scottish band' is wrong: U2 are Irish. The question contradicts itself in its own hint."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Duran Duran",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Take On Me",
+          "agreed": true,
+          "flags": [
+            "wording: The song was first released in 1984. The version with the famous video came out in 1985, so the date is acceptable."
+          ]
+        },
+        "R1Q9": {
+          "answer": "Purple Rain",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Bon Jovi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Tigris",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Mali",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Volga",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "France",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Gobi Desert",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Bolivia",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Casablanca",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "The Terminator",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R3Q3": {
+          "answer": "Jaws",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Star Wars (1977)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "wording: The stray word 'first' at the end is awkward."
+          ]
+        },
+        "R3Q5": {
+          "answer": "Forrest Gump",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "The Shining",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Gone with the Wind",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Dirty Dancing",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "The Godfather Part II",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Cuba Gooding Jr.",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Tom Cruise also shouts the line in the film."
+          ]
+        },
+        "R4Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Charles Darwin",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R4Q7": {
+          "answer": "Mitochondria",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Newton",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Nitrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q1": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q2": {
+          "answer": "Rio de Janeiro",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q3": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q4": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q5": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q6": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q7": {
+          "answer": "Tennis",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q8": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q9": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q10": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q4",
+          "reason": "The wording was garbled, so I simplified it.",
+          "before": {
+            "text": "Which Madonna song from 1984 shares its name with a type of sleeping-bed-like 'virgin' phrase: 'Like a ...' what?",
+            "answer": "Like a Virgin"
+          },
+          "after": {
+            "text": "Which 1984 Madonna song begins with the words 'Like a...'? Give the full title.",
+            "answer": "Like a Virgin"
+          }
+        },
+        {
+          "id": "R1Q5",
+          "reason": "The single was released in 1984, not 1985.",
+          "before": {
+            "text": "Which 1985 charity single by Band Aid raised money for famine relief in Ethiopia?",
+            "answer": "Do They Know It's Christmas?"
+          },
+          "after": {
+            "text": "Which 1984 charity single by Band Aid raised money for famine relief in Ethiopia?",
+            "answer": "Do They Know It's Christmas?"
+          }
+        },
+        {
+          "id": "R1Q6",
+          "reason": "The question contradicted itself on the band's nationality.",
+          "before": {
+            "text": "Which Scottish band had a 1987 hit with 'I Still Haven't Found What I'm Looking For'? (Hint: they are Irish, not Scottish.) Name the band.",
+            "answer": "U2"
+          },
+          "after": {
+            "text": "Which Irish band had a 1987 hit with 'I Still Haven't Found What I'm Looking For'?",
+            "answer": "U2"
+          }
+        },
+        {
+          "id": "R3Q2",
+          "reason": "The line is repeated in several later Terminator films, so the question should ask for the first.",
+          "before": {
+            "text": "Which film features the line 'I'll be back'?",
+            "answer": "The Terminator"
+          },
+          "after": {
+            "text": "Which 1984 film first featured Arnold Schwarzenegger's line 'I'll be back'?",
+            "answer": "The Terminator"
+          }
+        },
+        {
+          "id": "R3Q4",
+          "reason": "The wording was awkward. The checker's answer means the same thing.",
+          "before": {
+            "text": "Which film features 'May the Force be with you' first?",
+            "answer": "Star Wars"
+          },
+          "after": {
+            "text": "Which 1977 film first featured the line 'May the Force be with you'?",
+            "answer": "Star Wars (A New Hope)"
+          }
+        },
+        {
+          "id": "R3Q10",
+          "reason": "Tom Cruise shouts the line as well, so the question now asks who says it first.",
+          "before": {
+            "text": "Which actor says 'Show me the money!' in Jerry Maguire?",
+            "answer": "Cuba Gooding Jr."
+          },
+          "after": {
+            "text": "In Jerry Maguire, which actor first demands 'Show me the money!' as the character Rod Tidwell?",
+            "answer": "Cuba Gooding Jr."
+          }
+        },
+        {
+          "id": "R4Q6",
+          "reason": "Alfred Russel Wallace came up with the theory at the same time, so I added the book to make Darwin the only answer.",
+          "before": {
+            "text": "Which scientist proposed the theory of natural selection?",
+            "answer": "Charles Darwin"
+          },
+          "after": {
+            "text": "Which scientist set out the theory of natural selection in 'On the Origin of Species' (1859)?",
+            "answer": "Charles Darwin"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which artist released the 1982 album 'Thriller'?",
+          "answer": "Michael Jackson"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which band had a 1983 hit with 'Every Breath You Take'?",
+          "answer": "The Police"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which duo, made up of Andrew Ridgeley and George Michael, had hits including 'Wake Me Up Before You Go-Go'?",
+          "answer": "Wham!"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which 1984 Madonna song begins with the words 'Like a...'? Give the full title.",
+          "answer": "Like a Virgin"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which 1984 charity single by Band Aid raised money for famine relief in Ethiopia?",
+          "answer": "Do They Know It's Christmas?"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which Irish band had a 1987 hit with 'I Still Haven't Found What I'm Looking For'?",
+          "answer": "U2"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which band, fronted by Simon Le Bon, released 'Rio' in 1982?",
+          "answer": "Duran Duran"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which a-ha song, released in 1985, featured a famous pencil-sketch animated video?",
+          "answer": "Take On Me"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which Prince album and film of 1984 contained 'When Doves Cry'?",
+          "answer": "Purple Rain"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Eighties Jukebox",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which band's 1986 album 'Slippery When Wet' included 'Livin' on a Prayer'?",
+          "answer": "Bon Jovi"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Baghdad?",
+          "answer": "Tigris"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which African country has the city of Timbuktu?",
+          "answer": "Mali"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in Europe, flowing into the Caspian Sea?",
+          "answer": "Volga"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Spain from Morocco?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which country has the most time zones when counting overseas territories?",
+          "answer": "France"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which desert covers much of Mongolia and northern China?",
+          "answer": "Gobi Desert"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Lake Titicaca lies on the border of Peru and which other country?",
+          "answer": "Bolivia"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'Here's looking at you, kid'?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which 1984 film first featured Arnold Schwarzenegger's line 'I'll be back'?",
+          "answer": "The Terminator"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film gave us 'You're gonna need a bigger boat'?",
+          "answer": "Jaws"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which 1977 film first featured the line 'May the Force be with you'?",
+          "answer": "Star Wars (A New Hope)"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "In which film does a character say 'Life is like a box of chocolates'?",
+          "answer": "Forrest Gump"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which 1980 film features the line 'Here's Johnny!'?",
+          "answer": "The Shining"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'Frankly, my dear, I don't give a damn'?",
+          "answer": "Gone with the Wind"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features 'Nobody puts Baby in a corner'?",
+          "answer": "Dirty Dancing"
+        },
+        {
+          "id": "R3Q9",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film has the line 'Keep your friends close, but your enemies closer'?",
+          "answer": "The Godfather Part II"
+        },
+        {
+          "id": "R3Q10",
+          "round": "Movie Lines",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "In Jerry Maguire, which actor first demands 'Show me the money!' as the character Rod Tidwell?",
+          "answer": "Cuba Gooding Jr."
+        },
+        {
+          "id": "R4Q1",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the atmosphere for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the hardest natural substance?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which scientist set out the theory of natural selection in 'On the Origin of Species' (1859)?",
+          "answer": "Charles Darwin"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the powerhouse of the cell?",
+          "answer": "Mitochondria"
+        },
+        {
+          "id": "R4Q8",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the SI unit of force?",
+          "answer": "Newton"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which element has atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R4Q10",
+          "round": "Science Lab",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the most abundant gas in Earth's atmosphere?",
+          "answer": "Nitrogen",
+          "options": [
+            "Nitrogen",
+            "Oxygen",
+            "Argon",
+            "Carbon dioxide"
+          ]
+        },
+        {
+          "id": "R5Q1",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many strings does a standard violin have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R5Q2",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which city hosted the 2016 Summer Olympics?",
+          "answer": "Rio de Janeiro"
+        },
+        {
+          "id": "R5Q3",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who painted the Mona Lisa?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R5Q4",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989"
+        },
+        {
+          "id": "R5Q5",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the currency of Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R5Q6",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote 'Pride and Prejudice'?",
+          "answer": "Jane Austen"
+        },
+        {
+          "id": "R5Q7",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which sport is played at Wimbledon?",
+          "answer": "Tennis"
+        },
+        {
+          "id": "R5Q8",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the largest mammal in the world?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R5Q9",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which company created the iPhone?",
+          "answer": "Apple"
+        },
+        {
+          "id": "R5Q10",
+          "round": "Mixed Bag",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        }
+      ]
+    }
+  ]
+}

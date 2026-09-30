@@ -1,0 +1,691 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24,
+    "run": "history"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1817,
+      "outputTokens": 1407,
+      "thinkingTokens": 0,
+      "durationMs": 10409
+    },
+    "costUsd": 0.017704,
+    "ms": 10409
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman general crossed the Rubicon in 49 BC, starting a civil war?",
+      "answer": "Julius Caesar"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What was the name of the first Roman emperor, who ruled from 27 BC?",
+      "answer": "Augustus (Octavian)"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor ordered the construction of a defensive wall across northern Britain beginning around AD 122?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano's eruption in AD 79 buried Pompeii and Herculaneum?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In which 216 BC battle did Hannibal destroy a much larger Roman army?",
+      "answer": "Battle of Cannae"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor issued the Edict of Milan in AD 313 alongside Licinius, granting toleration to Christians?",
+      "answer": "Constantine (the Great)"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman statesman, known for ending speeches with 'Carthage must be destroyed', held the office of censor in 184 BC?",
+      "answer": "Cato the Elder"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Ancient Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman emperor, known as a Stoic philosopher, wrote the 'Meditations'?",
+      "answer": "Marcus Aurelius"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which operation was the codename for the German invasion of the Soviet Union in 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which city was the target of the first atomic bomb used in war, in August 1945?",
+      "answer": "Hiroshima"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the evacuation of Allied troops from France in May–June 1940?",
+      "answer": "Dunkirk evacuation (Operation Dynamo)"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which 1942–43 battle on the Volga is widely seen as a turning point on the Eastern Front?",
+      "answer": "Battle of Stalingrad"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which conference in February 1945 brought together Churchill, Roosevelt and Stalin in Crimea?",
+      "answer": "Yalta Conference"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which Japanese admiral planned the attack on Pearl Harbor?",
+      "answer": "Isoroku Yamamoto"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which British mathematician led Hut 8 at Bletchley Park's codebreaking effort against Naval Enigma?",
+      "answer": "Alan Turing"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Second World War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the Allied invasion of Sicily in July 1943?",
+      "answer": "Operation Husky"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Which inventor is credited with patenting the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Which German printer introduced movable-type printing to Europe around 1450?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Which Italian pioneer sent radio signals across the Atlantic in 1901?",
+      "answer": "Guglielmo Marconi"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Who invented the spinning jenny, around 1764?",
+      "answer": "James Hargreaves"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American engineer developed the alternating current induction motor?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Which Scottish engineer improved the steam engine with a separate condenser in the 1760s?",
+      "answer": "James Watt"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Which American invented the cotton gin, patented in 1794?",
+      "answer": "Eli Whitney"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Famous Inventors",
+      "category": "Famous inventors",
+      "type": "TEXT",
+      "text": "Which Swedish chemist invented dynamite and left his fortune to establish prizes?",
+      "answer": "Alfred Nobel"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.041888,
+      "ms": 14819,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2402,
+          "outputTokens": 1614,
+          "thinkingTokens": 121,
+          "durationMs": 14818
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Julius Caesar",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Augustus (Octavian)",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Battle of Cannae",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Constantine the Great",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Cato the Elder",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Marcus Aurelius",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Hiroshima",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Dunkirk evacuation (Operation Dynamo)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Battle of Stalingrad",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Yalta Conference",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Isoroku Yamamoto",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Alan Turing",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Operation Husky",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Guglielmo Marconi",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "James Hargreaves",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "James Watt",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Eli Whitney",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman general crossed the Rubicon in 49 BC, starting a civil war?",
+          "answer": "Julius Caesar"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the name of the first Roman emperor, who ruled from 27 BC?",
+          "answer": "Augustus (Octavian)"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor ordered the construction of a defensive wall across northern Britain beginning around AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano's eruption in AD 79 buried Pompeii and Herculaneum?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In which 216 BC battle did Hannibal destroy a much larger Roman army?",
+          "answer": "Battle of Cannae"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor issued the Edict of Milan in AD 313 alongside Licinius, granting toleration to Christians?",
+          "answer": "Constantine (the Great)"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman statesman, known for ending speeches with 'Carthage must be destroyed', held the office of censor in 184 BC?",
+          "answer": "Cato the Elder"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Ancient Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor, known as a Stoic philosopher, wrote the 'Meditations'?",
+          "answer": "Marcus Aurelius"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which operation was the codename for the German invasion of the Soviet Union in 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which city was the target of the first atomic bomb used in war, in August 1945?",
+          "answer": "Hiroshima"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the evacuation of Allied troops from France in May–June 1940?",
+          "answer": "Dunkirk evacuation (Operation Dynamo)"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which 1942–43 battle on the Volga is widely seen as a turning point on the Eastern Front?",
+          "answer": "Battle of Stalingrad"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which conference in February 1945 brought together Churchill, Roosevelt and Stalin in Crimea?",
+          "answer": "Yalta Conference"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which Japanese admiral planned the attack on Pearl Harbor?",
+          "answer": "Isoroku Yamamoto"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which British mathematician led Hut 8 at Bletchley Park's codebreaking effort against Naval Enigma?",
+          "answer": "Alan Turing"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Second World War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the Allied invasion of Sicily in July 1943?",
+          "answer": "Operation Husky"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Which inventor is credited with patenting the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Which German printer introduced movable-type printing to Europe around 1450?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Which Italian pioneer sent radio signals across the Atlantic in 1901?",
+          "answer": "Guglielmo Marconi"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Who invented the spinning jenny, around 1764?",
+          "answer": "James Hargreaves"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American engineer developed the alternating current induction motor?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer improved the steam engine with a separate condenser in the 1760s?",
+          "answer": "James Watt"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Which American invented the cotton gin, patented in 1794?",
+          "answer": "Eli Whitney"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Famous Inventors",
+          "category": "Famous inventors",
+          "type": "TEXT",
+          "text": "Which Swedish chemist invented dynamite and left his fortune to establish prizes?",
+          "answer": "Alfred Nobel"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,509 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "sport",
+    "prompt": "2 rounds of 8 questions on sport: football World Cups, then the Olympic Games.",
+    "questions": 16,
+    "run": "sport"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 854,
+      "thinkingTokens": 0,
+      "durationMs": 7902
+    },
+    "costUsd": 0.012146,
+    "ms": 7903
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country won the men's FIFA World Cup in 2014?",
+      "answer": "Germany"
+    },
+    {
+      "id": "R1Q2",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted the men's World Cup in 2010?",
+      "answer": "South Africa"
+    },
+    {
+      "id": "R1Q3",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country has won the men's World Cup five times, more than any other nation as of 2026?",
+      "answer": "Brazil"
+    },
+    {
+      "id": "R1Q4",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which player scored a hat-trick for England in the 1966 World Cup final?",
+      "answer": "Geoff Hurst"
+    },
+    {
+      "id": "R1Q5",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted and won the first men's World Cup in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R1Q6",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "In which city was the 2022 men's World Cup final played?",
+      "answer": "Lusail"
+    },
+    {
+      "id": "R1Q7",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which player won the Golden Boot at the 2018 men's World Cup with six goals?",
+      "answer": "Harry Kane"
+    },
+    {
+      "id": "R1Q8",
+      "round": "World Cup Wonders",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which two countries co-hosted the men's World Cup in 2002?",
+      "answer": "Japan and South Korea"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which city hosted the Summer Olympics in 2012?",
+      "answer": "London"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "How many rings are on the Olympic flag?",
+      "answer": "Five"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which Jamaican sprinter won the 100m at the 2008, 2012 and 2016 Olympics?",
+      "answer": "Usain Bolt"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "In which country were the first modern Summer Olympics held in 1896?",
+      "answer": "Greece"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which American swimmer has won the most Olympic gold medals, with 23?",
+      "answer": "Michael Phelps"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which city hosted the Summer Olympics in 2016?",
+      "answer": "Rio de Janeiro"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which Romanian gymnast scored the first perfect 10 in Olympic gymnastics in 1976?",
+      "answer": "Nadia Comăneci"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Olympic Glory",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which city hosted the 1992 Summer Olympics?",
+      "answer": "Barcelona"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.047380000000000005,
+      "ms": 16654,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1823,
+          "outputTokens": 1369,
+          "thinkingTokens": 239,
+          "durationMs": 11961
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1347,
+          "outputTokens": 366,
+          "thinkingTokens": 149,
+          "durationMs": 4693
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "fix",
+          "reason": "The 'more than any other nation as of 2026' claim depends on who won the 2026 final, which I can't confirm. Reworded to a fixed fact: Brazil's fifth title came in 2002.",
+          "text": "Which country won its fifth men's World Cup title in 2002?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer with the two countries in the other order."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Germany",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "South Africa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": [
+            "wording: I can't confirm 'more than any other nation as of 2026' because I don't know who won the 2026 World Cup (final on 19 July 2026). Germany and Italy each had four titles before it; if either won, Brazil is tied at five, not ahead."
+          ]
+        },
+        "R1Q4": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Lusail",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Harry Kane",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "South Korea and Japan",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q1": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Greece",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Rio de Janeiro",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Nadia Comăneci",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Barcelona",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q3",
+          "reason": "The 'more than any other nation as of 2026' claim depends on who won the 2026 final, which I can't confirm. Reworded to a fixed fact: Brazil's fifth title came in 2002.",
+          "before": {
+            "text": "Which country has won the men's World Cup five times, more than any other nation as of 2026?",
+            "answer": "Brazil"
+          },
+          "after": {
+            "text": "Which country won its fifth men's World Cup title in 2002?",
+            "answer": "Brazil"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the men's FIFA World Cup in 2014?",
+          "answer": "Germany"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the men's World Cup in 2010?",
+          "answer": "South Africa"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won its fifth men's World Cup title in 2002?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player scored a hat-trick for England in the 1966 World Cup final?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted and won the first men's World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "In which city was the 2022 men's World Cup final played?",
+          "answer": "Lusail"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which player won the Golden Boot at the 2018 men's World Cup with six goals?",
+          "answer": "Harry Kane"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Wonders",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which two countries co-hosted the men's World Cup in 2002?",
+          "answer": "Japan and South Korea"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city hosted the Summer Olympics in 2012?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "How many rings are on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which Jamaican sprinter won the 100m at the 2008, 2012 and 2016 Olympics?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "In which country were the first modern Summer Olympics held in 1896?",
+          "answer": "Greece"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which American swimmer has won the most Olympic gold medals, with 23?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city hosted the Summer Olympics in 2016?",
+          "answer": "Rio de Janeiro"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which Romanian gymnast scored the first perfect 10 in Olympic gymnastics in 1976?",
+          "answer": "Nadia Comăneci"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Olympic Glory",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city hosted the 1992 Summer Olympics?",
+          "answer": "Barcelona"
+        }
+      ]
+    }
+  ]
+}

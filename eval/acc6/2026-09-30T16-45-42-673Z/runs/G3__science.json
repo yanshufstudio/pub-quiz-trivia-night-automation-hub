@@ -1,0 +1,622 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "science",
+    "prompt": "2 rounds of 10 questions on science: space and astronomy, then the human body. General audience.",
+    "questions": 20,
+    "run": "science"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 1283,
+      "thinkingTokens": 0,
+      "durationMs": 10532
+    },
+    "costUsd": 0.032872,
+    "ms": 10532
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the galaxy that contains our Solar System?",
+      "answer": "The Milky Way"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet in our Solar System has the most famous and prominent ring system?",
+      "answer": "Saturn"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "In 2006, Pluto was reclassified as what type of object?",
+      "answer": "Dwarf planet"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which is the hottest planet in our Solar System?",
+      "answer": "Venus",
+      "options": [
+        "Mercury",
+        "Venus",
+        "Mars",
+        "Jupiter"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What was the name of the first artificial satellite, launched by the Soviet Union in 1957?",
+      "answer": "Sputnik 1"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "The Great Red Spot is a giant storm on which planet?",
+      "answer": "Jupiter"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the closest known star to the Sun?",
+      "answer": "Proxima Centauri"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What name is given to the boundary around a black hole beyond which nothing, not even light, can escape?",
+      "answer": "Event horizon"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which organ pumps blood around the body?",
+      "answer": "The heart"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "How many bones are there in a typical adult human skeleton?",
+      "answer": "206"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the longest bone in the human body?",
+      "answer": "The femur (thigh bone)"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which blood cells carry oxygen around the body?",
+      "answer": "Red blood cells",
+      "options": [
+        "Red blood cells",
+        "White blood cells",
+        "Platelets",
+        "Plasma cells"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "The smallest bone in the human body, the stapes, is found in which part of the body?",
+      "answer": "The ear"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What hormone, produced in the pancreas, regulates blood sugar levels by lowering them?",
+      "answer": "Insulin"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the common name for the patella?",
+      "answer": "Kneecap"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the muscular sheet beneath the lungs that contracts to help you breathe?",
+      "answer": "The diaphragm"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which part of the brain, located at the back beneath the cerebrum, mainly coordinates balance and movement?",
+      "answer": "The cerebellum"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.037795999999999996,
+      "ms": 12053,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2075,
+          "outputTokens": 1042,
+          "thinkingTokens": 0,
+          "durationMs": 9152
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1269,
+          "outputTokens": 179,
+          "thinkingTokens": 0,
+          "durationMs": 2901
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "Proxima Centauri is the closest known star to the Sun. Alpha Centauri is a system, and the Sun itself is excluded by the wording."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "The checker's 'middle ear' is the same answer put more precisely. 'The ear' is correct."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Dwarf planet",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Venus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Sputnik 1",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Jupiter",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Proxima Centauri",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q10": {
+          "answer": "Event horizon",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "The heart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "The femur (thigh bone)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Red blood cells",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The ear (middle ear)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q7": {
+          "answer": "Insulin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Kneecap",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "The diaphragm",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "The cerebellum",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the galaxy that contains our Solar System?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet in our Solar System has the most famous and prominent ring system?",
+          "answer": "Saturn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "In 2006, Pluto was reclassified as what type of object?",
+          "answer": "Dwarf planet"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the hottest planet in our Solar System?",
+          "answer": "Venus",
+          "options": [
+            "Mercury",
+            "Venus",
+            "Mars",
+            "Jupiter"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What was the name of the first artificial satellite, launched by the Soviet Union in 1957?",
+          "answer": "Sputnik 1"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "The Great Red Spot is a giant storm on which planet?",
+          "answer": "Jupiter"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the closest known star to the Sun?",
+          "answer": "Proxima Centauri"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What name is given to the boundary around a black hole beyond which nothing, not even light, can escape?",
+          "answer": "Event horizon"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ pumps blood around the body?",
+          "answer": "The heart"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "How many bones are there in a typical adult human skeleton?",
+          "answer": "206"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the longest bone in the human body?",
+          "answer": "The femur (thigh bone)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which blood cells carry oxygen around the body?",
+          "answer": "Red blood cells",
+          "options": [
+            "Red blood cells",
+            "White blood cells",
+            "Platelets",
+            "Plasma cells"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "The smallest bone in the human body, the stapes, is found in which part of the body?",
+          "answer": "The ear"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What hormone, produced in the pancreas, regulates blood sugar levels by lowering them?",
+          "answer": "Insulin"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the common name for the patella?",
+          "answer": "Kneecap"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the muscular sheet beneath the lungs that contracts to help you breathe?",
+          "answer": "The diaphragm"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which part of the brain, located at the back beneath the cerebrum, mainly coordinates balance and movement?",
+          "answer": "The cerebellum"
+        }
+      ]
+    }
+  ]
+}

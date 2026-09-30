@@ -1,0 +1,612 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "geography",
+    "prompt": "2 rounds of 10 questions on world geography: capitals and rivers, then mountains and islands. Medium difficulty.",
+    "questions": 20,
+    "run": "geography"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1813,
+      "outputTokens": 908,
+      "thinkingTokens": 0,
+      "durationMs": 6804
+    },
+    "costUsd": 0.012706,
+    "ms": 6804
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "On which river does the city of Paris stand?",
+      "answer": "The Seine"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Baghdad?",
+      "answer": "The Tigris"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Turkey?",
+      "answer": "Ankara"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "The Danube flows through which capital city that is home to the Hungarian Parliament Building?",
+      "answer": "Budapest"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river is the longest in South America?",
+      "answer": "The Amazon"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Nigeria?",
+      "answer": "Abuja"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which African river flows through Khartoum, where the Blue Nile and White Nile meet?",
+      "answer": "The Nile"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Myanmar?",
+      "answer": "Naypyidaw"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in the world above sea level?",
+      "answer": "Mount Everest"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which is the largest island in the world that is not a continent?",
+      "answer": "Greenland"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "In which mountain range is Mont Blanc found?",
+      "answer": "The Alps"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which island is home to the city of Palermo?",
+      "answer": "Sicily"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in Africa?",
+      "answer": "Mount Kilimanjaro"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which strait separates the island of Tasmania from mainland Australia?",
+      "answer": "Bass Strait"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which mountain range forms much of the traditional boundary between Europe and Asia in Russia?",
+      "answer": "The Ural Mountains"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which island nation's capital is Colombo (its commercial centre) and Sri Jayawardenepura Kotte (its legislative capital)?",
+      "answer": "Sri Lanka"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the highest peak in North America, located in Alaska?",
+      "answer": "Denali (Mount McKinley)"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Mountains and Islands",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which Indonesian island is the most populous island in the world?",
+      "answer": "Java"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.04509199999999999,
+      "ms": 15972,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1912,
+          "outputTokens": 1258,
+          "thinkingTokens": 156,
+          "durationMs": 11131
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1356,
+          "outputTokens": 343,
+          "thinkingTokens": 121,
+          "durationMs": 4841
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "The answer is correct, but the wording loosely called Colombo 'its capital'. The question now says which capital is which.",
+          "text": "Which island nation has Colombo as its executive and commercial capital and Sri Jayawardenepura Kotte as its legislative capital?"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "Denali and Mount McKinley are two names for the same peak, and the answer accepts both, so there is only one answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Seine",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Tigris",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Ankara",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Budapest",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Amazon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Abuja",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Nile",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Naypyidaw",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Mount Everest",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Greenland",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The Alps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Sicily",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Mount Kilimanjaro",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Bass Strait",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Ural Mountains",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Sri Lanka",
+          "agreed": true,
+          "flags": [
+            "wording: Calling Colombo 'its capital' is loose. Colombo is the executive and commercial capital, and Sri Jayawardenepura Kotte is the official legislative capital. The answer still works."
+          ]
+        },
+        "R2Q9": {
+          "answer": "Denali (Mount McKinley)",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q10": {
+          "answer": "Java",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q8",
+          "reason": "The answer is correct, but the wording loosely called Colombo 'its capital'. The question now says which capital is which.",
+          "before": {
+            "text": "Which island nation's capital is Colombo (its commercial centre) and Sri Jayawardenepura Kotte (its legislative capital)?",
+            "answer": "Sri Lanka"
+          },
+          "after": {
+            "text": "Which island nation has Colombo as its executive and commercial capital and Sri Jayawardenepura Kotte as its legislative capital?",
+            "answer": "Sri Lanka"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "On which river does the city of Paris stand?",
+          "answer": "The Seine"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Baghdad?",
+          "answer": "The Tigris"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Turkey?",
+          "answer": "Ankara"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The Danube flows through which capital city that is home to the Hungarian Parliament Building?",
+          "answer": "Budapest"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river is the longest in South America?",
+          "answer": "The Amazon"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Nigeria?",
+          "answer": "Abuja"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which African river flows through Khartoum, where the Blue Nile and White Nile meet?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Myanmar?",
+          "answer": "Naypyidaw"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in the world above sea level?",
+          "answer": "Mount Everest"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which is the largest island in the world that is not a continent?",
+          "answer": "Greenland"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "In which mountain range is Mont Blanc found?",
+          "answer": "The Alps"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which island is home to the city of Palermo?",
+          "answer": "Sicily"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in Africa?",
+          "answer": "Mount Kilimanjaro"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which strait separates the island of Tasmania from mainland Australia?",
+          "answer": "Bass Strait"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range forms much of the traditional boundary between Europe and Asia in Russia?",
+          "answer": "The Ural Mountains"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which island nation has Colombo as its executive and commercial capital and Sri Jayawardenepura Kotte as its legislative capital?",
+          "answer": "Sri Lanka"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the highest peak in North America, located in Alaska?",
+          "answer": "Denali (Mount McKinley)"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Mountains and Islands",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which Indonesian island is the most populous island in the world?",
+          "answer": "Java"
+        }
+      ]
+    }
+  ]
+}

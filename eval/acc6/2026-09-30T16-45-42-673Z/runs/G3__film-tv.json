@@ -1,0 +1,518 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16,
+    "run": "film-tv"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1813,
+      "outputTokens": 1206,
+      "thinkingTokens": 0,
+      "durationMs": 12319
+    },
+    "costUsd": 0.031372,
+    "ms": 12320
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1997 film about a doomed ocean liner won 11 Academy Awards, including Best Picture?",
+      "answer": "Titanic",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor won Best Actor for 'The Revenant' after several previous nominations without a win?",
+      "answer": "Leonardo DiCaprio"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which actress has won four Academy Awards for acting, a record?",
+      "answer": "Katharine Hepburn",
+      "options": [
+        "Meryl Streep",
+        "Katharine Hepburn",
+        "Ingrid Bergman",
+        "Bette Davis"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 2003 film, the final part of a fantasy trilogy, won all 11 Oscars it was nominated for?",
+      "answer": "The Lord of the Rings: The Return of the King"
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Who became the first woman to win the Academy Award for Best Director, for 'The Hurt Locker'?",
+      "answer": "Kathryn Bigelow"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which film won the first ever Academy Award for Best Picture?",
+      "answer": "Wings"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+      "answer": "The Joker (in The Dark Knight)"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of the coffee house where the group regularly meets?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Frasier', what is the name of Frasier's brother?",
+      "answer": "Niles"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which fictional paper company is the setting of the US version of 'The Office'?",
+      "answer": "Dunder Mifflin"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Seinfeld', what is Kramer's first name?",
+      "answer": "Cosmo"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which fictional town is the BBC sitcom 'The Vicar of Dibley' set?",
+      "answer": "Dibley",
+      "options": [
+        "Dibley",
+        "Royston Vasey",
+        "Walmington-on-Sea",
+        "Wenvoe"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom followed brothers Del Boy and Rodney? Its original run began in 1981 and it returned with Christmas specials into the 2000s.",
+      "answer": "Only Fools and Horses"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Father Ted', on which fictional island do the priests live?",
+      "answer": "Craggy Island"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Laugh Track",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Arrested Development', what is the name of the family whose fortunes the show follows?",
+      "answer": "The Bluths"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.041159999999999995,
+      "ms": 15810,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2065,
+          "outputTokens": 1284,
+          "thinkingTokens": 291,
+          "durationMs": 11868
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1185,
+          "outputTokens": 124,
+          "thinkingTokens": 0,
+          "durationMs": 3942
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Correct: Ledger won the posthumous Oscar for playing the Joker in The Dark Knight. The checker gave the same answer in shorter form."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Leonardo DiCaprio",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Lord of the Rings: The Return of the King",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Kathryn Bigelow",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Wings",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Joker",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Niles",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Dunder Mifflin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Cosmo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Dibley",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Only Fools and Horses",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The Bluths",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film about a doomed ocean liner won 11 Academy Awards, including Best Picture?",
+          "answer": "Titanic",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor for 'The Revenant' after several previous nominations without a win?",
+          "answer": "Leonardo DiCaprio"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which actress has won four Academy Awards for acting, a record?",
+          "answer": "Katharine Hepburn",
+          "options": [
+            "Meryl Streep",
+            "Katharine Hepburn",
+            "Ingrid Bergman",
+            "Bette Davis"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 2003 film, the final part of a fantasy trilogy, won all 11 Oscars it was nominated for?",
+          "answer": "The Lord of the Rings: The Return of the King"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Who became the first woman to win the Academy Award for Best Director, for 'The Hurt Locker'?",
+          "answer": "Kathryn Bigelow"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which film won the first ever Academy Award for Best Picture?",
+          "answer": "Wings"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+          "answer": "The Joker (in The Dark Knight)"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of the coffee house where the group regularly meets?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier's brother?",
+          "answer": "Niles"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which fictional paper company is the setting of the US version of 'The Office'?",
+          "answer": "Dunder Mifflin"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Seinfeld', what is Kramer's first name?",
+          "answer": "Cosmo"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which fictional town is the BBC sitcom 'The Vicar of Dibley' set?",
+          "answer": "Dibley",
+          "options": [
+            "Dibley",
+            "Royston Vasey",
+            "Walmington-on-Sea",
+            "Wenvoe"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom followed brothers Del Boy and Rodney? Its original run began in 1981 and it returned with Christmas specials into the 2000s.",
+          "answer": "Only Fools and Horses"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Father Ted', on which fictional island do the priests live?",
+          "answer": "Craggy Island"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Laugh Track",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Arrested Development', what is the name of the family whose fortunes the show follows?",
+          "answer": "The Bluths"
+        }
+      ]
+    }
+  ]
+}

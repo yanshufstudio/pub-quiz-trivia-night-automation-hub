@@ -1,0 +1,361 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "run": "kids"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 667,
+      "thinkingTokens": 0,
+      "durationMs": 7582
+    },
+    "costUsd": 0.020552,
+    "ms": 7582
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "A joey"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the only mammal that can truly fly?",
+      "answer": "The bat"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which black-and-white bear from China eats mostly bamboo?",
+      "answer": "The giant panda"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What do we call an animal that eats only plants?",
+      "answer": "A herbivore",
+      "options": [
+        "A carnivore",
+        "A herbivore",
+        "An omnivore"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "The giraffe"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What does a caterpillar turn into?",
+      "answer": "A butterfly or moth"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the largest animal that has ever lived?",
+      "answer": "The blue whale"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is a group of lions called?",
+      "answer": "A pride",
+      "options": [
+        "A pack",
+        "A herd",
+        "A pride",
+        "A flock"
+      ]
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird, found in Antarctica, cannot fly but is an excellent swimmer?",
+      "answer": "The penguin"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.026476,
+      "ms": 9940,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1430,
+          "outputTokens": 617,
+          "thinkingTokens": 82,
+          "durationMs": 6362
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1264,
+          "outputTokens": 168,
+          "thinkingTokens": 0,
+          "durationMs": 3577
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "The setter's answer already accepts both butterfly and moth, so the checker's 'butterfly' fits within it."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Penguin is the only flightless, swimming bird group in Antarctica; the checker's answer matches."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "A joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The bat",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "A herbivore",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "A butterfly",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q8": {
+          "answer": "The blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "A pride",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "The penguin",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "A joey"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the only mammal that can truly fly?",
+          "answer": "The bat"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black-and-white bear from China eats mostly bamboo?",
+          "answer": "The giant panda"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What do we call an animal that eats only plants?",
+          "answer": "A herbivore",
+          "options": [
+            "A carnivore",
+            "A herbivore",
+            "An omnivore"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "The giraffe"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What does a caterpillar turn into?",
+          "answer": "A butterfly or moth"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest animal that has ever lived?",
+          "answer": "The blue whale"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is a group of lions called?",
+          "answer": "A pride",
+          "options": [
+            "A pack",
+            "A herd",
+            "A pride",
+            "A flock"
+          ]
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird, found in Antarctica, cannot fly but is an excellent swimmer?",
+          "answer": "The penguin"
+        }
+      ]
+    }
+  ]
+}

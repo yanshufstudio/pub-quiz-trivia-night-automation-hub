@@ -1,0 +1,539 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16,
+    "run": "film-tv"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1813,
+      "outputTokens": 1098,
+      "thinkingTokens": 0,
+      "durationMs": 9124
+    },
+    "costUsd": 0.014606,
+    "ms": 9124
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1997 film directed by James Cameron won 11 Academy Awards, including Best Picture?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor won the Best Actor Oscar for playing Hannibal Lecter in The Silence of the Lambs?",
+      "answer": "Anthony Hopkins"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "TEXT",
+      "text": "Which 2019 South Korean film directed by Bong Joon-ho won the Oscar for Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "TEXT",
+      "text": "Which actress won Best Actress for La La Land at the 2017 ceremony?",
+      "answer": "Emma Stone"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "TEXT",
+      "text": "Who won the Best Director Oscar for The Hurt Locker, becoming the first woman to do so?",
+      "answer": "Kathryn Bigelow"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "TEXT",
+      "text": "Which film won Best Picture at the 2017 ceremony after being mistakenly announced as not the winner, with La La Land initially named?",
+      "answer": "Moonlight"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which actor won Best Actor for The Revenant, his first Oscar?",
+      "answer": "Leonardo DiCaprio",
+      "options": [
+        "Leonardo DiCaprio",
+        "Matthew McConaughey",
+        "Eddie Redmayne",
+        "Casey Affleck"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Oscar Winners",
+      "category": "Film: Academy Awards",
+      "type": "TEXT",
+      "text": "Which 2023 film directed by Christopher Nolan won Best Picture at the 2024 Oscars?",
+      "answer": "Oppenheimer"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "In Friends, what is the name of the coffee shop where the six friends hang out?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom, created by Larry David and Jerry Seinfeld, is often described as being 'about nothing'?",
+      "answer": "Seinfeld"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "Which actor plays Michael Scott in the US version of The Office?",
+      "answer": "Steve Carell"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "In Frasier, what is the name of Frasier's brother?",
+      "answer": "Niles"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "Which British sitcom, set in a Reading paper company branch office, starred Ricky Gervais as David Brent?",
+      "answer": "The Office"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "In How I Met Your Mother, what is the name of the bar the gang frequents?",
+      "answer": "MacLaren's"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom set in a Scranton-like fictional town... actually, which US sitcom features Ted Mosby telling his kids the story of how he met their mother, narrated by which actor's voice as older Ted?",
+      "answer": "Bob Saget"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Sitcoms of the 90s and 00s",
+      "category": "TV: Sitcoms",
+      "type": "TEXT",
+      "text": "In Peep Show, which actor plays Mark Corrigan?",
+      "answer": "David Mitchell"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.051508,
+      "ms": 18300,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2082,
+          "outputTokens": 1468,
+          "thinkingTokens": 259,
+          "durationMs": 13179
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1705,
+          "outputTokens": 350,
+          "thinkingTokens": 0,
+          "durationMs": 5120
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Wording wrong: La La Land was mistakenly announced as the winner, not Moonlight as the loser.",
+          "text": "Which film won Best Picture at the 2017 Academy Awards ceremony after La La Land was mistakenly announced as the winner?"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Niles is correct; surname Crane is just extra detail."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "MacLaren's is correct; 'Pub' is the same answer put another way."
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Took out the false start and made it ask one thing only; Bob Saget voiced future Ted.",
+          "text": "In How I Met Your Mother, which actor provides the voice of the older Ted Mosby, who narrates the story to his kids?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Anthony Hopkins",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Emma Stone",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Kathryn Bigelow",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Moonlight",
+          "agreed": true,
+          "flags": [
+            "wording: 'after being mistakenly announced as not the winner' is wrong. Moonlight was never announced as the loser: La La Land was wrongly read out as the winner, and the award was then corrected to Moonlight."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Leonardo DiCaprio",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Oppenheimer",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Seinfeld",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Steve Carell",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Niles (Crane)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "MacLaren's (Pub)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q7": {
+          "answer": "Bob Saget (the show is How I Met Your Mother)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The draft still has a false start in it ('Which sitcom set in a Scranton-like fictional town... actually') and asks two things at once: the show and the narrator. Rewrite it as one question. Bob Saget is the voice of future Ted."
+          ]
+        },
+        "R2Q8": {
+          "answer": "David Mitchell",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Wording wrong: La La Land was mistakenly announced as the winner, not Moonlight as the loser.",
+          "before": {
+            "text": "Which film won Best Picture at the 2017 ceremony after being mistakenly announced as not the winner, with La La Land initially named?",
+            "answer": "Moonlight"
+          },
+          "after": {
+            "text": "Which film won Best Picture at the 2017 Academy Awards ceremony after La La Land was mistakenly announced as the winner?",
+            "answer": "Moonlight"
+          }
+        },
+        {
+          "id": "R2Q7",
+          "reason": "Took out the false start and made it ask one thing only; Bob Saget voiced future Ted.",
+          "before": {
+            "text": "Which sitcom set in a Scranton-like fictional town... actually, which US sitcom features Ted Mosby telling his kids the story of how he met their mother, narrated by which actor's voice as older Ted?",
+            "answer": "Bob Saget"
+          },
+          "after": {
+            "text": "In How I Met Your Mother, which actor provides the voice of the older Ted Mosby, who narrates the story to his kids?",
+            "answer": "Bob Saget"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film directed by James Cameron won 11 Academy Awards, including Best Picture?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won the Best Actor Oscar for playing Hannibal Lecter in The Silence of the Lambs?",
+          "answer": "Anthony Hopkins"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "TEXT",
+          "text": "Which 2019 South Korean film directed by Bong Joon-ho won the Oscar for Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "TEXT",
+          "text": "Which actress won Best Actress for La La Land at the 2017 ceremony?",
+          "answer": "Emma Stone"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "TEXT",
+          "text": "Who won the Best Director Oscar for The Hurt Locker, becoming the first woman to do so?",
+          "answer": "Kathryn Bigelow"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "TEXT",
+          "text": "Which film won Best Picture at the 2017 Academy Awards ceremony after La La Land was mistakenly announced as the winner?",
+          "answer": "Moonlight"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which actor won Best Actor for The Revenant, his first Oscar?",
+          "answer": "Leonardo DiCaprio",
+          "options": [
+            "Leonardo DiCaprio",
+            "Matthew McConaughey",
+            "Eddie Redmayne",
+            "Casey Affleck"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Oscar Winners",
+          "category": "Film: Academy Awards",
+          "type": "TEXT",
+          "text": "Which 2023 film directed by Christopher Nolan won Best Picture at the 2024 Oscars?",
+          "answer": "Oppenheimer"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "In Friends, what is the name of the coffee shop where the six friends hang out?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom, created by Larry David and Jerry Seinfeld, is often described as being 'about nothing'?",
+          "answer": "Seinfeld"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "Which actor plays Michael Scott in the US version of The Office?",
+          "answer": "Steve Carell"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "In Frasier, what is the name of Frasier's brother?",
+          "answer": "Niles"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "Which British sitcom, set in a Reading paper company branch office, starred Ricky Gervais as David Brent?",
+          "answer": "The Office"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "In How I Met Your Mother, what is the name of the bar the gang frequents?",
+          "answer": "MacLaren's"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "In How I Met Your Mother, which actor provides the voice of the older Ted Mosby, who narrates the story to his kids?",
+          "answer": "Bob Saget"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Sitcoms of the 90s and 00s",
+          "category": "TV: Sitcoms",
+          "type": "TEXT",
+          "text": "In Peep Show, which actor plays Mark Corrigan?",
+          "answer": "David Mitchell"
+        }
+      ]
+    }
+  ]
+}

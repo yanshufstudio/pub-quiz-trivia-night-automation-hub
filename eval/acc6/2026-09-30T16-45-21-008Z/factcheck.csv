@@ -1,0 +1,6 @@
+generator,brief,id,round,type,question,answer,options,C1_verdict,C1_reason,C1_new_text,C1_new_answer,C1_blind_answer,C2_verdict,C2_reason,C2_new_text,C2_new_answer,C2_blind_answer,C1s_verdict,C1s_reason,C1s_new_text,C1s_new_answer,C1s_blind_answer,FACTCHECK_question_wording_ok,FACTCHECK_answer_ok,FACTCHECK_notes
+G4,90s-pop,R1Q1,Pop in the Nineties,TEXT,Which British group had hits in the 1990s with 'Wannabe' and 'Say You'll Be There'?,Spice Girls,,,,,,,ok,independent answer agrees,,,Spice Girls,,,,,,,,
+G4,90s-pop,R1Q2,Pop in the Nineties,TEXT,"Which Canadian singer released the 1997 album 'Let's Talk About Love', which included 'My Heart Will Go On'?",Celine Dion,,,,,,,ok,independent answer agrees,,,Celine Dion,,,,,,,,
+G4,90s-pop,R1Q3,Pop in the Nineties,TEXT,Which Take That member left the band in 1995 and went on to a solo career beginning with 'Freedom'?,Robbie Williams,,,,,,,ok,independent answer agrees,,,Robbie Williams,,,,,,,,
+G4,90s-pop,R1Q4,Pop in the Nineties,TEXT,Britney Spears' debut single in 1998 had which title?,...Baby One More Time,,,,,,,ok,independent answer agrees,,,...Baby One More Time,,,,,,,,
+G4,90s-pop,R1Q5,Pop in the Nineties,TEXT,"Which Swedish group released the 1993 album 'The Sign', featuring the hit 'All That She Wants'?",Ace of Base,,,,,,,ok,independent answer agrees,,,Ace of Base,,,,,,,,

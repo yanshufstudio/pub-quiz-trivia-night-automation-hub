@@ -1,0 +1,247 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "short-6",
+    "prompt": "A short pub quiz: 2 rounds of 3 questions each. Round 1: 90s pop music. Round 2: UK geography. Keep answers short.",
+    "questions": 6,
+    "run": "short-6#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1824,
+      "outputTokens": 432,
+      "thinkingTokens": 0,
+      "durationMs": 3466
+    },
+    "costUsd": 0.007968,
+    "ms": 3466
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Pop",
+      "category": "90s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group had a 1996 hit with 'Wannabe'?",
+      "answer": "Spice Girls"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Pop",
+      "category": "90s Pop Music",
+      "type": "TEXT",
+      "text": "Which Oasis album, released in 1995, contained 'Wonderwall'?",
+      "answer": "(What's the Story) Morning Glory?"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Pop",
+      "category": "90s Pop Music",
+      "type": "TEXT",
+      "text": "Which Canadian singer had a huge 1997 hit with 'My Heart Will Go On'?",
+      "answer": "Celine Dion"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the UK",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Wales?",
+      "answer": "Cardiff"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the UK",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "Which is the longest river in the UK?",
+      "answer": "River Severn"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the UK",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in Scotland?",
+      "answer": "Ben Nevis"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.024132,
+      "ms": 10127,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1235,
+          "outputTokens": 546,
+          "thinkingTokens": 105,
+          "durationMs": 6390
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1258,
+          "outputTokens": 162,
+          "thinkingTokens": 0,
+          "durationMs": 3737
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "fix",
+          "reason": "The song came out in late 1997 but was mainly a hit in 1998, so the wording now says it was released in 1997.",
+          "text": "Which Canadian singer released 'My Heart Will Go On', the Titanic theme, in 1997?",
+          "answer": "Celine Dion"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "(What's the Story) Morning Glory?",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Celine Dion",
+          "agreed": true,
+          "flags": [
+            "wording: 'huge 1997 hit': the song came out in late 1997 (on the Titanic soundtrack in November, as a single in December), but its big chart success was mostly in early 1998. That is close enough to accept, but it could be worded 'released in 1997'."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Cardiff",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "River Severn",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Ben Nevis",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q3",
+          "reason": "The song came out in late 1997 but was mainly a hit in 1998, so the wording now says it was released in 1997.",
+          "before": {
+            "text": "Which Canadian singer had a huge 1997 hit with 'My Heart Will Go On'?",
+            "answer": "Celine Dion"
+          },
+          "after": {
+            "text": "Which Canadian singer released 'My Heart Will Go On', the Titanic theme, in 1997?",
+            "answer": "Celine Dion"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Pop",
+          "category": "90s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group had a 1996 hit with 'Wannabe'?",
+          "answer": "Spice Girls"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Pop",
+          "category": "90s Pop Music",
+          "type": "TEXT",
+          "text": "Which Oasis album, released in 1995, contained 'Wonderwall'?",
+          "answer": "(What's the Story) Morning Glory?"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Pop",
+          "category": "90s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released 'My Heart Will Go On', the Titanic theme, in 1997?",
+          "answer": "Celine Dion"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the UK",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Wales?",
+          "answer": "Cardiff"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the UK",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "Which is the longest river in the UK?",
+          "answer": "River Severn"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the UK",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in Scotland?",
+          "answer": "Ben Nevis"
+        }
+      ]
+    }
+  ]
+}

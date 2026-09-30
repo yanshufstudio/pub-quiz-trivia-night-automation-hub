@@ -1,0 +1,630 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "science",
+    "prompt": "2 rounds of 10 questions on science: space and astronomy, then the human body. General audience.",
+    "questions": 20,
+    "run": "science"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 1007,
+      "thinkingTokens": 0,
+      "durationMs": 7312
+    },
+    "costUsd": 0.013676,
+    "ms": 7312
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet in our solar system is closest to the Sun?",
+      "answer": "Mercury"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the galaxy that contains our solar system?",
+      "answer": "The Milky Way"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet has the most famous system of rings, visible even through small telescopes?",
+      "answer": "Saturn"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of Earth's only natural satellite?",
+      "answer": "The Moon"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which astronaut was the first human to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What type of celestial object is Halley's Comet?",
+      "answer": "A comet"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which is the largest moon of Saturn?",
+      "answer": "Titan"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the boundary around a black hole beyond which nothing can escape?",
+      "answer": "The event horizon"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Space and Astronomy",
+      "category": "Space and Astronomy",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Approximately how long does light from the Sun take to reach Earth?",
+      "answer": "About 8 minutes (roughly 8 minutes 20 seconds)",
+      "options": [
+        "About 8 minutes (roughly 8 minutes 20 seconds)",
+        "About 8 seconds",
+        "About 8 hours",
+        "About 80 minutes"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "How many chambers does the human heart have?",
+      "answer": "Four"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which organ in the body produces insulin?",
+      "answer": "The pancreas"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the largest bone in the human body?",
+      "answer": "The femur"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which blood cells carry oxygen around the body?",
+      "answer": "Red blood cells"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the tube that carries food from the throat to the stomach?",
+      "answer": "The oesophagus (esophagus)"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which vitamin is produced in the skin when exposed to sunlight?",
+      "answer": "Vitamin D"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What are the tiny air sacs in the lungs where gas exchange occurs called?",
+      "answer": "Alveoli"
+    },
+    {
+      "id": "R2Q9",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which part of the brain is primarily responsible for coordinating balance and movement?",
+      "answer": "The cerebellum"
+    },
+    {
+      "id": "R2Q10",
+      "round": "The Human Body",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the smallest bone in the human body, found in the middle ear?",
+      "answer": "The stapes (stirrup)"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.046560000000000004,
+      "ms": 14593,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2034,
+          "outputTokens": 1087,
+          "thinkingTokens": 0,
+          "durationMs": 8035
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1531,
+          "outputTokens": 528,
+          "thinkingTokens": 204,
+          "durationMs": 6558
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "Moon/Luna is the same answer."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "The question contained its own answer. It now asks about Halley's without saying 'Comet'.",
+          "text": "What type of celestial object is Halley's, which returns to the inner Solar System roughly every 76 years?"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "The skin is the standard, accepted answer. Claims about the interstitium are fringe and not needed for a pub quiz."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Femur/thigh bone is the same answer."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Red blood cells are the same thing as erythrocytes."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Moon (Luna)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "A comet (a periodic, short-period comet)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q8": {
+          "answer": "Titan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "The event horizon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "About 8 minutes (roughly 8 minutes 20 seconds)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "The skin",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "The femur (thigh bone)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Red blood cells (erythrocytes)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "The oesophagus (esophagus)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Vitamin D",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Alveoli",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "The cerebellum",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "The stapes (stirrup)",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "The question contained its own answer. It now asks about Halley's without saying 'Comet'.",
+          "before": {
+            "text": "What type of celestial object is Halley's Comet?",
+            "answer": "A comet"
+          },
+          "after": {
+            "text": "What type of celestial object is Halley's, which returns to the inner Solar System roughly every 76 years?",
+            "answer": "A comet"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet in our solar system is closest to the Sun?",
+          "answer": "Mercury"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the galaxy that contains our solar system?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet has the most famous system of rings, visible even through small telescopes?",
+          "answer": "Saturn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of Earth's only natural satellite?",
+          "answer": "The Moon"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which astronaut was the first human to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What type of celestial object is Halley's, which returns to the inner Solar System roughly every 76 years?",
+          "answer": "A comet"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which is the largest moon of Saturn?",
+          "answer": "Titan"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the boundary around a black hole beyond which nothing can escape?",
+          "answer": "The event horizon"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Space and Astronomy",
+          "category": "Space and Astronomy",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Approximately how long does light from the Sun take to reach Earth?",
+          "answer": "About 8 minutes (roughly 8 minutes 20 seconds)",
+          "options": [
+            "About 8 minutes (roughly 8 minutes 20 seconds)",
+            "About 8 seconds",
+            "About 8 hours",
+            "About 80 minutes"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "How many chambers does the human heart have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ in the body produces insulin?",
+          "answer": "The pancreas"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the largest bone in the human body?",
+          "answer": "The femur"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which blood cells carry oxygen around the body?",
+          "answer": "Red blood cells"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the tube that carries food from the throat to the stomach?",
+          "answer": "The oesophagus (esophagus)"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which vitamin is produced in the skin when exposed to sunlight?",
+          "answer": "Vitamin D"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What are the tiny air sacs in the lungs where gas exchange occurs called?",
+          "answer": "Alveoli"
+        },
+        {
+          "id": "R2Q9",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which part of the brain is primarily responsible for coordinating balance and movement?",
+          "answer": "The cerebellum"
+        },
+        {
+          "id": "R2Q10",
+          "round": "The Human Body",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the smallest bone in the human body, found in the middle ear?",
+          "answer": "The stapes (stirrup)"
+        }
+      ]
+    }
+  ]
+}

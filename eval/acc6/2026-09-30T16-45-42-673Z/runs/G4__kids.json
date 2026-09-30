@@ -1,0 +1,365 @@
+{
+  "generator": "G4",
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "run": "kids"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 507,
+      "thinkingTokens": 0,
+      "durationMs": 3908
+    },
+    "costUsd": 0.008676,
+    "ms": 3908
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the name for a baby dog?",
+      "answer": "Puppy"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which animal is known as the 'King of the Jungle'?",
+      "answer": "Lion"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest land animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do pandas mainly eat?",
+      "answer": "Bamboo"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "A baby kangaroo is called a what?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which sea creature has eight arms and can squirt ink?",
+      "answer": "Octopus"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these is a mammal?",
+      "answer": "Dolphin",
+      "options": [
+        "Dolphin",
+        "Shark",
+        "Trout",
+        "Seahorse"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the name for a group of lions?",
+      "answer": "A pride"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Amazing Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the fastest land animal, able to sprint at over 100 km/h?",
+      "answer": "Cheetah"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.030724,
+      "ms": 13137,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1397,
+          "outputTokens": 792,
+          "thinkingTokens": 196,
+          "durationMs": 7789
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1304,
+          "outputTokens": 204,
+          "thinkingTokens": 0,
+          "durationMs": 5348
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Puppy is correct; the checker's 'pup' is just the same answer put another way."
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "Squid and cuttlefish also have eight arms and squirt ink. Saying 'no tentacles' leaves the octopus as the only answer.",
+          "text": "Which sea creature has eight arms, no tentacles, and can squirt ink?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Puppy (or pup)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Bamboo",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Octopus",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Squid and cuttlefish also have eight arms (plus two tentacles) and squirt ink, so the clue fits them too. Try 'eight arms and no tentacles'."
+          ]
+        },
+        "R1Q8": {
+          "answer": "Dolphin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Pride",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "Squid and cuttlefish also have eight arms and squirt ink. Saying 'no tentacles' leaves the octopus as the only answer.",
+          "before": {
+            "text": "Which sea creature has eight arms and can squirt ink?",
+            "answer": "Octopus"
+          },
+          "after": {
+            "text": "Which sea creature has eight arms, no tentacles, and can squirt ink?",
+            "answer": "Octopus"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the name for a baby dog?",
+          "answer": "Puppy"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal is known as the 'King of the Jungle'?",
+          "answer": "Lion"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest land animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do pandas mainly eat?",
+          "answer": "Bamboo"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A baby kangaroo is called a what?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which sea creature has eight arms, no tentacles, and can squirt ink?",
+          "answer": "Octopus"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these is a mammal?",
+          "answer": "Dolphin",
+          "options": [
+            "Dolphin",
+            "Shark",
+            "Trout",
+            "Seahorse"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the name for a group of lions?",
+          "answer": "A pride"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Amazing Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal, able to sprint at over 100 km/h?",
+          "answer": "Cheetah"
+        }
+      ]
+    }
+  ]
+}
