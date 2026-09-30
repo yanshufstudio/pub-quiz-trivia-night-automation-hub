@@ -246,21 +246,53 @@ async function main() {
       }
       process.stdout.write(`${gid} × ${brief.run}: generating… `);
       const genStart = Date.now();
+      // ACC6: generateQuizPack warns when ACC8 retries a short or malformed
+      // first attempt; keep that text so the report can say what the retry was for.
+      const retryWarnings: string[] = [];
+      const warn = console.warn;
+      console.warn = (...args: unknown[]) => {
+        retryWarnings.push(args.map(String).join(" "));
+      };
       let generated;
       try {
         generated = await generateQuizPack(brief.prompt, g);
       } catch (err) {
         const message = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
-        console.log(`failed (${message})`);
-        writeFileSync(path.join(outDir, "runs", `${gid}__${brief.run}.json`), JSON.stringify({ generator: gid, config: g, brief, failed: message }, null, 2));
-        summary.push(`| ${gid} | ${brief.run} | generation failed: ${message.replace(/\|/g, "/")} | | | | | |`);
+        // ACC6: a failed generation was paid for too (ACC13 puts usage on the error).
+        const e = err as { usage?: CallUsage; attempts?: number; truncated?: boolean };
+        const failCost = e.usage ? cost([e.usage]) : 0;
+        spent += failCost;
+        console.log(`failed (${message}), $${failCost.toFixed(3)}, attempts ${e.attempts ?? "?"}`);
+        writeFileSync(
+          path.join(outDir, "runs", `${gid}__${brief.run}.json`),
+          JSON.stringify(
+            {
+              generator: gid,
+              config: g,
+              brief,
+              failed: message,
+              errorName: err instanceof Error ? err.name : null,
+              truncated: e.truncated ?? null,
+              attempts: e.attempts ?? null,
+              retryWarnings,
+              usage: e.usage ?? null,
+              costUsd: failCost,
+              ms: Date.now() - genStart,
+            },
+            null,
+            2
+          )
+        );
+        summary.push(`| ${gid} | ${brief.run} | generation failed (attempts ${e.attempts ?? "?"}): ${message.replace(/\|/g, "/")} | | $${failCost.toFixed(3)} | ${((Date.now() - genStart) / 1000).toFixed(1)}s | |`);
         continue;
+      } finally {
+        console.warn = warn;
       }
       const genMs = Date.now() - genStart;
       const genCost = cost([generated.usage]);
       spent += genCost;
       const before = questionsOf(generated.pack);
-      console.log(`${before.length} questions, $${genCost.toFixed(3)}, ${(genMs / 1000).toFixed(1)}s, thinking ${generated.usage.thinkingTokens ?? "?"} tok`);
+      console.log(`${before.length} questions, $${genCost.toFixed(3)}, ${(genMs / 1000).toFixed(1)}s, thinking ${generated.usage.thinkingTokens ?? "?"} tok, attempts ${generated.attempts}`);
 
       const results: CheckerResult[] = [];
       for (const cid of cids) {
@@ -294,6 +326,9 @@ async function main() {
               truncated: generated.truncated,
               droppedQuestions: generated.droppedQuestions,
               droppedRounds: generated.droppedRounds,
+              attempts: generated.attempts,
+              surplusQuestions: generated.surplusQuestions,
+              retryWarnings,
               usage: generated.usage,
               costUsd: genCost,
               ms: genMs,
@@ -335,7 +370,7 @@ async function main() {
       }
 
       summary.push(
-        `| ${gid} | ${brief.run} | ${before.length} | ${generated.usage.inputTokens}/${generated.usage.outputTokens}/${generated.usage.thinkingTokens ?? "?"} | $${genCost.toFixed(3)} | ${(genMs / 1000).toFixed(1)}s | ` +
+        `| ${gid} | ${brief.run} | ${before.length}${generated.attempts > 1 ? ` (attempt ${generated.attempts})` : ""} |${generated.usage.inputTokens}/${generated.usage.outputTokens}/${generated.usage.thinkingTokens ?? "?"} | $${genCost.toFixed(3)} | ${(genMs / 1000).toFixed(1)}s | ` +
           results
             .map((r) =>
               "outcome" in r
