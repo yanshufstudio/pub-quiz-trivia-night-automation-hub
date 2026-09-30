@@ -1,0 +1,3365 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "big-8x15",
+    "prompt": "8 rounds of 15 questions, mixed topics",
+    "questions": 120,
+    "expect": [
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
+    ],
+    "run": "big-8x15"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1790,
+      "outputTokens": 5370,
+      "thinkingTokens": 77,
+      "durationMs": 53728
+    },
+    "costUsd": 0.11456,
+    "ms": 53729
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city is the Colosseum?",
+      "answer": "Rome"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many days are there in a leap year?",
+      "answer": "366"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What colour do you get by mixing blue and yellow paint?",
+      "answer": "Green"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote the play 'Romeo and Juliet'?",
+      "answer": "William Shakespeare"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest ocean on Earth?",
+      "answer": "Pacific Ocean",
+      "options": [
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Pacific Ocean",
+        "Arctic Ocean"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the name of the fictional detective who lives at 221B Baker Street?",
+      "answer": "Sherlock Holmes"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many strings does a standard violin have?",
+      "answer": "Four"
+    },
+    {
+      "id": "R1Q11",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the Roman numeral for 50?",
+      "answer": "L"
+    },
+    {
+      "id": "R1Q12",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which language was the novel 'Don Quixote' originally written?",
+      "answer": "Spanish"
+    },
+    {
+      "id": "R1Q13",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is a group of crows traditionally called?",
+      "answer": "A murder"
+    },
+    {
+      "id": "R1Q14",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the name for a word that reads the same backwards as forwards, such as 'level'?",
+      "answer": "Palindrome"
+    },
+    {
+      "id": "R1Q15",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which artist painted 'The Persistence of Memory', featuring melting clocks?",
+      "answer": "Salvador Dalí"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Who was the first President of the United States?",
+      "answer": "George Washington"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which English king had six wives?",
+      "answer": "Henry VIII"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which ancient civilisation built Machu Picchu?",
+      "answer": "The Inca"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which French military leader was defeated at the Battle of Waterloo in 1815?",
+      "answer": "Napoleon Bonaparte"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Battle of Hastings take place?",
+      "answer": "1066"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which queen of Egypt was the last active ruler of the Ptolemaic Kingdom?",
+      "answer": "Cleopatra VII"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which ship carried the Pilgrims to North America in 1620?",
+      "answer": "The Mayflower"
+    },
+    {
+      "id": "R2Q11",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Who was the British Prime Minister for most of the Second World War, from 1940 to 1945?",
+      "answer": "Winston Churchill"
+    },
+    {
+      "id": "R2Q12",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Nelson Mandela became President of which country in 1994?",
+      "answer": "South Africa"
+    },
+    {
+      "id": "R2Q13",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "What was the name of the Soviet satellite launched in 1957, the first artificial satellite in orbit?",
+      "answer": "Sputnik 1"
+    },
+    {
+      "id": "R2Q14",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which 1215 charter, agreed by King John, limited the power of the English monarch?",
+      "answer": "Magna Carta"
+    },
+    {
+      "id": "R2Q15",
+      "round": "Pages of the Past",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which Carthaginian general famously crossed the Alps with elephants?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R3Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in South America?",
+      "answer": "Amazon"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which country is home to Mount Fuji?",
+      "answer": "Japan"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "On which continent is the Sahara Desert?",
+      "answer": "Africa"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the smallest country in the world by area?",
+      "answer": "Vatican City"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Europe from Africa at the western end of the Mediterranean?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which country has the city of Marrakesh?",
+      "answer": "Morocco"
+    },
+    {
+      "id": "R3Q9",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Norway?",
+      "answer": "Oslo"
+    },
+    {
+      "id": "R3Q10",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "In which mountain range is Mount Everest?",
+      "answer": "The Himalayas"
+    },
+    {
+      "id": "R3Q11",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which African country's capital is Nairobi?",
+      "answer": "Kenya"
+    },
+    {
+      "id": "R3Q12",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which two countries share the world's longest international land border?",
+      "answer": "Canada and the United States"
+    },
+    {
+      "id": "R3Q13",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Turkey?",
+      "answer": "Ankara"
+    },
+    {
+      "id": "R3Q14",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which lake, shared by Peru and Bolivia, is often described as the highest navigable lake in the world?",
+      "answer": "Lake Titicaca"
+    },
+    {
+      "id": "R3Q15",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "How many bones are there in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the chemical formula for water?",
+      "answer": "H2O"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "At what temperature in Celsius does water boil at sea level?",
+      "answer": "100 degrees"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "Which organ in the human body produces insulin?",
+      "answer": "Pancreas"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the largest planet in our solar system?",
+      "answer": "Jupiter"
+    },
+    {
+      "id": "R4Q8",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "Which scientist developed the theory of general relativity?",
+      "answer": "Albert Einstein"
+    },
+    {
+      "id": "R4Q9",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the most abundant gas in Earth's atmosphere?",
+      "answer": "Nitrogen",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Argon",
+        "Carbon dioxide"
+      ]
+    },
+    {
+      "id": "R4Q10",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the name for an animal that eats only plants?",
+      "answer": "Herbivore"
+    },
+    {
+      "id": "R4Q11",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen"
+    },
+    {
+      "id": "R4Q12",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the SI unit of electrical resistance?",
+      "answer": "Ohm"
+    },
+    {
+      "id": "R4Q13",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "Who discovered penicillin in 1928?",
+      "answer": "Alexander Fleming"
+    },
+    {
+      "id": "R4Q14",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the largest living species of bird?",
+      "answer": "Common ostrich"
+    },
+    {
+      "id": "R4Q15",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What name is given to the powerhouse organelle of the cell, where respiration occurs?",
+      "answer": "Mitochondrion"
+    },
+    {
+      "id": "R5Q1",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "How many players are on the pitch for one team in a football (soccer) match?",
+      "answer": "Eleven"
+    },
+    {
+      "id": "R5Q2",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "In which sport would you perform a slam dunk?",
+      "answer": "Basketball"
+    },
+    {
+      "id": "R5Q3",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "How often are the Summer Olympic Games normally held?",
+      "answer": "Every four years"
+    },
+    {
+      "id": "R5Q4",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "What is the maximum break in standard snooker?",
+      "answer": "147"
+    },
+    {
+      "id": "R5Q5",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "Which Grand Slam tennis tournament is played on clay?",
+      "answer": "French Open"
+    },
+    {
+      "id": "R5Q6",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "In golf, what is the term for one stroke under par on a hole?",
+      "answer": "Birdie"
+    },
+    {
+      "id": "R5Q7",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "Which country hosted the 2016 Summer Olympics?",
+      "answer": "Brazil"
+    },
+    {
+      "id": "R5Q8",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "How many points is a touchdown worth in American football?",
+      "answer": "Six"
+    },
+    {
+      "id": "R5Q9",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "In which sport is the Stanley Cup awarded?",
+      "answer": "Ice hockey"
+    },
+    {
+      "id": "R5Q10",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "Which Jamaican sprinter set the 100m world record of 9.58 seconds in 2009?",
+      "answer": "Usain Bolt"
+    },
+    {
+      "id": "R5Q11",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "In cricket, how many balls are there in a standard over?",
+      "answer": "Six"
+    },
+    {
+      "id": "R5Q12",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "Which country won the first FIFA World Cup in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R5Q13",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "In which city is the Wimbledon tennis championship held?",
+      "answer": "London"
+    },
+    {
+      "id": "R5Q14",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "TEXT",
+      "text": "How many rings are there on the Olympic flag?",
+      "answer": "Five"
+    },
+    {
+      "id": "R5Q15",
+      "round": "Game On",
+      "category": "Sport",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In darts, what is the highest score possible with three darts?",
+      "answer": "180",
+      "options": [
+        "150",
+        "170",
+        "180",
+        "200"
+      ]
+    },
+    {
+      "id": "R6Q1",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released the album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R6Q2",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer is known as the 'King of Pop'?",
+      "answer": "Michael Jackson"
+    },
+    {
+      "id": "R6Q3",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Queen song begins 'Is this the real life? Is this just fantasy?'",
+      "answer": "Bohemian Rhapsody"
+    },
+    {
+      "id": "R6Q4",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "How many keys does a standard modern piano have?",
+      "answer": "88"
+    },
+    {
+      "id": "R6Q5",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Moonlight Sonata'?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R6Q6",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Swedish group won the Eurovision Song Contest in 1974 with 'Waterloo'?",
+      "answer": "ABBA"
+    },
+    {
+      "id": "R6Q7",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer's real name is Stefani Germanotta?",
+      "answer": "Lady Gaga"
+    },
+    {
+      "id": "R6Q8",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Elvis Presley's home Graceland is in which US city?",
+      "answer": "Memphis"
+    },
+    {
+      "id": "R6Q9",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which musical instrument has pedals, a soundboard and 47 strings in its standard concert form?",
+      "answer": "Harp"
+    },
+    {
+      "id": "R6Q10",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band was fronted by Kurt Cobain?",
+      "answer": "Nirvana"
+    },
+    {
+      "id": "R6Q11",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who composed 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R6Q12",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which rapper's real name is Marshall Mathers?",
+      "answer": "Eminem"
+    },
+    {
+      "id": "R6Q13",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Adele album includes 'Rolling in the Deep' and 'Someone Like You'?",
+      "answer": "21"
+    },
+    {
+      "id": "R6Q14",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Rolling Stones frontman has been knighted?",
+      "answer": "Mick Jagger",
+      "options": [
+        "Mick Jagger",
+        "Keith Richards",
+        "Charlie Watts",
+        "Ronnie Wood"
+      ]
+    },
+    {
+      "id": "R6Q15",
+      "round": "Name That Tune-Smith",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "What Italian musical term means to play gradually louder?",
+      "answer": "Crescendo"
+    },
+    {
+      "id": "R7Q1",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "What is the name of the wizarding school in the Harry Potter films?",
+      "answer": "Hogwarts"
+    },
+    {
+      "id": "R7Q2",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Who directed 'Jaws' and 'E.T. the Extra-Terrestrial'?",
+      "answer": "Steven Spielberg"
+    },
+    {
+      "id": "R7Q3",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In 'The Wizard of Oz', what is the name of Dorothy's dog?",
+      "answer": "Toto"
+    },
+    {
+      "id": "R7Q4",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Which TV sitcom featured the coffee shop Central Perk?",
+      "answer": "Friends"
+    },
+    {
+      "id": "R7Q5",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Which fictional British spy has the code number 007?",
+      "answer": "James Bond"
+    },
+    {
+      "id": "R7Q6",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In 'Star Wars', who is revealed to be Luke Skywalker's father?",
+      "answer": "Darth Vader (Anakin Skywalker)"
+    },
+    {
+      "id": "R7Q7",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Which 1997 film starring Leonardo DiCaprio and Kate Winslet won 11 Oscars?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R7Q8",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In which fictional town is 'The Simpsons' set?",
+      "answer": "Springfield"
+    },
+    {
+      "id": "R7Q9",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "What type of animal is Simba in 'The Lion King'?",
+      "answer": "Lion"
+    },
+    {
+      "id": "R7Q10",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In 'Breaking Bad', what is the name of Walter White's criminal alias?",
+      "answer": "Heisenberg"
+    },
+    {
+      "id": "R7Q11",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Which actor played Jack Sparrow in 'Pirates of the Caribbean'?",
+      "answer": "Johnny Depp"
+    },
+    {
+      "id": "R7Q12",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In the TV series 'Doctor Who', what does TARDIS stand for?",
+      "answer": "Time And Relative Dimension In Space"
+    },
+    {
+      "id": "R7Q13",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Which film features the line 'Here's looking at you, kid'?",
+      "answer": "Casablanca"
+    },
+    {
+      "id": "R7Q14",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Who directed 'Pulp Fiction'?",
+      "answer": "Quentin Tarantino"
+    },
+    {
+      "id": "R7Q15",
+      "round": "Screen Time",
+      "category": "Film & TV",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Studio Ghibli film won the Academy Award for Best Animated Feature in 2003?",
+      "answer": "Spirited Away",
+      "options": [
+        "My Neighbor Totoro",
+        "Spirited Away",
+        "Princess Mononoke",
+        "Howl's Moving Castle"
+      ]
+    },
+    {
+      "id": "R8Q1",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "What is the main ingredient of guacamole?",
+      "answer": "Avocado"
+    },
+    {
+      "id": "R8Q2",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "Which country is the origin of the pizza Margherita?",
+      "answer": "Italy"
+    },
+    {
+      "id": "R8Q3",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "What is sushi traditionally wrapped in?",
+      "answer": "Nori (seaweed)"
+    },
+    {
+      "id": "R8Q4",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "Which spirit is the base of a Mojito?",
+      "answer": "Rum"
+    },
+    {
+      "id": "R8Q5",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "What type of pastry is used to make profiteroles?",
+      "answer": "Choux pastry"
+    },
+    {
+      "id": "R8Q6",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "What is the main ingredient of hummus?",
+      "answer": "Chickpeas"
+    },
+    {
+      "id": "R8Q7",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "Which spice, the world's most expensive by weight, comes from the crocus flower?",
+      "answer": "Saffron"
+    },
+    {
+      "id": "R8Q8",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "From which country does the dish paella originate?",
+      "answer": "Spain"
+    },
+    {
+      "id": "R8Q9",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "What is the Japanese rice wine often served warm called?",
+      "answer": "Sake"
+    },
+    {
+      "id": "R8Q10",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "Which fruit is used to make the drink calvados?",
+      "answer": "Apple"
+    },
+    {
+      "id": "R8Q11",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "What is the name of the Greek dip made from yoghurt, cucumber and garlic?",
+      "answer": "Tzatziki"
+    },
+    {
+      "id": "R8Q12",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "Which nut is used to make marzipan?",
+      "answer": "Almond"
+    },
+    {
+      "id": "R8Q13",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "Which French region gives its name to a sparkling wine?",
+      "answer": "Champagne"
+    },
+    {
+      "id": "R8Q14",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What plant do the berries used to flavour gin come from?",
+      "answer": "Juniper",
+      "options": [
+        "Elder",
+        "Juniper",
+        "Hawthorn",
+        "Rowan"
+      ]
+    },
+    {
+      "id": "R8Q15",
+      "round": "Last Orders",
+      "category": "Food & Drink",
+      "type": "TEXT",
+      "text": "Which Italian cheese is traditionally used in tiramisu?",
+      "answer": "Mascarpone"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.19372,
+      "ms": 65544,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 7245,
+          "outputTokens": 6982,
+          "thinkingTokens": 566,
+          "durationMs": 53271
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2485,
+          "outputTokens": 758,
+          "thinkingTokens": 117,
+          "durationMs": 12272
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q14",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q15",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q14",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q15",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q14",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q15",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q15",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q14",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R6Q15",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q14",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R7Q15",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q13",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q14",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R8Q15",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R4Q14",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R4Q15",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R5Q11",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R5Q14",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R6Q9",
+          "verdict": "ok",
+          "reason": "Same answer written differently; the concert pedal harp has 47 strings."
+        },
+        {
+          "id": "R7Q12",
+          "verdict": "ok",
+          "reason": "Same answer written differently."
+        },
+        {
+          "id": "R8Q3",
+          "verdict": "fix",
+          "reason": "Only rolled sushi is wrapped in nori, so the question now says rolls.",
+          "text": "What are sushi rolls (maki) traditionally wrapped in?"
+        },
+        {
+          "id": "R8Q4",
+          "verdict": "ok",
+          "reason": "White rum is a kind of rum, so both answers match."
+        },
+        {
+          "id": "R8Q10",
+          "verdict": "fix",
+          "reason": "Calvados may also contain pears, so the question now asks for the main fruit.",
+          "text": "Which fruit is mainly used to make the drink calvados?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Rome",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "366",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Green",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Pacific Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Sherlock Holmes",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "4",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q11": {
+          "answer": "L",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q12": {
+          "answer": "Spanish",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q13": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q14": {
+          "answer": "Palindrome",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q15": {
+          "answer": "Salvador Dalí",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "George Washington",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Henry VIII",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "The Inca",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Napoleon Bonaparte",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "1066",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Cleopatra (VII)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "The Mayflower",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q11": {
+          "answer": "Winston Churchill",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q12": {
+          "answer": "South Africa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q13": {
+          "answer": "Sputnik 1",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q14": {
+          "answer": "Magna Carta",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q15": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Amazon",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Japan",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Africa",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Vatican City",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Morocco",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "Oslo",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Himalayas",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q11": {
+          "answer": "Kenya",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q12": {
+          "answer": "Canada and the United States",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q13": {
+          "answer": "Ankara",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q14": {
+          "answer": "Lake Titicaca",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q15": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "H2O",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "100°C",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R4Q6": {
+          "answer": "Pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Jupiter",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Albert Einstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "Nitrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Herbivore",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q11": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q12": {
+          "answer": "Ohm",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q13": {
+          "answer": "Alexander Fleming",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q14": {
+          "answer": "Ostrich (common ostrich)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R4Q15": {
+          "answer": "Mitochondrion (mitochondria)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q1": {
+          "answer": "11",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q2": {
+          "answer": "Basketball",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q3": {
+          "answer": "Every four years",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q4": {
+          "answer": "147",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q5": {
+          "answer": "French Open (Roland Garros)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q6": {
+          "answer": "Birdie",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q7": {
+          "answer": "Brazil",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q8": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q9": {
+          "answer": "Ice hockey",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q10": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q11": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q12": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q13": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q14": {
+          "answer": "5",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q15": {
+          "answer": "180",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q2": {
+          "answer": "Michael Jackson",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q3": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q4": {
+          "answer": "88",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q5": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q6": {
+          "answer": "ABBA",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q7": {
+          "answer": "Lady Gaga",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q8": {
+          "answer": "Memphis",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q9": {
+          "answer": "Harp (concert/pedal harp)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R6Q10": {
+          "answer": "Nirvana",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q11": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q12": {
+          "answer": "Eminem",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q13": {
+          "answer": "21",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q14": {
+          "answer": "Mick Jagger",
+          "agreed": true,
+          "flags": []
+        },
+        "R6Q15": {
+          "answer": "Crescendo",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q1": {
+          "answer": "Hogwarts",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q2": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q3": {
+          "answer": "Toto",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q4": {
+          "answer": "Friends",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q5": {
+          "answer": "James Bond",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q6": {
+          "answer": "Darth Vader (Anakin Skywalker)",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q7": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q8": {
+          "answer": "Springfield",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q9": {
+          "answer": "Lion",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q10": {
+          "answer": "Heisenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q11": {
+          "answer": "Johnny Depp",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q12": {
+          "answer": "Time And Relative Dimension(s) In Space",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R7Q13": {
+          "answer": "Casablanca",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q14": {
+          "answer": "Quentin Tarantino",
+          "agreed": true,
+          "flags": []
+        },
+        "R7Q15": {
+          "answer": "Spirited Away",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q1": {
+          "answer": "Avocado",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q2": {
+          "answer": "Italy",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q3": {
+          "answer": "Nori (seaweed)",
+          "agreed": true,
+          "flags": [
+            "wording: 'sushi is traditionally wrapped' – only rolled sushi (maki) is wrapped in nori; nigiri and other forms are not wrapped. Consider 'What are sushi rolls (maki) wrapped in?'"
+          ]
+        },
+        "R8Q4": {
+          "answer": "White rum",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R8Q5": {
+          "answer": "Choux pastry",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q6": {
+          "answer": "Chickpeas",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q7": {
+          "answer": "Saffron",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q8": {
+          "answer": "Spain",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q9": {
+          "answer": "Sake",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q10": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R8Q11": {
+          "answer": "Tzatziki",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q12": {
+          "answer": "Almond",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q13": {
+          "answer": "Champagne",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q14": {
+          "answer": "Juniper",
+          "agreed": true,
+          "flags": []
+        },
+        "R8Q15": {
+          "answer": "Mascarpone",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R8Q3",
+          "reason": "Only rolled sushi is wrapped in nori, so the question now says rolls.",
+          "before": {
+            "text": "What is sushi traditionally wrapped in?",
+            "answer": "Nori (seaweed)"
+          },
+          "after": {
+            "text": "What are sushi rolls (maki) traditionally wrapped in?",
+            "answer": "Nori (seaweed)"
+          }
+        },
+        {
+          "id": "R8Q10",
+          "reason": "Calvados may also contain pears, so the question now asks for the main fruit.",
+          "before": {
+            "text": "Which fruit is used to make the drink calvados?",
+            "answer": "Apple"
+          },
+          "after": {
+            "text": "Which fruit is mainly used to make the drink calvados?",
+            "answer": "Apple"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city is the Colosseum?",
+          "answer": "Rome"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many days are there in a leap year?",
+          "answer": "366"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What colour do you get by mixing blue and yellow paint?",
+          "answer": "Green"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote the play 'Romeo and Juliet'?",
+          "answer": "William Shakespeare"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest ocean on Earth?",
+          "answer": "Pacific Ocean",
+          "options": [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Pacific Ocean",
+            "Arctic Ocean"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name of the fictional detective who lives at 221B Baker Street?",
+          "answer": "Sherlock Holmes"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many strings does a standard violin have?",
+          "answer": "Four"
+        },
+        {
+          "id": "R1Q11",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the Roman numeral for 50?",
+          "answer": "L"
+        },
+        {
+          "id": "R1Q12",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which language was the novel 'Don Quixote' originally written?",
+          "answer": "Spanish"
+        },
+        {
+          "id": "R1Q13",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is a group of crows traditionally called?",
+          "answer": "A murder"
+        },
+        {
+          "id": "R1Q14",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name for a word that reads the same backwards as forwards, such as 'level'?",
+          "answer": "Palindrome"
+        },
+        {
+          "id": "R1Q15",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which artist painted 'The Persistence of Memory', featuring melting clocks?",
+          "answer": "Salvador Dalí"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Who was the first President of the United States?",
+          "answer": "George Washington"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which English king had six wives?",
+          "answer": "Henry VIII"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which ancient civilisation built Machu Picchu?",
+          "answer": "The Inca"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which French military leader was defeated at the Battle of Waterloo in 1815?",
+          "answer": "Napoleon Bonaparte"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Battle of Hastings take place?",
+          "answer": "1066"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which queen of Egypt was the last active ruler of the Ptolemaic Kingdom?",
+          "answer": "Cleopatra VII"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which ship carried the Pilgrims to North America in 1620?",
+          "answer": "The Mayflower"
+        },
+        {
+          "id": "R2Q11",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Who was the British Prime Minister for most of the Second World War, from 1940 to 1945?",
+          "answer": "Winston Churchill"
+        },
+        {
+          "id": "R2Q12",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Nelson Mandela became President of which country in 1994?",
+          "answer": "South Africa"
+        },
+        {
+          "id": "R2Q13",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "What was the name of the Soviet satellite launched in 1957, the first artificial satellite in orbit?",
+          "answer": "Sputnik 1"
+        },
+        {
+          "id": "R2Q14",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which 1215 charter, agreed by King John, limited the power of the English monarch?",
+          "answer": "Magna Carta"
+        },
+        {
+          "id": "R2Q15",
+          "round": "Pages of the Past",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which Carthaginian general famously crossed the Alps with elephants?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R3Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in South America?",
+          "answer": "Amazon"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which country is home to Mount Fuji?",
+          "answer": "Japan"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "On which continent is the Sahara Desert?",
+          "answer": "Africa"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the smallest country in the world by area?",
+          "answer": "Vatican City"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Europe from Africa at the western end of the Mediterranean?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which country has the city of Marrakesh?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R3Q9",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Norway?",
+          "answer": "Oslo"
+        },
+        {
+          "id": "R3Q10",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In which mountain range is Mount Everest?",
+          "answer": "The Himalayas"
+        },
+        {
+          "id": "R3Q11",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which African country's capital is Nairobi?",
+          "answer": "Kenya"
+        },
+        {
+          "id": "R3Q12",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which two countries share the world's longest international land border?",
+          "answer": "Canada and the United States"
+        },
+        {
+          "id": "R3Q13",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Turkey?",
+          "answer": "Ankara"
+        },
+        {
+          "id": "R3Q14",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which lake, shared by Peru and Bolivia, is often described as the highest navigable lake in the world?",
+          "answer": "Lake Titicaca"
+        },
+        {
+          "id": "R3Q15",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the air for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the hardest natural substance?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "How many bones are there in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the chemical formula for water?",
+          "answer": "H2O"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "At what temperature in Celsius does water boil at sea level?",
+          "answer": "100 degrees"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "Which organ in the human body produces insulin?",
+          "answer": "Pancreas"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the largest planet in our solar system?",
+          "answer": "Jupiter"
+        },
+        {
+          "id": "R4Q8",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "Which scientist developed the theory of general relativity?",
+          "answer": "Albert Einstein"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the most abundant gas in Earth's atmosphere?",
+          "answer": "Nitrogen",
+          "options": [
+            "Oxygen",
+            "Nitrogen",
+            "Argon",
+            "Carbon dioxide"
+          ]
+        },
+        {
+          "id": "R4Q10",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the name for an animal that eats only plants?",
+          "answer": "Herbivore"
+        },
+        {
+          "id": "R4Q11",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R4Q12",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the SI unit of electrical resistance?",
+          "answer": "Ohm"
+        },
+        {
+          "id": "R4Q13",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "Who discovered penicillin in 1928?",
+          "answer": "Alexander Fleming"
+        },
+        {
+          "id": "R4Q14",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the largest living species of bird?",
+          "answer": "Common ostrich"
+        },
+        {
+          "id": "R4Q15",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What name is given to the powerhouse organelle of the cell, where respiration occurs?",
+          "answer": "Mitochondrion"
+        },
+        {
+          "id": "R5Q1",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "How many players are on the pitch for one team in a football (soccer) match?",
+          "answer": "Eleven"
+        },
+        {
+          "id": "R5Q2",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "In which sport would you perform a slam dunk?",
+          "answer": "Basketball"
+        },
+        {
+          "id": "R5Q3",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "How often are the Summer Olympic Games normally held?",
+          "answer": "Every four years"
+        },
+        {
+          "id": "R5Q4",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "What is the maximum break in standard snooker?",
+          "answer": "147"
+        },
+        {
+          "id": "R5Q5",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "Which Grand Slam tennis tournament is played on clay?",
+          "answer": "French Open"
+        },
+        {
+          "id": "R5Q6",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "In golf, what is the term for one stroke under par on a hole?",
+          "answer": "Birdie"
+        },
+        {
+          "id": "R5Q7",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "Which country hosted the 2016 Summer Olympics?",
+          "answer": "Brazil"
+        },
+        {
+          "id": "R5Q8",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "How many points is a touchdown worth in American football?",
+          "answer": "Six"
+        },
+        {
+          "id": "R5Q9",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "In which sport is the Stanley Cup awarded?",
+          "answer": "Ice hockey"
+        },
+        {
+          "id": "R5Q10",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "Which Jamaican sprinter set the 100m world record of 9.58 seconds in 2009?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R5Q11",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "In cricket, how many balls are there in a standard over?",
+          "answer": "Six"
+        },
+        {
+          "id": "R5Q12",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "Which country won the first FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R5Q13",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "In which city is the Wimbledon tennis championship held?",
+          "answer": "London"
+        },
+        {
+          "id": "R5Q14",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "TEXT",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R5Q15",
+          "round": "Game On",
+          "category": "Sport",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In darts, what is the highest score possible with three darts?",
+          "answer": "180",
+          "options": [
+            "150",
+            "170",
+            "180",
+            "200"
+          ]
+        },
+        {
+          "id": "R6Q1",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released the album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R6Q2",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer is known as the 'King of Pop'?",
+          "answer": "Michael Jackson"
+        },
+        {
+          "id": "R6Q3",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Queen song begins 'Is this the real life? Is this just fantasy?'",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R6Q4",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "How many keys does a standard modern piano have?",
+          "answer": "88"
+        },
+        {
+          "id": "R6Q5",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Moonlight Sonata'?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R6Q6",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Swedish group won the Eurovision Song Contest in 1974 with 'Waterloo'?",
+          "answer": "ABBA"
+        },
+        {
+          "id": "R6Q7",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer's real name is Stefani Germanotta?",
+          "answer": "Lady Gaga"
+        },
+        {
+          "id": "R6Q8",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Elvis Presley's home Graceland is in which US city?",
+          "answer": "Memphis"
+        },
+        {
+          "id": "R6Q9",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which musical instrument has pedals, a soundboard and 47 strings in its standard concert form?",
+          "answer": "Harp"
+        },
+        {
+          "id": "R6Q10",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band was fronted by Kurt Cobain?",
+          "answer": "Nirvana"
+        },
+        {
+          "id": "R6Q11",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who composed 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R6Q12",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which rapper's real name is Marshall Mathers?",
+          "answer": "Eminem"
+        },
+        {
+          "id": "R6Q13",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Adele album includes 'Rolling in the Deep' and 'Someone Like You'?",
+          "answer": "21"
+        },
+        {
+          "id": "R6Q14",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Rolling Stones frontman has been knighted?",
+          "answer": "Mick Jagger",
+          "options": [
+            "Mick Jagger",
+            "Keith Richards",
+            "Charlie Watts",
+            "Ronnie Wood"
+          ]
+        },
+        {
+          "id": "R6Q15",
+          "round": "Name That Tune-Smith",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "What Italian musical term means to play gradually louder?",
+          "answer": "Crescendo"
+        },
+        {
+          "id": "R7Q1",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "What is the name of the wizarding school in the Harry Potter films?",
+          "answer": "Hogwarts"
+        },
+        {
+          "id": "R7Q2",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Who directed 'Jaws' and 'E.T. the Extra-Terrestrial'?",
+          "answer": "Steven Spielberg"
+        },
+        {
+          "id": "R7Q3",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In 'The Wizard of Oz', what is the name of Dorothy's dog?",
+          "answer": "Toto"
+        },
+        {
+          "id": "R7Q4",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Which TV sitcom featured the coffee shop Central Perk?",
+          "answer": "Friends"
+        },
+        {
+          "id": "R7Q5",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Which fictional British spy has the code number 007?",
+          "answer": "James Bond"
+        },
+        {
+          "id": "R7Q6",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In 'Star Wars', who is revealed to be Luke Skywalker's father?",
+          "answer": "Darth Vader (Anakin Skywalker)"
+        },
+        {
+          "id": "R7Q7",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Which 1997 film starring Leonardo DiCaprio and Kate Winslet won 11 Oscars?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R7Q8",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In which fictional town is 'The Simpsons' set?",
+          "answer": "Springfield"
+        },
+        {
+          "id": "R7Q9",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "What type of animal is Simba in 'The Lion King'?",
+          "answer": "Lion"
+        },
+        {
+          "id": "R7Q10",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In 'Breaking Bad', what is the name of Walter White's criminal alias?",
+          "answer": "Heisenberg"
+        },
+        {
+          "id": "R7Q11",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Which actor played Jack Sparrow in 'Pirates of the Caribbean'?",
+          "answer": "Johnny Depp"
+        },
+        {
+          "id": "R7Q12",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In the TV series 'Doctor Who', what does TARDIS stand for?",
+          "answer": "Time And Relative Dimension In Space"
+        },
+        {
+          "id": "R7Q13",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Which film features the line 'Here's looking at you, kid'?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R7Q14",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Who directed 'Pulp Fiction'?",
+          "answer": "Quentin Tarantino"
+        },
+        {
+          "id": "R7Q15",
+          "round": "Screen Time",
+          "category": "Film & TV",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Studio Ghibli film won the Academy Award for Best Animated Feature in 2003?",
+          "answer": "Spirited Away",
+          "options": [
+            "My Neighbor Totoro",
+            "Spirited Away",
+            "Princess Mononoke",
+            "Howl's Moving Castle"
+          ]
+        },
+        {
+          "id": "R8Q1",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "What is the main ingredient of guacamole?",
+          "answer": "Avocado"
+        },
+        {
+          "id": "R8Q2",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "Which country is the origin of the pizza Margherita?",
+          "answer": "Italy"
+        },
+        {
+          "id": "R8Q3",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "What are sushi rolls (maki) traditionally wrapped in?",
+          "answer": "Nori (seaweed)"
+        },
+        {
+          "id": "R8Q4",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "Which spirit is the base of a Mojito?",
+          "answer": "Rum"
+        },
+        {
+          "id": "R8Q5",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "What type of pastry is used to make profiteroles?",
+          "answer": "Choux pastry"
+        },
+        {
+          "id": "R8Q6",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "What is the main ingredient of hummus?",
+          "answer": "Chickpeas"
+        },
+        {
+          "id": "R8Q7",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "Which spice, the world's most expensive by weight, comes from the crocus flower?",
+          "answer": "Saffron"
+        },
+        {
+          "id": "R8Q8",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "From which country does the dish paella originate?",
+          "answer": "Spain"
+        },
+        {
+          "id": "R8Q9",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "What is the Japanese rice wine often served warm called?",
+          "answer": "Sake"
+        },
+        {
+          "id": "R8Q10",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "Which fruit is mainly used to make the drink calvados?",
+          "answer": "Apple"
+        },
+        {
+          "id": "R8Q11",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "What is the name of the Greek dip made from yoghurt, cucumber and garlic?",
+          "answer": "Tzatziki"
+        },
+        {
+          "id": "R8Q12",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "Which nut is used to make marzipan?",
+          "answer": "Almond"
+        },
+        {
+          "id": "R8Q13",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "Which French region gives its name to a sparkling wine?",
+          "answer": "Champagne"
+        },
+        {
+          "id": "R8Q14",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What plant do the berries used to flavour gin come from?",
+          "answer": "Juniper",
+          "options": [
+            "Elder",
+            "Juniper",
+            "Hawthorn",
+            "Rowan"
+          ]
+        },
+        {
+          "id": "R8Q15",
+          "round": "Last Orders",
+          "category": "Food & Drink",
+          "type": "TEXT",
+          "text": "Which Italian cheese is traditionally used in tiramisu?",
+          "answer": "Mascarpone"
+        }
+      ]
+    }
+  ]
+}

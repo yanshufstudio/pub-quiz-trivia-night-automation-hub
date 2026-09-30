@@ -1,0 +1,544 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16,
+    "expect": [
+      8,
+      8
+    ],
+    "run": "film-tv#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1813,
+      "outputTokens": 1242,
+      "thinkingTokens": 0,
+      "durationMs": 12556
+    },
+    "costUsd": 0.032092,
+    "ms": 12557
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1997 film about a doomed ocean liner won 11 Oscars, including Best Picture?",
+      "answer": "Titanic",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor won Best Actor for both 'Philadelphia' and 'Forrest Gump' in consecutive years?",
+      "answer": "Tom Hanks"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which actress has won the most acting Oscars, with four Best Actress awards?",
+      "answer": "Katharine Hepburn",
+      "options": [
+        "Meryl Streep",
+        "Katharine Hepburn",
+        "Bette Davis",
+        "Ingrid Bergman"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+      "answer": "The Joker"
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1959 Charlton Heston epic won 11 Oscars, a record later equalled by 'Titanic'?",
+      "answer": "Ben-Hur"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which director won Best Director for 'The Hurt Locker', becoming the first woman to win that award?",
+      "answer": "Kathryn Bigelow"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1991 film is the only horror-thriller to have won Best Picture, Best Director, Best Actor, Best Actress and Best Adapted Screenplay?",
+      "answer": "The Silence of the Lambs"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of the coffee house where the group hang out?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which US sitcom starring Jerry Seinfeld was famously described as 'a show about nothing'?",
+      "answer": "Seinfeld"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'The Office' (UK), what is the name of the paper company where David Brent works?",
+      "answer": "Wernham Hogg"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which 'Cheers' spin-off followed a psychiatrist who moved to Seattle?",
+      "answer": "Frasier"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Father Ted', on which fictional island do the priests live?",
+      "answer": "Craggy Island"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Arrested Development', what is the name of the family who lose their fortune?",
+      "answer": "The Bluths"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Only Fools and Horses'? No — in 'The Vicar of Dibley', which actress played the title role of Geraldine Granger?",
+      "answer": "Dawn French"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Sitcom Central",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In 'Scrubs', what is the name of the hospital where J.D. works?",
+      "answer": "Sacred Heart",
+      "options": [
+        "Sacred Heart",
+        "Seattle Grace",
+        "County General",
+        "Princeton-Plainsboro"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.043136,
+      "ms": 17403,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2125,
+          "outputTokens": 1344,
+          "thinkingTokens": 212,
+          "durationMs": 14298
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1254,
+          "outputTokens": 137,
+          "thinkingTokens": 0,
+          "durationMs": 3104
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "Removed the drafting leftover at the start. The answer Dawn French is correct.",
+          "text": "In 'The Vicar of Dibley', which actress played the title role of Geraldine Granger?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Tom Hanks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Joker",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Ben-Hur",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Kathryn Bigelow",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Silence of the Lambs",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Seinfeld",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Wernham Hogg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Frasier",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Bluths",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Dawn French",
+          "agreed": true,
+          "flags": [
+            "wording: The opening \"In 'Only Fools and Horses'? No —\" is a drafting leftover and should be removed. Geraldine Granger is from The Vicar of Dibley."
+          ]
+        },
+        "R2Q8": {
+          "answer": "Sacred Heart",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q7",
+          "reason": "Removed the drafting leftover at the start. The answer Dawn French is correct.",
+          "before": {
+            "text": "In 'Only Fools and Horses'? No — in 'The Vicar of Dibley', which actress played the title role of Geraldine Granger?",
+            "answer": "Dawn French"
+          },
+          "after": {
+            "text": "In 'The Vicar of Dibley', which actress played the title role of Geraldine Granger?",
+            "answer": "Dawn French"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film about a doomed ocean liner won 11 Oscars, including Best Picture?",
+          "answer": "Titanic",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor for both 'Philadelphia' and 'Forrest Gump' in consecutive years?",
+          "answer": "Tom Hanks"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which actress has won the most acting Oscars, with four Best Actress awards?",
+          "answer": "Katharine Hepburn",
+          "options": [
+            "Meryl Streep",
+            "Katharine Hepburn",
+            "Bette Davis",
+            "Ingrid Bergman"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1959 Charlton Heston epic won 11 Oscars, a record later equalled by 'Titanic'?",
+          "answer": "Ben-Hur"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which director won Best Director for 'The Hurt Locker', becoming the first woman to win that award?",
+          "answer": "Kathryn Bigelow"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1991 film is the only horror-thriller to have won Best Picture, Best Director, Best Actor, Best Actress and Best Adapted Screenplay?",
+          "answer": "The Silence of the Lambs"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of the coffee house where the group hang out?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which US sitcom starring Jerry Seinfeld was famously described as 'a show about nothing'?",
+          "answer": "Seinfeld"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'The Office' (UK), what is the name of the paper company where David Brent works?",
+          "answer": "Wernham Hogg"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which 'Cheers' spin-off followed a psychiatrist who moved to Seattle?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Father Ted', on which fictional island do the priests live?",
+          "answer": "Craggy Island"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Arrested Development', what is the name of the family who lose their fortune?",
+          "answer": "The Bluths"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'The Vicar of Dibley', which actress played the title role of Geraldine Granger?",
+          "answer": "Dawn French"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Sitcom Central",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In 'Scrubs', what is the name of the hospital where J.D. works?",
+          "answer": "Sacred Heart",
+          "options": [
+            "Sacred Heart",
+            "Seattle Grace",
+            "County General",
+            "Princeton-Plainsboro"
+          ]
+        }
+      ]
+    }
+  ]
+}

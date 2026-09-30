@@ -1,0 +1,654 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "quantum",
+    "prompt": "Hard questions only for experts, 2 rounds of 10 on quantum physics",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "quantum#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1799,
+      "outputTokens": 1669,
+      "thinkingTokens": 0,
+      "durationMs": 16828
+    },
+    "costUsd": 0.040576,
+    "ms": 16828
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist introduced the quantum of action in 1900 while deriving the law of black-body radiation?",
+      "answer": "Max Planck"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "The 1927 experiment by Davisson and Germer confirmed the wave nature of electrons by diffracting them off a crystal of which metal?",
+      "answer": "Nickel"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In 1922, what property of silver atoms did the Stern–Gerlach experiment show to be quantised?",
+      "answer": "Angular momentum (spin) orientation"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist proposed matter waves in his 1924 doctoral thesis?",
+      "answer": "Louis de Broglie"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What name is given to the 1935 paper by Einstein, Podolsky and Rosen, and to the paradox it describes, by its authors' initials?",
+      "answer": "EPR"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Who formulated the exclusion principle in 1925?",
+      "answer": "Wolfgang Pauli"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist, working on Heligoland in 1925, made the breakthrough that led to matrix mechanics?",
+      "answer": "Werner Heisenberg"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which relativistic wave equation for the electron, published in 1928, predicted antimatter?",
+      "answer": "Dirac equation"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Whose 1964 theorem gave an inequality that any local hidden-variable theory must satisfy?",
+      "answer": "John Stewart Bell"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who proposed the relative-state (many-worlds) interpretation in his 1957 thesis?",
+      "answer": "Hugh Everett III",
+      "options": [
+        "Hugh Everett III",
+        "David Bohm",
+        "Bryce DeWitt",
+        "John Wheeler"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the matrices σx, σy and σz used to describe spin one-half?",
+      "answer": "Pauli matrices"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which quantum effect predicts an attractive force between two uncharged parallel conducting plates in a vacuum?",
+      "answer": "Casimir effect"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which effect, predicted in 1959, shows that an electron can be affected by electromagnetic potentials in a region where the fields are zero?",
+      "answer": "Aharonov–Bohm effect"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the maximum value of the CHSH combination of correlations allowed by quantum mechanics, known as Tsirelson's bound?",
+      "answer": "2√2"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which theorem states that an arbitrary unknown quantum state cannot be copied exactly?",
+      "answer": "No-cloning theorem"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "The half-integer spin of fermions means their wavefunction changes sign under a rotation of how many degrees?",
+      "answer": "360 degrees"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which quantum algorithm, published in 1996, searches an unstructured database in about the square root of N steps?",
+      "answer": "Grover's algorithm"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which theorem, proved by Kochen and Specker's contemporaries and named after them, rules out non-contextual hidden variables in Hilbert spaces of dimension three or more?",
+      "answer": "Kochen–Specker theorem"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In quantum electrodynamics, what is the name of the small energy difference between the 2S½ and 2P½ levels of hydrogen, measured in 1947?",
+      "answer": "Lamb shift"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Deep Quantum",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1970 Nobel-winning... no—which state of matter, first made in a dilute gas of rubidium atoms in 1995, won Cornell, Wieman and Ketterle the 2001 Nobel Prize?",
+      "answer": "Bose–Einstein condensate"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.053891999999999995,
+      "ms": 20025,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2420,
+          "outputTokens": 1475,
+          "thinkingTokens": 208,
+          "durationMs": 14323
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1788,
+          "outputTokens": 378,
+          "thinkingTokens": 0,
+          "durationMs": 5701
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "Checker's answer is the same thing put another way: spatial orientation of angular momentum."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Same answer; 2√2 is correct."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "False premise: Kochen and Specker proved the theorem themselves.",
+          "text": "Which theorem, proved in 1967 and named after the two mathematicians who proved it, rules out non-contextual hidden variables in Hilbert spaces of dimension three or more?"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "fix",
+          "reason": "Garbled false start removed; Ketterle used sodium, so the rubidium claim now covers only the first condensate.",
+          "text": "Which state of matter, first made in a dilute gas of rubidium atoms in 1995, won Cornell, Wieman and Ketterle the 2001 Nobel Prize in Physics?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Max Planck",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Nickel",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The spatial orientation of their angular momentum (magnetic moment), i.e. spin",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q4": {
+          "answer": "Louis de Broglie",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "EPR",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Wolfgang Pauli",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Werner Heisenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Dirac equation",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "John Stewart Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Hugh Everett III",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Pauli matrices",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The Casimir effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The Aharonov–Bohm effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "2√2 (about 2.83)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "The no-cloning theorem",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "360 degrees",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Grover's algorithm",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The Kochen–Specker theorem",
+          "agreed": true,
+          "flags": [
+            "wording: 'proved by Kochen and Specker's contemporaries' is false: Simon Kochen and Ernst Specker proved it themselves (1967). Bell independently got a related result, but the theorem is named after the people who proved it."
+          ]
+        },
+        "R2Q9": {
+          "answer": "The Lamb shift",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Bose–Einstein condensate",
+          "agreed": true,
+          "flags": [
+            "wording: The wording is garbled: it contains a leftover false start ('Which 1970 Nobel-winning... no—') that has to be removed before it is read out. Also, only Cornell and Wieman used rubidium in 1995; Ketterle used sodium."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q8",
+          "reason": "False premise: Kochen and Specker proved the theorem themselves.",
+          "before": {
+            "text": "Which theorem, proved by Kochen and Specker's contemporaries and named after them, rules out non-contextual hidden variables in Hilbert spaces of dimension three or more?",
+            "answer": "Kochen–Specker theorem"
+          },
+          "after": {
+            "text": "Which theorem, proved in 1967 and named after the two mathematicians who proved it, rules out non-contextual hidden variables in Hilbert spaces of dimension three or more?",
+            "answer": "Kochen–Specker theorem"
+          }
+        },
+        {
+          "id": "R2Q10",
+          "reason": "Garbled false start removed; Ketterle used sodium, so the rubidium claim now covers only the first condensate.",
+          "before": {
+            "text": "Which 1970 Nobel-winning... no—which state of matter, first made in a dilute gas of rubidium atoms in 1995, won Cornell, Wieman and Ketterle the 2001 Nobel Prize?",
+            "answer": "Bose–Einstein condensate"
+          },
+          "after": {
+            "text": "Which state of matter, first made in a dilute gas of rubidium atoms in 1995, won Cornell, Wieman and Ketterle the 2001 Nobel Prize in Physics?",
+            "answer": "Bose–Einstein condensate"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist introduced the quantum of action in 1900 while deriving the law of black-body radiation?",
+          "answer": "Max Planck"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "The 1927 experiment by Davisson and Germer confirmed the wave nature of electrons by diffracting them off a crystal of which metal?",
+          "answer": "Nickel"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In 1922, what property of silver atoms did the Stern–Gerlach experiment show to be quantised?",
+          "answer": "Angular momentum (spin) orientation"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist proposed matter waves in his 1924 doctoral thesis?",
+          "answer": "Louis de Broglie"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What name is given to the 1935 paper by Einstein, Podolsky and Rosen, and to the paradox it describes, by its authors' initials?",
+          "answer": "EPR"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Who formulated the exclusion principle in 1925?",
+          "answer": "Wolfgang Pauli"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist, working on Heligoland in 1925, made the breakthrough that led to matrix mechanics?",
+          "answer": "Werner Heisenberg"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which relativistic wave equation for the electron, published in 1928, predicted antimatter?",
+          "answer": "Dirac equation"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Whose 1964 theorem gave an inequality that any local hidden-variable theory must satisfy?",
+          "answer": "John Stewart Bell"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who proposed the relative-state (many-worlds) interpretation in his 1957 thesis?",
+          "answer": "Hugh Everett III",
+          "options": [
+            "Hugh Everett III",
+            "David Bohm",
+            "Bryce DeWitt",
+            "John Wheeler"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the matrices σx, σy and σz used to describe spin one-half?",
+          "answer": "Pauli matrices"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which quantum effect predicts an attractive force between two uncharged parallel conducting plates in a vacuum?",
+          "answer": "Casimir effect"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which effect, predicted in 1959, shows that an electron can be affected by electromagnetic potentials in a region where the fields are zero?",
+          "answer": "Aharonov–Bohm effect"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the maximum value of the CHSH combination of correlations allowed by quantum mechanics, known as Tsirelson's bound?",
+          "answer": "2√2"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which theorem states that an arbitrary unknown quantum state cannot be copied exactly?",
+          "answer": "No-cloning theorem"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "The half-integer spin of fermions means their wavefunction changes sign under a rotation of how many degrees?",
+          "answer": "360 degrees"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which quantum algorithm, published in 1996, searches an unstructured database in about the square root of N steps?",
+          "answer": "Grover's algorithm"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which theorem, proved in 1967 and named after the two mathematicians who proved it, rules out non-contextual hidden variables in Hilbert spaces of dimension three or more?",
+          "answer": "Kochen–Specker theorem"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In quantum electrodynamics, what is the name of the small energy difference between the 2S½ and 2P½ levels of hydrogen, measured in 1947?",
+          "answer": "Lamb shift"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Deep Quantum",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which state of matter, first made in a dilute gas of rubidium atoms in 1995, won Cornell, Wieman and Ketterle the 2001 Nobel Prize in Physics?",
+          "answer": "Bose–Einstein condensate"
+        }
+      ]
+    }
+  ]
+}

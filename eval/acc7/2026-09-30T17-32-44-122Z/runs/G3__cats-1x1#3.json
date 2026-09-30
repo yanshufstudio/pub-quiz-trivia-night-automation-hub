@@ -1,0 +1,102 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "cats-1x1",
+    "prompt": "1 round of 1 question about cats",
+    "questions": 1,
+    "expect": [
+      1
+    ],
+    "run": "cats-1x1#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      1
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 231,
+      "thinkingTokens": 0,
+      "durationMs": 5102
+    },
+    "costUsd": 0.011756,
+    "ms": 5102
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "The Cat's Whiskers",
+      "category": "Cats",
+      "type": "TEXT",
+      "text": "What is the name of the hairless cat breed that originated in Toronto, Canada, in the 1960s?",
+      "answer": "Sphynx"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.005948,
+      "ms": 3050,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 977,
+          "outputTokens": 102,
+          "thinkingTokens": 0,
+          "durationMs": 3050
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Sphynx",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        1
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "The Cat's Whiskers",
+          "category": "Cats",
+          "type": "TEXT",
+          "text": "What is the name of the hairless cat breed that originated in Toronto, Canada, in the 1960s?",
+          "answer": "Sphynx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,630 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "picture-music",
+    "prompt": "Picture round ideas and a music round",
+    "questions": 20,
+    "run": "picture-music"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 2216,
+      "thinkingTokens": 760,
+      "durationMs": 22085
+    },
+    "costUsd": 0.051456,
+    "ms": 22085
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which technology company's logo is an apple with a bite taken out of it?",
+      "answer": "Apple"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which country's flag shows a red maple leaf on a white square between two red bands?",
+      "answer": "Canada"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "How many interlocking rings appear on the Olympic flag?",
+      "answer": "Five"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which painting by Leonardo da Vinci, which hangs in the Louvre, shows a woman with an enigmatic smile?",
+      "answer": "Mona Lisa"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "What is the name of Edvard Munch's painting of a figure clutching its face on a bridge beneath a swirling orange sky?",
+      "answer": "The Scream"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which Japanese artist created the woodblock print of a huge wave towering over boats, with Mount Fuji in the background?",
+      "answer": "Hokusai"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "What is the title of Johannes Vermeer's painting of a girl in a blue and yellow turban looking over her shoulder?",
+      "answer": "Girl with a Pearl Earring"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Salvador Dalí painting shows soft, melting pocket watches draped over a branch and a ledge?",
+      "answer": "The Persistence of Memory",
+      "options": [
+        "The Persistence of Memory",
+        "The Elephants",
+        "Swans Reflecting Elephants",
+        "The Burning Giraffe"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Grant Wood's painting of a stern farmer holding a pitchfork beside a woman, in front of a house with a Gothic-style window, is known by what title?",
+      "answer": "American Gothic"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "A famous 1932 photograph shows construction workers eating lunch while sitting on a steel beam high above New York. What is it usually called?",
+      "answer": "Lunch atop a Skyscraper"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released the album Abbey Road?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "How many strings does a standard guitar have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Michael Jackson album includes the song 'Billie Jean'?",
+      "answer": "Thriller"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Nirvana?",
+      "answer": "Kurt Cobain"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which song won ABBA the 1974 Eurovision Song Contest?",
+      "answer": "Waterloo"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Italian Baroque composer wrote The Four Seasons?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which instrument did jazz musician Miles Davis play?",
+      "answer": "Trumpet",
+      "options": [
+        "Saxophone",
+        "Trumpet",
+        "Piano",
+        "Double bass"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Adele's album featuring 'Rolling in the Deep' is named after a number. Which number?",
+      "answer": "21"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer is known for fronting the E Street Band?",
+      "answer": "Bruce Springsteen"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "What was Freddie Mercury's birth name?",
+      "answer": "Farrokh Bulsara"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.038644,
+      "ms": 14749,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2199,
+          "outputTokens": 1068,
+          "thinkingTokens": 0,
+          "durationMs": 11919
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1317,
+          "outputTokens": 161,
+          "thinkingTokens": 0,
+          "durationMs": 2829
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "Mona Lisa and La Gioconda are the same painting, so the checker gave the same answer under another name."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Katsushika Hokusai is simply Hokusai's full name, so the answers match."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Canada",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Mona Lisa (La Gioconda)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q5": {
+          "answer": "The Scream",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Katsushika Hokusai",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q7": {
+          "answer": "Girl with a Pearl Earring",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Persistence of Memory",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "American Gothic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Lunch atop a Skyscraper",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Six",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Thriller",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Kurt Cobain",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Waterloo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Trumpet",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "21",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Bruce Springsteen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Farrokh Bulsara",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which technology company's logo is an apple with a bite taken out of it?",
+          "answer": "Apple"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which country's flag shows a red maple leaf on a white square between two red bands?",
+          "answer": "Canada"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "How many interlocking rings appear on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which painting by Leonardo da Vinci, which hangs in the Louvre, shows a woman with an enigmatic smile?",
+          "answer": "Mona Lisa"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "What is the name of Edvard Munch's painting of a figure clutching its face on a bridge beneath a swirling orange sky?",
+          "answer": "The Scream"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which Japanese artist created the woodblock print of a huge wave towering over boats, with Mount Fuji in the background?",
+          "answer": "Hokusai"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "What is the title of Johannes Vermeer's painting of a girl in a blue and yellow turban looking over her shoulder?",
+          "answer": "Girl with a Pearl Earring"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Salvador Dalí painting shows soft, melting pocket watches draped over a branch and a ledge?",
+          "answer": "The Persistence of Memory",
+          "options": [
+            "The Persistence of Memory",
+            "The Elephants",
+            "Swans Reflecting Elephants",
+            "The Burning Giraffe"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Grant Wood's painting of a stern farmer holding a pitchfork beside a woman, in front of a house with a Gothic-style window, is known by what title?",
+          "answer": "American Gothic"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "A famous 1932 photograph shows construction workers eating lunch while sitting on a steel beam high above New York. What is it usually called?",
+          "answer": "Lunch atop a Skyscraper"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released the album Abbey Road?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "How many strings does a standard guitar have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Michael Jackson album includes the song 'Billie Jean'?",
+          "answer": "Thriller"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Nirvana?",
+          "answer": "Kurt Cobain"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which song won ABBA the 1974 Eurovision Song Contest?",
+          "answer": "Waterloo"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Italian Baroque composer wrote The Four Seasons?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which instrument did jazz musician Miles Davis play?",
+          "answer": "Trumpet",
+          "options": [
+            "Saxophone",
+            "Trumpet",
+            "Piano",
+            "Double bass"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Adele's album featuring 'Rolling in the Deep' is named after a number. Which number?",
+          "answer": "21"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer is known for fronting the E Street Band?",
+          "answer": "Bruce Springsteen"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "What was Freddie Mercury's birth name?",
+          "answer": "Farrokh Bulsara"
+        }
+      ]
+    }
+  ]
+}

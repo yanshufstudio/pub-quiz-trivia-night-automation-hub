@@ -1,0 +1,660 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "quantum",
+    "prompt": "Hard questions only for experts, 2 rounds of 10 on quantum physics",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "quantum#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1799,
+      "outputTokens": 2991,
+      "thinkingTokens": 1277,
+      "durationMs": 31633
+    },
+    "costUsd": 0.067016,
+    "ms": 31633
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "In 1900, Max Planck introduced energy quanta to explain the spectrum of which kind of radiation?",
+      "answer": "Black-body radiation",
+      "options": [
+        "x"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist proposed in his 1924 doctoral thesis that matter has a wavelength given by λ = h/p?",
+      "answer": "Louis de Broglie"
+    },
+    {
+      "id": "R1Q3",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist developed matrix mechanics in 1925, working on it while recovering from hay fever on the island of Heligoland?",
+      "answer": "Werner Heisenberg"
+    },
+    {
+      "id": "R1Q4",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist won the 1954 Nobel Prize in Physics largely for the statistical interpretation of the wavefunction?",
+      "answer": "Max Born"
+    },
+    {
+      "id": "R1Q5",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "In the 1927 Davisson–Germer experiment, electrons were diffracted by a crystal of which metal?",
+      "answer": "Nickel"
+    },
+    {
+      "id": "R1Q6",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "The 1922 Stern–Gerlach experiment sent a beam of atoms of which element through a non-uniform magnetic field?",
+      "answer": "Silver"
+    },
+    {
+      "id": "R1Q7",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "In 1935, responding to the Einstein–Podolsky–Rosen paper, which physicist coined the term 'entanglement' (Verschränkung)?",
+      "answer": "Erwin Schrödinger"
+    },
+    {
+      "id": "R1Q8",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year was the famous fifth Solvay Conference, on 'Electrons and Photons', where Einstein and Bohr debated quantum mechanics?",
+      "answer": "1927",
+      "options": [
+        "1911",
+        "1927",
+        "1930",
+        "1933"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist put forward the 'relative state' formulation of quantum mechanics, later known as the many-worlds interpretation, in his 1957 thesis?",
+      "answer": "Hugh Everett III"
+    },
+    {
+      "id": "R1Q10",
+      "round": "The Founders",
+      "category": "History of Quantum Physics",
+      "type": "TEXT",
+      "text": "Which French physicist led the early-1980s experiments at Orsay that tested Bell's inequalities using time-varying polariser settings?",
+      "answer": "Alain Aspect"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "What is the name of the dimensionless constant, approximately 1/137, that sets the strength of the electromagnetic interaction?",
+      "answer": "The fine-structure constant"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "Which particle, predicted by the Dirac equation, did Carl Anderson discover in cosmic rays in 1932?",
+      "answer": "The positron"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "Which theorem states that it is impossible to make an exact copy of an arbitrary unknown quantum state?",
+      "answer": "The no-cloning theorem"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "Shor's quantum algorithm solves which mathematical problem exponentially faster than the best known classical algorithms?",
+      "answer": "Integer factorisation (factoring large numbers)"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "The Lamb shift is a small energy difference between which two levels of the hydrogen atom, which the Dirac equation predicts to be degenerate?",
+      "answer": "2S1/2 and 2P1/2"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "Which effect shows that a charged particle picks up a phase shift from an electromagnetic potential even in a region where the magnetic field is zero?",
+      "answer": "The Aharonov–Bohm effect"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "The geometric phase a quantum system picks up when it is taken slowly (adiabatically) around a closed loop is named after which physicist, who described it in 1984?",
+      "answer": "Michael Berry (Berry phase)"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "The resistance quantum h/e², about 25,813 ohms, is named after which physicist, who discovered the integer quantum Hall effect?",
+      "answer": "Klaus von Klitzing (von Klitzing constant)"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "TEXT",
+      "text": "Which 1967 theorem rules out non-contextual hidden-variable theories for quantum systems whose Hilbert space has three or more dimensions?",
+      "answer": "The Kochen–Specker theorem"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Deep Theory",
+      "category": "Quantum Theory and Quantum Information",
+      "type": "MULTIPLE_CHOICE",
+      "text": "According to the Holevo bound, what is the most classical information that can be reliably retrieved from a single qubit when no entanglement is shared?",
+      "answer": "1 bit",
+      "options": [
+        "1 bit",
+        "2 bits",
+        "Half a bit",
+        "Unlimited"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.05709600000000001,
+      "ms": 18215,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2621,
+          "outputTokens": 1538,
+          "thinkingTokens": 300,
+          "durationMs": 12660
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1628,
+          "outputTokens": 467,
+          "thinkingTokens": 166,
+          "durationMs": 5555
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer in different words."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "fix",
+          "reason": "Shor's algorithm also solves the discrete logarithm problem, so that answer has to be accepted too.",
+          "text": "Shor's quantum algorithm is best known for solving which mathematical problem exponentially faster than the best known classical algorithms?",
+          "answer": "Integer factorisation (factoring large numbers); also accept the discrete logarithm problem"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer in different words."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer in different words."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Black-body radiation",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Louis de Broglie",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Werner Heisenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Max Born",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Nickel",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Silver",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Erwin Schrödinger",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "1927",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Hugh Everett III",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Alain Aspect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Fine-structure constant (alpha)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Positron",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "No-cloning theorem",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Integer factorisation",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q5": {
+          "answer": "2S1/2 and 2P1/2",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Aharonov–Bohm effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Michael Berry",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q8": {
+          "answer": "Klaus von Klitzing",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q9": {
+          "answer": "Kochen–Specker theorem",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "1 bit",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q4",
+          "reason": "Shor's algorithm also solves the discrete logarithm problem, so that answer has to be accepted too.",
+          "before": {
+            "text": "Shor's quantum algorithm solves which mathematical problem exponentially faster than the best known classical algorithms?",
+            "answer": "Integer factorisation (factoring large numbers)"
+          },
+          "after": {
+            "text": "Shor's quantum algorithm is best known for solving which mathematical problem exponentially faster than the best known classical algorithms?",
+            "answer": "Integer factorisation (factoring large numbers); also accept the discrete logarithm problem"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "In 1900, Max Planck introduced energy quanta to explain the spectrum of which kind of radiation?",
+          "answer": "Black-body radiation",
+          "options": [
+            "x"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist proposed in his 1924 doctoral thesis that matter has a wavelength given by λ = h/p?",
+          "answer": "Louis de Broglie"
+        },
+        {
+          "id": "R1Q3",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist developed matrix mechanics in 1925, working on it while recovering from hay fever on the island of Heligoland?",
+          "answer": "Werner Heisenberg"
+        },
+        {
+          "id": "R1Q4",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist won the 1954 Nobel Prize in Physics largely for the statistical interpretation of the wavefunction?",
+          "answer": "Max Born"
+        },
+        {
+          "id": "R1Q5",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "In the 1927 Davisson–Germer experiment, electrons were diffracted by a crystal of which metal?",
+          "answer": "Nickel"
+        },
+        {
+          "id": "R1Q6",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "The 1922 Stern–Gerlach experiment sent a beam of atoms of which element through a non-uniform magnetic field?",
+          "answer": "Silver"
+        },
+        {
+          "id": "R1Q7",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "In 1935, responding to the Einstein–Podolsky–Rosen paper, which physicist coined the term 'entanglement' (Verschränkung)?",
+          "answer": "Erwin Schrödinger"
+        },
+        {
+          "id": "R1Q8",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year was the famous fifth Solvay Conference, on 'Electrons and Photons', where Einstein and Bohr debated quantum mechanics?",
+          "answer": "1927",
+          "options": [
+            "1911",
+            "1927",
+            "1930",
+            "1933"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist put forward the 'relative state' formulation of quantum mechanics, later known as the many-worlds interpretation, in his 1957 thesis?",
+          "answer": "Hugh Everett III"
+        },
+        {
+          "id": "R1Q10",
+          "round": "The Founders",
+          "category": "History of Quantum Physics",
+          "type": "TEXT",
+          "text": "Which French physicist led the early-1980s experiments at Orsay that tested Bell's inequalities using time-varying polariser settings?",
+          "answer": "Alain Aspect"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "What is the name of the dimensionless constant, approximately 1/137, that sets the strength of the electromagnetic interaction?",
+          "answer": "The fine-structure constant"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "Which particle, predicted by the Dirac equation, did Carl Anderson discover in cosmic rays in 1932?",
+          "answer": "The positron"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "Which theorem states that it is impossible to make an exact copy of an arbitrary unknown quantum state?",
+          "answer": "The no-cloning theorem"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "Shor's quantum algorithm is best known for solving which mathematical problem exponentially faster than the best known classical algorithms?",
+          "answer": "Integer factorisation (factoring large numbers); also accept the discrete logarithm problem"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "The Lamb shift is a small energy difference between which two levels of the hydrogen atom, which the Dirac equation predicts to be degenerate?",
+          "answer": "2S1/2 and 2P1/2"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "Which effect shows that a charged particle picks up a phase shift from an electromagnetic potential even in a region where the magnetic field is zero?",
+          "answer": "The Aharonov–Bohm effect"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "The geometric phase a quantum system picks up when it is taken slowly (adiabatically) around a closed loop is named after which physicist, who described it in 1984?",
+          "answer": "Michael Berry (Berry phase)"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "The resistance quantum h/e², about 25,813 ohms, is named after which physicist, who discovered the integer quantum Hall effect?",
+          "answer": "Klaus von Klitzing (von Klitzing constant)"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "TEXT",
+          "text": "Which 1967 theorem rules out non-contextual hidden-variable theories for quantum systems whose Hilbert space has three or more dimensions?",
+          "answer": "The Kochen–Specker theorem"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Deep Theory",
+          "category": "Quantum Theory and Quantum Information",
+          "type": "MULTIPLE_CHOICE",
+          "text": "According to the Holevo bound, what is the most classical information that can be reliably retrieved from a single qubit when no entanglement is shared?",
+          "answer": "1 bit",
+          "options": [
+            "1 bit",
+            "2 bits",
+            "Half a bit",
+            "Unlimited"
+          ]
+        }
+      ]
+    }
+  ]
+}

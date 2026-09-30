@@ -1,0 +1,748 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1826,
+      "outputTokens": 3157,
+      "thinkingTokens": 1386,
+      "durationMs": 30630
+    },
+    "costUsd": 0.070444,
+    "ms": 30630
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Freddie Mercury was the lead singer of which band?",
+      "answer": "Queen",
+      "options": [
+        "Queen"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released \"Stairway to Heaven\" in 1971?",
+      "answer": "Led Zeppelin"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which 1973 Pink Floyd album has a prism splitting light into a spectrum on its cover?",
+      "answer": "The Dark Side of the Moon"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist played a famous version of \"The Star-Spangled Banner\" at Woodstock in 1969?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which 1977 Fleetwood Mac album includes \"Dreams\" and \"Go Your Own Way\"?",
+      "answer": "Rumours"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What is the title of The Who's 1969 rock opera about a \"deaf, dumb and blind kid\"?",
+      "answer": "Tommy"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which founding member of the Rolling Stones drowned in a swimming pool in 1969?",
+      "answer": "Brian Jones",
+      "options": [
+        "Brian Jones",
+        "Bill Wyman",
+        "Charlie Watts",
+        "Ian Stewart"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Deep Purple's \"Smoke on the Water\" describes a fire at the Montreux Casino in 1971, which broke out during a concert by which musician and his band?",
+      "answer": "Frank Zappa (and the Mothers of Invention)"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote \"The Four Seasons\"?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the music for the ballet \"The Nutcracker\"?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer kept writing music after going deaf, including his Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the oratorio \"Messiah\", which includes the \"Hallelujah\" chorus?",
+      "answer": "George Frideric Handel"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "In which city was Wolfgang Amadeus Mozart born?",
+      "answer": "Salzburg"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which English composer wrote the orchestral suite \"The Planets\"?",
+      "answer": "Gustav Holst"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who composed \"Boléro\"?",
+      "answer": "Maurice Ravel",
+      "options": [
+        "Maurice Ravel",
+        "Claude Debussy",
+        "Erik Satie",
+        "Camille Saint-Saëns"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "The 1913 Paris premiere of which composer's ballet \"The Rite of Spring\" famously caused near-riots in the audience?",
+      "answer": "Igor Stravinsky"
+    },
+    {
+      "id": "R3Q1",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Spanish duo had a worldwide dance-craze hit with \"Macarena\"?",
+      "answer": "Los del Río"
+    },
+    {
+      "id": "R3Q2",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer had a 1999 hit with \"Mambo No. 5\"?",
+      "answer": "Lou Bega"
+    },
+    {
+      "id": "R3Q3",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band sang \"I get knocked down, but I get up again\" in their 1997 hit \"Tubthumping\"?",
+      "answer": "Chumbawamba"
+    },
+    {
+      "id": "R3Q4",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band's song \"What's Up?\" became a hit in 1993?",
+      "answer": "4 Non Blondes"
+    },
+    {
+      "id": "R3Q5",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer had a 1974 hit with \"Kung Fu Fighting\"?",
+      "answer": "Carl Douglas"
+    },
+    {
+      "id": "R3Q6",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band's \"Video Killed the Radio Star\" was the first music video shown on MTV?",
+      "answer": "The Buggles",
+      "options": [
+        "The Buggles",
+        "The Knack",
+        "Soft Cell",
+        "A Flock of Seagulls"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1979 hit with \"My Sharona\"?",
+      "answer": "The Knack"
+    },
+    {
+      "id": "R3Q8",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer-songwriter wrote and recorded the hit \"Spirit in the Sky\", released in 1969?",
+      "answer": "Norman Greenbaum"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.041488,
+      "ms": 11677,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2632,
+          "outputTokens": 1548,
+          "thinkingTokens": 247,
+          "durationMs": 11676
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Led Zeppelin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Dark Side of the Moon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Rumours",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Tommy",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Brian Jones",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Frank Zappa (and the Mothers of Invention)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "George Frideric Handel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Igor Stravinsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Lou Bega",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Carl Douglas",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "The Knack",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Norman Greenbaum",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Freddie Mercury was the lead singer of which band?",
+          "answer": "Queen",
+          "options": [
+            "Queen"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released \"Stairway to Heaven\" in 1971?",
+          "answer": "Led Zeppelin"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which 1973 Pink Floyd album has a prism splitting light into a spectrum on its cover?",
+          "answer": "The Dark Side of the Moon"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist played a famous version of \"The Star-Spangled Banner\" at Woodstock in 1969?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which 1977 Fleetwood Mac album includes \"Dreams\" and \"Go Your Own Way\"?",
+          "answer": "Rumours"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What is the title of The Who's 1969 rock opera about a \"deaf, dumb and blind kid\"?",
+          "answer": "Tommy"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which founding member of the Rolling Stones drowned in a swimming pool in 1969?",
+          "answer": "Brian Jones",
+          "options": [
+            "Brian Jones",
+            "Bill Wyman",
+            "Charlie Watts",
+            "Ian Stewart"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Deep Purple's \"Smoke on the Water\" describes a fire at the Montreux Casino in 1971, which broke out during a concert by which musician and his band?",
+          "answer": "Frank Zappa (and the Mothers of Invention)"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote \"The Four Seasons\"?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the music for the ballet \"The Nutcracker\"?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer kept writing music after going deaf, including his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the oratorio \"Messiah\", which includes the \"Hallelujah\" chorus?",
+          "answer": "George Frideric Handel"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "In which city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which English composer wrote the orchestral suite \"The Planets\"?",
+          "answer": "Gustav Holst"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who composed \"Boléro\"?",
+          "answer": "Maurice Ravel",
+          "options": [
+            "Maurice Ravel",
+            "Claude Debussy",
+            "Erik Satie",
+            "Camille Saint-Saëns"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "The 1913 Paris premiere of which composer's ballet \"The Rite of Spring\" famously caused near-riots in the audience?",
+          "answer": "Igor Stravinsky"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Spanish duo had a worldwide dance-craze hit with \"Macarena\"?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1999 hit with \"Mambo No. 5\"?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band sang \"I get knocked down, but I get up again\" in their 1997 hit \"Tubthumping\"?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band's song \"What's Up?\" became a hit in 1993?",
+          "answer": "4 Non Blondes"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1974 hit with \"Kung Fu Fighting\"?",
+          "answer": "Carl Douglas"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band's \"Video Killed the Radio Star\" was the first music video shown on MTV?",
+          "answer": "The Buggles",
+          "options": [
+            "The Buggles",
+            "The Knack",
+            "Soft Cell",
+            "A Flock of Seagulls"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1979 hit with \"My Sharona\"?",
+          "answer": "The Knack"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer-songwriter wrote and recorded the hit \"Spirit in the Sky\", released in 1969?",
+          "answer": "Norman Greenbaum"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,955 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "one-word",
+    "prompt": "quiz",
+    "questions": 20,
+    "run": "one-word#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 23 of 24 questions, rounds [5,6,6,6] of [6,6,6,6]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3552,
+      "outputTokens": 3066,
+      "thinkingTokens": 55,
+      "durationMs": 30238
+    },
+    "costUsd": 0.075528,
+    "ms": 30242
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "s?"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which artist painted the ceiling of the Sistine Chapel?",
+      "answer": "Michelangelo"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest ocean on Earth?",
+      "answer": "Pacific Ocean",
+      "options": [
+        "Atlantic Ocean",
+        "Pacific Ocean",
+        "Indian Ocean",
+        "Arctic Ocean"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city is the Parthenon?",
+      "answer": "Athens"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Who was the first President of the United States?",
+      "answer": "George Washington"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which English king had six wives?",
+      "answer": "Henry VIII"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "TEXT",
+      "text": "The Battle of Hastings took place in which year?",
+      "answer": "1066"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which ancient wonder stood in the harbour of Rhodes?",
+      "answer": "The Colossus of Rhodes"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the Roman god of war?",
+      "answer": "Mars",
+      "options": [
+        "Jupiter",
+        "Mars",
+        "Neptune",
+        "Mercury"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which French queen was executed by guillotine in 1793?",
+      "answer": "Marie Antoinette"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "How many bones are in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the most abundant gas in Earth's atmosphere?",
+      "answer": "Nitrogen",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Argon",
+        "Carbon dioxide"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "Who proposed the theory of evolution by natural selection in 'On the Origin of Species'?",
+      "answer": "Charles Darwin"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the SI unit of electrical resistance?",
+      "answer": "Ohm"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What element has atomic number 1?",
+      "answer": "Hydrogen"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Lab Coats",
+      "category": "Science & Nature",
+      "type": "TEXT",
+      "text": "What is the name for a baby kangaroo?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which wizard attends Hogwarts School and has a lightning-bolt scar?",
+      "answer": "Harry Potter"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Who wrote the play 'Romeo and Juliet'?",
+      "answer": "William Shakespeare"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which band released the album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Who directed the 1993 film 'Jurassic Park'?",
+      "answer": "Steven Spielberg"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "In the TV series 'Friends', what is the name of the coffee shop?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Moonlight Sonata'?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "What is the name of the fictional African country in 'Black Panther'?",
+      "answer": "Wakanda"
+    },
+    {
+      "id": "R4Q8",
+      "round": "Screen & Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which novel begins with the line 'Call me Ishmael'?",
+      "answer": "Moby-Dick"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.042848,
+      "ms": 12438,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2597,
+          "outputTokens": 1623,
+          "thinkingTokens": 0,
+          "durationMs": 12437
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Six",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Michelangelo",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Pacific Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "George Washington",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Henry VIII",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "1066",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The Colossus of Rhodes",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Marie Antoinette",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Nitrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Charles Darwin",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Ohm",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Harry Potter",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Wakanda",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Moby-Dick",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "s?"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which artist painted the ceiling of the Sistine Chapel?",
+          "answer": "Michelangelo"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest ocean on Earth?",
+          "answer": "Pacific Ocean",
+          "options": [
+            "Atlantic Ocean",
+            "Pacific Ocean",
+            "Indian Ocean",
+            "Arctic Ocean"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city is the Parthenon?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the hardest natural substance?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Who was the first President of the United States?",
+          "answer": "George Washington"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which English king had six wives?",
+          "answer": "Henry VIII"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "TEXT",
+          "text": "The Battle of Hastings took place in which year?",
+          "answer": "1066"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which ancient wonder stood in the harbour of Rhodes?",
+          "answer": "The Colossus of Rhodes"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the Roman god of war?",
+          "answer": "Mars",
+          "options": [
+            "Jupiter",
+            "Mars",
+            "Neptune",
+            "Mercury"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which French queen was executed by guillotine in 1793?",
+          "answer": "Marie Antoinette"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the air for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the most abundant gas in Earth's atmosphere?",
+          "answer": "Nitrogen",
+          "options": [
+            "Oxygen",
+            "Nitrogen",
+            "Argon",
+            "Carbon dioxide"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "Who proposed the theory of evolution by natural selection in 'On the Origin of Species'?",
+          "answer": "Charles Darwin"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the SI unit of electrical resistance?",
+          "answer": "Ohm"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What element has atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Lab Coats",
+          "category": "Science & Nature",
+          "type": "TEXT",
+          "text": "What is the name for a baby kangaroo?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which wizard attends Hogwarts School and has a lightning-bolt scar?",
+          "answer": "Harry Potter"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Who wrote the play 'Romeo and Juliet'?",
+          "answer": "William Shakespeare"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which band released the album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Who directed the 1993 film 'Jurassic Park'?",
+          "answer": "Steven Spielberg"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "In the TV series 'Friends', what is the name of the coffee shop?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Moonlight Sonata'?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "What is the name of the fictional African country in 'Black Panther'?",
+          "answer": "Wakanda"
+        },
+        {
+          "id": "R4Q8",
+          "round": "Screen & Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which novel begins with the line 'Call me Ishmael'?",
+          "answer": "Moby-Dick"
+        }
+      ]
+    }
+  ]
+}

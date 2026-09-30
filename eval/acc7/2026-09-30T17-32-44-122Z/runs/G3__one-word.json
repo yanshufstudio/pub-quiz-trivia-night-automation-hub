@@ -1,0 +1,31 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "one-word",
+    "prompt": "quiz",
+    "questions": 20,
+    "run": "one-word"
+  },
+  "failed": "IncompletePackError: a multiple-choice answer is not one of its options",
+  "errorName": "IncompletePackError",
+  "truncated": false,
+  "attempts": 2,
+  "retryWarnings": [
+    "Quiz pack attempt 1 unusable (a multiple-choice answer is not one of its options); trying once more."
+  ],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 3552,
+    "outputTokens": 3586,
+    "thinkingTokens": 0,
+    "durationMs": 35690
+  },
+  "costUsd": 0.085928,
+  "ms": 35692
+}

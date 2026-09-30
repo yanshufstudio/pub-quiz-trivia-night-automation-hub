@@ -1,0 +1,563 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16,
+    "expect": [
+      8,
+      8
+    ],
+    "run": "film-tv"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1813,
+      "outputTokens": 1236,
+      "thinkingTokens": 0,
+      "durationMs": 12847
+    },
+    "costUsd": 0.031972,
+    "ms": 12847
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1997 film about an ill-fated ocean liner won 11 Oscars, including Best Picture?",
+      "answer": "Titanic",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor won Best Actor at the 2016 ceremony for 'The Revenant', his first Oscar win?",
+      "answer": "Leonardo DiCaprio"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which actress has won the most acting Oscars, with four Best Actress wins?",
+      "answer": "Katharine Hepburn"
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The 2017 Best Picture mix-up saw 'La La Land' wrongly announced. Which film had actually won?",
+      "answer": "Moonlight",
+      "options": [
+        "Moonlight",
+        "Hidden Figures",
+        "Manchester by the Sea",
+        "Arrival"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor won Best Actor in consecutive years for 'Philadelphia' and 'Forrest Gump'?",
+      "answer": "Tom Hanks"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Who was the first woman to win the Academy Award for Best Director, for 'The Hurt Locker'?",
+      "answer": "Kathryn Bigelow"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record later equalled by 'Titanic'?",
+      "answer": "Ben-Hur"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of the coffee shop where the group hang out?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "TEXT",
+      "text": "Which David Brent-starring sitcom was set at the Slough branch of paper company Wernham Hogg?",
+      "answer": "The Office"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "TEXT",
+      "text": "In 'Frasier', what is the name of Frasier's younger brother?",
+      "answer": "Niles (Crane)"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "TEXT",
+      "text": "Which sitcom, famously described as 'a show about nothing', featured characters Jerry, George, Elaine and Kramer?",
+      "answer": "Seinfeld"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "TEXT",
+      "text": "In which fictional town, dug up for a pipe in later episodes, is 'The Vicar of Dibley' set?",
+      "answer": "Dibley"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "TEXT",
+      "text": "What is the name of the island parish where 'Father Ted' is set?",
+      "answer": "Craggy Island"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In 'The Fresh Prince of Bel-Air', what is the name of the Banks family's butler?",
+      "answer": "Geoffrey",
+      "options": [
+        "Geoffrey",
+        "Jeeves",
+        "Hobson",
+        "Niles"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television",
+      "type": "TEXT",
+      "text": "In 'Arrested Development', what is the name of the family's frozen banana stand business's owning family?",
+      "answer": "The Bluths"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.04598,
+      "ms": 17821,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2020,
+          "outputTokens": 1347,
+          "thinkingTokens": 261,
+          "durationMs": 13528
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1475,
+          "outputTokens": 253,
+          "thinkingTokens": 0,
+          "durationMs": 4292
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "Niles is the same answer as Niles Crane."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "fix",
+          "reason": "The pipe detail can't be verified, so it has been removed.",
+          "text": "In which fictional village is 'The Vicar of Dibley' set?"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "The wording went round in a circle. The answer, Bluth, was already correct.",
+          "text": "In 'Arrested Development', what is the surname of the family that owns the frozen banana stand?",
+          "answer": "Bluth"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Leonardo DiCaprio",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Moonlight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Tom Hanks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Kathryn Bigelow",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Ben-Hur",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Niles",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q4": {
+          "answer": "Seinfeld",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Dibley",
+          "agreed": true,
+          "flags": [
+            "wording: I can't confirm that Dibley is 'dug up for a pipe in later episodes'. I don't know of any such storyline, so the phrase should be cut."
+          ]
+        },
+        "R2Q6": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Geoffrey",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Bluth",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "wording: The phrase 'the family's frozen banana stand business's owning family' is clumsy and goes round in a circle. It could be reworded to 'the family that owns the frozen banana stand'."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q5",
+          "reason": "The pipe detail can't be verified, so it has been removed.",
+          "before": {
+            "text": "In which fictional town, dug up for a pipe in later episodes, is 'The Vicar of Dibley' set?",
+            "answer": "Dibley"
+          },
+          "after": {
+            "text": "In which fictional village is 'The Vicar of Dibley' set?",
+            "answer": "Dibley"
+          }
+        },
+        {
+          "id": "R2Q8",
+          "reason": "The wording went round in a circle. The answer, Bluth, was already correct.",
+          "before": {
+            "text": "In 'Arrested Development', what is the name of the family's frozen banana stand business's owning family?",
+            "answer": "The Bluths"
+          },
+          "after": {
+            "text": "In 'Arrested Development', what is the surname of the family that owns the frozen banana stand?",
+            "answer": "Bluth"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film about an ill-fated ocean liner won 11 Oscars, including Best Picture?",
+          "answer": "Titanic",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor at the 2016 ceremony for 'The Revenant', his first Oscar win?",
+          "answer": "Leonardo DiCaprio"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which actress has won the most acting Oscars, with four Best Actress wins?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The 2017 Best Picture mix-up saw 'La La Land' wrongly announced. Which film had actually won?",
+          "answer": "Moonlight",
+          "options": [
+            "Moonlight",
+            "Hidden Figures",
+            "Manchester by the Sea",
+            "Arrival"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor in consecutive years for 'Philadelphia' and 'Forrest Gump'?",
+          "answer": "Tom Hanks"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Who was the first woman to win the Academy Award for Best Director, for 'The Hurt Locker'?",
+          "answer": "Kathryn Bigelow"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1959 epic starring Charlton Heston won 11 Oscars, a record later equalled by 'Titanic'?",
+          "answer": "Ben-Hur"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of the coffee shop where the group hang out?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "TEXT",
+          "text": "Which David Brent-starring sitcom was set at the Slough branch of paper company Wernham Hogg?",
+          "answer": "The Office"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier's younger brother?",
+          "answer": "Niles (Crane)"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "TEXT",
+          "text": "Which sitcom, famously described as 'a show about nothing', featured characters Jerry, George, Elaine and Kramer?",
+          "answer": "Seinfeld"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "TEXT",
+          "text": "In which fictional village is 'The Vicar of Dibley' set?",
+          "answer": "Dibley"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "TEXT",
+          "text": "What is the name of the island parish where 'Father Ted' is set?",
+          "answer": "Craggy Island"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In 'The Fresh Prince of Bel-Air', what is the name of the Banks family's butler?",
+          "answer": "Geoffrey",
+          "options": [
+            "Geoffrey",
+            "Jeeves",
+            "Hobson",
+            "Niles"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television",
+          "type": "TEXT",
+          "text": "In 'Arrested Development', what is the surname of the family that owns the frozen banana stand?",
+          "answer": "Bluth"
+        }
+      ]
+    }
+  ]
+}

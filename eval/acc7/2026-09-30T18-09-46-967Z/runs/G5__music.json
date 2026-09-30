@@ -1,0 +1,36 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music"
+  },
+  "failed": "IncompletePackError: short pack: 1 of 24 questions, rounds [1] of [8,8,8]",
+  "errorName": "IncompletePackError",
+  "truncated": false,
+  "attempts": 2,
+  "retryWarnings": [
+    "Quiz pack attempt 1 unusable (short pack: 1 of 24 questions, rounds [1] of [8,8,8]); trying once more."
+  ],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 3652,
+    "outputTokens": 3585,
+    "thinkingTokens": 3064,
+    "durationMs": 45899
+  },
+  "costUsd": 0.086308,
+  "ms": 45902
+}

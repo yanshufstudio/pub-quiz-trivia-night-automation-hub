@@ -1,0 +1,832 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1826,
+      "outputTokens": 1734,
+      "thinkingTokens": 0,
+      "durationMs": 17294
+    },
+    "costUsd": 0.041984,
+    "ms": 17294
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+      "answer": "Pink Floyd",
+      "options": [
+        "Pink Floyd"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Led Zeppelin?",
+      "answer": "Robert Plant"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Queen song, released in 1975, includes the word 'Galileo' in its operatic section?",
+      "answer": "Bohemian Rhapsody"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "At which 1969 festival in New York State did Jimi Hendrix play 'The Star-Spangled Banner'?",
+      "answer": "Woodstock"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Rolling Stones guitarist drowned in his swimming pool in 1969?",
+      "answer": "Brian Jones"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band released the rock opera 'Tommy' in 1969?",
+      "answer": "The Who",
+      "options": [
+        "The Kinks",
+        "The Who",
+        "The Doors",
+        "Cream"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Eric Clapton, Jack Bruce and Ginger Baker formed which 1960s power trio?",
+      "answer": "Cream"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What was the name of David Bowie's alien rock star alter ego introduced in 1972?",
+      "answer": "Ziggy Stardust"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer continued to write music after becoming almost completely deaf, including his Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the music for the ballets 'Swan Lake' and 'The Nutcracker'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which city was Wolfgang Amadeus Mozart born?",
+      "answer": "Salzburg",
+      "options": [
+        "Vienna",
+        "Salzburg",
+        "Prague",
+        "Munich"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the oratorio 'Messiah', which contains the 'Hallelujah' chorus?",
+      "answer": "George Frideric Handel"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which French composer wrote 'Boléro'?",
+      "answer": "Maurice Ravel"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which English composer wrote 'The Planets' suite?",
+      "answer": "Gustav Holst"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer wrote the four-opera cycle 'Der Ring des Nibelungen'?",
+      "answer": "Richard Wagner"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Norwegian-sounding song title, 'Macarena', was a hit for which Spanish duo?",
+      "answer": "Los del Río"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Australian-Belgian singer had a worldwide hit in 2011 with 'Somebody That I Used to Know'?",
+      "answer": "Gotye"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1980s hit with 'Come On Eileen'?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Los Angeles band had a 1998 hit with 'Kiss Me'?",
+      "answer": "Sixpence None the Richer"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Who sang the 1995 hit 'Macarena'-rivalling novelty song 'Mambo No. 5' in 1999?",
+      "answer": "Lou Bega"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band had a 1997 hit with 'Tubthumping'?",
+      "answer": "Chumbawamba",
+      "options": [
+        "Chumbawamba",
+        "Babylon Zoo",
+        "Crazy Town",
+        "Toploader"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer had a 1999 hit with 'Blue (Da Ba Dee)' as the group Eiffel 65 — what country were Eiffel 65 from?",
+      "answer": "Italy"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1992 hit with 'What's Up?', with the chorus 'What's going on?'",
+      "answer": "4 Non Blondes"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.074464,
+      "ms": 29333,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2595,
+          "outputTokens": 2361,
+          "thinkingTokens": 441,
+          "durationMs": 22255
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1931,
+          "outputTokens": 457,
+          "thinkingTokens": 0,
+          "durationMs": 7078
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "'Norwegian-sounding' is false and the double 'which' is garbled.",
+          "text": "Which Spanish duo had a 1990s worldwide hit with 'Macarena'?"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "fix",
+          "reason": "The band are from Texas, not Los Angeles, and the 1998 date is loose.",
+          "text": "Which band had a late-1990s hit with 'Kiss Me'?"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "fix",
+          "reason": "The dates were muddled; 'Mambo No. 5' was a 1999 hit.",
+          "text": "Who had a 1999 hit with the song 'Mambo No. 5'?"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "fix",
+          "reason": "Garbled double question; now it asks only for the country.",
+          "text": "Which country did Eiffel 65, who had a 1999 hit with 'Blue (Da Ba Dee)', come from?"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "fix",
+          "reason": "The single charted in 1993, not 1992.",
+          "text": "Which band had a 1993 hit with 'What's Up?', with the chorus 'What's going on?'"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Robert Plant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Woodstock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Brian Jones",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Who",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Cream",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Ziggy Stardust",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "George Frideric Handel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Richard Wagner",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": [
+            "wording: 'Norwegian-sounding song title' is false: 'Macarena' is a Spanish title/name. The question is also awkwardly phrased as two 'which' clauses."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Gotye",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Sixpence None the Richer",
+          "agreed": true,
+          "flags": [
+            "wording: 'Los Angeles band' is false: Sixpence None the Richer are from Texas (New Braunfels/Austin). 'Kiss Me' was released in 1997 and was a hit in 1998–99."
+          ]
+        },
+        "R3Q5": {
+          "answer": "Lou Bega",
+          "agreed": true,
+          "flags": [
+            "wording: Confused wording: 'the 1995 hit ... in 1999' mixes up the dates. 'Mambo No. 5' was a 1999 hit, and 'Macarena' was the mid-1990s hit."
+          ]
+        },
+        "R3Q6": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Italy",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Garbled double question: it asks 'which singer' (the vocalist was Jeffrey Jey) and then which country. Eiffel 65 were from Italy (Turin)."
+          ]
+        },
+        "R3Q8": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": [
+            "wording: '1992 hit' is inaccurate: the single was released and charted in 1993 (the album came out in late 1992)."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q1",
+          "reason": "'Norwegian-sounding' is false and the double 'which' is garbled.",
+          "before": {
+            "text": "Which Norwegian-sounding song title, 'Macarena', was a hit for which Spanish duo?",
+            "answer": "Los del Río"
+          },
+          "after": {
+            "text": "Which Spanish duo had a 1990s worldwide hit with 'Macarena'?",
+            "answer": "Los del Río"
+          }
+        },
+        {
+          "id": "R3Q4",
+          "reason": "The band are from Texas, not Los Angeles, and the 1998 date is loose.",
+          "before": {
+            "text": "Which Los Angeles band had a 1998 hit with 'Kiss Me'?",
+            "answer": "Sixpence None the Richer"
+          },
+          "after": {
+            "text": "Which band had a late-1990s hit with 'Kiss Me'?",
+            "answer": "Sixpence None the Richer"
+          }
+        },
+        {
+          "id": "R3Q5",
+          "reason": "The dates were muddled; 'Mambo No. 5' was a 1999 hit.",
+          "before": {
+            "text": "Who sang the 1995 hit 'Macarena'-rivalling novelty song 'Mambo No. 5' in 1999?",
+            "answer": "Lou Bega"
+          },
+          "after": {
+            "text": "Who had a 1999 hit with the song 'Mambo No. 5'?",
+            "answer": "Lou Bega"
+          }
+        },
+        {
+          "id": "R3Q7",
+          "reason": "Garbled double question; now it asks only for the country.",
+          "before": {
+            "text": "Which singer had a 1999 hit with 'Blue (Da Ba Dee)' as the group Eiffel 65 — what country were Eiffel 65 from?",
+            "answer": "Italy"
+          },
+          "after": {
+            "text": "Which country did Eiffel 65, who had a 1999 hit with 'Blue (Da Ba Dee)', come from?",
+            "answer": "Italy"
+          }
+        },
+        {
+          "id": "R3Q8",
+          "reason": "The single charted in 1993, not 1992.",
+          "before": {
+            "text": "Which band had a 1992 hit with 'What's Up?', with the chorus 'What's going on?'",
+            "answer": "4 Non Blondes"
+          },
+          "after": {
+            "text": "Which band had a 1993 hit with 'What's Up?', with the chorus 'What's going on?'",
+            "answer": "4 Non Blondes"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+          "answer": "Pink Floyd",
+          "options": [
+            "Pink Floyd"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Led Zeppelin?",
+          "answer": "Robert Plant"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Queen song, released in 1975, includes the word 'Galileo' in its operatic section?",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "At which 1969 festival in New York State did Jimi Hendrix play 'The Star-Spangled Banner'?",
+          "answer": "Woodstock"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Rolling Stones guitarist drowned in his swimming pool in 1969?",
+          "answer": "Brian Jones"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band released the rock opera 'Tommy' in 1969?",
+          "answer": "The Who",
+          "options": [
+            "The Kinks",
+            "The Who",
+            "The Doors",
+            "Cream"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Eric Clapton, Jack Bruce and Ginger Baker formed which 1960s power trio?",
+          "answer": "Cream"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What was the name of David Bowie's alien rock star alter ego introduced in 1972?",
+          "answer": "Ziggy Stardust"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer continued to write music after becoming almost completely deaf, including his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the music for the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg",
+          "options": [
+            "Vienna",
+            "Salzburg",
+            "Prague",
+            "Munich"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the oratorio 'Messiah', which contains the 'Hallelujah' chorus?",
+          "answer": "George Frideric Handel"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which English composer wrote 'The Planets' suite?",
+          "answer": "Gustav Holst"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer wrote the four-opera cycle 'Der Ring des Nibelungen'?",
+          "answer": "Richard Wagner"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Spanish duo had a 1990s worldwide hit with 'Macarena'?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Australian-Belgian singer had a worldwide hit in 2011 with 'Somebody That I Used to Know'?",
+          "answer": "Gotye"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1980s hit with 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a late-1990s hit with 'Kiss Me'?",
+          "answer": "Sixpence None the Richer"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who had a 1999 hit with the song 'Mambo No. 5'?",
+          "answer": "Lou Bega"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band had a 1997 hit with 'Tubthumping'?",
+          "answer": "Chumbawamba",
+          "options": [
+            "Chumbawamba",
+            "Babylon Zoo",
+            "Crazy Town",
+            "Toploader"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which country did Eiffel 65, who had a 1999 hit with 'Blue (Da Ba Dee)', come from?",
+          "answer": "Italy"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1993 hit with 'What's Up?', with the chorus 'What's going on?'",
+          "answer": "4 Non Blondes"
+        }
+      ]
+    }
+  ]
+}

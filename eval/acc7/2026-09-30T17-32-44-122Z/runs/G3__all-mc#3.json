@@ -1,0 +1,1607 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "all-mc",
+    "prompt": "All multiple choice, 4 rounds of 10",
+    "questions": 40,
+    "expect": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "run": "all-mc#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 2 of 40 questions, rounds [1,1] of [10,10,10,10]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3578,
+      "outputTokens": 4671,
+      "thinkingTokens": 1135,
+      "durationMs": 42904
+    },
+    "costUsd": 0.107732,
+    "ms": 42904
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many sides does a hexagon have?",
+      "answer": "6",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars",
+      "options": [
+        "Venus",
+        "Jupiter",
+        "Mars",
+        "Saturn"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest ocean on Earth?",
+      "answer": "Pacific",
+      "options": [
+        "Atlantic",
+        "Indian",
+        "Arctic",
+        "Pacific"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which city is the Parthenon?",
+      "answer": "Athens",
+      "options": [
+        "Rome",
+        "Athens",
+        "Istanbul",
+        "Cairo"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au",
+      "options": [
+        "Go",
+        "Gd",
+        "Ag",
+        "Au"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the hardest naturally occurring substance?",
+      "answer": "Diamond",
+      "options": [
+        "Quartz",
+        "Diamond",
+        "Granite",
+        "Topaz"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which element has atomic number 1?",
+      "answer": "Hydrogen",
+      "options": [
+        "Helium",
+        "Oxygen",
+        "Hydrogen",
+        "Carbon"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who painted the Mona Lisa?",
+      "answer": "Leonardo da Vinci",
+      "options": [
+        "Michelangelo",
+        "Raphael",
+        "Leonardo da Vinci",
+        "Titian"
+      ]
+    },
+    {
+      "id": "R1Q10",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many bones are in the typical adult human body?",
+      "answer": "206",
+      "options": [
+        "186",
+        "206",
+        "226",
+        "256"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which ship sank in 1912 after hitting an iceberg?",
+      "answer": "Titanic",
+      "options": [
+        "Lusitania",
+        "Titanic",
+        "Britannic",
+        "Mary Rose"
+      ]
+    },
+    {
+      "id": "R2Q2",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong",
+      "options": [
+        "Buzz Aldrin",
+        "Yuri Gagarin",
+        "Neil Armstrong",
+        "John Glenn"
+      ]
+    },
+    {
+      "id": "R2Q3",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year was the Battle of Hastings?",
+      "answer": "1066",
+      "options": [
+        "1066",
+        "1086",
+        "1215",
+        "966"
+      ]
+    },
+    {
+      "id": "R2Q4",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989",
+      "options": [
+        "1987",
+        "1989",
+        "1991",
+        "1985"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year was the US Declaration of Independence adopted?",
+      "answer": "1776",
+      "options": [
+        "1766",
+        "1776",
+        "1783",
+        "1789"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which French leader was defeated at the Battle of Waterloo?",
+      "answer": "Napoleon",
+      "options": [
+        "Louis XVI",
+        "Napoleon",
+        "Charles de Gaulle",
+        "Robespierre"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which civilisation built Machu Picchu?",
+      "answer": "Inca",
+      "options": [
+        "Aztec",
+        "Maya",
+        "Inca",
+        "Olmec"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first wife of Henry VIII?",
+      "answer": "Catherine of Aragon",
+      "options": [
+        "Anne Boleyn",
+        "Jane Seymour",
+        "Catherine of Aragon",
+        "Anne of Cleves"
+      ]
+    },
+    {
+      "id": "R2Q9",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which English king sealed Magna Carta in 1215?",
+      "answer": "John",
+      "options": [
+        "Richard I",
+        "Henry II",
+        "John",
+        "Edward I"
+      ]
+    },
+    {
+      "id": "R2Q10",
+      "round": "Through the Ages",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first Roman emperor?",
+      "answer": "Augustus",
+      "options": [
+        "Julius Caesar",
+        "Augustus",
+        "Nero",
+        "Tiberius"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which planet is closest to the Sun?",
+      "answer": "Mercury",
+      "options": [
+        "Venus",
+        "Mercury",
+        "Mars",
+        "Earth"
+      ]
+    },
+    {
+      "id": "R3Q2",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the fastest land animal?",
+      "answer": "Cheetah",
+      "options": [
+        "Lion",
+        "Pronghorn",
+        "Cheetah",
+        "Greyhound"
+      ]
+    },
+    {
+      "id": "R3Q3",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Carbon dioxide",
+        "Hydrogen"
+      ]
+    },
+    {
+      "id": "R3Q4",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest organ of the human body?",
+      "answer": "Skin",
+      "options": [
+        "Liver",
+        "Skin",
+        "Brain",
+        "Lungs"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who developed the general theory of relativity?",
+      "answer": "Albert Einstein",
+      "options": [
+        "Isaac Newton",
+        "Niels Bohr",
+        "Albert Einstein",
+        "Max Planck"
+      ]
+    },
+    {
+      "id": "R3Q6",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which blood cells mainly fight infection?",
+      "answer": "White blood cells",
+      "options": [
+        "Red blood cells",
+        "White blood cells",
+        "Platelets",
+        "Plasma cells only"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "At sea level, water boils at how many degrees Fahrenheit?",
+      "answer": "212",
+      "options": [
+        "100",
+        "180",
+        "212",
+        "232"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the unit of electrical resistance?",
+      "answer": "Ohm",
+      "options": [
+        "Volt",
+        "Ampere",
+        "Ohm",
+        "Watt"
+      ]
+    },
+    {
+      "id": "R3Q9",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What does DNA stand for?",
+      "answer": "Deoxyribonucleic acid",
+      "options": [
+        "Deoxyribonucleic acid",
+        "Diribonucleic acid",
+        "Dinitrogen acid",
+        "Deoxyribose nitrate"
+      ]
+    },
+    {
+      "id": "R3Q10",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Roughly how fast does light travel in a vacuum?",
+      "answer": "300,000 km per second",
+      "options": [
+        "30,000 km per second",
+        "300,000 km per second",
+        "3,000,000 km per second",
+        "3,000 km per second"
+      ]
+    },
+    {
+      "id": "R4Q1",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band was John Lennon a member of?",
+      "answer": "The Beatles",
+      "options": [
+        "The Rolling Stones",
+        "The Beatles",
+        "The Who",
+        "The Kinks"
+      ]
+    },
+    {
+      "id": "R4Q2",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who wrote the Harry Potter books?",
+      "answer": "J.K. Rowling",
+      "options": [
+        "Roald Dahl",
+        "J.K. Rowling",
+        "C.S. Lewis",
+        "Philip Pullman"
+      ]
+    },
+    {
+      "id": "R4Q3",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Darth Vader is a character in which film franchise?",
+      "answer": "Star Wars",
+      "options": [
+        "Star Trek",
+        "Star Wars",
+        "Dune",
+        "Alien"
+      ]
+    },
+    {
+      "id": "R4Q4",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who wrote Romeo and Juliet?",
+      "answer": "William Shakespeare",
+      "options": [
+        "Christopher Marlowe",
+        "William Shakespeare",
+        "Ben Jonson",
+        "Charles Dickens"
+      ]
+    },
+    {
+      "id": "R4Q5",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which city is the Louvre museum?",
+      "answer": "Paris",
+      "options": [
+        "Paris",
+        "Madrid",
+        "Vienna",
+        "Brussels"
+      ]
+    },
+    {
+      "id": "R4Q6",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who wrote Pride and Prejudice?",
+      "answer": "Jane Austen",
+      "options": [
+        "Charlotte Brontë",
+        "Jane Austen",
+        "George Eliot",
+        "Mary Shelley"
+      ]
+    },
+    {
+      "id": "R4Q7",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who painted The Starry Night?",
+      "answer": "Vincent van Gogh",
+      "options": [
+        "Claude Monet",
+        "Vincent van Gogh",
+        "Paul Cézanne",
+        "Edvard Munch"
+      ]
+    },
+    {
+      "id": "R4Q8",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who wrote the novel Nineteen Eighty-Four?",
+      "answer": "George Orwell",
+      "options": [
+        "Aldous Huxley",
+        "George Orwell",
+        "H.G. Wells",
+        "Ray Bradbury"
+      ]
+    },
+    {
+      "id": "R4Q9",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which composer's Ninth Symphony includes the 'Ode to Joy'?",
+      "answer": "Beethoven",
+      "options": [
+        "Mozart",
+        "Beethoven",
+        "Brahms",
+        "Haydn"
+      ]
+    },
+    {
+      "id": "R4Q10",
+      "round": "Culture Club",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who composed the opera The Magic Flute?",
+      "answer": "Mozart",
+      "options": [
+        "Verdi",
+        "Mozart",
+        "Wagner",
+        "Puccini"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.057184,
+      "ms": 14762,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 4276,
+          "outputTokens": 2004,
+          "thinkingTokens": 0,
+          "durationMs": 14762
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "6",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Pacific",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "1066",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "1776",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Napoleon",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Inca",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Catherine of Aragon",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "John",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Augustus",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Albert Einstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "White blood cells",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "212",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Ohm",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "Deoxyribonucleic acid",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "300,000 km per second",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "J.K. Rowling",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Star Wars",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Paris",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Vincent van Gogh",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "George Orwell",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Mozart",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many sides does a hexagon have?",
+          "answer": "6",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars",
+          "options": [
+            "Venus",
+            "Jupiter",
+            "Mars",
+            "Saturn"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest ocean on Earth?",
+          "answer": "Pacific",
+          "options": [
+            "Atlantic",
+            "Indian",
+            "Arctic",
+            "Pacific"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which city is the Parthenon?",
+          "answer": "Athens",
+          "options": [
+            "Rome",
+            "Athens",
+            "Istanbul",
+            "Cairo"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au",
+          "options": [
+            "Go",
+            "Gd",
+            "Ag",
+            "Au"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the hardest naturally occurring substance?",
+          "answer": "Diamond",
+          "options": [
+            "Quartz",
+            "Diamond",
+            "Granite",
+            "Topaz"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which element has atomic number 1?",
+          "answer": "Hydrogen",
+          "options": [
+            "Helium",
+            "Oxygen",
+            "Hydrogen",
+            "Carbon"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who painted the Mona Lisa?",
+          "answer": "Leonardo da Vinci",
+          "options": [
+            "Michelangelo",
+            "Raphael",
+            "Leonardo da Vinci",
+            "Titian"
+          ]
+        },
+        {
+          "id": "R1Q10",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many bones are in the typical adult human body?",
+          "answer": "206",
+          "options": [
+            "186",
+            "206",
+            "226",
+            "256"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which ship sank in 1912 after hitting an iceberg?",
+          "answer": "Titanic",
+          "options": [
+            "Lusitania",
+            "Titanic",
+            "Britannic",
+            "Mary Rose"
+          ]
+        },
+        {
+          "id": "R2Q2",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong",
+          "options": [
+            "Buzz Aldrin",
+            "Yuri Gagarin",
+            "Neil Armstrong",
+            "John Glenn"
+          ]
+        },
+        {
+          "id": "R2Q3",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year was the Battle of Hastings?",
+          "answer": "1066",
+          "options": [
+            "1066",
+            "1086",
+            "1215",
+            "966"
+          ]
+        },
+        {
+          "id": "R2Q4",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989",
+          "options": [
+            "1987",
+            "1989",
+            "1991",
+            "1985"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year was the US Declaration of Independence adopted?",
+          "answer": "1776",
+          "options": [
+            "1766",
+            "1776",
+            "1783",
+            "1789"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which French leader was defeated at the Battle of Waterloo?",
+          "answer": "Napoleon",
+          "options": [
+            "Louis XVI",
+            "Napoleon",
+            "Charles de Gaulle",
+            "Robespierre"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which civilisation built Machu Picchu?",
+          "answer": "Inca",
+          "options": [
+            "Aztec",
+            "Maya",
+            "Inca",
+            "Olmec"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first wife of Henry VIII?",
+          "answer": "Catherine of Aragon",
+          "options": [
+            "Anne Boleyn",
+            "Jane Seymour",
+            "Catherine of Aragon",
+            "Anne of Cleves"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which English king sealed Magna Carta in 1215?",
+          "answer": "John",
+          "options": [
+            "Richard I",
+            "Henry II",
+            "John",
+            "Edward I"
+          ]
+        },
+        {
+          "id": "R2Q10",
+          "round": "Through the Ages",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first Roman emperor?",
+          "answer": "Augustus",
+          "options": [
+            "Julius Caesar",
+            "Augustus",
+            "Nero",
+            "Tiberius"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet is closest to the Sun?",
+          "answer": "Mercury",
+          "options": [
+            "Venus",
+            "Mercury",
+            "Mars",
+            "Earth"
+          ]
+        },
+        {
+          "id": "R3Q2",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah",
+          "options": [
+            "Lion",
+            "Pronghorn",
+            "Cheetah",
+            "Greyhound"
+          ]
+        },
+        {
+          "id": "R3Q3",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which gas do plants absorb from the air for photosynthesis?",
+          "answer": "Carbon dioxide",
+          "options": [
+            "Oxygen",
+            "Nitrogen",
+            "Carbon dioxide",
+            "Hydrogen"
+          ]
+        },
+        {
+          "id": "R3Q4",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest organ of the human body?",
+          "answer": "Skin",
+          "options": [
+            "Liver",
+            "Skin",
+            "Brain",
+            "Lungs"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who developed the general theory of relativity?",
+          "answer": "Albert Einstein",
+          "options": [
+            "Isaac Newton",
+            "Niels Bohr",
+            "Albert Einstein",
+            "Max Planck"
+          ]
+        },
+        {
+          "id": "R3Q6",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which blood cells mainly fight infection?",
+          "answer": "White blood cells",
+          "options": [
+            "Red blood cells",
+            "White blood cells",
+            "Platelets",
+            "Plasma cells only"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "At sea level, water boils at how many degrees Fahrenheit?",
+          "answer": "212",
+          "options": [
+            "100",
+            "180",
+            "212",
+            "232"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the unit of electrical resistance?",
+          "answer": "Ohm",
+          "options": [
+            "Volt",
+            "Ampere",
+            "Ohm",
+            "Watt"
+          ]
+        },
+        {
+          "id": "R3Q9",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What does DNA stand for?",
+          "answer": "Deoxyribonucleic acid",
+          "options": [
+            "Deoxyribonucleic acid",
+            "Diribonucleic acid",
+            "Dinitrogen acid",
+            "Deoxyribose nitrate"
+          ]
+        },
+        {
+          "id": "R3Q10",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Roughly how fast does light travel in a vacuum?",
+          "answer": "300,000 km per second",
+          "options": [
+            "30,000 km per second",
+            "300,000 km per second",
+            "3,000,000 km per second",
+            "3,000 km per second"
+          ]
+        },
+        {
+          "id": "R4Q1",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band was John Lennon a member of?",
+          "answer": "The Beatles",
+          "options": [
+            "The Rolling Stones",
+            "The Beatles",
+            "The Who",
+            "The Kinks"
+          ]
+        },
+        {
+          "id": "R4Q2",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who wrote the Harry Potter books?",
+          "answer": "J.K. Rowling",
+          "options": [
+            "Roald Dahl",
+            "J.K. Rowling",
+            "C.S. Lewis",
+            "Philip Pullman"
+          ]
+        },
+        {
+          "id": "R4Q3",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Darth Vader is a character in which film franchise?",
+          "answer": "Star Wars",
+          "options": [
+            "Star Trek",
+            "Star Wars",
+            "Dune",
+            "Alien"
+          ]
+        },
+        {
+          "id": "R4Q4",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who wrote Romeo and Juliet?",
+          "answer": "William Shakespeare",
+          "options": [
+            "Christopher Marlowe",
+            "William Shakespeare",
+            "Ben Jonson",
+            "Charles Dickens"
+          ]
+        },
+        {
+          "id": "R4Q5",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which city is the Louvre museum?",
+          "answer": "Paris",
+          "options": [
+            "Paris",
+            "Madrid",
+            "Vienna",
+            "Brussels"
+          ]
+        },
+        {
+          "id": "R4Q6",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who wrote Pride and Prejudice?",
+          "answer": "Jane Austen",
+          "options": [
+            "Charlotte Brontë",
+            "Jane Austen",
+            "George Eliot",
+            "Mary Shelley"
+          ]
+        },
+        {
+          "id": "R4Q7",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who painted The Starry Night?",
+          "answer": "Vincent van Gogh",
+          "options": [
+            "Claude Monet",
+            "Vincent van Gogh",
+            "Paul Cézanne",
+            "Edvard Munch"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who wrote the novel Nineteen Eighty-Four?",
+          "answer": "George Orwell",
+          "options": [
+            "Aldous Huxley",
+            "George Orwell",
+            "H.G. Wells",
+            "Ray Bradbury"
+          ]
+        },
+        {
+          "id": "R4Q9",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer's Ninth Symphony includes the 'Ode to Joy'?",
+          "answer": "Beethoven",
+          "options": [
+            "Mozart",
+            "Beethoven",
+            "Brahms",
+            "Haydn"
+          ]
+        },
+        {
+          "id": "R4Q10",
+          "round": "Culture Club",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who composed the opera The Magic Flute?",
+          "answer": "Mozart",
+          "options": [
+            "Verdi",
+            "Mozart",
+            "Wagner",
+            "Puccini"
+          ]
+        }
+      ]
+    }
+  ]
+}

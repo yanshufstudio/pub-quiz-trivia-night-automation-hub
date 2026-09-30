@@ -1,0 +1,544 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "sport",
+    "prompt": "2 rounds of 8 questions on sport: football World Cups, then the Olympic Games.",
+    "questions": 16,
+    "expect": [
+      8,
+      8
+    ],
+    "run": "sport#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 1239,
+      "thinkingTokens": 0,
+      "durationMs": 10427
+    },
+    "costUsd": 0.031992,
+    "ms": 10427
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted and won the 1966 FIFA World Cup?",
+      "answer": "England"
+    },
+    {
+      "id": "R1Q2",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country won the 2022 FIFA World Cup in Qatar?",
+      "answer": "Argentina"
+    },
+    {
+      "id": "R1Q3",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted the first FIFA World Cup in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R1Q4",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which French player scored a hat-trick in the 2022 World Cup final?",
+      "answer": "Kylian Mbappé"
+    },
+    {
+      "id": "R1Q5",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In the 2014 World Cup semi-final, Germany beat host nation Brazil by what score?",
+      "answer": "7-1",
+      "options": [
+        "5-0",
+        "6-1",
+        "7-1",
+        "4-2"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which Spanish player scored the extra-time winning goal in the 2010 World Cup final against the Netherlands?",
+      "answer": "Andrés Iniesta"
+    },
+    {
+      "id": "R1Q7",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which two countries jointly hosted the 2002 FIFA World Cup?",
+      "answer": "South Korea and Japan"
+    },
+    {
+      "id": "R1Q8",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which Russian goalkeeper scored a record five goals in a single match at the 1994 World Cup, against Cameroon?",
+      "answer": "Oleg Salenko (he was a striker, not a goalkeeper; accept Salenko)"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which city hosted the 2012 Summer Olympics?",
+      "answer": "London"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "How many rings are on the Olympic flag?",
+      "answer": "Five"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which Jamaican sprinter won the 100 metres at the 2008, 2012 and 2016 Olympics?",
+      "answer": "Usain Bolt"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which American swimmer won eight gold medals at the 2008 Beijing Olympics?",
+      "answer": "Michael Phelps"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which Frenchman is credited with founding the modern Olympic movement?",
+      "answer": "Pierre de Coubertin"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "In which city were the first modern Olympic Games held in 1896?",
+      "answer": "Athens"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "TEXT",
+      "text": "Which Romanian gymnast scored the first perfect 10 in Olympic gymnastics, at Montreal 1976?",
+      "answer": "Nadia Comăneci"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Olympic Spirit",
+      "category": "The Olympic Games",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The 1956 Summer Olympics were held in Melbourne, but the equestrian events took place in which other city because of quarantine rules?",
+      "answer": "Stockholm",
+      "options": [
+        "Stockholm",
+        "Helsinki",
+        "Rome",
+        "Oslo"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.03656,
+      "ms": 15244,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1977,
+          "outputTokens": 1020,
+          "thinkingTokens": 101,
+          "durationMs": 11353
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1288,
+          "outputTokens": 155,
+          "thinkingTokens": 0,
+          "durationMs": 3889
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Salenko was a striker, not a goalkeeper; corrected the question wording.",
+          "text": "Which Russian striker scored a record five goals in a single match at the 1994 World Cup, against Cameroon?",
+          "answer": "Oleg Salenko"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "England",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Argentina",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Kylian Mbappé",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "7-1",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Andrés Iniesta",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "South Korea and Japan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Oleg Salenko",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "wording: 'Russian goalkeeper' is wrong: Oleg Salenko was a striker, not a goalkeeper. The rest is right: he scored five goals against Cameroon at the 1994 World Cup, a record."
+          ]
+        },
+        "R2Q1": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Pierre de Coubertin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Nadia Comăneci",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Stockholm",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q8",
+          "reason": "Salenko was a striker, not a goalkeeper; corrected the question wording.",
+          "before": {
+            "text": "Which Russian goalkeeper scored a record five goals in a single match at the 1994 World Cup, against Cameroon?",
+            "answer": "Oleg Salenko (he was a striker, not a goalkeeper; accept Salenko)"
+          },
+          "after": {
+            "text": "Which Russian striker scored a record five goals in a single match at the 1994 World Cup, against Cameroon?",
+            "answer": "Oleg Salenko"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted and won the 1966 FIFA World Cup?",
+          "answer": "England"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the 2022 FIFA World Cup in Qatar?",
+          "answer": "Argentina"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted the first FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French player scored a hat-trick in the 2022 World Cup final?",
+          "answer": "Kylian Mbappé"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In the 2014 World Cup semi-final, Germany beat host nation Brazil by what score?",
+          "answer": "7-1",
+          "options": [
+            "5-0",
+            "6-1",
+            "7-1",
+            "4-2"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which Spanish player scored the extra-time winning goal in the 2010 World Cup final against the Netherlands?",
+          "answer": "Andrés Iniesta"
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which two countries jointly hosted the 2002 FIFA World Cup?",
+          "answer": "South Korea and Japan"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which Russian striker scored a record five goals in a single match at the 1994 World Cup, against Cameroon?",
+          "answer": "Oleg Salenko"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which city hosted the 2012 Summer Olympics?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "How many rings are on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which Jamaican sprinter won the 100 metres at the 2008, 2012 and 2016 Olympics?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which American swimmer won eight gold medals at the 2008 Beijing Olympics?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which Frenchman is credited with founding the modern Olympic movement?",
+          "answer": "Pierre de Coubertin"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "In which city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "TEXT",
+          "text": "Which Romanian gymnast scored the first perfect 10 in Olympic gymnastics, at Montreal 1976?",
+          "answer": "Nadia Comăneci"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Olympic Spirit",
+          "category": "The Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The 1956 Summer Olympics were held in Melbourne, but the equestrian events took place in which other city because of quarantine rules?",
+          "answer": "Stockholm",
+          "options": [
+            "Stockholm",
+            "Helsinki",
+            "Rome",
+            "Oslo"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "hebrew#2"
+  },
+  "failed": "IncompletePackError: short pack: 3 of 24 questions, rounds [3] of [8,8,8]",
+  "errorName": "IncompletePackError",
+  "truncated": false,
+  "attempts": 2,
+  "retryWarnings": [
+    "Quiz pack attempt 1 unusable (short pack: 23 of 24 questions, rounds [7,8,8] of [8,8,8]); trying once more."
+  ],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 3616,
+    "outputTokens": 6282,
+    "thinkingTokens": 4105,
+    "durationMs": 84790
+  },
+  "costUsd": 0.140104,
+  "ms": 84792
+}

@@ -1,0 +1,755 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "hebrew#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1808,
+      "outputTokens": 2557,
+      "thinkingTokens": 956,
+      "durationMs": 35491
+    },
+    "costUsd": 0.058372,
+    "ms": 35491
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה הוכרזה מדינת ישראל?",
+      "answer": "1948"
+    },
+    {
+      "id": "R1Q2",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי הקריא את מגילת העצמאות בטקס הכרזת המדינה?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R1Q3",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה נשיא מדינת ישראל הראשון?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R1Q4",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R1Q5",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+      "answer": "1967"
+    },
+    {
+      "id": "R1Q6",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "איזה ראש ממשלה נרצח בכיכר מלכי ישראל בתל אביב בשנת 1995?",
+      "answer": "יצחק רבין"
+    },
+    {
+      "id": "R1Q7",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "עם איזו מדינה חתמה ישראל על הסכם שלום בשנת 1979?",
+      "answer": "מצרים"
+    },
+    {
+      "id": "R1Q8",
+      "round": "דפים מההיסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו מדינה התרחש מבצע אנטבה בשנת 1976?",
+      "answer": "אוגנדה",
+      "options": [
+        "אוגנדה",
+        "קניה",
+        "אתיופיה",
+        "טנזניה",
+        "סודן"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+      "answer": "נטע ברזילי"
+    },
+    {
+      "id": "R2Q2",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי כתבה את השיר \"ירושלים של זהב\"?",
+      "answer": "נעמי שמר"
+    },
+    {
+      "id": "R2Q3",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+      "answer": "דיווה"
+    },
+    {
+      "id": "R2Q4",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי הוא סולן להקת משינה?",
+      "answer": "יובל בנאי"
+    },
+    {
+      "id": "R2Q5",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+      "answer": "חלב ודבש"
+    },
+    {
+      "id": "R2Q6",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזה זמר ביצע את \"אבניבי\", השיר שזיכה את ישראל לראשונה באירוויזיון (1978)?",
+      "answer": "יזהר כהן"
+    },
+    {
+      "id": "R2Q7",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזה מקום סיימה עפרה חזה באירוויזיון 1983 עם השיר \"חי\"?",
+      "answer": "המקום השני",
+      "options": [
+        "המקום הראשון",
+        "המקום השני",
+        "המקום השלישי",
+        "המקום החמישי"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו להקה ייצגה את ישראל באירוויזיון 1974 עם השיר \"נתתי לה חיי\"?",
+      "answer": "כוורת"
+    },
+    {
+      "id": "R3Q1",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראים כדורים מטוגנים העשויים מחומוס טחון, שמוגשים לרוב בפיתה?",
+      "answer": "פלאפל"
+    },
+    {
+      "id": "R3Q2",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראת המנה של ביצים המבושלות ברוטב עגבניות ופלפלים?",
+      "answer": "שקשוקה"
+    },
+    {
+      "id": "R3Q3",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזה זרע מכינים טחינה?",
+      "answer": "שומשום"
+    },
+    {
+      "id": "R3Q4",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "בטעם של מה החטיף במבה?",
+      "answer": "בוטנים"
+    },
+    {
+      "id": "R3Q5",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "לכבוד איזה יום נהוג לאפות חלות?",
+      "answer": "שבת"
+    },
+    {
+      "id": "R3Q6",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה ירק מטוגן הוא אחד המרכיבים העיקריים בסביח?",
+      "answer": "חציל"
+    },
+    {
+      "id": "R3Q7",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזו עדה הגיע הג'חנון שנאכל בבוקר שבת?",
+      "answer": "העדה התימנית"
+    },
+    {
+      "id": "R3Q8",
+      "round": "על השולחן",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא המאכל שכונה \"אורז בן-גוריון\"?",
+      "answer": "פתיתים"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.056736,
+      "ms": 21923,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2640,
+          "outputTokens": 1736,
+          "thinkingTokens": 367,
+          "durationMs": 16656
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1194,
+          "outputTokens": 334,
+          "thinkingTokens": 171,
+          "durationMs": 5267
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "fix",
+          "reason": "השיר זכה בביצוע גלי עטרי ולהקת חלב ודבש, ולכן יש לקבל את שתי התשובות",
+          "answer": "חלב ודבש (יתקבל גם: גלי עטרי וחלב ודבש)"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "1967",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "יצחק רבין",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "מצרים",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "אוגנדה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "נטע ברזילי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "נעמי שמר",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "דיווה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "יובל בנאי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "חלב ודבש",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q6": {
+          "answer": "יזהר כהן",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "המקום השני",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "כוורת",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "פלאפל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "שקשוקה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "שומשום",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "בוטנים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "שבת",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "חציל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "העדה התימנית",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "פתיתים",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q5",
+          "reason": "השיר זכה בביצוע גלי עטרי ולהקת חלב ודבש, ולכן יש לקבל את שתי התשובות",
+          "before": {
+            "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+            "answer": "חלב ודבש"
+          },
+          "after": {
+            "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+            "answer": "חלב ודבש (יתקבל גם: גלי עטרי וחלב ודבש)"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה הוכרזה מדינת ישראל?",
+          "answer": "1948"
+        },
+        {
+          "id": "R1Q2",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הקריא את מגילת העצמאות בטקס הכרזת המדינה?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R1Q3",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה נשיא מדינת ישראל הראשון?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R1Q4",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R1Q5",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+          "answer": "1967"
+        },
+        {
+          "id": "R1Q6",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "איזה ראש ממשלה נרצח בכיכר מלכי ישראל בתל אביב בשנת 1995?",
+          "answer": "יצחק רבין"
+        },
+        {
+          "id": "R1Q7",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "עם איזו מדינה חתמה ישראל על הסכם שלום בשנת 1979?",
+          "answer": "מצרים"
+        },
+        {
+          "id": "R1Q8",
+          "round": "דפים מההיסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו מדינה התרחש מבצע אנטבה בשנת 1976?",
+          "answer": "אוגנדה",
+          "options": [
+            "אוגנדה",
+            "קניה",
+            "אתיופיה",
+            "טנזניה",
+            "סודן"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+          "answer": "נטע ברזילי"
+        },
+        {
+          "id": "R2Q2",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי כתבה את השיר \"ירושלים של זהב\"?",
+          "answer": "נעמי שמר"
+        },
+        {
+          "id": "R2Q3",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+          "answer": "דיווה"
+        },
+        {
+          "id": "R2Q4",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי הוא סולן להקת משינה?",
+          "answer": "יובל בנאי"
+        },
+        {
+          "id": "R2Q5",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+          "answer": "חלב ודבש (יתקבל גם: גלי עטרי וחלב ודבש)"
+        },
+        {
+          "id": "R2Q6",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזה זמר ביצע את \"אבניבי\", השיר שזיכה את ישראל לראשונה באירוויזיון (1978)?",
+          "answer": "יזהר כהן"
+        },
+        {
+          "id": "R2Q7",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזה מקום סיימה עפרה חזה באירוויזיון 1983 עם השיר \"חי\"?",
+          "answer": "המקום השני",
+          "options": [
+            "המקום הראשון",
+            "המקום השני",
+            "המקום השלישי",
+            "המקום החמישי"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו להקה ייצגה את ישראל באירוויזיון 1974 עם השיר \"נתתי לה חיי\"?",
+          "answer": "כוורת"
+        },
+        {
+          "id": "R3Q1",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראים כדורים מטוגנים העשויים מחומוס טחון, שמוגשים לרוב בפיתה?",
+          "answer": "פלאפל"
+        },
+        {
+          "id": "R3Q2",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראת המנה של ביצים המבושלות ברוטב עגבניות ופלפלים?",
+          "answer": "שקשוקה"
+        },
+        {
+          "id": "R3Q3",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזה זרע מכינים טחינה?",
+          "answer": "שומשום"
+        },
+        {
+          "id": "R3Q4",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "בטעם של מה החטיף במבה?",
+          "answer": "בוטנים"
+        },
+        {
+          "id": "R3Q5",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "לכבוד איזה יום נהוג לאפות חלות?",
+          "answer": "שבת"
+        },
+        {
+          "id": "R3Q6",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה ירק מטוגן הוא אחד המרכיבים העיקריים בסביח?",
+          "answer": "חציל"
+        },
+        {
+          "id": "R3Q7",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזו עדה הגיע הג'חנון שנאכל בבוקר שבת?",
+          "answer": "העדה התימנית"
+        },
+        {
+          "id": "R3Q8",
+          "round": "על השולחן",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא המאכל שכונה \"אורז בן-גוריון\"?",
+          "answer": "פתיתים"
+        }
+      ]
+    }
+  ]
+}

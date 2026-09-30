@@ -1,0 +1,1014 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "fun-quiz",
+    "prompt": "Just give me a fun quiz",
+    "questions": 20,
+    "run": "fun-quiz#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1783,
+      "outputTokens": 1946,
+      "thinkingTokens": 0,
+      "durationMs": 16495
+    },
+    "costUsd": 0.046052,
+    "ms": 16496
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912",
+      "options": [
+        "1905",
+        "1912",
+        "1918",
+        "1923"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which artist painted 'The Starry Night'?",
+      "answer": "Vincent van Gogh"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the only letter that does not appear in any US state name?",
+      "answer": "Q"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "What is the name of the snowman in Disney's 'Frozen'?",
+      "answer": "Olaf"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Which actor played Jack Dawson in the 1997 film 'Titanic'?",
+      "answer": "Leonardo DiCaprio"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In 'The Wizard of Oz', what is the name of Dorothy's dog?",
+      "answer": "Toto"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Which TV sitcom featured the coffee shop Central Perk?",
+      "answer": "Friends"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "Who directed 'Jaws' and 'E.T. the Extra-Terrestrial'?",
+      "answer": "Steven Spielberg"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In 'Breaking Bad', what is Walter White's alias?",
+      "answer": "Heisenberg"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What was the first feature-length film released by Pixar?",
+      "answer": "Toy Story",
+      "options": [
+        "A Bug's Life",
+        "Toy Story",
+        "Monsters, Inc.",
+        "Finding Nemo"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Silver Screen",
+      "category": "Film & TV",
+      "type": "TEXT",
+      "text": "In 'Back to the Future', what speed in miles per hour must the DeLorean reach to time travel?",
+      "answer": "88"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is the tallest living animal?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "A joey"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "How many hearts does an octopus have?",
+      "answer": "Three"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is the largest animal ever known to have lived?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is the collective noun for a group of crows?",
+      "answer": "A murder"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "Which bird is the only one able to fly backwards?",
+      "answer": "Hummingbird"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What colour is a polar bear's skin?",
+      "answer": "Black",
+      "options": [
+        "White",
+        "Pink",
+        "Black",
+        "Grey"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Wild Things",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "The axolotl is a type of what animal: fish, amphibian or reptile?",
+      "answer": "Amphibian (a salamander)"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released the album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer is known as the 'Queen of Pop'?",
+      "answer": "Madonna"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Freddie Mercury was the lead singer of which band?",
+      "answer": "Queen"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "How many strings does a standard guitar have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Swedish group won the 1974 Eurovision Song Contest with 'Waterloo'?",
+      "answer": "ABBA"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "What was Elvis Presley's Memphis home called?",
+      "answer": "Graceland"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which composer wrote the 'Moonlight Sonata'?",
+      "answer": "Ludwig van Beethoven",
+      "options": [
+        "Mozart",
+        "Bach",
+        "Beethoven's rival Haydn",
+        "Ludwig van Beethoven"
+      ]
+    },
+    {
+      "id": "R4Q8",
+      "round": "Sound Bites",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "What is the real first name of the rapper Eminem?",
+      "answer": "Marshall"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.06972,
+      "ms": 24249,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2688,
+          "outputTokens": 2168,
+          "thinkingTokens": 221,
+          "durationMs": 18792
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1922,
+          "outputTokens": 396,
+          "thinkingTokens": 0,
+          "durationMs": 5457
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "6 and Six are the same answer."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "Same answer."
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "Same answer."
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "fix",
+          "reason": "Other birds can move backwards briefly, so the wording needs softening.",
+          "text": "Which bird is the only one able to fly backwards for a sustained time?"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "Same answer."
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "Madonna is the standard answer for 'Queen of Pop'."
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "Same answer."
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "fix",
+          "reason": "Haydn was Beethoven's teacher, not his rival.",
+          "options": [
+            "Mozart",
+            "Bach",
+            "Haydn",
+            "Ludwig van Beethoven"
+          ]
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Vincent van Gogh",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Q",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Olaf",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Leonardo DiCaprio",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Toto",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Friends",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Heisenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Toy Story",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "88 mph",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q1": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "3",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q4": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Hummingbird",
+          "agreed": true,
+          "flags": [
+            "wording: 'the only one able to fly backwards' oversimplifies: hummingbirds are the only birds that can keep flying backwards, but a few other birds can briefly move backwards."
+          ]
+        },
+        "R3Q7": {
+          "answer": "Black",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Amphibian",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R4Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R4Q3": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R4Q5": {
+          "answer": "ABBA",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Graceland",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": [
+            "wording: Option 'Beethoven's rival Haydn' is wrong: Haydn was Beethoven's teacher, not his rival."
+          ]
+        },
+        "R4Q8": {
+          "answer": "Marshall",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q6",
+          "reason": "Other birds can move backwards briefly, so the wording needs softening.",
+          "before": {
+            "text": "Which bird is the only one able to fly backwards?",
+            "answer": "Hummingbird"
+          },
+          "after": {
+            "text": "Which bird is the only one able to fly backwards for a sustained time?",
+            "answer": "Hummingbird"
+          }
+        },
+        {
+          "id": "R4Q7",
+          "reason": "Haydn was Beethoven's teacher, not his rival.",
+          "before": {
+            "text": "Which composer wrote the 'Moonlight Sonata'?",
+            "answer": "Ludwig van Beethoven"
+          },
+          "after": {
+            "text": "Which composer wrote the 'Moonlight Sonata'?",
+            "answer": "Ludwig van Beethoven"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912",
+          "options": [
+            "1905",
+            "1912",
+            "1918",
+            "1923"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which artist painted 'The Starry Night'?",
+          "answer": "Vincent van Gogh"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the only letter that does not appear in any US state name?",
+          "answer": "Q"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "What is the name of the snowman in Disney's 'Frozen'?",
+          "answer": "Olaf"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Which actor played Jack Dawson in the 1997 film 'Titanic'?",
+          "answer": "Leonardo DiCaprio"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In 'The Wizard of Oz', what is the name of Dorothy's dog?",
+          "answer": "Toto"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Which TV sitcom featured the coffee shop Central Perk?",
+          "answer": "Friends"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "Who directed 'Jaws' and 'E.T. the Extra-Terrestrial'?",
+          "answer": "Steven Spielberg"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In 'Breaking Bad', what is Walter White's alias?",
+          "answer": "Heisenberg"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What was the first feature-length film released by Pixar?",
+          "answer": "Toy Story",
+          "options": [
+            "A Bug's Life",
+            "Toy Story",
+            "Monsters, Inc.",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Silver Screen",
+          "category": "Film & TV",
+          "type": "TEXT",
+          "text": "In 'Back to the Future', what speed in miles per hour must the DeLorean reach to time travel?",
+          "answer": "88"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is the tallest living animal?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "A joey"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "How many hearts does an octopus have?",
+          "answer": "Three"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is the largest animal ever known to have lived?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is the collective noun for a group of crows?",
+          "answer": "A murder"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "Which bird is the only one able to fly backwards for a sustained time?",
+          "answer": "Hummingbird"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What colour is a polar bear's skin?",
+          "answer": "Black",
+          "options": [
+            "White",
+            "Pink",
+            "Black",
+            "Grey"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Wild Things",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "The axolotl is a type of what animal: fish, amphibian or reptile?",
+          "answer": "Amphibian (a salamander)"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released the album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer is known as the 'Queen of Pop'?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Freddie Mercury was the lead singer of which band?",
+          "answer": "Queen"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "How many strings does a standard guitar have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Swedish group won the 1974 Eurovision Song Contest with 'Waterloo'?",
+          "answer": "ABBA"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "What was Elvis Presley's Memphis home called?",
+          "answer": "Graceland"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer wrote the 'Moonlight Sonata'?",
+          "answer": "Ludwig van Beethoven",
+          "options": [
+            "Mozart",
+            "Bach",
+            "Haydn",
+            "Ludwig van Beethoven"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Sound Bites",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "What is the real first name of the rapper Eminem?",
+          "answer": "Marshall"
+        }
+      ]
+    }
+  ]
+}

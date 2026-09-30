@@ -1,0 +1,244 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5,
+    "expect": [
+      5
+    ],
+    "run": "90s-pop"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1790,
+      "outputTokens": 513,
+      "thinkingTokens": 0,
+      "durationMs": 5778
+    },
+    "costUsd": 0.01742,
+    "ms": 5783
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Britney Spears' debut single, released in 1998, was titled '...Baby One More Time'. What word begins the title?",
+      "answer": "Hit (Me Baby One More Time)"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Irish band had a 1994 hit with 'Zombie'?",
+      "answer": "The Cranberries",
+      "options": [
+        "The Corrs",
+        "The Cranberries",
+        "U2",
+        "Boyzone"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+      "answer": "Alanis Morissette"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Swedish duo, made up of Per Gessle and Marie Fredriksson, had a 1990 hit with 'It Must Have Been Love'?",
+      "answer": "Roxette"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.026392,
+      "ms": 10875,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1291,
+          "outputTokens": 453,
+          "thinkingTokens": 126,
+          "durationMs": 5932
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1192,
+          "outputTokens": 370,
+          "thinkingTokens": 166,
+          "durationMs": 4943
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "fix",
+          "reason": "The official title really does begin '...Baby', so asking what word begins it is confusing. The setter meant the omitted lyric 'Hit me', so the question now asks about the lyric instead.",
+          "text": "Britney Spears' 1998 debut single was titled '...Baby One More Time'. Which two words from the lyric are replaced by the ellipsis at the start of the title?",
+          "answer": "Hit me"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Baby",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "The Cranberries",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Alanis Morissette",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Roxette",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q2",
+          "reason": "The official title really does begin '...Baby', so asking what word begins it is confusing. The setter meant the omitted lyric 'Hit me', so the question now asks about the lyric instead.",
+          "before": {
+            "text": "Britney Spears' debut single, released in 1998, was titled '...Baby One More Time'. What word begins the title?",
+            "answer": "Hit (Me Baby One More Time)"
+          },
+          "after": {
+            "text": "Britney Spears' 1998 debut single was titled '...Baby One More Time'. Which two words from the lyric are replaced by the ellipsis at the start of the title?",
+            "answer": "Hit me"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Britney Spears' 1998 debut single was titled '...Baby One More Time'. Which two words from the lyric are replaced by the ellipsis at the start of the title?",
+          "answer": "Hit me"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Irish band had a 1994 hit with 'Zombie'?",
+          "answer": "The Cranberries",
+          "options": [
+            "The Corrs",
+            "The Cranberries",
+            "U2",
+            "Boyzone"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+          "answer": "Alanis Morissette"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Swedish duo, made up of Per Gessle and Marie Fredriksson, had a 1990 hit with 'It Must Have Been Love'?",
+          "answer": "Roxette"
+        }
+      ]
+    }
+  ]
+}

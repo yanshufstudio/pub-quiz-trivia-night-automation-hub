@@ -1,0 +1,1459 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "large",
+    "prompt": "5 rounds of 10 questions for adults in a pub, medium difficulty: 80s music, world geography, famous film quotes, science, general knowledge.",
+    "questions": 50,
+    "expect": [
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "run": "large#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1823,
+      "outputTokens": 2534,
+      "thinkingTokens": 0,
+      "durationMs": 24004
+    },
+    "costUsd": 0.057972,
+    "ms": 24005
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Michael Jackson album, released in 1982, includes 'Billie Jean' and 'Beat It'?",
+      "answer": "Thriller"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band had a 1985 hit with 'Take On Me'?",
+      "answer": "a-ha"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Who sang 'Like a Virgin'?",
+      "answer": "Madonna"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which charity supergroup, organised by Bob Geldof and Midge Ure, released 'Do They Know It's Christmas?' in 1984?",
+      "answer": "Band Aid"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Joshua Tree' in 1987?",
+      "answer": "U2"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Who sang 'Never Gonna Give You Up' in 1987?",
+      "answer": "Rick Astley"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Frankie Goes to Hollywood single, banned by BBC Radio 1, was a UK number one in 1984?",
+      "answer": "Relax"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Prince album shares its name with the 1984 film he starred in?",
+      "answer": "Purple Rain",
+      "options": [
+        "Purple Rain",
+        "1999",
+        "Sign o' the Times",
+        "Controversy"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band sang 'Don't You Want Me' in 1981?",
+      "answer": "The Human League"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Rewind to the 80s",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Who was the lead singer of The Smiths?",
+      "answer": "Morrissey"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Cairo?",
+      "answer": "The Nile"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which country has the most people living in it, according to UN estimates for 2025?",
+      "answer": "India"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Spain from Morocco?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which is the largest of the Great Lakes by surface area?",
+      "answer": "Lake Superior",
+      "options": [
+        "Lake Superior",
+        "Lake Michigan",
+        "Lake Huron",
+        "Lake Erie"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which two countries share the longest international land border in the world?",
+      "answer": "Canada and the United States"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which landlocked country, bordering Brazil, has Asunción as its capital?",
+      "answer": "Paraguay"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which is the deepest lake in the world?",
+      "answer": "Lake Baikal"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'Here's looking at you, kid'?",
+      "answer": "Casablanca"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "In 'The Terminator', what three-word line does Arnold Schwarzenegger's character say before returning to the police station?",
+      "answer": "I'll be back"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film contains the line 'Houston, we have a problem'?",
+      "answer": "Apollo 13"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "'You're gonna need a bigger boat' comes from which 1975 film?",
+      "answer": "Jaws"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Complete the Forrest Gump line: 'Life is like a box of...'",
+      "answer": "Chocolates"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which actor says 'You talkin' to me?' in 'Taxi Driver'?",
+      "answer": "Robert De Niro"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "'Frankly, my dear, I don't give a damn' is from which film?",
+      "answer": "Gone with the Wind"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which character says 'I'm gonna make him an offer he can't refuse' in 'The Godfather'?",
+      "answer": "Vito Corleone",
+      "options": [
+        "Vito Corleone",
+        "Michael Corleone",
+        "Sonny Corleone",
+        "Tom Hagen"
+      ]
+    },
+    {
+      "id": "R3Q9",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "'I see dead people' is said by a young boy in which 1999 film?",
+      "answer": "The Sixth Sense"
+    },
+    {
+      "id": "R3Q10",
+      "round": "Say That Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'Nobody puts Baby in a corner'?",
+      "answer": "Dirty Dancing"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "How many bones are in a typical adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the hardest naturally occurring mineral?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which scientist proposed the theory of evolution by natural selection in 'On the Origin of Species'?",
+      "answer": "Charles Darwin"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the most abundant gas in Earth's atmosphere?",
+      "answer": "Nitrogen",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Argon",
+        "Carbon dioxide"
+      ]
+    },
+    {
+      "id": "R4Q8",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the SI unit of electrical resistance?",
+      "answer": "Ohm"
+    },
+    {
+      "id": "R4Q9",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen"
+    },
+    {
+      "id": "R4Q10",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which organelle is known as the powerhouse of the cell?",
+      "answer": "Mitochondrion (mitochondria)"
+    },
+    {
+      "id": "R5Q1",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R5Q2",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who painted the 'Mona Lisa'?",
+      "answer": "Leonardo da Vinci"
+    },
+    {
+      "id": "R5Q3",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city is the Colosseum?",
+      "answer": "Rome"
+    },
+    {
+      "id": "R5Q4",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the currency of Japan?",
+      "answer": "Yen"
+    },
+    {
+      "id": "R5Q5",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote 'Pride and Prejudice'?",
+      "answer": "Jane Austen"
+    },
+    {
+      "id": "R5Q6",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many players are on the field for one team in a rugby union match?",
+      "answer": "15"
+    },
+    {
+      "id": "R5Q7",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912",
+      "options": [
+        "1905",
+        "1912",
+        "1915",
+        "1921"
+      ]
+    },
+    {
+      "id": "R5Q8",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the name of the fictional detective created by Agatha Christie who has 'little grey cells'?",
+      "answer": "Hercule Poirot"
+    },
+    {
+      "id": "R5Q9",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the name for a group of crows?",
+      "answer": "A murder"
+    },
+    {
+      "id": "R5Q10",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which Shakespeare play features the characters Rosencrantz and Guildenstern?",
+      "answer": "Hamlet"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.082808,
+      "ms": 25537,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 3774,
+          "outputTokens": 2990,
+          "thinkingTokens": 298,
+          "durationMs": 22679
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1248,
+          "outputTokens": 146,
+          "thinkingTokens": 0,
+          "durationMs": 2857
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R5Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer (mitochondrion), so the question and answer are fine."
+        },
+        {
+          "id": "R5Q1",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer written as a number: 6 is six."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Thriller",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Band Aid",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "U2",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Rick Astley",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Relax",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Purple Rain",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "The Human League",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Morrissey",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The Nile",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "India",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Lake Superior",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Canada and the United States",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Paraguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Lake Baikal",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Casablanca",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "I'll be back",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Apollo 13",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Jaws",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "chocolates",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Robert De Niro",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Gone with the Wind",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Vito Corleone",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "The Sixth Sense",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Dirty Dancing",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Charles Darwin",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Nitrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Ohm",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Mitochondrion",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q1": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R5Q2": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q3": {
+          "answer": "Rome",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q4": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q5": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q6": {
+          "answer": "15",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q7": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q8": {
+          "answer": "Hercule Poirot",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q9": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": []
+        },
+        "R5Q10": {
+          "answer": "Hamlet",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which Michael Jackson album, released in 1982, includes 'Billie Jean' and 'Beat It'?",
+          "answer": "Thriller"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which band had a 1985 hit with 'Take On Me'?",
+          "answer": "a-ha"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Who sang 'Like a Virgin'?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which charity supergroup, organised by Bob Geldof and Midge Ure, released 'Do They Know It's Christmas?' in 1984?",
+          "answer": "Band Aid"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Joshua Tree' in 1987?",
+          "answer": "U2"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Who sang 'Never Gonna Give You Up' in 1987?",
+          "answer": "Rick Astley"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which Frankie Goes to Hollywood single, banned by BBC Radio 1, was a UK number one in 1984?",
+          "answer": "Relax"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Prince album shares its name with the 1984 film he starred in?",
+          "answer": "Purple Rain",
+          "options": [
+            "Purple Rain",
+            "1999",
+            "Sign o' the Times",
+            "Controversy"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Which band sang 'Don't You Want Me' in 1981?",
+          "answer": "The Human League"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Rewind to the 80s",
+          "category": "80s Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of The Smiths?",
+          "answer": "Morrissey"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Cairo?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which country has the most people living in it, according to UN estimates for 2025?",
+          "answer": "India"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Spain from Morocco?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the largest of the Great Lakes by surface area?",
+          "answer": "Lake Superior",
+          "options": [
+            "Lake Superior",
+            "Lake Michigan",
+            "Lake Huron",
+            "Lake Erie"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which two countries share the longest international land border in the world?",
+          "answer": "Canada and the United States"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which landlocked country, bordering Brazil, has Asunción as its capital?",
+          "answer": "Paraguay"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Around the World",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which is the deepest lake in the world?",
+          "answer": "Lake Baikal"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'Here's looking at you, kid'?",
+          "answer": "Casablanca"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "In 'The Terminator', what three-word line does Arnold Schwarzenegger's character say before returning to the police station?",
+          "answer": "I'll be back"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film contains the line 'Houston, we have a problem'?",
+          "answer": "Apollo 13"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "'You're gonna need a bigger boat' comes from which 1975 film?",
+          "answer": "Jaws"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Complete the Forrest Gump line: 'Life is like a box of...'",
+          "answer": "Chocolates"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which actor says 'You talkin' to me?' in 'Taxi Driver'?",
+          "answer": "Robert De Niro"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "'Frankly, my dear, I don't give a damn' is from which film?",
+          "answer": "Gone with the Wind"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which character says 'I'm gonna make him an offer he can't refuse' in 'The Godfather'?",
+          "answer": "Vito Corleone",
+          "options": [
+            "Vito Corleone",
+            "Michael Corleone",
+            "Sonny Corleone",
+            "Tom Hagen"
+          ]
+        },
+        {
+          "id": "R3Q9",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "'I see dead people' is said by a young boy in which 1999 film?",
+          "answer": "The Sixth Sense"
+        },
+        {
+          "id": "R3Q10",
+          "round": "Say That Again",
+          "category": "Famous Film Quotes",
+          "type": "TEXT",
+          "text": "Which film features the line 'Nobody puts Baby in a corner'?",
+          "answer": "Dirty Dancing"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "How many bones are in a typical adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the air for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the hardest naturally occurring mineral?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which scientist proposed the theory of evolution by natural selection in 'On the Origin of Species'?",
+          "answer": "Charles Darwin"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the most abundant gas in Earth's atmosphere?",
+          "answer": "Nitrogen",
+          "options": [
+            "Oxygen",
+            "Nitrogen",
+            "Argon",
+            "Carbon dioxide"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the SI unit of electrical resistance?",
+          "answer": "Ohm"
+        },
+        {
+          "id": "R4Q9",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R4Q10",
+          "round": "Lab Coats On",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which organelle is known as the powerhouse of the cell?",
+          "answer": "Mitochondrion (mitochondria)"
+        },
+        {
+          "id": "R5Q1",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R5Q2",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who painted the 'Mona Lisa'?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R5Q3",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city is the Colosseum?",
+          "answer": "Rome"
+        },
+        {
+          "id": "R5Q4",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the currency of Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R5Q5",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote 'Pride and Prejudice'?",
+          "answer": "Jane Austen"
+        },
+        {
+          "id": "R5Q6",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many players are on the field for one team in a rugby union match?",
+          "answer": "15"
+        },
+        {
+          "id": "R5Q7",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912",
+          "options": [
+            "1905",
+            "1912",
+            "1915",
+            "1921"
+          ]
+        },
+        {
+          "id": "R5Q8",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name of the fictional detective created by Agatha Christie who has 'little grey cells'?",
+          "answer": "Hercule Poirot"
+        },
+        {
+          "id": "R5Q9",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name for a group of crows?",
+          "answer": "A murder"
+        },
+        {
+          "id": "R5Q10",
+          "round": "Pot Luck",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which Shakespeare play features the characters Rosencrantz and Guildenstern?",
+          "answer": "Hamlet"
+        }
+      ]
+    }
+  ]
+}

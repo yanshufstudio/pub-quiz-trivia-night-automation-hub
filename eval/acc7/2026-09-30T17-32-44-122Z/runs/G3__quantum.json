@@ -1,0 +1,651 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "quantum",
+    "prompt": "Hard questions only for experts, 2 rounds of 10 on quantum physics",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "quantum"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1799,
+      "outputTokens": 1605,
+      "thinkingTokens": 0,
+      "durationMs": 17300
+    },
+    "costUsd": 0.039296,
+    "ms": 17301
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In what year did Max Planck present his quantum hypothesis to explain black-body radiation?",
+      "answer": "1900",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist proposed in his 1924 doctoral thesis that matter has wave properties?",
+      "answer": "Louis de Broglie"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1922 experiment, using a beam of silver atoms passed through a non-uniform magnetic field, showed that angular momentum is quantised in space?",
+      "answer": "The Stern–Gerlach experiment"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the principle, put forward by Wolfgang Pauli in 1925, which says that no two identical fermions can occupy the same quantum state at once?",
+      "answer": "The Pauli exclusion principle"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1927 experiment by two American physicists confirmed electron diffraction off a nickel crystal?",
+      "answer": "The Davisson–Germer experiment"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which relativistic wave equation, published in 1928, predicted the existence of antimatter?",
+      "answer": "The Dirac equation"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which formulation of quantum mechanics did Heisenberg, Born and Jordan develop in 1925?",
+      "answer": "Matrix mechanics",
+      "options": [
+        "Wave mechanics",
+        "Matrix mechanics",
+        "Path integral formulation",
+        "Pilot-wave theory"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What name is given to the inequality, first published in 1964, that sets a limit on correlations in any local hidden-variable theory?",
+      "answer": "Bell's inequality"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist introduced the path integral formulation of quantum mechanics?",
+      "answer": "Richard Feynman"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Foundations and Pioneers",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1935 paper by Einstein, Podolsky and Rosen became known by what three-letter abbreviation?",
+      "answer": "EPR"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the quantum effect where a charged particle is affected by an electromagnetic potential in a region where the electric and magnetic fields are zero?",
+      "answer": "The Aharonov–Bohm effect"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the quantum effect in which an attractive force appears between two uncharged, parallel conducting plates in a vacuum?",
+      "answer": "The Casimir effect"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the small energy difference between the 2S1/2 and 2P1/2 levels of hydrogen, measured in 1947?",
+      "answer": "The Lamb shift"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "The von Klitzing constant, h/e², is linked to which quantum effect?",
+      "answer": "The quantum Hall effect"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the theorem saying that an arbitrary unknown quantum state cannot be copied exactly?",
+      "answer": "The no-cloning theorem"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which quantum algorithm, published in 1994, factors integers in polynomial time?",
+      "answer": "Shor's algorithm"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the effect in which measuring an unstable system often enough can stop it from changing state?",
+      "answer": "The quantum Zeno effect"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In which year was a Bose–Einstein condensate first created in a dilute gas of atoms?",
+      "answer": "1995"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which quantum key distribution protocol, published in 1984, is named after its two inventors?",
+      "answer": "BB84 (Bennett–Brassard)"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Advanced Quantum Phenomena",
+      "category": "Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Alain Aspect, John Clauser and one other person shared the 2022 Nobel Prize in Physics for experiments with entangled photons. Who was the third winner?",
+      "answer": "Anton Zeilinger",
+      "options": [
+        "Anton Zeilinger",
+        "Peter Shor",
+        "David Deutsch",
+        "Serge Haroche"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.04916,
+      "ms": 17545,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2428,
+          "outputTokens": 1476,
+          "thinkingTokens": 309,
+          "durationMs": 13210
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1372,
+          "outputTokens": 222,
+          "thinkingTokens": 0,
+          "durationMs": 4334
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "fix",
+          "reason": "The facts are right but the question asked 'which paper' and 'what abbreviation' at once, so it has been reworded.",
+          "text": "By what three-letter abbreviation is the 1935 paper by Einstein, Podolsky and Rosen known?",
+          "answer": "EPR"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "The checker's BB84 is the same answer as the setter's; the protocol is named after Bennett and Brassard."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "1900",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Louis de Broglie",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Stern–Gerlach experiment",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Pauli exclusion principle",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Davisson–Germer experiment",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Dirac equation",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Matrix mechanics",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Bell's inequality",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Richard Feynman",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "EPR",
+          "agreed": true,
+          "flags": [
+            "wording: The facts are correct, but the sentence is garbled: it asks 'Which paper' and 'what abbreviation' at once. Rephrase as 'By what three-letter abbreviation is the 1935 paper by Einstein, Podolsky and Rosen known?'"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Aharonov–Bohm effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Casimir effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Lamb shift",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Quantum Hall effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "No-cloning theorem",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Shor's algorithm",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Quantum Zeno effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "1995",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "BB84",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q10": {
+          "answer": "Anton Zeilinger",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q10",
+          "reason": "The facts are right but the question asked 'which paper' and 'what abbreviation' at once, so it has been reworded.",
+          "before": {
+            "text": "Which 1935 paper by Einstein, Podolsky and Rosen became known by what three-letter abbreviation?",
+            "answer": "EPR"
+          },
+          "after": {
+            "text": "By what three-letter abbreviation is the 1935 paper by Einstein, Podolsky and Rosen known?",
+            "answer": "EPR"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In what year did Max Planck present his quantum hypothesis to explain black-body radiation?",
+          "answer": "1900",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist proposed in his 1924 doctoral thesis that matter has wave properties?",
+          "answer": "Louis de Broglie"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1922 experiment, using a beam of silver atoms passed through a non-uniform magnetic field, showed that angular momentum is quantised in space?",
+          "answer": "The Stern–Gerlach experiment"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the principle, put forward by Wolfgang Pauli in 1925, which says that no two identical fermions can occupy the same quantum state at once?",
+          "answer": "The Pauli exclusion principle"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1927 experiment by two American physicists confirmed electron diffraction off a nickel crystal?",
+          "answer": "The Davisson–Germer experiment"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which relativistic wave equation, published in 1928, predicted the existence of antimatter?",
+          "answer": "The Dirac equation"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which formulation of quantum mechanics did Heisenberg, Born and Jordan develop in 1925?",
+          "answer": "Matrix mechanics",
+          "options": [
+            "Wave mechanics",
+            "Matrix mechanics",
+            "Path integral formulation",
+            "Pilot-wave theory"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What name is given to the inequality, first published in 1964, that sets a limit on correlations in any local hidden-variable theory?",
+          "answer": "Bell's inequality"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist introduced the path integral formulation of quantum mechanics?",
+          "answer": "Richard Feynman"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Foundations and Pioneers",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "By what three-letter abbreviation is the 1935 paper by Einstein, Podolsky and Rosen known?",
+          "answer": "EPR"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the quantum effect where a charged particle is affected by an electromagnetic potential in a region where the electric and magnetic fields are zero?",
+          "answer": "The Aharonov–Bohm effect"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the quantum effect in which an attractive force appears between two uncharged, parallel conducting plates in a vacuum?",
+          "answer": "The Casimir effect"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the small energy difference between the 2S1/2 and 2P1/2 levels of hydrogen, measured in 1947?",
+          "answer": "The Lamb shift"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "The von Klitzing constant, h/e², is linked to which quantum effect?",
+          "answer": "The quantum Hall effect"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the theorem saying that an arbitrary unknown quantum state cannot be copied exactly?",
+          "answer": "The no-cloning theorem"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which quantum algorithm, published in 1994, factors integers in polynomial time?",
+          "answer": "Shor's algorithm"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the effect in which measuring an unstable system often enough can stop it from changing state?",
+          "answer": "The quantum Zeno effect"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In which year was a Bose–Einstein condensate first created in a dilute gas of atoms?",
+          "answer": "1995"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which quantum key distribution protocol, published in 1984, is named after its two inventors?",
+          "answer": "BB84 (Bennett–Brassard)"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Advanced Quantum Phenomena",
+          "category": "Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Alain Aspect, John Clauser and one other person shared the 2022 Nobel Prize in Physics for experiments with entangled photons. Who was the third winner?",
+          "answer": "Anton Zeilinger",
+          "options": [
+            "Anton Zeilinger",
+            "Peter Shor",
+            "David Deutsch",
+            "Serge Haroche"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "expect": [
+      10
+    ],
+    "run": "kids#2"
+  },
+  "failed": "IncompletePackError: short pack: 1 of 10 questions, rounds [1] of [10]",
+  "errorName": "IncompletePackError",
+  "truncated": false,
+  "attempts": 2,
+  "retryWarnings": [
+    "Quiz pack attempt 1 unusable (short pack: 2 of 10 questions, rounds [1,1] of [10]); trying once more."
+  ],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 3606,
+    "outputTokens": 526,
+    "thinkingTokens": 0,
+    "durationMs": 11335
+  },
+  "costUsd": 0.024944,
+  "ms": 11336
+}

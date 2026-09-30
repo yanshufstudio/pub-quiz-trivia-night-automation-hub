@@ -1,0 +1,481 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "large",
+    "prompt": "5 rounds of 10 questions for adults in a pub, medium difficulty: 80s music, world geography, famous film quotes, science, general knowledge.",
+    "questions": 50,
+    "expect": [
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "run": "large"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1823,
+      "outputTokens": 2324,
+      "thinkingTokens": 0,
+      "durationMs": 22139
+    },
+    "costUsd": 0.053772,
+    "ms": 22139
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Michael Jackson album, released in 1982, includes 'Billie Jean' and 'Beat It'?",
+      "answer": "Thriller"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band had a 1984 UK number one with 'Relax'?",
+      "answer": "Frankie Goes to Hollywood"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Irish musician co-wrote 'Do They Know It's Christmas?' with Midge Ure?",
+      "answer": "Bob Geldof"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Norwegian band had a hit with 'Take On Me'?",
+      "answer": "A-ha"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Who sang 'Like a Prayer' in 1989?",
+      "answer": "Madonna"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Joshua Tree' in 1987?",
+      "answer": "U2"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Duran Duran song shares its title with a girl's name and begins 'It's on the Rio Grande'?",
+      "answer": "Rio"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which singer's 1987 debut single was 'Never Gonna Give You Up'?",
+      "answer": "Rick Astley"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band led by Robert Smith released 'Just Like Heaven'?",
+      "answer": "The Cure",
+      "options": [
+        "The Cure",
+        "The Smiths",
+        "Echo & the Bunnymen",
+        "New Order"
+      ]
+    },
+    {
+      "id": "R1Q10",
+      "round": "Totally Eighties",
+      "category": "80s Music",
+      "type": "TEXT",
+      "text": "Which Dexys Midnight Runners song reached number one in the UK and US, with a chorus addressed to a girl called Eileen?",
+      "answer": "Come On Eileen"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Baghdad?",
+      "answer": "Tigris"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which country has the most people of any in South America?",
+      "answer": "Brazil"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "The Atacama Desert lies mainly in which country?",
+      "answer": "Chile"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Spain from Morocco?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which African country has three capital cities: Pretoria, Cape Town and Bloemfontein?",
+      "answer": "South Africa"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Lake Titicaca lies on the border between Peru and which other country?",
+      "answer": "Bolivia"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which landlocked European country lies between Austria and Switzerland?",
+      "answer": "Liechtenstein",
+      "options": [
+        "Liechtenstein",
+        "Andorra",
+        "San Marino",
+        "Luxembourg"
+      ]
+    },
+    {
+      "id": "R2Q10",
+      "round": "Around the World",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "In which film does Arnold Schwarzenegger's character say 'I'll be back'?",
+      "answer": "The Terminator"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "'Here's looking at you, kid' comes from which 1942 film?",
+      "answer": "Casablanca"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'You're gonna need a bigger boat'?",
+      "answer": "Jaws"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "In 'The Wizard of Oz', who says 'Toto, I've a feeling we're not in Kansas anymore'?",
+      "answer": "Dorothy"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "'May the Force be with you' is associated with which film franchise?",
+      "answer": "Star Wars"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'Life is like a box of chocolates'?",
+      "answer": "Forrest Gump"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "In 'Apocalypse Now', what does Lieutenant Colonel Kilgore say he loves the smell of in the morning?",
+      "answer": "Napalm"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which actor said 'You talkin' to me?' in 'Taxi Driver'?",
+      "answer": "Robert De Niro"
+    },
+    {
+      "id": "R3Q9",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "'Frankly, my dear, I don't give a damn' is said by which character in 'Gone with the Wind'?",
+      "answer": "Rhett Butler"
+    },
+    {
+      "id": "R3Q10",
+      "round": "Say It Again",
+      "category": "Famous Film Quotes",
+      "type": "TEXT",
+      "text": "Which film features the line 'I see dead people'?",
+      "answer": "The Sixth Sense"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "How many bones are in the typical adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which scientist proposed the theory of evolution by natural selection in 'On the Origin of Species'?",
+      "answer": "Charles Darwin"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the SI unit of electrical resistance?",
+      "answer": "Ohm"
+    },
+    {
+      "id": "R4Q8",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen"
+    },
+    {
+      "id": "R4Q9",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which organ in the human body produces insulin?",
+      "answer": "Pancreas",
+      "options": [
+        "Liver",
+        "Pancreas",
+        "Kidney",
+        "Spleen"
+      ]
+    },
+    {
+      "id": "R4Q10",
+      "round": "Lab Coats On",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the name for the point directly above an earthquake's focus on the Earth's surface?",
+      "answer": "Epicentre"
+    },
+    {
+      "id": "R5Q1",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R5Q2",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who painted the 'Mona Lisa'?",
+      "answer": "Leonardo da Vinci"
+    },
+    {
+      "id": "R5Q3",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the currency of Japan?",
+      "answer": "Yen"
+    },
+    {
+      "id": "R5Q4",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city is the Colosseum?",
+      "answer": "Rome"
+    },
+    {
+      "id": "R5Q5",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which Shakespeare play features the characters Rosencrantz and Guildenstern?",
+      "answer": "Hamlet"
+    },
+    {
+      "id": "R5Q6",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the largest ocean on Earth?",
+      "answer": "Pacific Ocean"
+    },
+    {
+      "id": "R5Q7",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many players are on the pitch for one team in a rugby union match?",
+      "answer": "15"
+    },
+    {
+      "id": "R5Q8",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote the novel 'Nineteen Eighty-Four'?",
+      "answer": "George Orwell"
+    },
+    {
+      "id": "R5Q9",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is a group of crows called?",
+      "answer": "A murder"
+    },
+    {
+      "id": "R5Q10",
+      "round": "Pot Luck",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0,
+      "ms": 4934,
+      "failed": "ReviewFailedError(api_error): 400: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Output blocked by content filtering policy\"},\"request_id\":\"req_011Cfa4xopCjghoBwsqcoGU1\"}"
+    }
+  ]
+}

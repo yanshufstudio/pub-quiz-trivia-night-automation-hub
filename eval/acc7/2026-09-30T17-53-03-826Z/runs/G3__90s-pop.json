@@ -1,0 +1,244 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5,
+    "expect": [
+      5
+    ],
+    "run": "90s-pop"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1790,
+      "outputTokens": 505,
+      "thinkingTokens": 0,
+      "durationMs": 6010
+    },
+    "costUsd": 0.01726,
+    "ms": 6014
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which singer's debut single, released in 1998, was '...Baby One More Time'?",
+      "answer": "Britney Spears"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Canadian singer released the album 'Jagged Little Pill' in 1995?",
+      "answer": "Alanis Morissette",
+      "options": [
+        "Alanis Morissette",
+        "Shania Twain",
+        "Celine Dion",
+        "Avril Lavigne"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Norwegian-named Danish-Norwegian group had a 1997 hit with 'Barbie Girl'?",
+      "answer": "Aqua"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which band, fronted by Gwen Stefani, released the 1995 album 'Tragic Kingdom'?",
+      "answer": "No Doubt"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.024528,
+      "ms": 10259,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1292,
+          "outputTokens": 546,
+          "thinkingTokens": 129,
+          "durationMs": 6511
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1295,
+          "outputTokens": 163,
+          "thinkingTokens": 0,
+          "durationMs": 3746
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "fix",
+          "reason": "'Norwegian-named' is wrong because Aqua is not a Norwegian name, so I removed it. The answer is still correct.",
+          "text": "Which Danish-Norwegian group had a 1997 hit with 'Barbie Girl'?",
+          "answer": "Aqua"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Britney Spears",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Alanis Morissette",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Aqua",
+          "agreed": true,
+          "flags": [
+            "wording: 'Norwegian-named' is not right: 'Aqua' is a Latin/English word, not a Norwegian name. Aqua is a Danish-Norwegian group (singer Lene Nystrøm is Norwegian, and the other members are Danish), so 'Danish-Norwegian' is fine but 'Norwegian-named' should be removed."
+          ]
+        },
+        "R1Q5": {
+          "answer": "No Doubt",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q4",
+          "reason": "'Norwegian-named' is wrong because Aqua is not a Norwegian name, so I removed it. The answer is still correct.",
+          "before": {
+            "text": "Which Norwegian-named Danish-Norwegian group had a 1997 hit with 'Barbie Girl'?",
+            "answer": "Aqua"
+          },
+          "after": {
+            "text": "Which Danish-Norwegian group had a 1997 hit with 'Barbie Girl'?",
+            "answer": "Aqua"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which singer's debut single, released in 1998, was '...Baby One More Time'?",
+          "answer": "Britney Spears"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Canadian singer released the album 'Jagged Little Pill' in 1995?",
+          "answer": "Alanis Morissette",
+          "options": [
+            "Alanis Morissette",
+            "Shania Twain",
+            "Celine Dion",
+            "Avril Lavigne"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Danish-Norwegian group had a 1997 hit with 'Barbie Girl'?",
+          "answer": "Aqua"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which band, fronted by Gwen Stefani, released the 1995 album 'Tragic Kingdom'?",
+          "answer": "No Doubt"
+        }
+      ]
+    }
+  ]
+}

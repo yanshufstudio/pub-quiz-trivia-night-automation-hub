@@ -1,0 +1,424 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "half-hebrew",
+    "prompt": "Half English, half Hebrew, 2 rounds of 6",
+    "questions": 12,
+    "expect": [
+      6,
+      6
+    ],
+    "run": "half-hebrew#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1793,
+      "outputTokens": 1332,
+      "thinkingTokens": 514,
+      "durationMs": 12977
+    },
+    "costUsd": 0.033812,
+    "ms": 12977
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "English Round",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "6"
+    },
+    {
+      "id": "R1Q2",
+      "round": "English Round",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q3",
+      "round": "English Round",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q4",
+      "round": "English Round",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote the novel 'Pride and Prejudice'?",
+      "answer": "Jane Austen"
+    },
+    {
+      "id": "R1Q5",
+      "round": "English Round",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q6",
+      "round": "English Round",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989",
+      "options": [
+        "1987",
+        "1989",
+        "1991",
+        "1993"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "סבב עברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "כמה רגליים יש לעכביש?",
+      "answer": "שמונה"
+    },
+    {
+      "id": "R2Q2",
+      "round": "סבב עברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "מהי עיר הבירה של יפן?",
+      "answer": "טוקיו"
+    },
+    {
+      "id": "R2Q3",
+      "round": "סבב עברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "מי צייר את המונה ליזה?",
+      "answer": "לאונרדו דה וינצ'י"
+    },
+    {
+      "id": "R2Q4",
+      "round": "סבב עברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "מהו האוקיינוס הגדול ביותר בעולם?",
+      "answer": "האוקיינוס השקט"
+    },
+    {
+      "id": "R2Q5",
+      "round": "סבב עברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "איזה יסוד כימי מסומן באות O?",
+      "answer": "חמצן"
+    },
+    {
+      "id": "R2Q6",
+      "round": "סבב עברית",
+      "category": "ידע כללי",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו שנה נחתו בני אדם לראשונה על הירח?",
+      "answer": "1969",
+      "options": [
+        "1965",
+        "1969",
+        "1972",
+        "1975"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.025811999999999998,
+      "ms": 10081,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1568,
+          "outputTokens": 635,
+          "thinkingTokens": 0,
+          "durationMs": 6672
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1155,
+          "outputTokens": 111,
+          "thinkingTokens": 0,
+          "durationMs": 3409
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "לעכביש שמונה רגליים; התשובה 8 זהה, רק כתובה בספרות."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "6",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "8",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "טוקיו",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "לאונרדו דה וינצ'י",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "האוקיינוס השקט",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "חמצן",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "1969",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "English Round",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "6"
+        },
+        {
+          "id": "R1Q2",
+          "round": "English Round",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q3",
+          "round": "English Round",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q4",
+          "round": "English Round",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote the novel 'Pride and Prejudice'?",
+          "answer": "Jane Austen"
+        },
+        {
+          "id": "R1Q5",
+          "round": "English Round",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q6",
+          "round": "English Round",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989",
+          "options": [
+            "1987",
+            "1989",
+            "1991",
+            "1993"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "סבב עברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "כמה רגליים יש לעכביש?",
+          "answer": "שמונה"
+        },
+        {
+          "id": "R2Q2",
+          "round": "סבב עברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "מהי עיר הבירה של יפן?",
+          "answer": "טוקיו"
+        },
+        {
+          "id": "R2Q3",
+          "round": "סבב עברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "מי צייר את המונה ליזה?",
+          "answer": "לאונרדו דה וינצ'י"
+        },
+        {
+          "id": "R2Q4",
+          "round": "סבב עברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "מהו האוקיינוס הגדול ביותר בעולם?",
+          "answer": "האוקיינוס השקט"
+        },
+        {
+          "id": "R2Q5",
+          "round": "סבב עברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "איזה יסוד כימי מסומן באות O?",
+          "answer": "חמצן"
+        },
+        {
+          "id": "R2Q6",
+          "round": "סבב עברית",
+          "category": "ידע כללי",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו שנה נחתו בני אדם לראשונה על הירח?",
+          "answer": "1969",
+          "options": [
+            "1965",
+            "1969",
+            "1972",
+            "1975"
+          ]
+        }
+      ]
+    }
+  ]
+}

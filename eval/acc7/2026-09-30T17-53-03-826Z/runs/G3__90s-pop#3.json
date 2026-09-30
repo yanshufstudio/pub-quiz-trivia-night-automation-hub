@@ -1,0 +1,220 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5,
+    "expect": [
+      5
+    ],
+    "run": "90s-pop#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1790,
+      "outputTokens": 498,
+      "thinkingTokens": 0,
+      "durationMs": 8359
+    },
+    "costUsd": 0.01712,
+    "ms": 8359
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which singer released the 1998 debut single '...Baby One More Time'?",
+      "answer": "Britney Spears"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Irish singer had a 1990 hit with the Prince-written song 'Nothing Compares 2 U'?",
+      "answer": "Sinéad O'Connor"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band had a hit in 1997 with 'Barbie Girl'?",
+      "answer": "Aqua",
+      "options": [
+        "Aqua",
+        "Vengaboys",
+        "Eiffel 65",
+        "Ace of Base"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Elton John's 1997 reworking of which of his songs was released as a tribute to Diana, Princess of Wales?",
+      "answer": "Candle in the Wind"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.01126,
+      "ms": 3290,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1280,
+          "outputTokens": 307,
+          "thinkingTokens": 0,
+          "durationMs": 3290
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Britney Spears",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Sinéad O'Connor",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Aqua",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Candle in the Wind",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which singer released the 1998 debut single '...Baby One More Time'?",
+          "answer": "Britney Spears"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Irish singer had a 1990 hit with the Prince-written song 'Nothing Compares 2 U'?",
+          "answer": "Sinéad O'Connor"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band had a hit in 1997 with 'Barbie Girl'?",
+          "answer": "Aqua",
+          "options": [
+            "Aqua",
+            "Vengaboys",
+            "Eiffel 65",
+            "Ace of Base"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Elton John's 1997 reworking of which of his songs was released as a tribute to Diana, Princess of Wales?",
+          "answer": "Candle in the Wind"
+        }
+      ]
+    }
+  ]
+}

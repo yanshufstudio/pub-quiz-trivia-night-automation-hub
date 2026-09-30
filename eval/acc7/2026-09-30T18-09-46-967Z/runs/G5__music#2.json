@@ -1,0 +1,34 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music#2"
+  },
+  "failed": "UnusableModelOutputError: Generated quiz pack failed validation: [\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"rounds\"\n    ],\n    \"message\": \"Invalid input: expected array, received string\"\n  }\n]",
+  "errorName": "UnusableModelOutputError",
+  "truncated": false,
+  "attempts": 1,
+  "retryWarnings": [],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 1826,
+    "outputTokens": 3832,
+    "thinkingTokens": 1397,
+    "durationMs": 38832
+  },
+  "costUsd": 0.083944,
+  "ms": 38833
+}

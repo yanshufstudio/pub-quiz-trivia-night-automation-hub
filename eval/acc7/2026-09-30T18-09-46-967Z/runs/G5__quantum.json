@@ -1,0 +1,666 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "quantum",
+    "prompt": "Hard questions only for experts, 2 rounds of 10 on quantum physics",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "quantum"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1799,
+      "outputTokens": 3382,
+      "thinkingTokens": 1792,
+      "durationMs": 33882
+    },
+    "costUsd": 0.074836,
+    "ms": 33882
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "In the 1922 Stern–Gerlach experiment, a beam of atoms of which element was sent through a non-uniform magnetic field?",
+      "answer": "Silver",
+      "options": [
+        "Silver",
+        "Sodium",
+        "Hydrogen",
+        "Potassium"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "Werner Heisenberg worked out the key ideas of matrix mechanics in 1925 while recovering from hay fever on which North Sea island?",
+      "answer": "Heligoland (Helgoland)"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "The Davisson–Germer experiment showed electron diffraction by scattering electrons off a crystal of which metal?",
+      "answer": "Nickel"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "Which American chemist coined the word 'photon' in 1926?",
+      "answer": "Gilbert N. Lewis"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "The CHSH inequality is named after Clauser, Horne, Holt and which other physicist?",
+      "answer": "Abner Shimony"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "The maximum quantum violation of the CHSH inequality, 2√2, is known as whose bound?",
+      "answer": "Tsirelson's bound (Boris Tsirelson)"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "The Lamb shift is a small energy difference between which two levels of the hydrogen atom?",
+      "answer": "2S1/2 and 2P1/2"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The Kochen–Specker theorem rules out non-contextual hidden variables for Hilbert spaces of at least what dimension?",
+      "answer": "3",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "8"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "Louis de Broglie presented his pilot-wave theory at which numbered Solvay Conference, held in 1927?",
+      "answer": "The fifth"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Founders and Foundations",
+      "category": "History and Foundations of Quantum Mechanics",
+      "type": "TEXT",
+      "text": "The Aharonov–Bohm effect was anticipated in 1949 by Werner Ehrenberg and which co-author?",
+      "answer": "Raymond Siday"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "What does the commutator of the Pauli matrices [σx, σy] equal?",
+      "answer": "2iσz"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "A spin-1/2 state vector is rotated through a full 2π. By what factor is it multiplied?",
+      "answer": "−1"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "The quantum key distribution protocol known as E91 was proposed by which physicist?",
+      "answer": "Artur Ekert"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "In 1982 Wootters and Zurek published the no-cloning theorem. Which Dutch physicist independently published it the same year?",
+      "answer": "Dennis Dieks"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "How many oracle queries, in big-O notation, does Grover's algorithm need to search an unstructured list of N items?",
+      "answer": "O(√N)"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many physical qubits does Shor's original quantum error-correcting code use to encode one logical qubit?",
+      "answer": "9",
+      "options": [
+        "5",
+        "7",
+        "9",
+        "13"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "The Gottesman–Knill theorem says that quantum circuits built only from which family of gates can be simulated efficiently on a classical computer?",
+      "answer": "Clifford gates"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "In the Hong–Ou–Mandel effect, two identical photons entering a 50:50 beam splitter always leave through the same port. What was Mandel's first name?",
+      "answer": "Leonard"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "In Laughlin's theory of the fractional quantum Hall state at filling factor 1/3, what charge do the quasiparticles carry?",
+      "answer": "e/3 (one third of the electron charge)"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Formalism and Quantum Information",
+      "category": "Quantum Formalism, Information and Condensed Matter",
+      "type": "TEXT",
+      "text": "The master equation for open quantum systems is often called the GKSL equation. What is the surname of the physicist represented by the L?",
+      "answer": "Lindblad (Göran Lindblad)"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.057896,
+      "ms": 19468,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2602,
+          "outputTokens": 1574,
+          "thinkingTokens": 302,
+          "durationMs": 13460
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1817,
+          "outputTokens": 437,
+          "thinkingTokens": 109,
+          "durationMs": 6007
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "The two answers are the same island under alternate spellings."
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "fix",
+          "reason": "Troland and Wolfers used the word 'photon' before or alongside Lewis, so 'coined' is disputed. Reworded to say Lewis popularised it in 1926.",
+          "text": "Which American chemist popularised the word 'photon' in a 1926 letter to Nature?"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "Both answers name the same person; Cirel'son is another transliteration of Tsirelson."
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "Both answers are e/3."
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "Both answers are Lindblad."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Silver",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Helgoland (Heligoland)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Nickel",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Gilbert N. Lewis",
+          "agreed": true,
+          "flags": [
+            "wording: 'coined the word photon in 1926': Lewis popularised the term, but Leonard Troland used 'photon' in 1916 and Frithiof Wolfers used it in 1926, so 'coined' is disputed. 'Popularised' would be safer."
+          ]
+        },
+        "R1Q5": {
+          "answer": "Abner Shimony",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Tsirelson (Cirel'son)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q7": {
+          "answer": "2S1/2 and 2P1/2",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "3",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Fifth",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Raymond Siday",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "2iσz",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "-1",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Artur Ekert",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Dennis Dieks",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "O(√N)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "9",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Clifford gates",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Leonard",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "e/3",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q10": {
+          "answer": "Lindblad",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q4",
+          "reason": "Troland and Wolfers used the word 'photon' before or alongside Lewis, so 'coined' is disputed. Reworded to say Lewis popularised it in 1926.",
+          "before": {
+            "text": "Which American chemist coined the word 'photon' in 1926?",
+            "answer": "Gilbert N. Lewis"
+          },
+          "after": {
+            "text": "Which American chemist popularised the word 'photon' in a 1926 letter to Nature?",
+            "answer": "Gilbert N. Lewis"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "In the 1922 Stern–Gerlach experiment, a beam of atoms of which element was sent through a non-uniform magnetic field?",
+          "answer": "Silver",
+          "options": [
+            "Silver",
+            "Sodium",
+            "Hydrogen",
+            "Potassium"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "Werner Heisenberg worked out the key ideas of matrix mechanics in 1925 while recovering from hay fever on which North Sea island?",
+          "answer": "Heligoland (Helgoland)"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "The Davisson–Germer experiment showed electron diffraction by scattering electrons off a crystal of which metal?",
+          "answer": "Nickel"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "Which American chemist popularised the word 'photon' in a 1926 letter to Nature?",
+          "answer": "Gilbert N. Lewis"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "The CHSH inequality is named after Clauser, Horne, Holt and which other physicist?",
+          "answer": "Abner Shimony"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "The maximum quantum violation of the CHSH inequality, 2√2, is known as whose bound?",
+          "answer": "Tsirelson's bound (Boris Tsirelson)"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "The Lamb shift is a small energy difference between which two levels of the hydrogen atom?",
+          "answer": "2S1/2 and 2P1/2"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The Kochen–Specker theorem rules out non-contextual hidden variables for Hilbert spaces of at least what dimension?",
+          "answer": "3",
+          "options": [
+            "2",
+            "3",
+            "4",
+            "8"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "Louis de Broglie presented his pilot-wave theory at which numbered Solvay Conference, held in 1927?",
+          "answer": "The fifth"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Founders and Foundations",
+          "category": "History and Foundations of Quantum Mechanics",
+          "type": "TEXT",
+          "text": "The Aharonov–Bohm effect was anticipated in 1949 by Werner Ehrenberg and which co-author?",
+          "answer": "Raymond Siday"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "What does the commutator of the Pauli matrices [σx, σy] equal?",
+          "answer": "2iσz"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "A spin-1/2 state vector is rotated through a full 2π. By what factor is it multiplied?",
+          "answer": "−1"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "The quantum key distribution protocol known as E91 was proposed by which physicist?",
+          "answer": "Artur Ekert"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "In 1982 Wootters and Zurek published the no-cloning theorem. Which Dutch physicist independently published it the same year?",
+          "answer": "Dennis Dieks"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "How many oracle queries, in big-O notation, does Grover's algorithm need to search an unstructured list of N items?",
+          "answer": "O(√N)"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many physical qubits does Shor's original quantum error-correcting code use to encode one logical qubit?",
+          "answer": "9",
+          "options": [
+            "5",
+            "7",
+            "9",
+            "13"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "The Gottesman–Knill theorem says that quantum circuits built only from which family of gates can be simulated efficiently on a classical computer?",
+          "answer": "Clifford gates"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "In the Hong–Ou–Mandel effect, two identical photons entering a 50:50 beam splitter always leave through the same port. What was Mandel's first name?",
+          "answer": "Leonard"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "In Laughlin's theory of the fractional quantum Hall state at filling factor 1/3, what charge do the quasiparticles carry?",
+          "answer": "e/3 (one third of the electron charge)"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Formalism and Quantum Information",
+          "category": "Quantum Formalism, Information and Condensed Matter",
+          "type": "TEXT",
+          "text": "The master equation for open quantum systems is often called the GKSL equation. What is the surname of the physicist represented by the L?",
+          "answer": "Lindblad (Göran Lindblad)"
+        }
+      ]
+    }
+  ]
+}

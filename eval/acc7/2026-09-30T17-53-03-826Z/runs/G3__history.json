@@ -1,0 +1,756 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "history"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1817,
+      "outputTokens": 1786,
+      "thinkingTokens": 0,
+      "durationMs": 14978
+    },
+    "costUsd": 0.042988,
+    "ms": 14979
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+      "answer": "The Rubicon"
+    },
+    {
+      "id": "R1Q2",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman emperor ordered the construction of a wall across northern Britain begun in AD 122?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q3",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q4",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q5",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What was the name of the Roman emperor Octavian adopted by the Senate in 27 BC?",
+      "answer": "Augustus"
+    },
+    {
+      "id": "R1Q6",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In which battle of 31 BC did Octavian defeat Mark Antony and Cleopatra?",
+      "answer": "Battle of Actium"
+    },
+    {
+      "id": "R1Q7",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 BC?",
+      "answer": "Spartacus"
+    },
+    {
+      "id": "R1Q8",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which emperor, the first to convert to Christianity, founded a new capital on the site of Byzantium?",
+      "answer": "Constantine the Great",
+      "options": [
+        "Diocletian",
+        "Constantine the Great",
+        "Theodosius I",
+        "Justinian"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "On what date in 1944 did the D-Day landings in Normandy take place?",
+      "answer": "6 June 1944"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the code name for the German invasion of the Soviet Union in 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "On which Japanese city was the second atomic bomb dropped in August 1945?",
+      "answer": "Nagasaki"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the code name for the evacuation of Allied troops from Dunkirk in 1940?",
+      "answer": "Operation Dynamo"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which 1942 naval battle, fought near a Pacific atoll, saw the US Navy sink four Japanese aircraft carriers?",
+      "answer": "Battle of Midway"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which Buckinghamshire country house was the centre of Allied codebreaking?",
+      "answer": "Bletchley Park"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which German field marshal was nicknamed 'the Desert Fox'?",
+      "answer": "Erwin Rommel"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The World at War",
+      "category": "Second World War",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which Crimean resort did Churchill, Roosevelt and Stalin meet in February 1945?",
+      "answer": "Yalta",
+      "options": [
+        "Yalta",
+        "Sevastopol",
+        "Sochi",
+        "Odessa"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German goldsmith introduced movable-type printing to Europe around 1440?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish engineer gave the first public demonstration of television in London in 1926?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish chemist invented dynamite?",
+      "answer": "Alfred Nobel"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which American inventor's laboratory was in Menlo Park, New Jersey, earning him the nickname 'The Wizard of Menlo Park'?",
+      "answer": "Thomas Edison"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English mathematician designed the Difference Engine and the Analytical Engine?",
+      "answer": "Charles Babbage"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American inventor is closely associated with the development of alternating current (AC) systems and the induction motor?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Bright Ideas",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English engineer is credited with inventing the jet engine, patenting his design in 1930?",
+      "answer": "Frank Whittle"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.052884,
+      "ms": 17584,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2518,
+          "outputTokens": 1652,
+          "thinkingTokens": 216,
+          "durationMs": 14445
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1433,
+          "outputTokens": 202,
+          "thinkingTokens": 0,
+          "durationMs": 3139
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "The wording was garbled and suggested the Senate adopted Octavian. In fact the Senate gave him the name Augustus.",
+          "text": "What name did the Roman Senate give Octavian in 27 BC?",
+          "answer": "Augustus"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "Whittle filed his jet engine patent in 1930, so the question is correct as written."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "The Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Augustus",
+          "agreed": true,
+          "flags": [
+            "wording: The wording is garbled. As written it suggests Octavian was 'adopted by the Senate', which is wrong: the Senate gave him the name/title 'Augustus' in 27 BC. (Caesar had adopted him earlier, in his will.) Suggested rewording: 'What name did the Senate give Octavian in 27 BC?'"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Battle of Actium",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Spartacus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Constantine the Great",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "6 June 1944",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Nagasaki",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Operation Dynamo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Battle of Midway",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Bletchley Park",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Erwin Rommel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Yalta",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Thomas Edison",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Charles Babbage",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Frank Whittle",
+          "agreed": true,
+          "flags": [
+            "wording: Minor point: Whittle applied for his patent in 1930 and it was granted in 1932. 'Patenting his design in 1930' is acceptable."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q5",
+          "reason": "The wording was garbled and suggested the Senate adopted Octavian. In fact the Senate gave him the name Augustus.",
+          "before": {
+            "text": "What was the name of the Roman emperor Octavian adopted by the Senate in 27 BC?",
+            "answer": "Augustus"
+          },
+          "after": {
+            "text": "What name did the Roman Senate give Octavian in 27 BC?",
+            "answer": "Augustus"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+          "answer": "The Rubicon"
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor ordered the construction of a wall across northern Britain begun in AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What name did the Roman Senate give Octavian in 27 BC?",
+          "answer": "Augustus"
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In which battle of 31 BC did Octavian defeat Mark Antony and Cleopatra?",
+          "answer": "Battle of Actium"
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 BC?",
+          "answer": "Spartacus"
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which emperor, the first to convert to Christianity, founded a new capital on the site of Byzantium?",
+          "answer": "Constantine the Great",
+          "options": [
+            "Diocletian",
+            "Constantine the Great",
+            "Theodosius I",
+            "Justinian"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "On what date in 1944 did the D-Day landings in Normandy take place?",
+          "answer": "6 June 1944"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the code name for the German invasion of the Soviet Union in 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "On which Japanese city was the second atomic bomb dropped in August 1945?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the code name for the evacuation of Allied troops from Dunkirk in 1940?",
+          "answer": "Operation Dynamo"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which 1942 naval battle, fought near a Pacific atoll, saw the US Navy sink four Japanese aircraft carriers?",
+          "answer": "Battle of Midway"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which Buckinghamshire country house was the centre of Allied codebreaking?",
+          "answer": "Bletchley Park"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which German field marshal was nicknamed 'the Desert Fox'?",
+          "answer": "Erwin Rommel"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The World at War",
+          "category": "Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which Crimean resort did Churchill, Roosevelt and Stalin meet in February 1945?",
+          "answer": "Yalta",
+          "options": [
+            "Yalta",
+            "Sevastopol",
+            "Sochi",
+            "Odessa"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German goldsmith introduced movable-type printing to Europe around 1440?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer gave the first public demonstration of television in London in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish chemist invented dynamite?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which American inventor's laboratory was in Menlo Park, New Jersey, earning him the nickname 'The Wizard of Menlo Park'?",
+          "answer": "Thomas Edison"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English mathematician designed the Difference Engine and the Analytical Engine?",
+          "answer": "Charles Babbage"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor is closely associated with the development of alternating current (AC) systems and the induction motor?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Bright Ideas",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English engineer is credited with inventing the jet engine, patenting his design in 1930?",
+          "answer": "Frank Whittle"
+        }
+      ]
+    }
+  ]
+}

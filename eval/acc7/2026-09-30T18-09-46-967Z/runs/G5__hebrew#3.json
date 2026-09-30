@@ -1,0 +1,36 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "hebrew#3"
+  },
+  "failed": "IncompletePackError: a multiple-choice answer is not one of its options",
+  "errorName": "IncompletePackError",
+  "truncated": false,
+  "attempts": 2,
+  "retryWarnings": [
+    "Quiz pack attempt 1 unusable (short pack: 2 of 24 questions, rounds [1,1] of [8,8,8]); trying once more."
+  ],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 3616,
+    "outputTokens": 5305,
+    "thinkingTokens": 3038,
+    "durationMs": 80702
+  },
+  "costUsd": 0.120564,
+  "ms": 80703
+}

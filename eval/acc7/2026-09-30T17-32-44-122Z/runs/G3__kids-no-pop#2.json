@@ -1,0 +1,615 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids-no-pop",
+    "prompt": "Kids aged 8-10, 3 rounds of 6, no pop culture",
+    "questions": 18,
+    "expect": [
+      6,
+      6,
+      6
+    ],
+    "run": "kids-no-pop#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6,
+      6
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1798,
+      "outputTokens": 1043,
+      "thinkingTokens": 0,
+      "durationMs": 9900
+    },
+    "costUsd": 0.028052,
+    "ms": 9900
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What do we call a baby kangaroo?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which bird is the largest in the world?",
+      "answer": "Ostrich",
+      "options": [
+        "Eagle",
+        "Ostrich",
+        "Penguin",
+        "Swan"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is the name for an animal that eats only plants?",
+      "answer": "Herbivore"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "A caterpillar turns into a butterfly inside a hard case. What is that case called?",
+      "answer": "Chrysalis (or pupa)"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of France?",
+      "answer": "Paris"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "How many continents are there?",
+      "answer": "Seven"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which is the largest ocean on Earth?",
+      "answer": "Pacific Ocean"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "In which country would you find the ancient pyramids of Giza?",
+      "answer": "Egypt"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the tallest mountain in the world above sea level?",
+      "answer": "Mount Everest",
+      "options": [
+        "Mount Everest",
+        "Kilimanjaro",
+        "Ben Nevis",
+        "Mont Blanc"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which continent is the coldest and is home to emperor penguins?",
+      "answer": "Antarctica"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet do we live on?",
+      "answer": "Earth"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is frozen water called?",
+      "answer": "Ice"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which gas do plants take in from the air to make their food?",
+      "answer": "Carbon dioxide",
+      "options": [
+        "Oxygen",
+        "Carbon dioxide",
+        "Helium",
+        "Nitrogen"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the largest planet in our Solar System?",
+      "answer": "Jupiter"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What force pulls objects towards the ground when you drop them?",
+      "answer": "Gravity"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.036868,
+      "ms": 13541,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1837,
+          "outputTokens": 932,
+          "thinkingTokens": 0,
+          "durationMs": 8474
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1265,
+          "outputTokens": 291,
+          "thinkingTokens": 89,
+          "durationMs": 5067
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "The checker's answer matches the setter's, and the setter already accepts both chrysalis and pupa."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "fix",
+          "reason": "The number of continents depends on the model used (7, 6 or 5), so the question now names the model.",
+          "text": "In the seven-continent model usually taught in English-speaking countries, how many continents are there?",
+          "answer": "Seven"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Ostrich",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Herbivore",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Chrysalis (pupa)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Paris",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Seven",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q3": {
+          "answer": "Pacific Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Egypt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Mount Everest",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Antarctica",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Earth",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Ice",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Jupiter",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Gravity",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q2",
+          "reason": "The number of continents depends on the model used (7, 6 or 5), so the question now names the model.",
+          "before": {
+            "text": "How many continents are there?",
+            "answer": "Seven"
+          },
+          "after": {
+            "text": "In the seven-continent model usually taught in English-speaking countries, how many continents are there?",
+            "answer": "Seven"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6,
+        6
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What do we call a baby kangaroo?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which bird is the largest in the world?",
+          "answer": "Ostrich",
+          "options": [
+            "Eagle",
+            "Ostrich",
+            "Penguin",
+            "Swan"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is the name for an animal that eats only plants?",
+          "answer": "Herbivore"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "A caterpillar turns into a butterfly inside a hard case. What is that case called?",
+          "answer": "Chrysalis (or pupa)"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of France?",
+          "answer": "Paris"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In the seven-continent model usually taught in English-speaking countries, how many continents are there?",
+          "answer": "Seven"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which is the largest ocean on Earth?",
+          "answer": "Pacific Ocean"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In which country would you find the ancient pyramids of Giza?",
+          "answer": "Egypt"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the tallest mountain in the world above sea level?",
+          "answer": "Mount Everest",
+          "options": [
+            "Mount Everest",
+            "Kilimanjaro",
+            "Ben Nevis",
+            "Mont Blanc"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which continent is the coldest and is home to emperor penguins?",
+          "answer": "Antarctica"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet do we live on?",
+          "answer": "Earth"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is frozen water called?",
+          "answer": "Ice"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which gas do plants take in from the air to make their food?",
+          "answer": "Carbon dioxide",
+          "options": [
+            "Oxygen",
+            "Carbon dioxide",
+            "Helium",
+            "Nitrogen"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the largest planet in our Solar System?",
+          "answer": "Jupiter"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What force pulls objects towards the ground when you drop them?",
+          "answer": "Gravity"
+        }
+      ]
+    }
+  ]
+}

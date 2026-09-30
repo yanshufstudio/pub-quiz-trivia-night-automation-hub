@@ -1,0 +1,779 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "uneven",
+    "prompt": "3 rounds: 5, 8 and 12 questions",
+    "questions": 25,
+    "expect": [
+      5,
+      8,
+      12
+    ],
+    "run": "uneven#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5,
+      8,
+      12
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1791,
+      "outputTokens": 1447,
+      "thinkingTokens": 0,
+      "durationMs": 14281
+    },
+    "costUsd": 0.036104,
+    "ms": 14281
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote the novel 'Pride and Prejudice'?",
+      "answer": "Jane Austen"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the chemical symbol for tungsten?",
+      "answer": "W",
+      "options": [
+        "Tu",
+        "W",
+        "Tg",
+        "Tn"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in South America?",
+      "answer": "The Amazon"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "In which country is the city of Marrakesh?",
+      "answer": "Morocco"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which ocean lies between Africa and Australia?",
+      "answer": "Indian Ocean"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which European country has Lisbon as its capital?",
+      "answer": "Portugal"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The Atacama Desert is mainly in which country?",
+      "answer": "Chile",
+      "options": [
+        "Peru",
+        "Chile",
+        "Argentina",
+        "Bolivia"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Who painted the 'Mona Lisa'?",
+      "answer": "Leonardo da Vinci"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "How many players does a football (soccer) team have on the pitch at once?",
+      "answer": "Eleven"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Which band released the album 'Abbey Road'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Which ancient wonder stood in the harbour of Rhodes?",
+      "answer": "The Colossus of Rhodes"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Who composed 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R3Q9",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989",
+      "options": [
+        "1987",
+        "1989",
+        "1990",
+        "1991"
+      ]
+    },
+    {
+      "id": "R3Q10",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen"
+    },
+    {
+      "id": "R3Q11",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Which Shakespeare play features the character Prospero?",
+      "answer": "The Tempest"
+    },
+    {
+      "id": "R3Q12",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "What was the name of the first artificial satellite, launched in 1957?",
+      "answer": "Sputnik 1"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.046244,
+      "ms": 16821,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2231,
+          "outputTokens": 1477,
+          "thinkingTokens": 204,
+          "durationMs": 13489
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1240,
+          "outputTokens": 141,
+          "thinkingTokens": 0,
+          "durationMs": 3331
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Six and 6 are the same answer; a hexagon has six sides."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "Eleven and 11 are the same answer; the count is correct."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "W",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Amazon",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Morocco",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Indian Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Portugal",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Chile",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "11",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q5": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Colossus of Rhodes",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q11": {
+          "answer": "The Tempest",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q12": {
+          "answer": "Sputnik 1",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5,
+        8,
+        12
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote the novel 'Pride and Prejudice'?",
+          "answer": "Jane Austen"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the chemical symbol for tungsten?",
+          "answer": "W",
+          "options": [
+            "Tu",
+            "W",
+            "Tg",
+            "Tn"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in South America?",
+          "answer": "The Amazon"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In which country is the city of Marrakesh?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which ocean lies between Africa and Australia?",
+          "answer": "Indian Ocean"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which European country has Lisbon as its capital?",
+          "answer": "Portugal"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The Atacama Desert is mainly in which country?",
+          "answer": "Chile",
+          "options": [
+            "Peru",
+            "Chile",
+            "Argentina",
+            "Bolivia"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the air for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Who painted the 'Mona Lisa'?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "How many players does a football (soccer) team have on the pitch at once?",
+          "answer": "Eleven"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Which band released the album 'Abbey Road'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Which ancient wonder stood in the harbour of Rhodes?",
+          "answer": "The Colossus of Rhodes"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Who composed 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R3Q9",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989",
+          "options": [
+            "1987",
+            "1989",
+            "1990",
+            "1991"
+          ]
+        },
+        {
+          "id": "R3Q10",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen"
+        },
+        {
+          "id": "R3Q11",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Which Shakespeare play features the character Prospero?",
+          "answer": "The Tempest"
+        },
+        {
+          "id": "R3Q12",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "What was the name of the first artificial satellite, launched in 1957?",
+          "answer": "Sputnik 1"
+        }
+      ]
+    }
+  ]
+}

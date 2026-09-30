@@ -1,0 +1,523 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew-israel",
+    "prompt": "חידון בעברית: 3 סבבים של 5 שאלות על ישראל",
+    "questions": 15,
+    "expect": [
+      5,
+      5,
+      5
+    ],
+    "run": "hebrew-israel#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5,
+      5,
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1801,
+      "outputTokens": 1157,
+      "thinkingTokens": 0,
+      "durationMs": 14932
+    },
+    "costUsd": 0.030344,
+    "ms": 14932
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "מהו האגם שמכונה גם 'ים כנרת'?",
+      "answer": "הכנרת",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "מהי העיר הדרומית ביותר בישראל?",
+      "answer": "אילת"
+    },
+    {
+      "id": "R1Q3",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "מהו ההר הגבוה ביותר בשטח שבשליטת ישראל?",
+      "answer": "החרמון"
+    },
+    {
+      "id": "R1Q4",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזה מכתש בנגב הוא הגדול מבין המכתשים בישראל?",
+      "answer": "מכתש רמון",
+      "options": [
+        "מכתש רמון",
+        "המכתש הגדול",
+        "המכתש הקטן"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "לאיזה ים נשפך נהר הירדן?",
+      "answer": "ים המלח"
+    },
+    {
+      "id": "R2Q1",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה הוכרזה מדינת ישראל?",
+      "answer": "1948"
+    },
+    {
+      "id": "R2Q2",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R2Q3",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R2Q4",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "באיזו עיר נכתבה 'מדינת היהודים'? לא - באיזו עיר התכנס הקונגרס הציוני הראשון ב-1897?",
+      "answer": "בזל"
+    },
+    {
+      "id": "R2Q5",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R3Q1",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "מהו שמו של ההמנון הלאומי של ישראל?",
+      "answer": "התקווה"
+    },
+    {
+      "id": "R3Q2",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "מי כתב את מילות השיר 'ירושלים של זהב'?",
+      "answer": "נעמי שמר"
+    },
+    {
+      "id": "R3Q3",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "איזו זמרת ישראלית זכתה באירוויזיון 2018 עם השיר 'Toy'?",
+      "answer": "נטע ברזילי"
+    },
+    {
+      "id": "R3Q4",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזה צמח מופיע משני צדי המנורה בסמל מדינת ישראל?",
+      "answer": "ענפי זית",
+      "options": [
+        "ענפי זית",
+        "ענפי דקל",
+        "שיבולי חיטה",
+        "גפנים"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "איזה סופר ישראלי זכה בפרס נובל לספרות ב-1966?",
+      "answer": "ש\"י עגנון"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.045211999999999995,
+      "ms": 17066,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1996,
+          "outputTokens": 1355,
+          "thinkingTokens": 437,
+          "durationMs": 13061
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1422,
+          "outputTokens": 222,
+          "thinkingTokens": 0,
+          "durationMs": 4004
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "התשובה העצמאית זהה בתוכנה (הכנרת/ים טבריה)."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "fix",
+          "reason": "בנוסח נשארה טיוטה עם תיקון עצמי; התשובה בזל/באזל נכונה.",
+          "text": "באיזו עיר התכנס הקונגרס הציוני הראשון ב-1897?",
+          "answer": "בזל (באזל)"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "הכנרת (ים טבריה)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "אילת",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "החרמון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "מכתש רמון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "ים המלח",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "באזל",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "wording: בנוסח נשארה טיוטה עם תיקון עצמי ('באיזו עיר נכתבה מדינת היהודים? לא - ...'). צריך למחוק את החלק הראשון ולהשאיר רק את השאלה על הקונגרס הציוני הראשון (באזל, 1897)."
+          ]
+        },
+        "R2Q5": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "התקווה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "נעמי שמר",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "נטע ברזילי",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "ענפי זית",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "ש\"י עגנון",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q4",
+          "reason": "בנוסח נשארה טיוטה עם תיקון עצמי; התשובה בזל/באזל נכונה.",
+          "before": {
+            "text": "באיזו עיר נכתבה 'מדינת היהודים'? לא - באיזו עיר התכנס הקונגרס הציוני הראשון ב-1897?",
+            "answer": "בזל"
+          },
+          "after": {
+            "text": "באיזו עיר התכנס הקונגרס הציוני הראשון ב-1897?",
+            "answer": "בזל (באזל)"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5,
+        5,
+        5
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "מהו האגם שמכונה גם 'ים כנרת'?",
+          "answer": "הכנרת",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "מהי העיר הדרומית ביותר בישראל?",
+          "answer": "אילת"
+        },
+        {
+          "id": "R1Q3",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "מהו ההר הגבוה ביותר בשטח שבשליטת ישראל?",
+          "answer": "החרמון"
+        },
+        {
+          "id": "R1Q4",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה מכתש בנגב הוא הגדול מבין המכתשים בישראל?",
+          "answer": "מכתש רמון",
+          "options": [
+            "מכתש רמון",
+            "המכתש הגדול",
+            "המכתש הקטן"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "לאיזה ים נשפך נהר הירדן?",
+          "answer": "ים המלח"
+        },
+        {
+          "id": "R2Q1",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה הוכרזה מדינת ישראל?",
+          "answer": "1948"
+        },
+        {
+          "id": "R2Q2",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R2Q3",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R2Q4",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "באיזו עיר התכנס הקונגרס הציוני הראשון ב-1897?",
+          "answer": "בזל (באזל)"
+        },
+        {
+          "id": "R2Q5",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R3Q1",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "מהו שמו של ההמנון הלאומי של ישראל?",
+          "answer": "התקווה"
+        },
+        {
+          "id": "R3Q2",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "מי כתב את מילות השיר 'ירושלים של זהב'?",
+          "answer": "נעמי שמר"
+        },
+        {
+          "id": "R3Q3",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "איזו זמרת ישראלית זכתה באירוויזיון 2018 עם השיר 'Toy'?",
+          "answer": "נטע ברזילי"
+        },
+        {
+          "id": "R3Q4",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה צמח מופיע משני צדי המנורה בסמל מדינת ישראל?",
+          "answer": "ענפי זית",
+          "options": [
+            "ענפי זית",
+            "ענפי דקל",
+            "שיבולי חיטה",
+            "גפנים"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "איזה סופר ישראלי זכה בפרס נובל לספרות ב-1966?",
+          "answer": "ש\"י עגנון"
+        }
+      ]
+    }
+  ]
+}

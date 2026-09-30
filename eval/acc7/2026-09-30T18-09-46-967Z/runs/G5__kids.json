@@ -1,0 +1,375 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "expect": [
+      10
+    ],
+    "run": "kids"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 607,
+      "thinkingTokens": 0,
+      "durationMs": 10247
+    },
+    "costUsd": 0.019352,
+    "ms": 10247
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "A joey",
+      "options": [
+        "x"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest living animal in the world?",
+      "answer": "Giraffe",
+      "options": [
+        "x"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which black-and-white bear from China eats mostly bamboo?",
+      "answer": "Giant panda"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What do we call an animal that eats only plants?",
+      "answer": "Herbivore",
+      "options": [
+        "Carnivore",
+        "Herbivore",
+        "Omnivore"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the largest animal that has ever lived?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "A caterpillar turns into which winged insect?",
+      "answer": "Butterfly (or moth)"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird is famous for being able to copy human speech?",
+      "answer": "Parrot"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the fastest land animal?",
+      "answer": "Cheetah"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "A tadpole grows up to become which animal?",
+      "answer": "Frog (or toad)"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.030084,
+      "ms": 11276,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1394,
+          "outputTokens": 704,
+          "thinkingTokens": 106,
+          "durationMs": 6559
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1417,
+          "outputTokens": 238,
+          "thinkingTokens": 0,
+          "durationMs": 4717
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "The setter's answer already accepts both butterfly and moth, and the checker's answer is covered by it."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Parrot is the answer people expect. Mynahs are less well known, and a question master can use discretion if someone offers one."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "The setter's answer accepts both frog and toad. The larvae of newts and salamanders are not usually called tadpoles in everyday speech."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Herbivore",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Butterfly",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: Caterpillars can turn into moths as well as butterflies, so both answers are correct."
+          ]
+        },
+        "R1Q8": {
+          "answer": "Parrot",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q9": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Frog",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: Tadpoles can grow into toads (and newts/salamanders have larvae too), not only frogs."
+          ]
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "A joey",
+          "options": [
+            "x"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest living animal in the world?",
+          "answer": "Giraffe",
+          "options": [
+            "x"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black-and-white bear from China eats mostly bamboo?",
+          "answer": "Giant panda"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What do we call an animal that eats only plants?",
+          "answer": "Herbivore",
+          "options": [
+            "Carnivore",
+            "Herbivore",
+            "Omnivore"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest animal that has ever lived?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A caterpillar turns into which winged insect?",
+          "answer": "Butterfly (or moth)"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is famous for being able to copy human speech?",
+          "answer": "Parrot"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A tadpole grows up to become which animal?",
+          "answer": "Frog (or toad)"
+        }
+      ]
+    }
+  ]
+}

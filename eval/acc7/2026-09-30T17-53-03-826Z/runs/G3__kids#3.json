@@ -1,0 +1,381 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "expect": [
+      10
+    ],
+    "run": "kids#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 625,
+      "thinkingTokens": 0,
+      "durationMs": 10481
+    },
+    "costUsd": 0.019712,
+    "ms": 10481
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "A joey",
+      "options": [
+        "A joey"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight",
+      "options": []
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which black-and-white bear from China eats mostly bamboo?",
+      "answer": "Giant panda"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do caterpillars turn into?",
+      "answer": "Butterflies or moths"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which is the largest animal ever known to have lived?",
+      "answer": "Blue whale",
+      "options": [
+        "African elephant",
+        "Blue whale",
+        "Tyrannosaurus rex",
+        "Great white shark"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a group of lions called?",
+      "answer": "A pride"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird is famous for being able to copy human speech?",
+      "answer": "Parrot"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which animal has a trunk it uses to drink, smell and pick things up?",
+      "answer": "Elephant"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which large flightless bird lays the biggest eggs of any living bird?",
+      "answer": "Ostrich"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.029716,
+      "ms": 11057,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1420,
+          "outputTokens": 672,
+          "thinkingTokens": 131,
+          "durationMs": 7385
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1249,
+          "outputTokens": 280,
+          "thinkingTokens": 107,
+          "durationMs": 3672
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "The setter's answer already accepts both butterflies and moths, so the question is fine."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "fix",
+          "reason": "Mynah birds are also famous for copying human speech, so the answer should accept them too.",
+          "answer": "Parrot (also accept mynah bird)"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Butterflies (or moths)",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "A pride",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Parrot",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q9": {
+          "answer": "Elephant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Ostrich",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q8",
+          "reason": "Mynah birds are also famous for copying human speech, so the answer should accept them too.",
+          "before": {
+            "text": "Which bird is famous for being able to copy human speech?",
+            "answer": "Parrot"
+          },
+          "after": {
+            "text": "Which bird is famous for being able to copy human speech?",
+            "answer": "Parrot (also accept mynah bird)"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "A joey",
+          "options": [
+            "A joey"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight",
+          "options": []
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black-and-white bear from China eats mostly bamboo?",
+          "answer": "Giant panda"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do caterpillars turn into?",
+          "answer": "Butterflies or moths"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the largest animal ever known to have lived?",
+          "answer": "Blue whale",
+          "options": [
+            "African elephant",
+            "Blue whale",
+            "Tyrannosaurus rex",
+            "Great white shark"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of lions called?",
+          "answer": "A pride"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is famous for being able to copy human speech?",
+          "answer": "Parrot (also accept mynah bird)"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which animal has a trunk it uses to drink, smell and pick things up?",
+          "answer": "Elephant"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which large flightless bird lays the biggest eggs of any living bird?",
+          "answer": "Ostrich"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,417 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "half-hebrew",
+    "prompt": "Half English, half Hebrew, 2 rounds of 6",
+    "questions": 12,
+    "expect": [
+      6,
+      6
+    ],
+    "run": "half-hebrew"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1793,
+      "outputTokens": 1422,
+      "thinkingTokens": 596,
+      "durationMs": 14799
+    },
+    "costUsd": 0.035612,
+    "ms": 14799
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "English Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "English Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q3",
+      "round": "English Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote the novel 'Pride and Prejudice'?",
+      "answer": "Jane Austen"
+    },
+    {
+      "id": "R1Q4",
+      "round": "English Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which element has the chemical symbol Au?",
+      "answer": "Gold"
+    },
+    {
+      "id": "R1Q5",
+      "round": "English Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many bones are there in a typical adult human body?",
+      "answer": "206",
+      "options": [
+        "186",
+        "206",
+        "226",
+        "256"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "English Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which composer wrote the opera 'The Magic Flute'?",
+      "answer": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": "R2Q1",
+      "round": "סבב בעברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "מהי עיר הבירה של צרפת?",
+      "answer": "פריז"
+    },
+    {
+      "id": "R2Q2",
+      "round": "סבב בעברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "כמה ימים יש בשנה מעוברת בלוח הגרגוריאני?",
+      "answer": "366"
+    },
+    {
+      "id": "R2Q3",
+      "round": "סבב בעברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R2Q4",
+      "round": "סבב בעברית",
+      "category": "ידע כללי",
+      "type": "MULTIPLE_CHOICE",
+      "text": "מהו ההר הגבוה בעולם (מעל פני הים)?",
+      "answer": "האוורסט",
+      "options": [
+        "האוורסט",
+        "K2",
+        "קילימנג'רו",
+        "מון בלאן"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "סבב בעברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "איזה יסוד כימי מסומן בסמל Fe?",
+      "answer": "ברזל"
+    },
+    {
+      "id": "R2Q6",
+      "round": "סבב בעברית",
+      "category": "ידע כללי",
+      "type": "TEXT",
+      "text": "מי כתב את מילות השיר \"התקווה\"?",
+      "answer": "נפתלי הרץ אימבר"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.019444,
+      "ms": 7158,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1616,
+          "outputTokens": 649,
+          "thinkingTokens": 0,
+          "durationMs": 7158
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Gold",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "פריז",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "366",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "האוורסט",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "ברזל",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "נפתלי הרץ אימבר",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "English Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "English Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q3",
+          "round": "English Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote the novel 'Pride and Prejudice'?",
+          "answer": "Jane Austen"
+        },
+        {
+          "id": "R1Q4",
+          "round": "English Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which element has the chemical symbol Au?",
+          "answer": "Gold"
+        },
+        {
+          "id": "R1Q5",
+          "round": "English Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many bones are there in a typical adult human body?",
+          "answer": "206",
+          "options": [
+            "186",
+            "206",
+            "226",
+            "256"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "English Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which composer wrote the opera 'The Magic Flute'?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R2Q1",
+          "round": "סבב בעברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "מהי עיר הבירה של צרפת?",
+          "answer": "פריז"
+        },
+        {
+          "id": "R2Q2",
+          "round": "סבב בעברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "כמה ימים יש בשנה מעוברת בלוח הגרגוריאני?",
+          "answer": "366"
+        },
+        {
+          "id": "R2Q3",
+          "round": "סבב בעברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R2Q4",
+          "round": "סבב בעברית",
+          "category": "ידע כללי",
+          "type": "MULTIPLE_CHOICE",
+          "text": "מהו ההר הגבוה בעולם (מעל פני הים)?",
+          "answer": "האוורסט",
+          "options": [
+            "האוורסט",
+            "K2",
+            "קילימנג'רו",
+            "מון בלאן"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "סבב בעברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "איזה יסוד כימי מסומן בסמל Fe?",
+          "answer": "ברזל"
+        },
+        {
+          "id": "R2Q6",
+          "round": "סבב בעברית",
+          "category": "ידע כללי",
+          "type": "TEXT",
+          "text": "מי כתב את מילות השיר \"התקווה\"?",
+          "answer": "נפתלי הרץ אימבר"
+        }
+      ]
+    }
+  ]
+}

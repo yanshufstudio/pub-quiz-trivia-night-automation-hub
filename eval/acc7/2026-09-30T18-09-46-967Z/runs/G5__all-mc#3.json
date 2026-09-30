@@ -1,0 +1,1605 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "all-mc",
+    "prompt": "All multiple choice, 4 rounds of 10",
+    "questions": 40,
+    "expect": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "run": "all-mc#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1789,
+      "outputTokens": 5624,
+      "thinkingTokens": 2123,
+      "durationMs": 49262
+    },
+    "costUsd": 0.119636,
+    "ms": 49263
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au",
+      "options": [
+        "Ag",
+        "Au",
+        "Gd",
+        "Go"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen",
+      "options": [
+        "Helium",
+        "Oxygen",
+        "Hydrogen",
+        "Carbon"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which gas do plants take in from the air to use in photosynthesis?",
+      "answer": "Carbon dioxide",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Carbon dioxide",
+        "Hydrogen"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which organ in the human body produces insulin?",
+      "answer": "Pancreas",
+      "options": [
+        "Liver",
+        "Pancreas",
+        "Kidney",
+        "Spleen"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which mineral has a hardness of 10 on the Mohs scale?",
+      "answer": "Diamond",
+      "options": [
+        "Quartz",
+        "Topaz",
+        "Corundum",
+        "Diamond"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Titan is a moon of which planet?",
+      "answer": "Saturn",
+      "options": [
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many bones are there in a typical adult human body?",
+      "answer": "206",
+      "options": [
+        "186",
+        "206",
+        "212",
+        "230"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is a group of crows called?",
+      "answer": "A murder",
+      "options": [
+        "A parliament",
+        "A murder",
+        "A gaggle",
+        "A pride"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Roughly how fast does light travel in a vacuum?",
+      "answer": "300,000 km per second",
+      "options": [
+        "3,000 km per second",
+        "30,000 km per second",
+        "300,000 km per second",
+        "3,000,000 km per second"
+      ]
+    },
+    {
+      "id": "R1Q10",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Marie and Pierre Curie discovered an element and named it after Marie's home country. Which element?",
+      "answer": "Polonium",
+      "options": [
+        "Radium",
+        "Polonium",
+        "Francium",
+        "Germanium"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital city of Canada?",
+      "answer": "Ottawa",
+      "options": [
+        "Toronto",
+        "Ottawa",
+        "Montreal",
+        "Vancouver"
+      ]
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the longest river in South America?",
+      "answer": "Amazon",
+      "options": [
+        "Paraná",
+        "Orinoco",
+        "Amazon",
+        "Magdalena"
+      ]
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Mount Rushmore is in which US state?",
+      "answer": "South Dakota",
+      "options": [
+        "North Dakota",
+        "Wyoming",
+        "Montana",
+        "South Dakota"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which strait separates Spain from Morocco?",
+      "answer": "Strait of Gibraltar",
+      "options": [
+        "Strait of Gibraltar",
+        "Bosporus",
+        "Strait of Messina",
+        "Strait of Dover"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania",
+      "options": [
+        "Kenya",
+        "Uganda",
+        "Tanzania",
+        "Ethiopia"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which African country used to be known as Abyssinia?",
+      "answer": "Ethiopia",
+      "options": [
+        "Eritrea",
+        "Ethiopia",
+        "Somalia",
+        "Sudan"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which country is the city of Timbuktu?",
+      "answer": "Mali",
+      "options": [
+        "Niger",
+        "Chad",
+        "Mali",
+        "Mauritania"
+      ]
+    },
+    {
+      "id": "R2Q9",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Lake Titicaca lies on the border between Peru and which other country?",
+      "answer": "Bolivia",
+      "options": [
+        "Chile",
+        "Bolivia",
+        "Ecuador",
+        "Brazil"
+      ]
+    },
+    {
+      "id": "R2Q10",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these countries is doubly landlocked, meaning it is surrounded only by other landlocked countries?",
+      "answer": "Liechtenstein",
+      "options": [
+        "Austria",
+        "Switzerland",
+        "Luxembourg",
+        "Liechtenstein"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first President of the United States?",
+      "answer": "George Washington",
+      "options": [
+        "John Adams",
+        "Thomas Jefferson",
+        "George Washington",
+        "Benjamin Franklin"
+      ]
+    },
+    {
+      "id": "R3Q2",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Second World War end?",
+      "answer": "1945",
+      "options": [
+        "1918",
+        "1939",
+        "1944",
+        "1945"
+      ]
+    },
+    {
+      "id": "R3Q3",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year was the Battle of Hastings?",
+      "answer": "1066",
+      "options": [
+        "966",
+        "1066",
+        "1166",
+        "1215"
+      ]
+    },
+    {
+      "id": "R3Q4",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989",
+      "options": [
+        "1985",
+        "1989",
+        "1991",
+        "1993"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Egyptian queen was the lover and ally of the Roman general Mark Antony?",
+      "answer": "Cleopatra",
+      "options": [
+        "Nefertiti",
+        "Hatshepsut",
+        "Cleopatra",
+        "Nefertari"
+      ]
+    },
+    {
+      "id": "R3Q6",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Montezuma II ruled which empire?",
+      "answer": "Aztec",
+      "options": [
+        "Inca",
+        "Maya",
+        "Aztec",
+        "Olmec"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which English king agreed to Magna Carta in 1215?",
+      "answer": "King John",
+      "options": [
+        "Henry II",
+        "Richard I",
+        "King John",
+        "Edward I"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the British Prime Minister when Britain declared war on Germany in September 1939?",
+      "answer": "Neville Chamberlain",
+      "options": [
+        "Winston Churchill",
+        "Neville Chamberlain",
+        "Stanley Baldwin",
+        "Clement Attlee"
+      ]
+    },
+    {
+      "id": "R3Q9",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these wars ended with the Peace of Westphalia in 1648?",
+      "answer": "The Thirty Years' War",
+      "options": [
+        "The Hundred Years' War",
+        "The Thirty Years' War",
+        "The Seven Years' War",
+        "The War of the Spanish Succession"
+      ]
+    },
+    {
+      "id": "R3Q10",
+      "round": "Blast from the Past",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which ocean liner sank in 1912 after it hit an iceberg?",
+      "answer": "Titanic",
+      "options": [
+        "Lusitania",
+        "Britannic",
+        "Titanic",
+        "Olympic"
+      ]
+    },
+    {
+      "id": "R4Q1",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who painted the Mona Lisa?",
+      "answer": "Leonardo da Vinci",
+      "options": [
+        "Michelangelo",
+        "Raphael",
+        "Leonardo da Vinci",
+        "Botticelli"
+      ]
+    },
+    {
+      "id": "R4Q2",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band released the album 'Abbey Road'?",
+      "answer": "The Beatles",
+      "options": [
+        "The Rolling Stones",
+        "The Beatles",
+        "The Who",
+        "Pink Floyd"
+      ]
+    },
+    {
+      "id": "R4Q3",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In the Harry Potter books, which Hogwarts house is Harry sorted into?",
+      "answer": "Gryffindor",
+      "options": [
+        "Gryffindor",
+        "Slytherin",
+        "Ravenclaw",
+        "Hufflepuff"
+      ]
+    },
+    {
+      "id": "R4Q4",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who wrote 'Pride and Prejudice'?",
+      "answer": "Jane Austen",
+      "options": [
+        "Charlotte Brontë",
+        "George Eliot",
+        "Jane Austen",
+        "Mary Shelley"
+      ]
+    },
+    {
+      "id": "R4Q5",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who directed the 1975 film 'Jaws'?",
+      "answer": "Steven Spielberg",
+      "options": [
+        "George Lucas",
+        "Steven Spielberg",
+        "Martin Scorsese",
+        "Francis Ford Coppola"
+      ]
+    },
+    {
+      "id": "R4Q6",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi",
+      "options": [
+        "Johann Sebastian Bach",
+        "Antonio Vivaldi",
+        "George Frideric Handel",
+        "Wolfgang Amadeus Mozart"
+      ]
+    },
+    {
+      "id": "R4Q7",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In 1888, which painter cut off part of his own ear?",
+      "answer": "Vincent van Gogh",
+      "options": [
+        "Paul Gauguin",
+        "Claude Monet",
+        "Vincent van Gogh",
+        "Paul Cézanne"
+      ]
+    },
+    {
+      "id": "R4Q8",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In Disney's 'Frozen', what is the name of Anna and Elsa's kingdom?",
+      "answer": "Arendelle",
+      "options": [
+        "Corona",
+        "Arendelle",
+        "Agrabah",
+        "Atlantica"
+      ]
+    },
+    {
+      "id": "R4Q9",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which Shakespeare play is the magician Prospero the main character?",
+      "answer": "The Tempest",
+      "options": [
+        "A Midsummer Night's Dream",
+        "The Tempest",
+        "Twelfth Night",
+        "The Winter's Tale"
+      ]
+    },
+    {
+      "id": "R4Q10",
+      "round": "Stage, Screen and Page",
+      "category": "Arts & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The aria 'Nessun dorma' comes from which Puccini opera?",
+      "answer": "Turandot",
+      "options": [
+        "Tosca",
+        "La Bohème",
+        "Madama Butterfly",
+        "Turandot"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.0607,
+      "ms": 17620,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 4445,
+          "outputTokens": 2146,
+          "thinkingTokens": 122,
+          "durationMs": 17620
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "300,000 km per second",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Polonium",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Amazon",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "South Dakota",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Ethiopia",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Mali",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Bolivia",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Liechtenstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "George Washington",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "1945",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "1066",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Cleopatra",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Aztec",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "King John",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Neville Chamberlain",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "The Thirty Years' War",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Gryffindor",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Vincent van Gogh",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Arendelle",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "The Tempest",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Turandot",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au",
+          "options": [
+            "Ag",
+            "Au",
+            "Gd",
+            "Go"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen",
+          "options": [
+            "Helium",
+            "Oxygen",
+            "Hydrogen",
+            "Carbon"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which gas do plants take in from the air to use in photosynthesis?",
+          "answer": "Carbon dioxide",
+          "options": [
+            "Oxygen",
+            "Nitrogen",
+            "Carbon dioxide",
+            "Hydrogen"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which organ in the human body produces insulin?",
+          "answer": "Pancreas",
+          "options": [
+            "Liver",
+            "Pancreas",
+            "Kidney",
+            "Spleen"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which mineral has a hardness of 10 on the Mohs scale?",
+          "answer": "Diamond",
+          "options": [
+            "Quartz",
+            "Topaz",
+            "Corundum",
+            "Diamond"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Titan is a moon of which planet?",
+          "answer": "Saturn",
+          "options": [
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many bones are there in a typical adult human body?",
+          "answer": "206",
+          "options": [
+            "186",
+            "206",
+            "212",
+            "230"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is a group of crows called?",
+          "answer": "A murder",
+          "options": [
+            "A parliament",
+            "A murder",
+            "A gaggle",
+            "A pride"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Roughly how fast does light travel in a vacuum?",
+          "answer": "300,000 km per second",
+          "options": [
+            "3,000 km per second",
+            "30,000 km per second",
+            "300,000 km per second",
+            "3,000,000 km per second"
+          ]
+        },
+        {
+          "id": "R1Q10",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Marie and Pierre Curie discovered an element and named it after Marie's home country. Which element?",
+          "answer": "Polonium",
+          "options": [
+            "Radium",
+            "Polonium",
+            "Francium",
+            "Germanium"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital city of Canada?",
+          "answer": "Ottawa",
+          "options": [
+            "Toronto",
+            "Ottawa",
+            "Montreal",
+            "Vancouver"
+          ]
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the longest river in South America?",
+          "answer": "Amazon",
+          "options": [
+            "Paraná",
+            "Orinoco",
+            "Amazon",
+            "Magdalena"
+          ]
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Mount Rushmore is in which US state?",
+          "answer": "South Dakota",
+          "options": [
+            "North Dakota",
+            "Wyoming",
+            "Montana",
+            "South Dakota"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which strait separates Spain from Morocco?",
+          "answer": "Strait of Gibraltar",
+          "options": [
+            "Strait of Gibraltar",
+            "Bosporus",
+            "Strait of Messina",
+            "Strait of Dover"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Mount Kilimanjaro is in which country?",
+          "answer": "Tanzania",
+          "options": [
+            "Kenya",
+            "Uganda",
+            "Tanzania",
+            "Ethiopia"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which African country used to be known as Abyssinia?",
+          "answer": "Ethiopia",
+          "options": [
+            "Eritrea",
+            "Ethiopia",
+            "Somalia",
+            "Sudan"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which country is the city of Timbuktu?",
+          "answer": "Mali",
+          "options": [
+            "Niger",
+            "Chad",
+            "Mali",
+            "Mauritania"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Lake Titicaca lies on the border between Peru and which other country?",
+          "answer": "Bolivia",
+          "options": [
+            "Chile",
+            "Bolivia",
+            "Ecuador",
+            "Brazil"
+          ]
+        },
+        {
+          "id": "R2Q10",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these countries is doubly landlocked, meaning it is surrounded only by other landlocked countries?",
+          "answer": "Liechtenstein",
+          "options": [
+            "Austria",
+            "Switzerland",
+            "Luxembourg",
+            "Liechtenstein"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first President of the United States?",
+          "answer": "George Washington",
+          "options": [
+            "John Adams",
+            "Thomas Jefferson",
+            "George Washington",
+            "Benjamin Franklin"
+          ]
+        },
+        {
+          "id": "R3Q2",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Second World War end?",
+          "answer": "1945",
+          "options": [
+            "1918",
+            "1939",
+            "1944",
+            "1945"
+          ]
+        },
+        {
+          "id": "R3Q3",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year was the Battle of Hastings?",
+          "answer": "1066",
+          "options": [
+            "966",
+            "1066",
+            "1166",
+            "1215"
+          ]
+        },
+        {
+          "id": "R3Q4",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989",
+          "options": [
+            "1985",
+            "1989",
+            "1991",
+            "1993"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Egyptian queen was the lover and ally of the Roman general Mark Antony?",
+          "answer": "Cleopatra",
+          "options": [
+            "Nefertiti",
+            "Hatshepsut",
+            "Cleopatra",
+            "Nefertari"
+          ]
+        },
+        {
+          "id": "R3Q6",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Montezuma II ruled which empire?",
+          "answer": "Aztec",
+          "options": [
+            "Inca",
+            "Maya",
+            "Aztec",
+            "Olmec"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which English king agreed to Magna Carta in 1215?",
+          "answer": "King John",
+          "options": [
+            "Henry II",
+            "Richard I",
+            "King John",
+            "Edward I"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the British Prime Minister when Britain declared war on Germany in September 1939?",
+          "answer": "Neville Chamberlain",
+          "options": [
+            "Winston Churchill",
+            "Neville Chamberlain",
+            "Stanley Baldwin",
+            "Clement Attlee"
+          ]
+        },
+        {
+          "id": "R3Q9",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these wars ended with the Peace of Westphalia in 1648?",
+          "answer": "The Thirty Years' War",
+          "options": [
+            "The Hundred Years' War",
+            "The Thirty Years' War",
+            "The Seven Years' War",
+            "The War of the Spanish Succession"
+          ]
+        },
+        {
+          "id": "R3Q10",
+          "round": "Blast from the Past",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which ocean liner sank in 1912 after it hit an iceberg?",
+          "answer": "Titanic",
+          "options": [
+            "Lusitania",
+            "Britannic",
+            "Titanic",
+            "Olympic"
+          ]
+        },
+        {
+          "id": "R4Q1",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who painted the Mona Lisa?",
+          "answer": "Leonardo da Vinci",
+          "options": [
+            "Michelangelo",
+            "Raphael",
+            "Leonardo da Vinci",
+            "Botticelli"
+          ]
+        },
+        {
+          "id": "R4Q2",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band released the album 'Abbey Road'?",
+          "answer": "The Beatles",
+          "options": [
+            "The Rolling Stones",
+            "The Beatles",
+            "The Who",
+            "Pink Floyd"
+          ]
+        },
+        {
+          "id": "R4Q3",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In the Harry Potter books, which Hogwarts house is Harry sorted into?",
+          "answer": "Gryffindor",
+          "options": [
+            "Gryffindor",
+            "Slytherin",
+            "Ravenclaw",
+            "Hufflepuff"
+          ]
+        },
+        {
+          "id": "R4Q4",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who wrote 'Pride and Prejudice'?",
+          "answer": "Jane Austen",
+          "options": [
+            "Charlotte Brontë",
+            "George Eliot",
+            "Jane Austen",
+            "Mary Shelley"
+          ]
+        },
+        {
+          "id": "R4Q5",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who directed the 1975 film 'Jaws'?",
+          "answer": "Steven Spielberg",
+          "options": [
+            "George Lucas",
+            "Steven Spielberg",
+            "Martin Scorsese",
+            "Francis Ford Coppola"
+          ]
+        },
+        {
+          "id": "R4Q6",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi",
+          "options": [
+            "Johann Sebastian Bach",
+            "Antonio Vivaldi",
+            "George Frideric Handel",
+            "Wolfgang Amadeus Mozart"
+          ]
+        },
+        {
+          "id": "R4Q7",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In 1888, which painter cut off part of his own ear?",
+          "answer": "Vincent van Gogh",
+          "options": [
+            "Paul Gauguin",
+            "Claude Monet",
+            "Vincent van Gogh",
+            "Paul Cézanne"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In Disney's 'Frozen', what is the name of Anna and Elsa's kingdom?",
+          "answer": "Arendelle",
+          "options": [
+            "Corona",
+            "Arendelle",
+            "Agrabah",
+            "Atlantica"
+          ]
+        },
+        {
+          "id": "R4Q9",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which Shakespeare play is the magician Prospero the main character?",
+          "answer": "The Tempest",
+          "options": [
+            "A Midsummer Night's Dream",
+            "The Tempest",
+            "Twelfth Night",
+            "The Winter's Tale"
+          ]
+        },
+        {
+          "id": "R4Q10",
+          "round": "Stage, Screen and Page",
+          "category": "Arts & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The aria 'Nessun dorma' comes from which Puccini opera?",
+          "answer": "Turandot",
+          "options": [
+            "Tosca",
+            "La Bohème",
+            "Madama Butterfly",
+            "Turandot"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,504 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew-israel",
+    "prompt": "חידון בעברית: 3 סבבים של 5 שאלות על ישראל",
+    "questions": 15,
+    "expect": [
+      5,
+      5,
+      5
+    ],
+    "run": "hebrew-israel#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5,
+      5,
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1801,
+      "outputTokens": 2797,
+      "thinkingTokens": 1516,
+      "durationMs": 41238
+    },
+    "costUsd": 0.063144,
+    "ms": 41238
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "מהחרמון ועד אילת",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "מהי העיר הדרומית ביותר בישראל?",
+      "answer": "אילת",
+      "options": [
+        ":"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "מהחרמון ועד אילת",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "איזה ים, שנמצא בגבול ישראל וירדן, הוא הנקודה הנמוכה ביותר על פני היבשה בעולם?",
+      "answer": "ים המלח",
+      "options": []
+    },
+    {
+      "id": "R1Q3",
+      "round": "מהחרמון ועד אילת",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו עיר נמצאים הגנים הבהאיים ומקדש הבאב?",
+      "answer": "חיפה"
+    },
+    {
+      "id": "R1Q4",
+      "round": "מהחרמון ועד אילת",
+      "category": "גאוגרפיה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזה נהר נשפך לים המלח?",
+      "answer": "הירדן",
+      "options": [
+        "הירדן",
+        "הירקון",
+        "הקישון",
+        "נחל אלכסנדר"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "מהחרמון ועד אילת",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "מהו המכתש הגדול ביותר בנגב, שעל שפתו שוכנת העיירה מצפה רמון?",
+      "answer": "מכתש רמון"
+    },
+    {
+      "id": "R2Q1",
+      "round": "דפי היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R2Q2",
+      "round": "דפי היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R2Q3",
+      "round": "דפי היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R2Q4",
+      "round": "דפי היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "באיזו עיר הוכרזה הקמת מדינת ישראל במאי 1948?",
+      "answer": "תל אביב"
+    },
+    {
+      "id": "R2Q5",
+      "round": "דפי היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "באיזה מבצר על הר ליד ים המלח התבצרו המורדים היהודים בסוף המרד הגדול ברומאים?",
+      "answer": "מצדה"
+    },
+    {
+      "id": "R3Q1",
+      "round": "תרבות, ספורט ומה שביניהם",
+      "category": "תרבות וספורט ישראליים",
+      "type": "TEXT",
+      "text": "איך נקראים כדורי החומוס המטוגנים שמוגשים בדרך כלל בפיתה?",
+      "answer": "פלאפל"
+    },
+    {
+      "id": "R3Q2",
+      "round": "תרבות, ספורט ומה שביניהם",
+      "category": "תרבות וספורט ישראליים",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה נטע ברזילי באירוויזיון 2018?",
+      "answer": "Toy"
+    },
+    {
+      "id": "R3Q3",
+      "round": "תרבות, ספורט ומה שביניהם",
+      "category": "תרבות וספורט ישראליים",
+      "type": "TEXT",
+      "text": "איזה סופר ישראלי זכה בפרס נובל לספרות בשנת 1966?",
+      "answer": "ש\"י עגנון"
+    },
+    {
+      "id": "R3Q4",
+      "round": "תרבות, ספורט ומה שביניהם",
+      "category": "תרבות וספורט ישראליים",
+      "type": "TEXT",
+      "text": "איזו קבוצת כדורסל ישראלית זכתה בגביע אירופה לאלופות בשנת 1977?",
+      "answer": "מכבי תל אביב"
+    },
+    {
+      "id": "R3Q5",
+      "round": "תרבות, ספורט ומה שביניהם",
+      "category": "תרבות וספורט ישראליים",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזה ענף ספורט זכה גל פרידמן במדליית הזהב האולימפית הראשונה של ישראל, באתונה 2004?",
+      "answer": "גלישת רוח",
+      "options": [
+        "גלישת רוח",
+        "ג'ודו",
+        "התעמלות",
+        "שחייה"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.031056,
+      "ms": 11307,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2109,
+          "outputTokens": 1131,
+          "thinkingTokens": 283,
+          "durationMs": 11306
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "אילת",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "ים המלח",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "חיפה",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "הירדן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "מכתש רמון",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "מצדה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "פלאפל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Toy",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "ש\"י עגנון",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "מכבי תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "גלישת רוח",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5,
+        5,
+        5
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "מהחרמון ועד אילת",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "מהי העיר הדרומית ביותר בישראל?",
+          "answer": "אילת",
+          "options": [
+            ":"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "מהחרמון ועד אילת",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "איזה ים, שנמצא בגבול ישראל וירדן, הוא הנקודה הנמוכה ביותר על פני היבשה בעולם?",
+          "answer": "ים המלח",
+          "options": []
+        },
+        {
+          "id": "R1Q3",
+          "round": "מהחרמון ועד אילת",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו עיר נמצאים הגנים הבהאיים ומקדש הבאב?",
+          "answer": "חיפה"
+        },
+        {
+          "id": "R1Q4",
+          "round": "מהחרמון ועד אילת",
+          "category": "גאוגרפיה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה נהר נשפך לים המלח?",
+          "answer": "הירדן",
+          "options": [
+            "הירדן",
+            "הירקון",
+            "הקישון",
+            "נחל אלכסנדר"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "מהחרמון ועד אילת",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "מהו המכתש הגדול ביותר בנגב, שעל שפתו שוכנת העיירה מצפה רמון?",
+          "answer": "מכתש רמון"
+        },
+        {
+          "id": "R2Q1",
+          "round": "דפי היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R2Q2",
+          "round": "דפי היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R2Q3",
+          "round": "דפי היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R2Q4",
+          "round": "דפי היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "באיזו עיר הוכרזה הקמת מדינת ישראל במאי 1948?",
+          "answer": "תל אביב"
+        },
+        {
+          "id": "R2Q5",
+          "round": "דפי היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "באיזה מבצר על הר ליד ים המלח התבצרו המורדים היהודים בסוף המרד הגדול ברומאים?",
+          "answer": "מצדה"
+        },
+        {
+          "id": "R3Q1",
+          "round": "תרבות, ספורט ומה שביניהם",
+          "category": "תרבות וספורט ישראליים",
+          "type": "TEXT",
+          "text": "איך נקראים כדורי החומוס המטוגנים שמוגשים בדרך כלל בפיתה?",
+          "answer": "פלאפל"
+        },
+        {
+          "id": "R3Q2",
+          "round": "תרבות, ספורט ומה שביניהם",
+          "category": "תרבות וספורט ישראליים",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה נטע ברזילי באירוויזיון 2018?",
+          "answer": "Toy"
+        },
+        {
+          "id": "R3Q3",
+          "round": "תרבות, ספורט ומה שביניהם",
+          "category": "תרבות וספורט ישראליים",
+          "type": "TEXT",
+          "text": "איזה סופר ישראלי זכה בפרס נובל לספרות בשנת 1966?",
+          "answer": "ש\"י עגנון"
+        },
+        {
+          "id": "R3Q4",
+          "round": "תרבות, ספורט ומה שביניהם",
+          "category": "תרבות וספורט ישראליים",
+          "type": "TEXT",
+          "text": "איזו קבוצת כדורסל ישראלית זכתה בגביע אירופה לאלופות בשנת 1977?",
+          "answer": "מכבי תל אביב"
+        },
+        {
+          "id": "R3Q5",
+          "round": "תרבות, ספורט ומה שביניהם",
+          "category": "תרבות וספורט ישראליים",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזה ענף ספורט זכה גל פרידמן במדליית הזהב האולימפית הראשונה של ישראל, באתונה 2004?",
+          "answer": "גלישת רוח",
+          "options": [
+            "גלישת רוח",
+            "ג'ודו",
+            "התעמלות",
+            "שחייה"
+          ]
+        }
+      ]
+    }
+  ]
+}

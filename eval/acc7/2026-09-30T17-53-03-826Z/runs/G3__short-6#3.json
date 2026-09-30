@@ -1,0 +1,249 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "short-6",
+    "prompt": "A short pub quiz: 2 rounds of 3 questions each. Round 1: 90s pop music. Round 2: UK geography. Keep answers short.",
+    "questions": 6,
+    "expect": [
+      3,
+      3
+    ],
+    "run": "short-6#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      3,
+      3
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1824,
+      "outputTokens": 533,
+      "thinkingTokens": 0,
+      "durationMs": 5292
+    },
+    "costUsd": 0.017956,
+    "ms": 5293
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Hits",
+      "category": "90s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Hits",
+      "category": "90s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Britpop band released the album '(What's the Story) Morning Glory?'",
+      "answer": "Oasis",
+      "options": [
+        "Blur",
+        "Oasis",
+        "Pulp",
+        "Suede"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Hits",
+      "category": "90s Pop Music",
+      "type": "TEXT",
+      "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+      "answer": "Alanis Morissette"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around Britain",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Wales?",
+      "answer": "Cardiff"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around Britain",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in the United Kingdom?",
+      "answer": "River Severn"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around Britain",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "Lough Neagh, the largest lake in the UK by area, is in which country of the UK?",
+      "answer": "Northern Ireland"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.01214,
+      "ms": 4465,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1280,
+          "outputTokens": 351,
+          "thinkingTokens": 0,
+          "durationMs": 4465
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Oasis",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Alanis Morissette",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Cardiff",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "River Severn",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Northern Ireland",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        3,
+        3
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Hits",
+          "category": "90s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Hits",
+          "category": "90s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Britpop band released the album '(What's the Story) Morning Glory?'",
+          "answer": "Oasis",
+          "options": [
+            "Blur",
+            "Oasis",
+            "Pulp",
+            "Suede"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Hits",
+          "category": "90s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+          "answer": "Alanis Morissette"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around Britain",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Wales?",
+          "answer": "Cardiff"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around Britain",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in the United Kingdom?",
+          "answer": "River Severn"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around Britain",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "Lough Neagh, the largest lake in the UK by area, is in which country of the UK?",
+          "answer": "Northern Ireland"
+        }
+      ]
+    }
+  ]
+}

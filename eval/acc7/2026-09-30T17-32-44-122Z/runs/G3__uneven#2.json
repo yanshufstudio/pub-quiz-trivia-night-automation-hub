@@ -1,0 +1,814 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "uneven",
+    "prompt": "3 rounds: 5, 8 and 12 questions",
+    "questions": 25,
+    "expect": [
+      5,
+      8,
+      12
+    ],
+    "run": "uneven#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5,
+      8,
+      12
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1791,
+      "outputTokens": 1515,
+      "thinkingTokens": 0,
+      "durationMs": 14853
+    },
+    "costUsd": 0.037464,
+    "ms": 14853
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which chemical element has the symbol 'Fe'?",
+      "answer": "Iron"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who wrote the novel 'Pride and Prejudice'?",
+      "answer": "Jane Austen",
+      "options": [
+        "Charlotte Brontë",
+        "Jane Austen",
+        "George Eliot",
+        "Mary Shelley"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in South America?",
+      "answer": "The Amazon"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which country has the city of Marrakesh?",
+      "answer": "Morocco"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which sea lies between Italy and the Balkan Peninsula?",
+      "answer": "The Adriatic Sea"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of New Zealand?",
+      "answer": "Wellington",
+      "options": [
+        "Auckland",
+        "Wellington",
+        "Christchurch",
+        "Dunedin"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Europe from Africa at its narrowest point?",
+      "answer": "The Strait of Gibraltar"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Who painted the 'Mona Lisa'?",
+      "answer": "Leonardo da Vinci"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "How many players are on the field for one team in a standard game of football (soccer)?",
+      "answer": "Eleven"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Which organ in the human body produces insulin?",
+      "answer": "The pancreas"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Which composer wrote the opera 'The Magic Flute'?",
+      "answer": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "What is the hardest naturally occurring mineral?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R3Q9",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "Which English king had six wives?",
+      "answer": "Henry VIII"
+    },
+    {
+      "id": "R3Q10",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In Shakespeare's play, what is the name of Hamlet's mother?",
+      "answer": "Gertrude",
+      "options": [
+        "Ophelia",
+        "Gertrude",
+        "Cordelia",
+        "Portia"
+      ]
+    },
+    {
+      "id": "R3Q11",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "What is the SI unit of electrical resistance?",
+      "answer": "The ohm"
+    },
+    {
+      "id": "R3Q12",
+      "round": "Mixed Bag",
+      "category": "History, Science and Culture",
+      "type": "TEXT",
+      "text": "The Treaty of Westphalia in 1648 ended which long European war?",
+      "answer": "The Thirty Years' War"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.065096,
+      "ms": 23120,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2280,
+          "outputTokens": 2003,
+          "thinkingTokens": 253,
+          "durationMs": 16691
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1564,
+          "outputTokens": 483,
+          "thinkingTokens": 130,
+          "durationMs": 6428
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "6 and Six are the same answer."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "11 and Eleven are the same answer."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "fix",
+          "reason": "The Ionian Sea also lies between southern Italy and the Balkans, so the question now names Croatia to leave only the Adriatic.",
+          "text": "Which sea separates Italy's east coast from Croatia?",
+          "answer": "The Adriatic Sea"
+        },
+        {
+          "id": "R3Q12",
+          "verdict": "fix",
+          "reason": "The Peace of Westphalia also ended the Eighty Years' War, so the question now gives the 1618 start date to leave only the Thirty Years' War.",
+          "text": "The Peace of Westphalia in 1648 ended which long European war that had begun in 1618?",
+          "answer": "The Thirty Years' War"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Iron",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Amazon",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Morocco",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Adriatic Sea",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: The Ionian Sea also lies between southern Italy and the Balkan Peninsula (Greece/Albania)."
+          ]
+        },
+        "R2Q6": {
+          "answer": "Wellington",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "11",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q5": {
+          "answer": "Pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Wolfgang Amadeus Mozart",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "Henry VIII",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Gertrude",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q11": {
+          "answer": "Ohm",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q12": {
+          "answer": "Thirty Years' War",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: 'The Treaty of Westphalia': the Peace of Westphalia was several treaties (Osnabrück and Münster). The Peace of Münster also ended the Eighty Years' War, so that answer is defensible too."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q5",
+          "reason": "The Ionian Sea also lies between southern Italy and the Balkans, so the question now names Croatia to leave only the Adriatic.",
+          "before": {
+            "text": "Which sea lies between Italy and the Balkan Peninsula?",
+            "answer": "The Adriatic Sea"
+          },
+          "after": {
+            "text": "Which sea separates Italy's east coast from Croatia?",
+            "answer": "The Adriatic Sea"
+          }
+        },
+        {
+          "id": "R3Q12",
+          "reason": "The Peace of Westphalia also ended the Eighty Years' War, so the question now gives the 1618 start date to leave only the Thirty Years' War.",
+          "before": {
+            "text": "The Treaty of Westphalia in 1648 ended which long European war?",
+            "answer": "The Thirty Years' War"
+          },
+          "after": {
+            "text": "The Peace of Westphalia in 1648 ended which long European war that had begun in 1618?",
+            "answer": "The Thirty Years' War"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5,
+        8,
+        12
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which chemical element has the symbol 'Fe'?",
+          "answer": "Iron"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who wrote the novel 'Pride and Prejudice'?",
+          "answer": "Jane Austen",
+          "options": [
+            "Charlotte Brontë",
+            "Jane Austen",
+            "George Eliot",
+            "Mary Shelley"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in South America?",
+          "answer": "The Amazon"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which country has the city of Marrakesh?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which sea separates Italy's east coast from Croatia?",
+          "answer": "The Adriatic Sea"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of New Zealand?",
+          "answer": "Wellington",
+          "options": [
+            "Auckland",
+            "Wellington",
+            "Christchurch",
+            "Dunedin"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Europe from Africa at its narrowest point?",
+          "answer": "The Strait of Gibraltar"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the air for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Who painted the 'Mona Lisa'?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "How many players are on the field for one team in a standard game of football (soccer)?",
+          "answer": "Eleven"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Which organ in the human body produces insulin?",
+          "answer": "The pancreas"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Which composer wrote the opera 'The Magic Flute'?",
+          "answer": "Wolfgang Amadeus Mozart"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "What is the hardest naturally occurring mineral?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R3Q9",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "Which English king had six wives?",
+          "answer": "Henry VIII"
+        },
+        {
+          "id": "R3Q10",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In Shakespeare's play, what is the name of Hamlet's mother?",
+          "answer": "Gertrude",
+          "options": [
+            "Ophelia",
+            "Gertrude",
+            "Cordelia",
+            "Portia"
+          ]
+        },
+        {
+          "id": "R3Q11",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "What is the SI unit of electrical resistance?",
+          "answer": "The ohm"
+        },
+        {
+          "id": "R3Q12",
+          "round": "Mixed Bag",
+          "category": "History, Science and Culture",
+          "type": "TEXT",
+          "text": "The Peace of Westphalia in 1648 ended which long European war that had begun in 1618?",
+          "answer": "The Thirty Years' War"
+        }
+      ]
+    }
+  ]
+}

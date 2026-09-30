@@ -1,0 +1,768 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "history#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1817,
+      "outputTokens": 1736,
+      "thinkingTokens": 0,
+      "durationMs": 15221
+    },
+    "costUsd": 0.041988,
+    "ms": 15221
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+      "answer": "The Rubicon",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q3",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Who was the first Roman emperor?",
+      "answer": "Augustus (Octavian)"
+    },
+    {
+      "id": "R1Q4",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q5",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The Colosseum was begun under which emperor?",
+      "answer": "Vespasian",
+      "options": [
+        "Nero",
+        "Vespasian",
+        "Hadrian",
+        "Trajan"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which gladiator led a major slave revolt against Rome from 73 to 71 BC?",
+      "answer": "Spartacus"
+    },
+    {
+      "id": "R1Q7",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In AD 9, three Roman legions were destroyed at the Battle of the Teutoburg Forest. Which Roman general led them?",
+      "answer": "Publius Quinctilius Varus"
+    },
+    {
+      "id": "R1Q8",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor ordered the building of a wall across what is now central Scotland, north of Hadrian's Wall?",
+      "answer": "Antoninus Pius"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the German invasion of the Soviet Union in 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "On which date in 1944 did the D-Day landings in Normandy take place?",
+      "answer": "6 June 1944"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which Japanese city was hit by the second atomic bomb used in war?",
+      "answer": "Nagasaki"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "The evacuation of Allied troops from Dunkirk in 1940 was given what codename?",
+      "answer": "Operation Dynamo"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which 1942 naval battle, fought near a Pacific atoll, saw Japan lose four aircraft carriers?",
+      "answer": "Battle of Midway"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Who was the Norwegian politician whose name became a byword for 'traitor' after he collaborated with the Nazis?",
+      "answer": "Vidkun Quisling"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which German field marshal surrendered at Stalingrad in early 1943?",
+      "answer": "Friedrich Paulus",
+      "options": [
+        "Erwin Rommel",
+        "Friedrich Paulus",
+        "Erich von Manstein",
+        "Wilhelm Keitel"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "At which Cairo-area conference did Churchill, Roosevelt and Chiang Kai-shek meet in November 1943? Give the city's name.",
+      "answer": "Cairo"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish-born inventor was awarded the first US patent for the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German goldsmith introduced movable-type printing to Europe around 1440?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish engineer gave the first public demonstration of television in 1926?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish chemist invented dynamite?",
+      "answer": "Alfred Nobel"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American inventor is known for developing alternating current (AC) motor systems and later had the SI unit of magnetic flux density named after him?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Italian inventor is credited with the first electric battery, the voltaic pile?",
+      "answer": "Alessandro Volta"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Englishman invented the World Wide Web while working at CERN?",
+      "answer": "Tim Berners-Lee",
+      "options": [
+        "Tim Berners-Lee",
+        "Alan Turing",
+        "Charles Babbage",
+        "Vint Cerf"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English inventor built the Rocket locomotive with his father for the Rainhill Trials of 1829?",
+      "answer": "Robert Stephenson"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.049352,
+      "ms": 18141,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2562,
+          "outputTokens": 1544,
+          "thinkingTokens": 193,
+          "durationMs": 15688
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1241,
+          "outputTokens": 163,
+          "thinkingTokens": 0,
+          "durationMs": 2452
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "The phrase 'Cairo-area' gave away the answer. The question has been reworded so the city is not named.",
+          "text": "In November 1943, Churchill, Roosevelt and Chiang Kai-shek met at a conference in which African capital city?",
+          "answer": "Cairo"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Augustus (Octavian)",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Vespasian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Spartacus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Publius Quinctilius Varus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Antoninus Pius",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "6 June 1944",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Nagasaki",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Operation Dynamo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Battle of Midway",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Vidkun Quisling",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Friedrich Paulus",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Cairo",
+          "agreed": true,
+          "flags": [
+            "wording: The wording is odd. 'Cairo-area conference' already gives away the answer (the Cairo Conference was held in Cairo itself), so there is nothing left to work out."
+          ]
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Alessandro Volta",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Tim Berners-Lee",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Robert Stephenson",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q8",
+          "reason": "The phrase 'Cairo-area' gave away the answer. The question has been reworded so the city is not named.",
+          "before": {
+            "text": "At which Cairo-area conference did Churchill, Roosevelt and Chiang Kai-shek meet in November 1943? Give the city's name.",
+            "answer": "Cairo"
+          },
+          "after": {
+            "text": "In November 1943, Churchill, Roosevelt and Chiang Kai-shek met at a conference in which African capital city?",
+            "answer": "Cairo"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+          "answer": "The Rubicon",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Who was the first Roman emperor?",
+          "answer": "Augustus (Octavian)"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The Colosseum was begun under which emperor?",
+          "answer": "Vespasian",
+          "options": [
+            "Nero",
+            "Vespasian",
+            "Hadrian",
+            "Trajan"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which gladiator led a major slave revolt against Rome from 73 to 71 BC?",
+          "answer": "Spartacus"
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In AD 9, three Roman legions were destroyed at the Battle of the Teutoburg Forest. Which Roman general led them?",
+          "answer": "Publius Quinctilius Varus"
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor ordered the building of a wall across what is now central Scotland, north of Hadrian's Wall?",
+          "answer": "Antoninus Pius"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the German invasion of the Soviet Union in 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "On which date in 1944 did the D-Day landings in Normandy take place?",
+          "answer": "6 June 1944"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which Japanese city was hit by the second atomic bomb used in war?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "The evacuation of Allied troops from Dunkirk in 1940 was given what codename?",
+          "answer": "Operation Dynamo"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which 1942 naval battle, fought near a Pacific atoll, saw Japan lose four aircraft carriers?",
+          "answer": "Battle of Midway"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Who was the Norwegian politician whose name became a byword for 'traitor' after he collaborated with the Nazis?",
+          "answer": "Vidkun Quisling"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which German field marshal surrendered at Stalingrad in early 1943?",
+          "answer": "Friedrich Paulus",
+          "options": [
+            "Erwin Rommel",
+            "Friedrich Paulus",
+            "Erich von Manstein",
+            "Wilhelm Keitel"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "In November 1943, Churchill, Roosevelt and Chiang Kai-shek met at a conference in which African capital city?",
+          "answer": "Cairo"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish-born inventor was awarded the first US patent for the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German goldsmith introduced movable-type printing to Europe around 1440?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer gave the first public demonstration of television in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish chemist invented dynamite?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor is known for developing alternating current (AC) motor systems and later had the SI unit of magnetic flux density named after him?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Italian inventor is credited with the first electric battery, the voltaic pile?",
+          "answer": "Alessandro Volta"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Englishman invented the World Wide Web while working at CERN?",
+          "answer": "Tim Berners-Lee",
+          "options": [
+            "Tim Berners-Lee",
+            "Alan Turing",
+            "Charles Babbage",
+            "Vint Cerf"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English inventor built the Rocket locomotive with his father for the Rainhill Trials of 1829?",
+          "answer": "Robert Stephenson"
+        }
+      ]
+    }
+  ]
+}

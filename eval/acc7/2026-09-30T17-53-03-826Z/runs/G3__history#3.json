@@ -1,0 +1,739 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "history#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1817,
+      "outputTokens": 1738,
+      "thinkingTokens": 0,
+      "durationMs": 14650
+    },
+    "costUsd": 0.042028,
+    "ms": 14650
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which river did Julius Caesar cross in 49 BC, reportedly saying 'the die is cast'?",
+      "answer": "The Rubicon"
+    },
+    {
+      "id": "R1Q2",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q3",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Who was the first Roman emperor?",
+      "answer": "Augustus (Octavian)"
+    },
+    {
+      "id": "R1Q4",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q5",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor ordered the building of a wall across northern Britain begun in AD 122?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q6",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "The Colosseum was known in ancient times by the name of the dynasty that built it. What was it called?",
+      "answer": "The Flavian Amphitheatre"
+    },
+    {
+      "id": "R1Q7",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In AD 9, three Roman legions under Varus were destroyed in which German forest?",
+      "answer": "Teutoburg Forest"
+    },
+    {
+      "id": "R1Q8",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the last emperor of the Western Roman Empire, deposed in AD 476?",
+      "answer": "Romulus Augustulus",
+      "options": [
+        "Romulus Augustulus",
+        "Julius Nepos",
+        "Honorius",
+        "Valentinian III"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the Allied invasion of Normandy in June 1944?",
+      "answer": "Operation Overlord"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "On which Hawaiian island is Pearl Harbor, attacked by Japan in December 1941?",
+      "answer": "Oahu"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the German invasion of the Soviet Union in 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which city was the target of the second atomic bomb dropped on Japan?",
+      "answer": "Nagasaki"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "The Battle of El Alamein was fought in which modern-day country?",
+      "answer": "Egypt"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the German cipher machine whose codes were broken at Bletchley Park?",
+      "answer": "Enigma"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which Norwegian politician's surname became a byword for a traitorous collaborator?",
+      "answer": "Vidkun Quisling"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The World at War",
+      "category": "The Second World War",
+      "type": "MULTIPLE_CHOICE",
+      "text": "On which US battleship was Japan's formal surrender signed in Tokyo Bay in September 1945?",
+      "answer": "USS Missouri",
+      "options": [
+        "USS Missouri",
+        "USS Arizona",
+        "USS Iowa",
+        "USS Enterprise"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German goldsmith introduced movable-type printing to Europe around 1450?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish engineer demonstrated a working television system in London in 1926?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish chemist invented dynamite?",
+      "answer": "Alfred Nobel"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American inventor is closely associated with alternating current and the induction motor?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English engineer designed the Difference Engine and the Analytical Engine?",
+      "answer": "Charles Babbage"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Italian is credited with inventing the electric battery, the 'voltaic pile', around 1800?",
+      "answer": "Alessandro Volta"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Eureka!",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English inventor patented the jet engine in 1930?",
+      "answer": "Frank Whittle"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.051632,
+      "ms": 17344,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2457,
+          "outputTokens": 1741,
+          "thinkingTokens": 214,
+          "durationMs": 14101
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1181,
+          "outputTokens": 113,
+          "thinkingTokens": 0,
+          "durationMs": 3243
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Overlord is the standard answer. The checker gave the same answer and only added Neptune, the codename for the landing phase."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Augustus (Octavian)",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Flavian Amphitheatre",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Teutoburg Forest",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Romulus Augustulus",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Overlord (landings: Neptune)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Oahu",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Nagasaki",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Egypt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Enigma",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Vidkun Quisling",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "USS Missouri",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Charles Babbage",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Alessandro Volta",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Frank Whittle",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, reportedly saying 'the die is cast'?",
+          "answer": "The Rubicon"
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano destroyed Pompeii and Herculaneum in AD 79?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Who was the first Roman emperor?",
+          "answer": "Augustus (Octavian)"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor ordered the building of a wall across northern Britain begun in AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "The Colosseum was known in ancient times by the name of the dynasty that built it. What was it called?",
+          "answer": "The Flavian Amphitheatre"
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In AD 9, three Roman legions under Varus were destroyed in which German forest?",
+          "answer": "Teutoburg Forest"
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the last emperor of the Western Roman Empire, deposed in AD 476?",
+          "answer": "Romulus Augustulus",
+          "options": [
+            "Romulus Augustulus",
+            "Julius Nepos",
+            "Honorius",
+            "Valentinian III"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "On which Hawaiian island is Pearl Harbor, attacked by Japan in December 1941?",
+          "answer": "Oahu"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the German invasion of the Soviet Union in 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which city was the target of the second atomic bomb dropped on Japan?",
+          "answer": "Nagasaki"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "The Battle of El Alamein was fought in which modern-day country?",
+          "answer": "Egypt"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the German cipher machine whose codes were broken at Bletchley Park?",
+          "answer": "Enigma"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which Norwegian politician's surname became a byword for a traitorous collaborator?",
+          "answer": "Vidkun Quisling"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The World at War",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "On which US battleship was Japan's formal surrender signed in Tokyo Bay in September 1945?",
+          "answer": "USS Missouri",
+          "options": [
+            "USS Missouri",
+            "USS Arizona",
+            "USS Iowa",
+            "USS Enterprise"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German goldsmith introduced movable-type printing to Europe around 1450?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer demonstrated a working television system in London in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish chemist invented dynamite?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor is closely associated with alternating current and the induction motor?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English engineer designed the Difference Engine and the Analytical Engine?",
+          "answer": "Charles Babbage"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Italian is credited with inventing the electric battery, the 'voltaic pile', around 1800?",
+          "answer": "Alessandro Volta"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Eureka!",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English inventor patented the jet engine in 1930?",
+          "answer": "Frank Whittle"
+        }
+      ]
+    }
+  ]
+}

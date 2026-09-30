@@ -1,0 +1,630 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "picture-music",
+    "prompt": "Picture round ideas and a music round",
+    "questions": 20,
+    "run": "picture-music#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 1990,
+      "thinkingTokens": 708,
+      "durationMs": 18821
+    },
+    "costUsd": 0.046936,
+    "ms": 18821
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "Which company's logo is an apple with a bite taken out of it?",
+      "answer": "Apple",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "Which artist painted 'The Starry Night'?",
+      "answer": "Vincent van Gogh"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "Which Leonardo da Vinci portrait, also known as La Gioconda, hangs in the Louvre?",
+      "answer": "Mona Lisa"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "What is the name of Edvard Munch's painting of a figure clutching its face under a blood-red sky?",
+      "answer": "The Scream"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "Which Italian car maker's logo features a black prancing horse on a yellow background?",
+      "answer": "Ferrari"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "Which Grant Wood painting shows a farmer holding a pitchfork beside a woman in front of a farmhouse?",
+      "answer": "American Gothic"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "In 2023, Twitter's bird logo was replaced by which letter?",
+      "answer": "X"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "Which Dutch artist painted 'Girl with a Pearl Earring'?",
+      "answer": "Johannes Vermeer"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "TEXT",
+      "text": "Hokusai's famous woodblock print shows a huge wave with Mount Fuji in the background. What is its title?",
+      "answer": "The Great Wave off Kanagawa"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Picture This",
+      "category": "Famous Images & Logos",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The famous 'Earthrise' photograph was taken during which Apollo mission?",
+      "answer": "Apollo 8",
+      "options": [
+        "Apollo 8",
+        "Apollo 11",
+        "Apollo 13",
+        "Apollo 17"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released 'Bohemian Rhapsody'?",
+      "answer": "Queen"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "How many strings does a standard guitar have?",
+      "answer": "6"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer had a hit with 'Rolling in the Deep'?",
+      "answer": "Adele"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Swedish group won Eurovision in 1974 with 'Waterloo'?",
+      "answer": "ABBA"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Nirvana?",
+      "answer": "Kurt Cobain"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Michael Jackson album from 1982 includes 'Billie Jean'?",
+      "answer": "Thriller"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "The cover of which Beatles album shows the band walking across a zebra crossing?",
+      "answer": "Abbey Road"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Moonlight' Sonata?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Taylor Swift named a 2014 album after her birth year. What is its title?",
+      "answer": "1989"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Music Round",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the musical term for gradually getting louder?",
+      "answer": "Crescendo",
+      "options": [
+        "Crescendo",
+        "Diminuendo",
+        "Staccato",
+        "Legato"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.036152000000000004,
+      "ms": 16236,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2151,
+          "outputTokens": 1043,
+          "thinkingTokens": 0,
+          "durationMs": 13966
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1147,
+          "outputTokens": 105,
+          "thinkingTokens": 0,
+          "durationMs": 2270
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "A standard guitar has six strings. The checker's 'Six' is the same answer written as a word."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Vincent van Gogh",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mona Lisa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Scream",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Ferrari",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "American Gothic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "X",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Johannes Vermeer",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "The Great Wave off Kanagawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Apollo 8",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Six",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q3": {
+          "answer": "Adele",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "ABBA",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Kurt Cobain",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Thriller",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Abbey Road",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Crescendo",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "Which company's logo is an apple with a bite taken out of it?",
+          "answer": "Apple",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "Which artist painted 'The Starry Night'?",
+          "answer": "Vincent van Gogh"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "Which Leonardo da Vinci portrait, also known as La Gioconda, hangs in the Louvre?",
+          "answer": "Mona Lisa"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "What is the name of Edvard Munch's painting of a figure clutching its face under a blood-red sky?",
+          "answer": "The Scream"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "Which Italian car maker's logo features a black prancing horse on a yellow background?",
+          "answer": "Ferrari"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "Which Grant Wood painting shows a farmer holding a pitchfork beside a woman in front of a farmhouse?",
+          "answer": "American Gothic"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "In 2023, Twitter's bird logo was replaced by which letter?",
+          "answer": "X"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "Which Dutch artist painted 'Girl with a Pearl Earring'?",
+          "answer": "Johannes Vermeer"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "TEXT",
+          "text": "Hokusai's famous woodblock print shows a huge wave with Mount Fuji in the background. What is its title?",
+          "answer": "The Great Wave off Kanagawa"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Picture This",
+          "category": "Famous Images & Logos",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The famous 'Earthrise' photograph was taken during which Apollo mission?",
+          "answer": "Apollo 8",
+          "options": [
+            "Apollo 8",
+            "Apollo 11",
+            "Apollo 13",
+            "Apollo 17"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released 'Bohemian Rhapsody'?",
+          "answer": "Queen"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "How many strings does a standard guitar have?",
+          "answer": "6"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer had a hit with 'Rolling in the Deep'?",
+          "answer": "Adele"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Swedish group won Eurovision in 1974 with 'Waterloo'?",
+          "answer": "ABBA"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Nirvana?",
+          "answer": "Kurt Cobain"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Michael Jackson album from 1982 includes 'Billie Jean'?",
+          "answer": "Thriller"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "The cover of which Beatles album shows the band walking across a zebra crossing?",
+          "answer": "Abbey Road"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Moonlight' Sonata?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Taylor Swift named a 2014 album after her birth year. What is its title?",
+          "answer": "1989"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Music Round",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the musical term for gradually getting louder?",
+          "answer": "Crescendo",
+          "options": [
+            "Crescendo",
+            "Diminuendo",
+            "Staccato",
+            "Legato"
+          ]
+        }
+      ]
+    }
+  ]
+}

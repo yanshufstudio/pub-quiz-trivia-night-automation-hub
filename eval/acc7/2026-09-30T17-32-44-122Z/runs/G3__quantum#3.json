@@ -1,0 +1,33 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "quantum",
+    "prompt": "Hard questions only for experts, 2 rounds of 10 on quantum physics",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "quantum#3"
+  },
+  "failed": "UnusableModelOutputError: Generated quiz pack failed validation: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_small\",\n    \"minimum\": 1,\n    \"inclusive\": true,\n    \"path\": [\n      \"rounds\",\n      0,\n      \"questions\",\n      0,\n      \"options\",\n      0\n    ],\n    \"message\": \"Too small: expected string to have >=1 characters\"\n  }\n]",
+  "errorName": "UnusableModelOutputError",
+  "truncated": false,
+  "attempts": 1,
+  "retryWarnings": [],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 1799,
+    "outputTokens": 252,
+    "thinkingTokens": 0,
+    "durationMs": 6310
+  },
+  "costUsd": 0.012236,
+  "ms": 6311
+}

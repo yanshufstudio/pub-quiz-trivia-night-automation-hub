@@ -1,0 +1,653 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "geography",
+    "prompt": "2 rounds of 10 questions on world geography: capitals and rivers, then mountains and islands. Medium difficulty.",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "geography#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1813,
+      "outputTokens": 1236,
+      "thinkingTokens": 0,
+      "durationMs": 11561
+    },
+    "costUsd": 0.031972,
+    "ms": 11562
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Baghdad?",
+      "answer": "Tigris"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Canberra",
+        "Melbourne",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Vienna, Budapest and Belgrade?",
+      "answer": "Danube"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which capital city stands at the confluence of the Blue Nile and the White Nile?",
+      "answer": "Khartoum"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river flows through the Grand Canyon?",
+      "answer": "Colorado River"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the capital of New Zealand?",
+      "answer": "Wellington"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which river forms much of the border between the United States and Mexico?",
+      "answer": "Rio Grande"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Capitals and Rivers",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Lisbon stands on the estuary of which river?",
+      "answer": "Tagus"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in Africa?",
+      "answer": "Kilimanjaro"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the largest island in the world, not counting continental landmasses such as Australia?",
+      "answer": "Greenland"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "On which Mediterranean island is the volcano Mount Etna?",
+      "answer": "Sicily"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in the Americas?",
+      "answer": "Aconcagua"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which mountain, the world's second highest, lies on the border of Pakistan and China?",
+      "answer": "K2"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "The island of Borneo is shared by Malaysia, Brunei and which other country?",
+      "answer": "Indonesia"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Which mountain range runs along the border between France and Spain?",
+      "answer": "Pyrenees"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which island is home to Mount Fuji?",
+      "answer": "Honshu",
+      "options": [
+        "Hokkaido",
+        "Honshu",
+        "Kyushu",
+        "Shikoku"
+      ]
+    },
+    {
+      "id": "R2Q9",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "Mount Olympus, the highest mountain in Greece, is in which country's mountain lore said to be the home of the gods? Name the country.",
+      "answer": "Greece"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Peaks and Isles",
+      "category": "World Geography",
+      "type": "TEXT",
+      "text": "The Galápagos Islands belong to which country?",
+      "answer": "Ecuador"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.042248,
+      "ms": 16998,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1997,
+          "outputTokens": 1120,
+          "thinkingTokens": 0,
+          "durationMs": 10285
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1540,
+          "outputTokens": 285,
+          "thinkingTokens": 0,
+          "durationMs": 6712
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer and just added the Mexican name."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer and just added the Portuguese name."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer. Kibo is Kilimanjaro's summit cone."
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "fix",
+          "reason": "The question named Greece and then asked for the country. Rewritten so it no longer gives the answer away.",
+          "text": "In which country is Mount Olympus, said in mythology to be the home of the gods?",
+          "answer": "Greece"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Tigris",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Danube",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Khartoum",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Colorado River",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Wellington",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Rio Grande (Río Bravo del Norte)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q10": {
+          "answer": "Tagus (Tejo)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Kilimanjaro (Kibo)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Greenland",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Sicily",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Aconcagua",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "K2",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Indonesia",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Pyrenees",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Honshu",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Greece",
+          "agreed": true,
+          "flags": [
+            "wording: This question is badly written and gives away its own answer: it names Greece and then asks for the country. Olympus is home of the gods in Greek mythology, not 'mountain lore'. The facts in it are right, but it needs rewriting."
+          ]
+        },
+        "R2Q10": {
+          "answer": "Ecuador",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q9",
+          "reason": "The question named Greece and then asked for the country. Rewritten so it no longer gives the answer away.",
+          "before": {
+            "text": "Mount Olympus, the highest mountain in Greece, is in which country's mountain lore said to be the home of the gods? Name the country.",
+            "answer": "Greece"
+          },
+          "after": {
+            "text": "In which country is Mount Olympus, said in mythology to be the home of the gods?",
+            "answer": "Greece"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Baghdad?",
+          "answer": "Tigris"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Canberra",
+            "Melbourne",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Vienna, Budapest and Belgrade?",
+          "answer": "Danube"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which capital city stands at the confluence of the Blue Nile and the White Nile?",
+          "answer": "Khartoum"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river flows through the Grand Canyon?",
+          "answer": "Colorado River"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the capital of New Zealand?",
+          "answer": "Wellington"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which river forms much of the border between the United States and Mexico?",
+          "answer": "Rio Grande"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Capitals and Rivers",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Lisbon stands on the estuary of which river?",
+          "answer": "Tagus"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in Africa?",
+          "answer": "Kilimanjaro"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the largest island in the world, not counting continental landmasses such as Australia?",
+          "answer": "Greenland"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "On which Mediterranean island is the volcano Mount Etna?",
+          "answer": "Sicily"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in the Americas?",
+          "answer": "Aconcagua"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain, the world's second highest, lies on the border of Pakistan and China?",
+          "answer": "K2"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The island of Borneo is shared by Malaysia, Brunei and which other country?",
+          "answer": "Indonesia"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "Which mountain range runs along the border between France and Spain?",
+          "answer": "Pyrenees"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which island is home to Mount Fuji?",
+          "answer": "Honshu",
+          "options": [
+            "Hokkaido",
+            "Honshu",
+            "Kyushu",
+            "Shikoku"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "In which country is Mount Olympus, said in mythology to be the home of the gods?",
+          "answer": "Greece"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Peaks and Isles",
+          "category": "World Geography",
+          "type": "TEXT",
+          "text": "The Galápagos Islands belong to which country?",
+          "answer": "Ecuador"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,756 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 1 of 24 questions, rounds [1] of [8,8,8]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3652,
+      "outputTokens": 2017,
+      "thinkingTokens": 0,
+      "durationMs": 21681
+    },
+    "costUsd": 0.054948,
+    "ms": 21681
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+      "answer": "Pink Floyd",
+      "options": [
+        "Pink Floyd",
+        "Genesis",
+        "Yes",
+        "The Who"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Led Zeppelin?",
+      "answer": "Robert Plant"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Queen song, released in 1975, includes the words 'Scaramouche, Scaramouche, will you do the Fandango'?",
+      "answer": "Bohemian Rhapsody"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "At which 1969 festival in New York State did Jimi Hendrix play 'The Star-Spangled Banner'?",
+      "answer": "Woodstock"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band's 1969 album 'Abbey Road' was named after the street where their recording studio stood?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist in The Who was famous for his 'windmill' strumming and smashing guitars on stage?",
+      "answer": "Pete Townshend"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Fleetwood Mac album from 1977 contains 'Go Your Own Way' and 'Dreams'?",
+      "answer": "Rumours",
+      "options": [
+        "Rumours",
+        "Tusk",
+        "Tango in the Night",
+        "Then Play On"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rock of Ages",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What was the name of David Bowie's alien rock star alter ego, introduced on a 1972 album?",
+      "answer": "Ziggy Stardust"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer, who went deaf, wrote nine symphonies, the last of which includes the 'Ode to Joy'?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Italian composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which city was Wolfgang Amadeus Mozart born?",
+      "answer": "Salzburg",
+      "options": [
+        "Vienna",
+        "Salzburg",
+        "Prague",
+        "Munich"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which French composer wrote 'Boléro'?",
+      "answer": "Maurice Ravel"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German composer wrote the four-opera cycle 'Der Ring des Nibelungen'?",
+      "answer": "Richard Wagner"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which English composer wrote the 'Enigma Variations'?",
+      "answer": "Edward Elgar"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Polish-born composer, who died in Paris in 1849, wrote almost all his works for solo piano?",
+      "answer": "Frédéric Chopin"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Spanish duo had a worldwide dance-craze hit in the 1990s with 'Macarena'?",
+      "answer": "Los del Río"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer had a 1990 hit with 'Ice Ice Baby'?",
+      "answer": "Vanilla Ice"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1982 hit with 'Come On Eileen'?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Belgian-Australian singer had a 2011 hit with 'Somebody That I Used to Know'?",
+      "answer": "Gotye"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which American band had a 1993 hit with 'What's Up?', despite the phrase not appearing in its lyrics?",
+      "answer": "4 Non Blondes",
+      "options": [
+        "4 Non Blondes",
+        "The Cranberries",
+        "Hole",
+        "Garbage"
+      ]
+    },
+    {
+      "id": "R3Q6",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Norwegian band had a 1985 hit with 'Take On Me'?",
+      "answer": "A-ha"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1997 hit with 'Tubthumping', including the line 'I get knocked down'?",
+      "answer": "Chumbawamba"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which British band had a 1968 hit with 'Fire', sung by Arthur Brown?",
+      "answer": "The Crazy World of Arthur Brown"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.045076,
+      "ms": 15139,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2614,
+          "outputTokens": 1731,
+          "thinkingTokens": 289,
+          "durationMs": 15139
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Robert Plant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Woodstock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Pete Townshend",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Rumours",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Ziggy Stardust",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Richard Wagner",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Edward Elgar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Frédéric Chopin",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Vanilla Ice",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Gotye",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "The Crazy World of Arthur Brown",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+          "answer": "Pink Floyd",
+          "options": [
+            "Pink Floyd",
+            "Genesis",
+            "Yes",
+            "The Who"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Led Zeppelin?",
+          "answer": "Robert Plant"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Queen song, released in 1975, includes the words 'Scaramouche, Scaramouche, will you do the Fandango'?",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "At which 1969 festival in New York State did Jimi Hendrix play 'The Star-Spangled Banner'?",
+          "answer": "Woodstock"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band's 1969 album 'Abbey Road' was named after the street where their recording studio stood?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist in The Who was famous for his 'windmill' strumming and smashing guitars on stage?",
+          "answer": "Pete Townshend"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Fleetwood Mac album from 1977 contains 'Go Your Own Way' and 'Dreams'?",
+          "answer": "Rumours",
+          "options": [
+            "Rumours",
+            "Tusk",
+            "Tango in the Night",
+            "Then Play On"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock of Ages",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What was the name of David Bowie's alien rock star alter ego, introduced on a 1972 album?",
+          "answer": "Ziggy Stardust"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer, who went deaf, wrote nine symphonies, the last of which includes the 'Ode to Joy'?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Italian composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg",
+          "options": [
+            "Vienna",
+            "Salzburg",
+            "Prague",
+            "Munich"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German composer wrote the four-opera cycle 'Der Ring des Nibelungen'?",
+          "answer": "Richard Wagner"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which English composer wrote the 'Enigma Variations'?",
+          "answer": "Edward Elgar"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Polish-born composer, who died in Paris in 1849, wrote almost all his works for solo piano?",
+          "answer": "Frédéric Chopin"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Spanish duo had a worldwide dance-craze hit in the 1990s with 'Macarena'?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1990 hit with 'Ice Ice Baby'?",
+          "answer": "Vanilla Ice"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1982 hit with 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Belgian-Australian singer had a 2011 hit with 'Somebody That I Used to Know'?",
+          "answer": "Gotye"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which American band had a 1993 hit with 'What's Up?', despite the phrase not appearing in its lyrics?",
+          "answer": "4 Non Blondes",
+          "options": [
+            "4 Non Blondes",
+            "The Cranberries",
+            "Hole",
+            "Garbage"
+          ]
+        },
+        {
+          "id": "R3Q6",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Norwegian band had a 1985 hit with 'Take On Me'?",
+          "answer": "A-ha"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1997 hit with 'Tubthumping', including the line 'I get knocked down'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which British band had a 1968 hit with 'Fire', sung by Arthur Brown?",
+          "answer": "The Crazy World of Arthur Brown"
+        }
+      ]
+    }
+  ]
+}

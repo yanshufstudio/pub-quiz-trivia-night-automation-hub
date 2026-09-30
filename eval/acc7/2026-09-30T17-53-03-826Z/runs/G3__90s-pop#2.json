@@ -1,0 +1,244 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5,
+    "expect": [
+      5
+    ],
+    "run": "90s-pop#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1790,
+      "outputTokens": 522,
+      "thinkingTokens": 0,
+      "durationMs": 5555
+    },
+    "costUsd": 0.0176,
+    "ms": 5555
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which singer released the 1998 debut single '...Baby One More Time'?",
+      "answer": "Britney Spears"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Irish band had hits with 'Linger' and 'Zombie'?",
+      "answer": "The Cranberries",
+      "options": [
+        "The Corrs",
+        "The Cranberries",
+        "Westlife",
+        "B*Witched"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Elton John's 1997 re-recording of 'Candle in the Wind' was released as a double A-side with which other song?",
+      "answer": "Something About the Way You Look Tonight"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Nineties Hits",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Norwegian duo, better known for Europop, had the 1997 hit 'Barbie Girl'... correction: which Danish-Norwegian group recorded 'Barbie Girl'?",
+      "answer": "Aqua"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.023652,
+      "ms": 9110,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1304,
+          "outputTokens": 493,
+          "thinkingTokens": 86,
+          "durationMs": 5894
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1304,
+          "outputTokens": 168,
+          "thinkingTokens": 0,
+          "durationMs": 3215
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Removed the leftover mid-sentence self-correction and the wrong 'Norwegian duo' wording; the answer Aqua is correct.",
+          "text": "Which Danish-Norwegian group recorded the 1997 hit 'Barbie Girl'?",
+          "answer": "Aqua"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Britney Spears",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Cranberries",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Something About the Way You Look Tonight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Aqua",
+          "agreed": true,
+          "flags": [
+            "wording: The wording has a mid-sentence self-correction left in. The first version calls the act a 'Norwegian duo', which is wrong: Aqua is a Danish-Norwegian group of four. Keep only 'Which Danish-Norwegian group recorded the 1997 hit Barbie Girl?'"
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q5",
+          "reason": "Removed the leftover mid-sentence self-correction and the wrong 'Norwegian duo' wording; the answer Aqua is correct.",
+          "before": {
+            "text": "Which Norwegian duo, better known for Europop, had the 1997 hit 'Barbie Girl'... correction: which Danish-Norwegian group recorded 'Barbie Girl'?",
+            "answer": "Aqua"
+          },
+          "after": {
+            "text": "Which Danish-Norwegian group recorded the 1997 hit 'Barbie Girl'?",
+            "answer": "Aqua"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which singer released the 1998 debut single '...Baby One More Time'?",
+          "answer": "Britney Spears"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Irish band had hits with 'Linger' and 'Zombie'?",
+          "answer": "The Cranberries",
+          "options": [
+            "The Corrs",
+            "The Cranberries",
+            "Westlife",
+            "B*Witched"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Elton John's 1997 re-recording of 'Candle in the Wind' was released as a double A-side with which other song?",
+          "answer": "Something About the Way You Look Tonight"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Nineties Hits",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Danish-Norwegian group recorded the 1997 hit 'Barbie Girl'?",
+          "answer": "Aqua"
+        }
+      ]
+    }
+  ]
+}

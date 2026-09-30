@@ -1,0 +1,645 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "picture-music",
+    "prompt": "Picture round ideas and a music round",
+    "questions": 20,
+    "run": "picture-music#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 2132,
+      "thinkingTokens": 789,
+      "durationMs": 20691
+    },
+    "costUsd": 0.049776,
+    "ms": 20691
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "Which company's logo is an apple with a bite taken out of it?",
+      "answer": "Apple",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "Which country's flag has a red maple leaf in the centre?",
+      "answer": "Canada"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "Which Dutch painter created 'The Starry Night', with its swirling night sky over a village?",
+      "answer": "Vincent van Gogh"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "What is the name of Edvard Munch's painting of a figure on a bridge, holding its face in its hands?",
+      "answer": "The Scream"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "Which car maker's logo shows a black prancing horse on a yellow background?",
+      "answer": "Ferrari"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "Which painter created 'Girl with a Pearl Earring'?",
+      "answer": "Johannes Vermeer"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the name of Salvador Dalí's painting of melting clocks in a desert-like landscape?",
+      "answer": "The Persistence of Memory",
+      "options": [
+        "The Persistence of Memory",
+        "The Elephants",
+        "Swans Reflecting Elephants",
+        "The Temptation of St Anthony"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "The famous 1932 photograph 'Lunch atop a Skyscraper' shows workers eating on a steel beam high above which city?",
+      "answer": "New York City"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "Which country's flag has a green cedar tree between two red horizontal stripes?",
+      "answer": "Lebanon"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Picture This",
+      "category": "Art, Flags & Logos (described in words)",
+      "type": "TEXT",
+      "text": "What is the title of Hokusai's woodblock print of a huge wave about to crash over boats, with Mount Fuji in the background?",
+      "answer": "The Great Wave off Kanagawa"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Queen song begins with the line 'Is this the real life? Is this just fantasy?'",
+      "answer": "Bohemian Rhapsody"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band's debut single was 'Love Me Do'?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released the song 'Wonderwall'?",
+      "answer": "Oasis"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many strings does a standard violin have?",
+      "answer": "Four",
+      "options": [
+        "Four",
+        "Five",
+        "Six",
+        "Three"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer's real name is Stefani Germanotta?",
+      "answer": "Lady Gaga"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Nirvana?",
+      "answer": "Kurt Cobain"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Michael Jackson album includes the songs 'Billie Jean' and 'Beat It'?",
+      "answer": "Thriller"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "With which song did ABBA win the 1974 Eurovision Song Contest?",
+      "answer": "Waterloo"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Italian Baroque composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Beethoven's Ninth Symphony ends with a choral setting of a poem by Schiller. What is the poem usually called in English?",
+      "answer": "Ode to Joy"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.045627999999999995,
+      "ms": 15617,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2247,
+          "outputTokens": 1310,
+          "thinkingTokens": 125,
+          "durationMs": 10635
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1180,
+          "outputTokens": 286,
+          "thinkingTokens": 127,
+          "durationMs": 4982
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "fix",
+          "reason": "Porsche's crest also has a black prancing horse on a gold/yellow field, so the question needs to specify the Italian maker.",
+          "text": "Which Italian car maker's logo shows a black prancing horse on a yellow background?",
+          "answer": "Ferrari"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Canada",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Vincent van Gogh",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Scream",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Ferrari",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Johannes Vermeer",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Persistence of Memory",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "New York City",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Lebanon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "The Great Wave off Kanagawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Oasis",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Lady Gaga",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Kurt Cobain",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Thriller",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Waterloo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Ode to Joy",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q5",
+          "reason": "Porsche's crest also has a black prancing horse on a gold/yellow field, so the question needs to specify the Italian maker.",
+          "before": {
+            "text": "Which car maker's logo shows a black prancing horse on a yellow background?",
+            "answer": "Ferrari"
+          },
+          "after": {
+            "text": "Which Italian car maker's logo shows a black prancing horse on a yellow background?",
+            "answer": "Ferrari"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "Which company's logo is an apple with a bite taken out of it?",
+          "answer": "Apple",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "Which country's flag has a red maple leaf in the centre?",
+          "answer": "Canada"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "Which Dutch painter created 'The Starry Night', with its swirling night sky over a village?",
+          "answer": "Vincent van Gogh"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "What is the name of Edvard Munch's painting of a figure on a bridge, holding its face in its hands?",
+          "answer": "The Scream"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "Which Italian car maker's logo shows a black prancing horse on a yellow background?",
+          "answer": "Ferrari"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "Which painter created 'Girl with a Pearl Earring'?",
+          "answer": "Johannes Vermeer"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the name of Salvador Dalí's painting of melting clocks in a desert-like landscape?",
+          "answer": "The Persistence of Memory",
+          "options": [
+            "The Persistence of Memory",
+            "The Elephants",
+            "Swans Reflecting Elephants",
+            "The Temptation of St Anthony"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "The famous 1932 photograph 'Lunch atop a Skyscraper' shows workers eating on a steel beam high above which city?",
+          "answer": "New York City"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "Which country's flag has a green cedar tree between two red horizontal stripes?",
+          "answer": "Lebanon"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Picture This",
+          "category": "Art, Flags & Logos (described in words)",
+          "type": "TEXT",
+          "text": "What is the title of Hokusai's woodblock print of a huge wave about to crash over boats, with Mount Fuji in the background?",
+          "answer": "The Great Wave off Kanagawa"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Queen song begins with the line 'Is this the real life? Is this just fantasy?'",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band's debut single was 'Love Me Do'?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released the song 'Wonderwall'?",
+          "answer": "Oasis"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many strings does a standard violin have?",
+          "answer": "Four",
+          "options": [
+            "Four",
+            "Five",
+            "Six",
+            "Three"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer's real name is Stefani Germanotta?",
+          "answer": "Lady Gaga"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Nirvana?",
+          "answer": "Kurt Cobain"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Michael Jackson album includes the songs 'Billie Jean' and 'Beat It'?",
+          "answer": "Thriller"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "With which song did ABBA win the 1974 Eurovision Song Contest?",
+          "answer": "Waterloo"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Italian Baroque composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Beethoven's Ninth Symphony ends with a choral setting of a poem by Schiller. What is the poem usually called in English?",
+          "answer": "Ode to Joy"
+        }
+      ]
+    }
+  ]
+}

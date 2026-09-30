@@ -1,0 +1,771 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "hebrew#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1808,
+      "outputTokens": 2701,
+      "thinkingTokens": 866,
+      "durationMs": 35616
+    },
+    "costUsd": 0.061252,
+    "ms": 35616
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+      "answer": "דוד בן-גוריון",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו עיר הוכרזה הקמת מדינת ישראל במאי 1948?",
+      "answer": "תל אביב"
+    },
+    {
+      "id": "R1Q3",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה נשיא המדינה הראשון של ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R1Q4",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+      "answer": "1967"
+    },
+    {
+      "id": "R1Q5",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראשת ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R1Q6",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזה ראש ממשלה ישראלי חתם על הסכם השלום עם מצרים ב-1979?",
+      "answer": "מנחם בגין",
+      "options": [
+        "מנחם בגין",
+        "יצחק רבין",
+        "שמעון פרס",
+        "יצחק שמיר"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מפקד הכוח בשטח במבצע אנטבה נהרג במהלך המבצע. מה היה שמו?",
+      "answer": "יונתן (יוני) נתניהו"
+    },
+    {
+      "id": "R1Q8",
+      "round": "מדינה בהתהוות",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "איך נקרא הקיבוץ הראשון, שנוסד ב-1910 לחופי הכנרת?",
+      "answer": "דגניה"
+    },
+    {
+      "id": "R2Q1",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "TEXT",
+      "text": "איזו זמרת זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+      "answer": "נטע ברזילי"
+    },
+    {
+      "id": "R2Q2",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "TEXT",
+      "text": "איזו זמרת זכתה באירוויזיון 1998 עם השיר \"דיווה\"?",
+      "answer": "דנה אינטרנשיונל"
+    },
+    {
+      "id": "R2Q3",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה להקת חלב ודבש באירוויזיון 1979?",
+      "answer": "הללויה"
+    },
+    {
+      "id": "R2Q4",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "TEXT",
+      "text": "יזהר כהן והאלפבייתא זכו באירוויזיון 1978. מה שם השיר?",
+      "answer": "אבניבי"
+    },
+    {
+      "id": "R2Q5",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "MULTIPLE_CHOICE",
+      "text": "מה שם השיר שייצגה איתו נועה קירל את ישראל באירוויזיון 2023?",
+      "answer": "Unicorn",
+      "options": [
+        "Unicorn",
+        "Hurricane",
+        "Golden Boy",
+        "Set Me Free"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "TEXT",
+      "text": "איזו זמרת ייצגה את ישראל באירוויזיון 2024 עם השיר \"Hurricane\"?",
+      "answer": "עדן גולן"
+    },
+    {
+      "id": "R2Q7",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "TEXT",
+      "text": "איזו זמרת הגיעה למקום השני באירוויזיון 1983 עם השיר \"חי\"?",
+      "answer": "עפרה חזה"
+    },
+    {
+      "id": "R2Q8",
+      "round": "דו-רה-מי ישראלי",
+      "category": "פופ ישראלי",
+      "type": "TEXT",
+      "text": "איזו להקה, שדני סנדרסון היה חבר בה, ייצגה את ישראל באירוויזיון 1974 עם \"נתתי לה חיי\"?",
+      "answer": "כוורת"
+    },
+    {
+      "id": "R3Q1",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מה המרכיב העיקרי בפלאפל הישראלי?",
+      "answer": "גרגרי חומוס"
+    },
+    {
+      "id": "R3Q2",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראת המנה של ביצים שמבשלים ברוטב עגבניות במחבת?",
+      "answer": "שקשוקה"
+    },
+    {
+      "id": "R3Q3",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "טחינה עשויה מאיזה זרע?",
+      "answer": "שומשום"
+    },
+    {
+      "id": "R3Q4",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזו חברה מייצרת את הבמבה?",
+      "answer": "אסם",
+      "options": [
+        "אסם",
+        "שטראוס",
+        "תנובה",
+        "עלית"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראים העוגיות המשולשות הממולאות שאוכלים בפורים?",
+      "answer": "אוזני המן"
+    },
+    {
+      "id": "R3Q6",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראת פיתה עם חציל מטוגן וביצה קשה, שהביאו לארץ יהודי עיראק?",
+      "answer": "סביח"
+    },
+    {
+      "id": "R3Q7",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזו קהילה יהודית הגיע הג'חנון?",
+      "answer": "יהודי תימן"
+    },
+    {
+      "id": "R3Q8",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא המאכל שהיה ידוע גם בכינוי \"אורז בן-גוריון\"?",
+      "answer": "פתיתים"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.058404000000000005,
+      "ms": 24117,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2702,
+          "outputTokens": 1800,
+          "thinkingTokens": 426,
+          "durationMs": 19730
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1529,
+          "outputTokens": 274,
+          "thinkingTokens": 0,
+          "durationMs": 4387
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "דן שומרון היה מפקד הכוח בשטח; יוני נתניהו פיקד על כוח הפריצה של סיירת מטכ\"ל",
+          "text": "מפקד כוח הפריצה של סיירת מטכ\"ל במבצע אנטבה נהרג במהלך המבצע. מה היה שמו?"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "דגניה ודגניה א' הן אותה תשובה"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "שתי התשובות זהות במהותן"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "1967",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "מנחם בגין",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "יונתן (יוני) נתניהו",
+          "agreed": true,
+          "flags": [
+            "wording: \"מפקד הכוח בשטח\" – מפקד הכוח בשטח כולו היה דן שומרון, והוא שרד. יוני נתניהו פיקד על כוח הפריצה של סיירת מטכ\"ל, והוא זה שנהרג."
+          ]
+        },
+        "R1Q8": {
+          "answer": "דגניה (דגניה א')",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q1": {
+          "answer": "נטע ברזילי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "דנה אינטרנשיונל",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "הללויה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "א-ב-ני-בי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Unicorn",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "עדן גולן",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "עפרה חזה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "כוורת",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "חומוס (גרגרי חומוס)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q2": {
+          "answer": "שקשוקה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "שומשום",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "אסם",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "אוזני המן",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "סביח",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "יהודי תימן",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "פתיתים",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "דן שומרון היה מפקד הכוח בשטח; יוני נתניהו פיקד על כוח הפריצה של סיירת מטכ\"ל",
+          "before": {
+            "text": "מפקד הכוח בשטח במבצע אנטבה נהרג במהלך המבצע. מה היה שמו?",
+            "answer": "יונתן (יוני) נתניהו"
+          },
+          "after": {
+            "text": "מפקד כוח הפריצה של סיירת מטכ\"ל במבצע אנטבה נהרג במהלך המבצע. מה היה שמו?",
+            "answer": "יונתן (יוני) נתניהו"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של מדינת ישראל?",
+          "answer": "דוד בן-גוריון",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו עיר הוכרזה הקמת מדינת ישראל במאי 1948?",
+          "answer": "תל אביב"
+        },
+        {
+          "id": "R1Q3",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה נשיא המדינה הראשון של ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R1Q4",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+          "answer": "1967"
+        },
+        {
+          "id": "R1Q5",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראשת ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R1Q6",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה ראש ממשלה ישראלי חתם על הסכם השלום עם מצרים ב-1979?",
+          "answer": "מנחם בגין",
+          "options": [
+            "מנחם בגין",
+            "יצחק רבין",
+            "שמעון פרס",
+            "יצחק שמיר"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מפקד כוח הפריצה של סיירת מטכ\"ל במבצע אנטבה נהרג במהלך המבצע. מה היה שמו?",
+          "answer": "יונתן (יוני) נתניהו"
+        },
+        {
+          "id": "R1Q8",
+          "round": "מדינה בהתהוות",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "איך נקרא הקיבוץ הראשון, שנוסד ב-1910 לחופי הכנרת?",
+          "answer": "דגניה"
+        },
+        {
+          "id": "R2Q1",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "TEXT",
+          "text": "איזו זמרת זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+          "answer": "נטע ברזילי"
+        },
+        {
+          "id": "R2Q2",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "TEXT",
+          "text": "איזו זמרת זכתה באירוויזיון 1998 עם השיר \"דיווה\"?",
+          "answer": "דנה אינטרנשיונל"
+        },
+        {
+          "id": "R2Q3",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה להקת חלב ודבש באירוויזיון 1979?",
+          "answer": "הללויה"
+        },
+        {
+          "id": "R2Q4",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "TEXT",
+          "text": "יזהר כהן והאלפבייתא זכו באירוויזיון 1978. מה שם השיר?",
+          "answer": "אבניבי"
+        },
+        {
+          "id": "R2Q5",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "MULTIPLE_CHOICE",
+          "text": "מה שם השיר שייצגה איתו נועה קירל את ישראל באירוויזיון 2023?",
+          "answer": "Unicorn",
+          "options": [
+            "Unicorn",
+            "Hurricane",
+            "Golden Boy",
+            "Set Me Free"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "TEXT",
+          "text": "איזו זמרת ייצגה את ישראל באירוויזיון 2024 עם השיר \"Hurricane\"?",
+          "answer": "עדן גולן"
+        },
+        {
+          "id": "R2Q7",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "TEXT",
+          "text": "איזו זמרת הגיעה למקום השני באירוויזיון 1983 עם השיר \"חי\"?",
+          "answer": "עפרה חזה"
+        },
+        {
+          "id": "R2Q8",
+          "round": "דו-רה-מי ישראלי",
+          "category": "פופ ישראלי",
+          "type": "TEXT",
+          "text": "איזו להקה, שדני סנדרסון היה חבר בה, ייצגה את ישראל באירוויזיון 1974 עם \"נתתי לה חיי\"?",
+          "answer": "כוורת"
+        },
+        {
+          "id": "R3Q1",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מה המרכיב העיקרי בפלאפל הישראלי?",
+          "answer": "גרגרי חומוס"
+        },
+        {
+          "id": "R3Q2",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראת המנה של ביצים שמבשלים ברוטב עגבניות במחבת?",
+          "answer": "שקשוקה"
+        },
+        {
+          "id": "R3Q3",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "טחינה עשויה מאיזה זרע?",
+          "answer": "שומשום"
+        },
+        {
+          "id": "R3Q4",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזו חברה מייצרת את הבמבה?",
+          "answer": "אסם",
+          "options": [
+            "אסם",
+            "שטראוס",
+            "תנובה",
+            "עלית"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראים העוגיות המשולשות הממולאות שאוכלים בפורים?",
+          "answer": "אוזני המן"
+        },
+        {
+          "id": "R3Q6",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראת פיתה עם חציל מטוגן וביצה קשה, שהביאו לארץ יהודי עיראק?",
+          "answer": "סביח"
+        },
+        {
+          "id": "R3Q7",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזו קהילה יהודית הגיע הג'חנון?",
+          "answer": "יהודי תימן"
+        },
+        {
+          "id": "R3Q8",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא המאכל שהיה ידוע גם בכינוי \"אורז בן-גוריון\"?",
+          "answer": "פתיתים"
+        }
+      ]
+    }
+  ]
+}

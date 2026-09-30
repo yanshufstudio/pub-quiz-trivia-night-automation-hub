@@ -1,0 +1,550 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16,
+    "expect": [
+      8,
+      8
+    ],
+    "run": "film-tv#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1813,
+      "outputTokens": 1281,
+      "thinkingTokens": 0,
+      "durationMs": 12366
+    },
+    "costUsd": 0.032872,
+    "ms": 12366
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "TEXT",
+      "text": "Which 1997 James Cameron film about a doomed ocean liner won 11 Academy Awards, including Best Picture?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "TEXT",
+      "text": "Which actor won the Best Actor Oscar for both Philadelphia and Forrest Gump?",
+      "answer": "Tom Hanks"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "TEXT",
+      "text": "Which 2019 South Korean film became the first non-English-language film to win Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "TEXT",
+      "text": "Which actress has won the most competitive acting Oscars, with four Best Actress awards?",
+      "answer": "Katharine Hepburn"
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Kathryn Bigelow became the first woman to win Best Director for which 2008 film?",
+      "answer": "The Hurt Locker",
+      "options": [
+        "Zero Dark Thirty",
+        "The Hurt Locker",
+        "Point Break",
+        "Strange Days"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "TEXT",
+      "text": "At the 2017 ceremony, which film was mistakenly announced as Best Picture before the award was correctly given to Moonlight?",
+      "answer": "La La Land"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "TEXT",
+      "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+      "answer": "The Joker"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Award Winners",
+      "type": "TEXT",
+      "text": "Which 1959 film, starring Charlton Heston, won 11 Oscars, a record later equalled by Titanic?",
+      "answer": "Ben-Hur"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "TEXT",
+      "text": "In Friends, what is the name of the coffee house where the friends regularly meet?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "TEXT",
+      "text": "In Frasier, what is the name of Frasier Crane's brother?",
+      "answer": "Niles"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "TEXT",
+      "text": "Which British sitcom set in a Slough paper company starred Ricky Gervais as David Brent?",
+      "answer": "The Office"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "TEXT",
+      "text": "In Seinfeld, what is the first name of Jerry's neighbour Kramer?",
+      "answer": "Cosmo"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "TEXT",
+      "text": "In Father Ted, on which fictional island is the parochial house located?",
+      "answer": "Craggy Island"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "TEXT",
+      "text": "Which 2000s sitcom featured J.D. and Turk working at Sacred Heart Hospital?",
+      "answer": "Scrubs"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In Arrested Development, what is the name of the family's frozen banana stand business's family?",
+      "answer": "The Bluths",
+      "options": [
+        "The Bluths",
+        "The Bundys",
+        "The Cranes",
+        "The Pritchetts"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Nineties & Noughties Sitcoms",
+      "category": "Television Sitcoms",
+      "type": "TEXT",
+      "text": "In The Vicar of Dibley, which actress played the Reverend Geraldine Granger?",
+      "answer": "Dawn French"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.042412,
+      "ms": 17878,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2061,
+          "outputTokens": 1283,
+          "thinkingTokens": 253,
+          "durationMs": 11058
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1262,
+          "outputTokens": 173,
+          "thinkingTokens": 0,
+          "durationMs": 6820
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "fix",
+          "reason": "The wording was garbled. It now asks which family runs the frozen banana stand, and the answer is still the Bluths.",
+          "text": "In Arrested Development, which family owns the frozen banana stand?",
+          "options": [
+            "The Bluths",
+            "The Bundys",
+            "The Cranes",
+            "The Pritchetts",
+            ""
+          ]
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Tom Hanks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Hurt Locker",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "La La Land",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Joker",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Ben-Hur",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Niles",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The Office",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Cosmo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Scrubs",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The Bluths",
+          "agreed": true,
+          "flags": [
+            "wording: Garbled phrasing: 'the name of the family's frozen banana stand business's family' is not a coherent question; should ask which family runs the frozen banana stand."
+          ]
+        },
+        "R2Q8": {
+          "answer": "Dawn French",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q7",
+          "reason": "The wording was garbled. It now asks which family runs the frozen banana stand, and the answer is still the Bluths.",
+          "before": {
+            "text": "In Arrested Development, what is the name of the family's frozen banana stand business's family?",
+            "answer": "The Bluths"
+          },
+          "after": {
+            "text": "In Arrested Development, which family owns the frozen banana stand?",
+            "answer": "The Bluths"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "TEXT",
+          "text": "Which 1997 James Cameron film about a doomed ocean liner won 11 Academy Awards, including Best Picture?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "TEXT",
+          "text": "Which actor won the Best Actor Oscar for both Philadelphia and Forrest Gump?",
+          "answer": "Tom Hanks"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "TEXT",
+          "text": "Which 2019 South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "TEXT",
+          "text": "Which actress has won the most competitive acting Oscars, with four Best Actress awards?",
+          "answer": "Katharine Hepburn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Kathryn Bigelow became the first woman to win Best Director for which 2008 film?",
+          "answer": "The Hurt Locker",
+          "options": [
+            "Zero Dark Thirty",
+            "The Hurt Locker",
+            "Point Break",
+            "Strange Days"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "TEXT",
+          "text": "At the 2017 ceremony, which film was mistakenly announced as Best Picture before the award was correctly given to Moonlight?",
+          "answer": "La La Land"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "TEXT",
+          "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Award Winners",
+          "type": "TEXT",
+          "text": "Which 1959 film, starring Charlton Heston, won 11 Oscars, a record later equalled by Titanic?",
+          "answer": "Ben-Hur"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "TEXT",
+          "text": "In Friends, what is the name of the coffee house where the friends regularly meet?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "TEXT",
+          "text": "In Frasier, what is the name of Frasier Crane's brother?",
+          "answer": "Niles"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "TEXT",
+          "text": "Which British sitcom set in a Slough paper company starred Ricky Gervais as David Brent?",
+          "answer": "The Office"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "TEXT",
+          "text": "In Seinfeld, what is the first name of Jerry's neighbour Kramer?",
+          "answer": "Cosmo"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "TEXT",
+          "text": "In Father Ted, on which fictional island is the parochial house located?",
+          "answer": "Craggy Island"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "TEXT",
+          "text": "Which 2000s sitcom featured J.D. and Turk working at Sacred Heart Hospital?",
+          "answer": "Scrubs"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In Arrested Development, which family owns the frozen banana stand?",
+          "answer": "The Bluths",
+          "options": [
+            "The Bluths",
+            "The Bundys",
+            "The Cranes",
+            "The Pritchetts",
+            ""
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Nineties & Noughties Sitcoms",
+          "category": "Television Sitcoms",
+          "type": "TEXT",
+          "text": "In The Vicar of Dibley, which actress played the Reverend Geraldine Granger?",
+          "answer": "Dawn French"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,775 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "hebrew"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 1 of 24 questions, rounds [1] of [8,8,8]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3616,
+      "outputTokens": 4123,
+      "thinkingTokens": 2091,
+      "durationMs": 62195
+    },
+    "costUsd": 0.096924,
+    "ms": 62195
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה הוכרזה הקמתה של מדינת ישראל?",
+      "answer": "1948",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R1Q3",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו עיר נקראה מגילת העצמאות?",
+      "answer": "תל אביב"
+    },
+    {
+      "id": "R1Q4",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראשת ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R1Q5",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה נשיאה הראשון של מדינת ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R1Q6",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו שנה נרצח ראש הממשלה יצחק רבין?",
+      "answer": "1995",
+      "options": [
+        "1993",
+        "1995",
+        "1996",
+        "1999"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו מדינה התרחש מבצע אנטבה?",
+      "answer": "אוגנדה"
+    },
+    {
+      "id": "R1Q8",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "איך נקרא המבצע להעלאת יהודי תימן לישראל בשנים 1949–1950, הידוע גם בשם \"על כנפי נשרים\"?",
+      "answer": "מרבד הקסמים"
+    },
+    {
+      "id": "R2Q1",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה נטע ברזילי באירוויזיון 2018?",
+      "answer": "Toy"
+    },
+    {
+      "id": "R2Q2",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+      "answer": "דיווה"
+    },
+    {
+      "id": "R2Q3",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי ביצע את השיר \"אני ואתה\" (\"אני ואתה נשנה את העולם\")?",
+      "answer": "אריק איינשטיין"
+    },
+    {
+      "id": "R2Q4",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "יובל בנאי הוא סולן איזו להקה?",
+      "answer": "משינה"
+    },
+    {
+      "id": "R2Q5",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+      "answer": "חלב ודבש"
+    },
+    {
+      "id": "R2Q6",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו זמרת ייצגה את ישראל באירוויזיון 1983 עם השיר \"חי\"?",
+      "answer": "עפרה חזה"
+    },
+    {
+      "id": "R2Q7",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "MULTIPLE_CHOICE",
+      "text": "מה היה שם השיר שעדן גולן ביצעה באירוויזיון 2024?",
+      "answer": "Hurricane",
+      "options": [
+        "Hurricane",
+        "Unicorn",
+        "Set Me Free",
+        "Dance Forever"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "פזמונים ולהיטים",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה ישראל באירוויזיון לראשונה, ב-1978, בביצוע יזהר כהן והאלפאביתא?",
+      "answer": "א-ба-ני-בי"
+    },
+    {
+      "id": "R3Q1",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזה זרע עשויה הטחינה?",
+      "answer": "שומשום"
+    },
+    {
+      "id": "R3Q2",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה מאכל עשוי מביצים המבושלות ברוטב עגבניות?",
+      "answer": "שקשוקה"
+    },
+    {
+      "id": "R3Q3",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזו קטנית עשויים כדורי הפלאפל בישראל בדרך כלל?",
+      "answer": "חומוס (גרגירי חומוס)"
+    },
+    {
+      "id": "R3Q4",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה אגוז (שהוא בעצם קטנית) נותן לבמבה את טעמה?",
+      "answer": "בוטנים"
+    },
+    {
+      "id": "R3Q5",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקראת הפיתה הממולאת בחציל מטוגן ובביצה קשה?",
+      "answer": "סביח"
+    },
+    {
+      "id": "R3Q6",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איך נקרא הלחם הקלוע שנהוג לאכול בשבת?",
+      "answer": "חלה"
+    },
+    {
+      "id": "R3Q7",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה מאכל נקרא בכינוי \"אורז בן-גוריון\"?",
+      "answer": "פתיתים"
+    },
+    {
+      "id": "R3Q8",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "ג'חנון מגיע במקורו מהמטבח של איזו עדה?",
+      "answer": "יהודי תימן",
+      "options": [
+        "יהודי מרוקו",
+        "יהודי תימן",
+        "יהודי עיראק",
+        "יהודי פולין"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.048991999999999994,
+      "ms": 16405,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2696,
+          "outputTokens": 1258,
+          "thinkingTokens": 0,
+          "durationMs": 11732
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1597,
+          "outputTokens": 333,
+          "thinkingTokens": 70,
+          "durationMs": 4672
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Both answers name the same thing: Operation Magic Carpet."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "The setter's answer had Cyrillic letters mixed into the Hebrew; the song is A-Ba-Ni-Bi.",
+          "answer": "א-ב-ני-בי"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "Both say chickpeas; only the spelling differs."
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "Both say peanut; singular and plural are the same answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "1995",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "אוגנדה",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "מבצע מרבד הקסמים",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Toy",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "דיווה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "אריק איינשטיין",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "משינה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "חלב ודבש",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "עפרה חזה",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Hurricane",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "א-ב-ני-בי",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q1": {
+          "answer": "שומשום",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "שקשוקה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "חומוס (גרגרי חומוס)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q4": {
+          "answer": "בוטן",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q5": {
+          "answer": "סביח",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "חלה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "פתיתים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "יהודי תימן",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q8",
+          "reason": "The setter's answer had Cyrillic letters mixed into the Hebrew; the song is A-Ba-Ni-Bi.",
+          "before": {
+            "text": "עם איזה שיר זכתה ישראל באירוויזיון לראשונה, ב-1978, בביצוע יזהר כהן והאלפאביתא?",
+            "answer": "א-ба-ני-בי"
+          },
+          "after": {
+            "text": "עם איזה שיר זכתה ישראל באירוויזיון לראשונה, ב-1978, בביצוע יזהר כהן והאלפאביתא?",
+            "answer": "א-ב-ני-בי"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה הוכרזה הקמתה של מדינת ישראל?",
+          "answer": "1948",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R1Q3",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו עיר נקראה מגילת העצמאות?",
+          "answer": "תל אביב"
+        },
+        {
+          "id": "R1Q4",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראשת ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R1Q5",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה נשיאה הראשון של מדינת ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R1Q6",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו שנה נרצח ראש הממשלה יצחק רבין?",
+          "answer": "1995",
+          "options": [
+            "1993",
+            "1995",
+            "1996",
+            "1999"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו מדינה התרחש מבצע אנטבה?",
+          "answer": "אוגנדה"
+        },
+        {
+          "id": "R1Q8",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "איך נקרא המבצע להעלאת יהודי תימן לישראל בשנים 1949–1950, הידוע גם בשם \"על כנפי נשרים\"?",
+          "answer": "מרבד הקסמים"
+        },
+        {
+          "id": "R2Q1",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה נטע ברזילי באירוויזיון 2018?",
+          "answer": "Toy"
+        },
+        {
+          "id": "R2Q2",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+          "answer": "דיווה"
+        },
+        {
+          "id": "R2Q3",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי ביצע את השיר \"אני ואתה\" (\"אני ואתה נשנה את העולם\")?",
+          "answer": "אריק איינשטיין"
+        },
+        {
+          "id": "R2Q4",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "יובל בנאי הוא סולן איזו להקה?",
+          "answer": "משינה"
+        },
+        {
+          "id": "R2Q5",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+          "answer": "חלב ודבש"
+        },
+        {
+          "id": "R2Q6",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו זמרת ייצגה את ישראל באירוויזיון 1983 עם השיר \"חי\"?",
+          "answer": "עפרה חזה"
+        },
+        {
+          "id": "R2Q7",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "מה היה שם השיר שעדן גולן ביצעה באירוויזיון 2024?",
+          "answer": "Hurricane",
+          "options": [
+            "Hurricane",
+            "Unicorn",
+            "Set Me Free",
+            "Dance Forever"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "פזמונים ולהיטים",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה ישראל באירוויזיון לראשונה, ב-1978, בביצוע יזהר כהן והאלפאביתא?",
+          "answer": "א-ב-ני-בי"
+        },
+        {
+          "id": "R3Q1",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזה זרע עשויה הטחינה?",
+          "answer": "שומשום"
+        },
+        {
+          "id": "R3Q2",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה מאכל עשוי מביצים המבושלות ברוטב עגבניות?",
+          "answer": "שקשוקה"
+        },
+        {
+          "id": "R3Q3",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזו קטנית עשויים כדורי הפלאפל בישראל בדרך כלל?",
+          "answer": "חומוס (גרגירי חומוס)"
+        },
+        {
+          "id": "R3Q4",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה אגוז (שהוא בעצם קטנית) נותן לבמבה את טעמה?",
+          "answer": "בוטנים"
+        },
+        {
+          "id": "R3Q5",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקראת הפיתה הממולאת בחציל מטוגן ובביצה קשה?",
+          "answer": "סביח"
+        },
+        {
+          "id": "R3Q6",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איך נקרא הלחם הקלוע שנהוג לאכול בשבת?",
+          "answer": "חלה"
+        },
+        {
+          "id": "R3Q7",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה מאכל נקרא בכינוי \"אורז בן-גוריון\"?",
+          "answer": "פתיתים"
+        },
+        {
+          "id": "R3Q8",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "ג'חנון מגיע במקורו מהמטבח של איזו עדה?",
+          "answer": "יהודי תימן",
+          "options": [
+            "יהודי מרוקו",
+            "יהודי תימן",
+            "יהודי עיראק",
+            "יהודי פולין"
+          ]
+        }
+      ]
+    }
+  ]
+}

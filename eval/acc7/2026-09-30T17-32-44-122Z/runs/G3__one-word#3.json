@@ -1,0 +1,29 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "one-word",
+    "prompt": "quiz",
+    "questions": 20,
+    "run": "one-word#3"
+  },
+  "failed": "UnusableModelOutputError: Generated quiz pack failed validation: [\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"rounds\"\n    ],\n    \"message\": \"Invalid input: expected array, received string\"\n  }\n]",
+  "errorName": "UnusableModelOutputError",
+  "truncated": false,
+  "attempts": 1,
+  "retryWarnings": [],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 1776,
+    "outputTokens": 1230,
+    "thinkingTokens": 51,
+    "durationMs": 19535
+  },
+  "costUsd": 0.031704,
+  "ms": 19537
+}

@@ -1,0 +1,755 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "fun-quiz",
+    "prompt": "Just give me a fun quiz",
+    "questions": 20,
+    "run": "fun-quiz#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6,
+      6,
+      6
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1783,
+      "outputTokens": 1296,
+      "thinkingTokens": 0,
+      "durationMs": 12731
+    },
+    "costUsd": 0.033052,
+    "ms": 12731
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city is the Colosseum?",
+      "answer": "Rome"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond",
+      "options": [
+        "Quartz",
+        "Diamond",
+        "Granite",
+        "Topaz"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many bones are in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "What is the name of the lion cub who becomes king in Disney's The Lion King?",
+      "answer": "Simba"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which actor played Jack Dawson in Titanic (1997)?",
+      "answer": "Leonardo DiCaprio"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "In The Wizard of Oz, what colour are Dorothy's slippers in the 1939 film?",
+      "answer": "Ruby red"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Who directed Jaws?",
+      "answer": "Steven Spielberg"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "What is the name of the fictional African nation in Black Panther?",
+      "answer": "Wakanda"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which film won the first ever Academy Award for Best Picture?",
+      "answer": "Wings",
+      "options": [
+        "Wings",
+        "Sunrise",
+        "The Jazz Singer",
+        "Metropolis"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Animal Magic",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "A joey"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Animal Magic",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is the largest mammal on Earth?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Animal Magic",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "How many hearts does an octopus have?",
+      "answer": "Three"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Animal Magic",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is the only mammal capable of true sustained flight?",
+      "answer": "Bat"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Animal Magic",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is a group of crows called?",
+      "answer": "A murder"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Animal Magic",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "The axolotl, famous for regrowing limbs, is native to lakes near which city?",
+      "answer": "Mexico City"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Cairo?",
+      "answer": "The Nile"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "On which continent is the Atacama Desert?",
+      "answer": "South America"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which country has the most time zones, when overseas territories are included?",
+      "answer": "France",
+      "options": [
+        "Russia",
+        "USA",
+        "France",
+        "China"
+      ]
+    },
+    {
+      "id": "R4Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the smallest country in the world by area?",
+      "answer": "Vatican City"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which African country's capital is Ouagadougou?",
+      "answer": "Burkina Faso"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.047324000000000005,
+      "ms": 14942,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2137,
+          "outputTokens": 1462,
+          "thinkingTokens": 178,
+          "durationMs": 11536
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1434,
+          "outputTokens": 190,
+          "thinkingTokens": 0,
+          "durationMs": 3405
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "6 and Six are the same answer."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "The Academy officially counts Wings (Outstanding Picture) as the first Best Picture winner. Sunrise's award was a separate category."
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "3 and Three are the same answer."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Rome",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Simba",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Leonardo DiCaprio",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Ruby red",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Wakanda",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Wings",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: At the first ceremony Sunrise also won a top award, 'Unique and Artistic Production', so 'Best Picture' isn't strictly clear-cut. Wings won 'Outstanding Picture', which the Academy now counts as Best Picture."
+          ]
+        },
+        "R3Q1": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "3",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q4": {
+          "answer": "Bat",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Mexico City",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "The Nile",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "South America",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "France",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Vatican City",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Burkina Faso",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city is the Colosseum?",
+          "answer": "Rome"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the hardest natural substance?",
+          "answer": "Diamond",
+          "options": [
+            "Quartz",
+            "Diamond",
+            "Granite",
+            "Topaz"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "What is the name of the lion cub who becomes king in Disney's The Lion King?",
+          "answer": "Simba"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which actor played Jack Dawson in Titanic (1997)?",
+          "answer": "Leonardo DiCaprio"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "In The Wizard of Oz, what colour are Dorothy's slippers in the 1939 film?",
+          "answer": "Ruby red"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Who directed Jaws?",
+          "answer": "Steven Spielberg"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "What is the name of the fictional African nation in Black Panther?",
+          "answer": "Wakanda"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which film won the first ever Academy Award for Best Picture?",
+          "answer": "Wings",
+          "options": [
+            "Wings",
+            "Sunrise",
+            "The Jazz Singer",
+            "Metropolis"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Animal Magic",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "A joey"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Animal Magic",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is the largest mammal on Earth?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Animal Magic",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "How many hearts does an octopus have?",
+          "answer": "Three"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Animal Magic",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is the only mammal capable of true sustained flight?",
+          "answer": "Bat"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Animal Magic",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is a group of crows called?",
+          "answer": "A murder"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Animal Magic",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "The axolotl, famous for regrowing limbs, is native to lakes near which city?",
+          "answer": "Mexico City"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Cairo?",
+          "answer": "The Nile"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "On which continent is the Atacama Desert?",
+          "answer": "South America"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has the most time zones, when overseas territories are included?",
+          "answer": "France",
+          "options": [
+            "Russia",
+            "USA",
+            "France",
+            "China"
+          ]
+        },
+        {
+          "id": "R4Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the smallest country in the world by area?",
+          "answer": "Vatican City"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which African country's capital is Ouagadougou?",
+          "answer": "Burkina Faso"
+        }
+      ]
+    }
+  ]
+}

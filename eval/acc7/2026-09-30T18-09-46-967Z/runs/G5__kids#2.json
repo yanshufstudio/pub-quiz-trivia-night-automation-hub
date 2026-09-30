@@ -1,0 +1,372 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "expect": [
+      10
+    ],
+    "run": "kids#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 2 of 10 questions, rounds [2] of [10]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3606,
+      "outputTokens": 858,
+      "thinkingTokens": 0,
+      "durationMs": 13756
+    },
+    "costUsd": 0.031584,
+    "ms": 13756
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "A joey",
+      "options": []
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which black and white bear from China eats mostly bamboo?",
+      "answer": "Giant panda"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What do we call an animal that eats only plants?",
+      "answer": "Herbivore",
+      "options": [
+        "Carnivore",
+        "Herbivore",
+        "Omnivore"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird can fly backwards?",
+      "answer": "Hummingbird"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the largest animal that has ever lived?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "A caterpillar turns into which winged insect?",
+      "answer": "A butterfly (or moth)"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a group of lions called?",
+      "answer": "A pride"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild Wonders",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many hearts does an octopus have?",
+      "answer": "Three",
+      "options": [
+        "One",
+        "Two",
+        "Three",
+        "Four"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.025408,
+      "ms": 9500,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1406,
+          "outputTokens": 598,
+          "thinkingTokens": 62,
+          "durationMs": 6438
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1171,
+          "outputTokens": 157,
+          "thinkingTokens": 46,
+          "durationMs": 3062
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Setter's answer already accepts both butterfly and moth; the checker's 'Butterfly' matches it."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Herbivore",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Hummingbird",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Butterfly",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q9": {
+          "answer": "Pride",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Three",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "A joey",
+          "options": []
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black and white bear from China eats mostly bamboo?",
+          "answer": "Giant panda"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What do we call an animal that eats only plants?",
+          "answer": "Herbivore",
+          "options": [
+            "Carnivore",
+            "Herbivore",
+            "Omnivore"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird can fly backwards?",
+          "answer": "Hummingbird"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the largest animal that has ever lived?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A caterpillar turns into which winged insect?",
+          "answer": "A butterfly (or moth)"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of lions called?",
+          "answer": "A pride"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Wonders",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many hearts does an octopus have?",
+          "answer": "Three",
+          "options": [
+            "One",
+            "Two",
+            "Three",
+            "Four"
+          ]
+        }
+      ]
+    }
+  ]
+}

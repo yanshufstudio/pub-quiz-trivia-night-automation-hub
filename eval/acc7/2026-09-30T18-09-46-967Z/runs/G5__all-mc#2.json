@@ -1,0 +1,1605 @@
+{
+  "generator": "G5",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "medium",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "all-mc",
+    "prompt": "All multiple choice, 4 rounds of 10",
+    "questions": 40,
+    "expect": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "run": "all-mc#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1789,
+      "outputTokens": 4807,
+      "thinkingTokens": 1420,
+      "durationMs": 43063
+    },
+    "costUsd": 0.103296,
+    "ms": 43064
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars",
+      "options": [
+        "Venus",
+        "Mars",
+        "Jupiter",
+        "Mercury"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many sides does a hexagon have?",
+      "answer": "6",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the currency of Japan?",
+      "answer": "Yen",
+      "options": [
+        "Won",
+        "Yuan",
+        "Yen",
+        "Baht"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who painted the Mona Lisa?",
+      "answer": "Leonardo da Vinci",
+      "options": [
+        "Michelangelo",
+        "Raphael",
+        "Leonardo da Vinci",
+        "Titian"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which novelist created the detective Hercule Poirot?",
+      "answer": "Agatha Christie",
+      "options": [
+        "Agatha Christie",
+        "Dorothy L. Sayers",
+        "Arthur Conan Doyle",
+        "Ngaio Marsh"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which is the largest ocean on Earth?",
+      "answer": "Pacific Ocean",
+      "options": [
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Pacific Ocean",
+        "Arctic Ocean"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which organ of the human body produces insulin?",
+      "answer": "Pancreas",
+      "options": [
+        "Liver",
+        "Pancreas",
+        "Kidney",
+        "Spleen"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which chemical element has the symbol Fe?",
+      "answer": "Iron",
+      "options": [
+        "Fluorine",
+        "Iron",
+        "Lead",
+        "Francium"
+      ]
+    },
+    {
+      "id": "R1Q10",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which gas makes up the largest share of Earth's atmosphere?",
+      "answer": "Nitrogen",
+      "options": [
+        "Oxygen",
+        "Carbon dioxide",
+        "Nitrogen",
+        "Argon"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912",
+      "options": [
+        "1905",
+        "1912",
+        "1918",
+        "1921"
+      ]
+    },
+    {
+      "id": "R2Q2",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong",
+      "options": [
+        "Buzz Aldrin",
+        "Yuri Gagarin",
+        "Neil Armstrong",
+        "John Glenn"
+      ]
+    },
+    {
+      "id": "R2Q3",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989",
+      "options": [
+        "1985",
+        "1989",
+        "1991",
+        "1993"
+      ]
+    },
+    {
+      "id": "R2Q4",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which ship carried the Pilgrims to North America in 1620?",
+      "answer": "Mayflower",
+      "options": [
+        "Mayflower",
+        "Endeavour",
+        "Golden Hind",
+        "Santa Maria"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which treaty, signed in 1919, formally ended the First World War between Germany and the Allied Powers?",
+      "answer": "Treaty of Versailles",
+      "options": [
+        "Treaty of Utrecht",
+        "Treaty of Versailles",
+        "Treaty of Paris",
+        "Treaty of Westphalia"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first emperor of Rome?",
+      "answer": "Augustus",
+      "options": [
+        "Julius Caesar",
+        "Nero",
+        "Augustus",
+        "Tiberius"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which English king sealed the Magna Carta in 1215?",
+      "answer": "King John",
+      "options": [
+        "Richard I",
+        "Henry II",
+        "King John",
+        "Edward I"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What was the capital city of the Byzantine Empire?",
+      "answer": "Constantinople",
+      "options": [
+        "Rome",
+        "Athens",
+        "Constantinople",
+        "Alexandria"
+      ]
+    },
+    {
+      "id": "R2Q9",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Mansa Musa, famed for his great wealth, ruled which West African empire?",
+      "answer": "Mali Empire",
+      "options": [
+        "Ghana Empire",
+        "Songhai Empire",
+        "Mali Empire",
+        "Benin Empire"
+      ]
+    },
+    {
+      "id": "R2Q10",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "MULTIPLE_CHOICE",
+      "text": "The Battle of Hastings took place in which year?",
+      "answer": "1066",
+      "options": [
+        "1016",
+        "1066",
+        "1086",
+        "1106"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the hardest naturally occurring substance?",
+      "answer": "Diamond",
+      "options": [
+        "Quartz",
+        "Diamond",
+        "Granite",
+        "Topaz"
+      ]
+    },
+    {
+      "id": "R3Q2",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which scientist developed the theory of general relativity?",
+      "answer": "Albert Einstein",
+      "options": [
+        "Isaac Newton",
+        "Niels Bohr",
+        "Albert Einstein",
+        "Max Planck"
+      ]
+    },
+    {
+      "id": "R3Q3",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which part of a plant cell does photosynthesis take place?",
+      "answer": "Chloroplast",
+      "options": [
+        "Nucleus",
+        "Mitochondrion",
+        "Chloroplast",
+        "Ribosome"
+      ]
+    },
+    {
+      "id": "R3Q4",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What does DNA stand for?",
+      "answer": "Deoxyribonucleic acid",
+      "options": [
+        "Deoxyribonucleic acid",
+        "Dinitrogen acid",
+        "Deoxyribose nuclear agent",
+        "Dual nucleic acid"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many bones are there in a typical adult human body?",
+      "answer": "206",
+      "options": [
+        "186",
+        "206",
+        "226",
+        "256"
+      ]
+    },
+    {
+      "id": "R3Q6",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which blood type is known as the universal donor for red blood cells?",
+      "answer": "O negative",
+      "options": [
+        "AB positive",
+        "A negative",
+        "O negative",
+        "B positive"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the collective noun for a group of crows?",
+      "answer": "A murder",
+      "options": [
+        "A parliament",
+        "A murder",
+        "A pride",
+        "A gaggle"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Approximately how fast does light travel in a vacuum?",
+      "answer": "300,000 km per second",
+      "options": [
+        "30,000 km per second",
+        "300,000 km per second",
+        "3,000,000 km per second",
+        "3,000 km per second"
+      ]
+    },
+    {
+      "id": "R3Q9",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which chemical element has the symbol W?",
+      "answer": "Tungsten",
+      "options": [
+        "Tungsten",
+        "Tin",
+        "Titanium",
+        "Vanadium"
+      ]
+    },
+    {
+      "id": "R3Q10",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which noble gas has the atomic number 10?",
+      "answer": "Neon",
+      "options": [
+        "Helium",
+        "Argon",
+        "Neon",
+        "Krypton"
+      ]
+    },
+    {
+      "id": "R4Q1",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many rings appear on the Olympic flag?",
+      "answer": "5",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "R4Q2",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which sport does the word 'love' mean a score of zero?",
+      "answer": "Tennis",
+      "options": [
+        "Cricket",
+        "Golf",
+        "Tennis",
+        "Snooker"
+      ]
+    },
+    {
+      "id": "R4Q3",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the name of the school of witchcraft and wizardry that Harry Potter attends?",
+      "answer": "Hogwarts",
+      "options": [
+        "Durmstrang",
+        "Beauxbatons",
+        "Hogwarts",
+        "Ilvermorny"
+      ]
+    },
+    {
+      "id": "R4Q4",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Freddie Mercury was the lead singer of which band?",
+      "answer": "Queen",
+      "options": [
+        "Queen",
+        "The Who",
+        "Led Zeppelin",
+        "Genesis"
+      ]
+    },
+    {
+      "id": "R4Q5",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band released the album 'Abbey Road'?",
+      "answer": "The Beatles",
+      "options": [
+        "The Rolling Stones",
+        "The Beatles",
+        "Pink Floyd",
+        "The Kinks"
+      ]
+    },
+    {
+      "id": "R4Q6",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who directed the 1975 film 'Jaws'?",
+      "answer": "Steven Spielberg",
+      "options": [
+        "George Lucas",
+        "Steven Spielberg",
+        "Francis Ford Coppola",
+        "Martin Scorsese"
+      ]
+    },
+    {
+      "id": "R4Q7",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which city hosted the 2016 Summer Olympics?",
+      "answer": "Rio de Janeiro",
+      "options": [
+        "London",
+        "Tokyo",
+        "Rio de Janeiro",
+        "Beijing"
+      ]
+    },
+    {
+      "id": "R4Q8",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In golf, what is the term for a score of one under par on a hole?",
+      "answer": "Birdie",
+      "options": [
+        "Eagle",
+        "Bogey",
+        "Birdie",
+        "Albatross"
+      ]
+    },
+    {
+      "id": "R4Q9",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which film won the Academy Award for Best Picture at the 1998 ceremony?",
+      "answer": "Titanic",
+      "options": [
+        "Titanic",
+        "Good Will Hunting",
+        "L.A. Confidential",
+        "As Good as It Gets"
+      ]
+    },
+    {
+      "id": "R4Q10",
+      "round": "Screen, Stage & Stadium",
+      "category": "Sport & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In snooker, how many points is the black ball worth?",
+      "answer": "7",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.057592,
+      "ms": 24342,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 4378,
+          "outputTokens": 2004,
+          "thinkingTokens": 0,
+          "durationMs": 24342
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "6",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Agatha Christie",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Pacific Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Iron",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Nitrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Mayflower",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Treaty of Versailles",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Augustus",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "King John",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Constantinople",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Mali Empire",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "1066",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Albert Einstein",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Chloroplast",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Deoxyribonucleic acid",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "O negative",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "300,000 km per second",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "Tungsten",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Neon",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "5",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Tennis",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Hogwarts",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Rio de Janeiro",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Birdie",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "7",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars",
+          "options": [
+            "Venus",
+            "Mars",
+            "Jupiter",
+            "Mercury"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many sides does a hexagon have?",
+          "answer": "6",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the currency of Japan?",
+          "answer": "Yen",
+          "options": [
+            "Won",
+            "Yuan",
+            "Yen",
+            "Baht"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who painted the Mona Lisa?",
+          "answer": "Leonardo da Vinci",
+          "options": [
+            "Michelangelo",
+            "Raphael",
+            "Leonardo da Vinci",
+            "Titian"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which novelist created the detective Hercule Poirot?",
+          "answer": "Agatha Christie",
+          "options": [
+            "Agatha Christie",
+            "Dorothy L. Sayers",
+            "Arthur Conan Doyle",
+            "Ngaio Marsh"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the largest ocean on Earth?",
+          "answer": "Pacific Ocean",
+          "options": [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Pacific Ocean",
+            "Arctic Ocean"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which organ of the human body produces insulin?",
+          "answer": "Pancreas",
+          "options": [
+            "Liver",
+            "Pancreas",
+            "Kidney",
+            "Spleen"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which chemical element has the symbol Fe?",
+          "answer": "Iron",
+          "options": [
+            "Fluorine",
+            "Iron",
+            "Lead",
+            "Francium"
+          ]
+        },
+        {
+          "id": "R1Q10",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which gas makes up the largest share of Earth's atmosphere?",
+          "answer": "Nitrogen",
+          "options": [
+            "Oxygen",
+            "Carbon dioxide",
+            "Nitrogen",
+            "Argon"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912",
+          "options": [
+            "1905",
+            "1912",
+            "1918",
+            "1921"
+          ]
+        },
+        {
+          "id": "R2Q2",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong",
+          "options": [
+            "Buzz Aldrin",
+            "Yuri Gagarin",
+            "Neil Armstrong",
+            "John Glenn"
+          ]
+        },
+        {
+          "id": "R2Q3",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989",
+          "options": [
+            "1985",
+            "1989",
+            "1991",
+            "1993"
+          ]
+        },
+        {
+          "id": "R2Q4",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which ship carried the Pilgrims to North America in 1620?",
+          "answer": "Mayflower",
+          "options": [
+            "Mayflower",
+            "Endeavour",
+            "Golden Hind",
+            "Santa Maria"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which treaty, signed in 1919, formally ended the First World War between Germany and the Allied Powers?",
+          "answer": "Treaty of Versailles",
+          "options": [
+            "Treaty of Utrecht",
+            "Treaty of Versailles",
+            "Treaty of Paris",
+            "Treaty of Westphalia"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first emperor of Rome?",
+          "answer": "Augustus",
+          "options": [
+            "Julius Caesar",
+            "Nero",
+            "Augustus",
+            "Tiberius"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which English king sealed the Magna Carta in 1215?",
+          "answer": "King John",
+          "options": [
+            "Richard I",
+            "Henry II",
+            "King John",
+            "Edward I"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What was the capital city of the Byzantine Empire?",
+          "answer": "Constantinople",
+          "options": [
+            "Rome",
+            "Athens",
+            "Constantinople",
+            "Alexandria"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Mansa Musa, famed for his great wealth, ruled which West African empire?",
+          "answer": "Mali Empire",
+          "options": [
+            "Ghana Empire",
+            "Songhai Empire",
+            "Mali Empire",
+            "Benin Empire"
+          ]
+        },
+        {
+          "id": "R2Q10",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "MULTIPLE_CHOICE",
+          "text": "The Battle of Hastings took place in which year?",
+          "answer": "1066",
+          "options": [
+            "1016",
+            "1066",
+            "1086",
+            "1106"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the hardest naturally occurring substance?",
+          "answer": "Diamond",
+          "options": [
+            "Quartz",
+            "Diamond",
+            "Granite",
+            "Topaz"
+          ]
+        },
+        {
+          "id": "R3Q2",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which scientist developed the theory of general relativity?",
+          "answer": "Albert Einstein",
+          "options": [
+            "Isaac Newton",
+            "Niels Bohr",
+            "Albert Einstein",
+            "Max Planck"
+          ]
+        },
+        {
+          "id": "R3Q3",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which part of a plant cell does photosynthesis take place?",
+          "answer": "Chloroplast",
+          "options": [
+            "Nucleus",
+            "Mitochondrion",
+            "Chloroplast",
+            "Ribosome"
+          ]
+        },
+        {
+          "id": "R3Q4",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What does DNA stand for?",
+          "answer": "Deoxyribonucleic acid",
+          "options": [
+            "Deoxyribonucleic acid",
+            "Dinitrogen acid",
+            "Deoxyribose nuclear agent",
+            "Dual nucleic acid"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many bones are there in a typical adult human body?",
+          "answer": "206",
+          "options": [
+            "186",
+            "206",
+            "226",
+            "256"
+          ]
+        },
+        {
+          "id": "R3Q6",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which blood type is known as the universal donor for red blood cells?",
+          "answer": "O negative",
+          "options": [
+            "AB positive",
+            "A negative",
+            "O negative",
+            "B positive"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the collective noun for a group of crows?",
+          "answer": "A murder",
+          "options": [
+            "A parliament",
+            "A murder",
+            "A pride",
+            "A gaggle"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Approximately how fast does light travel in a vacuum?",
+          "answer": "300,000 km per second",
+          "options": [
+            "30,000 km per second",
+            "300,000 km per second",
+            "3,000,000 km per second",
+            "3,000 km per second"
+          ]
+        },
+        {
+          "id": "R3Q9",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which chemical element has the symbol W?",
+          "answer": "Tungsten",
+          "options": [
+            "Tungsten",
+            "Tin",
+            "Titanium",
+            "Vanadium"
+          ]
+        },
+        {
+          "id": "R3Q10",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which noble gas has the atomic number 10?",
+          "answer": "Neon",
+          "options": [
+            "Helium",
+            "Argon",
+            "Neon",
+            "Krypton"
+          ]
+        },
+        {
+          "id": "R4Q1",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many rings appear on the Olympic flag?",
+          "answer": "5",
+          "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        {
+          "id": "R4Q2",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which sport does the word 'love' mean a score of zero?",
+          "answer": "Tennis",
+          "options": [
+            "Cricket",
+            "Golf",
+            "Tennis",
+            "Snooker"
+          ]
+        },
+        {
+          "id": "R4Q3",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the name of the school of witchcraft and wizardry that Harry Potter attends?",
+          "answer": "Hogwarts",
+          "options": [
+            "Durmstrang",
+            "Beauxbatons",
+            "Hogwarts",
+            "Ilvermorny"
+          ]
+        },
+        {
+          "id": "R4Q4",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Freddie Mercury was the lead singer of which band?",
+          "answer": "Queen",
+          "options": [
+            "Queen",
+            "The Who",
+            "Led Zeppelin",
+            "Genesis"
+          ]
+        },
+        {
+          "id": "R4Q5",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band released the album 'Abbey Road'?",
+          "answer": "The Beatles",
+          "options": [
+            "The Rolling Stones",
+            "The Beatles",
+            "Pink Floyd",
+            "The Kinks"
+          ]
+        },
+        {
+          "id": "R4Q6",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who directed the 1975 film 'Jaws'?",
+          "answer": "Steven Spielberg",
+          "options": [
+            "George Lucas",
+            "Steven Spielberg",
+            "Francis Ford Coppola",
+            "Martin Scorsese"
+          ]
+        },
+        {
+          "id": "R4Q7",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which city hosted the 2016 Summer Olympics?",
+          "answer": "Rio de Janeiro",
+          "options": [
+            "London",
+            "Tokyo",
+            "Rio de Janeiro",
+            "Beijing"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In golf, what is the term for a score of one under par on a hole?",
+          "answer": "Birdie",
+          "options": [
+            "Eagle",
+            "Bogey",
+            "Birdie",
+            "Albatross"
+          ]
+        },
+        {
+          "id": "R4Q9",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which film won the Academy Award for Best Picture at the 1998 ceremony?",
+          "answer": "Titanic",
+          "options": [
+            "Titanic",
+            "Good Will Hunting",
+            "L.A. Confidential",
+            "As Good as It Gets"
+          ]
+        },
+        {
+          "id": "R4Q10",
+          "round": "Screen, Stage & Stadium",
+          "category": "Sport & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In snooker, how many points is the black ball worth?",
+          "answer": "7",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        }
+      ]
+    }
+  ]
+}
