@@ -68,6 +68,13 @@ const GENERATORS: Record<string, GeneratorConfig> = {
   G1b: { ...SONNET_FORCED },
   G2: { model: "claude-sonnet-5", thinking: "adaptive", effort: "xhigh", toolMode: "forced" },
   G3: { model: "claude-opus-5-5", thinking: "default", effort: "low", toolMode: "auto-strict" },
+  /**
+   * ACC6: Sonnet 5.5 at medium effort as the writer. Like Opus 5.5 it rejects
+   * forced tool choice with a 400, so auto-strict (tool_choice auto, strict
+   * tool schema) is the only tool mode it supports; thinking is left at its
+   * default (adaptive).
+   */
+  G4: { model: "claude-sonnet-5-5", thinking: "default", effort: "medium", toolMode: "auto-strict" },
 };
 
 const CHECKERS: Record<string, ReviewerConfig> = {
@@ -83,6 +90,7 @@ const DEFAULT_PLAN: Record<string, string[]> = {
   G1b: ["C1", "C2"],
   G2: ["C1", "C2"],
   G3: ["C1", "C2"],
+  G4: ["C2"],
 };
 
 // ---------------------------------------------------------------- prices
