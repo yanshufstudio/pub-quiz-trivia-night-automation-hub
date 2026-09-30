@@ -87,10 +87,17 @@ const DEFAULT_PLAN: Record<string, string[]> = {
 
 // ---------------------------------------------------------------- prices
 
-/** USD per million tokens, from Anthropic's pricing page (28 Sep 2026). Thinking is billed as output. */
-const PRICES: Record<string, { input: number; output: number }> = {
+/**
+ * USD per million tokens, from Anthropic's pricing page (28 Sep 2026). Thinking
+ * is billed as output. Cache rates are recorded where published, but cost()
+ * uses input and output only: the generator and checker calls do not use prompt
+ * caching, and CallUsage carries no cache token counts.
+ */
+const PRICES: Record<string, { input: number; output: number; cacheRead?: number; cacheWrite?: number }> = {
   "claude-sonnet-5": { input: 2, output: 10 },
   "claude-opus-5-5": { input: 4, output: 20 },
+  // ACC6: anthropic.com/claude-sonnet-5-5.
+  "claude-sonnet-5-5": { input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2.5 },
 };
 
 function cost(usage: CallUsage[]): number {
