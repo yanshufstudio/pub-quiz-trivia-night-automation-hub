@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import {
@@ -9,14 +10,16 @@ import {
   TRIAL_DAYS,
 } from "@/lib/pricing";
 import { SITE_URL } from "@/lib/site";
+import { formatBytes, MAX_MEDIA_BYTES } from "@/lib/media-limits";
 import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/faq",
   title: "Questions and answers · TriviaFoundry",
   description:
     "What TriviaFoundry does and does not do: what the wizard writes, how long it takes, "
     + "what teams need, what it costs, and what is coming next.",
-};
+});
 
 /**
  * The questions a host asks before the guide makes sense to them.
@@ -67,7 +70,8 @@ const ENTRIES: Entry[] = [
     answer: (
       <>
         Yes, with your own pictures. Any question in the pack editor takes an image —{" "}
-        <em>Add image</em> under the question — and that picture then shows on the printed
+        <em>Add image</em> under the question, a JPEG or PNG of up to{" "}
+        {formatBytes(MAX_MEDIA_BYTES)} — and that picture then shows on the printed
         sheets, on your host screen and on every team&apos;s phone. Your own photos work
         best: the pub, the regulars, the high street. Phone photos have their location and
         camera details stripped when they are uploaded.
@@ -143,7 +147,10 @@ const ENTRIES: Entry[] = [
       <>
         Yes. <em>Print preview</em> in the pack editor gives you a presenter script to read
         from, a question sheet, and answer sheets for teams who would rather write than tap.
-        Pictures you have added print with their questions.
+        Pictures you have added print with their questions. The printed sheets can only print Western European letters for now: English, French,
+        German, Spanish and the like. Other letters — a Polish ł or a Czech ř — and other
+        alphabets, such as Greek or Cyrillic, do not print correctly yet, although they show
+        properly on your screen and on the teams&apos; phones.
       </>
     ),
   },
@@ -152,9 +159,13 @@ const ENTRIES: Entry[] = [
     question: "What if a team's answer is right but spelt wrong?",
     answer: (
       <>
-        You decide. After each reveal, every team&apos;s answer is listed with <em>Correct</em>{" "}
-        and <em>Wrong</em> next to it. Mark it yourself and the scores follow. You are the
-        quizmaster; the software is not.
+        You decide. Answers are marked automatically against the answer key: capitals,
+        accents, punctuation and a leading &ldquo;the&rdquo; do not count against a team, and
+        any alternative answers you gave the question in the pack editor count as right too.
+        The software does not guess at spelling, though, so &ldquo;Canbera&rdquo; is marked
+        wrong. After each reveal, every team&apos;s answer is listed with <em>Correct</em> and{" "}
+        <em>Wrong</em> next to it, and you can override any mark; the scores follow. You are
+        the quizmaster; the software is not.
       </>
     ),
   },

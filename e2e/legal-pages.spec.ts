@@ -179,6 +179,37 @@ test("/privacy lists Upstash and what Google sign-in stores (M10)", async ({ pag
   await expect(page.getByText(/We use them only to sign you in/i)).toBeVisible();
 });
 
+test("/privacy lists Vercel Web Analytics and no longer says there is none (SEO3)", async ({ page }) => {
+  await page.goto("/privacy");
+
+  // The page said "We run no analytics" until the analytics component landed
+  // (SEO2); a sentence that turned false the day it shipped is the failure
+  // this guards.
+  await expect(page.getByText(/We run no analytics/i)).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Analytics, and no advertising" })).toBeVisible();
+
+  const entry = page.getByRole("listitem").filter({ hasText: /^Vercel Web Analytics/ });
+  await expect(entry).toHaveCount(1);
+  // What Vercel's docs say is attributed to Vercel; what we measured on our own
+  // pages (e2e/analytics.spec.ts) is stated as ours. Vercel's docs do not say
+  // "sets no cookies", locate from an IP address, or stop a visit being followed
+  // "from one day to the next", so none of those may come back as fact.
+  await expect(entry).toContainText("Vercel says it doesn't rely on cookies");
+  await expect(entry).toContainText("on our pages its script sets none and stores nothing in your browser");
+  await expect(entry).toContainText("a country, region and city, and your browser");
+  await expect(entry).not.toContainText("It sets no cookies");
+  await expect(entry).not.toContainText("IP address");
+  await expect(entry).not.toContainText("one day to the next");
+  const noTracking = page.locator("#no-tracking");
+  await expect(noTracking).toContainText("On our pages it sets no cookies and stores nothing in your browser");
+  await expect(noTracking).not.toContainText("with no cookies, nothing stored in your browser");
+  // The query-string sentence is only true because SiteAnalytics strips it —
+  // e2e/analytics.spec.ts is the test that holds the code to it.
+  await expect(entry).toContainText("we remove anything after a ? or # before it is sent");
+  await expect(entry).toContainText("discards after 24 hours");
+  await expect(entry).toContainText("at least 12 months");
+});
+
 test("/pricing and /terms state no Pro daily number, but do state the limits (M12)", async ({
   page,
 }) => {

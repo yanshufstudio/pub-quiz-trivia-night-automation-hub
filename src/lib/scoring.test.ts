@@ -130,3 +130,20 @@ describe("isLikelyCorrect across scripts", () => {
     expect(isLikelyCorrect("!!!", "Mars", ["???"])).toBe(false);
   });
 });
+
+// /faq's marking answer (L24) makes each of these claims in words; if one
+// stops being true, the FAQ has to change with it.
+describe("what /faq says about automatic marking", () => {
+  it("ignores capitals, accents, punctuation and a leading 'the'", () => {
+    expect(isLikelyCorrect("the canberra!", "Canberra")).toBe(true);
+    expect(isLikelyCorrect("Cafe", "Café")).toBe(true);
+  });
+
+  it("counts the question's alternative answers as right", () => {
+    expect(isLikelyCorrect("Leo", "Leonardo DiCaprio", ["Leo"])).toBe(true);
+  });
+
+  it("does not guess at spelling: 'Canbera' is marked wrong", () => {
+    expect(isLikelyCorrect("Canbera", "Canberra")).toBe(false);
+  });
+});
