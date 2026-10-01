@@ -4,6 +4,7 @@ import { isNewerEvent, statusToPlan } from "./plan";
 import { shouldRollProPeriod } from "@/lib/pro-limits";
 import { priceOwnership } from "./prices";
 import { paddleEnv } from "./config";
+import { recordTrialClaim } from "@/lib/trial";
 
 export type SubscriptionEvent = {
   eventId: string;
@@ -140,6 +141,10 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
         event.currentBillingPeriodStartsAt,
         creator.proPeriodStartedAt
       );
+      // PRC10: the first paid period after a trial moves the period start but
+      // keeps the count, because /refunds judges the first payment on the packs
+      // generated since the trial began.
+      const endsTrial = creator.subscriptionStatus === "trialing" && event.status !== "trialing";
 
       await tx.creator.update({
         where: { id: creator.id },
@@ -159,11 +164,13 @@ export async function applySubscriptionEvent(event: SubscriptionEvent): Promise<
           ...(rollsPeriod
             ? {
                 proPeriodStartedAt: event.currentBillingPeriodStartsAt,
-                proPacksGeneratedInPeriod: 0,
+                ...(endsTrial ? {} : { proPacksGeneratedInPeriod: 0 }),
               }
             : {}),
         },
       });
+      // PRC8: the checkout offers a trial only where none was claimed.
+      if (event.status === "trialing") await recordTrialClaim(tx, creator, event.subscriptionId);
       await record(tx, event);
       return "applied";
     });

@@ -20,7 +20,9 @@ function appSources(dir = APP_DIR): Array<[string, string]> {
     const full = path.join(dir, item.name);
     if (item.isDirectory()) out.push(...appSources(full));
     else if (/\.tsx?$/.test(item.name) && !item.name.endsWith(".test.ts")) {
-      out.push([path.relative(APP_DIR, full), readFileSync(full, "utf8")]);
+      // "/" on every OS: callers match "pricing/page.tsx", and on Windows
+      // path.relative returns backslashes.
+      out.push([path.relative(APP_DIR, full).split(path.sep).join("/"), readFileSync(full, "utf8")]);
     }
   }
   return out;
@@ -32,10 +34,11 @@ describe("pricing constants", () => {
     // has to actually be a discount. A copy-paste that made them equal would
     // otherwise ship.
     expect(PRICE_ANNUAL_USD).toBeLessThan(PRICE_MONTHLY_USD * 12);
-    // Pinned, not derived: $45 a year is the owner's decision (2026-09-21),
-    // and the live Paddle annual price is created at 4500 cents to match.
-    expect(PRICE_MONTHLY_USD).toBe(5);
-    expect(PRICE_ANNUAL_USD).toBe(45);
+    // Pinned, not derived: $10 a month and $90 a year are the owner's decision
+    // (2026-09-28), and the live Paddle prices are created at 1000 and 9000
+    // cents to match.
+    expect(PRICE_MONTHLY_USD).toBe(10);
+    expect(PRICE_ANNUAL_USD).toBe(90);
   });
 
   it("states the annual saving the two prices actually give", () => {
@@ -55,8 +58,8 @@ describe("pricing constants", () => {
   });
 
   it("formats whole dollars without stray decimals", () => {
-    expect(formatUsd(PRICE_MONTHLY_USD)).toBe("$5");
-    expect(formatUsd(PRICE_ANNUAL_USD)).toBe("$45");
+    expect(formatUsd(PRICE_MONTHLY_USD)).toBe("$10");
+    expect(formatUsd(PRICE_ANNUAL_USD)).toBe("$90");
     expect(formatUsd(0)).toBe("$0");
   });
 });
@@ -117,7 +120,25 @@ describe("no public page publishes a Pro daily number", () => {
     for (const [rel, source] of appSources()) {
       if (!/(^|\/)page\.tsx$/.test(rel)) continue;
       expect(source, rel).not.toMatch(/PRO_DAILY_PACK_ALLOWANCE|PRO_USER_DAILY_PACK_LIMIT/);
+      // PRC5's 30-day fair-use cap is unpublished on the same terms.
+      expect(source, rel).not.toMatch(
+        /PRO_USER_PERIOD_PACK_LIMIT|PRO_TRIAL_PACK_LIMIT|DEFAULT_PRO_PERIOD_LIMIT|DEFAULT_PRO_TRIAL_LIMIT|proFairUseLimit\b/
+      );
     }
+  });
+
+  it("says Pro is subject to fair use over 30 days, and that the wizard says when it resets (PRC6)", () => {
+    for (const page of [...PUBLIC_PAGES, "faq/page.tsx"]) {
+      const [, source] = appSources().find(([rel]) => rel === page)!;
+      expect(source, page).toMatch(/fair use/);
+      expect(source, page).toMatch(/rolling 30 days/);
+      expect(source, page).toMatch(/the wizard tells you when it resets/);
+    }
+  });
+
+  it("does not let the Pro card read as if Pro had no cap (PRC6)", () => {
+    const [, source] = appSources().find(([rel]) => rel === "pricing/page.tsx")!;
+    expect(source).toMatch(/fair-use allowance/);
   });
 
   it("still describes the shape of the limits, so the pages are not merely silent", () => {

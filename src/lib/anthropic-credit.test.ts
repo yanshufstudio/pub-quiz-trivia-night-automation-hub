@@ -60,6 +60,33 @@ describe("isAnthropicCreditExhausted", () => {
     }
   });
 
+  it("recognises the owner's own spend limit: a 400 whose message says so (PRC14)", () => {
+    // docs.claude.com/en/api/rate-limits, "Setting your own spend limit".
+    for (const message of [
+      "You have reached your specified API usage limits. You will regain access on 2026-11-01 at 00:00 UTC.",
+      "You have reached your specified workspace API usage limits. You will regain access on 2026-11-01 at 00:00 UTC.",
+    ]) {
+      expect(isAnthropicCreditExhausted(apiError(400, message)), message).toBe(true);
+    }
+  });
+
+  it("recognises the tier's spend cap: a 429 carrying enforced_spend_limit_reached, and only that 429 (PRC14)", () => {
+    // docs.claude.com/en/api/rate-limits, "Reaching your spend cap": the type is
+    // rate_limit_error like any rate limit; error.details.error_code tells them apart.
+    const message =
+      "You have reached your API usage limits: your organization has crossed its monthly API usage threshold.";
+    const capped = new Anthropic.APIError(
+      429,
+      { type: "error", error: { type: "rate_limit_error", message, details: { error_code: "enforced_spend_limit_reached" } } },
+      message,
+      undefined
+    );
+    expect(isAnthropicCreditExhausted(capped)).toBe(true);
+
+    // The same words without the code are an ordinary rate limit.
+    expect(isAnthropicCreditExhausted(apiError(429, message, "rate_limit_error"))).toBe(false);
+  });
+
   it("does not claim a rate limit or an outage is an exhausted account", () => {
     // These are the cases where retrying *is* the right advice, and they keep
     // their own 503 message.

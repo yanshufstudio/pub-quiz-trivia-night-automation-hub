@@ -277,4 +277,38 @@ describe("the billing period rolls the Pro count (M8)", () => {
       (await db.creator.findUniqueOrThrow({ where: { id: host.id } })).proPacksGeneratedInPeriod
     ).toBe(5);
   });
+
+  it("keeps the trial's packs when the trial converts, so the first payment is judged from the trial's start (PRC10)", async () => {
+    // /refunds: the first payment's usage condition counts packs from the start
+    // of the trial. Zeroing at conversion would let a trial's worth of packs
+    // vanish from the number the first-payment refund is decided on.
+    const host = await subscriber(0);
+    await applySubscriptionEvent(
+      event(host.id, { status: "trialing", currentBillingPeriodStartsAt: new Date("2026-09-01T00:00:00Z") })
+    );
+    await db.creator.update({ where: { id: host.id }, data: { proPacksGeneratedInPeriod: 3 } });
+
+    await applySubscriptionEvent(
+      event(host.id, { status: "active", currentBillingPeriodStartsAt: new Date("2026-09-15T00:00:00Z") })
+    );
+    const converted = await db.creator.findUniqueOrThrow({ where: { id: host.id } });
+    expect(converted.proPacksGeneratedInPeriod).toBe(3);
+    expect(converted.proPeriodStartedAt?.toISOString()).toBe("2026-09-15T00:00:00.000Z");
+
+    // A later event in the same first paid period leaves it alone too…
+    await applySubscriptionEvent(
+      event(host.id, { status: "active", currentBillingPeriodStartsAt: new Date("2026-09-15T00:00:00Z") })
+    );
+    expect(
+      (await db.creator.findUniqueOrThrow({ where: { id: host.id } })).proPacksGeneratedInPeriod
+    ).toBe(3);
+
+    // …and the first renewal rolls it as before.
+    await applySubscriptionEvent(
+      event(host.id, { status: "active", currentBillingPeriodStartsAt: new Date("2026-10-15T00:00:00Z") })
+    );
+    expect(
+      (await db.creator.findUniqueOrThrow({ where: { id: host.id } })).proPacksGeneratedInPeriod
+    ).toBe(0);
+  });
 });
