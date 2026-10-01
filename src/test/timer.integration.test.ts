@@ -85,6 +85,7 @@ describe("per-question timer", () => {
 
   it("stamps a fresh timer every time a question goes active", async () => {
     const { code, hostToken } = await newSession(30);
+    const before = Date.now();
     await advanceSession(
       jsonRequest(`${BASE}/api/sessions/${code}/advance`, "POST", { action: "start", hostToken }),
       { params: Promise.resolve({ code }) }
@@ -94,10 +95,15 @@ describe("per-question timer", () => {
       new NextRequest(`${BASE}/api/sessions/${code}?as=host&hostToken=${hostToken}`),
       { params: Promise.resolve({ code }) }
     );
+    const after = Date.now();
     const data = await json(view);
     expect(data.timer).not.toBeNull();
     expect(data.timer.durationSeconds).toBe(30);
-    expect(new Date(data.timer.startedAt).getTime()).toBeCloseTo(Date.now(), -2);
+    // Stamped between the two reads, not "within 50 ms of now": a slow CI
+    // runner took 73 ms. The 5 ms covers clock granularity.
+    const startedAt = new Date(data.timer.startedAt).getTime();
+    expect(startedAt).toBeGreaterThanOrEqual(before - 5);
+    expect(startedAt).toBeLessThanOrEqual(after + 5);
   });
 
   it("auto-reveals on the next poll once the timer runs out, and locks out a late submission", async () => {
