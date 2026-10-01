@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { EXTRA_PRICE_IDS_ENV, ourPriceIds, priceOwnership } from "@/lib/paddle/prices";
+import { EXTRA_PRICE_IDS_ENV, TRIAL_PRICE_ENV, ourPriceIds, priceOwnership } from "@/lib/paddle/prices";
 
 /**
  * Telling our own subscriptions from the other product's on the same Paddle
@@ -19,6 +19,8 @@ function configure(monthly?: string, annual?: string, extra?: string) {
   vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_MONTHLY", monthly ?? "");
   vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_ANNUAL", annual ?? "");
   vi.stubEnv(EXTRA_PRICE_IDS_ENV, extra ?? "");
+  vi.stubEnv(TRIAL_PRICE_ENV.month, "");
+  vi.stubEnv(TRIAL_PRICE_ENV.year, "");
 }
 
 describe("ourPriceIds", () => {
@@ -34,6 +36,18 @@ describe("ourPriceIds", () => {
     configure("pri_monthly", "pri_annual", " pri_old_2025 , pri_grandfathered ");
     expect(ourPriceIds().has("pri_old_2025")).toBe(true);
     expect(ourPriceIds().has("pri_grandfathered")).toBe(true);
+  });
+
+  it("includes the two server-only trial prices (PRC7)", () => {
+    configure("pri_monthly", "pri_annual");
+    vi.stubEnv(TRIAL_PRICE_ENV.month, "pri_monthly_trial");
+    vi.stubEnv(TRIAL_PRICE_ENV.year, "pri_annual_trial");
+    expect([...ourPriceIds()].sort()).toEqual([
+      "pri_annual",
+      "pri_annual_trial",
+      "pri_monthly",
+      "pri_monthly_trial",
+    ]);
   });
 
   it("is empty when nothing is configured, rather than containing blanks", () => {

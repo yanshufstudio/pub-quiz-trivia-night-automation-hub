@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
-import { ANNUAL_MONTHS_FREE, formatUsd, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD } from "@/lib/pricing";
+import {
+  ANNUAL_MONTHS_FREE,
+  formatUsd,
+  PRICE_ANNUAL_USD,
+  PRICE_MONTHLY_USD,
+  TRIAL_DAYS,
+} from "@/lib/pricing";
 import { SITE_URL } from "@/lib/site";
 import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
 
@@ -158,14 +164,28 @@ const ENTRIES: Entry[] = [
     answer: (
       <>
         A free account gets two quiz packs every thirty days, with everything: the wizard,
-        the editor, the printed sheets and the live game. Pro lifts the two-pack limit, at{" "}
-        {formatUsd(PRICE_MONTHLY_USD)} a month or {formatUsd(PRICE_ANNUAL_USD)} a year (
-        {ANNUAL_MONTHS_FREE} months free). Pro is on sale now; a daily
-        safety limit on generation applies across the whole service. Details on the{" "}
+        the editor, the printed sheets and the live game. Pro lifts the two-pack limit to a
+        fair-use allowance, at {formatUsd(PRICE_MONTHLY_USD)} a month or{" "}
+        {formatUsd(PRICE_ANNUAL_USD)} a year ({ANNUAL_MONTHS_FREE} months free). Pro is subject
+        to fair use — a daily limit and one over rolling 30 days, per account — and a daily
+        safety limit applies across the whole service; if you reach one,{" "}
+        the wizard tells you when it resets. Details on the{" "}
         <Link className={link} href="/pricing">
           pricing page
         </Link>
         .
+      </>
+    ),
+  },
+  {
+    id: "trial",
+    question: "Is there a free trial?",
+    answer: (
+      <>
+        Yes. New subscribers get a {TRIAL_DAYS}-day free trial, card required, once per person.
+        You&apos;re charged when the trial ends, unless you cancel before then; after that Pro
+        renews monthly or yearly, whichever you chose. The trial has a smaller fair-use
+        allowance than Pro.
       </>
     ),
   },

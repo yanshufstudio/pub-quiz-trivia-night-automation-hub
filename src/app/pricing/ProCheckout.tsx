@@ -221,6 +221,10 @@ export function ProCheckout() {
         {!onPro && CLIENT_TOKEN ? <div className="mt-3">{subscribeButtons}</div> : null}
       </>
     );
+  } else if (status?.plan === "PRO") {
+    // Pro with no subscription: owner comp (PRC4). Nothing to sell, no trial
+    // to start, and no portal to send them to.
+    body = <p className="font-medium text-foreground">You have Pro on this account.</p>;
   } else if (!CLIENT_TOKEN) {
     body = <p className="text-sm text-muted">Checkout is not switched on for this deployment.</p>;
   } else {

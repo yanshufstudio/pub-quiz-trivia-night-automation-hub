@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
   const rolled = withRolledPeriod(host.creator);
   return NextResponse.json({
     // What this deployment will act on, so the UI and the route agree (C1).
-    plan: effectivePlan(rolled),
+    plan: effectivePlan(rolled, host.user.email),
     packsGeneratedInPeriod: rolled.packsGeneratedInPeriod,
     limit: FREE_LIMIT,
     email: host.user.email,

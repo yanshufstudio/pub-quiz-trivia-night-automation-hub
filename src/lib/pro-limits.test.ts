@@ -9,6 +9,14 @@ import {
   reserveProDailyGeneration,
   shouldRollProPeriod,
   __resetProLimitCounters,
+  DEFAULT_PRO_PERIOD_LIMIT,
+  DEFAULT_PRO_TRIAL_LIMIT,
+  PRO_PERIOD_LIMIT_ENV,
+  PRO_TRIAL_LIMIT_ENV,
+  PRO_TRIAL_LIMIT_MESSAGE,
+  proFairUseLimit,
+  proFairUseLimitMessage,
+  proWindowExpired,
 } from "@/lib/pro-limits";
 
 /**
@@ -202,5 +210,49 @@ describe("rolling the billing period (M8)", () => {
     // A cancellation carries none. "No period reported" is not "a new period".
     expect(shouldRollProPeriod(null, sept)).toBe(false);
     expect(shouldRollProPeriod(null, null)).toBe(false);
+  });
+});
+
+describe("Pro fair use: the rolling 30-day cap (PRC5)", () => {
+  it("defaults to 40 packs, and 10 while trialing", () => {
+    expect(proFairUseLimit(null)).toBe(DEFAULT_PRO_PERIOD_LIMIT);
+    expect(proFairUseLimit("active")).toBe(40);
+    expect(proFairUseLimit("trialing")).toBe(DEFAULT_PRO_TRIAL_LIMIT);
+    expect(DEFAULT_PRO_TRIAL_LIMIT).toBe(10);
+  });
+
+  it("reads both limits from the environment, and 0 switches the cap off", () => {
+    vi.stubEnv(PRO_PERIOD_LIMIT_ENV, "3");
+    vi.stubEnv(PRO_TRIAL_LIMIT_ENV, "1");
+    expect(proFairUseLimit("active")).toBe(3);
+    expect(proFairUseLimit("trialing")).toBe(1);
+
+    vi.stubEnv(PRO_PERIOD_LIMIT_ENV, "0");
+    expect(proFairUseLimit("active")).toBe(0);
+  });
+
+  it("falls back to the default for a value that is not a whole number", () => {
+    vi.stubEnv(PRO_PERIOD_LIMIT_ENV, "forty");
+    expect(proFairUseLimit("active")).toBe(40);
+  });
+
+  it("tells a capped subscriber when it resets, and never how many packs the cap is", () => {
+    // M12: Pro's number stays unpublished, so no message may carry it.
+    const message = proFairUseLimitMessage(new Date("2026-10-29T08:00:00Z"));
+    expect(message).toBe("You've reached Pro's fair-use limit for now. It resets on 29 October 2026.");
+  });
+
+  it("tells a trialing subscriber that Pro continues when the subscription starts, with no number", () => {
+    expect(PRO_TRIAL_LIMIT_MESSAGE).toBe(
+      "You've reached the trial's limit. Pro continues when your subscription starts."
+    );
+    expect(PRO_TRIAL_LIMIT_MESSAGE).not.toMatch(/\d/);
+  });
+
+  it("starts a new window when none has started or the last one is over 30 days old", () => {
+    const now = new Date("2026-10-01T00:00:00Z");
+    expect(proWindowExpired(null, now)).toBe(true);
+    expect(proWindowExpired(new Date("2026-09-01T00:00:00Z"), now)).toBe(true);
+    expect(proWindowExpired(new Date("2026-09-02T00:00:00Z"), now)).toBe(false);
   });
 });
