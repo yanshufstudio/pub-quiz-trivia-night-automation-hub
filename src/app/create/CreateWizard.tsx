@@ -22,6 +22,24 @@ const EXAMPLE =
 const ACTIVATION_POLL_MS = 2000;
 const ACTIVATION_MAX_ATTEMPTS = 30;
 
+// PRC3: generation and the accuracy check take 15-50 s together (ACC5), so
+// while busy the page says what is happening and for how long. The phases
+// follow the clock, not the server — there is no progress to report, so
+// there is no percentage either.
+const WAITING_LINE =
+  "Writing and fact-checking your pack. This usually takes up to about a minute. Keep this tab open.";
+
+function waitingStatus(seconds: number): string {
+  if (seconds >= 180) return "Still working, taking longer than usual.";
+  if (seconds >= 50) return "Almost done…";
+  if (seconds >= 25) return "Checking facts…";
+  return "Writing questions…";
+}
+
+function minutesSeconds(seconds: number): string {
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
 export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
   const router = useRouter();
   const [prompt, setPrompt] = useState(EXAMPLE);
@@ -33,6 +51,16 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
   const [declined, setDeclined] = useState(false);
   const [usage, setUsage] = useState<{ used: number; limit: number; plan: string } | null>(null);
   const [activationSlow, setActivationSlow] = useState(false);
+  // When the current generation started, and the clock it is measured by.
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+  const [now, setNow] = useState(0);
+
+  useEffect(() => {
+    if (startedAt === null) return;
+    const tick = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(tick);
+  }, [startedAt]);
+  const elapsed = startedAt === null ? 0 : Math.max(0, Math.floor((now - startedAt) / 1000));
 
   useEffect(() => {
     let cancelled = false;
@@ -76,6 +104,9 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     setBusy(true);
+    const started = Date.now();
+    setStartedAt(started);
+    setNow(started);
     setError(null);
     setNotConfigured(false);
     setDeclined(false);
@@ -107,6 +138,7 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
     } catch (err) {
       setError(err instanceof Error ? err.message : "Generation failed");
       setBusy(false);
+      setStartedAt(null);
     }
   }
 
@@ -212,6 +244,25 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
               </button>
             );
           })()}
+
+          {busy && startedAt !== null ? (
+            <div className="space-y-1 text-sm">
+              <p className="text-muted">{WAITING_LINE}</p>
+              <p className="flex items-center gap-2 font-medium">
+                <span
+                  data-testid="generate-pulse"
+                  aria-hidden="true"
+                  className="h-2 w-2 rounded-full bg-amber motion-safe:animate-pulse"
+                />
+                <span role="status" aria-live="polite">
+                  {waitingStatus(elapsed)}
+                </span>
+                <span data-testid="generate-elapsed" aria-hidden="true" className="tabular-nums text-muted">
+                  {minutesSeconds(elapsed)}
+                </span>
+              </p>
+            </div>
+          ) : null}
 
           <p className="text-sm text-muted">{AI_DISCLAIMER}</p>
 

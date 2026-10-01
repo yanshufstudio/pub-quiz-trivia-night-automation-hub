@@ -146,5 +146,67 @@ describe("when the Anthropic account cannot be charged", () => {
     const res = await generate(generateRequest(host));
     expect(res.status).toBe(503);
     expect((await res.json()).error).toMatch(/busy right now/i);
+    expect(error.mock.calls.flat().join(" ")).not.toContain(CREDIT_EXHAUSTED_LOG);
   });
+});
+
+describe("when a spend limit is reached (PRC14)", () => {
+  // docs.claude.com/en/api/rate-limits: the owner's own limit is a 400
+  // invalid_request_error; the tier's cap is a 429 rate_limit_error carrying
+  // error.details.error_code "enforced_spend_limit_reached". Neither clears
+  // on retry, so both are "generation paused", with the alert string logged.
+  const cases = {
+    "the organisation's own spend limit (400)": () =>
+      new Anthropic.APIError(
+        400,
+        {
+          error: {
+            type: "invalid_request_error",
+            message: "You have reached your specified API usage limits. You will regain access on 2026-11-01 at 00:00 UTC.",
+          },
+        },
+        "You have reached your specified API usage limits.",
+        undefined
+      ),
+    "a workspace's own spend limit (400)": () =>
+      new Anthropic.APIError(
+        400,
+        {
+          error: {
+            type: "invalid_request_error",
+            message: "You have reached your specified workspace API usage limits. You will regain access on 2026-11-01 at 00:00 UTC.",
+          },
+        },
+        "You have reached your specified workspace API usage limits.",
+        undefined
+      ),
+    "the tier's spend cap (429 enforced_spend_limit_reached)": () =>
+      new Anthropic.APIError(
+        429,
+        {
+          type: "error",
+          error: {
+            type: "rate_limit_error",
+            message: "You have reached your API usage limits: your organization has crossed its monthly API usage threshold.",
+            details: { error_code: "enforced_spend_limit_reached" },
+          },
+        },
+        "You have reached your API usage limits.",
+        undefined
+      ),
+  };
+
+  for (const [name, make] of Object.entries(cases)) {
+    it(`${name}: the paused message, and the alert string in the log`, async () => {
+      vi.mocked(generateQuizPack).mockRejectedValue(make());
+      const host = await signInTestHost();
+
+      const res = await generate(generateRequest(host));
+      expect(res.status).toBe(503);
+      const body = await res.json();
+      expect(body.error).toBe(GENERATION_PAUSED_MESSAGE);
+      expect(body.generationPaused).toBe(true);
+      expect(error.mock.calls.flat().join(" ")).toContain(CREDIT_EXHAUSTED_LOG);
+    });
+  }
 });

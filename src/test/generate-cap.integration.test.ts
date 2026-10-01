@@ -106,6 +106,21 @@ describe("POST /api/packs/generate — free allowance, per account", () => {
     expect(generateQuizPack).not.toHaveBeenCalled();
   });
 
+  // PRC4: an owner-comped account generates as Pro — past the free allowance,
+  // still under the daily ceiling and the Pro limits.
+  it("lets an owner-comped account generate past the free allowance", async () => {
+    const host = await signInTestHost(`comp-gen-${Date.now()}@example.test`);
+    vi.stubEnv("PRO_COMP_EMAILS", host.email);
+    try {
+      for (let i = 0; i < FREE_LIMIT + 1; i++) {
+        const res = await generate(requestFrom(host));
+        expect(res.status, `generation ${i + 1}`).toBe(201);
+      }
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
+
   it("resets the count for an account whose period has already expired", async () => {
     const host = await signInTestHost();
     for (let i = 0; i < FREE_LIMIT; i++) await generate(requestFrom(host));
