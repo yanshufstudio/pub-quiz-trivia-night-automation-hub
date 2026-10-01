@@ -335,3 +335,59 @@ describe("POST /api/paddle/webhook — whose product it is (C2)", () => {
     expect((await reread(c.id)).plan).toBe("PRO");
   });
 });
+
+/**
+ * PRC7: the webhook accepts every price this product has ever sold. Four new
+ * ones ($10 and $90, each with and without the 14-day trial) and the two old
+ * $5/$45 prices that still have subscribers, via PADDLE_EXTRA_PRICE_IDS.
+ */
+describe("POST /api/paddle/webhook — all six prices (PRC7)", () => {
+  const PRICES = {
+    monthly: "pri_prc7_monthly",
+    annual: "pri_prc7_annual",
+    monthlyTrial: "pri_prc7_monthly_trial",
+    annualTrial: "pri_prc7_annual_trial",
+    oldMonthly: "pri_prc7_old_monthly",
+    oldAnnual: "pri_prc7_old_annual",
+  };
+
+  beforeEach(() => {
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_MONTHLY", PRICES.monthly);
+    vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_ANNUAL", PRICES.annual);
+    vi.stubEnv("PADDLE_PRICE_MONTHLY_TRIAL", PRICES.monthlyTrial);
+    vi.stubEnv("PADDLE_PRICE_ANNUAL_TRIAL", PRICES.annualTrial);
+    vi.stubEnv("PADDLE_EXTRA_PRICE_IDS", `${PRICES.oldMonthly}, ${PRICES.oldAnnual}`);
+  });
+
+  for (const [name, priceId] of Object.entries(PRICES)) {
+    it(`applies trialing, active and renewal events on the ${name} price`, async () => {
+      const c = await creator();
+      const subscriptionId = `sub_prc7_${name}_${c.id}`;
+      const events = [
+        { eventType: "subscription.created", status: "trialing", occurredAt: "2026-09-10T10:00:00Z", periodStartsAt: "2026-09-10T10:00:00Z" },
+        { eventType: "subscription.updated", status: "active", occurredAt: "2026-09-24T10:00:00Z", periodStartsAt: "2026-09-24T10:00:00Z" },
+        { eventType: "subscription.updated", status: "active", occurredAt: "2026-10-24T10:00:00Z", periodStartsAt: "2026-10-24T10:00:00Z" },
+      ];
+      for (const e of events) {
+        const res = await POST(
+          signedWebhookRequest(
+            subscriptionPayload({ ...e, customData: signedCustomData(c.id), priceIds: [priceId], subscriptionId })
+          )
+        );
+        expect(await res.json(), `${name} ${e.status} ${e.occurredAt}`).toEqual({ received: true, result: "applied" });
+        expect((await reread(c.id)).plan).toBe("PRO");
+      }
+    });
+  }
+
+  it("still refuses a price that is none of the six", async () => {
+    const c = await creator();
+    const res = await POST(
+      signedWebhookRequest(
+        subscriptionPayload({ customData: signedCustomData(c.id), priceIds: ["pri_or_zarua_monthly"], status: "trialing" })
+      )
+    );
+    expect((await res.json()).result).toBe("foreign-price");
+    expect((await reread(c.id)).plan).toBe("FREE");
+  });
+});

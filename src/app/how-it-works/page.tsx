@@ -38,6 +38,20 @@ const JOIN_URL = `${SITE_URL}/play`;
 /** Without the scheme: what you say out loud to a room, and what a team types. */
 const JOIN_URL_SPOKEN = JOIN_URL.replace(/^https:\/\//, "");
 
+const BRIEF_TIPS = [
+  "Say how many rounds, and how many questions in each.",
+  "Give each round a topic.",
+  "Say who is playing and how hard it should be: \u201cfriends in a pub, medium\u201d, \u201cfamilies with kids, easy\u201d.",
+  "Say the language, if it isn\u2019t English.",
+  "Say anything to avoid.",
+];
+
+const BRIEF_EXAMPLES = [
+  "5 rounds of 10 questions for adults in a pub, medium difficulty: 80s music, world geography, famous film quotes, science, general knowledge.",
+  "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, food.",
+  "1 round of 10 easy questions about animals for a family quiz night with children aged 8\u201312.",
+];
+
 type Step = { title: string; body: React.ReactNode };
 
 const STEPS: Step[] = [
@@ -198,6 +212,25 @@ export default function HowItWorksPage() {
             </li>
           ))}
         </ol>
+
+        {/* ACC4. The brief is the one thing the host writes, and a vague one
+            gets a vague pack. /create links here as "Tips for a good brief". */}
+        <section id="brief-tips" className="mt-10 scroll-mt-6 rounded-2xl border border-line bg-background p-6">
+          <h2 className="font-serif text-xl font-semibold tracking-tight">How to write a good brief</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-muted">
+            {BRIEF_TIPS.map((tip) => (
+              <li key={tip}>{tip}</li>
+            ))}
+          </ul>
+          <h3 className="mt-5 text-sm font-semibold">For example</h3>
+          <ul className="mt-2 space-y-2">
+            {BRIEF_EXAMPLES.map((example) => (
+              <li key={example} className="rounded-xl border border-line bg-white px-4 py-3 text-sm">
+                {example}
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <section className="mt-10 rounded-2xl border border-line bg-background p-6">
           <h2 className="font-serif text-xl font-semibold tracking-tight">What you need on the night</h2>

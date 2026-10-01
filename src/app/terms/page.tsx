@@ -36,9 +36,10 @@ export default function TermsPage() {
           <li>Free accounts can generate {countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days.</li>
           <li>
             Pro costs {formatUsd(PRICE_MONTHLY_USD)} per month or {formatUsd(PRICE_ANNUAL_USD)} per
-            year and removes the free plan&apos;s pack allowance. Pack generation is subject to a
-            daily fair-use limit per account and a service-wide daily safety limit; the wizard shows
-            the current limit when it is reached.
+            year and removes the free plan&apos;s pack allowance. Pro is subject to fair use: pack
+            generation has a daily fair-use limit per account, a fair-use limit per account over
+            rolling 30 days, and a service-wide daily safety limit. If you reach one,{" "}
+            the wizard tells you when it resets.
           </li>
         </LegalList>
       </LegalSection>

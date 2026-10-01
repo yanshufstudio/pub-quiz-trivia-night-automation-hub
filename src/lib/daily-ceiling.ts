@@ -25,9 +25,12 @@ import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-wind
  */
 
 /**
- * Set to the owner's API budget, not to a guess at demand: at roughly $0.18
- * for a pack that runs to the full 16k max_tokens, 20 + 50 is about $12.60 of
- * worst-case spend a day. The defaults exist so that a deploy which forgets
+ * Set to the owner's API budget, not to a guess at demand. Measured in ACC5
+ * for Opus 5.5 generating and checking, a pack costs about $0.075 on average
+ * and $0.136 for five rounds of ten, so 20 + 50 is about $5 a day, or $9.50
+ * if every pack were that large. A pack whose every call ran to its 16k
+ * max_tokens, retried once, could cost about $1.40; these ceilings are what
+ * bound that. The defaults exist so that a deploy which forgets
  * the environment variables is still bounded by something the owner has
  * agreed to pay, rather than by a number that merely sounded cautious.
  */
@@ -80,10 +83,44 @@ export function parseCeiling(raw: string | undefined, fallback: number): number 
  * (FREE_PACK_LIMIT is read at load *on purpose*, for the opposite reason: it
  * must not move under a creator part-way through a 30-day period.)
  */
-export function dailyCeilingFor(plan: string): number {
-  return plan === "PRO"
-    ? parseCeiling(process.env[PRO_CEILING_ENV], DEFAULT_PRO_DAILY_CEILING)
-    : parseCeiling(process.env[FREE_CEILING_ENV], DEFAULT_FREE_DAILY_CEILING);
+export function dailyCeilingFor(plan: string, now: Date = new Date()): number {
+  if (plan === "PRO") return parseCeiling(process.env[PRO_CEILING_ENV], DEFAULT_PRO_DAILY_CEILING);
+  const normal = parseCeiling(process.env[FREE_CEILING_ENV], DEFAULT_FREE_DAILY_CEILING);
+  // An explicit 0 is the kill switch, and a kill switch must not be undone by
+  // a boost somebody set a week earlier.
+  if (normal === 0) return 0;
+  return freeBoostAt(now) ?? normal;
+}
+
+/**
+ * A temporary free ceiling that ends by itself (PRC13).
+ *
+ * Planning, 29 Sep: 40 free packs a day across the launch, Fri 9 to Tue 13 Oct
+ * (UTC days), back to the normal ceiling on Wed 14 Oct — without anyone having
+ * to remember to change Vercel that day. So the boost carries its own end:
+ * while `now` is before FREE_DAILY_PACK_CEILING_BOOST_UNTIL (an ISO timestamp,
+ * UTC), the free ceiling is FREE_DAILY_PACK_CEILING_BOOST; from then on the
+ * normal FREE_DAILY_PACK_CEILING (or its default) applies again.
+ *
+ * Both must be set and well formed, or there is no boost. A typo never lowers
+ * the ceiling, let alone to zero: a malformed value is ignored and the normal
+ * ceiling stands.
+ */
+export const FREE_BOOST_ENV = "FREE_DAILY_PACK_CEILING_BOOST";
+export const FREE_BOOST_UNTIL_ENV = "FREE_DAILY_PACK_CEILING_BOOST_UNTIL";
+
+function freeBoostAt(now: Date): number | null {
+  const rawBoost = process.env[FREE_BOOST_ENV];
+  const rawUntil = process.env[FREE_BOOST_UNTIL_ENV]?.trim() ?? "";
+  if (rawBoost === undefined || rawBoost.trim() === "") return null;
+  const boost = Number(rawBoost);
+  if (!Number.isInteger(boost) || boost < 0) return null;
+  // ISO only — a local-looking date would be read in whatever zone the
+  // server happens to be in.
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/.test(rawUntil)) return null;
+  const until = Date.parse(rawUntil);
+  if (!Number.isFinite(until)) return null;
+  return now.getTime() < until ? boost : null;
 }
 
 /**
@@ -153,7 +190,7 @@ const NO_OP_RELEASE = async () => {};
  * read. Whatever does not end up spent is handed back with `release`.
  */
 export async function reserveDailyGeneration(plan: string, now: Date = new Date()): Promise<DailyReservation> {
-  const limit = dailyCeilingFor(plan);
+  const limit = dailyCeilingFor(plan, now);
   const key = `generate:daily:${bucketFor(plan)}:${utcDay(now)}`;
   const ttlSeconds = secondsUntilUtcMidnight(now);
 

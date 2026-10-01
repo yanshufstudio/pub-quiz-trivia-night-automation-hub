@@ -8,6 +8,7 @@ import { db } from "@/lib/db";
 import { CONTACT_EMAIL } from "@/lib/site";
 import * as paddleClient from "@/lib/paddle/client";
 import { signInTestHost } from "./auth-fixture";
+import { trialMailboxKey } from "@/lib/trial";
 import { TEST_WEBHOOK_SECRET, signedWebhookRequest, subscriptionPayload } from "./paddle-fixtures";
 
 /**
@@ -31,6 +32,8 @@ function configurePaddle() {
   vi.stubEnv("NEXT_PUBLIC_PADDLE_CLIENT_TOKEN", "test_client_token");
   vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_MONTHLY", "pri_monthly_test");
   vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_ANNUAL", "pri_annual_test");
+  vi.stubEnv("PADDLE_PRICE_MONTHLY_TRIAL", "pri_monthly_trial_test");
+  vi.stubEnv("PADDLE_PRICE_ANNUAL_TRIAL", "pri_annual_trial_test");
   vi.stubEnv("PADDLE_NOTIFICATION_WEBHOOK_SECRET", TEST_WEBHOOK_SECRET);
 }
 
@@ -54,13 +57,15 @@ describe("POST /api/billing/checkout", () => {
     const res = await checkout(post("/api/billing/checkout", host.cookieHeader, { interval: "year" }));
     expect(res.status).toBe(200);
     const body = await res.json();
-    expect(body.priceId).toBe("pri_annual_test");
+    // A brand-new account is offered the trial (PRC9).
+    expect(body.priceId).toBe("pri_annual_trial_test");
+    expect(body.trial).toBe(true);
     expect(body.customerEmail).toBe(host.email);
     expect(body.customData.creatorId).toBe(host.id);
     expect(typeof body.customData.creatorSig).toBe("string");
 
     const monthly = await (await checkout(post("/api/billing/checkout", host.cookieHeader, { interval: "month" }))).json();
-    expect(monthly.priceId).toBe("pri_monthly_test");
+    expect(monthly.priceId).toBe("pri_monthly_trial_test");
   });
 
   it("ignores any creator id the browser sends and uses the session's", async () => {
@@ -88,6 +93,23 @@ describe("POST /api/billing/checkout", () => {
     expect(await res.json()).toMatchObject({ alreadyPro: true });
   });
 
+  // PRC4: an owner-comped account is Pro without a subscription, so there is
+  // nothing to sell it — and no trial to start.
+  it("409s an owner-comped account, and reports it as Pro with no subscription", async () => {
+    const host = await signInTestHost(`comp-${Date.now()}@example.test`);
+    vi.stubEnv("PRO_COMP_EMAILS", `someone-else@example.test, ${host.email.toUpperCase()}`);
+
+    const res = await checkout(post("/api/billing/checkout", host.cookieHeader, { interval: "month" }));
+    expect(res.status).toBe(409);
+    expect(await res.json()).toMatchObject({ alreadyPro: true });
+
+    const s = await status(new NextRequest(`${BASE}/api/creator/status`, { headers: host.cookieHeader }));
+    expect(await s.json()).toMatchObject({ plan: "PRO", hasSubscription: false });
+
+    // Nothing was written: the row itself is still FREE.
+    expect(await db.creator.findUnique({ where: { id: host.id } })).toMatchObject({ plan: "FREE" });
+  });
+
   it("503s, saying so, on a deployment without the Paddle values", async () => {
     const host = await signInTestHost();
     vi.stubEnv("NEXT_PUBLIC_PADDLE_PRICE_ANNUAL", "");
@@ -108,6 +130,61 @@ describe("POST /api/billing/checkout", () => {
 
     const after = await (await status(new NextRequest(`${BASE}/api/creator/status`, { headers: host.cookieHeader }))).json();
     expect(after).toMatchObject({ plan: "PRO", hasSubscription: true, subscriptionStatus: "active" });
+  });
+});
+
+/**
+ * PRC9: the trial price goes only to an account that has never had a
+ * subscription and whose mailbox has never trialled. Everyone else is sold the
+ * same price without the trial.
+ */
+describe("POST /api/billing/checkout — who gets the trial (PRC9)", () => {
+  const ask = async (host: { cookieHeader: Record<string, string> }, interval = "month") =>
+    checkout(post("/api/billing/checkout", host.cookieHeader, { interval }));
+
+  it("sells a returning subscriber the price without the trial", async () => {
+    const host = await signInTestHost();
+    await db.creator.update({
+      where: { id: host.id },
+      data: { paddleSubscriptionId: `sub_old_${host.id}`, subscriptionStatus: "canceled" },
+    });
+    expect(await (await ask(host, "year")).json()).toMatchObject({ priceId: "pri_annual_test", trial: false });
+  });
+
+  it("sells an account whose own trial is on record the price without the trial", async () => {
+    const host = await signInTestHost();
+    await db.trialClaim.create({
+      data: { mailboxKey: trialMailboxKey(`other-${host.email}`), creatorId: host.id, subscriptionId: "sub_x" },
+    });
+    expect(await (await ask(host)).json()).toMatchObject({ priceId: "pri_monthly_test", trial: false });
+  });
+
+  it("sells a second account on a trialled mailbox the price without the trial", async () => {
+    const local = `twice${Math.random().toString(36).slice(2)}`;
+    await db.trialClaim.create({
+      data: { mailboxKey: trialMailboxKey(`${local}@gmail.com`), creatorId: `gone-${local}`, subscriptionId: "sub_y" },
+    });
+    // The same inbox: a dot, a +tag and googlemail.com.
+    const host = await signInTestHost(`${local.slice(0, 3)}.${local.slice(3)}+again@googlemail.com`);
+    expect(await (await ask(host)).json()).toMatchObject({ priceId: "pri_monthly_test", trial: false });
+  });
+
+  it("503s an eligible account when the trial prices are not configured, rather than quietly dropping the trial", async () => {
+    const host = await signInTestHost();
+    vi.stubEnv("PADDLE_PRICE_MONTHLY_TRIAL", "");
+    const errors = vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await ask(host);
+    expect(res.status).toBe(503);
+    expect(await res.json()).toMatchObject({ notConfigured: true });
+    expect(errors).toHaveBeenCalled();
+  });
+
+  it("still sells an ineligible account the no-trial price without the trial prices configured", async () => {
+    const host = await signInTestHost();
+    await db.creator.update({ where: { id: host.id }, data: { paddleSubscriptionId: `sub_prev_${host.id}` } });
+    vi.stubEnv("PADDLE_PRICE_MONTHLY_TRIAL", "");
+    vi.stubEnv("PADDLE_PRICE_ANNUAL_TRIAL", "");
+    expect(await (await ask(host)).json()).toMatchObject({ priceId: "pri_monthly_test", trial: false });
   });
 });
 

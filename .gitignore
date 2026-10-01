@@ -61,3 +61,6 @@ yarn-error.log*
 next-env.d.ts
 /prisma/screenshots.db
 /prisma/screenshots.db-journal
+
+# accuracy harness output (scripts/eval-accuracy.ts)
+/eval-results/

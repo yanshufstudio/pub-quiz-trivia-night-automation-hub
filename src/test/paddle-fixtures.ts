@@ -39,6 +39,8 @@ export function subscriptionPayload(overrides: {
    * event plainly ours or plainly another product's (C2).
    */
   priceIds?: readonly string[];
+  /** current_billing_period.starts_at; omitted means no period (null). */
+  periodStartsAt?: string;
 }) {
   counter += 1;
   const subscriptionId = overrides.subscriptionId ?? `sub_test_${counter}`;
@@ -64,7 +66,9 @@ export function subscriptionPayload(overrides: {
       discount: null,
       collection_mode: "automatic",
       billing_details: null,
-      current_billing_period: null,
+      current_billing_period: overrides.periodStartsAt
+        ? { starts_at: overrides.periodStartsAt, ends_at: overrides.periodStartsAt }
+        : null,
       billing_cycle: { interval: "month", frequency: 1 },
       scheduled_change: null,
       items: (overrides.priceIds ?? []).map((priceId, index) => ({

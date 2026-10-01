@@ -29,6 +29,16 @@
 export const EXTRA_PRICE_IDS_ENV = "PADDLE_EXTRA_PRICE_IDS";
 
 /**
+ * The same prices with Paddle's 14-day trial on them (PRC7). Server-only: the
+ * checkout route decides who is offered a trial and returns the price id, so
+ * the browser never chooses one.
+ */
+export const TRIAL_PRICE_ENV = {
+  month: "PADDLE_PRICE_MONTHLY_TRIAL",
+  year: "PADDLE_PRICE_ANNUAL_TRIAL",
+} as const;
+
+/**
  * Read per call rather than memoised, for the same reason the ceilings are: it
  * is configuration the owner may change without a rebuild, and re-reading it
  * costs nothing next to a webhook's database work.
@@ -37,6 +47,8 @@ export function ourPriceIds(): ReadonlySet<string> {
   const configured = [
     process.env.NEXT_PUBLIC_PADDLE_PRICE_MONTHLY,
     process.env.NEXT_PUBLIC_PADDLE_PRICE_ANNUAL,
+    process.env[TRIAL_PRICE_ENV.month],
+    process.env[TRIAL_PRICE_ENV.year],
     ...(process.env[EXTRA_PRICE_IDS_ENV] ?? "").split(","),
   ];
   return new Set(

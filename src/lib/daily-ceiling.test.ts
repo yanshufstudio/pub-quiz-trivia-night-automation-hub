@@ -2,6 +2,8 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   DEFAULT_FREE_DAILY_CEILING,
   DEFAULT_PRO_DAILY_CEILING,
+  FREE_BOOST_ENV,
+  FREE_BOOST_UNTIL_ENV,
   FREE_CEILING_ENV,
   PRO_CEILING_ENV,
   __resetMemoryCounters,
@@ -10,7 +12,7 @@ import {
   reserveDailyGeneration,
 } from "@/lib/daily-ceiling";
 
-const ENV_KEYS = [FREE_CEILING_ENV, PRO_CEILING_ENV] as const;
+const ENV_KEYS = [FREE_CEILING_ENV, PRO_CEILING_ENV, FREE_BOOST_ENV, FREE_BOOST_UNTIL_ENV] as const;
 const saved: Record<string, string | undefined> = {};
 
 beforeEach(() => {
@@ -46,9 +48,8 @@ describe("parseCeiling", () => {
 
 describe("the default ceilings", () => {
   // Pinned, not derived. These are the owner's API budget expressed as a
-  // number of packs — at roughly $0.18 for a pack that runs to the full 16k
-  // max_tokens, 20 + 50 is about $12.60 a day of worst-case spend — so they
-  // are not free to drift. The two buckets are independent and therefore ADD:
+  // number of packs — at ACC5's measured $0.075 a pack (Opus 5.5 generating
+  // and checking), 20 + 50 is about $5 a day — so they are not free to drift. The two buckets are independent and therefore ADD:
   // a change to either one changes the daily exposure, which is why this
   // asserts the values rather than just that they exist.
   it("are the budgeted numbers", () => {
@@ -77,6 +78,61 @@ describe("dailyCeilingFor", () => {
   it("treats an unknown plan as FREE", () => {
     process.env[FREE_CEILING_ENV] = "3";
     expect(dailyCeilingFor("LEGENDARY")).toBe(3);
+  });
+});
+
+describe("a temporary free-ceiling boost that expires by itself (PRC13)", () => {
+  // Planning, 29 Sep: 40 a day from Fri 9 to Tue 13 Oct (UTC days), back to
+  // 20 on Wed 14 Oct without anyone touching Vercel that day.
+  const UNTIL = "2026-10-14T00:00:00Z";
+  const DURING = new Date("2026-10-13T23:59:59Z");
+  const AFTER = new Date("2026-10-14T00:00:00Z");
+
+  it("uses the boost before the end, and the normal ceiling from the end on", () => {
+    process.env[FREE_BOOST_ENV] = "40";
+    process.env[FREE_BOOST_UNTIL_ENV] = UNTIL;
+    expect(dailyCeilingFor("FREE", DURING)).toBe(40);
+    expect(dailyCeilingFor("FREE", AFTER)).toBe(DEFAULT_FREE_DAILY_CEILING);
+    process.env[FREE_CEILING_ENV] = "25";
+    expect(dailyCeilingFor("FREE", AFTER)).toBe(25);
+  });
+
+  it("never touches Pro", () => {
+    process.env[FREE_BOOST_ENV] = "40";
+    process.env[FREE_BOOST_UNTIL_ENV] = UNTIL;
+    expect(dailyCeilingFor("PRO", DURING)).toBe(DEFAULT_PRO_DAILY_CEILING);
+  });
+
+  it("does nothing while unset, or with only one of the two set", () => {
+    expect(dailyCeilingFor("FREE", DURING)).toBe(DEFAULT_FREE_DAILY_CEILING);
+    process.env[FREE_BOOST_ENV] = "40";
+    expect(dailyCeilingFor("FREE", DURING)).toBe(DEFAULT_FREE_DAILY_CEILING);
+    delete process.env[FREE_BOOST_ENV];
+    process.env[FREE_BOOST_UNTIL_ENV] = UNTIL;
+    expect(dailyCeilingFor("FREE", DURING)).toBe(DEFAULT_FREE_DAILY_CEILING);
+  });
+
+  it("ignores a malformed boost — it falls back to the normal ceiling, never to zero", () => {
+    process.env[FREE_BOOST_UNTIL_ENV] = UNTIL;
+    for (const raw of ["", "  ", "forty", "-1", "2.5", "NaN", "40x"]) {
+      process.env[FREE_BOOST_ENV] = raw;
+      expect(dailyCeilingFor("FREE", DURING), raw).toBe(DEFAULT_FREE_DAILY_CEILING);
+    }
+  });
+
+  it("ignores a malformed end", () => {
+    process.env[FREE_BOOST_ENV] = "40";
+    for (const raw of ["", "tomorrow", "2026-13-40T00:00:00Z", "14/10/2026"]) {
+      process.env[FREE_BOOST_UNTIL_ENV] = raw;
+      expect(dailyCeilingFor("FREE", DURING), raw).toBe(DEFAULT_FREE_DAILY_CEILING);
+    }
+  });
+
+  it("an explicit 0 on the normal variable is still the kill switch, boost or not", () => {
+    process.env[FREE_BOOST_ENV] = "40";
+    process.env[FREE_BOOST_UNTIL_ENV] = UNTIL;
+    process.env[FREE_CEILING_ENV] = "0";
+    expect(dailyCeilingFor("FREE", DURING)).toBe(0);
   });
 });
 

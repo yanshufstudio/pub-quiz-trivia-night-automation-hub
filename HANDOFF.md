@@ -573,12 +573,14 @@ against `master` `80ca6fd` and PR #4 `d16a99f` — both SHAs have moved since.*
 
 - **The two ceilings add up, and the arithmetic is worth a second look.**
   Free and Pro are independent buckets, so worst-case daily exposure is
-  `20 + 50` generations. At roughly $0.18 for a pack that runs to the full 16k
-  `max_tokens` that is about **$12.60 a day, ~$380 a month**. The owner set
-  these against a stated $50 API budget; if that figure is monthly rather than
-  daily, the ceilings do not enforce it — that would need roughly 9 a day
-  across both buckets. Raised at the time and the numbers were confirmed
-  anyway, so this is a note, not a blocker.
+  `20 + 50` generations. At ACC5's measured cost for Opus 5.5 generating and
+  checking — about $0.075 a pack, $0.136 for five rounds of ten — that is
+  about **$5-9.50 a day, ~$160-290 a month** if both ceilings were used up
+  every day; a pack whose every call ran to its 16k `max_tokens`, retried
+  once, could cost about $1.40, or about $100 a day at the ceilings. The owner
+  set these against a stated $50 API budget; if that figure is monthly, the
+  ceilings do not enforce it — at the measured average that would need
+  roughly 22 packs a day across both buckets. A note, not a blocker.
 
 - **`GET /api/packs` and `GET /api/packs/[id]` return full answer text for
   ownerless packs (e.g. the demo pack), unauthenticated.** Found during the

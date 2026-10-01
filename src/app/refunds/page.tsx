@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
-import { FREE_PACK_ALLOWANCE, PRICE_ANNUAL_USD, PRICE_MONTHLY_USD, formatUsd } from "@/lib/pricing";
+import {
+  FREE_PACK_ALLOWANCE,
+  PRICE_ANNUAL_USD,
+  PRICE_MONTHLY_USD,
+  TRIAL_DAYS,
+  formatUsd,
+} from "@/lib/pricing";
 import { countOf } from "@/lib/plural";
 
 export const metadata: Metadata = pageMetadata({
@@ -46,6 +52,13 @@ export default function RefundsPage() {
             generated no more than {countOf(FREE_PACK_ALLOWANCE, "pack")} in the current billing
             period — the same number the free plan allows. In other words, if Pro was not for you and
             you used it no more than you could have used the free plan, you get your money back.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">The free trial.</span> New subscribers
+            get a {TRIAL_DAYS}-day free trial, card required. Nothing is charged during it:
+            you&apos;re charged when the trial ends, unless you cancel before then, and that charge
+            is your first subscription payment above. For its refund, the packs you generate during
+            the trial count as generated in the current billing period.
           </li>
           <li>
             <span className="font-medium text-foreground">A renewal</span> is refundable within 14
