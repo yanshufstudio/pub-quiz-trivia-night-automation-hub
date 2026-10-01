@@ -38,16 +38,34 @@ export function getAnthropicClient(): Anthropic {
  * today, because mistaking a real bad request for an exhausted account would
  * tell a host to wait for something that is never going to change.
  */
-const CREDIT_EXHAUSTED = /credit balance|insufficient (?:funds|credit)|quota|billing|payment required/i;
+const CREDIT_EXHAUSTED =
+  /credit balance|insufficient (?:funds|credit)|quota|billing|payment required|you have reached your specified (?:workspace )?API usage limits/i;
+
+/**
+ * Spend limits are the same failure (PRC14), per docs.claude.com/en/api/rate-limits:
+ *
+ * - A spend limit the owner set is a 400 `invalid_request_error` whose message
+ *   begins "You have reached your specified API usage limits" (or "...specified
+ *   workspace API usage limits"). Matched by that message, above.
+ * - The tier's spend cap is a 429 `rate_limit_error` — the same type as an
+ *   ordinary rate limit — told apart only by `error.details.error_code`
+ *   "enforced_spend_limit_reached". So a 429 counts only with that code; every
+ *   other 429 is a rate limit, where retrying *is* the right advice.
+ */
+const SPEND_CAP_CODE = "enforced_spend_limit_reached";
 
 export function isAnthropicCreditExhausted(err: unknown): boolean {
   if (!(err instanceof Anthropic.APIError)) return false;
   // Payment Required needs no interpretation.
   if (err.status === 402) return true;
+
+  const body = err.error as
+    | { error?: { message?: unknown; type?: unknown; details?: { error_code?: unknown } } }
+    | undefined;
+  if (err.status === 429) return body?.error?.details?.error_code === SPEND_CAP_CODE;
   // Otherwise only the two statuses Anthropic actually uses for it.
   if (err.status !== 400 && err.status !== 403) return false;
 
-  const body = err.error as { error?: { message?: unknown; type?: unknown } } | undefined;
   const detail = typeof body?.error?.message === "string" ? body.error.message : "";
   const type = typeof body?.error?.type === "string" ? body.error.type : "";
   return CREDIT_EXHAUSTED.test(`${err.message} ${detail} ${type}`);

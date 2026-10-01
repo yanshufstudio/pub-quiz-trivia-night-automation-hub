@@ -16,8 +16,12 @@ const REQUIRED_PUBLIC_PADDLE = [
   "NEXT_PUBLIC_PADDLE_PRICE_ANNUAL",
 ] as const;
 
+// PRC9: the trial prices are server-only, so a missing one would not break the
+// bundle — it would 503 every new account's checkout at runtime. Same guard.
+const REQUIRED_SERVER_PADDLE = ["PADDLE_PRICE_MONTHLY_TRIAL", "PADDLE_PRICE_ANNUAL_TRIAL"] as const;
+
 if (process.env.VERCEL_ENV === "production") {
-  for (const name of REQUIRED_PUBLIC_PADDLE) {
+  for (const name of [...REQUIRED_PUBLIC_PADDLE, ...REQUIRED_SERVER_PADDLE]) {
     if (!process.env[name]) {
       throw new Error(`Build aborted: ${name} is empty. Set it as a Vercel Config variable and redeploy.`);
     }

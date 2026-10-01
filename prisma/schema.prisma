@@ -243,6 +243,21 @@ model MailboxAllowance {
   createdAt       DateTime @default(now())
 }
 
+/// One Pro trial per account and per mailbox (PRC8).
+///
+/// Written by the Paddle webhook on a subscription's first "trialing" event;
+/// read by the checkout, which offers the trial price only when neither the
+/// account nor its mailbox has a row here. Like MailboxAllowance, `mailboxKey`
+/// is a digest rather than an address, and the row has no foreign key: it has
+/// to outlive account deletion, or a second trial would be one "delete my
+/// account" away.
+model TrialClaim {
+  mailboxKey     String   @id
+  creatorId      String   @unique
+  subscriptionId String
+  createdAt      DateTime @default(now())
+}
+
 model Creator {
   id                     String     @id @default(cuid())
   deviceKey              String     @unique
@@ -286,6 +301,13 @@ model Creator {
   // the first event carrying one arrives, which is why the count only ever
   // rolls on Paddle's word and never on a clock of ours.
   proPeriodStartedAt     DateTime?
+
+  // Pro fair use (PRC5): packs generated in a rolling 30-day window, and when
+  // that window started. Not the M8 count above, which rolls on Paddle's
+  // billing period — yearly on the annual price, and never for a comped
+  // account, which has no period at all. Null until the first Pro generation.
+  proWindowCount         Int        @default(0)
+  proWindowStartedAt     DateTime?
 
   /// Which Paddle environment granted this row's Pro (C1).
   ///

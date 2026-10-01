@@ -16,19 +16,23 @@
  * call site.
  */
 
-export const PRICE_MONTHLY_USD = 5;
 /**
- * $45 a year: three months free against twelve monthly payments. The owner's
- * decision of 2026-09-21 (planning decision 27), replacing the $25 the
- * 2026-09-09 spec launched with. The live Paddle annual price is created at
- * 4500 cents to match; if the two ever differ, the site advertises one price
- * and Paddle charges another.
+ * $10 a month, the owner's decision of 2026-09-28, replacing $5. The live
+ * Paddle monthly price is created at 1000 cents to match. Subscribers on the
+ * old $5/$45 prices keep Pro through PADDLE_EXTRA_PRICE_IDS.
  */
-export const PRICE_ANNUAL_USD = 45;
+export const PRICE_MONTHLY_USD = 10;
+/**
+ * $90 a year: three months free against twelve monthly payments. The owner's
+ * decision of 2026-09-28, replacing $45. The live Paddle annual price is
+ * created at 9000 cents to match; if the two ever differ, the site advertises
+ * one price and Paddle charges another.
+ */
+export const PRICE_ANNUAL_USD = 90;
 
 /**
  * How many months of the monthly plan the annual price saves, as /pricing
- * states it ("3 months free" at $5 and $45).
+ * states it ("3 months free" at $10 and $90).
  *
  * Worked out rather than written, because the written version was wrong: the
  * page once said "two months free", carried over from PR #4's cards, when
@@ -38,6 +42,13 @@ export const PRICE_ANNUAL_USD = 45;
  * asserts it divides evenly today.
  */
 export const ANNUAL_MONTHS_FREE = Math.floor(12 - PRICE_ANNUAL_USD / PRICE_MONTHLY_USD);
+
+/**
+ * The free trial on PADDLE_PRICE_*_TRIAL (PRC11). Paddle, not this constant,
+ * decides the trial's length: it is set on those two prices in the catalogue,
+ * and this must say the same.
+ */
+export const TRIAL_DAYS = 14;
 
 /** `$5`, `$45` — one renderer so the pages cannot format differently. */
 export function formatUsd(amount: number): string {
