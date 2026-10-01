@@ -17,6 +17,7 @@ import {
   UnusableModelOutputError,
 } from "@/lib/generate-pack";
 import { POST as generate } from "@/app/api/packs/generate/route";
+import { __resetFreeAllowanceCounters } from "@/lib/free-allowance";
 import { signInTestHost } from "./auth-fixture";
 
 const BASE = "http://localhost:3000";
@@ -61,6 +62,9 @@ describe("POST /api/packs/generate — failure mapping", () => {
 
   beforeEach(() => {
     testIp += 1;
+    // One host serves every test, and each test is one failure: GH7's
+    // per-account count of paid-for failures would otherwise carry over.
+    __resetFreeAllowanceCounters();
     vi.mocked(generateQuizPack).mockReset();
   });
 
