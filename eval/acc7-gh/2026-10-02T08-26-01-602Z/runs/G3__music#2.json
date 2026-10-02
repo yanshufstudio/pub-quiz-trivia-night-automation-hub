@@ -1,0 +1,743 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1826,
+      "outputTokens": 1887,
+      "thinkingTokens": 0,
+      "durationMs": 17330
+    },
+    "costUsd": 0.045044,
+    "ms": 17331
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+      "answer": "Pink Floyd"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Led Zeppelin?",
+      "answer": "Robert Plant"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Queen song from 1975 contains the line 'Scaramouche, Scaramouche, will you do the Fandango'?",
+      "answer": "Bohemian Rhapsody"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist set his guitar on fire at the Monterey Pop Festival in 1967?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band's 1977 album 'Rumours' includes 'Go Your Own Way' and 'Dreams'?",
+      "answer": "Fleetwood Mac"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Who album, released in 1969, is a rock opera about a 'deaf, dumb and blind kid'?",
+      "answer": "Tommy"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "David Bowie's 1972 album was 'The Rise and Fall of Ziggy Stardust and the Spiders from...' where?",
+      "answer": "Mars",
+      "options": [
+        "Mars",
+        "Venus",
+        "Saturn",
+        "Jupiter"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Rolling Stones guitarist drowned in his swimming pool in 1969?",
+      "answer": "Brian Jones"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer went deaf but carried on composing, including his Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Italian composer wrote the set of violin concertos known as 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the music for the ballets 'Swan Lake' and 'The Nutcracker'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "In which city was Wolfgang Amadeus Mozart born?",
+      "answer": "Salzburg"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German-born composer, who settled in London, wrote the oratorio 'Messiah'?",
+      "answer": "George Frideric Handel"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which French composer wrote 'Boléro'?",
+      "answer": "Maurice Ravel",
+      "options": [
+        "Maurice Ravel",
+        "Claude Debussy",
+        "Erik Satie",
+        "Camille Saint-Saëns"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which English composer wrote 'The Planets' suite?",
+      "answer": "Gustav Holst"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Norwegian composer wrote 'In the Hall of the Mountain King'?",
+      "answer": "Edvard Grieg"
+    },
+    {
+      "id": "R3Q1",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Norwegian duo had a 2013 viral hit with 'The Fox (What Does the Fox Say?)'?",
+      "answer": "Ylvis"
+    },
+    {
+      "id": "R3Q2",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1997 hit with 'Tubthumping', featuring the line 'I get knocked down, but I get up again'?",
+      "answer": "Chumbawamba"
+    },
+    {
+      "id": "R3Q3",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer had a 1980s hit with 'Come On Eileen' as frontman of Dexys Midnight Runners?",
+      "answer": "Kevin Rowland"
+    },
+    {
+      "id": "R3Q4",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1979 hit with 'Video Killed the Radio Star'?",
+      "answer": "The Buggles"
+    },
+    {
+      "id": "R3Q5",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Who sang the 1992 country hit 'Achy Breaky Heart'?",
+      "answer": "Billy Ray Cyrus"
+    },
+    {
+      "id": "R3Q6",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band had a 1993 hit with 'What's Up?', with its 'Hey-ey-ey' chorus?",
+      "answer": "4 Non Blondes",
+      "options": [
+        "4 Non Blondes",
+        "The Cranberries",
+        "Hole",
+        "No Doubt"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Italian group had a 1999 hit with 'Blue (Da Ba Dee)'?",
+      "answer": "Eiffel 65"
+    },
+    {
+      "id": "R3Q8",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which singer had a 1981 hit with 'Tainted Love' as half of Soft Cell?",
+      "answer": "Marc Almond"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.044788,
+      "ms": 13080,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2642,
+          "outputTokens": 1711,
+          "thinkingTokens": 294,
+          "durationMs": 13080
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Robert Plant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Bohemian Rhapsody",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Fleetwood Mac",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Tommy",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Brian Jones",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "George Frideric Handel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Edvard Grieg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Ylvis",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Kevin Rowland",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Billy Ray Cyrus",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Eiffel 65",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Marc Almond",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+          "answer": "Pink Floyd"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Led Zeppelin?",
+          "answer": "Robert Plant"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Queen song from 1975 contains the line 'Scaramouche, Scaramouche, will you do the Fandango'?",
+          "answer": "Bohemian Rhapsody"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist set his guitar on fire at the Monterey Pop Festival in 1967?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band's 1977 album 'Rumours' includes 'Go Your Own Way' and 'Dreams'?",
+          "answer": "Fleetwood Mac"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Who album, released in 1969, is a rock opera about a 'deaf, dumb and blind kid'?",
+          "answer": "Tommy"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "David Bowie's 1972 album was 'The Rise and Fall of Ziggy Stardust and the Spiders from...' where?",
+          "answer": "Mars",
+          "options": [
+            "Mars",
+            "Venus",
+            "Saturn",
+            "Jupiter"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Rolling Stones guitarist drowned in his swimming pool in 1969?",
+          "answer": "Brian Jones"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer went deaf but carried on composing, including his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Italian composer wrote the set of violin concertos known as 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the music for the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "In which city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German-born composer, who settled in London, wrote the oratorio 'Messiah'?",
+          "answer": "George Frideric Handel"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel",
+          "options": [
+            "Maurice Ravel",
+            "Claude Debussy",
+            "Erik Satie",
+            "Camille Saint-Saëns"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which English composer wrote 'The Planets' suite?",
+          "answer": "Gustav Holst"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Norwegian composer wrote 'In the Hall of the Mountain King'?",
+          "answer": "Edvard Grieg"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Norwegian duo had a 2013 viral hit with 'The Fox (What Does the Fox Say?)'?",
+          "answer": "Ylvis"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1997 hit with 'Tubthumping', featuring the line 'I get knocked down, but I get up again'?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1980s hit with 'Come On Eileen' as frontman of Dexys Midnight Runners?",
+          "answer": "Kevin Rowland"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1979 hit with 'Video Killed the Radio Star'?",
+          "answer": "The Buggles"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who sang the 1992 country hit 'Achy Breaky Heart'?",
+          "answer": "Billy Ray Cyrus"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band had a 1993 hit with 'What's Up?', with its 'Hey-ey-ey' chorus?",
+          "answer": "4 Non Blondes",
+          "options": [
+            "4 Non Blondes",
+            "The Cranberries",
+            "Hole",
+            "No Doubt"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Italian group had a 1999 hit with 'Blue (Da Ba Dee)'?",
+          "answer": "Eiffel 65"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which singer had a 1981 hit with 'Tainted Love' as half of Soft Cell?",
+          "answer": "Marc Almond"
+        }
+      ]
+    }
+  ]
+}

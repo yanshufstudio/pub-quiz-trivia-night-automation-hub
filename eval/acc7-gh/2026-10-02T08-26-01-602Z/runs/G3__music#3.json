@@ -1,0 +1,811 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1826,
+      "outputTokens": 1786,
+      "thinkingTokens": 0,
+      "durationMs": 16338
+    },
+    "costUsd": 0.043024,
+    "ms": 16339
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+      "answer": "Pink Floyd"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Freddie Mercury was the lead singer of which band?",
+      "answer": "Queen"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist famously played 'The Star-Spangled Banner' at Woodstock in 1969?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Led Zeppelin song begins with the line 'There's a lady who's sure all that glitters is gold'?",
+      "answer": "Stairway to Heaven"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band released the 1977 album 'Rumours'?",
+      "answer": "Fleetwood Mac",
+      "options": [
+        "Eagles",
+        "Fleetwood Mac",
+        "The Doobie Brothers",
+        "Steely Dan"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Who was the original drummer of The Who, known for his chaotic style, who died in 1978?",
+      "answer": "Keith Moon"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Beatles album, released in 1967, features a cover showing the band in colourful military-style uniforms?",
+      "answer": "Sgt. Pepper's Lonely Hearts Club Band"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Classic Rock",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What was the name of Jim Morrison's band?",
+      "answer": "The Doors"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer continued to write music after going deaf, including his Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which city was Wolfgang Amadeus Mozart born?",
+      "answer": "Salzburg",
+      "options": [
+        "Vienna",
+        "Salzburg",
+        "Prague",
+        "Munich"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which German-born composer wrote the oratorio 'Messiah'?",
+      "answer": "George Frideric Handel"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which English composer wrote 'The Planets' suite?",
+      "answer": "Gustav Holst"
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Polish-born composer, who wrote mostly for solo piano, is buried in Paris but had his heart returned to Warsaw?",
+      "answer": "Frédéric Chopin"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Great Composers",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which French composer wrote 'Boléro'?",
+      "answer": "Maurice Ravel"
+    },
+    {
+      "id": "R3Q1",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1990s hit with 'Macarena'?",
+      "answer": "Los del Río"
+    },
+    {
+      "id": "R3Q2",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which artist sang the 1982 hit 'Come On Eileen' with Dexys Midnight Runners as the band's frontman?",
+      "answer": "Kevin Rowland"
+    },
+    {
+      "id": "R3Q3",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "'Tubthumping', with the line 'I get knocked down, but I get up again', was a hit for which band?",
+      "answer": "Chumbawamba"
+    },
+    {
+      "id": "R3Q4",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1969 hit with 'In the Year 2525'?",
+      "answer": "Zager and Evans"
+    },
+    {
+      "id": "R3Q5",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1993 hit with 'What's Up?', featuring the lyric 'What's going on?'",
+      "answer": "4 Non Blondes"
+    },
+    {
+      "id": "R3Q6",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Norwegian band had a 1985 hit with 'Take On Me'?",
+      "answer": "a-ha",
+      "options": [
+        "a-ha",
+        "Europe",
+        "Roxette",
+        "Alphaville"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Australian-born singer had a 2011 hit with 'Somebody That I Used to Know'?",
+      "answer": "Gotye"
+    },
+    {
+      "id": "R3Q8",
+      "round": "One and Done",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1966 hit with '96 Tears'?",
+      "answer": "? and the Mysterians"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.061744,
+      "ms": 18609,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2532,
+          "outputTokens": 1865,
+          "thinkingTokens": 238,
+          "durationMs": 14567
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1604,
+          "outputTokens": 395,
+          "thinkingTokens": 0,
+          "durationMs": 4040
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "Moon was not the original drummer (Doug Sandom came before him), so 'original' is removed.",
+          "text": "Which drummer of The Who, known for his chaotic style, died in 1978?"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "Los del Río are a duo, so 'band' becomes 'act'.",
+          "text": "Which act had a 1990s hit with 'Macarena'?"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "fix",
+          "reason": "Zager and Evans are a duo, so 'band' becomes 'duo'.",
+          "text": "Which duo had a 1969 hit with 'In the Year 2525'?"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "fix",
+          "reason": "Gotye was born in Bruges, Belgium, so 'Australian-born' becomes 'Belgian-born Australian'.",
+          "text": "Which Belgian-born Australian singer had a 2011 hit with 'Somebody That I Used to Know'?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Stairway to Heaven",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Fleetwood Mac",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Keith Moon",
+          "agreed": true,
+          "flags": [
+            "wording: 'original drummer': Keith Moon was not The Who's original drummer. Doug Sandom drummed for the band before Moon joined in 1964."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Sgt. Pepper's Lonely Hearts Club Band",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "The Doors",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "George Frideric Handel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Frédéric Chopin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": [
+            "wording: Minor point: Los del Río are a duo rather than a band."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Kevin Rowland",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Zager and Evans",
+          "agreed": true,
+          "flags": [
+            "wording: Minor point: Zager and Evans are a duo rather than a band."
+          ]
+        },
+        "R3Q5": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "a-ha",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Gotye",
+          "agreed": true,
+          "flags": [
+            "wording: 'Australian-born': Gotye was born in Bruges, Belgium, and moved to Australia as a child. He is Belgian-born Australian."
+          ]
+        },
+        "R3Q8": {
+          "answer": "? and the Mysterians",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "Moon was not the original drummer (Doug Sandom came before him), so 'original' is removed.",
+          "before": {
+            "text": "Who was the original drummer of The Who, known for his chaotic style, who died in 1978?",
+            "answer": "Keith Moon"
+          },
+          "after": {
+            "text": "Which drummer of The Who, known for his chaotic style, died in 1978?",
+            "answer": "Keith Moon"
+          }
+        },
+        {
+          "id": "R3Q1",
+          "reason": "Los del Río are a duo, so 'band' becomes 'act'.",
+          "before": {
+            "text": "Which band had a 1990s hit with 'Macarena'?",
+            "answer": "Los del Río"
+          },
+          "after": {
+            "text": "Which act had a 1990s hit with 'Macarena'?",
+            "answer": "Los del Río"
+          }
+        },
+        {
+          "id": "R3Q4",
+          "reason": "Zager and Evans are a duo, so 'band' becomes 'duo'.",
+          "before": {
+            "text": "Which band had a 1969 hit with 'In the Year 2525'?",
+            "answer": "Zager and Evans"
+          },
+          "after": {
+            "text": "Which duo had a 1969 hit with 'In the Year 2525'?",
+            "answer": "Zager and Evans"
+          }
+        },
+        {
+          "id": "R3Q7",
+          "reason": "Gotye was born in Bruges, Belgium, so 'Australian-born' becomes 'Belgian-born Australian'.",
+          "before": {
+            "text": "Which Australian-born singer had a 2011 hit with 'Somebody That I Used to Know'?",
+            "answer": "Gotye"
+          },
+          "after": {
+            "text": "Which Belgian-born Australian singer had a 2011 hit with 'Somebody That I Used to Know'?",
+            "answer": "Gotye"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+          "answer": "Pink Floyd"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Freddie Mercury was the lead singer of which band?",
+          "answer": "Queen"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist famously played 'The Star-Spangled Banner' at Woodstock in 1969?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Led Zeppelin song begins with the line 'There's a lady who's sure all that glitters is gold'?",
+          "answer": "Stairway to Heaven"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band released the 1977 album 'Rumours'?",
+          "answer": "Fleetwood Mac",
+          "options": [
+            "Eagles",
+            "Fleetwood Mac",
+            "The Doobie Brothers",
+            "Steely Dan"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which drummer of The Who, known for his chaotic style, died in 1978?",
+          "answer": "Keith Moon"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Beatles album, released in 1967, features a cover showing the band in colourful military-style uniforms?",
+          "answer": "Sgt. Pepper's Lonely Hearts Club Band"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Classic Rock",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What was the name of Jim Morrison's band?",
+          "answer": "The Doors"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer continued to write music after going deaf, including his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg",
+          "options": [
+            "Vienna",
+            "Salzburg",
+            "Prague",
+            "Munich"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which German-born composer wrote the oratorio 'Messiah'?",
+          "answer": "George Frideric Handel"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which English composer wrote 'The Planets' suite?",
+          "answer": "Gustav Holst"
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Polish-born composer, who wrote mostly for solo piano, is buried in Paris but had his heart returned to Warsaw?",
+          "answer": "Frédéric Chopin"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Great Composers",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel"
+        },
+        {
+          "id": "R3Q1",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which act had a 1990s hit with 'Macarena'?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q2",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which artist sang the 1982 hit 'Come On Eileen' with Dexys Midnight Runners as the band's frontman?",
+          "answer": "Kevin Rowland"
+        },
+        {
+          "id": "R3Q3",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "'Tubthumping', with the line 'I get knocked down, but I get up again', was a hit for which band?",
+          "answer": "Chumbawamba"
+        },
+        {
+          "id": "R3Q4",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which duo had a 1969 hit with 'In the Year 2525'?",
+          "answer": "Zager and Evans"
+        },
+        {
+          "id": "R3Q5",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1993 hit with 'What's Up?', featuring the lyric 'What's going on?'",
+          "answer": "4 Non Blondes"
+        },
+        {
+          "id": "R3Q6",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Norwegian band had a 1985 hit with 'Take On Me'?",
+          "answer": "a-ha",
+          "options": [
+            "a-ha",
+            "Europe",
+            "Roxette",
+            "Alphaville"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Belgian-born Australian singer had a 2011 hit with 'Somebody That I Used to Know'?",
+          "answer": "Gotye"
+        },
+        {
+          "id": "R3Q8",
+          "round": "One and Done",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1966 hit with '96 Tears'?",
+          "answer": "? and the Mysterians"
+        }
+      ]
+    }
+  ]
+}

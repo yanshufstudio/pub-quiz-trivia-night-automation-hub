@@ -1,0 +1,550 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16,
+    "expect": [
+      8,
+      8
+    ],
+    "run": "film-tv#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (Generated quiz pack failed validation: [\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"rounds\"\n    ],\n    \"message\": \"Invalid input: expected array, received string\"\n  }\n]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3626,
+      "outputTokens": 1484,
+      "thinkingTokens": 0,
+      "durationMs": 18398
+    },
+    "costUsd": 0.044184,
+    "ms": 18399
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1997 film about a doomed ocean liner won the Academy Award for Best Picture?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor won Best Actor for both 'Philadelphia' and 'Forrest Gump' in consecutive years?",
+      "answer": "Tom Hanks"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which actress holds the record for the most Academy Awards for acting, with four wins?",
+      "answer": "Katharine Hepburn",
+      "options": [
+        "Meryl Streep",
+        "Katharine Hepburn",
+        "Ingrid Bergman",
+        "Bette Davis"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+      "answer": "The Joker"
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which film, directed by Peter Jackson, won all 11 Oscars it was nominated for?",
+      "answer": "The Lord of the Rings: The Return of the King"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Kathryn Bigelow became the first woman to win Best Director for which film?",
+      "answer": "The Hurt Locker"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To...",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1927 film won the first Academy Award for Outstanding Picture?",
+      "answer": "Wings"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of the coffee house where the group hangs out?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Frasier', what is the name of Frasier's brother?",
+      "answer": "Niles"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In the UK version of 'The Office', what is the name of the paper company where David Brent works?",
+      "answer": "Wernham Hogg"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Seinfeld', what is the surname of Jerry's neighbour Kramer's first name, Cosmo... no: what is Kramer's first name?",
+      "answer": "Cosmo"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom followed the Bluth family after patriarch George was arrested?",
+      "answer": "Arrested Development"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Father Ted', on which fictional island do the priests live?",
+      "answer": "Craggy Island"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In 'Scrubs', what is the name of the hospital where J.D. works?",
+      "answer": "Sacred Heart",
+      "options": [
+        "Seattle Grace",
+        "Sacred Heart",
+        "County General",
+        "St. Eligius"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Sitcom Throwback",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Spaced', what is the name of the character played by Simon Pegg?",
+      "answer": "Tim Bisley"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.043672,
+      "ms": 15057,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2062,
+          "outputTokens": 1246,
+          "thinkingTokens": 256,
+          "durationMs": 11409
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1526,
+          "outputTokens": 220,
+          "thinkingTokens": 0,
+          "durationMs": 3648
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "The question names the Outstanding Picture award, and Wings won it. Sunrise won a different award, so it is not a valid answer."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Niles and Niles Crane are the same answer."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "fix",
+          "reason": "The wording was garbled and gave the answer away.",
+          "text": "In 'Seinfeld', what is Kramer's first name?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Tom Hanks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Katharine Hepburn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Joker",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Lord of the Rings: The Return of the King",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Hurt Locker",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Wings",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: At the first ceremony, 'Sunrise' won the separate top award for Unique and Artistic Production, so some players may argue for it. 'Wings' won Outstanding Picture, as the question says."
+          ]
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Niles Crane",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q3": {
+          "answer": "Wernham Hogg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Cosmo",
+          "agreed": true,
+          "flags": [
+            "wording: The wording is garbled and gives the answer away ('Kramer's first name, Cosmo... no:'). Rewrite it as: 'In Seinfeld, what is Kramer's first name?'"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Arrested Development",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Sacred Heart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Tim Bisley",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q4",
+          "reason": "The wording was garbled and gave the answer away.",
+          "before": {
+            "text": "In 'Seinfeld', what is the surname of Jerry's neighbour Kramer's first name, Cosmo... no: what is Kramer's first name?",
+            "answer": "Cosmo"
+          },
+          "after": {
+            "text": "In 'Seinfeld', what is Kramer's first name?",
+            "answer": "Cosmo"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film about a doomed ocean liner won the Academy Award for Best Picture?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor won Best Actor for both 'Philadelphia' and 'Forrest Gump' in consecutive years?",
+          "answer": "Tom Hanks"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which actress holds the record for the most Academy Awards for acting, with four wins?",
+          "answer": "Katharine Hepburn",
+          "options": [
+            "Meryl Streep",
+            "Katharine Hepburn",
+            "Ingrid Bergman",
+            "Bette Davis"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Heath Ledger won a posthumous Best Supporting Actor Oscar for playing which character?",
+          "answer": "The Joker"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which film, directed by Peter Jackson, won all 11 Oscars it was nominated for?",
+          "answer": "The Lord of the Rings: The Return of the King"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Kathryn Bigelow became the first woman to win Best Director for which film?",
+          "answer": "The Hurt Locker"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To...",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1927 film won the first Academy Award for Outstanding Picture?",
+          "answer": "Wings"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of the coffee house where the group hangs out?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Frasier', what is the name of Frasier's brother?",
+          "answer": "Niles"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In the UK version of 'The Office', what is the name of the paper company where David Brent works?",
+          "answer": "Wernham Hogg"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Seinfeld', what is Kramer's first name?",
+          "answer": "Cosmo"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom followed the Bluth family after patriarch George was arrested?",
+          "answer": "Arrested Development"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Father Ted', on which fictional island do the priests live?",
+          "answer": "Craggy Island"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In 'Scrubs', what is the name of the hospital where J.D. works?",
+          "answer": "Sacred Heart",
+          "options": [
+            "Seattle Grace",
+            "Sacred Heart",
+            "County General",
+            "St. Eligius"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Sitcom Throwback",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Spaced', what is the name of the character played by Simon Pegg?",
+          "answer": "Tim Bisley"
+        }
+      ]
+    }
+  ]
+}

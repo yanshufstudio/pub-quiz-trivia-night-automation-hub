@@ -1,0 +1,656 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "quantum",
+    "prompt": "Hard questions only for experts, 2 rounds of 10 on quantum physics",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "quantum#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1799,
+      "outputTokens": 1846,
+      "thinkingTokens": 0,
+      "durationMs": 16006
+    },
+    "costUsd": 0.044116,
+    "ms": 16006
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist introduced the quantum of action in 1900 while deriving the black-body radiation law?",
+      "answer": "Max Planck"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In 1925, Werner Heisenberg developed his matrix mechanics while recovering from hay fever on which North Sea island?",
+      "answer": "Heligoland"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1922 experiment, using a beam of silver atoms in an inhomogeneous magnetic field, showed that angular momentum is quantised in space?",
+      "answer": "The Stern–Gerlach experiment"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which French physicist proposed in his 1924 doctoral thesis that matter has wave properties?",
+      "answer": "Louis de Broglie"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Davisson and Germer confirmed electron diffraction in 1927 by scattering electrons off a crystal of which metal?",
+      "answer": "Nickel"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist first proposed the exclusion principle, in 1925?",
+      "answer": "Wolfgang Pauli"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which Dutch physicists proposed electron spin in 1925? Name both.",
+      "answer": "George Uhlenbeck and Samuel Goudsmit"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which theorem, published by John von Neumann in 1932, was claimed to rule out hidden-variable theories, and was later criticised by Grete Hermann and John Bell?",
+      "answer": "Von Neumann's no-hidden-variables (impossibility) proof"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which equation, published in 1928, is a relativistic wave equation for the electron that predicted antimatter?",
+      "answer": "The Dirac equation"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which physicist first worked out the quantum statistics of photons in 1924, sending his paper to Einstein?",
+      "answer": "Satyendra Nath Bose",
+      "options": [
+        "Satyendra Nath Bose",
+        "Meghnad Saha",
+        "C. V. Raman",
+        "Subrahmanyan Chandrasekhar"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In the CHSH form of Bell's inequality, what is the maximum value quantum mechanics allows, known as Tsirelson's bound?",
+      "answer": "2√2"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which three physicists shared the 2022 Nobel Prize in Physics for experiments with entangled photons?",
+      "answer": "Alain Aspect, John Clauser and Anton Zeilinger"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which theorem, proved by Wootters, Zurek and Dieks in 1982, states that an arbitrary unknown quantum state cannot be copied?",
+      "answer": "The no-cloning theorem"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which quantum algorithm, published in 1996, searches an unsorted database with a quadratic speed-up?",
+      "answer": "Grover's algorithm"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which quantum key distribution protocol, published in 1984, is named after its two inventors' initials and the year?",
+      "answer": "BB84"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1959 effect shows that charged particles are affected by electromagnetic potentials even in regions where the fields are zero?",
+      "answer": "The Aharonov–Bohm effect"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which American physicist proposed the 'relative state' formulation in 1957, now known as the many-worlds interpretation?",
+      "answer": "Hugh Everett III"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which theorem, proved in 1967 by Simon Kochen and Ernst Specker, rules out non-contextual hidden-variable theories in Hilbert spaces of what minimum dimension?",
+      "answer": "3"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What name is given to the slowing of a quantum system's evolution when it is measured frequently, named after a Greek philosopher's paradoxes?",
+      "answer": "The quantum Zeno effect"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which three-qubit entangled state, named after its three authors, is maximally entangled and loses all entanglement if one qubit is traced out?",
+      "answer": "GHZ state (Greenberger–Horne–Zeilinger)",
+      "options": [
+        "GHZ state (Greenberger–Horne–Zeilinger)",
+        "W state",
+        "Bell state",
+        "NOON state"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.058176,
+      "ms": 19786,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2517,
+          "outputTokens": 1661,
+          "thinkingTokens": 434,
+          "durationMs": 15247
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1697,
+          "outputTokens": 405,
+          "thinkingTokens": 104,
+          "durationMs": 4538
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "Heligoland is correct; Helgoland is the same island under its German spelling."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "Both answers name the same proof."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "Tsirelson's bound is 2√2; the checker gave the same value."
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "fix",
+          "reason": "The question asked two things at once and already named the theorem; reworded so it asks only for the dimension.",
+          "text": "The Kochen–Specker theorem, proved in 1967, rules out non-contextual hidden-variable theories in Hilbert spaces of at least what dimension?",
+          "answer": "3"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Max Planck",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Heligoland (Helgoland)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Stern–Gerlach experiment",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Louis de Broglie",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Nickel",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Wolfgang Pauli",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "George Uhlenbeck and Samuel Goudsmit",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Von Neumann's no-hidden-variables theorem (impossibility proof)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q9": {
+          "answer": "Dirac equation",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Satyendra Nath Bose",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "2√2 (about 2.83)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Alain Aspect, John Clauser and Anton Zeilinger",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "No-cloning theorem",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Grover's algorithm",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "BB84",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Aharonov–Bohm effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Hugh Everett III",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "3 (Kochen–Specker theorem)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The question asks two things at once ('Which theorem' and 'what minimum dimension'), and the theorem's name is already given in the wording. The answer should be read as the dimension: 3."
+          ]
+        },
+        "R2Q9": {
+          "answer": "Quantum Zeno effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "GHZ state (Greenberger–Horne–Zeilinger)",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q8",
+          "reason": "The question asked two things at once and already named the theorem; reworded so it asks only for the dimension.",
+          "before": {
+            "text": "Which theorem, proved in 1967 by Simon Kochen and Ernst Specker, rules out non-contextual hidden-variable theories in Hilbert spaces of what minimum dimension?",
+            "answer": "3"
+          },
+          "after": {
+            "text": "The Kochen–Specker theorem, proved in 1967, rules out non-contextual hidden-variable theories in Hilbert spaces of at least what dimension?",
+            "answer": "3"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist introduced the quantum of action in 1900 while deriving the black-body radiation law?",
+          "answer": "Max Planck"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In 1925, Werner Heisenberg developed his matrix mechanics while recovering from hay fever on which North Sea island?",
+          "answer": "Heligoland"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1922 experiment, using a beam of silver atoms in an inhomogeneous magnetic field, showed that angular momentum is quantised in space?",
+          "answer": "The Stern–Gerlach experiment"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which French physicist proposed in his 1924 doctoral thesis that matter has wave properties?",
+          "answer": "Louis de Broglie"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Davisson and Germer confirmed electron diffraction in 1927 by scattering electrons off a crystal of which metal?",
+          "answer": "Nickel"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist first proposed the exclusion principle, in 1925?",
+          "answer": "Wolfgang Pauli"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which Dutch physicists proposed electron spin in 1925? Name both.",
+          "answer": "George Uhlenbeck and Samuel Goudsmit"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which theorem, published by John von Neumann in 1932, was claimed to rule out hidden-variable theories, and was later criticised by Grete Hermann and John Bell?",
+          "answer": "Von Neumann's no-hidden-variables (impossibility) proof"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which equation, published in 1928, is a relativistic wave equation for the electron that predicted antimatter?",
+          "answer": "The Dirac equation"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which physicist first worked out the quantum statistics of photons in 1924, sending his paper to Einstein?",
+          "answer": "Satyendra Nath Bose",
+          "options": [
+            "Satyendra Nath Bose",
+            "Meghnad Saha",
+            "C. V. Raman",
+            "Subrahmanyan Chandrasekhar"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In the CHSH form of Bell's inequality, what is the maximum value quantum mechanics allows, known as Tsirelson's bound?",
+          "answer": "2√2"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which three physicists shared the 2022 Nobel Prize in Physics for experiments with entangled photons?",
+          "answer": "Alain Aspect, John Clauser and Anton Zeilinger"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which theorem, proved by Wootters, Zurek and Dieks in 1982, states that an arbitrary unknown quantum state cannot be copied?",
+          "answer": "The no-cloning theorem"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which quantum algorithm, published in 1996, searches an unsorted database with a quadratic speed-up?",
+          "answer": "Grover's algorithm"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which quantum key distribution protocol, published in 1984, is named after its two inventors' initials and the year?",
+          "answer": "BB84"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1959 effect shows that charged particles are affected by electromagnetic potentials even in regions where the fields are zero?",
+          "answer": "The Aharonov–Bohm effect"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which American physicist proposed the 'relative state' formulation in 1957, now known as the many-worlds interpretation?",
+          "answer": "Hugh Everett III"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "The Kochen–Specker theorem, proved in 1967, rules out non-contextual hidden-variable theories in Hilbert spaces of at least what dimension?",
+          "answer": "3"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What name is given to the slowing of a quantum system's evolution when it is measured frequently, named after a Greek philosopher's paradoxes?",
+          "answer": "The quantum Zeno effect"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which three-qubit entangled state, named after its three authors, is maximally entangled and loses all entanglement if one qubit is traced out?",
+          "answer": "GHZ state (Greenberger–Horne–Zeilinger)",
+          "options": [
+            "GHZ state (Greenberger–Horne–Zeilinger)",
+            "W state",
+            "Bell state",
+            "NOON state"
+          ]
+        }
+      ]
+    }
+  ]
+}

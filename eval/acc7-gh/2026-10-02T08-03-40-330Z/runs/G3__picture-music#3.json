@@ -1,0 +1,620 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "picture-music",
+    "prompt": "Picture round ideas and a music round",
+    "questions": 20,
+    "run": "picture-music#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 2060,
+      "thinkingTokens": 725,
+      "durationMs": 18923
+    },
+    "costUsd": 0.048336,
+    "ms": 18923
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which company's logo is an apple with a bite taken out of it?",
+      "answer": "Apple"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which sportswear brand's logo is the 'Swoosh'?",
+      "answer": "Nike"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which Leonardo da Vinci portrait of a woman with a famously mysterious smile hangs in the Louvre?",
+      "answer": "Mona Lisa"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Edvard Munch painted a figure clutching its face on a bridge under a blood-red sky. What is the painting called?",
+      "answer": "The Scream"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which coffee chain's logo shows a green two-tailed siren?",
+      "answer": "Starbucks"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which Vincent van Gogh painting shows a swirling night sky over a village, with a cypress tree in the foreground?",
+      "answer": "The Starry Night"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which Salvador Dalí painting is famous for its melting pocket watches?",
+      "answer": "The Persistence of Memory"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which Grant Wood painting shows a stern farmer holding a pitchfork beside a woman, in front of a farmhouse?",
+      "answer": "American Gothic"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Dutch artist painted 'Girl with a Pearl Earring'?",
+      "answer": "Johannes Vermeer",
+      "options": [
+        "Rembrandt",
+        "Johannes Vermeer",
+        "Frans Hals",
+        "Jan Steen"
+      ]
+    },
+    {
+      "id": "R1Q10",
+      "round": "Picture This",
+      "category": "Famous Images Described",
+      "type": "TEXT",
+      "text": "Which photographer took the Second World War photo 'Raising the Flag on Iwo Jima'?",
+      "answer": "Joe Rosenthal"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band recorded 'Bohemian Rhapsody'?",
+      "answer": "Queen"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who was the Beatles' drummer on their records from 1962 onwards?",
+      "answer": "Ringo Starr"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Kurt Cobain was the lead singer of which band?",
+      "answer": "Nirvana"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer released the album '21' in 2011?",
+      "answer": "Adele"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Michael Jackson album from 1982 includes 'Billie Jean' and 'Beat It'?",
+      "answer": "Thriller"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which artist released the 1984 song and film 'Purple Rain'?",
+      "answer": "Prince"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "With which song did ABBA win the Eurovision Song Contest in 1974?",
+      "answer": "Waterloo"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Italian composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer released the 1989 album and single 'Like a Prayer'?",
+      "answer": "Madonna"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which instrument did jazz musician Charlie 'Bird' Parker play?",
+      "answer": "Alto saxophone",
+      "options": [
+        "Trumpet",
+        "Alto saxophone",
+        "Piano",
+        "Clarinet"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.029604,
+      "ms": 9145,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2181,
+          "outputTokens": 1044,
+          "thinkingTokens": 0,
+          "durationMs": 9145
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Nike",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mona Lisa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Scream",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Starbucks",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Starry Night",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Persistence of Memory",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "American Gothic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Johannes Vermeer",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Joe Rosenthal",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ringo Starr",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Nirvana",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Adele",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Thriller",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Prince",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Waterloo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Alto saxophone",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which company's logo is an apple with a bite taken out of it?",
+          "answer": "Apple"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which sportswear brand's logo is the 'Swoosh'?",
+          "answer": "Nike"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which Leonardo da Vinci portrait of a woman with a famously mysterious smile hangs in the Louvre?",
+          "answer": "Mona Lisa"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Edvard Munch painted a figure clutching its face on a bridge under a blood-red sky. What is the painting called?",
+          "answer": "The Scream"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which coffee chain's logo shows a green two-tailed siren?",
+          "answer": "Starbucks"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which Vincent van Gogh painting shows a swirling night sky over a village, with a cypress tree in the foreground?",
+          "answer": "The Starry Night"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which Salvador Dalí painting is famous for its melting pocket watches?",
+          "answer": "The Persistence of Memory"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which Grant Wood painting shows a stern farmer holding a pitchfork beside a woman, in front of a farmhouse?",
+          "answer": "American Gothic"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Dutch artist painted 'Girl with a Pearl Earring'?",
+          "answer": "Johannes Vermeer",
+          "options": [
+            "Rembrandt",
+            "Johannes Vermeer",
+            "Frans Hals",
+            "Jan Steen"
+          ]
+        },
+        {
+          "id": "R1Q10",
+          "round": "Picture This",
+          "category": "Famous Images Described",
+          "type": "TEXT",
+          "text": "Which photographer took the Second World War photo 'Raising the Flag on Iwo Jima'?",
+          "answer": "Joe Rosenthal"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band recorded 'Bohemian Rhapsody'?",
+          "answer": "Queen"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who was the Beatles' drummer on their records from 1962 onwards?",
+          "answer": "Ringo Starr"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Kurt Cobain was the lead singer of which band?",
+          "answer": "Nirvana"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer released the album '21' in 2011?",
+          "answer": "Adele"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Michael Jackson album from 1982 includes 'Billie Jean' and 'Beat It'?",
+          "answer": "Thriller"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which artist released the 1984 song and film 'Purple Rain'?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "With which song did ABBA win the Eurovision Song Contest in 1974?",
+          "answer": "Waterloo"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Italian composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer released the 1989 album and single 'Like a Prayer'?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which instrument did jazz musician Charlie 'Bird' Parker play?",
+          "answer": "Alto saxophone",
+          "options": [
+            "Trumpet",
+            "Alto saxophone",
+            "Piano",
+            "Clarinet"
+          ]
+        }
+      ]
+    }
+  ]
+}

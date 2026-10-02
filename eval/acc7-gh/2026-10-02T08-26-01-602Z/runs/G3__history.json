@@ -1,0 +1,769 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "history"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (a multiple-choice answer is not one of its options); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3634,
+      "outputTokens": 3456,
+      "thinkingTokens": 0,
+      "durationMs": 30880
+    },
+    "costUsd": 0.083656,
+    "ms": 30880
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+      "answer": "The Rubicon"
+    },
+    {
+      "id": "R1Q2",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano erupted in AD 79 and buried Pompeii?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q3",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "According to legend, which twins founded Rome?",
+      "answer": "Romulus and Remus"
+    },
+    {
+      "id": "R1Q4",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q5",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 to 71 BC?",
+      "answer": "Spartacus"
+    },
+    {
+      "id": "R1Q6",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "What was the name of the first Roman emperor, born Octavian?",
+      "answer": "Augustus"
+    },
+    {
+      "id": "R1Q7",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which emperor ordered the building of a wall across northern Britain begun in AD 122?",
+      "answer": "Hadrian",
+      "options": [
+        "Claudius",
+        "Hadrian",
+        "Trajan",
+        "Antoninus Pius"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In AD 9, three Roman legions under Varus were destroyed in which forest?",
+      "answer": "Teutoburg Forest"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the code name for the Allied invasion of Normandy in June 1944?",
+      "answer": "Operation Overlord"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "On which Hawaiian harbour did Japan launch a surprise attack on 7 December 1941?",
+      "answer": "Pearl Harbor"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the code name of the German invasion of the Soviet Union in 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the B-29 bomber that dropped the atomic bomb on Hiroshima?",
+      "answer": "Enola Gay"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "At which Buckinghamshire estate did Alan Turing and others work to break German codes?",
+      "answer": "Bletchley Park"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which 1942 naval battle, fought near a Pacific atoll, saw the US sink four Japanese aircraft carriers?",
+      "answer": "Battle of Midway",
+      "options": [
+        "Battle of the Coral Sea",
+        "Battle of Midway",
+        "Battle of Leyte Gulf",
+        "Battle of Guadalcanal"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "Which German field marshal was nicknamed 'the Desert Fox'?",
+      "answer": "Erwin Rommel"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Theatres of War",
+      "category": "Second World War",
+      "type": "TEXT",
+      "text": "In which Crimean resort did Churchill, Roosevelt and Stalin meet in February 1945?",
+      "answer": "Yalta"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish-born inventor was granted a US patent for the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German goldsmith introduced movable-type printing to Europe around 1440?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish engineer demonstrated television publicly in London in 1926?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish chemist invented dynamite and founded a set of famous prizes?",
+      "answer": "Alfred Nobel"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English engineer designed the Difference Engine and the Analytical Engine?",
+      "answer": "Charles Babbage"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Hollywood actress co-invented a frequency-hopping system patented in 1942?",
+      "answer": "Hedy Lamarr"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Italian is credited with inventing the electric battery, the voltaic pile?",
+      "answer": "Alessandro Volta",
+      "options": [
+        "Luigi Galvani",
+        "Alessandro Volta",
+        "Guglielmo Marconi",
+        "Enrico Fermi"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which American inventor's eponymous vulcanisation process, patented in 1844, made rubber durable?",
+      "answer": "Charles Goodyear"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.053568000000000005,
+      "ms": 16394,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2540,
+          "outputTokens": 1755,
+          "thinkingTokens": 259,
+          "durationMs": 13801
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1237,
+          "outputTokens": 168,
+          "thinkingTokens": 0,
+          "durationMs": 2593
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "fix",
+          "reason": "Vulcanisation isn't named after Goodyear (the name comes from Vulcan), so 'eponymous' was wrong; removed it.",
+          "text": "Which American inventor's vulcanisation process, patented in 1844, made rubber durable?",
+          "answer": "Charles Goodyear"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Romulus and Remus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Spartacus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Augustus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Teutoburg Forest",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Overlord",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Pearl Harbor",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Enola Gay",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Bletchley Park",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Battle of Midway",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Erwin Rommel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Yalta",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Charles Babbage",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Hedy Lamarr",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Alessandro Volta",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Charles Goodyear",
+          "agreed": true,
+          "flags": [
+            "wording: 'eponymous vulcanisation process' – vulcanisation is not named after Goodyear (the name comes from Vulcan); 'eponymous' is inaccurate."
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q8",
+          "reason": "Vulcanisation isn't named after Goodyear (the name comes from Vulcan), so 'eponymous' was wrong; removed it.",
+          "before": {
+            "text": "Which American inventor's eponymous vulcanisation process, patented in 1844, made rubber durable?",
+            "answer": "Charles Goodyear"
+          },
+          "after": {
+            "text": "Which American inventor's vulcanisation process, patented in 1844, made rubber durable?",
+            "answer": "Charles Goodyear"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+          "answer": "The Rubicon"
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano erupted in AD 79 and buried Pompeii?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "According to legend, which twins founded Rome?",
+          "answer": "Romulus and Remus"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 to 71 BC?",
+          "answer": "Spartacus"
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "What was the name of the first Roman emperor, born Octavian?",
+          "answer": "Augustus"
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which emperor ordered the building of a wall across northern Britain begun in AD 122?",
+          "answer": "Hadrian",
+          "options": [
+            "Claudius",
+            "Hadrian",
+            "Trajan",
+            "Antoninus Pius"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In AD 9, three Roman legions under Varus were destroyed in which forest?",
+          "answer": "Teutoburg Forest"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the code name for the Allied invasion of Normandy in June 1944?",
+          "answer": "Operation Overlord"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "On which Hawaiian harbour did Japan launch a surprise attack on 7 December 1941?",
+          "answer": "Pearl Harbor"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the code name of the German invasion of the Soviet Union in 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the B-29 bomber that dropped the atomic bomb on Hiroshima?",
+          "answer": "Enola Gay"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "At which Buckinghamshire estate did Alan Turing and others work to break German codes?",
+          "answer": "Bletchley Park"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which 1942 naval battle, fought near a Pacific atoll, saw the US sink four Japanese aircraft carriers?",
+          "answer": "Battle of Midway",
+          "options": [
+            "Battle of the Coral Sea",
+            "Battle of Midway",
+            "Battle of Leyte Gulf",
+            "Battle of Guadalcanal"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "Which German field marshal was nicknamed 'the Desert Fox'?",
+          "answer": "Erwin Rommel"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Theatres of War",
+          "category": "Second World War",
+          "type": "TEXT",
+          "text": "In which Crimean resort did Churchill, Roosevelt and Stalin meet in February 1945?",
+          "answer": "Yalta"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish-born inventor was granted a US patent for the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German goldsmith introduced movable-type printing to Europe around 1440?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer demonstrated television publicly in London in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish chemist invented dynamite and founded a set of famous prizes?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English engineer designed the Difference Engine and the Analytical Engine?",
+          "answer": "Charles Babbage"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Hollywood actress co-invented a frequency-hopping system patented in 1942?",
+          "answer": "Hedy Lamarr"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Italian is credited with inventing the electric battery, the voltaic pile?",
+          "answer": "Alessandro Volta",
+          "options": [
+            "Luigi Galvani",
+            "Alessandro Volta",
+            "Guglielmo Marconi",
+            "Enrico Fermi"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which American inventor's vulcanisation process, patented in 1844, made rubber durable?",
+          "answer": "Charles Goodyear"
+        }
+      ]
+    }
+  ]
+}

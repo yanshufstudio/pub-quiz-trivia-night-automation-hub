@@ -1,0 +1,755 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "history",
+    "prompt": "3 rounds of 8 questions on history: ancient Rome, the Second World War, and famous inventors. Adults, medium to hard.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "history#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1817,
+      "outputTokens": 1707,
+      "thinkingTokens": 0,
+      "durationMs": 15111
+    },
+    "costUsd": 0.041408,
+    "ms": 15112
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+      "answer": "Rubicon"
+    },
+    {
+      "id": "R1Q2",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which volcano erupted in AD 79, burying Pompeii and Herculaneum?",
+      "answer": "Mount Vesuvius"
+    },
+    {
+      "id": "R1Q3",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Roman emperor ordered the building of a wall across northern Britain, begun around AD 122?",
+      "answer": "Hadrian"
+    },
+    {
+      "id": "R1Q4",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+      "answer": "Hannibal"
+    },
+    {
+      "id": "R1Q5",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first Roman emperor?",
+      "answer": "Augustus",
+      "options": [
+        "Julius Caesar",
+        "Augustus",
+        "Tiberius",
+        "Nero"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 BC?",
+      "answer": "Spartacus"
+    },
+    {
+      "id": "R1Q7",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "In 9 BC... no: in AD 9, three Roman legions under Varus were destroyed by Germanic tribes in which forest?",
+      "answer": "Teutoburg Forest"
+    },
+    {
+      "id": "R1Q8",
+      "round": "All Roads Lead to Rome",
+      "category": "Ancient Rome",
+      "type": "TEXT",
+      "text": "Which emperor's edict of AD 212 granted Roman citizenship to nearly all free men in the empire?",
+      "answer": "Caracalla"
+    },
+    {
+      "id": "R2Q1",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the codename for the German invasion of the Soviet Union in June 1941?",
+      "answer": "Operation Barbarossa"
+    },
+    {
+      "id": "R2Q2",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "On which Hawaiian island is Pearl Harbor?",
+      "answer": "Oahu"
+    },
+    {
+      "id": "R2Q3",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "What was the name of the B-29 bomber that dropped the atomic bomb on Hiroshima?",
+      "answer": "Enola Gay"
+    },
+    {
+      "id": "R2Q4",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which British country house was the home of the wartime codebreakers?",
+      "answer": "Bletchley Park"
+    },
+    {
+      "id": "R2Q5",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these was NOT one of the five D-Day landing beaches?",
+      "answer": "Dieppe",
+      "options": [
+        "Sword",
+        "Juno",
+        "Dieppe",
+        "Omaha"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Which German field marshal surrendered his army at Stalingrad in early 1943?",
+      "answer": "Friedrich Paulus"
+    },
+    {
+      "id": "R2Q7",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "Who was the Norwegian politician whose name became a byword for traitor after he collaborated with the Nazis?",
+      "answer": "Vidkun Quisling"
+    },
+    {
+      "id": "R2Q8",
+      "round": "World at War",
+      "category": "The Second World War",
+      "type": "TEXT",
+      "text": "The 1942 Battle of Midway was a decisive naval victory for which country?",
+      "answer": "United States"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+      "answer": "Alexander Graham Bell"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which German goldsmith introduced movable-type printing to Europe in the 15th century?",
+      "answer": "Johannes Gutenberg"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Swedish chemist invented dynamite?",
+      "answer": "Alfred Nobel"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish engineer gave his name to the SI unit of power?",
+      "answer": "James Watt"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Scottish inventor gave the first public demonstration of a working television in London in 1926?",
+      "answer": "John Logie Baird"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "The cotton gin, patented in 1794, was invented by whom?",
+      "answer": "Eli Whitney"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which Serbian-American inventor is famous for developing alternating current (AC) systems, rivalling Edison?",
+      "answer": "Nikola Tesla"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Bright Sparks",
+      "category": "Famous Inventors",
+      "type": "TEXT",
+      "text": "Which English engineer invented the jet engine, patenting his design in 1930?",
+      "answer": "Frank Whittle"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.047544,
+      "ms": 17347,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2455,
+          "outputTokens": 1489,
+          "thinkingTokens": 172,
+          "durationMs": 13706
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1241,
+          "outputTokens": 149,
+          "thinkingTokens": 0,
+          "durationMs": 3640
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "fix",
+          "reason": "Removed the leftover editing note. The facts and answer are correct.",
+          "text": "In AD 9, three Roman legions under Varus were destroyed by Germanic tribes in which forest?",
+          "answer": "Teutoburg Forest"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Rubicon",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Mount Vesuvius",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Hadrian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Hannibal",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Augustus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Spartacus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Teutoburg Forest",
+          "agreed": true,
+          "flags": [
+            "wording: The text still contains a leftover editing note: 'In 9 BC... no:'. Delete it before reading aloud. AD 9 is the correct date."
+          ]
+        },
+        "R1Q8": {
+          "answer": "Caracalla",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Operation Barbarossa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Oahu",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Enola Gay",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Bletchley Park",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Dieppe",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Friedrich Paulus",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Vidkun Quisling",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "United States",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Alexander Graham Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Johannes Gutenberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Alfred Nobel",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "James Watt",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "John Logie Baird",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Eli Whitney",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Nikola Tesla",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Frank Whittle",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q7",
+          "reason": "Removed the leftover editing note. The facts and answer are correct.",
+          "before": {
+            "text": "In 9 BC... no: in AD 9, three Roman legions under Varus were destroyed by Germanic tribes in which forest?",
+            "answer": "Teutoburg Forest"
+          },
+          "after": {
+            "text": "In AD 9, three Roman legions under Varus were destroyed by Germanic tribes in which forest?",
+            "answer": "Teutoburg Forest"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which river did Julius Caesar cross in 49 BC, starting a civil war?",
+          "answer": "Rubicon"
+        },
+        {
+          "id": "R1Q2",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which volcano erupted in AD 79, burying Pompeii and Herculaneum?",
+          "answer": "Mount Vesuvius"
+        },
+        {
+          "id": "R1Q3",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Roman emperor ordered the building of a wall across northern Britain, begun around AD 122?",
+          "answer": "Hadrian"
+        },
+        {
+          "id": "R1Q4",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Carthaginian general crossed the Alps with elephants to invade Italy during the Second Punic War?",
+          "answer": "Hannibal"
+        },
+        {
+          "id": "R1Q5",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first Roman emperor?",
+          "answer": "Augustus",
+          "options": [
+            "Julius Caesar",
+            "Augustus",
+            "Tiberius",
+            "Nero"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which Thracian gladiator led a major slave revolt against Rome from 73 BC?",
+          "answer": "Spartacus"
+        },
+        {
+          "id": "R1Q7",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "In AD 9, three Roman legions under Varus were destroyed by Germanic tribes in which forest?",
+          "answer": "Teutoburg Forest"
+        },
+        {
+          "id": "R1Q8",
+          "round": "All Roads Lead to Rome",
+          "category": "Ancient Rome",
+          "type": "TEXT",
+          "text": "Which emperor's edict of AD 212 granted Roman citizenship to nearly all free men in the empire?",
+          "answer": "Caracalla"
+        },
+        {
+          "id": "R2Q1",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the codename for the German invasion of the Soviet Union in June 1941?",
+          "answer": "Operation Barbarossa"
+        },
+        {
+          "id": "R2Q2",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "On which Hawaiian island is Pearl Harbor?",
+          "answer": "Oahu"
+        },
+        {
+          "id": "R2Q3",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "What was the name of the B-29 bomber that dropped the atomic bomb on Hiroshima?",
+          "answer": "Enola Gay"
+        },
+        {
+          "id": "R2Q4",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which British country house was the home of the wartime codebreakers?",
+          "answer": "Bletchley Park"
+        },
+        {
+          "id": "R2Q5",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these was NOT one of the five D-Day landing beaches?",
+          "answer": "Dieppe",
+          "options": [
+            "Sword",
+            "Juno",
+            "Dieppe",
+            "Omaha"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Which German field marshal surrendered his army at Stalingrad in early 1943?",
+          "answer": "Friedrich Paulus"
+        },
+        {
+          "id": "R2Q7",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "Who was the Norwegian politician whose name became a byword for traitor after he collaborated with the Nazis?",
+          "answer": "Vidkun Quisling"
+        },
+        {
+          "id": "R2Q8",
+          "round": "World at War",
+          "category": "The Second World War",
+          "type": "TEXT",
+          "text": "The 1942 Battle of Midway was a decisive naval victory for which country?",
+          "answer": "United States"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish-born inventor was awarded a US patent for the telephone in 1876?",
+          "answer": "Alexander Graham Bell"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which German goldsmith introduced movable-type printing to Europe in the 15th century?",
+          "answer": "Johannes Gutenberg"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Swedish chemist invented dynamite?",
+          "answer": "Alfred Nobel"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish engineer gave his name to the SI unit of power?",
+          "answer": "James Watt"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Scottish inventor gave the first public demonstration of a working television in London in 1926?",
+          "answer": "John Logie Baird"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "The cotton gin, patented in 1794, was invented by whom?",
+          "answer": "Eli Whitney"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which Serbian-American inventor is famous for developing alternating current (AC) systems, rivalling Edison?",
+          "answer": "Nikola Tesla"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Bright Sparks",
+          "category": "Famous Inventors",
+          "type": "TEXT",
+          "text": "Which English engineer invented the jet engine, patenting his design in 1930?",
+          "answer": "Frank Whittle"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,640 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids-no-pop",
+    "prompt": "Kids aged 8-10, 3 rounds of 6, no pop culture",
+    "questions": 18,
+    "expect": [
+      6,
+      6,
+      6
+    ],
+    "run": "kids-no-pop#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6,
+      6
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1798,
+      "outputTokens": 1052,
+      "thinkingTokens": 0,
+      "durationMs": 11288
+    },
+    "costUsd": 0.028232,
+    "ms": 11288
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe",
+      "options": [
+        "Giraffe",
+        "Elephant",
+        "Camel",
+        "Horse"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "8"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which bird is the largest in the world?",
+      "answer": "Ostrich",
+      "options": [
+        "Eagle",
+        "Ostrich",
+        "Penguin",
+        "Swan"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What do tadpoles grow up to become?",
+      "answer": "Frogs (or toads)"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is the largest animal that has ever lived?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "How many continents are there?",
+      "answer": "7"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of France?",
+      "answer": "Paris"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "In which country would you find the ancient pyramids of Giza?",
+      "answer": "Egypt"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest ocean on Earth?",
+      "answer": "Pacific Ocean",
+      "options": [
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Pacific Ocean",
+        "Arctic Ocean"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the name of the tallest mountain in the world?",
+      "answer": "Mount Everest"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which country has the kangaroo and the koala as famous native animals?",
+      "answer": "Australia"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet do we live on?",
+      "answer": "Earth"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is frozen water called?",
+      "answer": "Ice"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What gas do humans need to breathe in to stay alive?",
+      "answer": "Oxygen",
+      "options": [
+        "Oxygen",
+        "Carbon dioxide",
+        "Helium",
+        "Nitrogen"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the largest planet in our Solar System?",
+      "answer": "Jupiter"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Science and Space",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "How many bones are in the body of an adult human: 106, 206 or 306?",
+      "answer": "206"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.041228,
+      "ms": 13607,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1863,
+          "outputTokens": 1052,
+          "thinkingTokens": 129,
+          "durationMs": 8400
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1314,
+          "outputTokens": 374,
+          "thinkingTokens": 103,
+          "durationMs": 5207
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "8 and Eight are the same answer, and it is correct."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "fix",
+          "reason": "The count depends on the model used (7, 6 or 5), so the question now names the seven-continent model.",
+          "text": "In the model most commonly taught in English-speaking countries, how many continents are there?"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "fix",
+          "reason": "'Tallest' is ambiguous because Mauna Kea is taller measured from base to peak, so the question now asks about height above sea level.",
+          "text": "What is the name of the highest mountain in the world above sea level?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Eight",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Ostrich",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Frogs (or toads)",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Seven",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q2": {
+          "answer": "Paris",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Egypt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Pacific Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Mount Everest",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q6": {
+          "answer": "Australia",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Earth",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Ice",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Oxygen",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Jupiter",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q1",
+          "reason": "The count depends on the model used (7, 6 or 5), so the question now names the seven-continent model.",
+          "before": {
+            "text": "How many continents are there?",
+            "answer": "7"
+          },
+          "after": {
+            "text": "In the model most commonly taught in English-speaking countries, how many continents are there?",
+            "answer": "7"
+          }
+        },
+        {
+          "id": "R2Q5",
+          "reason": "'Tallest' is ambiguous because Mauna Kea is taller measured from base to peak, so the question now asks about height above sea level.",
+          "before": {
+            "text": "What is the name of the tallest mountain in the world?",
+            "answer": "Mount Everest"
+          },
+          "after": {
+            "text": "What is the name of the highest mountain in the world above sea level?",
+            "answer": "Mount Everest"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6,
+        6
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe",
+          "options": [
+            "Giraffe",
+            "Elephant",
+            "Camel",
+            "Horse"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "8"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which bird is the largest in the world?",
+          "answer": "Ostrich",
+          "options": [
+            "Eagle",
+            "Ostrich",
+            "Penguin",
+            "Swan"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What do tadpoles grow up to become?",
+          "answer": "Frogs (or toads)"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is the largest animal that has ever lived?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In the model most commonly taught in English-speaking countries, how many continents are there?",
+          "answer": "7"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of France?",
+          "answer": "Paris"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In which country would you find the ancient pyramids of Giza?",
+          "answer": "Egypt"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest ocean on Earth?",
+          "answer": "Pacific Ocean",
+          "options": [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Pacific Ocean",
+            "Arctic Ocean"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the name of the highest mountain in the world above sea level?",
+          "answer": "Mount Everest"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which country has the kangaroo and the koala as famous native animals?",
+          "answer": "Australia"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet do we live on?",
+          "answer": "Earth"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is frozen water called?",
+          "answer": "Ice"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What gas do humans need to breathe in to stay alive?",
+          "answer": "Oxygen",
+          "options": [
+            "Oxygen",
+            "Carbon dioxide",
+            "Helium",
+            "Nitrogen"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the largest planet in our Solar System?",
+          "answer": "Jupiter"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Science and Space",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "How many bones are in the body of an adult human: 106, 206 or 306?",
+          "answer": "206"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,780 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "uneven",
+    "prompt": "3 rounds: 5, 8 and 12 questions",
+    "questions": 25,
+    "expect": [
+      5,
+      8,
+      12
+    ],
+    "run": "uneven#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5,
+      8,
+      12
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1791,
+      "outputTokens": 1475,
+      "thinkingTokens": 0,
+      "durationMs": 12426
+    },
+    "costUsd": 0.036664,
+    "ms": 12426
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Who wrote the novel 'Pride and Prejudice'?",
+      "answer": "Jane Austen"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au",
+      "options": [
+        "Go",
+        "Gd",
+        "Au",
+        "Ag"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which is the longest river in South America?",
+      "answer": "Amazon"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "In which country is the ancient city of Petra?",
+      "answer": "Jordan"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the currency of Japan?",
+      "answer": "Yen"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Europe from Africa at its narrowest point?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa",
+      "options": [
+        "Toronto",
+        "Ottawa",
+        "Montreal",
+        "Vancouver"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which landlocked country lies between France and Spain in the Pyrenees?",
+      "answer": "Andorra"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Mongolia?",
+      "answer": "Ulaanbaatar"
+    },
+    {
+      "id": "R3Q1",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "How many players are on the field for one team in a standard football (soccer) match?",
+      "answer": "Eleven"
+    },
+    {
+      "id": "R3Q2",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "Which artist painted the 'Mona Lisa'?",
+      "answer": "Leonardo da Vinci"
+    },
+    {
+      "id": "R3Q3",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    },
+    {
+      "id": "R3Q4",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "Skin"
+    },
+    {
+      "id": "R3Q5",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "Which Beatles member was the band's drummer for their recorded albums?",
+      "answer": "Ringo Starr"
+    },
+    {
+      "id": "R3Q6",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "What gas do plants absorb from the atmosphere for photosynthesis?",
+      "answer": "Carbon dioxide"
+    },
+    {
+      "id": "R3Q7",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R3Q8",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "Which Shakespeare play features the characters Prospero and Caliban?",
+      "answer": "The Tempest"
+    },
+    {
+      "id": "R3Q9",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond",
+      "options": [
+        "Quartz",
+        "Diamond",
+        "Topaz",
+        "Corundum"
+      ]
+    },
+    {
+      "id": "R3Q10",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R3Q11",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "What is the name of the Roman god of war?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R3Q12",
+      "round": "The Big Finish",
+      "category": "Mixed Trivia",
+      "type": "TEXT",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.04954,
+      "ms": 18846,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2249,
+          "outputTokens": 1630,
+          "thinkingTokens": 138,
+          "durationMs": 13870
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1241,
+          "outputTokens": 149,
+          "thinkingTokens": 0,
+          "durationMs": 4976
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q11",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q12",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "A hexagon has six sides; '6' is the same answer written as a digit."
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "Each team has eleven players on the field; '11' is the same answer written as a digit."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Amazon",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Jordan",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Yen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Andorra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Ulaanbaatar",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "11",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q2": {
+          "answer": "Leonardo da Vinci",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Ringo Starr",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "The Tempest",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q11": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q12": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5,
+        8,
+        12
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Who wrote the novel 'Pride and Prejudice'?",
+          "answer": "Jane Austen"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au",
+          "options": [
+            "Go",
+            "Gd",
+            "Au",
+            "Ag"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which is the longest river in South America?",
+          "answer": "Amazon"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In which country is the ancient city of Petra?",
+          "answer": "Jordan"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the currency of Japan?",
+          "answer": "Yen"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Mount Kilimanjaro is in which country?",
+          "answer": "Tanzania"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Europe from Africa at its narrowest point?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa",
+          "options": [
+            "Toronto",
+            "Ottawa",
+            "Montreal",
+            "Vancouver"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which landlocked country lies between France and Spain in the Pyrenees?",
+          "answer": "Andorra"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Mongolia?",
+          "answer": "Ulaanbaatar"
+        },
+        {
+          "id": "R3Q1",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "How many players are on the field for one team in a standard football (soccer) match?",
+          "answer": "Eleven"
+        },
+        {
+          "id": "R3Q2",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "Which artist painted the 'Mona Lisa'?",
+          "answer": "Leonardo da Vinci"
+        },
+        {
+          "id": "R3Q3",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912"
+        },
+        {
+          "id": "R3Q4",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "Skin"
+        },
+        {
+          "id": "R3Q5",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "Which Beatles member was the band's drummer for their recorded albums?",
+          "answer": "Ringo Starr"
+        },
+        {
+          "id": "R3Q6",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "What gas do plants absorb from the atmosphere for photosynthesis?",
+          "answer": "Carbon dioxide"
+        },
+        {
+          "id": "R3Q7",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R3Q8",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "Which Shakespeare play features the characters Prospero and Caliban?",
+          "answer": "The Tempest"
+        },
+        {
+          "id": "R3Q9",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the hardest natural substance?",
+          "answer": "Diamond",
+          "options": [
+            "Quartz",
+            "Diamond",
+            "Topaz",
+            "Corundum"
+          ]
+        },
+        {
+          "id": "R3Q10",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R3Q11",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "What is the name of the Roman god of war?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R3Q12",
+          "round": "The Big Finish",
+          "category": "Mixed Trivia",
+          "type": "TEXT",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen"
+        }
+      ]
+    }
+  ]
+}

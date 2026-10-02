@@ -1,0 +1,418 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "half-hebrew",
+    "prompt": "Half English, half Hebrew, 2 rounds of 6",
+    "questions": 12,
+    "expect": [
+      6,
+      6
+    ],
+    "run": "half-hebrew#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 1 of 12 questions, rounds [1] of [6,6]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3586,
+      "outputTokens": 2107,
+      "thinkingTokens": 1084,
+      "durationMs": 24376
+    },
+    "costUsd": 0.056484,
+    "ms": 24376
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "English Round",
+      "category": "General Knowledge (English)",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q2",
+      "round": "English Round",
+      "category": "General Knowledge (English)",
+      "type": "TEXT",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R1Q3",
+      "round": "English Round",
+      "category": "General Knowledge (English)",
+      "type": "TEXT",
+      "text": "Who wrote the novel 'Pride and Prejudice'?",
+      "answer": "Jane Austen"
+    },
+    {
+      "id": "R1Q4",
+      "round": "English Round",
+      "category": "General Knowledge (English)",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many sides does a heptagon have?",
+      "answer": "7",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "English Round",
+      "category": "General Knowledge (English)",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q6",
+      "round": "English Round",
+      "category": "General Knowledge (English)",
+      "type": "TEXT",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989"
+    },
+    {
+      "id": "R2Q1",
+      "round": "סבב עברית",
+      "category": "ידע כללי (עברית)",
+      "type": "TEXT",
+      "text": "מהי עיר הבירה של צרפת?",
+      "answer": "פריז"
+    },
+    {
+      "id": "R2Q2",
+      "round": "סבב עברית",
+      "category": "ידע כללי (עברית)",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו שנה הוכרזה מדינת ישראל?",
+      "answer": "1948",
+      "options": [
+        "1945",
+        "1948",
+        "1950",
+        "1967"
+      ]
+    },
+    {
+      "id": "R2Q3",
+      "round": "סבב עברית",
+      "category": "ידע כללי (עברית)",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R2Q4",
+      "round": "סבב עברית",
+      "category": "ידע כללי (עברית)",
+      "type": "TEXT",
+      "text": "כמה אותיות יש באלף-בית העברי, לא כולל האותיות הסופיות?",
+      "answer": "22"
+    },
+    {
+      "id": "R2Q5",
+      "round": "סבב עברית",
+      "category": "ידע כללי (עברית)",
+      "type": "TEXT",
+      "text": "איזה ים נמצא בנקודה הנמוכה ביותר על פני היבשה בעולם?",
+      "answer": "ים המלח"
+    },
+    {
+      "id": "R2Q6",
+      "round": "סבב עברית",
+      "category": "ידע כללי (עברית)",
+      "type": "TEXT",
+      "text": "מי כתב את מילות השיר 'התקווה'?",
+      "answer": "נפתלי הרץ אימבר"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.019264,
+      "ms": 8156,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1651,
+          "outputTokens": 633,
+          "thinkingTokens": 0,
+          "durationMs": 8156
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Jane Austen",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "7",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "פריז",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "22",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "ים המלח",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "נפתלי הרץ אימבר",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "English Round",
+          "category": "General Knowledge (English)",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q2",
+          "round": "English Round",
+          "category": "General Knowledge (English)",
+          "type": "TEXT",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R1Q3",
+          "round": "English Round",
+          "category": "General Knowledge (English)",
+          "type": "TEXT",
+          "text": "Who wrote the novel 'Pride and Prejudice'?",
+          "answer": "Jane Austen"
+        },
+        {
+          "id": "R1Q4",
+          "round": "English Round",
+          "category": "General Knowledge (English)",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many sides does a heptagon have?",
+          "answer": "7",
+          "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "English Round",
+          "category": "General Knowledge (English)",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q6",
+          "round": "English Round",
+          "category": "General Knowledge (English)",
+          "type": "TEXT",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989"
+        },
+        {
+          "id": "R2Q1",
+          "round": "סבב עברית",
+          "category": "ידע כללי (עברית)",
+          "type": "TEXT",
+          "text": "מהי עיר הבירה של צרפת?",
+          "answer": "פריז"
+        },
+        {
+          "id": "R2Q2",
+          "round": "סבב עברית",
+          "category": "ידע כללי (עברית)",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו שנה הוכרזה מדינת ישראל?",
+          "answer": "1948",
+          "options": [
+            "1945",
+            "1948",
+            "1950",
+            "1967"
+          ]
+        },
+        {
+          "id": "R2Q3",
+          "round": "סבב עברית",
+          "category": "ידע כללי (עברית)",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R2Q4",
+          "round": "סבב עברית",
+          "category": "ידע כללי (עברית)",
+          "type": "TEXT",
+          "text": "כמה אותיות יש באלף-בית העברי, לא כולל האותיות הסופיות?",
+          "answer": "22"
+        },
+        {
+          "id": "R2Q5",
+          "round": "סבב עברית",
+          "category": "ידע כללי (עברית)",
+          "type": "TEXT",
+          "text": "איזה ים נמצא בנקודה הנמוכה ביותר על פני היבשה בעולם?",
+          "answer": "ים המלח"
+        },
+        {
+          "id": "R2Q6",
+          "round": "סבב עברית",
+          "category": "ידע כללי (עברית)",
+          "type": "TEXT",
+          "text": "מי כתב את מילות השיר 'התקווה'?",
+          "answer": "נפתלי הרץ אימבר"
+        }
+      ]
+    }
+  ]
+}

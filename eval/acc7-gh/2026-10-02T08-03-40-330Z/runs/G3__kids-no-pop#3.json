@@ -1,0 +1,609 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids-no-pop",
+    "prompt": "Kids aged 8-10, 3 rounds of 6, no pop culture",
+    "questions": 18,
+    "expect": [
+      6,
+      6,
+      6
+    ],
+    "run": "kids-no-pop#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6,
+      6
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1798,
+      "outputTokens": 1042,
+      "thinkingTokens": 0,
+      "durationMs": 10406
+    },
+    "costUsd": 0.028032,
+    "ms": 10406
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is the largest animal that has ever lived?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What do we call a baby kangaroo?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What is the fastest land animal?",
+      "answer": "Cheetah"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which of these animals is a mammal?",
+      "answer": "Dolphin",
+      "options": [
+        "Shark",
+        "Dolphin",
+        "Salmon",
+        "Octopus"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Animals",
+      "category": "Nature",
+      "type": "TEXT",
+      "text": "What do caterpillars turn into?",
+      "answer": "Butterflies or moths"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "How many continents are there?",
+      "answer": "Seven"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of France?",
+      "answer": "Paris"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "In which country would you find the ancient pyramids of Giza?",
+      "answer": "Egypt"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which is the largest ocean on Earth?",
+      "answer": "Pacific Ocean",
+      "options": [
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Pacific Ocean",
+        "Arctic Ocean"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the tallest mountain above sea level in the world?",
+      "answer": "Mount Everest"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which is the largest desert that is hot, covering much of northern Africa?",
+      "answer": "Sahara"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Space and Science",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet do we live on?",
+      "answer": "Earth"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Space and Science",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the name of the star at the centre of our solar system?",
+      "answer": "The Sun"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Space and Science",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What gas do humans need to breathe in to stay alive?",
+      "answer": "Oxygen"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Space and Science",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Space and Science",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "What is the largest planet in our solar system?",
+      "answer": "Jupiter"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Space and Science",
+      "category": "Science",
+      "type": "TEXT",
+      "text": "At what temperature in degrees Celsius does water freeze?",
+      "answer": "0 degrees Celsius"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.0395,
+      "ms": 17816,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1796,
+          "outputTokens": 999,
+          "thinkingTokens": 0,
+          "durationMs": 13369
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1579,
+          "outputTokens": 301,
+          "thinkingTokens": 0,
+          "durationMs": 4447
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "The blue whale is the accepted answer. The Perucetus claim is disputed."
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "The answer already covers both butterflies and moths."
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "fix",
+          "reason": "The number depends on which model you use, so the question now names the common seven-continent model.",
+          "text": "How many continents are there in the most commonly taught model used in English-speaking countries?",
+          "answer": "Seven"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "Both answers are the same: Sahara."
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "Both answers are the same: 0 °C."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Perucetus colossus has been proposed as possibly heavier than the blue whale, but that claim is disputed. The blue whale is the standard answer."
+          ]
+        },
+        "R1Q2": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Dolphin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Butterflies or moths",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Seven",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer",
+            "wording: Counting conventions vary: some models use 5 or 6 continents."
+          ]
+        },
+        "R2Q2": {
+          "answer": "Paris",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Egypt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Pacific Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Mount Everest",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Sahara Desert",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R3Q1": {
+          "answer": "Earth",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "The Sun",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Oxygen",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Jupiter",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "0 °C",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q1",
+          "reason": "The number depends on which model you use, so the question now names the common seven-continent model.",
+          "before": {
+            "text": "How many continents are there?",
+            "answer": "Seven"
+          },
+          "after": {
+            "text": "How many continents are there in the most commonly taught model used in English-speaking countries?",
+            "answer": "Seven"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6,
+        6
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is the largest animal that has ever lived?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What do we call a baby kangaroo?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which of these animals is a mammal?",
+          "answer": "Dolphin",
+          "options": [
+            "Shark",
+            "Dolphin",
+            "Salmon",
+            "Octopus"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Animals",
+          "category": "Nature",
+          "type": "TEXT",
+          "text": "What do caterpillars turn into?",
+          "answer": "Butterflies or moths"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "How many continents are there in the most commonly taught model used in English-speaking countries?",
+          "answer": "Seven"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of France?",
+          "answer": "Paris"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "In which country would you find the ancient pyramids of Giza?",
+          "answer": "Egypt"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the largest ocean on Earth?",
+          "answer": "Pacific Ocean",
+          "options": [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Pacific Ocean",
+            "Arctic Ocean"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the tallest mountain above sea level in the world?",
+          "answer": "Mount Everest"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which is the largest desert that is hot, covering much of northern Africa?",
+          "answer": "Sahara"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Space and Science",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet do we live on?",
+          "answer": "Earth"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Space and Science",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the name of the star at the centre of our solar system?",
+          "answer": "The Sun"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Space and Science",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What gas do humans need to breathe in to stay alive?",
+          "answer": "Oxygen"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Space and Science",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Space and Science",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "What is the largest planet in our solar system?",
+          "answer": "Jupiter"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Space and Science",
+          "category": "Science",
+          "type": "TEXT",
+          "text": "At what temperature in degrees Celsius does water freeze?",
+          "answer": "0 degrees Celsius"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,947 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "one-word",
+    "prompt": "quiz",
+    "questions": 20,
+    "run": "one-word#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (a multiple-choice answer is not one of its options); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3552,
+      "outputTokens": 3700,
+      "thinkingTokens": 0,
+      "durationMs": 31443
+    },
+    "costUsd": 0.088208,
+    "ms": 31443
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the capital city of Canada?",
+      "answer": "Ottawa"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which country did the dish paella originate?",
+      "answer": "Spain"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest internal organ of the human body?",
+      "answer": "Liver",
+      "options": [
+        "Liver",
+        "Lungs",
+        "Brain",
+        "Heart"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the name of the longest bone in the human body?",
+      "answer": "Femur"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What does the 'S' stand for in the acronym 'NASA'?",
+      "answer": "Space"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Who was the first President of the United States?",
+      "answer": "George Washington"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which English king had six wives?",
+      "answer": "Henry VIII"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which ancient city was buried by the eruption of Mount Vesuvius in AD 79, along with Herculaneum?",
+      "answer": "Pompeii"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which French military leader was defeated at the Battle of Waterloo in 1815?",
+      "answer": "Napoleon Bonaparte"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which queen of England was known as 'The Virgin Queen'?",
+      "answer": "Elizabeth I"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Time Travellers",
+      "category": "History",
+      "type": "TEXT",
+      "text": "The Magna Carta was sealed in 1215 by which English king?",
+      "answer": "King John"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in South America?",
+      "answer": "Amazon"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "On which continent is Egypt?",
+      "answer": "Africa"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which ocean lies between Africa and Australia?",
+      "answer": "Indian Ocean"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania",
+      "options": [
+        "Kenya",
+        "Tanzania",
+        "Uganda",
+        "Ethiopia"
+      ]
+    },
+    {
+      "id": "R3Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which European country is shaped like a boot?",
+      "answer": "Italy"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Portugal?",
+      "answer": "Lisbon"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Europe from Africa at the western end of the Mediterranean?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which wizarding school does Harry Potter attend?",
+      "answer": "Hogwarts"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which band was made up of John, Paul, George and Ringo?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "In the Disney film 'The Lion King', what is the name of Simba's father?",
+      "answer": "Mufasa"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Who wrote the play 'Romeo and Juliet'?",
+      "answer": "William Shakespeare"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "What is the name of the fictional African country ruled by Black Panther?",
+      "answer": "Wakanda"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Moonlight Sonata'?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Who directed the 1993 film 'Jurassic Park'?",
+      "answer": "Steven Spielberg"
+    },
+    {
+      "id": "R4Q8",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "In which fictional town is the TV series 'Twin Peaks' set? (It shares the show's name.)",
+      "answer": "Twin Peaks"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.052952,
+      "ms": 18656,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2553,
+          "outputTokens": 1811,
+          "thinkingTokens": 193,
+          "durationMs": 15123
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1150,
+          "outputTokens": 96,
+          "thinkingTokens": 0,
+          "durationMs": 3533
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "6 and Six are the same answer; a hexagon has six sides."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q3": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Spain",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Liver",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Femur",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Space",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "George Washington",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Henry VIII",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Pompeii",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Napoleon Bonaparte",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Elizabeth I",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "King John",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Amazon",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Africa",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Indian Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Italy",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Lisbon",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Hogwarts",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "Mufasa",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Wakanda",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Twin Peaks",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the capital city of Canada?",
+          "answer": "Ottawa"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which country did the dish paella originate?",
+          "answer": "Spain"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest internal organ of the human body?",
+          "answer": "Liver",
+          "options": [
+            "Liver",
+            "Lungs",
+            "Brain",
+            "Heart"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name of the longest bone in the human body?",
+          "answer": "Femur"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What does the 'S' stand for in the acronym 'NASA'?",
+          "answer": "Space"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Who was the first President of the United States?",
+          "answer": "George Washington"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which English king had six wives?",
+          "answer": "Henry VIII"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which ancient city was buried by the eruption of Mount Vesuvius in AD 79, along with Herculaneum?",
+          "answer": "Pompeii"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which French military leader was defeated at the Battle of Waterloo in 1815?",
+          "answer": "Napoleon Bonaparte"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which queen of England was known as 'The Virgin Queen'?",
+          "answer": "Elizabeth I"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Time Travellers",
+          "category": "History",
+          "type": "TEXT",
+          "text": "The Magna Carta was sealed in 1215 by which English king?",
+          "answer": "King John"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in South America?",
+          "answer": "Amazon"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "On which continent is Egypt?",
+          "answer": "Africa"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which ocean lies between Africa and Australia?",
+          "answer": "Indian Ocean"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Mount Kilimanjaro is in which country?",
+          "answer": "Tanzania",
+          "options": [
+            "Kenya",
+            "Tanzania",
+            "Uganda",
+            "Ethiopia"
+          ]
+        },
+        {
+          "id": "R3Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which European country is shaped like a boot?",
+          "answer": "Italy"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Portugal?",
+          "answer": "Lisbon"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Europe from Africa at the western end of the Mediterranean?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which wizarding school does Harry Potter attend?",
+          "answer": "Hogwarts"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which band was made up of John, Paul, George and Ringo?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "In the Disney film 'The Lion King', what is the name of Simba's father?",
+          "answer": "Mufasa"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Who wrote the play 'Romeo and Juliet'?",
+          "answer": "William Shakespeare"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "What is the name of the fictional African country ruled by Black Panther?",
+          "answer": "Wakanda"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Moonlight Sonata'?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Who directed the 1993 film 'Jurassic Park'?",
+          "answer": "Steven Spielberg"
+        },
+        {
+          "id": "R4Q8",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "In which fictional town is the TV series 'Twin Peaks' set? (It shares the show's name.)",
+          "answer": "Twin Peaks"
+        }
+      ]
+    }
+  ]
+}

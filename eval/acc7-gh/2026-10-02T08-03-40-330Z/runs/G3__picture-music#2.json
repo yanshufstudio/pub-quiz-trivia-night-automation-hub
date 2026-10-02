@@ -1,0 +1,620 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "picture-music",
+    "prompt": "Picture round ideas and a music round",
+    "questions": 20,
+    "run": "picture-music#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 2015,
+      "thinkingTokens": 738,
+      "durationMs": 16858
+    },
+    "costUsd": 0.047436,
+    "ms": 16858
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "Which company's logo is an apple with a bite taken out of it?",
+      "answer": "Apple"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "Which Italian city is famous for its leaning bell tower?",
+      "answer": "Pisa"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "In which Paris museum does the Mona Lisa hang?",
+      "answer": "The Louvre"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "The giant statue of Christ the Redeemer looks out over which city?",
+      "answer": "Rio de Janeiro"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "Which artist painted 'The Starry Night'?",
+      "answer": "Vincent van Gogh"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "Which artist painted the ceiling of the Sistine Chapel?",
+      "answer": "Michelangelo"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "Which artist painted 'Guernica'?",
+      "answer": "Pablo Picasso"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "Which Norwegian artist painted 'The Scream'?",
+      "answer": "Edvard Munch"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "TEXT",
+      "text": "Which Dutch artist painted 'Girl with a Pearl Earring'?",
+      "answer": "Johannes Vermeer"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Picture This",
+      "category": "Art, Landmarks & Logos (in words)",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the title of Salvador Dalí's famous painting of melting clocks?",
+      "answer": "The Persistence of Memory",
+      "options": [
+        "The Persistence of Memory",
+        "The Elephants",
+        "The Burning Giraffe",
+        "Swans Reflecting Elephants"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band recorded 'Bohemian Rhapsody'?",
+      "answer": "Queen"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who was the drummer in the Beatles' best-known line-up?",
+      "answer": "Ringo Starr"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer released the album 'Thriller'?",
+      "answer": "Michael Jackson"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer released the album and song 'Purple Rain'?",
+      "answer": "Prince"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Nirvana?",
+      "answer": "Kurt Cobain"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "With which song did ABBA win the Eurovision Song Contest in 1974?",
+      "answer": "Waterloo"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who sang and played bass in The Police?",
+      "answer": "Sting"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Baroque composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "The singer Björk comes from which country?",
+      "answer": "Iceland"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many strings does a standard violin have?",
+      "answer": "4",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "3"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.029472,
+      "ms": 8308,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2103,
+          "outputTokens": 1053,
+          "thinkingTokens": 0,
+          "durationMs": 8308
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Pisa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Louvre",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Rio de Janeiro",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Vincent van Gogh",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Michelangelo",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Pablo Picasso",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Edvard Munch",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Johannes Vermeer",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "The Persistence of Memory",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ringo Starr",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Michael Jackson",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Prince",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Kurt Cobain",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Waterloo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Sting",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Iceland",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "4",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "Which company's logo is an apple with a bite taken out of it?",
+          "answer": "Apple"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "Which Italian city is famous for its leaning bell tower?",
+          "answer": "Pisa"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "In which Paris museum does the Mona Lisa hang?",
+          "answer": "The Louvre"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "The giant statue of Christ the Redeemer looks out over which city?",
+          "answer": "Rio de Janeiro"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "Which artist painted 'The Starry Night'?",
+          "answer": "Vincent van Gogh"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "Which artist painted the ceiling of the Sistine Chapel?",
+          "answer": "Michelangelo"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "Which artist painted 'Guernica'?",
+          "answer": "Pablo Picasso"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "Which Norwegian artist painted 'The Scream'?",
+          "answer": "Edvard Munch"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "TEXT",
+          "text": "Which Dutch artist painted 'Girl with a Pearl Earring'?",
+          "answer": "Johannes Vermeer"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Picture This",
+          "category": "Art, Landmarks & Logos (in words)",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the title of Salvador Dalí's famous painting of melting clocks?",
+          "answer": "The Persistence of Memory",
+          "options": [
+            "The Persistence of Memory",
+            "The Elephants",
+            "The Burning Giraffe",
+            "Swans Reflecting Elephants"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band recorded 'Bohemian Rhapsody'?",
+          "answer": "Queen"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who was the drummer in the Beatles' best-known line-up?",
+          "answer": "Ringo Starr"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer released the album 'Thriller'?",
+          "answer": "Michael Jackson"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer released the album and song 'Purple Rain'?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Nirvana?",
+          "answer": "Kurt Cobain"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "With which song did ABBA win the Eurovision Song Contest in 1974?",
+          "answer": "Waterloo"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who sang and played bass in The Police?",
+          "answer": "Sting"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Baroque composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "The singer Björk comes from which country?",
+          "answer": "Iceland"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many strings does a standard violin have?",
+          "answer": "4",
+          "options": [
+            "4",
+            "5",
+            "6",
+            "3"
+          ]
+        }
+      ]
+    }
+  ]
+}

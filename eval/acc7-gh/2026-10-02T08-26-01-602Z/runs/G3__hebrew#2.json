@@ -1,0 +1,772 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew",
+    "prompt": "3 rounds of 8 questions in Hebrew: Israeli history, Israeli pop music, and food.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "hebrew#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1808,
+      "outputTokens": 2701,
+      "thinkingTokens": 983,
+      "durationMs": 31487
+    },
+    "costUsd": 0.061252,
+    "ms": 31487
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה הוכרזה מדינת ישראל?",
+      "answer": "1948"
+    },
+    {
+      "id": "R1Q2",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה ראש הממשלה הראשון של ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R1Q3",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראשת ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R1Q4",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזו עיר הוקראה מגילת העצמאות?",
+      "answer": "תל אביב",
+      "options": [
+        "ירושלים",
+        "תל אביב",
+        "חיפה",
+        "פתח תקווה"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+      "answer": "1967"
+    },
+    {
+      "id": "R1Q6",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "איזה ראש ממשלה נרצח בכיכר מלכי ישראל בנובמבר 1995?",
+      "answer": "יצחק רבין"
+    },
+    {
+      "id": "R1Q7",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "מי היה נשיא המדינה הראשון של ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R1Q8",
+      "round": "דפי היסטוריה",
+      "category": "היסטוריה של ישראל",
+      "type": "TEXT",
+      "text": "איזה נשיא מצרי חתם עם מנחם בגין על הסכם השלום בין ישראל למצרים?",
+      "answer": "אנואר סאדאת"
+    },
+    {
+      "id": "R2Q1",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו זמרת זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+      "answer": "נטע ברזילי"
+    },
+    {
+      "id": "R2Q2",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+      "answer": "Diva (דיווה)"
+    },
+    {
+      "id": "R2Q3",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+      "answer": "חלב ודבש"
+    },
+    {
+      "id": "R2Q4",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי שר את \"אבניבי\", השיר הזוכה באירוויזיון 1978?",
+      "answer": "יזהר כהן"
+    },
+    {
+      "id": "R2Q5",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזו זמרת ייצגה את ישראל באירוויזיון 1983 עם השיר \"חי\"?",
+      "answer": "עופרה חזה"
+    },
+    {
+      "id": "R2Q6",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "מי שר את \"אני ואתה (נשנה את העולם)\"?",
+      "answer": "אריק איינשטיין"
+    },
+    {
+      "id": "R2Q7",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזה צמד מבצע את הלהיט \"טודו בום\"?",
+      "answer": "סטטיק ובן אל",
+      "options": [
+        "סטטיק ובן אל",
+        "הדג נחש",
+        "טיפקס",
+        "משינה"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "על הגל",
+      "category": "מוזיקת פופ ישראלית",
+      "type": "TEXT",
+      "text": "איזה שיר שרו רבין והקהל בעצרת שבסופה נרצח?",
+      "answer": "שיר לשלום"
+    },
+    {
+      "id": "R3Q1",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "באיזה חג נוהגים לאכול סופגניות?",
+      "answer": "חנוכה"
+    },
+    {
+      "id": "R3Q2",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מאיזה זרע מכינים טחינה?",
+      "answer": "שומשום"
+    },
+    {
+      "id": "R3Q3",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "באיזה טעם מגיע חטיף הבמבה המקורי?",
+      "answer": "בוטנים"
+    },
+    {
+      "id": "R3Q4",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "השקשוקה היא ביצים שמבושלות ברוטב שמבוסס בעיקר על איזה ירק?",
+      "answer": "עגבניות"
+    },
+    {
+      "id": "R3Q5",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה ירק מטוגן הוא המרכיב העיקרי בסביח?",
+      "answer": "חציל"
+    },
+    {
+      "id": "R3Q6",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "מאיזה פרי עשוי רוטב העמבה?",
+      "answer": "מנגו",
+      "options": [
+        "מנגו",
+        "לימון",
+        "תמר",
+        "אננס"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "איזה מאכל זכה לכינוי \"אורז בן-גוריון\"?",
+      "answer": "פתיתים"
+    },
+    {
+      "id": "R3Q8",
+      "round": "בתיאבון",
+      "category": "אוכל",
+      "type": "TEXT",
+      "text": "מה שמו האשכנזי של החמין, תבשיל השבת שמתבשל כל הלילה?",
+      "answer": "צ'ולנט"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.052704,
+      "ms": 18179,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2635,
+          "outputTokens": 1270,
+          "thinkingTokens": 0,
+          "durationMs": 11280
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1561,
+          "outputTokens": 526,
+          "thinkingTokens": 218,
+          "durationMs": 6899
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "Same answer as the checker's, just written in Latin script as well; Diva won in 1998."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Izhar Cohen sang with Alphabeta, and naming the lead singer counts as a correct answer."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "Only a spelling difference (עופרה vs. עפרה); both are the same singer, Ofra Haza."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "fix",
+          "reason": "The song has been covered many times, so the question should ask who sang the original version.",
+          "text": "מי שר במקור את \"אני ואתה (נשנה את העולם)\" (1971)?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "1948",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "1967",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "יצחק רבין",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "אנואר סאדאת",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "נטע ברזילי",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "דיווה",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q3": {
+          "answer": "חלב ודבש",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "יזהר כהן ולהקת אלפא ביתא",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "עפרה חזה",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q6": {
+          "answer": "אריק איינשטיין",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q7": {
+          "answer": "סטטיק ובן אל",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "שיר לשלום",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "חנוכה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "שומשום",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "בוטנים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "עגבניות",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "חציל",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "מנגו",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "פתיתים",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "צ'ולנט",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q6",
+          "reason": "The song has been covered many times, so the question should ask who sang the original version.",
+          "before": {
+            "text": "מי שר את \"אני ואתה (נשנה את העולם)\"?",
+            "answer": "אריק איינשטיין"
+          },
+          "after": {
+            "text": "מי שר במקור את \"אני ואתה (נשנה את העולם)\" (1971)?",
+            "answer": "אריק איינשטיין"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה הוכרזה מדינת ישראל?",
+          "answer": "1948"
+        },
+        {
+          "id": "R1Q2",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה ראש הממשלה הראשון של ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R1Q3",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראשת ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R1Q4",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזו עיר הוקראה מגילת העצמאות?",
+          "answer": "תל אביב",
+          "options": [
+            "ירושלים",
+            "תל אביב",
+            "חיפה",
+            "פתח תקווה"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "באיזו שנה התרחשה מלחמת ששת הימים?",
+          "answer": "1967"
+        },
+        {
+          "id": "R1Q6",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "איזה ראש ממשלה נרצח בכיכר מלכי ישראל בנובמבר 1995?",
+          "answer": "יצחק רבין"
+        },
+        {
+          "id": "R1Q7",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "מי היה נשיא המדינה הראשון של ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R1Q8",
+          "round": "דפי היסטוריה",
+          "category": "היסטוריה של ישראל",
+          "type": "TEXT",
+          "text": "איזה נשיא מצרי חתם עם מנחם בגין על הסכם השלום בין ישראל למצרים?",
+          "answer": "אנואר סאדאת"
+        },
+        {
+          "id": "R2Q1",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו זמרת זכתה באירוויזיון 2018 עם השיר \"Toy\"?",
+          "answer": "נטע ברזילי"
+        },
+        {
+          "id": "R2Q2",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "עם איזה שיר זכתה דנה אינטרנשיונל באירוויזיון 1998?",
+          "answer": "Diva (דיווה)"
+        },
+        {
+          "id": "R2Q3",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו להקה זכתה באירוויזיון 1979 עם השיר \"הללויה\"?",
+          "answer": "חלב ודבש"
+        },
+        {
+          "id": "R2Q4",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי שר את \"אבניבי\", השיר הזוכה באירוויזיון 1978?",
+          "answer": "יזהר כהן"
+        },
+        {
+          "id": "R2Q5",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזו זמרת ייצגה את ישראל באירוויזיון 1983 עם השיר \"חי\"?",
+          "answer": "עופרה חזה"
+        },
+        {
+          "id": "R2Q6",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "מי שר במקור את \"אני ואתה (נשנה את העולם)\" (1971)?",
+          "answer": "אריק איינשטיין"
+        },
+        {
+          "id": "R2Q7",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה צמד מבצע את הלהיט \"טודו בום\"?",
+          "answer": "סטטיק ובן אל",
+          "options": [
+            "סטטיק ובן אל",
+            "הדג נחש",
+            "טיפקס",
+            "משינה"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "על הגל",
+          "category": "מוזיקת פופ ישראלית",
+          "type": "TEXT",
+          "text": "איזה שיר שרו רבין והקהל בעצרת שבסופה נרצח?",
+          "answer": "שיר לשלום"
+        },
+        {
+          "id": "R3Q1",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "באיזה חג נוהגים לאכול סופגניות?",
+          "answer": "חנוכה"
+        },
+        {
+          "id": "R3Q2",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מאיזה זרע מכינים טחינה?",
+          "answer": "שומשום"
+        },
+        {
+          "id": "R3Q3",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "באיזה טעם מגיע חטיף הבמבה המקורי?",
+          "answer": "בוטנים"
+        },
+        {
+          "id": "R3Q4",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "השקשוקה היא ביצים שמבושלות ברוטב שמבוסס בעיקר על איזה ירק?",
+          "answer": "עגבניות"
+        },
+        {
+          "id": "R3Q5",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה ירק מטוגן הוא המרכיב העיקרי בסביח?",
+          "answer": "חציל"
+        },
+        {
+          "id": "R3Q6",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "מאיזה פרי עשוי רוטב העמבה?",
+          "answer": "מנגו",
+          "options": [
+            "מנגו",
+            "לימון",
+            "תמר",
+            "אננס"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "איזה מאכל זכה לכינוי \"אורז בן-גוריון\"?",
+          "answer": "פתיתים"
+        },
+        {
+          "id": "R3Q8",
+          "round": "בתיאבון",
+          "category": "אוכל",
+          "type": "TEXT",
+          "text": "מה שמו האשכנזי של החמין, תבשיל השבת שמתבשל כל הלילה?",
+          "answer": "צ'ולנט"
+        }
+      ]
+    }
+  ]
+}

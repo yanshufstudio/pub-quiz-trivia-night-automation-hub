@@ -1,0 +1,219 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5,
+    "expect": [
+      5
+    ],
+    "run": "90s-pop#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1790,
+      "outputTokens": 483,
+      "thinkingTokens": 0,
+      "durationMs": 7933
+    },
+    "costUsd": 0.01682,
+    "ms": 7933
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which singer released the 1998 debut single '...Baby One More Time'?",
+      "answer": "Britney Spears"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Britpop band released the album '(What's the Story) Morning Glory?' in 1995?",
+      "answer": "Oasis",
+      "options": [
+        "Blur",
+        "Oasis",
+        "Pulp",
+        "Suede"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+      "answer": "Alanis Morissette"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Irish boy band had hits in the late 1990s with 'Flying Without Wings' and 'Swear It Again'?",
+      "answer": "Westlife"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.011104,
+      "ms": 6993,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1271,
+          "outputTokens": 301,
+          "thinkingTokens": 0,
+          "durationMs": 6993
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Britney Spears",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Oasis",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Alanis Morissette",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Westlife",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which singer released the 1998 debut single '...Baby One More Time'?",
+          "answer": "Britney Spears"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Britpop band released the album '(What's the Story) Morning Glory?' in 1995?",
+          "answer": "Oasis",
+          "options": [
+            "Blur",
+            "Oasis",
+            "Pulp",
+            "Suede"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+          "answer": "Alanis Morissette"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Irish boy band had hits in the late 1990s with 'Flying Without Wings' and 'Swear It Again'?",
+          "answer": "Westlife"
+        }
+      ]
+    }
+  ]
+}

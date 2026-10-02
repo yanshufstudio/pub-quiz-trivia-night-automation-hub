@@ -1,0 +1,546 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "film-tv",
+    "prompt": "2 rounds of 8 questions on film and TV: Oscar winners, then 1990s and 2000s sitcoms.",
+    "questions": 16,
+    "expect": [
+      8,
+      8
+    ],
+    "run": "film-tv#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 1 of 16 questions, rounds [1] of [8,8]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3626,
+      "outputTokens": 1576,
+      "thinkingTokens": 0,
+      "durationMs": 16928
+    },
+    "costUsd": 0.046024,
+    "ms": 16928
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 1997 film about an ill-fated ocean liner won the Academy Award for Best Picture?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R1Q2",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which actor finally won his first Oscar for playing Hugh Glass in 'The Revenant'?",
+      "answer": "Leonardo DiCaprio"
+    },
+    {
+      "id": "R1Q3",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+      "answer": "Parasite"
+    },
+    {
+      "id": "R1Q4",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Katharine Hepburn holds the record for the most Best Actress wins. How many did she win?",
+      "answer": "Four",
+      "options": [
+        "Two",
+        "Three",
+        "Four",
+        "Five"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which 2003 film completed a fantasy trilogy and won all 11 Oscars it was nominated for?",
+      "answer": "The Lord of the Rings: The Return of the King"
+    },
+    {
+      "id": "R1Q6",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Which film won Best Picture at the 2017 ceremony after 'La La Land' was mistakenly announced?",
+      "answer": "Moonlight"
+    },
+    {
+      "id": "R1Q7",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Who won the Best Supporting Actor Oscar posthumously for playing the Joker in 'The Dark Knight'?",
+      "answer": "Heath Ledger"
+    },
+    {
+      "id": "R1Q8",
+      "round": "And the Oscar Goes To",
+      "category": "Academy Awards",
+      "type": "TEXT",
+      "text": "Who became the first woman to win the Academy Award for Best Director, for 'The Hurt Locker'?",
+      "answer": "Kathryn Bigelow"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Friends', what is the name of the coffee house where the gang hangs out?",
+      "answer": "Central Perk"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom featured the Boston psychiatrist Dr Frasier Crane's brother Niles?",
+      "answer": "Frasier"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In the UK version of 'The Office', what is the name of the paper company where David Brent works?",
+      "answer": "Wernham Hogg"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Seinfeld', what is the first name of Jerry's neighbour Kramer?",
+      "answer": "Cosmo"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In the Irish sitcom 'Father Ted', on which fictional island do the priests live?",
+      "answer": "Craggy Island"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In 'How I Met Your Mother', what is the profession of Ted Mosby?",
+      "answer": "Architect",
+      "options": [
+        "Lawyer",
+        "Architect",
+        "Doctor",
+        "Journalist"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "Which sitcom starring Will Smith was set mostly in the Bel-Air home of his uncle Phil?",
+      "answer": "The Fresh Prince of Bel-Air"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Sofa Sitcoms",
+      "category": "1990s and 2000s Sitcoms",
+      "type": "TEXT",
+      "text": "In 'Arrested Development', what is the first name of the family member played by Jason Bateman?",
+      "answer": "Michael"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.04088,
+      "ms": 14025,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2084,
+          "outputTokens": 1140,
+          "thinkingTokens": 191,
+          "durationMs": 10107
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1266,
+          "outputTokens": 234,
+          "thinkingTokens": 0,
+          "durationMs": 3918
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "fix",
+          "reason": "Frasier was based in Seattle, not Boston, in the show featuring Niles; the description is corrected.",
+          "text": "Which sitcom featured the Seattle psychiatrist Dr Frasier Crane and his brother Niles?",
+          "answer": "Frasier"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Leonardo DiCaprio",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Parasite",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Four",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The Lord of the Rings: The Return of the King",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Moonlight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Heath Ledger",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Kathryn Bigelow",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Central Perk",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Frasier",
+          "agreed": true,
+          "flags": [
+            "wording: 'the Boston psychiatrist': Frasier was based in Boston in 'Cheers', but in 'Frasier', the show where Niles appears, he is a psychiatrist and radio host in Seattle. Niles never appeared in 'Cheers'."
+          ]
+        },
+        "R2Q3": {
+          "answer": "Wernham Hogg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Cosmo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Craggy Island",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Architect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The Fresh Prince of Bel-Air",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Michael",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q2",
+          "reason": "Frasier was based in Seattle, not Boston, in the show featuring Niles; the description is corrected.",
+          "before": {
+            "text": "Which sitcom featured the Boston psychiatrist Dr Frasier Crane's brother Niles?",
+            "answer": "Frasier"
+          },
+          "after": {
+            "text": "Which sitcom featured the Seattle psychiatrist Dr Frasier Crane and his brother Niles?",
+            "answer": "Frasier"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 1997 film about an ill-fated ocean liner won the Academy Award for Best Picture?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R1Q2",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which actor finally won his first Oscar for playing Hugh Glass in 'The Revenant'?",
+          "answer": "Leonardo DiCaprio"
+        },
+        {
+          "id": "R1Q3",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which South Korean film became the first non-English-language film to win Best Picture?",
+          "answer": "Parasite"
+        },
+        {
+          "id": "R1Q4",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Katharine Hepburn holds the record for the most Best Actress wins. How many did she win?",
+          "answer": "Four",
+          "options": [
+            "Two",
+            "Three",
+            "Four",
+            "Five"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which 2003 film completed a fantasy trilogy and won all 11 Oscars it was nominated for?",
+          "answer": "The Lord of the Rings: The Return of the King"
+        },
+        {
+          "id": "R1Q6",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Which film won Best Picture at the 2017 ceremony after 'La La Land' was mistakenly announced?",
+          "answer": "Moonlight"
+        },
+        {
+          "id": "R1Q7",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Who won the Best Supporting Actor Oscar posthumously for playing the Joker in 'The Dark Knight'?",
+          "answer": "Heath Ledger"
+        },
+        {
+          "id": "R1Q8",
+          "round": "And the Oscar Goes To",
+          "category": "Academy Awards",
+          "type": "TEXT",
+          "text": "Who became the first woman to win the Academy Award for Best Director, for 'The Hurt Locker'?",
+          "answer": "Kathryn Bigelow"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Friends', what is the name of the coffee house where the gang hangs out?",
+          "answer": "Central Perk"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom featured the Seattle psychiatrist Dr Frasier Crane and his brother Niles?",
+          "answer": "Frasier"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In the UK version of 'The Office', what is the name of the paper company where David Brent works?",
+          "answer": "Wernham Hogg"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Seinfeld', what is the first name of Jerry's neighbour Kramer?",
+          "answer": "Cosmo"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In the Irish sitcom 'Father Ted', on which fictional island do the priests live?",
+          "answer": "Craggy Island"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In 'How I Met Your Mother', what is the profession of Ted Mosby?",
+          "answer": "Architect",
+          "options": [
+            "Lawyer",
+            "Architect",
+            "Doctor",
+            "Journalist"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "Which sitcom starring Will Smith was set mostly in the Bel-Air home of his uncle Phil?",
+          "answer": "The Fresh Prince of Bel-Air"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Sofa Sitcoms",
+          "category": "1990s and 2000s Sitcoms",
+          "type": "TEXT",
+          "text": "In 'Arrested Development', what is the first name of the family member played by Jason Bateman?",
+          "answer": "Michael"
+        }
+      ]
+    }
+  ]
+}

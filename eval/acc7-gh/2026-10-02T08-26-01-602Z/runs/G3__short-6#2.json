@@ -1,0 +1,250 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "short-6",
+    "prompt": "A short pub quiz: 2 rounds of 3 questions each. Round 1: 90s pop music. Round 2: UK geography. Keep answers short.",
+    "questions": 6,
+    "expect": [
+      3,
+      3
+    ],
+    "run": "short-6#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      3,
+      3
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 2 of 6 questions, rounds [2] of [3,3]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3648,
+      "outputTokens": 827,
+      "thinkingTokens": 0,
+      "durationMs": 14844
+    },
+    "costUsd": 0.031132,
+    "ms": 14845
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Hits",
+      "category": "90s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the single 'Wannabe' in 1996?",
+      "answer": "Spice Girls"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Hits",
+      "category": "90s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which singer had a hit with '...Baby One More Time' in 1998?",
+      "answer": "Britney Spears",
+      "options": [
+        "Christina Aguilera",
+        "Britney Spears",
+        "Mandy Moore",
+        "Jessica Simpson"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Hits",
+      "category": "90s Pop Music",
+      "type": "TEXT",
+      "text": "Which Irish boy band, featuring Ronan Keating, had a hit with 'Love Me for a Reason' in 1994?",
+      "answer": "Boyzone"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around Britain",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "What is the capital city of Wales?",
+      "answer": "Cardiff"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around Britain",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in the UK?",
+      "answer": "Ben Nevis"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around Britain",
+      "category": "UK Geography",
+      "type": "TEXT",
+      "text": "What is the longest river in the UK?",
+      "answer": "River Severn"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.01214,
+      "ms": 3772,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1285,
+          "outputTokens": 350,
+          "thinkingTokens": 0,
+          "durationMs": 3771
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Britney Spears",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Boyzone",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Cardiff",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ben Nevis",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "River Severn",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        3,
+        3
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Hits",
+          "category": "90s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the single 'Wannabe' in 1996?",
+          "answer": "Spice Girls"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Hits",
+          "category": "90s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which singer had a hit with '...Baby One More Time' in 1998?",
+          "answer": "Britney Spears",
+          "options": [
+            "Christina Aguilera",
+            "Britney Spears",
+            "Mandy Moore",
+            "Jessica Simpson"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Hits",
+          "category": "90s Pop Music",
+          "type": "TEXT",
+          "text": "Which Irish boy band, featuring Ronan Keating, had a hit with 'Love Me for a Reason' in 1994?",
+          "answer": "Boyzone"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around Britain",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "What is the capital city of Wales?",
+          "answer": "Cardiff"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around Britain",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in the UK?",
+          "answer": "Ben Nevis"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around Britain",
+          "category": "UK Geography",
+          "type": "TEXT",
+          "text": "What is the longest river in the UK?",
+          "answer": "River Severn"
+        }
+      ]
+    }
+  ]
+}

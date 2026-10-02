@@ -1,0 +1,758 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "fun-quiz",
+    "prompt": "Just give me a fun quiz",
+    "questions": 20,
+    "run": "fun-quiz"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      6,
+      6,
+      6,
+      6
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1783,
+      "outputTokens": 1153,
+      "thinkingTokens": 0,
+      "durationMs": 12675
+    },
+    "costUsd": 0.030192,
+    "ms": 12675
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital city of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city is the Colosseum?",
+      "answer": "Rome"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a dodecagon have?",
+      "answer": "Twelve"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "What is the name of the toy cowboy in Toy Story?",
+      "answer": "Woody"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which film features the line 'May the Force be with you'?",
+      "answer": "Star Wars"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Who directed Jaws?",
+      "answer": "Steven Spielberg"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "In The Wizard of Oz, what is the name of Dorothy's dog?",
+      "answer": "Toto"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "What is the name of the hotel in The Shining?",
+      "answer": "The Overlook Hotel"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Silver Screen",
+      "category": "Film",
+      "type": "TEXT",
+      "text": "Which 1997 film became the first to earn over $1 billion worldwide at the box office?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Wild Kingdom",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is the largest animal ever known to have lived?",
+      "answer": "Blue whale"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Wild Kingdom",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is a baby kangaroo called?",
+      "answer": "A joey"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Wild Kingdom",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "Which bird is the national symbol of the United States?",
+      "answer": "Bald eagle"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Wild Kingdom",
+      "category": "Animals & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many hearts does an octopus have?",
+      "answer": "Three",
+      "options": [
+        "One",
+        "Two",
+        "Three",
+        "Eight"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Wild Kingdom",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is the only mammal capable of true sustained flight?",
+      "answer": "The bat"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Wild Kingdom",
+      "category": "Animals & Nature",
+      "type": "TEXT",
+      "text": "What is a group of crows called?",
+      "answer": "A murder"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Pop Goes the Quiz",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released the album Abbey Road?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Pop Goes the Quiz",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which singer is known as the 'Queen of Pop'?",
+      "answer": "Madonna"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Pop Goes the Quiz",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Swedish group won Eurovision in 1974 with 'Waterloo'?",
+      "answer": "ABBA"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Pop Goes the Quiz",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "What was Freddie Mercury's band?",
+      "answer": "Queen"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Pop Goes the Quiz",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which musical instrument did Jimi Hendrix famously play?",
+      "answer": "Electric guitar"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Pop Goes the Quiz",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "What is the real first name of Elton John?",
+      "answer": "Reginald"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.049280000000000004,
+      "ms": 22743,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2116,
+          "outputTokens": 1546,
+          "thinkingTokens": 259,
+          "durationMs": 19042
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1409,
+          "outputTokens": 213,
+          "thinkingTokens": 0,
+          "durationMs": 3701
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "12 and Twelve are the same answer."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "fix",
+          "reason": "The line is spoken in many Star Wars films, so the question should ask for the franchise.",
+          "text": "Which film franchise features the line 'May the Force be with you'?",
+          "answer": "Star Wars"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer with his full name added."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Rome",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "12",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Woody",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Star Wars (1977, A New Hope)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: The line is spoken in almost every Star Wars film, so 'which film' could have many correct answers. Accept any Star Wars film, or reword it as 'which film franchise'."
+          ]
+        },
+        "R2Q3": {
+          "answer": "Steven Spielberg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Toto",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "The Overlook Hotel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Bald eagle",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Three",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Bat",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "Madonna",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "ABBA",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Electric guitar",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Reginald (Reginald Kenneth Dwight)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q2",
+          "reason": "The line is spoken in many Star Wars films, so the question should ask for the franchise.",
+          "before": {
+            "text": "Which film features the line 'May the Force be with you'?",
+            "answer": "Star Wars"
+          },
+          "after": {
+            "text": "Which film franchise features the line 'May the Force be with you'?",
+            "answer": "Star Wars"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital city of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city is the Colosseum?",
+          "answer": "Rome"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a dodecagon have?",
+          "answer": "Twelve"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "What is the name of the toy cowboy in Toy Story?",
+          "answer": "Woody"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which film franchise features the line 'May the Force be with you'?",
+          "answer": "Star Wars"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Who directed Jaws?",
+          "answer": "Steven Spielberg"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "In The Wizard of Oz, what is the name of Dorothy's dog?",
+          "answer": "Toto"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "What is the name of the hotel in The Shining?",
+          "answer": "The Overlook Hotel"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Silver Screen",
+          "category": "Film",
+          "type": "TEXT",
+          "text": "Which 1997 film became the first to earn over $1 billion worldwide at the box office?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Wild Kingdom",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is the largest animal ever known to have lived?",
+          "answer": "Blue whale"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Wild Kingdom",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is a baby kangaroo called?",
+          "answer": "A joey"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Wild Kingdom",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "Which bird is the national symbol of the United States?",
+          "answer": "Bald eagle"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Wild Kingdom",
+          "category": "Animals & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many hearts does an octopus have?",
+          "answer": "Three",
+          "options": [
+            "One",
+            "Two",
+            "Three",
+            "Eight"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Wild Kingdom",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is the only mammal capable of true sustained flight?",
+          "answer": "The bat"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Wild Kingdom",
+          "category": "Animals & Nature",
+          "type": "TEXT",
+          "text": "What is a group of crows called?",
+          "answer": "A murder"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Pop Goes the Quiz",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released the album Abbey Road?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Pop Goes the Quiz",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which singer is known as the 'Queen of Pop'?",
+          "answer": "Madonna"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Pop Goes the Quiz",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Swedish group won Eurovision in 1974 with 'Waterloo'?",
+          "answer": "ABBA"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Pop Goes the Quiz",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "What was Freddie Mercury's band?",
+          "answer": "Queen"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Pop Goes the Quiz",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which musical instrument did Jimi Hendrix famously play?",
+          "answer": "Electric guitar"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Pop Goes the Quiz",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "What is the real first name of Elton John?",
+          "answer": "Reginald"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,620 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "picture-music",
+    "prompt": "Picture round ideas and a music round",
+    "questions": 20,
+    "run": "picture-music"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 2154,
+      "thinkingTokens": 733,
+      "durationMs": 19564
+    },
+    "costUsd": 0.050216,
+    "ms": 19564
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which Leonardo da Vinci portrait in the Louvre shows a woman with a famously mysterious smile?",
+      "answer": "Mona Lisa"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which company's logo is an apple with a bite taken out of it?",
+      "answer": "Apple"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which Edvard Munch painting shows a figure clutching its face on a bridge under a blood-red sky?",
+      "answer": "The Scream"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which Van Gogh painting shows a swirling night sky over a village, with a cypress tree in front?",
+      "answer": "The Starry Night"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which car maker's logo is four interlocking rings?",
+      "answer": "Audi",
+      "options": [
+        "Audi",
+        "Volkswagen",
+        "Opel",
+        "Mercedes-Benz"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which Salvador Dalí painting is famous for its melting clocks?",
+      "answer": "The Persistence of Memory"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which Grant Wood painting shows a stern farmer holding a pitchfork beside a woman, in front of a farmhouse?",
+      "answer": "American Gothic"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which Vermeer painting shows a girl in a blue and yellow turban looking over her shoulder?",
+      "answer": "Girl with a Pearl Earring"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which Hokusai woodblock print shows a huge wave about to crash over boats, with Mount Fuji in the background?",
+      "answer": "The Great Wave off Kanagawa"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Picture This",
+      "category": "Famous Images Described in Words",
+      "type": "TEXT",
+      "text": "Which René Magritte painting shows a pipe above the words 'Ceci n'est pas une pipe'?",
+      "answer": "The Treachery of Images"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released 'Bohemian Rhapsody'?",
+      "answer": "Queen"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which artist sang 'Purple Rain'?",
+      "answer": "Prince"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Nirvana?",
+      "answer": "Kurt Cobain"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "With which song did ABBA win the 1974 Eurovision Song Contest?",
+      "answer": "Waterloo"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Michael Jackson album includes 'Billie Jean'?",
+      "answer": "Thriller"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who recorded 'Like a Rolling Stone'?",
+      "answer": "Bob Dylan",
+      "options": [
+        "Bob Dylan",
+        "The Rolling Stones",
+        "Neil Young",
+        "Bruce Springsteen"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Dark Side of the Moon'?",
+      "answer": "Pink Floyd"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which Adele album includes 'Rolling in the Deep'?",
+      "answer": "21"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Moonlight' Sonata?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Name That Tune",
+      "category": "Music",
+      "type": "TEXT",
+      "text": "Which instrument was Ravi Shankar famous for playing?",
+      "answer": "Sitar"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.02988,
+      "ms": 8443,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2190,
+          "outputTokens": 1056,
+          "thinkingTokens": 0,
+          "durationMs": 8443
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mona Lisa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Apple",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Scream",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "The Starry Night",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Audi",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Persistence of Memory",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "American Gothic",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Girl with a Pearl Earring",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "The Great Wave off Kanagawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "The Treachery of Images",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Queen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Prince",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Kurt Cobain",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Waterloo",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Thriller",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Bob Dylan",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "21",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Sitar",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which Leonardo da Vinci portrait in the Louvre shows a woman with a famously mysterious smile?",
+          "answer": "Mona Lisa"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which company's logo is an apple with a bite taken out of it?",
+          "answer": "Apple"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which Edvard Munch painting shows a figure clutching its face on a bridge under a blood-red sky?",
+          "answer": "The Scream"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which Van Gogh painting shows a swirling night sky over a village, with a cypress tree in front?",
+          "answer": "The Starry Night"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which car maker's logo is four interlocking rings?",
+          "answer": "Audi",
+          "options": [
+            "Audi",
+            "Volkswagen",
+            "Opel",
+            "Mercedes-Benz"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which Salvador Dalí painting is famous for its melting clocks?",
+          "answer": "The Persistence of Memory"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which Grant Wood painting shows a stern farmer holding a pitchfork beside a woman, in front of a farmhouse?",
+          "answer": "American Gothic"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which Vermeer painting shows a girl in a blue and yellow turban looking over her shoulder?",
+          "answer": "Girl with a Pearl Earring"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which Hokusai woodblock print shows a huge wave about to crash over boats, with Mount Fuji in the background?",
+          "answer": "The Great Wave off Kanagawa"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Picture This",
+          "category": "Famous Images Described in Words",
+          "type": "TEXT",
+          "text": "Which René Magritte painting shows a pipe above the words 'Ceci n'est pas une pipe'?",
+          "answer": "The Treachery of Images"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released 'Bohemian Rhapsody'?",
+          "answer": "Queen"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which artist sang 'Purple Rain'?",
+          "answer": "Prince"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Nirvana?",
+          "answer": "Kurt Cobain"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "With which song did ABBA win the 1974 Eurovision Song Contest?",
+          "answer": "Waterloo"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Michael Jackson album includes 'Billie Jean'?",
+          "answer": "Thriller"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who recorded 'Like a Rolling Stone'?",
+          "answer": "Bob Dylan",
+          "options": [
+            "Bob Dylan",
+            "The Rolling Stones",
+            "Neil Young",
+            "Bruce Springsteen"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon'?",
+          "answer": "Pink Floyd"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which Adele album includes 'Rolling in the Deep'?",
+          "answer": "21"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Moonlight' Sonata?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Name That Tune",
+          "category": "Music",
+          "type": "TEXT",
+          "text": "Which instrument was Ravi Shankar famous for playing?",
+          "answer": "Sitar"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,631 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "science",
+    "prompt": "2 rounds of 10 questions on science: space and astronomy, then the human body. General audience.",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "science"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 1258,
+      "thinkingTokens": 0,
+      "durationMs": 12315
+    },
+    "costUsd": 0.032372,
+    "ms": 12315
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the galaxy that contains our Solar System?",
+      "answer": "The Milky Way"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet in our Solar System has the most famous ring system, visible through a small telescope?",
+      "answer": "Saturn"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which planet is closest to the Sun?",
+      "answer": "Mercury",
+      "options": [
+        "Venus",
+        "Mercury",
+        "Mars",
+        "Earth"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "In 2006, Pluto was reclassified into which category of object?",
+      "answer": "Dwarf planet"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the giant storm on Jupiter, often described by its colour?",
+      "answer": "The Great Red Spot"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Who was the first human to travel into space, in 1961?",
+      "answer": "Yuri Gagarin"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the star system nearest to our Sun, whose closest member is Proxima?",
+      "answer": "Alpha Centauri"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Final Frontier",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet rotates on its side, with an axial tilt of roughly 98 degrees?",
+      "answer": "Uranus"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which organ pumps blood around the body?",
+      "answer": "The heart"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "How many bones are in a typical adult human skeleton?",
+      "answer": "206"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the common name for the patella?",
+      "answer": "Kneecap"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which blood cells carry oxygen around the body?",
+      "answer": "Red blood cells",
+      "options": [
+        "Red blood cells",
+        "White blood cells",
+        "Platelets"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the longest bone in the human body?",
+      "answer": "The femur (thigh bone)"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which organ produces insulin?",
+      "answer": "The pancreas"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "The smallest bone in the human body, the stapes, is found in which part of the body?",
+      "answer": "The ear (middle ear)"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the protein in red blood cells that binds to oxygen?",
+      "answer": "Haemoglobin"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the flap of tissue that stops food entering the windpipe when you swallow?",
+      "answer": "The epiglottis"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.035792,
+      "ms": 11237,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2038,
+          "outputTokens": 1047,
+          "thinkingTokens": 0,
+          "durationMs": 9120
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1175,
+          "outputTokens": 100,
+          "thinkingTokens": 0,
+          "durationMs": 2117
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "The stapes is in the middle ear. The checker gave the same answer in different words."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Saturn",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Dwarf planet",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "The Great Red Spot",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Yuri Gagarin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Alpha Centauri",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Uranus",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "The heart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "The skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Kneecap",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Red blood cells",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "The femur (thigh bone)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "The pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "The (middle) ear",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q9": {
+          "answer": "Haemoglobin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "The epiglottis",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the galaxy that contains our Solar System?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet in our Solar System has the most famous ring system, visible through a small telescope?",
+          "answer": "Saturn"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet is closest to the Sun?",
+          "answer": "Mercury",
+          "options": [
+            "Venus",
+            "Mercury",
+            "Mars",
+            "Earth"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "In 2006, Pluto was reclassified into which category of object?",
+          "answer": "Dwarf planet"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the giant storm on Jupiter, often described by its colour?",
+          "answer": "The Great Red Spot"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Who was the first human to travel into space, in 1961?",
+          "answer": "Yuri Gagarin"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the star system nearest to our Sun, whose closest member is Proxima?",
+          "answer": "Alpha Centauri"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Final Frontier",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet rotates on its side, with an axial tilt of roughly 98 degrees?",
+          "answer": "Uranus"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ pumps blood around the body?",
+          "answer": "The heart"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "How many bones are in a typical adult human skeleton?",
+          "answer": "206"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the common name for the patella?",
+          "answer": "Kneecap"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which blood cells carry oxygen around the body?",
+          "answer": "Red blood cells",
+          "options": [
+            "Red blood cells",
+            "White blood cells",
+            "Platelets"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the longest bone in the human body?",
+          "answer": "The femur (thigh bone)"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ produces insulin?",
+          "answer": "The pancreas"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "The smallest bone in the human body, the stapes, is found in which part of the body?",
+          "answer": "The ear (middle ear)"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the protein in red blood cells that binds to oxygen?",
+          "answer": "Haemoglobin"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the flap of tissue that stops food entering the windpipe when you swallow?",
+          "answer": "The epiglottis"
+        }
+      ]
+    }
+  ]
+}

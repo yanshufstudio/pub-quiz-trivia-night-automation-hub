@@ -1,0 +1,968 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "one-word",
+    "prompt": "quiz",
+    "questions": 20,
+    "run": "one-word"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (a multiple-choice answer is not one of its options); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3552,
+      "outputTokens": 3018,
+      "thinkingTokens": 0,
+      "durationMs": 27357
+    },
+    "costUsd": 0.074568,
+    "ms": 27361
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "How many sides does a hexagon have?",
+      "answer": "Six"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "In which city is the Colosseum?",
+      "answer": "Rome"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "Skin"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many bones are in the adult human body?",
+      "answer": "206",
+      "options": [
+        "186",
+        "206",
+        "226",
+        "256"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "TEXT",
+      "text": "What is the name for a group of crows?",
+      "answer": "A murder"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which river flows through Paris?",
+      "answer": "Seine"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which country has the city of Marrakesh?",
+      "answer": "Morocco"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the highest mountain in Africa?",
+      "answer": "Kilimanjaro"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which two countries share the Iberian Peninsula's mainland, apart from tiny Andorra and Gibraltar?",
+      "answer": "Spain and Portugal"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa",
+      "options": [
+        "Toronto",
+        "Ottawa",
+        "Montreal",
+        "Vancouver"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "Which strait separates Europe from Africa at its narrowest point?",
+      "answer": "Strait of Gibraltar"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "TEXT",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Who was the first President of the United States?",
+      "answer": "George Washington"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which wall fell in 1989?",
+      "answer": "Berlin Wall"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which English king had six wives?",
+      "answer": "Henry VIII"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "In which year did the Battle of Hastings take place?",
+      "answer": "1066"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R3Q7",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which ancient wonder stood in Alexandria?",
+      "answer": "The Lighthouse (Pharos) of Alexandria"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Back in Time",
+      "category": "History",
+      "type": "TEXT",
+      "text": "Which treaty, signed in 1919, formally ended the First World War between Germany and the Allies?",
+      "answer": "Treaty of Versailles"
+    },
+    {
+      "id": "R4Q1",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which wizard attends Hogwarts and has a lightning-bolt scar?",
+      "answer": "Harry Potter"
+    },
+    {
+      "id": "R4Q2",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Who wrote Romeo and Juliet?",
+      "answer": "William Shakespeare"
+    },
+    {
+      "id": "R4Q3",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which band released the album Abbey Road?",
+      "answer": "The Beatles"
+    },
+    {
+      "id": "R4Q4",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "In The Wizard of Oz, what colour are Dorothy's slippers in the 1939 film?",
+      "answer": "Ruby red"
+    },
+    {
+      "id": "R4Q5",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which composer wrote the Moonlight Sonata?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R4Q6",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which 1997 film directed by James Cameron starred Leonardo DiCaprio and Kate Winslet?",
+      "answer": "Titanic"
+    },
+    {
+      "id": "R4Q7",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "What is the name of the fictional African country in Black Panther?",
+      "answer": "Wakanda"
+    },
+    {
+      "id": "R4Q8",
+      "round": "Screen and Stage",
+      "category": "Entertainment",
+      "type": "TEXT",
+      "text": "Which opera by Puccini features the aria 'Nessun dorma'?",
+      "answer": "Turandot"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.057156,
+      "ms": 19979,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2517,
+          "outputTokens": 1685,
+          "thinkingTokens": 0,
+          "durationMs": 15118
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1482,
+          "outputTokens": 373,
+          "thinkingTokens": 99,
+          "durationMs": 4859
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "6 and Six are the same answer."
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "'A murder' is the standard, widely accepted term; both answers match."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "Kilimanjaro and Mount Kilimanjaro are the same answer."
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "fix",
+          "reason": "Wording wrongly called Gibraltar a country and ignored France; simplified it.",
+          "text": "Which two countries take up almost all of the Iberian Peninsula?",
+          "answer": "Spain and Portugal"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "6",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R1Q2": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Rome",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "The skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "A murder",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q1": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The Seine",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Morocco",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Mount Kilimanjaro",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q5": {
+          "answer": "Spain and Portugal",
+          "agreed": true,
+          "flags": [
+            "wording: Andorra is a sovereign country, but Gibraltar is a British Overseas Territory, not a country. A small strip of France also lies on the peninsula."
+          ]
+        },
+        "R2Q6": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Strait of Gibraltar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "George Washington",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "The Berlin Wall",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Henry VIII",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "1066",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "The Lighthouse (Pharos) of Alexandria",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Treaty of Versailles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "Harry Potter",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Ruby red",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "Titanic",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Wakanda",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Turandot",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q5",
+          "reason": "Wording wrongly called Gibraltar a country and ignored France; simplified it.",
+          "before": {
+            "text": "Which two countries share the Iberian Peninsula's mainland, apart from tiny Andorra and Gibraltar?",
+            "answer": "Spain and Portugal"
+          },
+          "after": {
+            "text": "Which two countries take up almost all of the Iberian Peninsula?",
+            "answer": "Spain and Portugal"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "How many sides does a hexagon have?",
+          "answer": "Six"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "In which city is the Colosseum?",
+          "answer": "Rome"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the largest organ of the human body?",
+          "answer": "Skin"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many bones are in the adult human body?",
+          "answer": "206",
+          "options": [
+            "186",
+            "206",
+            "226",
+            "256"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the hardest natural substance?",
+          "answer": "Diamond"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "TEXT",
+          "text": "What is the name for a group of crows?",
+          "answer": "A murder"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which river flows through Paris?",
+          "answer": "Seine"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which country has the city of Marrakesh?",
+          "answer": "Morocco"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the highest mountain in Africa?",
+          "answer": "Kilimanjaro"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which two countries take up almost all of the Iberian Peninsula?",
+          "answer": "Spain and Portugal"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa",
+          "options": [
+            "Toronto",
+            "Ottawa",
+            "Montreal",
+            "Vancouver"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "Which strait separates Europe from Africa at its narrowest point?",
+          "answer": "Strait of Gibraltar"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "TEXT",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Who was the first President of the United States?",
+          "answer": "George Washington"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which wall fell in 1989?",
+          "answer": "Berlin Wall"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which English king had six wives?",
+          "answer": "Henry VIII"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "In which year did the Battle of Hastings take place?",
+          "answer": "1066"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R3Q7",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which ancient wonder stood in Alexandria?",
+          "answer": "The Lighthouse (Pharos) of Alexandria"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Back in Time",
+          "category": "History",
+          "type": "TEXT",
+          "text": "Which treaty, signed in 1919, formally ended the First World War between Germany and the Allies?",
+          "answer": "Treaty of Versailles"
+        },
+        {
+          "id": "R4Q1",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which wizard attends Hogwarts and has a lightning-bolt scar?",
+          "answer": "Harry Potter"
+        },
+        {
+          "id": "R4Q2",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Who wrote Romeo and Juliet?",
+          "answer": "William Shakespeare"
+        },
+        {
+          "id": "R4Q3",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which band released the album Abbey Road?",
+          "answer": "The Beatles"
+        },
+        {
+          "id": "R4Q4",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "In The Wizard of Oz, what colour are Dorothy's slippers in the 1939 film?",
+          "answer": "Ruby red"
+        },
+        {
+          "id": "R4Q5",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which composer wrote the Moonlight Sonata?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R4Q6",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which 1997 film directed by James Cameron starred Leonardo DiCaprio and Kate Winslet?",
+          "answer": "Titanic"
+        },
+        {
+          "id": "R4Q7",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "What is the name of the fictional African country in Black Panther?",
+          "answer": "Wakanda"
+        },
+        {
+          "id": "R4Q8",
+          "round": "Screen and Stage",
+          "category": "Entertainment",
+          "type": "TEXT",
+          "text": "Which opera by Puccini features the aria 'Nessun dorma'?",
+          "answer": "Turandot"
+        }
+      ]
+    }
+  ]
+}

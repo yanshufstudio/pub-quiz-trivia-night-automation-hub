@@ -1,0 +1,520 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "sport",
+    "prompt": "2 rounds of 8 questions on sport: football World Cups, then the Olympic Games.",
+    "questions": 16,
+    "expect": [
+      8,
+      8
+    ],
+    "run": "sport"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 1150,
+      "thinkingTokens": 0,
+      "durationMs": 10525
+    },
+    "costUsd": 0.030212,
+    "ms": 10526
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country hosted and won the first FIFA World Cup in 1930?",
+      "answer": "Uruguay"
+    },
+    {
+      "id": "R1Q2",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which country won the 2010 FIFA World Cup, beating the Netherlands in the final?",
+      "answer": "Spain"
+    },
+    {
+      "id": "R1Q3",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Who scored a hat-trick for England in the 1966 World Cup final?",
+      "answer": "Geoff Hurst"
+    },
+    {
+      "id": "R1Q4",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "In which country was the 2002 World Cup co-hosted with South Korea?",
+      "answer": "Japan"
+    },
+    {
+      "id": "R1Q5",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which French player was sent off for a headbutt in the 2006 World Cup final?",
+      "answer": "Zinedine Zidane"
+    },
+    {
+      "id": "R1Q6",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did Argentina win their first World Cup?",
+      "answer": "1978",
+      "options": [
+        "1974",
+        "1978",
+        "1982",
+        "1986"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "Which French striker scored 13 goals at the 1958 World Cup, a record for a single tournament?",
+      "answer": "Just Fontaine"
+    },
+    {
+      "id": "R1Q8",
+      "round": "World Cup Fever",
+      "category": "Football World Cups",
+      "type": "TEXT",
+      "text": "What was the name of the World Cup mascot for England 1966, a lion?",
+      "answer": "World Cup Willie"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "How many rings are there on the Olympic flag?",
+      "answer": "Five"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which city hosted the 2012 Summer Olympics?",
+      "answer": "London"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which Jamaican sprinter won the 100m gold at three consecutive Olympics, 2008, 2012 and 2016?",
+      "answer": "Usain Bolt"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which American swimmer won eight gold medals at the 2008 Beijing Games?",
+      "answer": "Michael Phelps"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which Romanian gymnast scored the first perfect 10 in Olympic gymnastics in 1976?",
+      "answer": "Nadia Comăneci"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which Frenchman founded the International Olympic Committee in 1894?",
+      "answer": "Pierre de Coubertin"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which city were the first modern Olympic Games held in 1896?",
+      "answer": "Athens",
+      "options": [
+        "Paris",
+        "Athens",
+        "London",
+        "Rome"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Going for Gold",
+      "category": "Olympic Games",
+      "type": "TEXT",
+      "text": "Which American athlete won four gold medals at the 1936 Berlin Olympics?",
+      "answer": "Jesse Owens"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.0275,
+      "ms": 8346,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1915,
+          "outputTokens": 992,
+          "thinkingTokens": 111,
+          "durationMs": 8346
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Uruguay",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Spain",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Geoff Hurst",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Japan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Zinedine Zidane",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "1978",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Just Fontaine",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "World Cup Willie",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Five",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "London",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Usain Bolt",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Michael Phelps",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Nadia Comăneci",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Pierre de Coubertin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Athens",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Jesse Owens",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country hosted and won the first FIFA World Cup in 1930?",
+          "answer": "Uruguay"
+        },
+        {
+          "id": "R1Q2",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which country won the 2010 FIFA World Cup, beating the Netherlands in the final?",
+          "answer": "Spain"
+        },
+        {
+          "id": "R1Q3",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Who scored a hat-trick for England in the 1966 World Cup final?",
+          "answer": "Geoff Hurst"
+        },
+        {
+          "id": "R1Q4",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "In which country was the 2002 World Cup co-hosted with South Korea?",
+          "answer": "Japan"
+        },
+        {
+          "id": "R1Q5",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French player was sent off for a headbutt in the 2006 World Cup final?",
+          "answer": "Zinedine Zidane"
+        },
+        {
+          "id": "R1Q6",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did Argentina win their first World Cup?",
+          "answer": "1978",
+          "options": [
+            "1974",
+            "1978",
+            "1982",
+            "1986"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "Which French striker scored 13 goals at the 1958 World Cup, a record for a single tournament?",
+          "answer": "Just Fontaine"
+        },
+        {
+          "id": "R1Q8",
+          "round": "World Cup Fever",
+          "category": "Football World Cups",
+          "type": "TEXT",
+          "text": "What was the name of the World Cup mascot for England 1966, a lion?",
+          "answer": "World Cup Willie"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "How many rings are there on the Olympic flag?",
+          "answer": "Five"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which city hosted the 2012 Summer Olympics?",
+          "answer": "London"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which Jamaican sprinter won the 100m gold at three consecutive Olympics, 2008, 2012 and 2016?",
+          "answer": "Usain Bolt"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which American swimmer won eight gold medals at the 2008 Beijing Games?",
+          "answer": "Michael Phelps"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which Romanian gymnast scored the first perfect 10 in Olympic gymnastics in 1976?",
+          "answer": "Nadia Comăneci"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which Frenchman founded the International Olympic Committee in 1894?",
+          "answer": "Pierre de Coubertin"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which city were the first modern Olympic Games held in 1896?",
+          "answer": "Athens",
+          "options": [
+            "Paris",
+            "Athens",
+            "London",
+            "Rome"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Going for Gold",
+          "category": "Olympic Games",
+          "type": "TEXT",
+          "text": "Which American athlete won four gold medals at the 1936 Berlin Olympics?",
+          "answer": "Jesse Owens"
+        }
+      ]
+    }
+  ]
+}

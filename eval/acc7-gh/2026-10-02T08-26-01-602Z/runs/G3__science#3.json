@@ -1,0 +1,651 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "science",
+    "prompt": "2 rounds of 10 questions on science: space and astronomy, then the human body. General audience.",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "science#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (a multiple-choice answer is not one of its options); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3606,
+      "outputTokens": 2518,
+      "thinkingTokens": 0,
+      "durationMs": 22957
+    },
+    "costUsd": 0.064784,
+    "ms": 22957
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the galaxy that contains our Solar System?",
+      "answer": "The Milky Way"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet in our Solar System is closest to the Sun?",
+      "answer": "Mercury"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "In 2006, the International Astronomical Union reclassified which former planet as a dwarf planet?",
+      "answer": "Pluto"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which planet has a storm called the Great Red Spot?",
+      "answer": "Jupiter",
+      "options": [
+        "Saturn",
+        "Jupiter",
+        "Neptune",
+        "Mars"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What was the name of the first artificial satellite, launched by the Soviet Union in 1957?",
+      "answer": "Sputnik 1"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Which planet rotates on its side, with an axial tilt of roughly 98 degrees?",
+      "answer": "Uranus"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "What is the name of the largest moon of Saturn?",
+      "answer": "Titan"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Lost in Space",
+      "category": "Space and Astronomy",
+      "type": "TEXT",
+      "text": "Apart from the Sun, what is the closest known star to Earth?",
+      "answer": "Proxima Centauri"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which organ pumps blood around the human body?",
+      "answer": "The heart"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the largest organ of the human body?",
+      "answer": "The skin"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many bones are there in a typical adult human skeleton?",
+      "answer": "206",
+      "options": [
+        "186",
+        "206",
+        "226",
+        "256"
+      ]
+    },
+    {
+      "id": "R2Q4",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the common name for the clavicle?",
+      "answer": "The collarbone"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which type of blood cell carries oxygen around the body?",
+      "answer": "Red blood cells (erythrocytes)"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the longest bone in the human body?",
+      "answer": "The femur (thigh bone)"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which organ produces insulin?",
+      "answer": "The pancreas"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the smallest bone in the human body, found in the middle ear?",
+      "answer": "The stapes (stirrup)"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "What is the name of the pigment that gives skin, hair and eyes their colour?",
+      "answer": "Melanin"
+    },
+    {
+      "id": "R2Q10",
+      "round": "Body of Knowledge",
+      "category": "The Human Body",
+      "type": "TEXT",
+      "text": "Which part of the brain, at the back beneath the cerebrum, is mainly responsible for balance and coordination of movement?",
+      "answer": "The cerebellum"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.038204,
+      "ms": 12568,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2049,
+          "outputTokens": 1046,
+          "thinkingTokens": 0,
+          "durationMs": 8641
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1257,
+          "outputTokens": 203,
+          "thinkingTokens": 0,
+          "durationMs": 3925
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Proxima Centauri is the closest known star after the Sun; answering Alpha Centauri is a near miss, not a second correct answer."
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "fix",
+          "reason": "Some sources call the interstitium a larger organ, so the question now says 'generally considered'. Skin is the standard answer.",
+          "text": "What is generally considered the largest organ of the human body?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "The Milky Way",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Pluto",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Jupiter",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Sputnik 1",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Uranus",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Titan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Proxima Centauri",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q1": {
+          "answer": "The heart",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "The skin",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q3": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Collarbone",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Red blood cells (erythrocytes)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Femur (thigh bone)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Pancreas",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Stapes (stirrup)",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "Melanin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Cerebellum",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R2Q2",
+          "reason": "Some sources call the interstitium a larger organ, so the question now says 'generally considered'. Skin is the standard answer.",
+          "before": {
+            "text": "What is the largest organ of the human body?",
+            "answer": "The skin"
+          },
+          "after": {
+            "text": "What is generally considered the largest organ of the human body?",
+            "answer": "The skin"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the galaxy that contains our Solar System?",
+          "answer": "The Milky Way"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet in our Solar System is closest to the Sun?",
+          "answer": "Mercury"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "In 2006, the International Astronomical Union reclassified which former planet as a dwarf planet?",
+          "answer": "Pluto"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet has a storm called the Great Red Spot?",
+          "answer": "Jupiter",
+          "options": [
+            "Saturn",
+            "Jupiter",
+            "Neptune",
+            "Mars"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What was the name of the first artificial satellite, launched by the Soviet Union in 1957?",
+          "answer": "Sputnik 1"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Which planet rotates on its side, with an axial tilt of roughly 98 degrees?",
+          "answer": "Uranus"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "What is the name of the largest moon of Saturn?",
+          "answer": "Titan"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Lost in Space",
+          "category": "Space and Astronomy",
+          "type": "TEXT",
+          "text": "Apart from the Sun, what is the closest known star to Earth?",
+          "answer": "Proxima Centauri"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ pumps blood around the human body?",
+          "answer": "The heart"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is generally considered the largest organ of the human body?",
+          "answer": "The skin"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many bones are there in a typical adult human skeleton?",
+          "answer": "206",
+          "options": [
+            "186",
+            "206",
+            "226",
+            "256"
+          ]
+        },
+        {
+          "id": "R2Q4",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the common name for the clavicle?",
+          "answer": "The collarbone"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which type of blood cell carries oxygen around the body?",
+          "answer": "Red blood cells (erythrocytes)"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the longest bone in the human body?",
+          "answer": "The femur (thigh bone)"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which organ produces insulin?",
+          "answer": "The pancreas"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the smallest bone in the human body, found in the middle ear?",
+          "answer": "The stapes (stirrup)"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "What is the name of the pigment that gives skin, hair and eyes their colour?",
+          "answer": "Melanin"
+        },
+        {
+          "id": "R2Q10",
+          "round": "Body of Knowledge",
+          "category": "The Human Body",
+          "type": "TEXT",
+          "text": "Which part of the brain, at the back beneath the cerebrum, is mainly responsible for balance and coordination of movement?",
+          "answer": "The cerebellum"
+        }
+      ]
+    }
+  ]
+}

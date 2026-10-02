@@ -1,0 +1,219 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "90s-pop",
+    "prompt": "1 round of 5 questions on 1990s pop music",
+    "questions": 5,
+    "expect": [
+      5
+    ],
+    "run": "90s-pop"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1790,
+      "outputTokens": 508,
+      "thinkingTokens": 0,
+      "durationMs": 7173
+    },
+    "costUsd": 0.01732,
+    "ms": 7176
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+      "answer": "Spice Girls"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Britney Spears's debut single, released in 1998, shares its title with her debut album. What is it called?",
+      "answer": "...Baby One More Time"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Irish band, fronted by Dolores O'Riordan, had a 1994 hit with 'Zombie'?",
+      "answer": "The Cranberries"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+      "answer": "Alanis Morissette",
+      "options": [
+        "Avril Lavigne",
+        "Alanis Morissette",
+        "Shania Twain",
+        "Celine Dion"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Nineties Pop",
+      "category": "1990s Pop Music",
+      "type": "TEXT",
+      "text": "Which Danish-Norwegian group had a 1997 hit with 'Barbie Girl'?",
+      "answer": "Aqua"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.011268,
+      "ms": 4124,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1292,
+          "outputTokens": 305,
+          "thinkingTokens": 0,
+          "durationMs": 4123
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Spice Girls",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "...Baby One More Time",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "The Cranberries",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Alanis Morissette",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Aqua",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which girl group released the 1996 debut single 'Wannabe'?",
+          "answer": "Spice Girls"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Britney Spears's debut single, released in 1998, shares its title with her debut album. What is it called?",
+          "answer": "...Baby One More Time"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Irish band, fronted by Dolores O'Riordan, had a 1994 hit with 'Zombie'?",
+          "answer": "The Cranberries"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which Canadian singer released the 1995 album 'Jagged Little Pill'?",
+          "answer": "Alanis Morissette",
+          "options": [
+            "Avril Lavigne",
+            "Alanis Morissette",
+            "Shania Twain",
+            "Celine Dion"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Nineties Pop",
+          "category": "1990s Pop Music",
+          "type": "TEXT",
+          "text": "Which Danish-Norwegian group had a 1997 hit with 'Barbie Girl'?",
+          "answer": "Aqua"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "half-hebrew",
+    "prompt": "Half English, half Hebrew, 2 rounds of 6",
+    "questions": 12,
+    "expect": [
+      6,
+      6
+    ],
+    "run": "half-hebrew#3"
+  },
+  "failed": "IncompletePackError: Generated quiz pack failed validation: [\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"rounds\"\n    ],\n    \"message\": \"Invalid input: expected array, received string\"\n  }\n]",
+  "errorName": "IncompletePackError",
+  "truncated": false,
+  "attempts": 2,
+  "retryWarnings": [
+    "Quiz pack attempt 1 unusable (short pack: 1 of 12 questions, rounds [1] of [6,6]); trying once more."
+  ],
+  "usage": {
+    "model": "claude-opus-5-5",
+    "inputTokens": 3586,
+    "outputTokens": 1487,
+    "thinkingTokens": 964,
+    "durationMs": 21114
+  },
+  "costUsd": 0.044084,
+  "ms": 21116
+}

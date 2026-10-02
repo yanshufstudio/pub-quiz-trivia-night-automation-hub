@@ -1,0 +1,1635 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "all-mc",
+    "prompt": "All multiple choice, 4 rounds of 10",
+    "questions": 40,
+    "expect": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "run": "all-mc#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10,
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1789,
+      "outputTokens": 3274,
+      "thinkingTokens": 109,
+      "durationMs": 26170
+    },
+    "costUsd": 0.072636,
+    "ms": 26173
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many sides does a hexagon have?",
+      "answer": "6",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ]
+    },
+    {
+      "id": "R1Q2",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What colour is the 'h' in the Google logo?",
+      "answer": "Green",
+      "options": [
+        "Blue",
+        "Red",
+        "Green",
+        "Yellow"
+      ]
+    },
+    {
+      "id": "R1Q3",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which planet is known as the Red Planet?",
+      "answer": "Mars",
+      "options": [
+        "Venus",
+        "Mars",
+        "Jupiter",
+        "Mercury"
+      ]
+    },
+    {
+      "id": "R1Q4",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which sport would you perform a 'slam dunk'?",
+      "answer": "Basketball",
+      "options": [
+        "Volleyball",
+        "Tennis",
+        "Basketball",
+        "Netball"
+      ]
+    },
+    {
+      "id": "R1Q5",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many players are on the field for one team in a football (soccer) match?",
+      "answer": "11",
+      "options": [
+        "9",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which language has the most native speakers in the world?",
+      "answer": "Mandarin Chinese",
+      "options": [
+        "English",
+        "Spanish",
+        "Hindi",
+        "Mandarin Chinese"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the Roman numeral for 50?",
+      "answer": "L",
+      "options": [
+        "C",
+        "D",
+        "L",
+        "V"
+      ]
+    },
+    {
+      "id": "R1Q8",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which wedding anniversary is traditionally celebrated as the 'golden' anniversary?",
+      "answer": "50th",
+      "options": [
+        "25th",
+        "40th",
+        "50th",
+        "60th"
+      ]
+    },
+    {
+      "id": "R1Q9",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In the game of chess, which piece can only move diagonally?",
+      "answer": "Bishop",
+      "options": [
+        "Rook",
+        "Knight",
+        "Bishop",
+        "King"
+      ]
+    },
+    {
+      "id": "R1Q10",
+      "round": "Warm-Up",
+      "category": "General Knowledge",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What does the 'S' stand for in the shipping distress signal 'SOS', according to its origins?",
+      "answer": "Nothing – it was chosen for its simple Morse code",
+      "options": [
+        "Save",
+        "Ship",
+        "Signal",
+        "Nothing – it was chosen for its simple Morse code"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the chemical symbol for gold?",
+      "answer": "Au",
+      "options": [
+        "Go",
+        "Gd",
+        "Au",
+        "Ag"
+      ]
+    },
+    {
+      "id": "R2Q2",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What gas do plants absorb from the air for photosynthesis?",
+      "answer": "Carbon dioxide",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Carbon dioxide",
+        "Hydrogen"
+      ]
+    },
+    {
+      "id": "R2Q3",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest organ of the human body?",
+      "answer": "Skin",
+      "options": [
+        "Liver",
+        "Skin",
+        "Brain",
+        "Lungs"
+      ]
+    },
+    {
+      "id": "R2Q4",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many legs does a spider have?",
+      "answer": "8",
+      "options": [
+        "6",
+        "8",
+        "10",
+        "12"
+      ]
+    },
+    {
+      "id": "R2Q5",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "At what temperature in Celsius does water boil at sea level?",
+      "answer": "100",
+      "options": [
+        "90",
+        "100",
+        "110",
+        "212"
+      ]
+    },
+    {
+      "id": "R2Q6",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which blood type is known as the universal donor for red cells?",
+      "answer": "O negative",
+      "options": [
+        "AB positive",
+        "A negative",
+        "O negative",
+        "B positive"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the hardest natural substance?",
+      "answer": "Diamond",
+      "options": [
+        "Quartz",
+        "Diamond",
+        "Granite",
+        "Topaz"
+      ]
+    },
+    {
+      "id": "R2Q8",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which element has the atomic number 1?",
+      "answer": "Hydrogen",
+      "options": [
+        "Helium",
+        "Oxygen",
+        "Hydrogen",
+        "Carbon"
+      ]
+    },
+    {
+      "id": "R2Q9",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "How many bones are in the typical adult human body?",
+      "answer": "206",
+      "options": [
+        "196",
+        "206",
+        "216",
+        "226"
+      ]
+    },
+    {
+      "id": "R2Q10",
+      "round": "Lab Coats On",
+      "category": "Science & Nature",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the name of the bone commonly called the collarbone?",
+      "answer": "Clavicle",
+      "options": [
+        "Scapula",
+        "Sternum",
+        "Clavicle",
+        "Humerus"
+      ]
+    },
+    {
+      "id": "R3Q1",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of France?",
+      "answer": "Paris",
+      "options": [
+        "Lyon",
+        "Paris",
+        "Marseille",
+        "Nice"
+      ]
+    },
+    {
+      "id": "R3Q2",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "On which continent is Egypt?",
+      "answer": "Africa",
+      "options": [
+        "Asia",
+        "Africa",
+        "Europe",
+        "Oceania"
+      ]
+    },
+    {
+      "id": "R3Q3",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Australia?",
+      "answer": "Canberra",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Perth"
+      ]
+    },
+    {
+      "id": "R3Q4",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which ocean lies between Africa and Australia?",
+      "answer": "Indian Ocean",
+      "options": [
+        "Atlantic Ocean",
+        "Pacific Ocean",
+        "Indian Ocean",
+        "Arctic Ocean"
+      ]
+    },
+    {
+      "id": "R3Q5",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania",
+      "options": [
+        "Kenya",
+        "Tanzania",
+        "Uganda",
+        "Ethiopia"
+      ]
+    },
+    {
+      "id": "R3Q6",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which river flows through Baghdad?",
+      "answer": "Tigris",
+      "options": [
+        "Euphrates",
+        "Tigris",
+        "Jordan",
+        "Nile"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Canada?",
+      "answer": "Ottawa",
+      "options": [
+        "Toronto",
+        "Montreal",
+        "Ottawa",
+        "Vancouver"
+      ]
+    },
+    {
+      "id": "R3Q8",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which country has the city of Marrakesh?",
+      "answer": "Morocco",
+      "options": [
+        "Algeria",
+        "Tunisia",
+        "Morocco",
+        "Egypt"
+      ]
+    },
+    {
+      "id": "R3Q9",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which US state is nicknamed 'The Sunshine State'?",
+      "answer": "Florida",
+      "options": [
+        "California",
+        "Arizona",
+        "Florida",
+        "Hawaii"
+      ]
+    },
+    {
+      "id": "R3Q10",
+      "round": "Around the World",
+      "category": "Geography",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the capital of Kazakhstan?",
+      "answer": "Astana",
+      "options": [
+        "Almaty",
+        "Astana",
+        "Tashkent",
+        "Bishkek"
+      ]
+    },
+    {
+      "id": "R4Q1",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who wrote 'Romeo and Juliet'?",
+      "answer": "William Shakespeare",
+      "options": [
+        "Charles Dickens",
+        "William Shakespeare",
+        "Jane Austen",
+        "Christopher Marlowe"
+      ]
+    },
+    {
+      "id": "R4Q2",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Titanic sink?",
+      "answer": "1912",
+      "options": [
+        "1905",
+        "1912",
+        "1918",
+        "1921"
+      ]
+    },
+    {
+      "id": "R4Q3",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band released the album 'Abbey Road'?",
+      "answer": "The Beatles",
+      "options": [
+        "The Rolling Stones",
+        "The Beatles",
+        "The Who",
+        "Pink Floyd"
+      ]
+    },
+    {
+      "id": "R4Q4",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Who was the first person to walk on the Moon?",
+      "answer": "Neil Armstrong",
+      "options": [
+        "Buzz Aldrin",
+        "Yuri Gagarin",
+        "Neil Armstrong",
+        "John Glenn"
+      ]
+    },
+    {
+      "id": "R4Q5",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In the Harry Potter books, what is the name of Harry's owl?",
+      "answer": "Hedwig",
+      "options": [
+        "Errol",
+        "Hedwig",
+        "Pigwidgeon",
+        "Fawkes"
+      ]
+    },
+    {
+      "id": "R4Q6",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which ancient wonder stood in the harbour of Rhodes?",
+      "answer": "The Colossus",
+      "options": [
+        "The Lighthouse",
+        "The Colossus",
+        "The Mausoleum",
+        "The Hanging Gardens"
+      ]
+    },
+    {
+      "id": "R4Q7",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which film won the first Academy Award for Best Picture?",
+      "answer": "Wings",
+      "options": [
+        "Wings",
+        "Sunrise",
+        "The Jazz Singer",
+        "Metropolis"
+      ]
+    },
+    {
+      "id": "R4Q8",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which English king had six wives?",
+      "answer": "Henry VIII",
+      "options": [
+        "Henry VII",
+        "Henry VIII",
+        "Edward VI",
+        "Richard III"
+      ]
+    },
+    {
+      "id": "R4Q9",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "In which year did the Berlin Wall fall?",
+      "answer": "1989",
+      "options": [
+        "1987",
+        "1989",
+        "1991",
+        "1993"
+      ]
+    },
+    {
+      "id": "R4Q10",
+      "round": "History & Showbiz",
+      "category": "History & Entertainment",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which composer wrote the opera 'The Magic Flute'?",
+      "answer": "Mozart",
+      "options": [
+        "Beethoven",
+        "Mozart",
+        "Verdi",
+        "Wagner"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.07588400000000001,
+      "ms": 23521,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 4186,
+          "outputTokens": 2557,
+          "thinkingTokens": 248,
+          "durationMs": 20712
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1260,
+          "outputTokens": 148,
+          "thinkingTokens": 0,
+          "durationMs": 2806
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R4Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "fix",
+          "reason": "The Google logo has no 'h'. The 'l' is green, so the question now asks about the 'l'.",
+          "text": "What colour is the 'l' in the Google logo?",
+          "options": [
+            "Blue",
+            "Red",
+            "Green",
+            "Yellow"
+          ]
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "6",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Green",
+          "agreed": true,
+          "flags": [
+            "wording: The Google logo contains no letter 'h'. The letters are G (blue), o (red), o (yellow), g (blue), l (green), e (red), so none of the options is correct. Ask about a letter that exists, e.g. 'l' (Green)."
+          ]
+        },
+        "R1Q3": {
+          "answer": "Mars",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Basketball",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "11",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Mandarin Chinese",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "L",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "50th",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Bishop",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Nothing – it was chosen for its simple Morse code",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Au",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Carbon dioxide",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Skin",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "8",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "100",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "O negative",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Diamond",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Hydrogen",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "206",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Clavicle",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Paris",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "Africa",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "Canberra",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Indian Ocean",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Tanzania",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q6": {
+          "answer": "Tigris",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "Ottawa",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q8": {
+          "answer": "Morocco",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q9": {
+          "answer": "Florida",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q10": {
+          "answer": "Astana",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q1": {
+          "answer": "William Shakespeare",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q2": {
+          "answer": "1912",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q3": {
+          "answer": "The Beatles",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q4": {
+          "answer": "Neil Armstrong",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q5": {
+          "answer": "Hedwig",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q6": {
+          "answer": "The Colossus",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q7": {
+          "answer": "Wings",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q8": {
+          "answer": "Henry VIII",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q9": {
+          "answer": "1989",
+          "agreed": true,
+          "flags": []
+        },
+        "R4Q10": {
+          "answer": "Mozart",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q2",
+          "reason": "The Google logo has no 'h'. The 'l' is green, so the question now asks about the 'l'.",
+          "before": {
+            "text": "What colour is the 'h' in the Google logo?",
+            "answer": "Green"
+          },
+          "after": {
+            "text": "What colour is the 'l' in the Google logo?",
+            "answer": "Green"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many sides does a hexagon have?",
+          "answer": "6",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "id": "R1Q2",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What colour is the 'l' in the Google logo?",
+          "answer": "Green",
+          "options": [
+            "Blue",
+            "Red",
+            "Green",
+            "Yellow"
+          ]
+        },
+        {
+          "id": "R1Q3",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which planet is known as the Red Planet?",
+          "answer": "Mars",
+          "options": [
+            "Venus",
+            "Mars",
+            "Jupiter",
+            "Mercury"
+          ]
+        },
+        {
+          "id": "R1Q4",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which sport would you perform a 'slam dunk'?",
+          "answer": "Basketball",
+          "options": [
+            "Volleyball",
+            "Tennis",
+            "Basketball",
+            "Netball"
+          ]
+        },
+        {
+          "id": "R1Q5",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many players are on the field for one team in a football (soccer) match?",
+          "answer": "11",
+          "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which language has the most native speakers in the world?",
+          "answer": "Mandarin Chinese",
+          "options": [
+            "English",
+            "Spanish",
+            "Hindi",
+            "Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the Roman numeral for 50?",
+          "answer": "L",
+          "options": [
+            "C",
+            "D",
+            "L",
+            "V"
+          ]
+        },
+        {
+          "id": "R1Q8",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which wedding anniversary is traditionally celebrated as the 'golden' anniversary?",
+          "answer": "50th",
+          "options": [
+            "25th",
+            "40th",
+            "50th",
+            "60th"
+          ]
+        },
+        {
+          "id": "R1Q9",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In the game of chess, which piece can only move diagonally?",
+          "answer": "Bishop",
+          "options": [
+            "Rook",
+            "Knight",
+            "Bishop",
+            "King"
+          ]
+        },
+        {
+          "id": "R1Q10",
+          "round": "Warm-Up",
+          "category": "General Knowledge",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What does the 'S' stand for in the shipping distress signal 'SOS', according to its origins?",
+          "answer": "Nothing – it was chosen for its simple Morse code",
+          "options": [
+            "Save",
+            "Ship",
+            "Signal",
+            "Nothing – it was chosen for its simple Morse code"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the chemical symbol for gold?",
+          "answer": "Au",
+          "options": [
+            "Go",
+            "Gd",
+            "Au",
+            "Ag"
+          ]
+        },
+        {
+          "id": "R2Q2",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What gas do plants absorb from the air for photosynthesis?",
+          "answer": "Carbon dioxide",
+          "options": [
+            "Oxygen",
+            "Nitrogen",
+            "Carbon dioxide",
+            "Hydrogen"
+          ]
+        },
+        {
+          "id": "R2Q3",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest organ of the human body?",
+          "answer": "Skin",
+          "options": [
+            "Liver",
+            "Skin",
+            "Brain",
+            "Lungs"
+          ]
+        },
+        {
+          "id": "R2Q4",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many legs does a spider have?",
+          "answer": "8",
+          "options": [
+            "6",
+            "8",
+            "10",
+            "12"
+          ]
+        },
+        {
+          "id": "R2Q5",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "At what temperature in Celsius does water boil at sea level?",
+          "answer": "100",
+          "options": [
+            "90",
+            "100",
+            "110",
+            "212"
+          ]
+        },
+        {
+          "id": "R2Q6",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which blood type is known as the universal donor for red cells?",
+          "answer": "O negative",
+          "options": [
+            "AB positive",
+            "A negative",
+            "O negative",
+            "B positive"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the hardest natural substance?",
+          "answer": "Diamond",
+          "options": [
+            "Quartz",
+            "Diamond",
+            "Granite",
+            "Topaz"
+          ]
+        },
+        {
+          "id": "R2Q8",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which element has the atomic number 1?",
+          "answer": "Hydrogen",
+          "options": [
+            "Helium",
+            "Oxygen",
+            "Hydrogen",
+            "Carbon"
+          ]
+        },
+        {
+          "id": "R2Q9",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "How many bones are in the typical adult human body?",
+          "answer": "206",
+          "options": [
+            "196",
+            "206",
+            "216",
+            "226"
+          ]
+        },
+        {
+          "id": "R2Q10",
+          "round": "Lab Coats On",
+          "category": "Science & Nature",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the name of the bone commonly called the collarbone?",
+          "answer": "Clavicle",
+          "options": [
+            "Scapula",
+            "Sternum",
+            "Clavicle",
+            "Humerus"
+          ]
+        },
+        {
+          "id": "R3Q1",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of France?",
+          "answer": "Paris",
+          "options": [
+            "Lyon",
+            "Paris",
+            "Marseille",
+            "Nice"
+          ]
+        },
+        {
+          "id": "R3Q2",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "On which continent is Egypt?",
+          "answer": "Africa",
+          "options": [
+            "Asia",
+            "Africa",
+            "Europe",
+            "Oceania"
+          ]
+        },
+        {
+          "id": "R3Q3",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Australia?",
+          "answer": "Canberra",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Perth"
+          ]
+        },
+        {
+          "id": "R3Q4",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which ocean lies between Africa and Australia?",
+          "answer": "Indian Ocean",
+          "options": [
+            "Atlantic Ocean",
+            "Pacific Ocean",
+            "Indian Ocean",
+            "Arctic Ocean"
+          ]
+        },
+        {
+          "id": "R3Q5",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Mount Kilimanjaro is in which country?",
+          "answer": "Tanzania",
+          "options": [
+            "Kenya",
+            "Tanzania",
+            "Uganda",
+            "Ethiopia"
+          ]
+        },
+        {
+          "id": "R3Q6",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which river flows through Baghdad?",
+          "answer": "Tigris",
+          "options": [
+            "Euphrates",
+            "Tigris",
+            "Jordan",
+            "Nile"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Canada?",
+          "answer": "Ottawa",
+          "options": [
+            "Toronto",
+            "Montreal",
+            "Ottawa",
+            "Vancouver"
+          ]
+        },
+        {
+          "id": "R3Q8",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which country has the city of Marrakesh?",
+          "answer": "Morocco",
+          "options": [
+            "Algeria",
+            "Tunisia",
+            "Morocco",
+            "Egypt"
+          ]
+        },
+        {
+          "id": "R3Q9",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which US state is nicknamed 'The Sunshine State'?",
+          "answer": "Florida",
+          "options": [
+            "California",
+            "Arizona",
+            "Florida",
+            "Hawaii"
+          ]
+        },
+        {
+          "id": "R3Q10",
+          "round": "Around the World",
+          "category": "Geography",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the capital of Kazakhstan?",
+          "answer": "Astana",
+          "options": [
+            "Almaty",
+            "Astana",
+            "Tashkent",
+            "Bishkek"
+          ]
+        },
+        {
+          "id": "R4Q1",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who wrote 'Romeo and Juliet'?",
+          "answer": "William Shakespeare",
+          "options": [
+            "Charles Dickens",
+            "William Shakespeare",
+            "Jane Austen",
+            "Christopher Marlowe"
+          ]
+        },
+        {
+          "id": "R4Q2",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Titanic sink?",
+          "answer": "1912",
+          "options": [
+            "1905",
+            "1912",
+            "1918",
+            "1921"
+          ]
+        },
+        {
+          "id": "R4Q3",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band released the album 'Abbey Road'?",
+          "answer": "The Beatles",
+          "options": [
+            "The Rolling Stones",
+            "The Beatles",
+            "The Who",
+            "Pink Floyd"
+          ]
+        },
+        {
+          "id": "R4Q4",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong",
+          "options": [
+            "Buzz Aldrin",
+            "Yuri Gagarin",
+            "Neil Armstrong",
+            "John Glenn"
+          ]
+        },
+        {
+          "id": "R4Q5",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In the Harry Potter books, what is the name of Harry's owl?",
+          "answer": "Hedwig",
+          "options": [
+            "Errol",
+            "Hedwig",
+            "Pigwidgeon",
+            "Fawkes"
+          ]
+        },
+        {
+          "id": "R4Q6",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which ancient wonder stood in the harbour of Rhodes?",
+          "answer": "The Colossus",
+          "options": [
+            "The Lighthouse",
+            "The Colossus",
+            "The Mausoleum",
+            "The Hanging Gardens"
+          ]
+        },
+        {
+          "id": "R4Q7",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which film won the first Academy Award for Best Picture?",
+          "answer": "Wings",
+          "options": [
+            "Wings",
+            "Sunrise",
+            "The Jazz Singer",
+            "Metropolis"
+          ]
+        },
+        {
+          "id": "R4Q8",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which English king had six wives?",
+          "answer": "Henry VIII",
+          "options": [
+            "Henry VII",
+            "Henry VIII",
+            "Edward VI",
+            "Richard III"
+          ]
+        },
+        {
+          "id": "R4Q9",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In which year did the Berlin Wall fall?",
+          "answer": "1989",
+          "options": [
+            "1987",
+            "1989",
+            "1991",
+            "1993"
+          ]
+        },
+        {
+          "id": "R4Q10",
+          "round": "History & Showbiz",
+          "category": "History & Entertainment",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which composer wrote the opera 'The Magic Flute'?",
+          "answer": "Mozart",
+          "options": [
+            "Beethoven",
+            "Mozart",
+            "Verdi",
+            "Wagner"
+          ]
+        }
+      ]
+    }
+  ]
+}

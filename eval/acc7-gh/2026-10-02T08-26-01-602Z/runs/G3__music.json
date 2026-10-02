@@ -1,0 +1,815 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "music",
+    "prompt": "3 rounds of 8 questions on music: 60s and 70s rock, classical composers, and one-hit wonders. Adults in a pub, medium difficulty.",
+    "questions": 24,
+    "expect": [
+      8,
+      8,
+      8
+    ],
+    "run": "music"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      8,
+      8,
+      8
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (short pack: 1 of 24 questions, rounds [1] of [8,8,8]); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3652,
+      "outputTokens": 2003,
+      "thinkingTokens": 0,
+      "durationMs": 21787
+    },
+    "costUsd": 0.054668,
+    "ms": 21787
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+      "answer": "Pink Floyd"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Who was the lead singer of Queen?",
+      "answer": "Freddie Mercury"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Led Zeppelin song begins with the line 'There's a lady who's sure all that glitters is gold'?",
+      "answer": "Stairway to Heaven"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "What was the name of the 1969 music festival held on a dairy farm in Bethel, New York?",
+      "answer": "Woodstock"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which guitarist set fire to his guitar on stage at the Monterey Pop Festival in 1967?",
+      "answer": "Jimi Hendrix"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band's rock opera 'Tommy' tells the story of a 'deaf, dumb and blind kid'?",
+      "answer": "The Who",
+      "options": [
+        "The Kinks",
+        "The Who",
+        "The Rolling Stones",
+        "Genesis"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Ziggy Stardust was an alter ego of which singer?",
+      "answer": "David Bowie"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Rock Revival",
+      "category": "60s and 70s Rock",
+      "type": "TEXT",
+      "text": "Which Fleetwood Mac album, released in 1977, includes 'Go Your Own Way' and 'Dreams'?",
+      "answer": "Rumours"
+    },
+    {
+      "id": "R2Q1",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote 'The Four Seasons'?",
+      "answer": "Antonio Vivaldi"
+    },
+    {
+      "id": "R2Q2",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer continued to write music after going deaf, including his Ninth Symphony?",
+      "answer": "Ludwig van Beethoven"
+    },
+    {
+      "id": "R2Q3",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+      "answer": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": "R2Q4",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "In which Austrian city was Wolfgang Amadeus Mozart born?",
+      "answer": "Salzburg"
+    },
+    {
+      "id": "R2Q5",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Enigma Variations'?",
+      "answer": "Edward Elgar"
+    },
+    {
+      "id": "R2Q6",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which French composer wrote 'Boléro'?",
+      "answer": "Maurice Ravel",
+      "options": [
+        "Claude Debussy",
+        "Maurice Ravel",
+        "Erik Satie",
+        "Camille Saint-Saëns"
+      ]
+    },
+    {
+      "id": "R2Q7",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which English composer wrote 'The Planets' suite, which includes 'Mars, the Bringer of War'?",
+      "answer": "Gustav Holst"
+    },
+    {
+      "id": "R2Q8",
+      "round": "The Classics",
+      "category": "Classical Composers",
+      "type": "TEXT",
+      "text": "Which composer wrote the 'Brandenburg Concertos'?",
+      "answer": "Johann Sebastian Bach"
+    },
+    {
+      "id": "R3Q1",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which artist had a 1997 hit with 'Bitter Sweet Symphony'... no — which band had a 1982 hit with 'Come On Eileen'?",
+      "answer": "Dexys Midnight Runners"
+    },
+    {
+      "id": "R3Q2",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Norwegian band... no — who sang the 1979 hit 'Pop Muzik' under the name M?",
+      "answer": "Robin Scott"
+    },
+    {
+      "id": "R3Q3",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which band had a 1993 hit with 'What's Up?'",
+      "answer": "4 Non Blondes"
+    },
+    {
+      "id": "R3Q4",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Spanish duo had a 1990s worldwide dance hit with 'Macarena'?",
+      "answer": "Los del Río"
+    },
+    {
+      "id": "R3Q5",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Who had a 1981 hit with 'Tainted Love' as part of the duo Soft Cell?",
+      "answer": "Marc Almond"
+    },
+    {
+      "id": "R3Q6",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which band had a 1997 hit with 'Tubthumping', featuring the line 'I get knocked down'?",
+      "answer": "Chumbawamba",
+      "options": [
+        "Chumbawamba",
+        "EMF",
+        "Babylon Zoo",
+        "White Town"
+      ]
+    },
+    {
+      "id": "R3Q7",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Which Canadian singer had a 1981 hit with 'Video Killed the Radio Star'... no — which band had the 1979 hit 'Video Killed the Radio Star'?",
+      "answer": "The Buggles"
+    },
+    {
+      "id": "R3Q8",
+      "round": "Here Today, Gone Tomorrow",
+      "category": "One-Hit Wonders",
+      "type": "TEXT",
+      "text": "Who had a 1990 hit with 'Ice Ice Baby'?",
+      "answer": "Vanilla Ice"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.063428,
+      "ms": 20342,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2627,
+          "outputTokens": 1909,
+          "thinkingTokens": 342,
+          "durationMs": 15538
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1845,
+          "outputTokens": 368,
+          "thinkingTokens": 0,
+          "durationMs": 4803
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "fix",
+          "reason": "Took out the abandoned draft wording. The answer is correct.",
+          "text": "Which band had a 1982 hit with 'Come On Eileen'?"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "fix",
+          "reason": "Took out the abandoned draft wording. The answer is correct.",
+          "text": "Who sang the 1979 hit 'Pop Muzik' under the name M?"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "fix",
+          "reason": "Soft Cell was a duo, so the question now asks for the singer.",
+          "text": "Who was the singer of Soft Cell, the duo that had a 1981 hit with 'Tainted Love'?"
+        },
+        {
+          "id": "R3Q7",
+          "verdict": "fix",
+          "reason": "Took out the abandoned draft wording, which was also wrong. The answer is correct.",
+          "text": "Which band had the 1979 hit 'Video Killed the Radio Star'?"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Pink Floyd",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Freddie Mercury",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Stairway to Heaven",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Woodstock",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Jimi Hendrix",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "The Who",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "David Bowie",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Rumours",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "Antonio Vivaldi",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "Ludwig van Beethoven",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Pyotr Ilyich Tchaikovsky",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Salzburg",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "Edward Elgar",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Maurice Ravel",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q7": {
+          "answer": "Gustav Holst",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "Johann Sebastian Bach",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "Dexys Midnight Runners",
+          "agreed": true,
+          "flags": [
+            "wording: The wording still has the setter's abandoned draft in it ('Which artist had a 1997 hit with 'Bitter Sweet Symphony'... no —'). Remove it before reading aloud. Also, Dexys Midnight Runners were not one-hit wonders: 'Geno' was a UK number one in 1980."
+          ]
+        },
+        "R3Q2": {
+          "answer": "Robin Scott",
+          "agreed": true,
+          "flags": [
+            "wording: The wording still has the setter's abandoned draft in it ('Which Norwegian band... no —'). Remove it before reading aloud."
+          ]
+        },
+        "R3Q3": {
+          "answer": "4 Non Blondes",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "Los del Río",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "Marc Almond (with Dave Ball)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer",
+            "wording: 'Who' is ambiguous, since Soft Cell was a duo of Marc Almond and Dave Ball. Ask for the singer if you want Marc Almond."
+          ]
+        },
+        "R3Q6": {
+          "answer": "Chumbawamba",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q7": {
+          "answer": "The Buggles",
+          "agreed": true,
+          "flags": [
+            "wording: The wording still has the setter's abandoned draft in it ('Which Canadian singer had a 1981 hit... no —'). The Buggles were English and the song was from 1979. Remove the draft part."
+          ]
+        },
+        "R3Q8": {
+          "answer": "Vanilla Ice",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R3Q1",
+          "reason": "Took out the abandoned draft wording. The answer is correct.",
+          "before": {
+            "text": "Which artist had a 1997 hit with 'Bitter Sweet Symphony'... no — which band had a 1982 hit with 'Come On Eileen'?",
+            "answer": "Dexys Midnight Runners"
+          },
+          "after": {
+            "text": "Which band had a 1982 hit with 'Come On Eileen'?",
+            "answer": "Dexys Midnight Runners"
+          }
+        },
+        {
+          "id": "R3Q2",
+          "reason": "Took out the abandoned draft wording. The answer is correct.",
+          "before": {
+            "text": "Which Norwegian band... no — who sang the 1979 hit 'Pop Muzik' under the name M?",
+            "answer": "Robin Scott"
+          },
+          "after": {
+            "text": "Who sang the 1979 hit 'Pop Muzik' under the name M?",
+            "answer": "Robin Scott"
+          }
+        },
+        {
+          "id": "R3Q5",
+          "reason": "Soft Cell was a duo, so the question now asks for the singer.",
+          "before": {
+            "text": "Who had a 1981 hit with 'Tainted Love' as part of the duo Soft Cell?",
+            "answer": "Marc Almond"
+          },
+          "after": {
+            "text": "Who was the singer of Soft Cell, the duo that had a 1981 hit with 'Tainted Love'?",
+            "answer": "Marc Almond"
+          }
+        },
+        {
+          "id": "R3Q7",
+          "reason": "Took out the abandoned draft wording, which was also wrong. The answer is correct.",
+          "before": {
+            "text": "Which Canadian singer had a 1981 hit with 'Video Killed the Radio Star'... no — which band had the 1979 hit 'Video Killed the Radio Star'?",
+            "answer": "The Buggles"
+          },
+          "after": {
+            "text": "Which band had the 1979 hit 'Video Killed the Radio Star'?",
+            "answer": "The Buggles"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        8,
+        8,
+        8
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which band released the album 'The Dark Side of the Moon' in 1973?",
+          "answer": "Pink Floyd"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Who was the lead singer of Queen?",
+          "answer": "Freddie Mercury"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Led Zeppelin song begins with the line 'There's a lady who's sure all that glitters is gold'?",
+          "answer": "Stairway to Heaven"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "What was the name of the 1969 music festival held on a dairy farm in Bethel, New York?",
+          "answer": "Woodstock"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which guitarist set fire to his guitar on stage at the Monterey Pop Festival in 1967?",
+          "answer": "Jimi Hendrix"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band's rock opera 'Tommy' tells the story of a 'deaf, dumb and blind kid'?",
+          "answer": "The Who",
+          "options": [
+            "The Kinks",
+            "The Who",
+            "The Rolling Stones",
+            "Genesis"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Ziggy Stardust was an alter ego of which singer?",
+          "answer": "David Bowie"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Rock Revival",
+          "category": "60s and 70s Rock",
+          "type": "TEXT",
+          "text": "Which Fleetwood Mac album, released in 1977, includes 'Go Your Own Way' and 'Dreams'?",
+          "answer": "Rumours"
+        },
+        {
+          "id": "R2Q1",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote 'The Four Seasons'?",
+          "answer": "Antonio Vivaldi"
+        },
+        {
+          "id": "R2Q2",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer continued to write music after going deaf, including his Ninth Symphony?",
+          "answer": "Ludwig van Beethoven"
+        },
+        {
+          "id": "R2Q3",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which Russian composer wrote the ballets 'Swan Lake' and 'The Nutcracker'?",
+          "answer": "Pyotr Ilyich Tchaikovsky"
+        },
+        {
+          "id": "R2Q4",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "In which Austrian city was Wolfgang Amadeus Mozart born?",
+          "answer": "Salzburg"
+        },
+        {
+          "id": "R2Q5",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Enigma Variations'?",
+          "answer": "Edward Elgar"
+        },
+        {
+          "id": "R2Q6",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which French composer wrote 'Boléro'?",
+          "answer": "Maurice Ravel",
+          "options": [
+            "Claude Debussy",
+            "Maurice Ravel",
+            "Erik Satie",
+            "Camille Saint-Saëns"
+          ]
+        },
+        {
+          "id": "R2Q7",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which English composer wrote 'The Planets' suite, which includes 'Mars, the Bringer of War'?",
+          "answer": "Gustav Holst"
+        },
+        {
+          "id": "R2Q8",
+          "round": "The Classics",
+          "category": "Classical Composers",
+          "type": "TEXT",
+          "text": "Which composer wrote the 'Brandenburg Concertos'?",
+          "answer": "Johann Sebastian Bach"
+        },
+        {
+          "id": "R3Q1",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1982 hit with 'Come On Eileen'?",
+          "answer": "Dexys Midnight Runners"
+        },
+        {
+          "id": "R3Q2",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who sang the 1979 hit 'Pop Muzik' under the name M?",
+          "answer": "Robin Scott"
+        },
+        {
+          "id": "R3Q3",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had a 1993 hit with 'What's Up?'",
+          "answer": "4 Non Blondes"
+        },
+        {
+          "id": "R3Q4",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which Spanish duo had a 1990s worldwide dance hit with 'Macarena'?",
+          "answer": "Los del Río"
+        },
+        {
+          "id": "R3Q5",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who was the singer of Soft Cell, the duo that had a 1981 hit with 'Tainted Love'?",
+          "answer": "Marc Almond"
+        },
+        {
+          "id": "R3Q6",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which band had a 1997 hit with 'Tubthumping', featuring the line 'I get knocked down'?",
+          "answer": "Chumbawamba",
+          "options": [
+            "Chumbawamba",
+            "EMF",
+            "Babylon Zoo",
+            "White Town"
+          ]
+        },
+        {
+          "id": "R3Q7",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Which band had the 1979 hit 'Video Killed the Radio Star'?",
+          "answer": "The Buggles"
+        },
+        {
+          "id": "R3Q8",
+          "round": "Here Today, Gone Tomorrow",
+          "category": "One-Hit Wonders",
+          "type": "TEXT",
+          "text": "Who had a 1990 hit with 'Ice Ice Baby'?",
+          "answer": "Vanilla Ice"
+        }
+      ]
+    }
+  ]
+}

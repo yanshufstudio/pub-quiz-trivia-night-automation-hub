@@ -1,0 +1,361 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "expect": [
+      10
+    ],
+    "run": "kids#3"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 616,
+      "thinkingTokens": 0,
+      "durationMs": 6849
+    },
+    "costUsd": 0.019532,
+    "ms": 6849
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do we call a baby kangaroo?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which black-and-white bear from China eats mostly bamboo?",
+      "answer": "Giant panda"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do caterpillars turn into?",
+      "answer": "Butterflies or moths"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which is the largest animal that has ever lived?",
+      "answer": "Blue whale",
+      "options": [
+        "African elephant",
+        "Blue whale",
+        "Tyrannosaurus rex",
+        "Great white shark"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the fastest land animal?",
+      "answer": "Cheetah"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "A frog is which type of animal: a reptile, an amphibian or a mammal?",
+      "answer": "Amphibian"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird is famous for copying human speech and comes in bright colours like red, blue and green?",
+      "answer": "Parrot"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild Things",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the name for a group of lions?",
+      "answer": "Pride"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.02656,
+      "ms": 12327,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1423,
+          "outputTokens": 623,
+          "thinkingTokens": 72,
+          "durationMs": 9055
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1277,
+          "outputTokens": 165,
+          "thinkingTokens": 0,
+          "durationMs": 3271
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "The setter's answer already accepts both butterflies and moths, and the checker gave the same answer."
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "Parrot is correct. A macaw is a kind of parrot, so the checker gave the same answer more specifically."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Butterflies (or moths)",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q6": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "An amphibian",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Parrot (e.g. macaw)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q10": {
+          "answer": "Pride",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do we call a baby kangaroo?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black-and-white bear from China eats mostly bamboo?",
+          "answer": "Giant panda"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do caterpillars turn into?",
+          "answer": "Butterflies or moths"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which is the largest animal that has ever lived?",
+          "answer": "Blue whale",
+          "options": [
+            "African elephant",
+            "Blue whale",
+            "Tyrannosaurus rex",
+            "Great white shark"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A frog is which type of animal: a reptile, an amphibian or a mammal?",
+          "answer": "Amphibian"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is famous for copying human speech and comes in bright colours like red, blue and green?",
+          "answer": "Parrot"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild Things",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the name for a group of lions?",
+          "answer": "Pride"
+        }
+      ]
+    }
+  ]
+}

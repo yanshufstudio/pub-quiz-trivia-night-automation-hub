@@ -1,0 +1,127 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "cats-1x1",
+    "prompt": "1 round of 1 question about cats",
+    "questions": 1,
+    "expect": [
+      1
+    ],
+    "run": "cats-1x1#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      1
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1784,
+      "outputTokens": 217,
+      "thinkingTokens": 0,
+      "durationMs": 3169
+    },
+    "costUsd": 0.011476,
+    "ms": 3169
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "The Cat's Whiskers",
+      "category": "Cats",
+      "type": "TEXT",
+      "text": "What is the term for a group of kittens born to the same mother at the same time?",
+      "answer": "A litter"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.016092000000000002,
+      "ms": 7972,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 966,
+          "outputTokens": 108,
+          "thinkingTokens": 0,
+          "durationMs": 3520
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1177,
+          "outputTokens": 268,
+          "thinkingTokens": 138,
+          "durationMs": 4452
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "fix",
+          "reason": "'Litter' is right, but 'kindle' is also a recognised collective noun for kittens, so accept both.",
+          "answer": "A litter (also accept: a kindle)"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "A litter (also called a kindle)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs",
+            "more than one defensible answer"
+          ]
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q1",
+          "reason": "'Litter' is right, but 'kindle' is also a recognised collective noun for kittens, so accept both.",
+          "before": {
+            "text": "What is the term for a group of kittens born to the same mother at the same time?",
+            "answer": "A litter"
+          },
+          "after": {
+            "text": "What is the term for a group of kittens born to the same mother at the same time?",
+            "answer": "A litter (also accept: a kindle)"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        1
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "The Cat's Whiskers",
+          "category": "Cats",
+          "type": "TEXT",
+          "text": "What is the term for a group of kittens born to the same mother at the same time?",
+          "answer": "A litter (also accept: a kindle)"
+        }
+      ]
+    }
+  ]
+}

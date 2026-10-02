@@ -1,0 +1,499 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "hebrew-israel",
+    "prompt": "חידון בעברית: 3 סבבים של 5 שאלות על ישראל",
+    "questions": 15,
+    "expect": [
+      5,
+      5,
+      5
+    ],
+    "run": "hebrew-israel#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 2,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      5,
+      5,
+      5
+    ],
+    "retryWarnings": [
+      "Quiz pack attempt 1 unusable (a multiple-choice answer is not one of its options); trying once more."
+    ],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 3602,
+      "outputTokens": 2478,
+      "thinkingTokens": 0,
+      "durationMs": 27953
+    },
+    "costUsd": 0.063968,
+    "ms": 27954
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "איזו עיר היא העיר הדרומית ביותר בישראל?",
+      "answer": "אילת"
+    },
+    {
+      "id": "R1Q2",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "איזה ים הוא הנקודה הנמוכה ביותר על פני היבשה בעולם?",
+      "answer": "ים המלח"
+    },
+    {
+      "id": "R1Q3",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "מהו ההר הגבוה ביותר בשטח שבשליטת ישראל?",
+      "answer": "החרמון"
+    },
+    {
+      "id": "R1Q4",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "TEXT",
+      "text": "איך נקרא המכתש הגדול ביותר בנגב, שעל שפתו שוכנת העיירה מצפה רמון?",
+      "answer": "מכתש רמון"
+    },
+    {
+      "id": "R1Q5",
+      "round": "גאוגרפיה וטבע",
+      "category": "גאוגרפיה של ישראל",
+      "type": "MULTIPLE_CHOICE",
+      "text": "באיזה נהר הוטבל ישו לפי הברית החדשה?",
+      "answer": "הירדן",
+      "options": [
+        "הירקון",
+        "הירדן",
+        "הקישון",
+        "נחל שורק"
+      ]
+    },
+    {
+      "id": "R2Q1",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי הכריז על הקמת מדינת ישראל?",
+      "answer": "דוד בן-גוריון"
+    },
+    {
+      "id": "R2Q2",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "באיזו עיר הוכרזה המדינה בשנת 1948?",
+      "answer": "תל אביב"
+    },
+    {
+      "id": "R2Q3",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+      "answer": "גולדה מאיר"
+    },
+    {
+      "id": "R2Q4",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "איך נקראת המלחמה שפרצה ביוני 1967?",
+      "answer": "מלחמת ששת הימים"
+    },
+    {
+      "id": "R2Q5",
+      "round": "היסטוריה",
+      "category": "תולדות ישראל",
+      "type": "TEXT",
+      "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+      "answer": "חיים ויצמן"
+    },
+    {
+      "id": "R3Q1",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "מהו שמו של ההמנון הלאומי של ישראל?",
+      "answer": "התקווה"
+    },
+    {
+      "id": "R3Q2",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "איזה סמל מופיע במרכז דגל ישראל?",
+      "answer": "מגן דוד"
+    },
+    {
+      "id": "R3Q3",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "איזו זמרת זכתה באירוויזיון בשנת 2018 עם השיר 'Toy'?",
+      "answer": "נטע ברזילי"
+    },
+    {
+      "id": "R3Q4",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "TEXT",
+      "text": "מי כתבה את השיר 'ירושלים של זהב'?",
+      "answer": "נעמי שמר"
+    },
+    {
+      "id": "R3Q5",
+      "round": "תרבות וסמלים",
+      "category": "תרבות ישראלית",
+      "type": "MULTIPLE_CHOICE",
+      "text": "איזה סופר ישראלי זכה בפרס נובל לספרות בשנת 1966?",
+      "answer": "ש\"י עגנון",
+      "options": [
+        "עמוס עוז",
+        "ש\"י עגנון",
+        "חיים נחמן ביאליק",
+        "דוד גרוסמן"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.032056,
+      "ms": 12387,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1999,
+          "outputTokens": 1203,
+          "thinkingTokens": 390,
+          "durationMs": 12387
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R3Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "אילת",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "ים המלח",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "החרמון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "מכתש רמון",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "הירדן",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q1": {
+          "answer": "דוד בן-גוריון",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q2": {
+          "answer": "תל אביב",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "גולדה מאיר",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "מלחמת ששת הימים",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q5": {
+          "answer": "חיים ויצמן",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q1": {
+          "answer": "התקווה",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q2": {
+          "answer": "מגן דוד",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q3": {
+          "answer": "נטע ברזילי",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q4": {
+          "answer": "נעמי שמר",
+          "agreed": true,
+          "flags": []
+        },
+        "R3Q5": {
+          "answer": "ש\"י עגנון",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        5,
+        5,
+        5
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "איזו עיר היא העיר הדרומית ביותר בישראל?",
+          "answer": "אילת"
+        },
+        {
+          "id": "R1Q2",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "איזה ים הוא הנקודה הנמוכה ביותר על פני היבשה בעולם?",
+          "answer": "ים המלח"
+        },
+        {
+          "id": "R1Q3",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "מהו ההר הגבוה ביותר בשטח שבשליטת ישראל?",
+          "answer": "החרמון"
+        },
+        {
+          "id": "R1Q4",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "TEXT",
+          "text": "איך נקרא המכתש הגדול ביותר בנגב, שעל שפתו שוכנת העיירה מצפה רמון?",
+          "answer": "מכתש רמון"
+        },
+        {
+          "id": "R1Q5",
+          "round": "גאוגרפיה וטבע",
+          "category": "גאוגרפיה של ישראל",
+          "type": "MULTIPLE_CHOICE",
+          "text": "באיזה נהר הוטבל ישו לפי הברית החדשה?",
+          "answer": "הירדן",
+          "options": [
+            "הירקון",
+            "הירדן",
+            "הקישון",
+            "נחל שורק"
+          ]
+        },
+        {
+          "id": "R2Q1",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי הכריז על הקמת מדינת ישראל?",
+          "answer": "דוד בן-גוריון"
+        },
+        {
+          "id": "R2Q2",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "באיזו עיר הוכרזה המדינה בשנת 1948?",
+          "answer": "תל אביב"
+        },
+        {
+          "id": "R2Q3",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי הייתה האישה הראשונה שכיהנה כראש ממשלת ישראל?",
+          "answer": "גולדה מאיר"
+        },
+        {
+          "id": "R2Q4",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "איך נקראת המלחמה שפרצה ביוני 1967?",
+          "answer": "מלחמת ששת הימים"
+        },
+        {
+          "id": "R2Q5",
+          "round": "היסטוריה",
+          "category": "תולדות ישראל",
+          "type": "TEXT",
+          "text": "מי היה הנשיא הראשון של מדינת ישראל?",
+          "answer": "חיים ויצמן"
+        },
+        {
+          "id": "R3Q1",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "מהו שמו של ההמנון הלאומי של ישראל?",
+          "answer": "התקווה"
+        },
+        {
+          "id": "R3Q2",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "איזה סמל מופיע במרכז דגל ישראל?",
+          "answer": "מגן דוד"
+        },
+        {
+          "id": "R3Q3",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "איזו זמרת זכתה באירוויזיון בשנת 2018 עם השיר 'Toy'?",
+          "answer": "נטע ברזילי"
+        },
+        {
+          "id": "R3Q4",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "TEXT",
+          "text": "מי כתבה את השיר 'ירושלים של זהב'?",
+          "answer": "נעמי שמר"
+        },
+        {
+          "id": "R3Q5",
+          "round": "תרבות וסמלים",
+          "category": "תרבות ישראלית",
+          "type": "MULTIPLE_CHOICE",
+          "text": "איזה סופר ישראלי זכה בפרס נובל לספרות בשנת 1966?",
+          "answer": "ש\"י עגנון",
+          "options": [
+            "עמוס עוז",
+            "ש\"י עגנון",
+            "חיים נחמן ביאליק",
+            "דוד גרוסמן"
+          ]
+        }
+      ]
+    }
+  ]
+}

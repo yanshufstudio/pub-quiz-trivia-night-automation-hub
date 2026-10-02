@@ -1,0 +1,360 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "kids",
+    "prompt": "1 round of 10 easy questions about animals for a family quiz night with children aged 8–12.",
+    "questions": 10,
+    "expect": [
+      10
+    ],
+    "run": "kids"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1803,
+      "outputTokens": 661,
+      "thinkingTokens": 0,
+      "durationMs": 7060
+    },
+    "costUsd": 0.020432,
+    "ms": 7060
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the tallest animal in the world?",
+      "answer": "Giraffe"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do we call a baby kangaroo?",
+      "answer": "Joey"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "How many legs does a spider have?",
+      "answer": "Eight"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which black-and-white bear from China eats mostly bamboo?",
+      "answer": "Giant panda"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "MULTIPLE_CHOICE",
+      "text": "What is the largest animal that has ever lived?",
+      "answer": "Blue whale",
+      "options": [
+        "African elephant",
+        "Blue whale",
+        "Tyrannosaurus rex",
+        "Great white shark"
+      ]
+    },
+    {
+      "id": "R1Q6",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is the fastest land animal?",
+      "answer": "Cheetah"
+    },
+    {
+      "id": "R1Q7",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What do caterpillars turn into?",
+      "answer": "Butterflies or moths"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "Which bird is known for being unable to fly and lives in Antarctica?",
+      "answer": "Penguin (e.g. emperor penguin)"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "What is a group of lions called?",
+      "answer": "A pride"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Wild About Animals",
+      "category": "Animals",
+      "type": "TEXT",
+      "text": "A frog is an amphibian. What do we call a baby frog?",
+      "answer": "Tadpole"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.028367999999999997,
+      "ms": 15709,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1408,
+          "outputTokens": 719,
+          "thinkingTokens": 165,
+          "durationMs": 12890
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1254,
+          "outputTokens": 167,
+          "thinkingTokens": 0,
+          "durationMs": 2819
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "The setter's answer already accepts both butterflies and moths, so the question has one complete answer."
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "ok",
+          "reason": "Tadpole is the standard answer. A froglet is a later stage, but tadpole is clearly the answer people will expect."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Giraffe",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Joey",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Eight",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Giant panda",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Blue whale",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Cheetah",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q7": {
+          "answer": "Butterflies (or moths)",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R1Q8": {
+          "answer": "Penguin (e.g. emperor penguin)",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Pride",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "Tadpole",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        }
+      },
+      "fixed": [],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the tallest animal in the world?",
+          "answer": "Giraffe"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do we call a baby kangaroo?",
+          "answer": "Joey"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "How many legs does a spider have?",
+          "answer": "Eight"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which black-and-white bear from China eats mostly bamboo?",
+          "answer": "Giant panda"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "MULTIPLE_CHOICE",
+          "text": "What is the largest animal that has ever lived?",
+          "answer": "Blue whale",
+          "options": [
+            "African elephant",
+            "Blue whale",
+            "Tyrannosaurus rex",
+            "Great white shark"
+          ]
+        },
+        {
+          "id": "R1Q6",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is the fastest land animal?",
+          "answer": "Cheetah"
+        },
+        {
+          "id": "R1Q7",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What do caterpillars turn into?",
+          "answer": "Butterflies or moths"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "Which bird is known for being unable to fly and lives in Antarctica?",
+          "answer": "Penguin (e.g. emperor penguin)"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "What is a group of lions called?",
+          "answer": "A pride"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Wild About Animals",
+          "category": "Animals",
+          "type": "TEXT",
+          "text": "A frog is an amphibian. What do we call a baby frog?",
+          "answer": "Tadpole"
+        }
+      ]
+    }
+  ]
+}

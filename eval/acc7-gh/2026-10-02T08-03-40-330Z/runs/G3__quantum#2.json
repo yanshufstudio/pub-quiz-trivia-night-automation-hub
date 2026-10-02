@@ -1,0 +1,674 @@
+{
+  "generator": "G3",
+  "config": {
+    "model": "claude-opus-5-5",
+    "thinking": "default",
+    "effort": "low",
+    "toolMode": "auto-strict"
+  },
+  "brief": {
+    "id": "quantum",
+    "prompt": "Hard questions only for experts, 2 rounds of 10 on quantum physics",
+    "questions": 20,
+    "expect": [
+      10,
+      10
+    ],
+    "run": "quantum#2"
+  },
+  "generation": {
+    "truncated": false,
+    "droppedQuestions": 0,
+    "droppedRounds": 0,
+    "attempts": 1,
+    "surplusQuestions": 0,
+    "roundCounts": [
+      10,
+      10
+    ],
+    "retryWarnings": [],
+    "usage": {
+      "model": "claude-opus-5-5",
+      "inputTokens": 1799,
+      "outputTokens": 1662,
+      "thinkingTokens": 0,
+      "durationMs": 15201
+    },
+    "costUsd": 0.040436,
+    "ms": 15201
+  },
+  "before": [
+    {
+      "id": "R1Q1",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In 1900, which physicist introduced energy quanta to derive the black-body radiation law?",
+      "answer": "Max Planck"
+    },
+    {
+      "id": "R1Q2",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1922 experiment, using a beam of silver atoms passed through an inhomogeneous magnetic field, demonstrated space quantisation of angular momentum?",
+      "answer": "The Stern–Gerlach experiment"
+    },
+    {
+      "id": "R1Q3",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What name is given to the dimensionless constant, approximately 1/137, that characterises the strength of the electromagnetic interaction?",
+      "answer": "The fine-structure constant"
+    },
+    {
+      "id": "R1Q4",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Who proposed in his 1924 doctoral thesis that matter has wave properties?",
+      "answer": "Louis de Broglie"
+    },
+    {
+      "id": "R1Q5",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1923 effect, the increase in wavelength of X-rays scattered by electrons, provided strong evidence for the particle nature of light?",
+      "answer": "The Compton effect (Compton scattering)"
+    },
+    {
+      "id": "R1Q6",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which 1927 experiment by Clinton Davisson and Lester Germer confirmed electron diffraction using a crystal of which metal?",
+      "answer": "Nickel",
+      "options": [
+        "Nickel",
+        "Copper",
+        "Gold",
+        "Silver"
+      ]
+    },
+    {
+      "id": "R1Q7",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist formulated the exclusion principle in 1925?",
+      "answer": "Wolfgang Pauli"
+    },
+    {
+      "id": "R1Q8",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which relativistic wave equation, published in 1928, predicted the existence of antimatter?",
+      "answer": "The Dirac equation"
+    },
+    {
+      "id": "R1Q9",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "In 1925, Werner Heisenberg's formulation of quantum mechanics was developed with Max Born and which other physicist into matrix mechanics?",
+      "answer": "Pascual Jordan"
+    },
+    {
+      "id": "R1Q10",
+      "round": "Foundations and Founders",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which American physicists, in 1925, proposed that the electron has intrinsic spin, alongside Samuel Goudsmit? Name the other Dutch-American physicist.",
+      "answer": "George Uhlenbeck"
+    },
+    {
+      "id": "R2Q1",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1935 paper's initials name the thought experiment questioning the completeness of quantum mechanics?",
+      "answer": "EPR (Einstein, Podolsky, Rosen)"
+    },
+    {
+      "id": "R2Q2",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which physicist published his inequality in 1964, allowing local hidden variable theories to be tested?",
+      "answer": "John Stewart Bell"
+    },
+    {
+      "id": "R2Q3",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Alain Aspect and John Clauser shared the 2022 Nobel Prize in Physics with which Austrian physicist?",
+      "answer": "Anton Zeilinger"
+    },
+    {
+      "id": "R2Q4",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which effect, predicted in 1959, shows that charged particles are affected by electromagnetic potentials even in regions where the fields are zero?",
+      "answer": "The Aharonov–Bohm effect"
+    },
+    {
+      "id": "R2Q5",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which theorem states that it is impossible to create an identical copy of an arbitrary unknown quantum state?",
+      "answer": "The no-cloning theorem"
+    },
+    {
+      "id": "R2Q6",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which 1957 interpretation of quantum mechanics was proposed by Hugh Everett III?",
+      "answer": "The many-worlds interpretation (relative state formulation)"
+    },
+    {
+      "id": "R2Q7",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "Which quantum algorithm, published in 1994, factors integers in polynomial time?",
+      "answer": "Shor's algorithm"
+    },
+    {
+      "id": "R2Q8",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the quantum key distribution protocol proposed by Charles Bennett and Gilles Brassard in 1984?",
+      "answer": "BB84"
+    },
+    {
+      "id": "R2Q9",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "MULTIPLE_CHOICE",
+      "text": "Which effect describes the attractive force between two uncharged parallel conducting plates in a vacuum, predicted in 1948?",
+      "answer": "The Casimir effect",
+      "options": [
+        "The Casimir effect",
+        "The Lamb shift",
+        "The Unruh effect",
+        "The Zeeman effect"
+      ]
+    },
+    {
+      "id": "R2Q10",
+      "round": "Entanglement and Beyond",
+      "category": "Quantum Physics",
+      "type": "TEXT",
+      "text": "What is the name of the small energy difference between the 2S1/2 and 2P1/2 levels of hydrogen, measured in 1947?",
+      "answer": "The Lamb shift"
+    }
+  ],
+  "reviews": [
+    {
+      "checker": "C2",
+      "config": {
+        "model": "claude-opus-5-5",
+        "thinking": "default",
+        "effort": "low",
+        "toolMode": "auto-strict",
+        "mode": "blind"
+      },
+      "costUsd": 0.060716000000000006,
+      "ms": 21080,
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 2453,
+          "outputTokens": 1761,
+          "thinkingTokens": 389,
+          "durationMs": 16090
+        },
+        {
+          "model": "claude-opus-5-5",
+          "inputTokens": 1896,
+          "outputTokens": 405,
+          "thinkingTokens": 0,
+          "durationMs": 4989
+        }
+      ],
+      "complete": true,
+      "verdicts": [
+        {
+          "id": "R1Q1",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q4",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q2",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q3",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q5",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q7",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q8",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q9",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R2Q10",
+          "verdict": "ok",
+          "reason": "independent answer agrees"
+        },
+        {
+          "id": "R1Q6",
+          "verdict": "fix",
+          "reason": "The question asked two things at once. Reworded so it asks only for the metal.",
+          "text": "In their 1927 experiment confirming electron diffraction, Clinton Davisson and Lester Germer used a crystal of which metal?",
+          "options": [
+            "Nickel",
+            "Copper",
+            "Gold",
+            "Silver"
+          ]
+        },
+        {
+          "id": "R1Q10",
+          "verdict": "fix",
+          "reason": "They were Dutch physicists working in Leiden in 1925, not American, and the plural 'physicists' was confusing.",
+          "text": "In 1925, which Dutch physicist proposed, together with Samuel Goudsmit, that the electron has intrinsic spin?"
+        },
+        {
+          "id": "R2Q1",
+          "verdict": "ok",
+          "reason": "The checker gave the same answer in a different form."
+        },
+        {
+          "id": "R2Q4",
+          "verdict": "ok",
+          "reason": "There is only one answer, and the checker's matches it."
+        },
+        {
+          "id": "R2Q6",
+          "verdict": "ok",
+          "reason": "The two names refer to the same interpretation, and the setter's answer already lists both."
+        }
+      ],
+      "blindAnswers": {
+        "R1Q1": {
+          "answer": "Max Planck",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q2": {
+          "answer": "Stern–Gerlach experiment",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q3": {
+          "answer": "Fine-structure constant",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q4": {
+          "answer": "Louis de Broglie",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q5": {
+          "answer": "Compton effect (Compton scattering)",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q6": {
+          "answer": "Nickel",
+          "agreed": true,
+          "flags": [
+            "wording: The wording is two questions in one ('Which 1927 experiment... using a crystal of which metal?'). The facts are right: it was the Davisson–Germer experiment, in 1927, using a nickel crystal."
+          ]
+        },
+        "R1Q7": {
+          "answer": "Wolfgang Pauli",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q8": {
+          "answer": "Dirac equation",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q9": {
+          "answer": "Pascual Jordan",
+          "agreed": true,
+          "flags": []
+        },
+        "R1Q10": {
+          "answer": "George Uhlenbeck",
+          "agreed": true,
+          "flags": [
+            "wording: 'American physicists, in 1925': Uhlenbeck and Goudsmit were Dutch physicists working in Leiden in 1925. They moved to the USA only later (1927). The plural 'physicists' is also confusing."
+          ]
+        },
+        "R2Q1": {
+          "answer": "EPR (Einstein–Podolsky–Rosen)",
+          "agreed": false,
+          "flags": [
+            "independent answer differs"
+          ]
+        },
+        "R2Q2": {
+          "answer": "John Stewart Bell",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q3": {
+          "answer": "Anton Zeilinger",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q4": {
+          "answer": "Aharonov–Bohm effect",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q5": {
+          "answer": "No-cloning theorem",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q6": {
+          "answer": "Many-worlds interpretation (relative state formulation)",
+          "agreed": true,
+          "flags": [
+            "more than one defensible answer"
+          ]
+        },
+        "R2Q7": {
+          "answer": "Shor's algorithm",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q8": {
+          "answer": "BB84",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q9": {
+          "answer": "The Casimir effect",
+          "agreed": true,
+          "flags": []
+        },
+        "R2Q10": {
+          "answer": "Lamb shift",
+          "agreed": true,
+          "flags": []
+        }
+      },
+      "fixed": [
+        {
+          "id": "R1Q6",
+          "reason": "The question asked two things at once. Reworded so it asks only for the metal.",
+          "before": {
+            "text": "Which 1927 experiment by Clinton Davisson and Lester Germer confirmed electron diffraction using a crystal of which metal?",
+            "answer": "Nickel"
+          },
+          "after": {
+            "text": "In their 1927 experiment confirming electron diffraction, Clinton Davisson and Lester Germer used a crystal of which metal?",
+            "answer": "Nickel"
+          }
+        },
+        {
+          "id": "R1Q10",
+          "reason": "They were Dutch physicists working in Leiden in 1925, not American, and the plural 'physicists' was confusing.",
+          "before": {
+            "text": "Which American physicists, in 1925, proposed that the electron has intrinsic spin, alongside Samuel Goudsmit? Name the other Dutch-American physicist.",
+            "answer": "George Uhlenbeck"
+          },
+          "after": {
+            "text": "In 1925, which Dutch physicist proposed, together with Samuel Goudsmit, that the electron has intrinsic spin?",
+            "answer": "George Uhlenbeck"
+          }
+        }
+      ],
+      "dropped": [],
+      "unreviewed": [],
+      "roundCountsAfter": [
+        10,
+        10
+      ],
+      "adjudicationFailed": null,
+      "after": [
+        {
+          "id": "R1Q1",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In 1900, which physicist introduced energy quanta to derive the black-body radiation law?",
+          "answer": "Max Planck"
+        },
+        {
+          "id": "R1Q2",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1922 experiment, using a beam of silver atoms passed through an inhomogeneous magnetic field, demonstrated space quantisation of angular momentum?",
+          "answer": "The Stern–Gerlach experiment"
+        },
+        {
+          "id": "R1Q3",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What name is given to the dimensionless constant, approximately 1/137, that characterises the strength of the electromagnetic interaction?",
+          "answer": "The fine-structure constant"
+        },
+        {
+          "id": "R1Q4",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Who proposed in his 1924 doctoral thesis that matter has wave properties?",
+          "answer": "Louis de Broglie"
+        },
+        {
+          "id": "R1Q5",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1923 effect, the increase in wavelength of X-rays scattered by electrons, provided strong evidence for the particle nature of light?",
+          "answer": "The Compton effect (Compton scattering)"
+        },
+        {
+          "id": "R1Q6",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "In their 1927 experiment confirming electron diffraction, Clinton Davisson and Lester Germer used a crystal of which metal?",
+          "answer": "Nickel",
+          "options": [
+            "Nickel",
+            "Copper",
+            "Gold",
+            "Silver"
+          ]
+        },
+        {
+          "id": "R1Q7",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist formulated the exclusion principle in 1925?",
+          "answer": "Wolfgang Pauli"
+        },
+        {
+          "id": "R1Q8",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which relativistic wave equation, published in 1928, predicted the existence of antimatter?",
+          "answer": "The Dirac equation"
+        },
+        {
+          "id": "R1Q9",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In 1925, Werner Heisenberg's formulation of quantum mechanics was developed with Max Born and which other physicist into matrix mechanics?",
+          "answer": "Pascual Jordan"
+        },
+        {
+          "id": "R1Q10",
+          "round": "Foundations and Founders",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "In 1925, which Dutch physicist proposed, together with Samuel Goudsmit, that the electron has intrinsic spin?",
+          "answer": "George Uhlenbeck"
+        },
+        {
+          "id": "R2Q1",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1935 paper's initials name the thought experiment questioning the completeness of quantum mechanics?",
+          "answer": "EPR (Einstein, Podolsky, Rosen)"
+        },
+        {
+          "id": "R2Q2",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which physicist published his inequality in 1964, allowing local hidden variable theories to be tested?",
+          "answer": "John Stewart Bell"
+        },
+        {
+          "id": "R2Q3",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Alain Aspect and John Clauser shared the 2022 Nobel Prize in Physics with which Austrian physicist?",
+          "answer": "Anton Zeilinger"
+        },
+        {
+          "id": "R2Q4",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which effect, predicted in 1959, shows that charged particles are affected by electromagnetic potentials even in regions where the fields are zero?",
+          "answer": "The Aharonov–Bohm effect"
+        },
+        {
+          "id": "R2Q5",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which theorem states that it is impossible to create an identical copy of an arbitrary unknown quantum state?",
+          "answer": "The no-cloning theorem"
+        },
+        {
+          "id": "R2Q6",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which 1957 interpretation of quantum mechanics was proposed by Hugh Everett III?",
+          "answer": "The many-worlds interpretation (relative state formulation)"
+        },
+        {
+          "id": "R2Q7",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "Which quantum algorithm, published in 1994, factors integers in polynomial time?",
+          "answer": "Shor's algorithm"
+        },
+        {
+          "id": "R2Q8",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the quantum key distribution protocol proposed by Charles Bennett and Gilles Brassard in 1984?",
+          "answer": "BB84"
+        },
+        {
+          "id": "R2Q9",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "MULTIPLE_CHOICE",
+          "text": "Which effect describes the attractive force between two uncharged parallel conducting plates in a vacuum, predicted in 1948?",
+          "answer": "The Casimir effect",
+          "options": [
+            "The Casimir effect",
+            "The Lamb shift",
+            "The Unruh effect",
+            "The Zeeman effect"
+          ]
+        },
+        {
+          "id": "R2Q10",
+          "round": "Entanglement and Beyond",
+          "category": "Quantum Physics",
+          "type": "TEXT",
+          "text": "What is the name of the small energy difference between the 2S1/2 and 2P1/2 levels of hydrogen, measured in 1947?",
+          "answer": "The Lamb shift"
+        }
+      ]
+    }
+  ]
+}
