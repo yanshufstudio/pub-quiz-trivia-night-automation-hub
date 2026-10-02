@@ -312,7 +312,78 @@ describe("reviewPack — request options", () => {
     await reviewPack(nineties(), BLIND, { timeoutMs: 12_345.6 });
 
     expect(create.mock.calls[0][1]).toEqual({ maxRetries: 1 });
-    expect(create.mock.calls[1][1]).toEqual({ maxRetries: 1, timeout: 12_345 });
+    expect(create.mock.calls[1][1]).toEqual({ maxRetries: 1, timeout: 12_345, signal: expect.any(AbortSignal) });
+  });
+});
+
+/**
+ * GH5. The timeout was per attempt and the SDK retries once, so a slow
+ * review could take twice what the route had left and get the function
+ * killed after the pack was paid for. One signal now bounds every attempt.
+ */
+describe("reviewPack — one deadline for the whole review (GH5)", () => {
+  it("bounds the blind call, its retry included, with a signal", async () => {
+    create.mockResolvedValue(
+      blindChecks({ R1Q1: { answer: "Spice Girls" }, R1Q2: { answer: "Alanis Morissette" }, R1Q3: { answer: "Cher" }, R2Q1: { answer: "Oasis" } })
+    );
+
+    await reviewPack(nineties(), BLIND, { timeoutMs: 60_000 });
+    const opts = create.mock.calls[0][1] as { signal: AbortSignal; timeout: number };
+
+    expect(opts.signal).toBeInstanceOf(AbortSignal);
+    expect(opts.timeout).toBeLessThanOrEqual(60_000);
+  });
+
+  it("reads the deadline's abort as a timeout", async () => {
+    create.mockRejectedValue(new Anthropic.APIUserAbortError());
+
+    const err = await reviewPack(nineties(), BLIND, { timeoutMs: 60_000 }).catch((e) => e);
+
+    expect(err).toBeInstanceOf(ReviewFailedError);
+    expect(err.kind).toBe("timeout");
+  });
+});
+
+/**
+ * GH6. When the blind pass flagged questions and the second call then
+ * failed, the whole review was thrown away and the pack saved as generated,
+ * flagged questions included (an apology written as a question, a wrong
+ * answer). Now the questions the first pass confirmed are kept, and the
+ * flagged ones are dropped, because nothing cleared them.
+ */
+describe("reviewPack — the second call fails (GH6)", () => {
+  function flagTwo() {
+    return blindChecks({
+      R1Q1: { answer: "Spice Girls", wording_issue: "'British-Irish': they were English" },
+      R1Q2: { answer: "", not_a_question: true },
+      R1Q3: { answer: "Cher" },
+      R2Q1: { answer: "Oasis" },
+    });
+  }
+
+  it.each([
+    ["is blocked by the content filter", () => new Anthropic.APIError(400, { error: { type: "invalid_request_error", message: "Output blocked by content filtering policy" } }, "400", undefined)],
+    ["times out", () => new Anthropic.APIConnectionTimeoutError()],
+  ])("keeps what the first pass confirmed and drops what it flagged when the second call %s", async (_case, error) => {
+    create.mockResolvedValueOnce(flagTwo()).mockRejectedValueOnce(error());
+
+    const out = await reviewPack(nineties(), BLIND, { timeoutMs: 120_000 });
+
+    expect(out.pack.rounds.flatMap((r) => r.questions.map((q) => q.answer))).toEqual(["Cher", "Oasis"]);
+    expect(out.dropped.map((d) => d.id)).toEqual(["R1Q1", "R1Q2"]);
+    expect(out.dropped[0].reason).toMatch(/second check could not run/i);
+    expect(out.complete).toBe(true);
+    expect(out.adjudicationFailed).toBeDefined();
+  });
+
+  it("does the same without calling when there is too little time left for the second call", async () => {
+    create.mockResolvedValueOnce(flagTwo());
+
+    const out = await reviewPack(nineties(), BLIND, { timeoutMs: 5_000 });
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(out.dropped.map((d) => d.id)).toEqual(["R1Q1", "R1Q2"]);
+    expect(out.adjudicationFailed).toBe("no_time");
   });
 });
 

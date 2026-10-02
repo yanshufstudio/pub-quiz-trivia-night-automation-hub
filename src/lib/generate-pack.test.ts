@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type Anthropic from "@anthropic-ai/sdk";
+import Anthropic from "@anthropic-ai/sdk";
 
 // Only the transport is stubbed. The prompt, the tool schema and the
 // salvage path all stay real, so these assert what generateQuizPack
@@ -355,6 +355,201 @@ describe("generateQuizPack — the pack it was asked for (ACC8)", () => {
   });
 });
 
+/** A two-question pack, one round, whose first question is `first`. */
+function packWithFirst(first: Record<string, unknown>) {
+  const pack = packWith([2], [2]);
+  pack.rounds[0].questions[0] = question(1, first) as never;
+  return pack;
+}
+
+/**
+ * GH1. ACC7: question 1 of half the awkward-brief packs carried an `options`
+ * array on a TEXT question — [], ["s?"], ["Manx"] — and when it held "", the
+ * strict schema rejected the whole pack (hebrew-israel, quantum#3). Another
+ * three responses sent `rounds` as a JSON string. Both are cleaned up before
+ * validation now, so neither costs a pack.
+ */
+describe("generateQuizPack — the response is tidied before it is validated (GH1)", () => {
+  it.each([[[""]], [["s?"]], [["Answer 1"]], [[]], [[" ", "Answer 1"]]])(
+    "drops options %j from a TEXT question and keeps it, with no second attempt",
+    async (options) => {
+      modelRepliesInTurn(packWithFirst({ type: "TEXT", options }));
+
+      const result = await generateQuizPack("x");
+      const q = result.pack.rounds[0].questions[0];
+
+      expect(create).toHaveBeenCalledTimes(1);
+      expect(result.droppedQuestions).toBe(0);
+      expect(q.type).toBe("TEXT");
+      expect(q.options).toBeUndefined();
+    }
+  );
+
+  it("drops stray options from a question that states no type at all", async () => {
+    modelRepliesInTurn(packWithFirst({ options: [""] }));
+
+    const q = (await generateQuizPack("x")).pack.rounds[0].questions[0];
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(q).toMatchObject({ type: "TEXT" });
+    expect(q.options).toBeUndefined();
+  });
+
+  it("reads rounds that arrive as a JSON string", async () => {
+    const pack = packWith([2, 2], [2, 2]);
+    modelRepliesInTurn({ ...pack, rounds: JSON.stringify(pack.rounds) });
+
+    const result = await generateQuizPack("x");
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(result.pack.rounds.map((r) => r.questions.length)).toEqual([2, 2]);
+  });
+
+  it("tidies a truncated response too, so salvage does not lose the question", async () => {
+    create.mockResolvedValueOnce({
+      stop_reason: "max_tokens",
+      content: [{ type: "tool_use", id: "tu_1", name: "emit_quiz_pack", input: packWithFirst({ type: "TEXT", options: [""] }) }],
+    });
+
+    const result = await generateQuizPack("x");
+
+    expect(result.truncated).toBe(true);
+    expect(result.droppedQuestions).toBe(0);
+    expect(result.pack.rounds[0].questions).toHaveLength(2);
+  });
+});
+
+/**
+ * GH2. The 19:03 failure and three of ACC7's: a response that is not
+ * truncated but can't be read at all (salvage finds nothing, or there is no
+ * tool call and no decline) was a generic 502 with no second attempt. Like a
+ * short pack, it now gets ACC8's one retry. Truncation keeps its own answer.
+ */
+describe("generateQuizPack — an unreadable response gets the one retry (GH2)", () => {
+  it("tries once more when an untruncated response has no usable rounds, and keeps the second", async () => {
+    modelRepliesInTurn({ requested_rounds: 1, requested_questions_per_round: [2], rounds: "not a list" }, packWith([2], [2]));
+
+    const result = await generateQuizPack("x");
+
+    expect(create).toHaveBeenCalledTimes(2);
+    expect(result.attempts).toBe(2);
+    expect(result.pack.rounds[0].questions).toHaveLength(2);
+  });
+
+  it("fails as an incomplete pack, with words for the host, when the second is unreadable too", async () => {
+    const unreadable = { requested_rounds: 1, requested_questions_per_round: [2], rounds: [{ title: "", questions: [{}] }] };
+    modelRepliesInTurn(unreadable, unreadable);
+
+    const err = await generateQuizPack("x").catch((e) => e);
+
+    expect(create).toHaveBeenCalledTimes(2);
+    expect(err).toBeInstanceOf(IncompletePackError);
+    expect(err.truncated).toBe(false);
+    expect(err.hostMessage).toMatch(/generate again/i);
+  });
+
+  it("tries once more on a turn with no tool call that is neither a decline nor cut off", async () => {
+    create.mockResolvedValueOnce({ stop_reason: "stop_sequence", content: [] });
+    modelRepliesInTurn(packWith([2], [2]));
+
+    const result = await generateQuizPack("x");
+
+    expect(create).toHaveBeenCalledTimes(2);
+    expect(result.attempts).toBe(2);
+  });
+
+  it("still answers a truncated, unreadable response with 'ask for less', without retrying", async () => {
+    create.mockResolvedValueOnce({
+      stop_reason: "max_tokens",
+      content: [{ type: "tool_use", id: "tu_1", name: "emit_quiz_pack", input: { rounds: "[{" } }],
+    });
+
+    const err = await generateQuizPack("x").catch((e) => e);
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(err).toBeInstanceOf(UnusableModelOutputError);
+    expect(err).not.toBeInstanceOf(IncompletePackError);
+    expect(err.truncated).toBe(true);
+  });
+});
+
+/**
+ * GH3. ACC7's "All multiple choice, 4 rounds of 10": one pack came back as 40
+ * TEXT questions, each with four good options, and the save kept the text
+ * and threw the options away. A usable option set makes it multiple choice.
+ */
+describe("generateQuizPack — a usable option set is multiple choice (GH3)", () => {
+  it("makes a TEXT question with a usable option set a multiple-choice question", async () => {
+    modelRepliesInTurn(packWithFirst({ type: "TEXT", options: ["Rome", "Answer 1", " answer 1", "Paris", ""] }));
+
+    const q = (await generateQuizPack("x")).pack.rounds[0].questions[0];
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(q).toMatchObject({ type: "MULTIPLE_CHOICE", options: ["Rome", "Answer 1", "Paris"] });
+  });
+});
+
+/**
+ * GH5. The route has 300s. Generation used the SDK's 10-minute default per
+ * attempt, two SDK retries and ACC8's second attempt, so a slow call could
+ * outlive the function and lose everything, refunds included.
+ */
+describe("generateQuizPack — the time budget (GH5)", () => {
+  it("bounds the call, SDK retries included, by the deadline it is given", async () => {
+    modelRepliesInTurn(packWith([2], [2]));
+    const before = Date.now();
+
+    await generateQuizPack("x", undefined, { deadline: before + 100_000 });
+    const opts = create.mock.calls[0][1] as { timeout: number; signal: AbortSignal };
+
+    expect(opts.timeout).toBeGreaterThan(0);
+    expect(opts.timeout).toBeLessThanOrEqual(100_000);
+    expect(opts.signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it("sends no deadline options when none is given, for the harness", async () => {
+    modelRepliesInTurn(packWith([2], [2]));
+
+    await generateQuizPack("x");
+
+    expect(create.mock.calls[0][1]).toBeUndefined();
+  });
+
+  it("does not start the second attempt when there isn't time for it", async () => {
+    modelRepliesInTurn(packWith([8, 8, 8], [1]), packWith([8, 8, 8], [8, 8, 8]));
+
+    const err = await generateQuizPack("3 rounds of 8.", undefined, { deadline: Date.now() + 20_000 }).catch((e) => e);
+
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(err).toBeInstanceOf(IncompletePackError);
+    expect(err.hostMessage).toMatch(/asked for 24 questions, got 1/);
+  });
+
+  it.each([
+    ["the deadline's abort", () => new Anthropic.APIUserAbortError()],
+    ["the SDK's own timeout", () => new Anthropic.APIConnectionTimeoutError()],
+  ])("calls running out of time on %s a size problem, not a retryable glitch", async (_case, error) => {
+    create.mockRejectedValueOnce(error());
+
+    const err = await generateQuizPack("x", undefined, { deadline: Date.now() + 100_000 }).catch((e) => e);
+
+    expect(err).toBeInstanceOf(UnusableModelOutputError);
+    expect(err.truncated).toBe(true);
+    expect(err.message).toMatch(/time/i);
+  });
+
+  it("gives up with the first attempt's own words when the second runs out of time", async () => {
+    modelRepliesInTurn(packWith([8, 8, 8], [1]));
+    create.mockRejectedValueOnce(new Anthropic.APIUserAbortError());
+
+    const err = await generateQuizPack("3 rounds of 8.", undefined, { deadline: Date.now() + 200_000 }).catch((e) => e);
+
+    expect(create).toHaveBeenCalledTimes(2);
+    expect(err).toBeInstanceOf(IncompletePackError);
+    expect(err.hostMessage).toMatch(/asked for 24 questions, got 1/);
+  });
+});
+
 /**
  * Every other test of the decline path mocks generateQuizPack itself and
  * hands the route a ModelDeclinedError built by hand, so none of them ever
@@ -379,48 +574,44 @@ function modelDeclines({
   });
 }
 
+/**
+ * GH4. ACC7's three declines all came back as a refusal whose
+ * stop_details.explanation was the API's note to integrators ("API
+ * integrators: you can reduce refusals for your users by configuring a
+ * fallback model — see https://platform.claude.com/..."), and that was the
+ * reason shown to the host. Only the tool's own decline_reason is the
+ * model's word to the quizmaster; a refusal or a prose turn gets the route's
+ * own plain message, and what the API said is kept for the logs.
+ */
+const INTEGRATOR_NOTE =
+  "API integrators: you can reduce refusals for your users by configuring a fallback model — see " +
+  "https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback";
+
 describe("generateQuizPack — a brief the model declines", () => {
-  it("reads a refusal, which is the shape a forced-tool request actually gets", async () => {
-    modelDeclines({ stopReason: "refusal", explanation: "I can't write questions about that." });
+  it("reads a refusal as a decline, which is the shape a blocked brief actually gets", async () => {
+    modelDeclines({ stopReason: "refusal", explanation: INTEGRATOR_NOTE });
 
     await expect(generateQuizPack("something disallowed")).rejects.toBeInstanceOf(ModelDeclinedError);
-    await expect(generateQuizPack("something disallowed")).rejects.toMatchObject({
-      reason: "I can't write questions about that.",
-    });
   });
 
-  it("reads an ordinary end_turn decline out of the text blocks", async () => {
-    modelDeclines({ stopReason: "end_turn", text: ["I'd rather not write that quiz."] });
+  it("never passes the API's refusal explanation on as the reason, and keeps it for the logs", async () => {
+    modelDeclines({ stopReason: "refusal", explanation: INTEGRATOR_NOTE, text: ["Some other chatter."] });
 
-    await expect(generateQuizPack("something odd")).rejects.toMatchObject({
-      reason: "I'd rather not write that quiz.",
-    });
+    const err = await generateQuizPack("x").catch((e) => e);
+
+    expect(err).toBeInstanceOf(ModelDeclinedError);
+    expect(err.reason).toBe("");
+    expect(err.detail).toContain("API integrators");
   });
 
-  it("joins several text blocks rather than reporting only the first", async () => {
-    modelDeclines({ stopReason: "end_turn", text: ["I can't help with that.", "Try another topic."] });
+  it("does not pass on an end_turn's prose as the reason either", async () => {
+    modelDeclines({ stopReason: "end_turn", text: ["I'd rather not write that quiz.", "Try another topic."] });
 
-    await expect(generateQuizPack("x")).rejects.toMatchObject({
-      reason: "I can't help with that. Try another topic.",
-    });
-  });
+    const err = await generateQuizPack("something odd").catch((e) => e);
 
-  it("prefers the structured explanation over any prose alongside it", async () => {
-    modelDeclines({
-      stopReason: "refusal",
-      explanation: "Policy: weapons synthesis.",
-      text: ["Some other chatter."],
-    });
-
-    await expect(generateQuizPack("x")).rejects.toMatchObject({ reason: "Policy: weapons synthesis." });
-  });
-
-  it("caps the reason, because it is model output going onto a page", async () => {
-    modelDeclines({ stopReason: "refusal", explanation: "n".repeat(MAX_DECLINE_REASON_CHARS + 500) });
-
-    await expect(generateQuizPack("x")).rejects.toMatchObject({
-      reason: "n".repeat(MAX_DECLINE_REASON_CHARS),
-    });
+    expect(err).toBeInstanceOf(ModelDeclinedError);
+    expect(err.reason).toBe("");
+    expect(err.detail).toBe("I'd rather not write that quiz. Try another topic.");
   });
 
   it("declines with an empty reason rather than inventing one", async () => {

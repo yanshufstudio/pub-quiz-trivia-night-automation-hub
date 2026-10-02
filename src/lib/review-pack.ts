@@ -79,6 +79,9 @@ export type ReviewOutcome = {
   blindAnswers: Record<string, { answer: string; agreed: boolean; flags: string[] }>;
   verdicts: Verdict[];
   usage: CallUsage[];
+  /** GH6: why the blind pass's flagged questions were dropped unjudged;
+   * absent when the second call ran (or was not needed). */
+  adjudicationFailed?: ReviewFailureKind | "no_time";
 };
 
 export type ReviewFailureKind =
@@ -248,8 +251,14 @@ async function callTool(
       // 300s ceiling, and a review that cannot finish is not worth the pack.
       {
         maxRetries: 1,
-        // The SDK refuses an undefined or fractional timeout outright.
-        ...(options.timeoutMs !== undefined ? { timeout: Math.max(1, Math.floor(options.timeoutMs)) } : {}),
+        // The SDK refuses an undefined or fractional timeout outright. Its
+        // timeout is per attempt, so the signal is what bounds the retry too (GH5).
+        ...(options.timeoutMs !== undefined
+          ? {
+              timeout: Math.max(1, Math.floor(options.timeoutMs)),
+              signal: AbortSignal.timeout(Math.max(1, Math.floor(options.timeoutMs))),
+            }
+          : {}),
       }
     );
   } catch (err) {
@@ -272,7 +281,7 @@ async function callTool(
 
 function classifyApiError(err: unknown, usage: CallUsage[]): ReviewFailedError {
   const message = err instanceof Error ? err.message : String(err);
-  if (err instanceof Anthropic.APIConnectionTimeoutError) {
+  if (err instanceof Anthropic.APIConnectionTimeoutError || err instanceof Anthropic.APIUserAbortError) {
     return new ReviewFailedError("timeout", message, usage);
   }
   if (isAnthropicCreditExhausted(err)) {
@@ -425,7 +434,7 @@ async function reviewBlind(
   config: ReviewerConfig,
   options: CallOptions,
   usage: CallUsage[]
-): Promise<Pick<ReviewOutcome, "verdicts" | "blindAnswers">> {
+): Promise<Pick<ReviewOutcome, "verdicts" | "blindAnswers" | "adjudicationFailed">> {
   const deadline = options.timeoutMs ? Date.now() + options.timeoutMs : undefined;
 
   const blindSystem =
@@ -475,14 +484,45 @@ async function reviewBlind(
     "ok if the question and the setter's answer are correct and unambiguous as written; fix if " +
     `they can be corrected with confidence; drop otherwise. ${FIX_RULES} ${NOT_A_QUESTION} ` +
     `${LANGUAGE_RULE} ${dateRule()}Call the ${VERDICT_TOOL.name} tool once, with a verdict for every id.`;
-  const remaining = deadline ? Math.max(1, deadline - Date.now()) : undefined;
-  const adjudicated = parseVerdicts(
-    await callTool(config, VERDICT_TOOL, adjudicateSystem, JSON.stringify(detail), { timeoutMs: remaining }, usage),
-    usage
-  ).filter((v) => flaggedIds.has(v.id));
+  // GH6: a flagged question is kept only if the second call cleared or fixed
+  // it. When that call can't run, fails, or skips one, the flagged question
+  // is dropped: the pack loses it, but nothing the first pass doubted is
+  // read to a room unchecked.
+  const unresolved = (why: string) => (id: string): Verdict => ({
+    id,
+    verdict: "drop",
+    reason: `flagged by the first check (${flagged.find((f) => f.id === id)?.issues.join("; ")}); ${why}`,
+  });
+  const remaining = deadline ? deadline - Date.now() : undefined;
+  if (remaining !== undefined && remaining < MIN_ADJUDICATION_MS) {
+    return {
+      verdicts: [...verdicts, ...[...flaggedIds].map(unresolved("the second check could not run in the time left"))],
+      blindAnswers,
+      adjudicationFailed: "no_time",
+    };
+  }
+  let adjudicated: Verdict[];
+  try {
+    adjudicated = parseVerdicts(
+      await callTool(config, VERDICT_TOOL, adjudicateSystem, JSON.stringify(detail), { timeoutMs: remaining }, usage),
+      usage
+    ).filter((v) => flaggedIds.has(v.id));
+  } catch (err) {
+    if (!(err instanceof ReviewFailedError)) throw err;
+    return {
+      verdicts: [...verdicts, ...[...flaggedIds].map(unresolved(`the second check could not run (${err.kind})`))],
+      blindAnswers,
+      adjudicationFailed: err.kind,
+    };
+  }
+  const answered = new Set(adjudicated.map((v) => v.id));
+  const skipped = [...flaggedIds].filter((id) => !answered.has(id)).map(unresolved("the second check gave no verdict"));
 
-  return { verdicts: [...verdicts, ...adjudicated], blindAnswers };
+  return { verdicts: [...verdicts, ...adjudicated, ...skipped], blindAnswers };
 }
+
+/** GH6: below this, the second call is not started; flagged questions are dropped. */
+export const MIN_ADJUDICATION_MS = 10_000;
 
 export async function reviewPack(
   pack: GeneratedPack,
@@ -490,9 +530,9 @@ export async function reviewPack(
   options: CallOptions = {}
 ): Promise<ReviewOutcome> {
   const usage: CallUsage[] = [];
-  const { verdicts, blindAnswers } =
+  const { verdicts, blindAnswers, adjudicationFailed } =
     config.mode === "single"
-      ? await reviewSingle(pack, config, options, usage)
+      ? { ...(await reviewSingle(pack, config, options, usage)), adjudicationFailed: undefined }
       : await reviewBlind(pack, config, options, usage);
 
   const applied = applyVerdicts(pack, verdicts);
@@ -502,7 +542,7 @@ export async function reviewPack(
     // pack and marks it not checked.
     throw new ReviewFailedError("nothing_left", "review dropped every question", usage);
   }
-  return { ...applied, verdicts, blindAnswers, usage };
+  return { ...applied, verdicts, blindAnswers, usage, ...(adjudicationFailed ? { adjudicationFailed } : {}) };
 }
 
 /** The kill switch. Anything but "off" leaves the review on. */
@@ -571,6 +611,7 @@ export async function reviewForSaving(
         fixed: outcome.fixed,
         dropped: outcome.dropped,
         ...(outcome.complete ? {} : { unreviewed: outcome.unreviewed }),
+        ...(outcome.adjudicationFailed ? { adjudicationFailed: outcome.adjudicationFailed } : {}),
       }),
     },
     usage: outcome.usage,

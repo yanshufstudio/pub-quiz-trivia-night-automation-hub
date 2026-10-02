@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import type { GeneratedPack } from "@/lib/quiz-schema";
-import { QUESTION_TYPE, serializeOptions } from "@/lib/question-types";
+import { isValidOptionSet, QUESTION_TYPE, serializeOptions } from "@/lib/question-types";
 
 // Questions may carry host-approved alternates (a re-imported pack file
 // does; freshly generated packs don't), so accept them optionally here.
@@ -54,11 +54,11 @@ export async function createPackFromGenerated(
               text: question.text,
               answer: question.answer,
               points: question.points,
-              type: question.type ?? QUESTION_TYPE.TEXT,
-              options:
-                question.type === QUESTION_TYPE.MULTIPLE_CHOICE && question.options
-                  ? serializeOptions(question.options)
-                  : null,
+              // GH3: a usable option set is a multiple-choice question whatever
+              // it was typed; without one it is free text, as before.
+              ...(isValidOptionSet(question.options ?? [], question.answer)
+                ? { type: QUESTION_TYPE.MULTIPLE_CHOICE, options: serializeOptions(question.options ?? []) }
+                : { type: QUESTION_TYPE.TEXT, options: null }),
               acceptableAnswers:
                 question.acceptableAnswers && question.acceptableAnswers.length > 0
                   ? serializeOptions(question.acceptableAnswers)
