@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import type { Session } from "@prisma/client";
 import { db } from "@/lib/db";
 import {
   ANSWER_SUBMISSIONS_PER_QUESTION,
   ANSWER_SUBMISSION_WINDOW_MS,
+  SESSION_MODE,
   SESSION_STATUS,
   getCurrentQuestion,
   packWithRoundsArgs,
@@ -19,6 +21,9 @@ const submitSchema = z.object({
   // Trimmed first: a run of spaces is not an answer, and storing one gave
   // the host a blank submission row to puzzle over.
   text: z.string().max(500).transform((t) => t.trim()).pipe(z.string().min(1).max(500)),
+  // Round mode: which of the round's asked questions this answers. A
+  // one-question-at-a-time session ignores it — there is only ever one.
+  questionIndex: z.number().int().min(0).max(1000).optional(),
 });
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ code: string }> }) {
@@ -37,6 +42,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   // needed, apply) the auto-reveal first so a request that arrives just past
   // the deadline is rejected instead of quietly scoring after time's up.
   session = await autoRevealIfExpired(session);
+  if (session.mode === SESSION_MODE.ROUND) {
+    return submitRoundAnswer(req, session, parsed.data);
+  }
   if (session.status !== SESSION_STATUS.QUESTION_ACTIVE) {
     return NextResponse.json({ error: "This question is no longer accepting answers" }, { status: 409 });
   }
@@ -166,5 +174,111 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     return NextResponse.json({ error: "This question is no longer accepting answers" }, { status: 409 });
   }
 
+  return NextResponse.json({ answer: { id: written.id, text: written.text } }, { status: 201 });
+}
+
+const ROUND_CLOSED = "This round is no longer accepting answers";
+
+/**
+ * An answer in a round-mode game (RM2).
+ *
+ * Every question the host has asked in the current round stays open until the
+ * host closes the round, so a team can answer them in any order and change any
+ * of them — the latest submission for a question is the one that stands. A
+ * question not yet asked cannot be answered: nothing about it has been sent to
+ * the team, and accepting a guess would let a team "answer" ahead by index.
+ *
+ * The same guards as the one-question flow, moved from "this question" to "this
+ * round": the allowance is still per question (the bucket key carries the
+ * question index), and the write is still conditional on a fresh read — the
+ * round still open, the same round, the question still among those asked — so a
+ * submission racing the close cannot land after it.
+ */
+async function submitRoundAnswer(
+  req: NextRequest,
+  session: Session,
+  body: { token: string; text: string; questionIndex?: number }
+) {
+  const questionIndex = body.questionIndex;
+  if (questionIndex === undefined) {
+    return NextResponse.json({ error: "Which question is this answer for?" }, { status: 400 });
+  }
+  if (session.status !== SESSION_STATUS.ROUND_OPEN) {
+    return NextResponse.json({ error: ROUND_CLOSED }, { status: 409 });
+  }
+
+  const team = await db.team.findUnique({ where: { token: body.token } });
+  if (!team || team.sessionId !== session.id) {
+    return NextResponse.json({ error: "Invalid team token" }, { status: 401 });
+  }
+  if (team.isPaper) {
+    // A paper team's token is never handed out, so this is not a path a real
+    // phone takes — but a paper team's score is the host's typed total, and a
+    // stray write must not start counting beside it.
+    return NextResponse.json({ error: "This team plays on paper" }, { status: 403 });
+  }
+  if (questionIndex >= session.askedCount) {
+    return NextResponse.json({ error: "That question hasn't been asked yet" }, { status: 409 });
+  }
+
+  const roundIndex = session.currentRoundIndex;
+  const pack = (await db.quizPack.findUnique({
+    where: { id: session.packId },
+    ...packWithRoundsArgs,
+  })) as PackWithRounds | null;
+  const question = pack ? getCurrentQuestion(pack, roundIndex, questionIndex) : null;
+  if (!question) {
+    return NextResponse.json({ error: "No such question" }, { status: 409 });
+  }
+
+  const submissions = await rateLimit(req, `answers:${roundIndex}:${questionIndex}`, {
+    limit: ANSWER_SUBMISSIONS_PER_QUESTION,
+    windowMs: ANSWER_SUBMISSION_WINDOW_MS,
+    identity: team.id,
+  });
+  if (!submissions.allowed) {
+    return NextResponse.json(
+      { error: `You can change your answer up to ${ANSWER_SUBMISSIONS_PER_QUESTION} times for a question.` },
+      { status: 429, headers: { "Retry-After": String(submissions.retryAfterSeconds) } }
+    );
+  }
+
+  const text = body.text;
+  if (question.type === QUESTION_TYPE.MULTIPLE_CHOICE && !parseOptions(question.options).includes(text)) {
+    return NextResponse.json({ error: "Answer must be one of the question's options" }, { status: 400 });
+  }
+
+  // Marked now against the key as it stands, and marked again when the round
+  // closes (rescoreRound) in case the host fixes the key in between.
+  const isCorrect = isLikelyCorrect(text, question.answer, parseOptions(question.acceptableAnswers));
+  const pointsAwarded = isCorrect ? question.points : 0;
+  const key = { teamId_roundIndex_questionIndex: { teamId: team.id, roundIndex, questionIndex } };
+
+  const written = await db.$transaction(async (tx) => {
+    const fresh = await tx.session.findUnique({
+      where: { id: session.id },
+      select: { status: true, currentRoundIndex: true, askedCount: true },
+    });
+    if (
+      !fresh ||
+      fresh.status !== SESSION_STATUS.ROUND_OPEN ||
+      fresh.currentRoundIndex !== roundIndex ||
+      questionIndex >= fresh.askedCount
+    ) {
+      return null;
+    }
+    const existing = await tx.answer.findUnique({ where: key, select: { hostOverride: true } });
+    if (existing?.hostOverride) return null;
+
+    return tx.answer.upsert({
+      where: key,
+      update: { text, isCorrect, pointsAwarded },
+      create: { sessionId: session.id, teamId: team.id, roundIndex, questionIndex, text, isCorrect, pointsAwarded },
+    });
+  });
+
+  if (!written) {
+    return NextResponse.json({ error: ROUND_CLOSED }, { status: 409 });
+  }
   return NextResponse.json({ answer: { id: written.id, text: written.text } }, { status: 201 });
 }

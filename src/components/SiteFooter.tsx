@@ -47,7 +47,7 @@ const links = [
  * group, because that would mean relocating every existing page for the sake
  * of three exceptions.
  */
-const BARE_SURFACES = [/^\/play(?:\/|$)/, /^\/host(?:\/|$)/, /^\/packs\/[^/]+\/print(?:\/|$)/];
+const BARE_SURFACES = [/^\/play(?:\/|$)/, /^\/host(?:\/|$)/, /^\/tv(?:\/|$)/, /^\/packs\/[^/]+\/print(?:\/|$)/];
 
 export function SiteFooter() {
   const pathname = usePathname();

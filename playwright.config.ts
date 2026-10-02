@@ -1,7 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "node:path";
 
-const PORT = 4517;
+// E2E_PORT lets two worktrees run their suites side by side without one
+// silently reusing the other's dev server. CI leaves it unset.
+const PORT = Number(process.env.E2E_PORT) || 4517;
 const dbPath = path.resolve(__dirname, "prisma/e2e.db");
 
 export default defineConfig({

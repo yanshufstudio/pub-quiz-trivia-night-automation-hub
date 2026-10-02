@@ -10,6 +10,7 @@ import { createPackFromGenerated } from "@/lib/create-pack";
 import { DEMO_PACK_PROMPT } from "@/lib/demo-pack";
 import { db } from "@/lib/db";
 import { testOwner } from "./owner-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 const owner = await testOwner();
@@ -175,6 +176,7 @@ describe("answer submission — multiple-choice", () => {
   async function startedSession() {
     const createRes = await createSession(jsonRequest(`${BASE}/api/sessions`, "POST", { packId }));
     const { session, hostToken } = await json(createRes);
+    await switchToQuestionMode(session.code);
     const joinRes = await joinSession(
       jsonRequest(`${BASE}/api/sessions/${session.code}/join`, "POST", { name: "Quiz Pigs" }),
       { params: Promise.resolve({ code: session.code }) }

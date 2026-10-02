@@ -1,5 +1,6 @@
 import { test, expect, type APIRequestContext } from "@playwright/test";
 import { signedInContext } from "./sign-in-helper";
+import { throttleIfAsked, waitForHydration } from "./hydration";
 import { SIGNED_OUT_MESSAGE } from "@/app/packs/[id]/PackEditor";
 
 /**
@@ -37,6 +38,7 @@ test("an expired session says so, instead of a generic couldn't-save", async ({ 
   const { context, api } = await signedInContext(browser, baseURL!);
   const pack = await importOwnedPack(api);
   const page = await context.newPage();
+  await throttleIfAsked(page);
 
   // Every PATCH answers 401, as an expired session would.
   await page.route("**/api/questions/*", (route) =>
@@ -46,8 +48,10 @@ test("an expired session says so, instead of a generic couldn't-save", async ({ 
   );
 
   await page.goto(`/packs/${pack.id}`);
+  await waitForHydration(page);
   const text = page.getByLabel("Question text").first();
   await text.fill("Edited while signed out");
+  await expect(text).toHaveValue("Edited while signed out");
   await text.blur();
 
   await expect(page.getByText(SIGNED_OUT_MESSAGE)).toBeVisible();
@@ -59,6 +63,7 @@ test("a transient failure is retried rather than lost", async ({ browser, baseUR
   const { context, api } = await signedInContext(browser, baseURL!);
   const pack = await importOwnedPack(api);
   const page = await context.newPage();
+  await throttleIfAsked(page);
 
   // The first PATCH fails with a 500; everything after it goes through. Editing is
   // a burst of small saves, so one blip must not lose what was just typed.
@@ -73,8 +78,10 @@ test("a transient failure is retried rather than lost", async ({ browser, baseUR
   });
 
   await page.goto(`/packs/${pack.id}`);
+  await waitForHydration(page);
   const text = page.getByLabel("Question text").first();
   await text.fill("Saved on the second try");
+  await expect(text).toHaveValue("Saved on the second try");
   await text.blur();
 
   await expect(page.getByText("Saved").first()).toBeVisible();
@@ -94,6 +101,7 @@ test("a 4xx is not retried, because retrying cannot help", async ({ browser, bas
   const { context, api } = await signedInContext(browser, baseURL!);
   const pack = await importOwnedPack(api);
   const page = await context.newPage();
+  await throttleIfAsked(page);
 
   let patches = 0;
   await page.route("**/api/questions/*", async (route) => {
@@ -103,8 +111,10 @@ test("a 4xx is not retried, because retrying cannot help", async ({ browser, bas
   });
 
   await page.goto(`/packs/${pack.id}`);
+  await waitForHydration(page);
   const text = page.getByLabel("Question text").first();
   await text.fill("Rejected outright");
+  await expect(text).toHaveValue("Rejected outright");
   await text.blur();
 
   await expect(page.getByText("Couldn’t save").first()).toBeVisible();
@@ -118,7 +128,9 @@ test("leaving with an unsaved edit is guarded, and saving releases the guard", a
   const { context, api } = await signedInContext(browser, baseURL!);
   const pack = await importOwnedPack(api);
   const page = await context.newPage();
+  await throttleIfAsked(page);
   await page.goto(`/packs/${pack.id}`);
+  await waitForHydration(page);
 
   /** Whether anything on the page would stop an unload. A cancelable
    * beforeunload whose default gets prevented is exactly what a browser acts on. */
@@ -136,6 +148,7 @@ test("leaving with an unsaved edit is guarded, and saving releases the guard", a
   // blur and this edit has not been sent anywhere.
   const text = page.getByLabel("Question text").first();
   await text.fill("Typed but never blurred");
+  await expect(text).toHaveValue("Typed but never blurred");
   expect(await unloadIsGuarded()).toBe(true);
 
   // Blur, let it save, and the guard lifts.

@@ -52,6 +52,105 @@ export type ScoreboardRow = {
 
 export type SessionStatus = "LOBBY" | "QUESTION_ACTIVE" | "REVEAL" | "ENDED";
 
+/** A round-mode game's statuses (src/lib/round-state.ts). */
+export type RoundStatus = "LOBBY" | "ROUND_OPEN" | "ROUND_MARKING" | "ROUND_REVEAL" | "ENDED";
+
+/** One asked question of the current round. `answer` is null until revealed. */
+export type RoundQuestionView = {
+  index: number;
+  id: string;
+  text: string;
+  points: number;
+  type: QuestionType;
+  options: string[];
+  hasMedia: boolean;
+  answer: string | null;
+};
+
+/** The host's optional countdown, stamped by the server. */
+export type CountdownInfo = { startedAt: string; durationSeconds: number } | null;
+
+type RoundBase = {
+  mode: "ROUND";
+  code: string;
+  status: RoundStatus;
+  packTitle: string;
+  roundNumber: number;
+  totalRounds: number;
+  totalQuestionsInRound: number;
+  askedCount: number;
+  revealedCount: number;
+  round: SessionRound | null;
+  scoreboardShown: boolean;
+  /**
+   * How many rounds the scoreboard counts (only fully revealed ones). While it
+   * is 0 every team is on 0, so the screens say when scores appear instead of
+   * ranking everyone 1st.
+   */
+  countedRounds: number;
+  tvShowsAll: boolean;
+  countdown: CountdownInfo;
+  /** The server's clock when this was sent, so a countdown agrees on every screen. */
+  serverNow: string;
+  questions: RoundQuestionView[];
+};
+
+export type RoundTeamState = RoundBase & {
+  /** Null unless the host is showing it (or the quiz has ended). */
+  scoreboard: ScoreboardRow[] | null;
+  teamName: string;
+  /**
+   * The round is closed and this team took no part in it (it joined late):
+   * no questions are sent, and the phone waits for the next round.
+   */
+  sitsOutRound: boolean;
+  myAnswers: {
+    questionIndex: number;
+    text: string;
+    isCorrect: boolean | null;
+    pointsAwarded: number | null;
+  }[];
+  /** The team's total for the round, once every answer in it is revealed. */
+  myRoundTotal: number | null;
+};
+
+/** GET /api/sessions/[code]/display — the TV. */
+export type RoundDisplayState = RoundBase & {
+  teams: { name: string }[];
+  /** Null unless the host is showing it (or the quiz has ended). */
+  scoreboard: ScoreboardRow[] | null;
+};
+
+export type RoundHostState = RoundBase & {
+  scoreboard: ScoreboardRow[];
+  teams: { id: string; name: string; isPaper: boolean; answered: number[] }[];
+  /** Null while the round is open. */
+  marks:
+    | {
+        teamId: string;
+        name: string;
+        isPaper: boolean;
+        auto: number;
+        typed: number | null;
+        total: number;
+        /**
+         * A phone team with no answer and no typed total in this round (most
+         * often it joined late). Left out of the marks grid; still offered a
+         * typed total, for a team that played the round on a sheet.
+         */
+        sitsOut: boolean;
+        answers: {
+          questionIndex: number;
+          id: string;
+          text: string;
+          isCorrect: boolean | null;
+          pointsAwarded: number;
+          hostOverride: boolean;
+        }[];
+      }[]
+    | null;
+};
+
 export type SessionQuestion = {
   id: string;
   text: string;
@@ -91,6 +190,7 @@ export type HostTeam = {
 };
 
 export type HostSessionState = {
+  mode: "QUESTION";
   code: string;
   status: SessionStatus;
   packTitle: string;
@@ -106,6 +206,7 @@ export type HostSessionState = {
 };
 
 export type TeamSessionState = {
+  mode: "QUESTION";
   code: string;
   status: SessionStatus;
   packTitle: string;

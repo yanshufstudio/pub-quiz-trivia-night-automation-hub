@@ -11,6 +11,7 @@ import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route"
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { signInTestHost } from "./auth-fixture";
 import { db } from "@/lib/db";
+import { switchToQuestionMode } from "./question-mode-fixture";
 import { MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, MEDIA_MIME } from "@/lib/media";
 import {
   GIF_BYTES,
@@ -466,6 +467,7 @@ describe("question media", () => {
       );
       expect(sessionRes.status).toBe(201);
       const { session, hostToken } = await sessionRes.json();
+      await switchToQuestionMode(session.code);
 
       const started = await advanceSession(
         new NextRequest(`${BASE}/api/sessions/${session.code}/advance`, {

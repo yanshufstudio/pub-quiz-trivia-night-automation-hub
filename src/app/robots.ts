@@ -14,7 +14,7 @@ import { SITE_URL } from "@/lib/site";
  * so the whole /packs tree stays out of the index. /host and /play are
  * per-session and gated on a host key or a team token: there is nothing
  * there to index, and a stale result would only send someone to a quiz that
- * finished months ago.
+ * finished months ago. /tv/<code> (a game's TV display) is the same.
  *
  * /create and /sign-in join the list now that hosting needs an account.
  * /create redirects a signed-out visitor, so there is nothing there to
@@ -26,8 +26,8 @@ import { SITE_URL } from "@/lib/site";
  * Left crawlable: the homepage, /how-it-works, /pricing and the three legal
  * pages — exactly what sitemap.ts lists.
  *
- * The trailing slashes are deliberate and not uniform. `/api/` and `/host/`
- * have one because only nested routes exist under them, so a future
+ * The trailing slashes are deliberate and not uniform. `/api/`, `/host/` and
+ * `/tv/` have one because only nested routes exist under them, so a future
  * /hosting-guide page stays crawlable. `/packs` and `/play` have none
  * because the bare path is itself a page and `Disallow: /packs/` would not
  * match `/packs`.
@@ -38,7 +38,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/packs", "/host/", "/play", "/create", "/sign-in"],
+        disallow: ["/api/", "/packs", "/host/", "/tv/", "/play", "/create", "/sign-in"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

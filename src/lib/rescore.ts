@@ -35,15 +35,38 @@ export async function rescoreCurrentQuestion(
     ? getCurrentQuestion(pack, session.currentRoundIndex, session.currentQuestionIndex)
     : null;
   if (!question) return 0;
+  return rescoreQuestion(session.id, session.currentRoundIndex, session.currentQuestionIndex, question, tx);
+}
 
+/**
+ * Round mode's version (RM2): at close_round, re-mark every answer of the round
+ * against the key as it stands, for the same reason and with the same rule —
+ * a host's own mark is never touched.
+ */
+export async function rescoreRound(
+  session: { id: string; currentRoundIndex: number },
+  pack: PackWithRounds,
+  tx: Prisma.TransactionClient | typeof db = db
+): Promise<number> {
+  const round = pack.rounds[session.currentRoundIndex];
+  if (!round) return 0;
+  let changed = 0;
+  for (const [questionIndex, question] of round.questions.entries()) {
+    changed += await rescoreQuestion(session.id, session.currentRoundIndex, questionIndex, question, tx);
+  }
+  return changed;
+}
+
+async function rescoreQuestion(
+  sessionId: string,
+  roundIndex: number,
+  questionIndex: number,
+  question: { answer: string; acceptableAnswers: string | null; points: number },
+  tx: Prisma.TransactionClient | typeof db
+): Promise<number> {
   const acceptable = parseOptions(question.acceptableAnswers);
   const answers = await tx.answer.findMany({
-    where: {
-      sessionId: session.id,
-      roundIndex: session.currentRoundIndex,
-      questionIndex: session.currentQuestionIndex,
-      hostOverride: false,
-    },
+    where: { sessionId, roundIndex, questionIndex, hostOverride: false },
     select: { id: true, text: true, isCorrect: true, pointsAwarded: true },
   });
 

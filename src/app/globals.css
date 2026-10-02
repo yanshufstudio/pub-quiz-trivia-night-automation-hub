@@ -92,6 +92,32 @@ body {
   overflow-wrap: anywhere;
 }
 
+/* The live-night surfaces (the host desk, the TV) are dark all the way to
+   the edge of the window. Without this the page itself is cream, and that is
+   what showed for a moment while the desk loaded, around it, and past either
+   end of an overscroll — a light flash on a dark room (seen 2026-09-28).
+   Keyed on a class the surface and its loading screen carry, so it holds from
+   the first streamed chunk. */
+html:has(.stage-surface),
+html:has(.stage-surface) body {
+  background: var(--stage);
+}
+
+/* The round-mode host desk keeps its next action in a bar fixed to the
+   bottom of the screen. Anything scrolled into view — by focus, by a link, by
+   the browser — must land above that bar, not under it, where a tap would hit
+   the bar instead. */
+html:has(.has-action-bar) {
+  scroll-padding-bottom: 11rem;
+}
+
+/* The TV is one fixed, scaled stage (src/app/tv/[code]/TvDisplay.tsx):
+   nothing on it scrolls, and a TV browser must never show a scrollbar. */
+html:has(.tv-surface),
+html:has(.tv-surface) body {
+  overflow: hidden;
+}
+
 /* The display face (Alfa Slab One) ships in a single weight and no italic.
    Headings across the app still ask for font-semibold/font-bold out of
    habit; without this the browser would smear on a faux bold, which turns

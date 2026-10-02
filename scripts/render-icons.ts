@@ -3,7 +3,8 @@
  * every icon file the app ships, so the favicon set can never drift from the
  * mark or the palette in globals.css:
  *
- *   public/icon-256.png, public/icon-512.png   — round coaster, transparent
+ *   public/icon-192.png, public/icon-256.png,
+ *   public/icon-512.png                        — round coaster, transparent
  *                                                 corners (manifest "any")
  *   public/icon-512-square.png                 — full-bleed square (manifest
  *                                                 "maskable"; safe zone is the
@@ -50,6 +51,7 @@ async function main() {
   const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM_PATH || undefined });
   const page = await browser.newPage();
   const targets: { file: string; size: number; square: boolean }[] = [
+    { file: "public/icon-192.png", size: 192, square: false },
     { file: "public/icon-256.png", size: 256, square: false },
     { file: "public/icon-512.png", size: 512, square: false },
     { file: "public/icon-512-square.png", size: 512, square: true },

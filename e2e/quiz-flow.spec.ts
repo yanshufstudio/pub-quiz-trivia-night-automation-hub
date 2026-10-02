@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { newAnonContext, signedInContext } from "./sign-in-helper";
+import { switchToQuestionMode } from "./question-mode";
 
 test("host runs a live round and a team answers correctly", async ({ browser, baseURL }) => {
   // The host signs in; the team context created below never does, which is
@@ -22,6 +23,13 @@ test("host runs a live round and a team answers correctly", async ({ browser, ba
   await hostPage.waitForURL(/\/host\//);
   const code = hostPage.url().split("/host/")[1];
   expect(code).toMatch(/^[A-Z0-9]{5}$/);
+
+  // The one spec that still walks the one-question-at-a-time flow, which games
+  // already running when round mode shipped keep until they end. A new game is
+  // round mode (round-host-flow, round-team-phone, round-tv cover that), so
+  // this one is switched to the old mode before anyone joins.
+  await switchToQuestionMode(code);
+  await hostPage.reload();
 
   // The lobby shows a QR code that encodes the join link with the code
   // baked in; a team that scans it lands on /play with the code prefilled.

@@ -9,6 +9,7 @@ import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route"
 import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { db } from "@/lib/db";
 import { signInTestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 
@@ -49,6 +50,7 @@ describe("the scoreboard does not leak the open question", () => {
       await createSession(jsonRequest(`${BASE}/api/sessions`, "POST", { packId: pack.pack.id }))
     ).json();
     code = created.session.code;
+    await switchToQuestionMode(code);
     hostToken = created.hostToken;
 
     const joined = await (

@@ -45,7 +45,7 @@ test("two teams tied for first both see the champions treatment, named together"
   await teamA.getByLabel("Session code").fill(code);
   await teamA.getByLabel("Team name").fill("Quiz Pigs");
   await teamA.getByRole("button", { name: "Join session" }).click();
-  await teamA.getByText("Sit tight.").waitFor();
+  await teamA.getByText("You’re in, Quiz Pigs.").waitFor();
 
   const teamBContext = await newAnonContext(browser);
   const teamB = await teamBContext.newPage();
@@ -53,7 +53,7 @@ test("two teams tied for first both see the champions treatment, named together"
   await teamB.getByLabel("Session code").fill(code);
   await teamB.getByLabel("Team name").fill("Trivia Titans");
   await teamB.getByRole("button", { name: "Join session" }).click();
-  await teamB.getByText("Sit tight.").waitFor();
+  await teamB.getByText("You’re in, Trivia Titans.").waitFor();
 
   // The portal stores each team's token on join; reuse it to answer via API.
   const readToken = (page: typeof teamA) =>
@@ -61,23 +61,28 @@ test("two teams tied for first both see the champions treatment, named together"
   const tokenA = await readToken(teamA);
   const tokenB = await readToken(teamB);
 
-  const advance = async (action: "start" | "reveal" | "next") => {
+  const advance = async (action: string) => {
     const res = await api.post(`/api/sessions/${code}/advance`, { data: { action, hostToken } });
     expect(res.ok(), `advance ${action}: ${res.status()}`).toBeTruthy();
   };
-  const answer = async (token: string, text: string) => {
-    const res = await api.post(`/api/sessions/${code}/answers`, { data: { token, text } });
+  const answer = async (token: string, questionIndex: number, text: string) => {
+    const res = await api.post(`/api/sessions/${code}/answers`, { data: { token, questionIndex, text } });
     expect(res.ok(), `answer "${text}": ${res.status()}`).toBeTruthy();
   };
 
   // Both teams answer every question correctly, so they stay tied all the
-  // way to the end rather than just tying on question one.
+  // way to the end rather than just tying on question one. Round by round:
+  // ask each question, close, reveal, then the next round or the finish.
   await advance("start");
-  for (const question of questions) {
-    await answer(tokenA, question.answer);
-    await answer(tokenB, question.answer);
-    await advance("reveal");
-    await advance("next");
+  for (const [r, round] of pack.rounds.entries()) {
+    for (const [q, question] of round.questions.entries()) {
+      if (q > 0) await advance("ask_next");
+      await answer(tokenA, q, question.answer);
+      await answer(tokenB, q, question.answer);
+    }
+    await advance("close_round");
+    await advance("reveal_all");
+    await advance(r + 1 < pack.rounds.length ? "next_round" : "finish");
   }
 
   await expect(hostPage.getByText("Tonight’s champions")).toBeVisible({ timeout: 10_000 });

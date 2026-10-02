@@ -9,6 +9,7 @@ import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route"
 import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { db } from "@/lib/db";
 import { signInTestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 
@@ -48,6 +49,9 @@ describe("per-question timer", () => {
       jsonRequest(`${BASE}/api/sessions`, "POST", { packId, questionDurationSeconds })
     );
     const data = await json(res);
+    // The per-question timer belongs to sessions that were already running
+    // when round mode shipped; a new session cannot ask for one (RM0).
+    await switchToQuestionMode(data.session.code, { questionDurationSeconds });
     return { code: data.session.code as string, hostToken: data.hostToken as string };
   }
 
@@ -81,6 +85,7 @@ describe("per-question timer", () => {
 
   it("stamps a fresh timer every time a question goes active", async () => {
     const { code, hostToken } = await newSession(30);
+    const before = Date.now();
     await advanceSession(
       jsonRequest(`${BASE}/api/sessions/${code}/advance`, "POST", { action: "start", hostToken }),
       { params: Promise.resolve({ code }) }
@@ -90,10 +95,15 @@ describe("per-question timer", () => {
       new NextRequest(`${BASE}/api/sessions/${code}?as=host&hostToken=${hostToken}`),
       { params: Promise.resolve({ code }) }
     );
+    const after = Date.now();
     const data = await json(view);
     expect(data.timer).not.toBeNull();
     expect(data.timer.durationSeconds).toBe(30);
-    expect(new Date(data.timer.startedAt).getTime()).toBeCloseTo(Date.now(), -2);
+    // Stamped between the two reads, not "within 50 ms of now": a slow CI
+    // runner took 73 ms. The 5 ms covers clock granularity.
+    const startedAt = new Date(data.timer.startedAt).getTime();
+    expect(startedAt).toBeGreaterThanOrEqual(before - 5);
+    expect(startedAt).toBeLessThanOrEqual(after + 5);
   });
 
   it("auto-reveals on the next poll once the timer runs out, and locks out a late submission", async () => {

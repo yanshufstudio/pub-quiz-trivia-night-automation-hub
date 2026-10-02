@@ -1,9 +1,12 @@
-import type { SessionStatus } from "@/lib/api-types";
+import type { RoundStatus, SessionStatus } from "@/lib/api-types";
 
-const LABELS: Record<SessionStatus, string> = {
+const LABELS: Record<SessionStatus | RoundStatus, string> = {
   LOBBY: "Lobby",
   QUESTION_ACTIVE: "Question live",
   REVEAL: "Reveal",
+  ROUND_OPEN: "Round open",
+  ROUND_MARKING: "Answers in",
+  ROUND_REVEAL: "Reveal",
   ENDED: "Ended",
 };
 
@@ -11,13 +14,13 @@ export function StatusBadge({
   status,
   dark = false,
 }: {
-  status: SessionStatus;
+  status: SessionStatus | RoundStatus;
   dark?: boolean;
 }) {
   const tone =
-    status === "QUESTION_ACTIVE"
+    status === "QUESTION_ACTIVE" || status === "ROUND_OPEN"
       ? "bg-mint text-stage"
-      : status === "REVEAL"
+      : status === "REVEAL" || status === "ROUND_REVEAL"
         ? "bg-gold text-stage"
         : status === "ENDED"
           ? dark

@@ -9,6 +9,7 @@ import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { ANSWER_SUBMISSIONS_PER_QUESTION } from "@/lib/session-state";
 import { db } from "@/lib/db";
 import { signInTestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 
@@ -61,6 +62,7 @@ describe("answer submissions are capped per team per question", () => {
       await createSession(jsonRequest(`${BASE}/api/sessions`, "POST", { packId: pack.pack.id }))
     ).json();
     code = created.session.code;
+    await switchToQuestionMode(code);
     hostToken = created.hostToken;
     alpha = await join("Alpha");
     beta = await join("Beta");
