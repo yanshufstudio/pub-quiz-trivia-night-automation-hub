@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import { signInCodeError } from "@/lib/sign-in-errors";
 
@@ -23,7 +22,6 @@ import { signInCodeError } from "@/lib/sign-in-errors";
  * see `SignInForm`.
  */
 export function ConfirmSignIn({ email, code }: { email: string; code: string }) {
-  const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,11 +34,12 @@ export function ConfirmSignIn({ email, code }: { email: string; code: string }) 
       setError(signInCodeError(err, { fromLink: true }));
       return;
     }
-    // `refresh` before `push`: /packs renders from the session on the
-    // server, and the client cache may still be holding what this route
-    // looked like a moment ago, when nobody was signed in.
-    router.refresh();
-    router.push("/packs");
+    // A full page load, not `router.push`: the header's Packs link was
+    // prefetched while this page was signed out, and the client router would
+    // replay the proxy's redirect to /sign-in from that prefetch. See the
+    // same call in `SignInForm`.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- the push is the bug
+    window.location.assign("/packs");
   }
 
   return (
