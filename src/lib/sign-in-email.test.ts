@@ -138,6 +138,24 @@ describe("sendSignInEmail", () => {
     expect(capturedSignInEmails()).toHaveLength(0);
   });
 
+  it("puts the code in the subject, so Gmail does not thread a spent code above the new one", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("RESEND_API_KEY", "re_live_key");
+    vi.stubEnv("EMAIL_FROM", "quiz@triviafoundry.com");
+    const fetchMock = vi.fn(async () => new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await sendSignInEmail({ email: "host@example.test", code: "273502", url: CONFIRM_URL });
+    await sendSignInEmail({ email: "host@example.test", code: "918034", url: CONFIRM_URL });
+
+    const subjects = fetchMock.mock.calls.map(
+      (call) => JSON.parse((call as unknown as [string, RequestInit])[1].body as string).subject as string
+    );
+    expect(subjects[0]).toBe("273502 is your TriviaFoundry sign-in code");
+    expect(subjects[1]).toContain("918034");
+    expect(subjects[0]).not.toBe(subjects[1]);
+  });
+
   it("surfaces a Resend rejection instead of reporting a send that never happened", async () => {
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("RESEND_API_KEY", "re_live_key");

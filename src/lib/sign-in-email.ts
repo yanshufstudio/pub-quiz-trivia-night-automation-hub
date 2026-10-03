@@ -89,8 +89,13 @@ export class SignInEmailSendError extends Error {
   }
 }
 
-function subject() {
-  return "Your TriviaFoundry sign-in code";
+/**
+ * The code in the subject. With one fixed subject, Gmail threaded every code
+ * into a single conversation and showed the spent one above the new one; a
+ * subject that differs per code gets each email a thread of its own.
+ */
+function subject(code: string) {
+  return `${code} is your TriviaFoundry sign-in code`;
 }
 
 /**
@@ -186,7 +191,7 @@ export async function sendSignInEmail({
       // Resend's REST field is snake_case `reply_to`; `replyTo` is the SDK's
       // spelling and is silently ignored here.
       reply_to: CONTACT_EMAIL,
-      subject: subject(),
+      subject: subject(code),
       text: textBody({ code, url }),
       html: htmlBody({ code, url }),
     }),
