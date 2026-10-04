@@ -132,7 +132,8 @@ test("/terms reserves the right to refuse repeat refund abusers and names Paddle
   await expect(
     page.getByText("account that repeatedly subscribes, uses Pro and asks for a refund", { exact: false })
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "Paddle Buyer Terms" })).toHaveAttribute(
+  // The Payments section's link; "Governing law and courts" links the same terms.
+  await expect(page.locator("#payments").getByRole("link", { name: "Paddle Buyer Terms" })).toHaveAttribute(
     "href",
     "https://www.paddle.com/legal/invoiced-consumer-terms"
   );
