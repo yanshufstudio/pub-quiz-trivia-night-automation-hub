@@ -217,7 +217,7 @@ test("/privacy lists Vercel Web Analytics and no longer says there is none (SEO3
   // pages (e2e/analytics.spec.ts) is stated as ours. Vercel's docs do not say
   // "sets no cookies", locate from an IP address, or stop a visit being followed
   // "from one day to the next", so none of those may come back as fact.
-  await expect(entry).toContainText("Vercel says it doesn't rely on cookies");
+  await expect(entry).toContainText("Vercel says it does not rely on cookies");
   await expect(entry).toContainText("on our pages its script sets none and stores nothing in your browser");
   await expect(entry).toContainText("a country, region and city, and your browser");
   await expect(entry).not.toContainText("It sets no cookies");
@@ -335,4 +335,77 @@ test("/pricing, /faq and /refunds describe the free trial and its first charge (
   // The first payment's refund condition counts from the trial's start (PRC10).
   await page.goto("/refunds");
   await expect(page.getByText(/packs you generate during the trial count/i)).toBeVisible();
+});
+
+// The wording Paul approved on 4 Oct 2026, checked word for word.
+const GOVERNING_LAW =
+  "These terms are governed by the laws of the State of Israel. The competent courts in the Tel Aviv-Jaffa district have jurisdiction over any dispute about these terms or the service.";
+const LIABILITY_CAP =
+  "Within what the law allows, our total liability to you for all claims about the service is limited to the greater of the amount you paid for the service in the 12 months before the claim and 50 US dollars.";
+const SEVEN_DAYS =
+  "If we make a substantial change to these terms, we will tell you by email or on the site at least 7 days before it takes effect.";
+const CURRENCY =
+  "Prices are set in US dollars. If your card is in another currency, your bank or card company sets the exchange rate and may charge its own fees. Both are beyond our control.";
+const DELETION_CANCELS =
+  "If your account has an active Pro subscription, we cancel it at Paddle before we delete the account, so it does not renew. Deleting the account does not by itself refund a payment; refunds follow the refund policy.";
+
+test("/terms names the courts, limits liability and gives notice of changes", async ({ page }) => {
+  await page.goto("/terms");
+  const main = page.locator("main");
+  await expect(page.getByRole("heading", { name: "Governing law and courts" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Our liability" })).toBeVisible();
+  await expect(main).toContainText(GOVERNING_LAW);
+  await expect(main).toContainText(LIABILITY_CAP);
+  await expect(main).toContainText(SEVEN_DAYS);
+  await expect(page.locator("#governing-law").getByRole("link", { name: "Paddle Buyer Terms" })).toHaveAttribute(
+    "href",
+    "https://www.paddle.com/legal/invoiced-consumer-terms"
+  );
+  // The new clause sits straight after the one on generated questions.
+  const ids = await page.locator("main section[id]").evaluateAll((s) => s.map((el) => el.id));
+  expect(ids[ids.indexOf("ai-output") + 1]).toBe("liability");
+});
+
+test("/terms and /refunds say prices are in US dollars, /privacy says deletion cancels Pro", async ({ page }) => {
+  for (const path of ["/terms", "/refunds"]) {
+    await page.goto(path);
+    await expect(page.locator("main"), path).toContainText(CURRENCY);
+  }
+  await page.goto("/privacy");
+  await expect(page.locator("#deletion")).toContainText(DELETION_CANCELS);
+  await expect(page.locator("#deletion").getByRole("link", { name: "refund policy" }).first()).toHaveAttribute(
+    "href",
+    "/refunds"
+  );
+});
+
+// Possessives ("Paddle's") are fine; these are not.
+const CONTRACTION =
+  /\b\w+n['’]t\b|\b\w+['’](?:re|ll|ve|m|d)\b|\b(?:it|that|there|we|you|they)['’]s\b/gi;
+
+test("the policy pages use no contractions", async ({ page }) => {
+  for (const path of ["/terms", "/privacy", "/refunds"]) {
+    await page.goto(path);
+    const text = await page.locator("main").innerText();
+    expect(text.match(CONTRACTION) ?? [], path).toEqual([]);
+  }
+});
+
+test("the clauses approved on 4 Oct carry no em dash", async ({ page }) => {
+  const checks: Array<[string, string, string?]> = [
+    ["/terms", "#governing-law"],
+    ["/terms", "#liability"],
+    ["/terms", "#changes"],
+    ["/terms", "#payments", CURRENCY],
+    ["/refunds", "#pricing", CURRENCY],
+    ["/privacy", "#deletion", DELETION_CANCELS],
+  ];
+  for (const [path, section, paragraph] of checks) {
+    await page.goto(path);
+    const scope = paragraph
+      ? page.locator(section).locator("p").filter({ hasText: paragraph.slice(0, 40) })
+      : page.locator(section);
+    await expect(scope, `${path} ${section}`).toHaveCount(1);
+    expect(await scope.innerText(), `${path} ${section}`).not.toContain("—");
+  }
 });
