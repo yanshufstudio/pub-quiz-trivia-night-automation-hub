@@ -59,6 +59,23 @@ export function TeamPortal() {
   // by whatever the server holds for the new question (usually nothing), so a
   // team can never submit the previous question's text by accident.
   const answerQuestionId = useRef<string | null>(null);
+  // True from loading a remembered team until its first poll answers. A
+  // game found already over at that point is forgotten; one that ends while
+  // the phone is open still shows its final scores.
+  const [checking, setChecking] = useState(false);
+  const checkingRef = useRef(false);
+
+  // Back to the join form, for the game in the URL if there is one, with no
+  // team name carried over from the game being left.
+  const forgetTeam = useCallback(() => {
+    clearStoredTeam();
+    setStored(null);
+    setState(null);
+    setName("");
+    setCode(readJoinCode(window.location.search));
+    answerQuestionId.current = null;
+    setAnswer("");
+  }, []);
 
   useEffect(() => {
     // localStorage isn't available during SSR, so the real value can only be
@@ -66,12 +83,24 @@ export function TeamPortal() {
     // would make the client's first render diverge from the server-rendered
     // HTML (a hydration mismatch). Deferring to an effect, gated by
     // `hydrated`, keeps the first paint identical on server and client.
-    const existing = readStoredTeam();
+    let existing = readStoredTeam();
+    // A code in the URL is the game this phone is trying to join. A team
+    // remembered from a different game is not a place to keep: opening the
+    // new game's link used to show the old game's screen, for good.
+    const urlCode = readJoinCode(window.location.search);
+    if (existing && urlCode && urlCode !== existing.code) {
+      clearStoredTeam();
+      existing = null;
+    }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setStored(existing);
     if (existing) {
       setCode(existing.code);
       setName(existing.teamName);
+      // The same game, or no code at all: keep the team only if its game is
+      // still on. The first poll decides; until then nothing is shown.
+      checkingRef.current = true;
+      setChecking(true);
     } else {
       // Arriving via the host desk's QR code (/play?code=ABCDE): prefill the
       // session code so the team only has to pick a name.
@@ -84,13 +113,20 @@ export function TeamPortal() {
     try {
       const res = await fetch(`/api/sessions/${team.code}?token=${encodeURIComponent(team.token)}`);
       const data = await res.json();
+      const firstCheck = checkingRef.current;
+      checkingRef.current = false;
+      setChecking(false);
       if (!res.ok) {
-        if (res.status === 401) {
-          clearStoredTeam();
-          setStored(null);
-          setState(null);
+        if (firstCheck && res.status === 404) {
+          forgetTeam();
+          return;
         }
+        if (res.status === 401) forgetTeam();
         setError(data.error ?? "Could not load session");
+        return;
+      }
+      if (firstCheck && data.status === "ENDED") {
+        forgetTeam();
         return;
       }
       setError(null);
@@ -103,9 +139,11 @@ export function TeamPortal() {
         setAnswer(data.myAnswer.text);
       }
     } catch {
+      checkingRef.current = false;
+      setChecking(false);
       setError("Lost connection to the session. Retrying…");
     }
-  }, []);
+  }, [forgetTeam]);
 
   useEffect(() => {
     if (!stored) return;
@@ -180,14 +218,12 @@ export function TeamPortal() {
         keepalive: true,
       }).catch(() => {});
     }
-    clearStoredTeam();
-    setStored(null);
-    setState(null);
-    answerQuestionId.current = null;
-    setAnswer("");
+    forgetTeam();
+    // Not the code just left, even when it is the one in the URL.
+    if (stored && readJoinCode(window.location.search) === stored.code) setCode("");
   }
 
-  if (!hydrated) {
+  if (!hydrated || checking) {
     return <div className="min-h-dvh bg-stage" />;
   }
 
