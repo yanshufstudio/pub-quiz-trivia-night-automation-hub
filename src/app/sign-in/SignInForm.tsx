@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { emailOtp, signIn } from "@/lib/auth-client";
 import { googleSignInError, signInCodeError, signInSendError } from "@/lib/sign-in-errors";
 import { IN_APP_BROWSER_NOTICE, isInAppBrowser } from "@/lib/in-app-browser";
@@ -27,7 +26,6 @@ export function SignInForm({
   googleEnabled: boolean;
   initialError: string | null;
 }) {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState<"google" | "email" | "code" | null>(null);
@@ -98,11 +96,20 @@ export function SignInForm({
 
     // `next` reached this component from the server already narrowed to a
     // path on this site (`safeNextPath`), which is what makes it safe to
-    // hand to the router at all. `refresh` before `push` because the target
-    // renders from the session and the client cache may still be holding
-    // what it looked like while nobody was signed in.
-    router.refresh();
-    router.push(next);
+    // navigate to at all.
+    //
+    // A full page load, not `router.push`. While this page was signed out,
+    // the header's Create and Packs links were prefetched, and the proxy
+    // answered those prefetches with a redirect back to /sign-in?next=…. The
+    // client router keeps that answer, and `router.refresh()` only clears the
+    // cache for the current route, so a push to /create or /packs replayed
+    // the redirect: the URL stayed on /sign-in, this component kept its
+    // state, and the button said "Signing in…" for good. A real navigation
+    // asks the server again, with the new session cookie.
+    //
+    // `busy` stays set: the page is unloading, and re-enabling the button
+    // would only invite a second press of a spent code.
+    window.location.assign(next);
   }
 
   if (sentTo) {
