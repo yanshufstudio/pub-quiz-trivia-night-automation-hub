@@ -78,7 +78,17 @@ export function RoundTeamPlay({
   if (state.status === "ENDED") return null;
 
   // Newest first: the question the host has just asked is the one on top.
-  const newestFirst = [...state.questions].reverse();
+  // During the reveal the answer just revealed goes on top instead — newest
+  // first had it sinking under cards not revealed yet — and the rest of the
+  // revealed ones follow it, then the unrevealed ones in the order they will
+  // come out.
+  const revealing = state.status === "ROUND_REVEAL";
+  const revealed = state.questions.filter((q) => q.answer !== null).reverse();
+  const ordered = revealing
+    ? [...revealed, ...state.questions.filter((q) => q.answer === null)]
+    : [...state.questions].reverse();
+  const justRevealedId = revealing ? (revealed[0]?.id ?? null) : null;
+  const scoreboard = state.scoreboard ? <ScoreboardPanel state={state} title="Scoreboard" /> : null;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -109,15 +119,19 @@ export function RoundTeamPlay({
         </p>
       ) : null}
       {error ? <p className="mt-4 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
+      {/* During the reveal the scoreboard the host is showing sits under the
+          round total, where a phone sees it without scrolling past the round. */}
+      {revealing ? scoreboard : null}
 
       <ol className="mt-4 space-y-3">
-        {newestFirst.map((question, i) => (
+        {ordered.map((question, i) => (
           <li key={question.id}>
             <QuestionCard
               question={question}
               label={questionLabel(state.roundNumber, question.index + 1)}
               team={team}
               newest={i === 0}
+              justRevealed={question.id === justRevealedId}
               open={open}
               saved={saved(question.index)}
               draft={drafts[key(question.index)]}
@@ -129,7 +143,7 @@ export function RoundTeamPlay({
         ))}
       </ol>
 
-      {state.scoreboard ? <ScoreboardPanel state={state} title="Scoreboard" /> : null}
+      {revealing ? null : scoreboard}
     </div>
   );
 }
@@ -139,6 +153,7 @@ function QuestionCard({
   label,
   team,
   newest,
+  justRevealed,
   open,
   saved,
   draft,
@@ -150,6 +165,7 @@ function QuestionCard({
   label: string;
   team: StoredTeam;
   newest: boolean;
+  justRevealed: boolean;
   open: boolean;
   saved: RoundTeamState["myAnswers"][number] | null;
   draft: string | undefined;
@@ -255,8 +271,17 @@ function QuestionCard({
   // answered; once the round closes every question is shown as it is marked.
   if (newest || !open) {
     return (
-      <section className={`rounded-2xl p-4 ${newest && open ? "bg-white/10 ring-1 ring-gold/40" : "bg-white/5"}`}>
-        <p className="text-sm font-semibold text-gold">{label}</p>
+      <section
+        className={`rounded-2xl p-4 ${(newest && open) || justRevealed ? "bg-white/10 ring-1 ring-gold/40" : "bg-white/5"}`}
+      >
+        <p className="flex items-center justify-between gap-2 text-sm font-semibold text-gold">
+          <span>{label}</span>
+          {justRevealed ? (
+            <span className="rounded-full bg-gold px-2 py-0.5 text-xs uppercase tracking-wide text-stage">
+              Just revealed
+            </span>
+          ) : null}
+        </p>
         {body}
       </section>
     );
