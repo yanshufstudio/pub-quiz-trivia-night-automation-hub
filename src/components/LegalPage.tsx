@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { CONTACT_EMAIL, LEGAL_LAST_UPDATED } from "@/lib/site";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, POSTAL_ADDRESS } from "@/lib/site";
 
 /**
  * The shared shell for /terms, /privacy and /refunds.
@@ -60,5 +60,22 @@ export function ContactLink({ children }: { children?: ReactNode } = {}) {
     <a className="font-medium text-amber hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
       {children ?? CONTACT_EMAIL}
     </a>
+  );
+}
+
+/**
+ * The published postal contact, one line per item, from `src/lib/site.ts`.
+ * An <address> rather than a LegalText: it is block content and cannot sit
+ * inside a <p>. Not italic, so it reads like the body copy around it.
+ */
+export function PostalAddress() {
+  return (
+    <address className="not-italic text-muted">
+      {POSTAL_ADDRESS.map((line) => (
+        <span key={line} className="block">
+          {line}
+        </span>
+      ))}
+    </address>
   );
 }

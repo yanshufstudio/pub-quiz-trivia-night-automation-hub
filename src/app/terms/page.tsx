@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
-import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
+import { ContactLink, LegalList, LegalPage, LegalSection, LegalText, PostalAddress } from "@/components/LegalPage";
 import {
   FREE_PACK_ALLOWANCE,
   PRICE_ANNUAL_USD,
@@ -23,8 +23,11 @@ export default function TermsPage() {
         <LegalText>
           TriviaFoundry is operated by Yanshuf Studio, Israel. You can reach us at{" "}
           <ContactLink />
-          . Using the service means you accept these terms.
+          .
         </LegalText>
+        <LegalText>By post:</LegalText>
+        <PostalAddress />
+        <LegalText>Using the service means you accept these terms.</LegalText>
       </LegalSection>
 
       <LegalSection id="the-service" title="What the service does">

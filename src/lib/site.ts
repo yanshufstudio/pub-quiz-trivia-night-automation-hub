@@ -36,10 +36,20 @@ export const SITE_URL = "https://triviafoundry.com";
 export const CONTACT_EMAIL = "info@yanshufstudio.com";
 
 /**
+ * The published postal contact for the controller, shown on /privacy and
+ * /terms next to CONTACT_EMAIL, one line per item.
+ *
+ * A PO box on purpose: never a home address, a personal name, an ID number or
+ * a business number. The box number may change, so it is spelled here and
+ * nowhere else — `site.test.ts` fails the build if another file in src does.
+ */
+export const POSTAL_ADDRESS: readonly string[] = ["Yanshuf Studio", "PO Box 1552", "Rehovot 7611501", "Israel"];
+
+/**
  * The date printed at the top of /terms, /privacy and /refunds, and the
  * `lastModified` the sitemap publishes for them. Bump it when the wording of
  * any of the three changes — and only then, so the sitemap keeps telling the
  * truth. It lives here rather than in `LegalPage.tsx` so `sitemap.ts` can
  * read it without importing a React component for a string.
  */
-export const LEGAL_LAST_UPDATED = "2026-09-29";
+export const LEGAL_LAST_UPDATED = "2026-10-04";

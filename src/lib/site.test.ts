@@ -1,9 +1,21 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, SITE_URL } from "@/lib/site";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, POSTAL_ADDRESS, SITE_URL } from "@/lib/site";
 
 const APP_DIR = path.resolve(__dirname, "../app");
+const SRC_DIR = path.resolve(__dirname, "..");
+
+/** Every .ts/.tsx file under `root`, tests included, as [path relative to root, contents]. */
+function allSources(root: string, dir = root): Array<[string, string]> {
+  const out: Array<[string, string]> = [];
+  for (const item of readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, item.name);
+    if (item.isDirectory()) out.push(...allSources(root, full));
+    else if (/\.tsx?$/.test(item.name)) out.push([path.relative(root, full), readFileSync(full, "utf8")]);
+  }
+  return out;
+}
 
 /** Every .ts/.tsx file under src/app, as [repo-relative path, contents]. */
 function appSources(dir = APP_DIR): Array<[string, string]> {
@@ -48,6 +60,21 @@ describe("no page keeps its own copy of these", () => {
 
   it("spells the contact address nowhere but src/lib/site.ts", () => {
     const offenders = sources.filter(([, text]) => text.includes(CONTACT_EMAIL)).map(([file]) => file);
+    expect(offenders).toEqual([]);
+  });
+
+  it("spells the postal box and postcode nowhere in src but src/lib/site.ts", () => {
+    // The box number may change; when it does, only site.ts should need an
+    // edit. The numbers are read from the constant, so this file never
+    // spells them either.
+    const numbers = POSTAL_ADDRESS.join(" ").match(/\d{4,}/g) ?? [];
+    expect(numbers).toHaveLength(2);
+
+    const offenders: string[] = [];
+    for (const [file, text] of allSources(SRC_DIR)) {
+      if (file === path.join("lib", "site.ts")) continue;
+      if (numbers.some((n) => text.includes(n))) offenders.push(file);
+    }
     expect(offenders).toEqual([]);
   });
 

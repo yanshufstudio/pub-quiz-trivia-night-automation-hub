@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
-import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
+import { ContactLink, LegalList, LegalPage, LegalSection, LegalText, PostalAddress } from "@/components/LegalPage";
 
 export const metadata: Metadata = pageMetadata({
   path: "/privacy",
@@ -18,6 +18,8 @@ export default function PrivacyPage() {
           <ContactLink />
           .
         </LegalText>
+        <LegalText>By post:</LegalText>
+        <PostalAddress />
       </LegalSection>
 
       <LegalSection id="what-we-store" title="What we store">
@@ -193,7 +195,7 @@ export default function PrivacyPage() {
           Both are sent only to us, with that game&apos;s own requests.
         </LegalText>
         <LegalText>
-          All of the above are strictly necessary in the sense the law means: the service cannot
+          All of the above are strictly necessary: the service cannot
           tell your packs from anyone else&apos;s, finish a Google sign-in, or keep a host desk or a
           team&apos;s phone connected to its game without them — so there is nothing optional to
           consent to. We set no tracking or advertising cookies. Teams playing a quiz are not asked
