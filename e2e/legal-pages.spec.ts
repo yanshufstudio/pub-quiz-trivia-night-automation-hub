@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { signedInContext } from "./sign-in-helper";
-import { CONTACT_EMAIL, LEGAL_LAST_UPDATED } from "@/lib/site";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, POSTAL_ADDRESS } from "@/lib/site";
 import { FREE_PACK_ALLOWANCE } from "@/lib/pricing";
 
 // Paddle's website review requires the three policy pages to be publicly
@@ -37,6 +37,29 @@ for (const { path, heading } of PAGES) {
     await expect(page.getByRole("link", { name: CONTACT_EMAIL }).first()).toBeVisible();
   });
 }
+
+// The controller's postal contact sits next to the email on /privacy and
+// /terms, and only there: /refunds points buyers to email and Paddle.
+test("/privacy and /terms give the postal address, and /refunds does not", async ({ page }) => {
+  for (const path of ["/privacy", "/terms"]) {
+    await page.goto(path);
+    const address = page.locator("main address");
+    await expect(address).toHaveCount(1);
+    for (const line of POSTAL_ADDRESS) await expect(address).toContainText(line);
+    await expect(page.getByText("By post:")).toBeVisible();
+  }
+
+  await page.goto("/refunds");
+  await expect(page.locator("main address")).toHaveCount(0);
+  await expect(page.locator("main")).not.toContainText(POSTAL_ADDRESS[1]);
+});
+
+test("/privacy calls the cookies strictly necessary without interpreting the law", async ({ page }) => {
+  await page.goto("/privacy");
+  const main = page.locator("main");
+  await expect(main).toContainText("All of the above are strictly necessary: the service cannot");
+  await expect(main).not.toContainText("in the sense the law means");
+});
 
 test("every policy page is reachable from the footer of an ordinary page", async ({ page }) => {
   await page.goto("/");
