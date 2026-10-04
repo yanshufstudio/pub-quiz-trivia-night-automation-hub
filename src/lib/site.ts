@@ -52,4 +52,4 @@ export const POSTAL_ADDRESS: readonly string[] = ["Yanshuf Studio", "PO Box 1552
  * truth. It lives here rather than in `LegalPage.tsx` so `sitemap.ts` can
  * read it without importing a React component for a string.
  */
-export const LEGAL_LAST_UPDATED = "2026-10-04";
+export const LEGAL_LAST_UPDATED = "2026-10-05";
