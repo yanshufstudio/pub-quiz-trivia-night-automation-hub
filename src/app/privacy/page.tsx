@@ -115,7 +115,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             <span className="font-medium text-foreground">Vercel Web Analytics</span> — counts page
-            views, so we can see which pages people read. Vercel says it doesn&apos;t rely on
+            views, so we can see which pages people read. Vercel says it does not rely on
             cookies, and on our pages its script sets none and stores nothing in your browser. For
             each page view it records the page&apos;s address (we remove anything after a{" "}
             <code>?</code> or <code>#</code> before it is sent), the site you arrived from, the time,
