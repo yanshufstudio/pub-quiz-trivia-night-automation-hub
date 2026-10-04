@@ -130,13 +130,16 @@ async function giveBack(key: string, windowMs: number) {
  * is away, which the global ceiling still bounds in money terms.
  */
 export async function reserveFreeIpDaily(ip: string, now: Date = new Date()): Promise<FreeReservation> {
-  const limit = freeIpDailyLimit();
+  return reserveDailySlot(`generate:free:ip:${ip}:${utcDay(now)}`, freeIpDailyLimit(), now);
+}
+
+/** One unit of a fixed-window count that resets at UTC midnight. Fails open. */
+async function reserveDailySlot(key: string, limit: number, now: Date): Promise<FreeReservation> {
   const ttlSeconds = secondsUntilUtcMidnight(now);
   if (limit === 0) {
     return { allowed: false, limit, used: 0, retryAfterSeconds: ttlSeconds, release: NO_OP_RELEASE };
   }
 
-  const key = `generate:free:ip:${ip}:${utcDay(now)}`;
   const windowMs = ttlSeconds * 1000;
 
   let count: number;
@@ -165,6 +168,36 @@ export async function reserveFreeIpDaily(ip: string, now: Date = new Date()): Pr
       await giveBack(key, windowMs);
     },
   };
+}
+
+export const FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV = "FREE_FAILED_GENERATIONS_DAILY_LIMIT";
+
+/**
+ * GH7: three failed generations a day from one free account, counting only the
+ * failures the model was paid for. An honest host whose brief fails twice
+ * rewrites it; an account failing on purpose is spending our money on nothing,
+ * and before this every such failure was refunded in full.
+ */
+export const DEFAULT_FREE_FAILED_GENERATIONS_DAILY_LIMIT = 3;
+
+export const FREE_FAILED_LIMIT_MESSAGE =
+  "Too many of today's generations on this account have failed, so generation is paused for it " +
+  "until tomorrow (UTC). Try a shorter or simpler brief then, or email us if this keeps happening.";
+
+export function freeFailedGenerationsDailyLimit(): number {
+  return parseCeiling(process.env[FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV], DEFAULT_FREE_FAILED_GENERATIONS_DAILY_LIMIT);
+}
+
+/**
+ * GH7 — a slot in one free account's daily count of paid-for failures, taken
+ * before the model is called so the check and the count are one step. The
+ * caller releases it when a pack is saved or nothing was generated, and keeps
+ * it otherwise: a kept slot is a failure that cost us a completion.
+ *
+ * Fails open (N1), like the per-IP counter.
+ */
+export async function reserveFreeFailedGeneration(creatorId: string, now: Date = new Date()): Promise<FreeReservation> {
+  return reserveDailySlot(`generate:free:failed:${creatorId}:${utcDay(now)}`, freeFailedGenerationsDailyLimit(), now);
 }
 
 /**

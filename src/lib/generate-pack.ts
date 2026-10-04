@@ -1,4 +1,4 @@
-import type Anthropic from "@anthropic-ai/sdk";
+import Anthropic from "@anthropic-ai/sdk";
 import { getAnthropicClient } from "@/lib/anthropic";
 import { generatedPackSchema, salvageGeneratedPack, type GeneratedPack } from "@/lib/quiz-schema";
 import { callOptions, todayIso, usageOf, type CallUsage, type ModelCallConfig } from "@/lib/model-call";
@@ -164,6 +164,18 @@ export class IncompletePackError extends UnusableModelOutputError {
   }
 }
 
+/**
+ * GH5: the generation did not finish inside the time the route gave it. The
+ * route has 300s in all, so a brief that takes this long is too big for one
+ * go, and it is answered the way a truncated one is: ask for less.
+ */
+export class GenerationTimedOutError extends UnusableModelOutputError {
+  constructor() {
+    super("Generation ran out of time", true);
+    this.name = "GenerationTimedOutError";
+  }
+}
+
 /** One attempt's structural fault. Internal: retried once, then surfaced as
  * IncompletePackError. */
 class MalformedPackError extends Error {
@@ -193,17 +205,22 @@ export const MAX_DECLINE_REASON_CHARS = 400;
  * wastes the user's time and a second generation's worth of tokens.
  */
 export class ModelDeclinedError extends Error {
-  /** The model's own words, trimmed and capped. Empty when it declined
-   * without saying anything. */
+  /** The model's own words to the quizmaster, trimmed and capped: only ever
+   * the tool's decline_reason (GH4). Empty otherwise, and the route words it. */
   readonly reason: string;
+  /** What a refusal or a prose turn said instead, for the logs only. ACC7's
+   * refusals carried the API's note to integrators here, which is not a
+   * reason a host can act on. */
+  readonly detail: string;
   /** Tokens and time of the call that declined (ACC13). */
   usage?: CallUsage;
   attempts?: number;
 
-  constructor(reason: string) {
+  constructor(reason: string, detail = "") {
     super(reason || "The question generator declined this brief");
     this.name = "ModelDeclinedError";
     this.reason = reason;
+    this.detail = detail;
   }
 }
 
@@ -233,16 +250,15 @@ function declineReasonFromTool(input: unknown): string {
 }
 
 /**
- * What the model said when it declined, trimmed and capped.
+ * What a refusal or an end_turn said, trimmed and capped — for the logs, not
+ * the host (GH4).
  *
- * A "refusal" turn carries the reason in stop_details.explanation; an
- * ordinary "end_turn" carries it in text blocks, of which there may be
- * several. Prefer the structured field and fall back to the prose, so both
- * shapes give the user something to act on. Empty is a valid answer — the
- * model can decline without elaborating — and the caller supplies the
- * wording for that case.
+ * A "refusal" turn carries it in stop_details.explanation; an ordinary
+ * "end_turn" carries it in text blocks, of which there may be several. In
+ * ACC7 every refusal's explanation was the API's note to integrators about
+ * fallback models, so neither shape is shown to the host.
  */
-function declineReason(message: { stop_details?: { explanation?: string | null } | null; content: unknown[] }): string {
+function declineDetail(message: { stop_details?: { explanation?: string | null } | null; content: unknown[] }): string {
   const structured = message.stop_details?.explanation?.trim();
   if (structured) return structured.slice(0, MAX_DECLINE_REASON_CHARS).trim();
 
@@ -324,45 +340,76 @@ function requestedCounts(input: { requested_rounds?: unknown; requested_question
   return null;
 }
 
-/**
- * A multiple-choice option set as it will be read aloud. Blank and duplicate
- * options are removed here (duplicates trimmed and case-insensitive, keeping
- * the answer's spelling); what can't be repaired — leaked syntax, fewer than
- * two options, the answer not among them — is a malformed pack. Other
- * question types pass through untouched.
- */
-function repairQuestion(raw: unknown): unknown {
-  if (typeof raw !== "object" || raw === null) return raw;
-  const q = raw as { type?: unknown; answer?: unknown; options?: unknown };
-  if (q.type !== QUESTION_TYPE.MULTIPLE_CHOICE) return raw;
-
-  const answer = typeof q.answer === "string" ? q.answer.trim() : "";
+/** Options as they will be read aloud: trimmed, blanks gone, duplicates
+ * removed case-insensitively, keeping the answer's own spelling. */
+function tidyOptions(raw: unknown, answer: string): string[] {
   const byKey = new Map<string, string>();
-  for (const option of Array.isArray(q.options) ? q.options : []) {
+  for (const option of Array.isArray(raw) ? raw : []) {
     if (typeof option !== "string" || !option.trim()) continue;
     const text = option.trim();
-    if (LEAKED_SYNTAX.test(text)) {
-      throw new MalformedPackError(`leaked syntax in an option: ${JSON.stringify(text)}`, BROKEN_CHOICE_MESSAGE);
-    }
     const key = text.toLowerCase();
     if (!byKey.has(key) || text === answer) byKey.set(key, text);
   }
-  const options = [...byKey.values()];
-  if (options.length < 2) {
-    throw new MalformedPackError("a multiple-choice question has fewer than two distinct options", BROKEN_CHOICE_MESSAGE);
-  }
-  if (!options.includes(answer)) {
-    throw new MalformedPackError("a multiple-choice answer is not one of its options", BROKEN_CHOICE_MESSAGE);
-  }
-  return { ...q, options };
+  return [...byKey.values()];
 }
 
-function repairRounds(rounds: unknown): unknown {
-  if (!Array.isArray(rounds)) return rounds;
-  return rounds.map((round) => {
+/**
+ * One question tidied before validation (GH1, GH3).
+ *
+ * Multiple choice: blank and duplicate options are removed; what can't be
+ * repaired — leaked syntax, fewer than two options, the answer not among
+ * them — is a malformed pack. In a truncated response it is not: that pack
+ * is not retried, so the question falls back to free text instead.
+ *
+ * Anything else that carries options: a usable set (two or more, the answer
+ * among them) makes it multiple choice, because ACC7's all-multiple-choice
+ * brief came back typed TEXT with good options and the save threw them away.
+ * Any other set is dropped: ACC7's question 1 often carried [], ["s?"] or
+ * [""] on a free-text question, and "" failed the whole pack.
+ */
+function repairQuestion(raw: unknown, truncated: boolean): unknown {
+  if (typeof raw !== "object" || raw === null) return raw;
+  const q = raw as { type?: unknown; answer?: unknown; options?: unknown };
+  if (q.type !== QUESTION_TYPE.MULTIPLE_CHOICE && !("options" in q)) return raw;
+
+  const answer = typeof q.answer === "string" ? q.answer.trim() : "";
+  const options = tidyOptions(q.options, answer);
+  const leaked = options.find((text) => LEAKED_SYNTAX.test(text));
+  const usable = !leaked && options.length >= 2 && options.includes(answer);
+  if (usable) return { ...q, type: QUESTION_TYPE.MULTIPLE_CHOICE, options };
+
+  if (q.type === QUESTION_TYPE.MULTIPLE_CHOICE && !truncated) {
+    if (leaked) {
+      throw new MalformedPackError(`leaked syntax in an option: ${JSON.stringify(leaked)}`, BROKEN_CHOICE_MESSAGE);
+    }
+    if (options.length < 2) {
+      throw new MalformedPackError("a multiple-choice question has fewer than two distinct options", BROKEN_CHOICE_MESSAGE);
+    }
+    throw new MalformedPackError("a multiple-choice answer is not one of its options", BROKEN_CHOICE_MESSAGE);
+  }
+  const text: Record<string, unknown> = { ...q, type: QUESTION_TYPE.TEXT };
+  delete text.options;
+  return text;
+}
+
+/** ACC7: three responses sent `rounds` as a JSON string of the array. */
+function roundsList(rounds: unknown): unknown {
+  if (typeof rounds !== "string") return rounds;
+  try {
+    const parsed: unknown = JSON.parse(rounds);
+    return Array.isArray(parsed) ? parsed : rounds;
+  } catch {
+    return rounds;
+  }
+}
+
+function repairRounds(rounds: unknown, truncated: boolean): unknown {
+  const list = roundsList(rounds);
+  if (!Array.isArray(list)) return list;
+  return list.map((round) => {
     if (typeof round !== "object" || round === null) return round;
     const r = round as { questions?: unknown };
-    return Array.isArray(r.questions) ? { ...r, questions: r.questions.map(repairQuestion) } : round;
+    return Array.isArray(r.questions) ? { ...r, questions: r.questions.map((q) => repairQuestion(q, truncated)) } : round;
   });
 }
 
@@ -406,13 +453,28 @@ function combinedUsage(usages: CallUsage[], model: string): CallUsage {
 /**
  * ACC8: a pack short of what was asked, or with an option set that can't be
  * read aloud, gets one more attempt and then fails with a message saying so.
- * It is never returned short. Truncation, declines and API errors are not
+ * It is never returned short. Since GH2 a response that can't be read at all
+ * gets the same one retry. Truncation, declines and API errors are not
  * retried here: asking for less, changing the brief or the SDK's own retries
  * are what fix those.
  */
+export type GenerateOptions = {
+  /**
+   * GH5: epoch ms by which generation must be over, retries included. The
+   * route sets it inside its 300s so the function is never killed with a
+   * paid call in flight. Without it (the harness), the SDK's defaults apply.
+   */
+  deadline?: number;
+};
+
+/** GH5: ACC8's second attempt starts only with at least this much time left.
+ * ACC7's slowest single generation was 75s. */
+export const MIN_RETRY_MS = 60_000;
+
 export async function generateQuizPack(
   userPrompt: string,
-  config: GeneratorConfig = PRODUCTION_GENERATOR
+  config: GeneratorConfig = PRODUCTION_GENERATOR,
+  options: GenerateOptions = {}
 ): Promise<GenerationResult> {
   const usages: CallUsage[] = [];
   // ACC13: a failure after a paid call still carries what it cost.
@@ -420,37 +482,62 @@ export async function generateQuizPack(
     if (usages.length > 0) Object.assign(err, { usage: combinedUsage(usages, config.model), attempts });
     return err;
   };
+  let first: MalformedPackError | undefined;
   for (let attempt = 1; ; attempt++) {
     try {
-      const result = await generateOnce(userPrompt, config, usages);
+      const result = await generateOnce(userPrompt, config, usages, options.deadline);
       return { ...result, attempts: attempt, usage: combinedUsage(usages, config.model) };
     } catch (err) {
+      // The second attempt ran out of time: the first one's fault is what the host can act on.
+      if (first && err instanceof GenerationTimedOutError) {
+        throw withUsage(new IncompletePackError(first.message, first.hostMessage), attempt);
+      }
       if (err instanceof UnusableModelOutputError || err instanceof ModelDeclinedError) throw withUsage(err, attempt);
       if (!(err instanceof MalformedPackError)) throw err;
-      if (attempt === 2) throw withUsage(new IncompletePackError(err.message, err.hostMessage), attempt);
+      const noTime = options.deadline !== undefined && options.deadline - Date.now() < MIN_RETRY_MS;
+      if (attempt === 2 || noTime) throw withUsage(new IncompletePackError(err.message, err.hostMessage), attempt);
+      first = err;
       console.warn(`Quiz pack attempt ${attempt} unusable (${err.message}); trying once more.`);
     }
   }
 }
 
+/** GH2: what the host is told when a response could not be read twice. */
+const UNREADABLE_MESSAGE =
+  "The question generator sent back a pack we couldn't read. Please generate again.";
+
 async function generateOnce(
   userPrompt: string,
   config: GeneratorConfig,
-  usages: CallUsage[]
+  usages: CallUsage[],
+  deadline: number | undefined
 ): Promise<Omit<GenerationResult, "attempts" | "usage">> {
   const anthropic = getAnthropicClient();
 
+  // GH5: the SDK's timeout is per attempt and it retries twice, so the
+  // signal is what bounds the whole call, its retries included.
+  const timeLeft = deadline === undefined ? undefined : Math.max(1, Math.floor(deadline - Date.now()));
   const started = Date.now();
-  const message = await anthropic.messages.create({
-    max_tokens: MAX_TOKENS,
-    system: systemPrompt(config.promptRules ?? "current"),
-    ...callOptions(config, {
-      name: TOOL_NAME,
-      description: "Emit a complete generated quiz pack.",
-      input_schema: quizPackJsonSchema,
-    }),
-    messages: [{ role: "user", content: userPrompt }],
-  });
+  let message: Anthropic.Message;
+  try {
+    message = await anthropic.messages.create(
+      {
+        max_tokens: MAX_TOKENS,
+        system: systemPrompt(config.promptRules ?? "current"),
+        ...callOptions(config, {
+          name: TOOL_NAME,
+          description: "Emit a complete generated quiz pack.",
+          input_schema: quizPackJsonSchema,
+        }),
+        messages: [{ role: "user", content: userPrompt }],
+      },
+      timeLeft === undefined ? undefined : { timeout: timeLeft, signal: AbortSignal.timeout(timeLeft) }
+    );
+  } catch (err) {
+    const outOfTime = err instanceof Anthropic.APIUserAbortError || err instanceof Anthropic.APIConnectionTimeoutError;
+    if (timeLeft !== undefined && outOfTime) throw new GenerationTimedOutError();
+    throw err;
+  }
   usages.push(usageOf(message, config.model, Date.now() - started));
 
   // A response cut off at max_tokens carries a half-written tool call: the
@@ -475,9 +562,12 @@ async function generateOnce(
     // for "end_turn" caught the rarer case and let the common one fall
     // through to a generic retryable error.
     if (!truncated && (message.stop_reason === "refusal" || message.stop_reason === "end_turn")) {
-      throw new ModelDeclinedError(declineReason(message));
+      // GH4: only the tool's decline_reason is the model's word to the host.
+      throw new ModelDeclinedError("", declineDetail(message));
     }
-    throw new UnusableModelOutputError("Model did not return structured quiz data", truncated);
+    if (truncated) throw new UnusableModelOutputError("Model did not return structured quiz data", true);
+    // GH2: not cut off, not a decline, no pack: another attempt may well work.
+    throw new MalformedPackError(`no tool call (stop_reason ${message.stop_reason})`, UNREADABLE_MESSAGE);
   }
 
   // A decline delivered through the tool itself, which is the route that
@@ -497,17 +587,17 @@ async function generateOnce(
 
   // A truncated pack is short by definition and the brief is why, so it keeps
   // the handling it always had: salvage what came, and say "ask for less".
-  let input = toolUse.input;
+  // Both are tidied first (GH1): a stray option must not cost a question.
+  const raw = (typeof toolUse.input === "object" && toolUse.input !== null ? toolUse.input : {}) as Record<string, unknown>;
   let requested: number[] | null = null;
   if (!truncated) {
-    const raw = (typeof input === "object" && input !== null ? input : {}) as Record<string, unknown>;
     requested = requestedCounts(raw);
     // ACC13: required in the schema, so this should not happen. If it does,
     // a correct pack must not fail for it: keep it, skip only the count
     // check, and warn so a regression shows up in the logs.
     if (!requested) console.warn("Quiz pack stated no requested counts; count check skipped.");
-    input = { ...raw, rounds: repairRounds(raw.rounds) };
   }
+  const input = { ...raw, rounds: repairRounds(raw.rounds, truncated) };
 
   const parsed = generatedPackSchema.safeParse(input);
   // Strict validation is all-or-nothing, and one unusable question is not a
@@ -517,10 +607,10 @@ async function generateOnce(
     ? { pack: parsed.data, droppedQuestions: 0, droppedRounds: 0 }
     : salvageGeneratedPack(input);
   if (!salvaged) {
-    throw new UnusableModelOutputError(
-      `Generated quiz pack failed validation: ${parsed.error?.message}`,
-      truncated
-    );
+    const message = `Generated quiz pack failed validation: ${parsed.error?.message}`;
+    if (truncated) throw new UnusableModelOutputError(message, true);
+    // GH2: the 19:03 failure. Not cut off, so another attempt may well work.
+    throw new MalformedPackError(message, UNREADABLE_MESSAGE);
   }
 
   // Questions salvage had to drop count against the pack like missing ones.

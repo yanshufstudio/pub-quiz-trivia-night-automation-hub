@@ -102,6 +102,44 @@ describe("PATCH /api/questions/[id] — multiple-choice", () => {
   });
 });
 
+/**
+ * GH3. ACC7: an all-multiple-choice pack came back typed TEXT with four good
+ * options per question, and the save stored the text and dropped the
+ * options, so the host got free text without a word. A usable option set is
+ * saved as multiple choice; an unusable one is dropped as before.
+ */
+describe("createPackFromGenerated — options on a question typed TEXT", () => {
+  afterAll(async () => {
+    await db.$disconnect();
+  });
+
+  it("saves a usable option set as a multiple-choice question", async () => {
+    const pack = await createPackFromGenerated(
+      {
+        title: "GH3 options on TEXT (dedicated test pack)",
+        rounds: [
+          {
+            title: "Round 1",
+            category: "General",
+            questions: [
+              { text: "What is the capital of Australia?", answer: "Canberra", points: 1, type: "TEXT", options: ["Sydney", "Canberra", "Perth"] },
+              { text: "Which breed of cat has no tail?", answer: "Manx", points: 1, type: "TEXT", options: ["Manx"] },
+            ],
+          },
+        ],
+      },
+      DEMO_PACK_PROMPT,
+      owner.id
+    );
+    const [usable, unusable] = pack.rounds[0].questions;
+
+    expect(usable.type).toBe("MULTIPLE_CHOICE");
+    expect(JSON.parse(usable.options ?? "null")).toEqual(["Sydney", "Canberra", "Perth"]);
+    expect(unusable.type).toBe("TEXT");
+    expect(unusable.options).toBeNull();
+  });
+});
+
 describe("answer submission — multiple-choice", () => {
   let packId: string;
 

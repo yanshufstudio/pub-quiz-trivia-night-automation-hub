@@ -7,9 +7,12 @@ vi.mock("@/lib/generate-pack", async (importOriginal) => ({
   generateQuizPack: vi.fn(),
 }));
 
-import { generateQuizPack } from "@/lib/generate-pack";
+import Anthropic from "@anthropic-ai/sdk";
+import { generateQuizPack, UnusableModelOutputError } from "@/lib/generate-pack";
 import { POST as generate } from "@/app/api/packs/generate/route";
 import {
+  FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV,
+  FREE_FAILED_LIMIT_MESSAGE,
   FREE_IP_DAILY_LIMIT_ENV,
   FREE_IP_LIMIT_MESSAGE,
   MAILBOX_LIMIT_MESSAGE,
@@ -70,9 +73,13 @@ function generateRequest(host: TestHost, ip?: string) {
   });
 }
 
+const LIMIT_ENVS = [FREE_IP_DAILY_LIMIT_ENV, FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV];
+
 beforeEach(() => {
-  savedEnv[FREE_IP_DAILY_LIMIT_ENV] = process.env[FREE_IP_DAILY_LIMIT_ENV];
-  delete process.env[FREE_IP_DAILY_LIMIT_ENV];
+  for (const name of LIMIT_ENVS) {
+    savedEnv[name] = process.env[name];
+    delete process.env[name];
+  }
   __resetFreeAllowanceCounters();
   __resetMemoryCounters();
   __resetProLimitCounters();
@@ -81,8 +88,10 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  if (savedEnv[FREE_IP_DAILY_LIMIT_ENV] === undefined) delete process.env[FREE_IP_DAILY_LIMIT_ENV];
-  else process.env[FREE_IP_DAILY_LIMIT_ENV] = savedEnv[FREE_IP_DAILY_LIMIT_ENV];
+  for (const name of LIMIT_ENVS) {
+    if (savedEnv[name] === undefined) delete process.env[name];
+    else process.env[name] = savedEnv[name];
+  }
   __resetFreeAllowanceCounters();
   __resetMemoryCounters();
   __resetProLimitCounters();
@@ -148,6 +157,119 @@ describe("one address's free packs for a day (H1a)", () => {
     // The ceiling is untouched, so somebody elsewhere is still served.
     const elsewhere = await signInTestHost();
     expect((await generate(generateRequest(elsewhere, "10.7.9.6"))).status).toBe(201);
+  });
+});
+
+/**
+ * GH7: failures the model was paid for are not free.
+ *
+ * Every failure used to hand the address its unit back, so one free address
+ * could send failing briefs all day: each one billed, each one refunded, the
+ * per-IP cap never reached, the shared ceiling drained. The address's unit now
+ * comes back on the shared ceiling's terms, and an account gets a few such
+ * failures a day before it is told to stop.
+ */
+const generatedButUnusable = () => new UnusableModelOutputError("Generated quiz pack failed validation", false);
+const nothingGenerated = () =>
+  new Anthropic.APIError(500, { error: { type: "api_error", message: "internal" } }, "internal", undefined);
+
+describe("an address's free unit after a failure (GH7.1)", () => {
+  it("keeps the unit when the model produced something, so an address gets its cap of failures", async () => {
+    process.env[FREE_IP_DAILY_LIMIT_ENV] = "2";
+    const ip = "10.7.10.1";
+    vi.mocked(generateQuizPack).mockRejectedValue(generatedButUnusable());
+    for (let i = 0; i < 2; i++) {
+      const host = await signInTestHost();
+      expect((await generate(generateRequest(host, ip))).status).toBeGreaterThanOrEqual(500);
+    }
+
+    vi.mocked(generateQuizPack).mockResolvedValue(PACK as never);
+    const third = await signInTestHost();
+    const refused = await generate(generateRequest(third, ip));
+    expect(refused.status).toBe(429);
+    expect((await refused.json()).freeIpLimitReached).toBe(true);
+  });
+
+  it("gives the unit back when nothing was generated", async () => {
+    process.env[FREE_IP_DAILY_LIMIT_ENV] = "1";
+    const ip = "10.7.10.2";
+    const host = await signInTestHost();
+    vi.mocked(generateQuizPack).mockRejectedValueOnce(nothingGenerated());
+    expect((await generate(generateRequest(host, ip))).status).toBe(503);
+
+    expect((await generate(generateRequest(host, ip))).status).toBe(201);
+  });
+});
+
+describe("one account's paid-for failures in a day (GH7.2)", () => {
+  async function failOnce(host: TestHost) {
+    return generate(generateRequest(host));
+  }
+
+  it("refuses an account after three by default, with a message that says why", async () => {
+    const host = await signInTestHost();
+    vi.mocked(generateQuizPack).mockRejectedValue(generatedButUnusable());
+    for (let i = 0; i < 3; i++) expect((await failOnce(host)).status).toBeGreaterThanOrEqual(500);
+
+    const refused = await failOnce(host);
+    expect(refused.status).toBe(429);
+    const body = await refused.json();
+    expect(body.error).toBe(FREE_FAILED_LIMIT_MESSAGE);
+    expect(body.failedGenerationLimitReached).toBe(true);
+    expect(body.limit).toBe(3);
+    expect(Number(refused.headers.get("Retry-After"))).toBeGreaterThan(0);
+    // Refused before the model was called.
+    expect(vi.mocked(generateQuizPack)).toHaveBeenCalledTimes(3);
+  });
+
+  it("reads the limit from FREE_FAILED_GENERATIONS_DAILY_LIMIT", async () => {
+    process.env[FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV] = "1";
+    const host = await signInTestHost();
+    vi.mocked(generateQuizPack).mockRejectedValue(generatedButUnusable());
+    expect((await failOnce(host)).status).toBeGreaterThanOrEqual(500);
+    expect((await failOnce(host)).status).toBe(429);
+  });
+
+  it("does not count a failure where nothing was generated", async () => {
+    process.env[FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV] = "1";
+    const host = await signInTestHost();
+    vi.mocked(generateQuizPack).mockRejectedValue(nothingGenerated());
+    for (let i = 0; i < 3; i++) expect((await failOnce(host)).status).toBe(503);
+
+    vi.mocked(generateQuizPack).mockResolvedValue(PACK as never);
+    expect((await failOnce(host)).status).toBe(201);
+  });
+
+  it("does not count a pack that was saved", async () => {
+    process.env[FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV] = "1";
+    const host = await signInTestHost();
+    expect((await failOnce(host)).status).toBe(201);
+
+    vi.mocked(generateQuizPack).mockRejectedValue(generatedButUnusable());
+    // Still allowed to try: the success held no failure slot.
+    expect((await failOnce(host)).status).toBeGreaterThanOrEqual(500);
+    expect(vi.mocked(generateQuizPack)).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not refuse a different account", async () => {
+    process.env[FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV] = "1";
+    const first = await signInTestHost();
+    vi.mocked(generateQuizPack).mockRejectedValueOnce(generatedButUnusable());
+    expect((await failOnce(first)).status).toBeGreaterThanOrEqual(500);
+
+    const second = await signInTestHost();
+    expect((await failOnce(second)).status).toBe(201);
+  });
+
+  it("does not apply to a Pro subscriber", async () => {
+    process.env[FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV] = "1";
+    const pro = await signInTestHost();
+    await db.creator.update({ where: { id: pro.id }, data: { plan: "PRO" } });
+    vi.mocked(generateQuizPack).mockRejectedValue(generatedButUnusable());
+    expect((await failOnce(pro)).status).toBeGreaterThanOrEqual(500);
+    const again = await failOnce(pro);
+    expect((await again.json()).failedGenerationLimitReached).toBeUndefined();
+    expect(vi.mocked(generateQuizPack)).toHaveBeenCalledTimes(2);
   });
 });
 

@@ -32,6 +32,8 @@ import {
 import {
   reserveFreeIpDaily,
   FREE_IP_LIMIT_MESSAGE,
+  reserveFreeFailedGeneration,
+  FREE_FAILED_LIMIT_MESSAGE,
   reserveMailboxGeneration,
   MAILBOX_LIMIT_MESSAGE,
 } from "@/lib/free-allowance";
@@ -235,9 +237,20 @@ export async function POST(req: NextRequest) {
    *
    * Ahead of the shared ceiling so a refused caller never touches it.
    */
+  // GH7: this account's paid-for failures today. First, so an account that has
+  // used them up is refused before any other counter is touched.
+  const failed = plan === "PRO" ? null : await reserveFreeFailedGeneration(existing.id);
+  if (failed && !failed.allowed) {
+    return NextResponse.json(
+      { error: FREE_FAILED_LIMIT_MESSAGE, failedGenerationLimitReached: true, limit: failed.limit },
+      { status: 429, headers: { "Retry-After": String(failed.retryAfterSeconds) } }
+    );
+  }
+
   const freeIp =
     plan === "PRO" ? null : await reserveFreeIpDaily(clientIp(req));
   if (freeIp && !freeIp.allowed) {
+    await failed?.release();
     return NextResponse.json(
       { error: FREE_IP_LIMIT_MESSAGE, freeIpLimitReached: true, limit: freeIp.limit },
       { status: 429, headers: { "Retry-After": String(freeIp.retryAfterSeconds) } }
@@ -248,7 +261,10 @@ export async function POST(req: NextRequest) {
   // and before any row is written. There is no identity in its key, so
   // rotating or dropping cookies does not move it.
   const daily = await reserveDailyGeneration(plan);
-  if (!daily.allowed) await freeIp?.release();
+  if (!daily.allowed) {
+    await freeIp?.release();
+    await failed?.release();
+  }
   if (!daily.allowed && daily.unavailable) {
     // The counter could not be reached, so the ceiling could not be checked
     // and nothing is spent (N1). This is not "you are out of packs" and must
@@ -343,6 +359,7 @@ export async function POST(req: NextRequest) {
   if (!reservation.reserved) {
     await daily.release();
     await freeIp?.release();
+    await failed?.release();
     const res = NextResponse.json(
       {
         error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
@@ -379,6 +396,7 @@ export async function POST(req: NextRequest) {
     await reservation.release();
     await daily.release();
     await freeIp?.release();
+    await failed?.release();
     return NextResponse.json(
       {
         error: MAILBOX_LIMIT_MESSAGE,
@@ -415,10 +433,12 @@ export async function POST(req: NextRequest) {
       await mailbox?.release();
       // Fair use is a host's allowance too, so it comes back whatever failed.
       await fairUse?.release();
-      // The free-tier fairness counters are not a bill: whatever went wrong,
-      // the caller has no pack, so their allowance comes back either way.
-      await freeIp?.release();
       if (nothingWasGenerated) {
+        // GH7: the address's free unit and the account's failure slot come back
+        // on the ceiling's terms. Refunding them for a paid-for failure let one
+        // address send failing briefs all day without ever reaching its cap.
+        await freeIp?.release();
+        await failed?.release();
         await daily.release();
         // Same terms as the shared ceiling: this subscriber's daily unit comes
         // back only when we are confident the model produced nothing.
@@ -435,7 +455,12 @@ export async function POST(req: NextRequest) {
 
   let generated;
   try {
-    generated = await generateQuizPack(parsed.data.prompt);
+    // GH5: generation, its retries and ACC8's second attempt all end inside
+    // the function's time, with room left to save. What is left after it
+    // goes to the review, which ends as "not checked" if it runs short.
+    generated = await generateQuizPack(parsed.data.prompt, undefined, {
+      deadline: startedAt + maxDuration * 1000 - SAVE_MARGIN_MS,
+    });
   } catch (err) {
     await releaseReservations(err);
     logFailedGeneration(err);
@@ -471,7 +496,7 @@ export async function POST(req: NextRequest) {
         err
       );
     } else if (err instanceof ModelDeclinedError) {
-      console.warn("Quiz pack brief declined by the model:", err.reason || "(no reason given)");
+      console.warn("Quiz pack brief declined by the model:", err.reason || err.detail || "(no reason given)");
     } else {
       console.error("Quiz pack generation failed:", err);
     }
@@ -510,9 +535,9 @@ export async function POST(req: NextRequest) {
     try {
       await reservation.release();
       await mailbox?.release();
-      await freeIp?.release();
       await fairUse?.release();
-      // The model ran and was billed, so the shared ceiling keeps its unit —
+      // The model ran and was billed, so the shared ceiling keeps its unit, and
+      // so do the address's free unit and the account's failure slot (GH7) —
       // but this subscriber has nothing to show for it, and one of their ten a
       // day should not be spent on our storage failure.
       await proDaily?.release();
@@ -532,6 +557,8 @@ export async function POST(req: NextRequest) {
   // (M8). It never throws — losing a count is a smaller failure than answering
   // 500 for a pack that exists.
   if (proDaily) await countProGenerationInPeriod(existing.id);
+  // GH7: a saved pack is not a failure.
+  await failed?.release();
 
   const res = NextResponse.json({ pack }, { status: 201 });
   return res;

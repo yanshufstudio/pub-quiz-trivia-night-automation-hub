@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/privacy",
   title: "Privacy Policy · TriviaFoundry",
   description: "What TriviaFoundry stores, who processes it, and how to have it deleted.",
-};
+});
 
 export default function PrivacyPage() {
   return (
@@ -110,6 +112,20 @@ export default function PrivacyPage() {
             <span className="font-medium text-foreground">Vercel</span> — hosts the site.
           </li>
           <li>
+            <span className="font-medium text-foreground">Vercel Web Analytics</span> — counts page
+            views, so we can see which pages people read. Vercel says it doesn&apos;t rely on
+            cookies, and on our pages its script sets none and stores nothing in your browser. For
+            each page view it records the page&apos;s address (we remove anything after a{" "}
+            <code>?</code> or <code>#</code> before it is sent), the site you arrived from, the time,
+            a country, region and city, and your browser, operating system and type of device
+            (phone, tablet or desktop), with their versions. It tells one visitor from another by a
+            hash of the request, which Vercel discards after 24 hours. Vercel says nothing it records
+            can follow a visit onto other websites or is tied to you or your account. We see totals,
+            not people. Vercel keeps these
+            statistics for at least 12 months, the reporting window on our plan, and says it may
+            keep them longer.
+          </li>
+          <li>
             <span className="font-medium text-foreground">Turso</span> — runs the database the above
             is stored in.
           </li>
@@ -126,15 +142,17 @@ export default function PrivacyPage() {
         </LegalList>
       </LegalSection>
 
-      <LegalSection id="no-tracking" title="No analytics, no advertising">
+      <LegalSection id="no-tracking" title="Analytics, and no advertising">
         <LegalText>
-          We run no analytics and no advertising, and we do not sell or share your data for either.
-          Nothing here is used to profile you.
+          The only analytics we run is Vercel Web Analytics, described above: page-view counts. On
+          our pages it sets no cookies and stores nothing in your browser, and Vercel says nothing it
+          records ties a visit to you or to your account. We run no advertising, and we do not sell or share your data. Nothing here is used
+          to profile you.
         </LegalText>
       </LegalSection>
 
-      <LegalSection id="cookies" title="Cookies">
-        <LegalText>There are three, and not one of them is for tracking.</LegalText>
+      <LegalSection id="cookies" title="Cookies and browser storage">
+        <LegalText>We set three cookies, and not one of them is for tracking.</LegalText>
         <LegalList>
           <li>
             <span className="font-medium text-foreground">Your sign-in cookie</span> — set when you
@@ -154,10 +172,40 @@ export default function PrivacyPage() {
           </li>
         </LegalList>
         <LegalText>
-          All three are strictly necessary in the sense the law means: the service cannot tell your
-          packs from anyone else&apos;s, or finish a Google sign-in, without them — so there is
-          nothing optional to consent to. We set no tracking or advertising cookies. Teams playing a
-          quiz are not asked to sign in and get none of them.
+          Two more things are kept in your browser&apos;s own storage rather than in a cookie, so that
+          a live game survives a reload or a dropped connection:
+        </LegalText>
+        <LegalList>
+          <li>
+            <span className="font-medium text-foreground">The host key</span> — when you start a live
+            game, the key that proves this browser is the one running it, saved against that
+            game&apos;s code, so the host desk can reconnect to the game. It stays until you clear this
+            site&apos;s data in your browser.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">The team token</span> — when a team joins,
+            the game&apos;s code, the team&apos;s name and the token that proves the phone belongs to
+            that team, so it rejoins the same team after a reload rather than starting again. It is
+            removed when the team leaves the game, or when the game no longer accepts it.
+          </li>
+        </LegalList>
+        <LegalText>
+          Both are sent only to us, with that game&apos;s own requests.
+        </LegalText>
+        <LegalText>
+          All of the above are strictly necessary in the sense the law means: the service cannot
+          tell your packs from anyone else&apos;s, finish a Google sign-in, or keep a host desk or a
+          team&apos;s phone connected to its game without them — so there is nothing optional to
+          consent to. We set no tracking or advertising cookies. Teams playing a quiz are not asked
+          to sign in and get none of the cookies; the team token is the only thing we store on a
+          team&apos;s phone.
+        </LegalText>
+        <LegalText>
+          <span className="font-medium text-foreground">Paddle&apos;s cookies during checkout.</span>{" "}
+          Paddle&apos;s code is not loaded on any page until you press Subscribe. Its checkout then
+          opens inside our page, and it is Paddle&apos;s: while you use it, it sets its own cookies,
+          including ones it needs to run and secure the checkout. Those are Paddle&apos;s cookies,
+          not ours, and Paddle&apos;s own privacy policy covers them.
         </LegalText>
       </LegalSection>
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Pack, Question, QuestionType, Round } from "@/lib/api-types";
 import { writeHostToken } from "@/lib/host-session";
+import { formatBytes, MAX_MEDIA_BYTES } from "@/lib/media-limits";
 import { SITE_URL } from "@/lib/site";
 import { countOf } from "@/lib/plural";
 import { UncheckedPackBanner } from "./UncheckedPackBanner";
@@ -811,7 +812,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                       {mediaError[question.id] ? (
                         <p className="text-xs text-red-700">{mediaError[question.id]}</p>
                       ) : null}
-                      <span className="text-xs text-muted">JPEG or PNG, up to 2 MB.</span>
+                      <span className="text-xs text-muted">JPEG or PNG, up to {formatBytes(MAX_MEDIA_BYTES)}.</span>
                     </div>
                   </li>
                 );

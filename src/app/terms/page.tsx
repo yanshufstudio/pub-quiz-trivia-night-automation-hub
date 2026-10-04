@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import { ContactLink, LegalList, LegalPage, LegalSection, LegalText } from "@/components/LegalPage";
 import {
@@ -9,10 +10,11 @@ import {
 } from "@/lib/pricing";
 import { countOf } from "@/lib/plural";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/terms",
   title: "Terms of Service · TriviaFoundry",
   description: "The terms you agree to when you use TriviaFoundry.",
-};
+});
 
 export default function TermsPage() {
   return (

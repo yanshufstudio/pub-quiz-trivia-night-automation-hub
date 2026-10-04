@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { SiteFooter } from "@/components/SiteFooter";
+import { HOME_DESCRIPTION, HOME_TITLE, OG_IMAGE, SITE_NAME } from "@/lib/page-metadata";
 import { SITE_URL } from "@/lib/site";
 import manifest from "./manifest";
 import "./globals.css";
@@ -36,31 +38,32 @@ const mono = localFont({
   display: "swap",
 });
 
-const OG_ALT =
-  "TriviaFoundry: writes your pub quiz or trivia night, then runs it live. A live scoreboard on a dark pub-green background.";
-
 export const metadata: Metadata = {
-  // Absolute base for the share-card URLs below. public/og.png is rendered
-  // by scripts/render-og.ts (npm run og). The origin is shared with
+  // Absolute base for the share-card URLs below. The origin is shared with
   // sitemap.ts and robots.ts, so it comes from src/lib/site.ts rather than
   // being spelled out here a third time.
   metadataBase: new URL(SITE_URL),
+  // The defaults for pages that set no preview of their own — in practice
+  // the ones robots.ts disallows. Every crawlable page, the homepage
+  // included, sets its own through pageMetadata() (src/lib/page-metadata.ts),
+  // because a page that sets `openGraph` replaces this object rather than
+  // merging with it. No canonical here on purpose: a layout-level canonical
+  // would tell a crawler every page is the homepage.
   openGraph: {
     type: "website",
-    siteName: "TriviaFoundry",
-    title: "TriviaFoundry — pub quiz and trivia night packs, written and run live",
+    siteName: SITE_NAME,
+    title: HOME_TITLE,
     description: "Writes your pub quiz or trivia night, then runs it live.",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: OG_ALT }],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TriviaFoundry — pub quiz and trivia night packs, written and run live",
+    title: HOME_TITLE,
     description: "Writes your pub quiz or trivia night, then runs it live.",
-    images: [{ url: "/og.png", alt: OG_ALT }],
+    images: [{ url: OG_IMAGE.url, alt: OG_IMAGE.alt }],
   },
-  title: "TriviaFoundry — pub quiz and trivia night packs, written and run live",
-  description:
-    "Writes your pub quiz or trivia night, then runs it live. Describe the rounds you want; get a full pack, a presenter script and printed answer sheets, then run it with teams on their phones.",
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
   applicationName: "TriviaFoundry",
   // Installable from the browser menu (Chromium, iOS 16.4+). No service
   // worker on purpose: the live session is polling, so an "offline" shell
@@ -91,6 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             default. It removes itself on the live-night and print surfaces —
             see SiteFooter. */}
         <SiteFooter />
+        <SiteAnalytics />
       </body>
     </html>
   );
