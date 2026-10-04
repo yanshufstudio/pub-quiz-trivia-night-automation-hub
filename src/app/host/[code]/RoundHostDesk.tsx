@@ -36,7 +36,13 @@ const COUNTDOWN_CHOICES = [
   { seconds: 300, label: "5 min" },
 ];
 
-type Confirming = "close" | "finish" | "end" | null;
+type Confirming = "close" | "finish" | "end" | "reveal_all" | null;
+
+/** "A", "A and B", "A, B and C" — for a sentence, unlike the trophy's "&". */
+function listNames(names: string[]): string {
+  if (names.length <= 1) return names.join("");
+  return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+}
 
 export function RoundHostDesk({
   code,
@@ -97,6 +103,14 @@ export function RoundHostDesk({
   const current = state.questions[state.askedCount - 1] ?? null;
 
   let primary: { label: string; onPress: () => void; disabled?: boolean } | null = null;
+  // Paper teams with no total typed for this round score 0 for it. Said
+  // before "Reveal all" and "Finish", which used to go ahead without a word.
+  const missingTotals = (state.marks ?? []).filter((row) => row.isPaper && row.typed === null).map((row) => row.name);
+  const missingTotalsNote =
+    missingTotals.length > 0
+      ? `No round ${state.roundNumber} total for ${listNames(missingTotals)} — they score 0 for it unless you type one.`
+      : "";
+
   if (state.status === "LOBBY") {
     primary = {
       label: state.teams.length === 0 ? "Waiting for the first team" : "Start quiz",
@@ -259,7 +273,12 @@ export function RoundHostDesk({
           <section className="rounded-2xl bg-white/5 p-4 sm:p-6">
             <div className="flex flex-wrap gap-2">
               {(state.status === "ROUND_MARKING" || state.status === "ROUND_REVEAL") && state.revealedCount < total ? (
-                <button type="button" disabled={busy} onClick={() => void advance("reveal_all")} className={secondary}>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => (missingTotals.length > 0 ? setConfirming("reveal_all") : void advance("reveal_all"))}
+                  className={secondary}
+                >
                   Reveal all
                 </button>
               ) : null}
@@ -290,7 +309,7 @@ export function RoundHostDesk({
         {state.status === "ENDED" ? <Ended state={state} /> : null}
       </main>
 
-      {primary || confirming === "close" || confirming === "finish" ? (
+      {primary || confirming === "close" || confirming === "finish" || confirming === "reveal_all" ? (
         <div
           data-testid="primary-action"
           className="fixed inset-x-0 bottom-0 z-10 border-t border-white/10 bg-stage/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur"
@@ -312,7 +331,7 @@ export function RoundHostDesk({
             ) : confirming === "finish" ? (
               <ConfirmPanel
                 title="Finish the quiz?"
-                body="The final scoreboard goes up on every screen. This cannot be undone."
+                body={`${missingTotalsNote ? `${missingTotalsNote} ` : ""}The final scoreboard goes up on every screen. This cannot be undone.`}
                 confirmLabel="Yes, finish the quiz"
                 keepLabel="Not yet"
                 busy={busy}
@@ -320,6 +339,19 @@ export function RoundHostDesk({
                 onConfirm={() => {
                   setConfirming(null);
                   void advance("finish");
+                }}
+              />
+            ) : confirming === "reveal_all" ? (
+              <ConfirmPanel
+                title="Reveal all answers?"
+                body={missingTotalsNote}
+                confirmLabel="Yes, reveal all"
+                keepLabel="Keep marking"
+                busy={busy}
+                onKeep={() => setConfirming(null)}
+                onConfirm={() => {
+                  setConfirming(null);
+                  void advance("reveal_all");
                 }}
               />
             ) : primary ? (

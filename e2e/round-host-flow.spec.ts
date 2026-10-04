@@ -114,7 +114,10 @@ test("a host runs a whole round-mode game from a phone", async ({ browser, baseU
   await (await primary(page, "Ask next question")).click();
   await (await primary(page, "Close round…")).click();
   await page.getByRole("button", { name: "Yes, close the round" }).click();
+  // No round 2 total for the paper team: the desk says so, and carries on when told to.
   await page.getByRole("button", { name: "Reveal all" }).click();
+  await expect(page.getByTestId("primary-action")).toContainText("No round 2 total for The Pencils");
+  await page.getByRole("button", { name: "Yes, reveal all" }).click();
 
   await (await primary(page, "Finish quiz…")).click();
   await expect(page.getByRole("heading", { name: "Finish the quiz?" })).toBeVisible();
