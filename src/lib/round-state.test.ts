@@ -94,7 +94,7 @@ describe("what each allowed action does", () => {
 
   it("ask_next asks one more question, pinned to the count it read", () => {
     const plan = data(CASES.openPartly.state, "ask_next");
-    expect(plan.data).toEqual({ askedCount: 2 });
+    expect(plan.data).toEqual({ askedCount: 2, countdownStartedAt: null, countdownSeconds: null });
     expect(plan.pin).toMatchObject({ status: "ROUND_OPEN", currentRoundIndex: 0, askedCount: 1 });
   });
 
@@ -102,6 +102,13 @@ describe("what each allowed action does", () => {
     const refused = planRoundAction(CASES.openPartly.state, { action: "close_round" }, ROUND_LENGTHS, NOW);
     expect(refused.ok).toBe(false);
     expect(data(CASES.openAll.state, "close_round").data).toMatchObject({ status: "ROUND_MARKING" });
+  });
+
+  it("ask_next stops a running countdown, so it never carries over to the next question", () => {
+    expect(data(CASES.openPartly.state, "ask_next").data).toMatchObject({
+      countdownStartedAt: null,
+      countdownSeconds: null,
+    });
   });
 
   it("close_round stops a running countdown", () => {

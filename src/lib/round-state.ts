@@ -94,7 +94,9 @@ export function planRoundAction(
     case "ask_next":
       if (status !== ROUND_OPEN) return refuse("The round is not open");
       if (askedCount >= length) return refuse("Every question in this round has been asked");
-      return { ok: true, pin: exact, data: { askedCount: askedCount + 1 } };
+      // A countdown belongs to the question it was started on: carried over,
+      // it showed "Time's up!" on the next one from the moment it was asked.
+      return { ok: true, pin: exact, data: { askedCount: askedCount + 1, ...NO_COUNTDOWN } };
 
     case "close_round":
       if (status !== ROUND_OPEN) return refuse("The round is not open");

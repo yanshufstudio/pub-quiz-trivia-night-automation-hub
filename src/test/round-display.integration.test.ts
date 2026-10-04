@@ -120,6 +120,22 @@ describe("the TV view (RM5)", () => {
     expectNoSecrets(body, hostToken, await allTokens(code), [R1.questions[0].answer]);
   });
 
+  it("a countdown that ran out on one question is gone once the next is asked", async () => {
+    // As seen on the desk and the TV: a minute started on Q1, reached zero,
+    // and Q3 still said "Time's up!" with Q1's start time.
+    const { code, hostToken } = await setup();
+    await game.advance(code, hostToken, "start");
+    expect((await game.advance(code, hostToken, "start_countdown", { seconds: 60 })).status).toBe(200);
+    await db.session.update({ where: { code }, data: { countdownStartedAt: new Date(Date.now() - 2 * 60_000) } });
+    expect((await displayBody(code)).countdown).not.toBeNull();
+
+    expect((await game.advance(code, hostToken, "ask_next")).status).toBe(200);
+    expect((await game.advance(code, hostToken, "ask_next")).status).toBe(200);
+
+    expect((await displayBody(code)).countdown).toBeNull();
+    expect((await (await game.hostView(code, hostToken)).json()).countdown).toBeNull();
+  });
+
   it("the scoreboard only while the host shows it", async () => {
     const { code, hostToken } = await setup();
     await game.advance(code, hostToken, "start");
