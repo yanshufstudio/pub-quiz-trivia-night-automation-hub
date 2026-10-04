@@ -56,7 +56,7 @@ export default function RefundsPage() {
           <li>
             <span className="font-medium text-foreground">The free trial.</span> New subscribers
             get a {TRIAL_DAYS}-day free trial, card required. Nothing is charged during it:
-            you&apos;re charged when the trial ends, unless you cancel before then, and that charge
+            you are charged when the trial ends, unless you cancel before then, and that charge
             is your first subscription payment above. For its refund, the packs you generate during
             the trial count as generated in the current billing period.
           </li>
@@ -142,6 +142,10 @@ export default function RefundsPage() {
             terms of service
           </Link>{" "}
           page.
+        </LegalText>
+        <LegalText>
+          Prices are set in US dollars. If your card is in another currency, your bank or card company
+          sets the exchange rate and may charge its own fees. Both are beyond our control.
         </LegalText>
       </LegalSection>
     </LegalPage>

@@ -115,7 +115,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             <span className="font-medium text-foreground">Vercel Web Analytics</span> — counts page
-            views, so we can see which pages people read. Vercel says it doesn&apos;t rely on
+            views, so we can see which pages people read. Vercel says it does not rely on
             cookies, and on our pages its script sets none and stores nothing in your browser. For
             each page view it records the page&apos;s address (we remove anything after a{" "}
             <code>?</code> or <code>#</code> before it is sent), the site you arrived from, the time,
@@ -247,6 +247,15 @@ export default function PrivacyPage() {
             refund policy
           </Link>{" "}
           for how to reach them.
+        </LegalText>
+        <LegalText>
+          If your account has an active Pro subscription, we cancel it at Paddle before we delete the
+          account, so it does not renew. Deleting the account does not by itself refund a payment;
+          refunds follow the{" "}
+          <Link className="font-medium text-amber hover:underline" href="/refunds">
+            refund policy
+          </Link>
+          .
         </LegalText>
         <LegalText>
           Signing out on its own does not delete anything — it ends that browser&apos;s session and

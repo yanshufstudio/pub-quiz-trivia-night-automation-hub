@@ -95,6 +95,21 @@ export default function TermsPage() {
         </LegalText>
       </LegalSection>
 
+      <LegalSection id="liability" title="Our liability">
+        <LegalText>
+          TriviaFoundry is provided as it is and as available, without any warranty, except for any
+          warranty that the law does not allow us to exclude. Within what the law allows, Yanshuf Studio
+          is not liable for any indirect or consequential loss, or for any loss of profit, revenue, data
+          or goodwill, arising from your use of the service. Within what the law allows, our total
+          liability to you for all claims about the service is limited to the greater of the amount you
+          paid for the service in the 12 months before the claim and 50 US dollars. These limits do not
+          apply to liability that the law does not allow us to limit, including liability for death or
+          personal injury caused by negligence, for fraud, and for harm caused intentionally or by gross
+          negligence, and they do not affect any right you have under the consumer law that applies to
+          you.
+        </LegalText>
+      </LegalSection>
+
       <LegalSection id="acceptable-use" title="Acceptable use">
         <LegalText>
           Do not use the service to generate or publish abusive or unlawful content, and do not use
@@ -122,6 +137,10 @@ export default function TermsPage() {
           </Link>{" "}
           page.
         </LegalText>
+        <LegalText>
+          Prices are set in US dollars. If your card is in another currency, your bank or card company
+          sets the exchange rate and may charge its own fees. Both are beyond our control.
+        </LegalText>
       </LegalSection>
 
       <LegalSection id="privacy" title="Privacy">
@@ -134,14 +153,31 @@ export default function TermsPage() {
         </LegalText>
       </LegalSection>
 
-      <LegalSection id="governing-law" title="Governing law">
-        <LegalText>These terms are governed by the laws of Israel.</LegalText>
+      <LegalSection id="governing-law" title="Governing law and courts">
+        <LegalText>
+          These terms are governed by the laws of the State of Israel. The competent courts in the Tel
+          Aviv-Jaffa district have jurisdiction over any dispute about these terms or the service. If you
+          are a consumer, you keep the protection of the mandatory consumer laws of the country where you
+          live, which these terms cannot override, and nothing in this section stops you from bringing a
+          claim in the courts of that country where the law gives you that right. Your purchase of Pro
+          from Paddle is also governed by the{" "}
+          <a
+            className="font-medium text-amber hover:underline"
+            href="https://www.paddle.com/legal/invoiced-consumer-terms"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Paddle Buyer Terms
+          </a>
+          , including the law and courts they name.
+        </LegalText>
       </LegalSection>
 
       <LegalSection id="changes" title="Changes to these terms">
         <LegalText>
-          If we change these terms, the date at the top of this page changes with them. Continuing
-          to use the service after that means the new version applies. Questions go to{" "}
+          If we make a substantial change to these terms, we will tell you by email or on the site at
+          least 7 days before it takes effect. Other changes take effect when we publish them, and the
+          date at the top of this page changes with them. Questions go to{" "}
           <ContactLink />
           .
         </LegalText>
