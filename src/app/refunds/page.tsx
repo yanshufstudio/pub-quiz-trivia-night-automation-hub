@@ -143,6 +143,10 @@ export default function RefundsPage() {
           </Link>{" "}
           page.
         </LegalText>
+        <LegalText>
+          Prices are set in US dollars. If your card is in another currency, your bank or card company
+          sets the exchange rate and may charge its own fees. Both are beyond our control.
+        </LegalText>
       </LegalSection>
     </LegalPage>
   );
