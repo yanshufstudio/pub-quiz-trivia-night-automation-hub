@@ -249,6 +249,15 @@ export default function PrivacyPage() {
           for how to reach them.
         </LegalText>
         <LegalText>
+          If your account has an active Pro subscription, we cancel it at Paddle before we delete the
+          account, so it does not renew. Deleting the account does not by itself refund a payment;
+          refunds follow the{" "}
+          <Link className="font-medium text-amber hover:underline" href="/refunds">
+            refund policy
+          </Link>
+          .
+        </LegalText>
+        <LegalText>
           Signing out on its own does not delete anything — it ends that browser&apos;s session and
           leaves your account as it was.
         </LegalText>
