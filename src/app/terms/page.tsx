@@ -134,8 +134,24 @@ export default function TermsPage() {
         </LegalText>
       </LegalSection>
 
-      <LegalSection id="governing-law" title="Governing law">
-        <LegalText>These terms are governed by the laws of Israel.</LegalText>
+      <LegalSection id="governing-law" title="Governing law and courts">
+        <LegalText>
+          These terms are governed by the laws of the State of Israel. The competent courts in the Tel
+          Aviv-Jaffa district have jurisdiction over any dispute about these terms or the service. If you
+          are a consumer, you keep the protection of the mandatory consumer laws of the country where you
+          live, which these terms cannot override, and nothing in this section stops you from bringing a
+          claim in the courts of that country where the law gives you that right. Your purchase of Pro
+          from Paddle is also governed by the{" "}
+          <a
+            className="font-medium text-amber hover:underline"
+            href="https://www.paddle.com/legal/invoiced-consumer-terms"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Paddle Buyer Terms
+          </a>
+          , including the law and courts they name.
+        </LegalText>
       </LegalSection>
 
       <LegalSection id="changes" title="Changes to these terms">
