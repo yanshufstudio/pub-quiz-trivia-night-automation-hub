@@ -171,8 +171,9 @@ export default function TermsPage() {
 
       <LegalSection id="changes" title="Changes to these terms">
         <LegalText>
-          If we change these terms, the date at the top of this page changes with them. Continuing
-          to use the service after that means the new version applies. Questions go to{" "}
+          If we make a substantial change to these terms, we will tell you by email or on the site at
+          least 7 days before it takes effect. Other changes take effect when we publish them, and the
+          date at the top of this page changes with them. Questions go to{" "}
           <ContactLink />
           .
         </LegalText>
