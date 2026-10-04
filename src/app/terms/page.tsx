@@ -95,6 +95,21 @@ export default function TermsPage() {
         </LegalText>
       </LegalSection>
 
+      <LegalSection id="liability" title="Our liability">
+        <LegalText>
+          TriviaFoundry is provided as it is and as available, without any warranty, except for any
+          warranty that the law does not allow us to exclude. Within what the law allows, Yanshuf Studio
+          is not liable for any indirect or consequential loss, or for any loss of profit, revenue, data
+          or goodwill, arising from your use of the service. Within what the law allows, our total
+          liability to you for all claims about the service is limited to the greater of the amount you
+          paid for the service in the 12 months before the claim and 50 US dollars. These limits do not
+          apply to liability that the law does not allow us to limit, including liability for death or
+          personal injury caused by negligence, for fraud, and for harm caused intentionally or by gross
+          negligence, and they do not affect any right you have under the consumer law that applies to
+          you.
+        </LegalText>
+      </LegalSection>
+
       <LegalSection id="acceptable-use" title="Acceptable use">
         <LegalText>
           Do not use the service to generate or publish abusive or unlawful content, and do not use
