@@ -88,16 +88,6 @@ const STEPS: Step[] = [
     ),
   },
   {
-    title: "Set a per-question timer, if you want one",
-    body: (
-      <>
-        In the pack editor, next to <em>Start live session</em>. Twenty to sixty seconds a
-        question, or no timer at all, which leaves you to reveal each answer when the room is
-        ready. You can decide this at the last minute; it is set when the session starts.
-      </>
-    ),
-  },
-  {
     title: "Print the sheets",
     body: (
       <>
@@ -138,7 +128,36 @@ const STEPS: Step[] = [
       <>
         They go to <strong>{JOIN_URL_SPOKEN}</strong> — the <em>Join</em> link in the menu —
         and type the code and a team name. <strong>No account, no app, no sign-up.</strong>{" "}
-        One phone per team is enough; that is the phone they answer on all night.
+        One phone per team is enough; that is the phone they answer on all night. If a phone
+        drops off during the night, see{" "}
+        <Link className="font-medium text-amber hover:underline" href="/faq#phone-connection">
+          what to do when a team&apos;s phone loses its connection
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    title: "Add paper teams, if some tables play on paper",
+    body: (
+      <>
+        A table writing on the printed answer sheets can still be on the scoreboard. While
+        teams are joining, <em>Add paper team</em> and type the table&apos;s name. You type its
+        total for each round when you check the marks.
+      </>
+    ),
+  },
+  {
+    title: "Put the game on a TV, if the room has one",
+    body: (
+      <>
+        On your host screen, open <em>Menu</em> and press <em>Open TV display</em> under{" "}
+        <em>TV display</em>. It opens a page for the room in a new tab: move it to the screen
+        the room can see. On a laptop, use Extend, not Mirror, and cast a tab, not your screen,
+        or the room will see the answers. While teams join, the TV shows the join address, the
+        code and a QR code. During a round it shows the current question, or every question
+        asked so far if you choose <em>All questions so far</em> under <em>TV shows</em>. It
+        never shows an answer before you reveal it.
       </>
     ),
   },
@@ -146,29 +165,65 @@ const STEPS: Step[] = [
     title: "Start the quiz",
     body: (
       <>
-        Once at least one team is in, <em>Start quiz</em> puts the first question up. Teams who
-        turn up late can still join while you are in the lobby.
+        Once at least one team is in, <em>Start quiz</em> opens round 1 with its first question.
+        Teams who turn up late can still join; a team that joins after a round has closed plays
+        from the next round.
       </>
     ),
   },
   {
-    title: "Run it: reveal, then next",
+    title: "Ask the round's questions",
     body: (
       <>
-        Each question goes up on your screen and on every team&apos;s phone.{" "}
-        <em>Reveal answer</em> shows the answer and scores what came in; then you move on to the
-        next question. That rhythm is the whole night.
+        Read each question out. <em>Ask next question</em> puts the next one up on the TV and on
+        every team&apos;s phone. A team&apos;s phone keeps every question asked so far in the
+        round, and the team can change its answers until you close the round. Your screen shows
+        how many phone teams have answered the current question. If you want a time limit,{" "}
+        <em>Start countdown</em> offers 1, 2, 3 or 5 minutes. It is a reminder only: answers stay
+        open until you close the round, and the countdown stops when you ask the next question.
       </>
     ),
   },
   {
-    title: "Overrule the marking when you need to",
+    title: "Close the round",
     body: (
       <>
-        After a reveal, every team&apos;s answer is listed with <em>Correct</em> and{" "}
-        <em>Wrong</em> next to it. A spelling that should have counted, a right answer typed
-        the long way round — mark it yourself and the scores follow. You are the quizmaster;
-        the software is not.
+        Once every question in the round has been asked, <em>Close round…</em> asks you to
+        confirm. After <em>Yes, close the round</em>, teams can no longer change their answers.
+      </>
+    ),
+  },
+  {
+    title: "Check the marks",
+    body: (
+      <>
+        Every phone team&apos;s answers are marked automatically against the answer key and
+        listed on your screen, with a tick or a cross. A spelling that should have counted, a
+        right answer typed the long way round: tap the mark to change it and the scores follow.
+        Below the marks, type the round total for each paper team, or a total that replaces a
+        phone team&apos;s. The room sees none of this. You are the quizmaster; the software is
+        not.
+      </>
+    ),
+  },
+  {
+    title: "Reveal the answers",
+    body: (
+      <>
+        <em>Reveal next answer</em> shows one answer at a time on the TV and on the phones, where
+        each team sees its own mark. <em>Reveal all</em> shows the rest of the round at once. If
+        a paper team has no total for the round, <em>Reveal all</em> says so first. A round
+        counts on the scoreboard once every answer in it is revealed.
+      </>
+    ),
+  },
+  {
+    title: "Show the scoreboard, then the next round",
+    body: (
+      <>
+        <em>Show scoreboard</em> puts the standings on the TV and on the phones, and{" "}
+        <em>Hide scoreboard</em> takes them down. <em>Next round</em> opens the next round with
+        its first question, and you ask, close, mark and reveal it the same way.
       </>
     ),
   },
@@ -176,8 +231,9 @@ const STEPS: Step[] = [
     title: "Finish on the scoreboard",
     body: (
       <>
-        At the end the final standings go up, ties and all. Then you are back at your packs,
-        ready to do it again next week.
+        After the last round is revealed, <em>Finish quiz…</em> asks you to confirm. Then the
+        final standings go up on every screen, ties and all. The pack stays in your list, ready
+        to run again next week.
       </>
     ),
   },
@@ -190,7 +246,7 @@ export default function HowItWorksPage() {
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-10">
         <h1 className="font-serif text-3xl font-semibold tracking-tight">How to run a quiz night</h1>
         <p className="mt-2 text-muted">
-          From an empty screen to a room full of teams. Twelve steps, most of them one click.
+          From an empty screen to a room full of teams. Sixteen steps, most of them one click.
         </p>
 
         {/* A numbered list, because the order is the content. The marker is
