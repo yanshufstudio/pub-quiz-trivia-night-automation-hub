@@ -43,7 +43,7 @@ export const CONTACT_EMAIL = "info@yanshufstudio.com";
  * a business number. The box number may change, so it is spelled here and
  * nowhere else — `site.test.ts` fails the build if another file in src does.
  */
-export const POSTAL_ADDRESS: readonly string[] = ["Yanshuf Studio", "PO Box 1552", "Rehovot 7611501", "Israel"];
+export const POSTAL_ADDRESS: readonly string[] = ["Yanshuf Studio", "PO Box 1214", "Rehovot 7611102", "Israel"];
 
 /**
  * The date printed at the top of /terms, /privacy and /refunds, and the
