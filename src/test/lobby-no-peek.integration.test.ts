@@ -7,6 +7,7 @@ import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route"
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { db } from "@/lib/db";
 import { signInTestHost, type TestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 const codeParams = (code: string) => ({ params: Promise.resolve({ code }) });
@@ -61,6 +62,7 @@ describe("GET /api/sessions/[code] in the lobby", () => {
     const created = await createSession(ownedRequest("/api/sessions", "POST", { packId: pack.id }));
     const { session, hostToken } = await created.json();
     const code = session.code as string;
+    await switchToQuestionMode(code);
 
     const joined = await joinSession(
       new NextRequest(`${BASE}/api/sessions/${code}/join`, {
@@ -129,6 +131,7 @@ describe("GET /api/sessions/[code] in the lobby", () => {
     const created = await createSession(ownedRequest("/api/sessions", "POST", { packId: pack.id }));
     const { session, hostToken } = await created.json();
     const code = session.code as string;
+    await switchToQuestionMode(code);
 
     const desk = await readSession(
       new NextRequest(`${BASE}/api/sessions/${code}?as=host&hostToken=${encodeURIComponent(hostToken)}`),

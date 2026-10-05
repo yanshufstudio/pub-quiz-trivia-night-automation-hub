@@ -145,7 +145,7 @@ test("a team plays a whole question with no account and no host cookies", async 
   await teamPage.goto(`/play?code=${session.code}`);
   await teamPage.getByLabel("Team name").fill("No Accounts Here");
   await teamPage.getByRole("button", { name: "Join session" }).click();
-  await expect(teamPage.getByText("Sit tight.")).toBeVisible();
+  await expect(teamPage.getByText("You’re in, No Accounts Here.")).toBeVisible();
 
   // Not one cookie of ours in the team's browser.
   const teamCookies = await teamContext.cookies();
@@ -154,11 +154,10 @@ test("a team plays a whole question with no account and no host cookies", async 
 
   await api.post(`/api/sessions/${session.code}/advance`, { data: { action: "start", hostToken } });
   await expect(teamPage.getByText("What is the capital of Australia?")).toBeVisible({ timeout: 10_000 });
-  await teamPage.getByLabel("Your answer").fill("Canberra");
-  await teamPage.getByRole("button", { name: "Submit answer" }).click();
-  // The host desk sees that they answered — from a browser that has never
-  // held a session cookie of ours.
-  await expect(teamPage.getByRole("button", { name: "Submit answer" })).toHaveCount(0);
+  await teamPage.getByLabel("Answer to Round 1 · Q1").fill("Canberra");
+  await teamPage.getByRole("button", { name: "Save" }).click();
+  // Saved — from a browser that has never held a session cookie of ours.
+  await expect(teamPage.getByText("Saved", { exact: true })).toBeVisible({ timeout: 10_000 });
 
   await hostContext.close();
   await teamContext.close();

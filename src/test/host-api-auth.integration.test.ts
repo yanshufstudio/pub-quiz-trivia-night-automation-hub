@@ -208,7 +208,7 @@ describe("the routes that stay open, and why", () => {
     );
 
     const answered = await submitAnswer(
-      anon(`/api/sessions/${session.code}/answers`, "POST", { token, text: "a1" }),
+      anon(`/api/sessions/${session.code}/answers`, "POST", { token, questionIndex: 0, text: "a1" }),
       codeParams(session.code)
     );
     expect(answered.status).toBe(201);

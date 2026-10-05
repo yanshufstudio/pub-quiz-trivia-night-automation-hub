@@ -3,7 +3,7 @@ import { computeScoreboard } from "@/lib/scoreboard";
 import type { Answer, Team } from "@prisma/client";
 
 function team(id: string, name: string): Team {
-  return { id, name, sessionId: "s1", token: `tok-${id}`, createdAt: new Date() };
+  return { id, name, sessionId: "s1", token: `tok-${id}`, createdAt: new Date(), isPaper: false };
 }
 
 function answer(teamId: string, points: number, roundIndex = 0, questionIndex = 0): Answer {

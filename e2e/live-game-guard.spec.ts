@@ -74,6 +74,8 @@ test("a live game blocks structural edits until the host ends it", async ({ brow
   // The host desk offers the way out, behind a confirmation: this screen sits
   // on a TV in reach of the room, and ending a game cannot be undone.
   await page.goto(`/host/${code}`);
+  // In a round-mode game End game lives in the desk's menu (RM7).
+  await page.getByRole("button", { name: "Menu" }).click();
   await page.getByRole("button", { name: "End game" }).click();
   await expect(page.getByRole("heading", { name: "End this game for everyone?" })).toBeVisible();
 

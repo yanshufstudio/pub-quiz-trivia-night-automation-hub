@@ -9,6 +9,7 @@ import { POST as advanceSession } from "@/app/api/sessions/[code]/advance/route"
 import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { db } from "@/lib/db";
 import { signInTestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 
@@ -85,6 +86,7 @@ describe("session edge cases", () => {
   async function newSession() {
     const res = await createSession(jsonRequest(`${BASE}/api/sessions`, "POST", { packId }));
     const data = await json(res);
+    await switchToQuestionMode(data.session.code);
     return { code: data.session.code as string, hostToken: data.hostToken as string };
   }
 

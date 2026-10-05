@@ -161,7 +161,7 @@ function failureBody(err: unknown): {
     };
   }
   if (err instanceof Anthropic.APIError && (err.status === 429 || (err.status ?? 0) >= 500)) {
-    return { error: "The question generator is busy right now. Please try again in a moment." };
+    return { error: "The AI service we use is having problems. Please try again in a few minutes." };
   }
   return { error: "Couldn't generate a quiz pack right now. Please try again." };
 }

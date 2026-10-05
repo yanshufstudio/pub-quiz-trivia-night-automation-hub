@@ -9,6 +9,7 @@ import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { db } from "@/lib/db";
 import { signInTestHost } from "./auth-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 const NUL = String.fromCharCode(0);
@@ -59,6 +60,7 @@ async function newSession() {
   );
   const res = await createSession(hostPost("/api/sessions", { packId: pack.id }));
   const data = await res.json();
+  await switchToQuestionMode(data.session.code);
   return { code: data.session.code as string, hostToken: data.hostToken as string };
 }
 

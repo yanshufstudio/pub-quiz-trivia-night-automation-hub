@@ -43,7 +43,9 @@ export function Scoreboard({
               >
                 {rankOf(rows, row.teamId)}
               </span>
-              <span className="truncate font-medium">{row.name}</span>
+              <span dir="auto" className="truncate font-medium">
+                {row.name}
+              </span>
             </span>
             <span className="shrink-0 tabular-nums font-semibold">{row.score}</span>
           </li>

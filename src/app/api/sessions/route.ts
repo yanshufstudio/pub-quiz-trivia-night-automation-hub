@@ -5,6 +5,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { canReadPack, packNotFound } from "@/lib/pack-access";
 import { z } from "zod";
+import { SESSION_MODE } from "@/lib/session-state";
 
 const createSessionSchema = z.object({
   packId: z.string().min(1),
@@ -62,7 +63,11 @@ export async function POST(req: NextRequest) {
       packId: pack.id,
       code,
       hostToken,
-      questionDurationSeconds: parsed.data.questionDurationSeconds ?? null,
+      // Round by round is the only mode offered for a new game (RM0). A game in
+      // round mode has no per-question timer — the host's countdown replaces it
+      // — so a duration sent by an old client is ignored rather than stored.
+      mode: SESSION_MODE.ROUND,
+      questionDurationSeconds: null,
       // Who started it (H4). The host key below is still the authority over
       // the session; this is the weaker claim that lets this creator find
       // their own desk again from another device, where the key — which lives

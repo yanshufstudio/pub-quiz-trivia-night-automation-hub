@@ -64,7 +64,7 @@ test("a team sees the picture, and a stranger cannot fetch it", async ({ browser
   await teamPage.goto(`/play?code=${session.code}`);
   await teamPage.getByLabel("Team name").fill("The Picture Takers");
   await teamPage.getByRole("button", { name: "Join session" }).click();
-  await expect(teamPage.getByText("Sit tight.")).toBeVisible();
+  await expect(teamPage.getByText("You’re in, The Picture Takers.")).toBeVisible();
 
   await host.api.post(`/api/sessions/${session.code}/advance`, {
     data: { action: "start", hostToken },

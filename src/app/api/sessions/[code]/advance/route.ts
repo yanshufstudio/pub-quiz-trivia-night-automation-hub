@@ -1,15 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import type { Session } from "@prisma/client";
 import { db } from "@/lib/db";
-import { SESSION_STATUS, computeNextPosition, packWithRoundsArgs, type PackWithRounds } from "@/lib/session-state";
+import {
+  SESSION_MODE,
+  SESSION_STATUS,
+  computeNextPosition,
+  packWithRoundsArgs,
+  type PackWithRounds,
+} from "@/lib/session-state";
+import {
+  COUNTDOWN_CHOICES_SECONDS,
+  ROUND_ACTIONS,
+  planRoundAction,
+  type RoundAction,
+} from "@/lib/round-state";
 import { isValidHostToken } from "@/lib/host-auth";
-import { rescoreCurrentQuestion } from "@/lib/rescore";
+import { rescoreCurrentQuestion, rescoreRound } from "@/lib/rescore";
+import { forgetDisplay } from "@/lib/display-cache";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 
-const advanceSchema = z.object({
-  action: z.enum(["start", "reveal", "next", "end"]),
-  hostToken: z.string().min(1),
-});
+const QUESTION_ACTIONS = ["start", "reveal", "next", "end"] as const;
+
+const advanceSchema = z
+  .object({
+    action: z.enum([...new Set<string>([...QUESTION_ACTIONS, ...ROUND_ACTIONS])] as [string, ...string[]]),
+    hostToken: z.string().min(1),
+    seconds: z.number().int().optional(),
+    showAll: z.boolean().optional(),
+    // Round mode: the state the host's screen showed when the button was
+    // pressed. See advanceRound.
+    at: z
+      .object({
+        roundIndex: z.number().int(),
+        askedCount: z.number().int(),
+        revealedCount: z.number().int(),
+      })
+      .optional(),
+  })
+  .refine(
+    (b) => b.action !== "start_countdown" || COUNTDOWN_CHOICES_SECONDS.some((s) => s === b.seconds),
+    "Invalid countdown length"
+  )
+  .refine((b) => b.action !== "set_tv_mode" || typeof b.showAll === "boolean", "Invalid TV mode");
 
 // Never include hostToken in a response body — this is the public shape of
 // "the session" that goes back to the client after every transition.
@@ -23,6 +56,13 @@ const publicSessionSelect = {
   questionDurationSeconds: true,
   questionStartedAt: true,
   createdAt: true,
+  mode: true,
+  askedCount: true,
+  revealedCount: true,
+  scoreboardShown: true,
+  tvShowsAll: true,
+  countdownStartedAt: true,
+  countdownSeconds: true,
 } as const;
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ code: string }> }) {
@@ -58,6 +98,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   }
 
   const { action } = parsed.data;
+
+  if (session.mode === SESSION_MODE.ROUND) {
+    return advanceRound(session, pack, parsed.data);
+  }
+
+  if (!(QUESTION_ACTIONS as readonly string[]).includes(action)) {
+    return NextResponse.json({ error: "This game runs one question at a time" }, { status: 409 });
+  }
 
   if (action === "end") {
     // The host's deliberate way to close a game, from any state: the lobby
@@ -152,4 +200,71 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     return NextResponse.json({ error: "Reveal the current answer before advancing" }, { status: 409 });
   }
   return NextResponse.json({ session: await db.session.findUniqueOrThrow({ where: { id: session.id }, select: publicSessionSelect }) });
+}
+
+/**
+ * A round-mode game (src/lib/round-state.ts). The plan's `pin` goes into the
+ * `where` of the update — the same race-safety as the transitions above: of two
+ * requests that read the same state, only the first to commit changes anything,
+ * and the other gets a 409 rather than asking a second question.
+ *
+ * That alone does not cover a second request that reads the state *after* the
+ * first has committed — a double tap the server happens to serialise, or a
+ * retry after the venue wifi lost the first response. Read fresh, it would ask
+ * the next question too. So the desk sends `at`, the position its screen was
+ * showing, and a press made against a position the game has left is refused.
+ */
+async function advanceRound(
+  session: Session,
+  pack: PackWithRounds,
+  body: {
+    action: string;
+    seconds?: number;
+    showAll?: boolean;
+    at?: { roundIndex: number; askedCount: number; revealedCount: number };
+  }
+) {
+  if (!(ROUND_ACTIONS as readonly string[]).includes(body.action)) {
+    return NextResponse.json({ error: "This game runs round by round" }, { status: 409 });
+  }
+  // Only the presses that move the game forward; a flag set twice, or "end"
+  // pressed on a screen a poll behind, is harmless.
+  const movesTheGame = ["start", "ask_next", "close_round", "reveal_next", "next_round", "finish"];
+  if (
+    body.at &&
+    movesTheGame.includes(body.action) &&
+    (body.at.roundIndex !== session.currentRoundIndex ||
+      body.at.askedCount !== session.askedCount ||
+      body.at.revealedCount !== session.revealedCount)
+  ) {
+    return NextResponse.json({ error: "The game moved on — refresh and try again" }, { status: 409 });
+  }
+  const plan = planRoundAction(
+    session,
+    { action: body.action as RoundAction, seconds: body.seconds, showAll: body.showAll },
+    pack.rounds.map((r) => r.questions.length),
+    new Date()
+  );
+  if (!plan.ok) {
+    return NextResponse.json({ error: plan.error }, { status: 409 });
+  }
+
+  const { count } = await db.session.updateMany({ where: { id: session.id, ...plan.pin }, data: plan.data });
+  // "end" is idempotent (see the QUESTION-mode branch): ending an ended game is
+  // not a lost race. Every other action that matched nothing lost one.
+  if (count === 0 && body.action !== "end") {
+    return NextResponse.json({ error: "The game moved on — refresh and try again" }, { status: 409 });
+  }
+  forgetDisplay(session.code);
+  if (body.action === "close_round") {
+    // The key may have been fixed while the round was open, and every answer
+    // in so far was marked against the old one. Nothing can be submitted from
+    // here on (the answers route re-checks ROUND_OPEN inside its write), so
+    // this is the last moment the marks can be corrected quietly (M7).
+    await rescoreRound(session, pack);
+  }
+
+  return NextResponse.json({
+    session: await db.session.findUniqueOrThrow({ where: { id: session.id }, select: publicSessionSelect }),
+  });
 }

@@ -94,10 +94,6 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
   // click on the same button while armed actually performs the delete. No
   // native confirm() dialog, matching the rest of the app's UI.
   const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null);
-  // "" means no timer (manual reveal) — kept as the default so a host who
-  // never touches this still gets the exact behavior the app shipped with
-  // before per-question timers existed.
-  const [duration, setDuration] = useState("");
   // Per-question image state, keyed by question id. `mediaVersion` busts the
   // browser cache after an attach/replace — the served bytes change but the
   // URL wouldn't, since it's just the question id (see the ETag/Cache-Control
@@ -440,10 +436,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       const res = await fetch("/api/sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          packId: pack.id,
-          questionDurationSeconds: duration ? Number(duration) : null,
-        }),
+        body: JSON.stringify({ packId: pack.id }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Could not start session");
@@ -486,20 +479,6 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           >
             Print preview
           </Link>
-          <label className="flex items-center gap-2 text-sm text-muted">
-            <span className="sr-only">Per-question timer</span>
-            <select
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-              className="h-11 rounded-xl border border-line bg-white px-3 text-sm font-medium outline-none focus:ring-2 focus:ring-amber"
-            >
-              <option value="">No timer (manual reveal)</option>
-              <option value="20">20s per question</option>
-              <option value="30">30s per question</option>
-              <option value="45">45s per question</option>
-              <option value="60">60s per question</option>
-            </select>
-          </label>
           <button
             type="button"
             onClick={startSession}

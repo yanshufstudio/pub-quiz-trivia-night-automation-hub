@@ -85,7 +85,7 @@ describe("when the Anthropic account cannot be charged", () => {
     expect(body.generationPaused).toBe(true);
     // Not the 502 wording, and not the busy-upstream wording either.
     expect(body.error).not.toMatch(/Couldn't generate/i);
-    expect(body.error).not.toMatch(/busy right now/i);
+    expect(body.error).not.toMatch(/having problems/i);
   });
 
   it("logs it with a string worth alerting on", async () => {
@@ -145,10 +145,25 @@ describe("when the Anthropic account cannot be charged", () => {
 
     const res = await generate(generateRequest(host));
     expect(res.status).toBe(503);
-    expect((await res.json()).error).toMatch(/busy right now/i);
+    expect((await res.json()).error).toBe(UPSTREAM_TROUBLE);
     expect(error.mock.calls.flat().join(" ")).not.toContain(CREDIT_EXHAUSTED_LOG);
   });
+
+  it("says the AI service is having problems when it is down, not that it is busy", async () => {
+    // Anthropic had an outage on 2026-09-29; "busy, try again in a moment"
+    // told hosts to keep pressing a button that could not work.
+    vi.mocked(generateQuizPack).mockRejectedValue(
+      new Anthropic.APIError(500, { error: { type: "api_error", message: "internal" } }, "internal", undefined)
+    );
+    const host = await signInTestHost();
+
+    const res = await generate(generateRequest(host));
+    expect(res.status).toBe(503);
+    expect((await res.json()).error).toBe(UPSTREAM_TROUBLE);
+  });
 });
+
+const UPSTREAM_TROUBLE = "The AI service we use is having problems. Please try again in a few minutes.";
 
 describe("when a spend limit is reached (PRC14)", () => {
   // docs.claude.com/en/api/rate-limits: the owner's own limit is a 400

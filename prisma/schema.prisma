@@ -133,6 +133,27 @@ model Session {
   creator                 Creator?  @relation(fields: [creatorId], references: [id], onDelete: SetNull)
   creatorId               String?
 
+  // How the game runs. "ROUND" (every session created since round mode): the
+  // host asks a round's questions one by one, teams answer as they come, the
+  // round closes, is marked, and the answers are revealed. "QUESTION": the
+  // original one-question-at-a-time flow. The default is "QUESTION" so that
+  // every session that existed before this column keeps finishing the way it
+  // started; POST /api/sessions sets "ROUND" explicitly.
+  mode                    String    @default("QUESTION")
+  // Round mode only (see src/lib/round-state.ts). ROUND_OPEN: questions
+  // 0..askedCount-1 of the current round have been asked. ROUND_REVEAL:
+  // answers 0..revealedCount-1 have been shown to the room.
+  askedCount              Int       @default(0)
+  revealedCount           Int       @default(0)
+  scoreboardShown         Boolean   @default(false)
+  // The TV shows every question asked so far in the round, not only the latest.
+  tvShowsAll              Boolean   @default(false)
+  // The host's optional countdown, stamped by the server so every screen
+  // agrees. Reaching zero changes nothing — it only says "Time's up!".
+  countdownStartedAt      DateTime?
+  countdownSeconds        Int?
+  roundScores             RoundScore[]
+
   @@index([creatorId])
 }
 
@@ -143,9 +164,30 @@ model Team {
   name      String
   token     String   @unique
   createdAt DateTime @default(now())
+  // A team the host added by name, playing on paper: it has no phone, its
+  // token is never handed out, and its score arrives as typed round totals.
+  isPaper   Boolean  @default(false)
   answers   Answer[]
+  roundScores RoundScore[]
 
   @@unique([sessionId, name])
+}
+
+/// A round total the host typed in — for a paper team, for sheets the tables
+/// swapped and marked, or to override a phone team's auto total. A row exists
+/// only while a typed total stands; clearing it deletes the row and the auto
+/// total counts again.
+model RoundScore {
+  id         String   @id @default(cuid())
+  session    Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId  String
+  team       Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId     String
+  roundIndex Int
+  points     Int
+  updatedAt  DateTime @updatedAt
+
+  @@unique([sessionId, teamId, roundIndex])
 }
 
 model Answer {

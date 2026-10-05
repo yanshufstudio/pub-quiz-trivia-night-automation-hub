@@ -4,10 +4,21 @@ export const SESSION_STATUS = {
   LOBBY: "LOBBY",
   QUESTION_ACTIVE: "QUESTION_ACTIVE",
   REVEAL: "REVEAL",
+  // Round mode (src/lib/round-state.ts). QUESTION_ACTIVE and REVEAL above are
+  // the one-question-at-a-time flow, kept for sessions that started in it.
+  ROUND_OPEN: "ROUND_OPEN",
+  ROUND_MARKING: "ROUND_MARKING",
+  ROUND_REVEAL: "ROUND_REVEAL",
   ENDED: "ENDED",
 } as const;
 
 export type SessionStatus = (typeof SESSION_STATUS)[keyof typeof SESSION_STATUS];
+
+/** See Session.mode in prisma/schema.prisma. */
+export const SESSION_MODE = {
+  ROUND: "ROUND",
+  QUESTION: "QUESTION",
+} as const;
 
 /**
  * How many times one team may submit an answer to one question.

@@ -11,6 +11,7 @@ import { createPackFromGenerated } from "@/lib/create-pack";
 import { DEMO_PACK_PROMPT } from "@/lib/demo-pack";
 import { db } from "@/lib/db";
 import { testOwner } from "./owner-fixture";
+import { switchToQuestionMode } from "./question-mode-fixture";
 
 const BASE = "http://localhost:3000";
 const owner = await testOwner();
@@ -140,6 +141,7 @@ describe("answer submission — acceptable answers", () => {
   it("scores a submission matching an acceptable answer (not the primary answer) as correct", async () => {
     const createRes = await createSession(jsonRequest(`${BASE}/api/sessions`, "POST", { packId }));
     const { session, hostToken } = await json(createRes);
+    await switchToQuestionMode(session.code);
     const joinRes = await joinSession(
       jsonRequest(`${BASE}/api/sessions/${session.code}/join`, "POST", { name: "Numeral Knights" }),
       { params: Promise.resolve({ code: session.code }) }
@@ -175,6 +177,7 @@ describe("answer submission — acceptable answers", () => {
   it("still rejects a submission matching neither the primary nor any acceptable answer", async () => {
     const createRes = await createSession(jsonRequest(`${BASE}/api/sessions`, "POST", { packId }));
     const { session, hostToken } = await json(createRes);
+    await switchToQuestionMode(session.code);
     const joinRes = await joinSession(
       jsonRequest(`${BASE}/api/sessions/${session.code}/join`, "POST", { name: "Off By One" }),
       { params: Promise.resolve({ code: session.code }) }

@@ -4,7 +4,8 @@ import { db } from "@/lib/db";
 import { generateTeamToken } from "@/lib/codes";
 import { rateLimit } from "@/lib/rate-limit";
 import { SESSION_STATUS } from "@/lib/session-state";
-import { TEAM_NAME_MAX, normalizeTeamName, teamNameKey } from "@/lib/team-name";
+import { forgetDisplay } from "@/lib/display-cache";
+import { MAX_TEAMS_PER_SESSION, TEAM_NAME_MAX, normalizeTeamName, teamNameKey } from "@/lib/team-name";
 
 const joinSchema = z.object({
   // Normalised before the length check so a name made of control
@@ -12,15 +13,6 @@ const joinSchema = z.object({
   name: z.string().max(200).transform(normalizeTeamName).pipe(z.string().min(1).max(TEAM_NAME_MAX)),
 });
 
-/**
- * The join code is printed on the table QR and read out to the room, so it
- * is not a secret and this route cannot be authenticated — anyone who can
- * see the code can join, by design. What it can be is bounded: without a
- * ceiling, one person with the code could spawn teams until the host's
- * scoreboard was unreadable and the quiz unrunnable. A pub quiz is 5-25
- * teams; 60 leaves room for a big charity night and still bounds the damage.
- */
-const MAX_TEAMS_PER_SESSION = 60;
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ code: string }> }) {
   const { code } = await params;
@@ -80,5 +72,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     data: { sessionId: session.id, name, token: generateTeamToken() },
   });
 
+  // The TV's lobby lists teams as they join.
+  forgetDisplay(session.code);
   return NextResponse.json({ token: team.token, teamId: team.id, teamName: team.name }, { status: 201 });
 }

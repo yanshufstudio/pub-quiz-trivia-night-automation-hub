@@ -4,11 +4,18 @@ import { hostSessionForRequest } from "@/lib/auth-guard";
 import { tokensMatch } from "@/lib/host-auth";
 import { canReadPack } from "@/lib/pack-access";
 import {
+  MEDIA_DISPLAY_PARAM,
   MEDIA_HOST_TOKEN_PARAM,
   MEDIA_SESSION_CODE_PARAM,
   MEDIA_TEAM_TOKEN_PARAM,
 } from "@/lib/question-media-url";
-import { getCurrentQuestion, packWithRoundsArgs, type PackWithRounds } from "@/lib/session-state";
+import {
+  SESSION_MODE,
+  SESSION_STATUS,
+  getCurrentQuestion,
+  packWithRoundsArgs,
+  type PackWithRounds,
+} from "@/lib/session-state";
 
 /**
  * Who may fetch a question's image.
@@ -22,7 +29,8 @@ import { getCurrentQuestion, packWithRoundsArgs, type PackWithRounds } from "@/l
  *
  * The rule is stated so that it cannot disagree with what the app already
  * shows: **the image is served to whoever the session state would serve the
- * question to.** Two ways to qualify, and no third.
+ * question to.** Three ways to qualify, and no fourth. (The third, for a
+ * round-mode game's TV, is described where it is checked, below.)
  *
  * 1. **A live session's current question.** Present a valid team token — or
  *    the session's host key — for a session whose current question is this
@@ -66,27 +74,53 @@ async function isCurrentQuestionOfSession(
     select: {
       packId: true,
       hostToken: true,
+      mode: true,
+      status: true,
       currentRoundIndex: true,
       currentQuestionIndex: true,
-      teams: { select: { token: true } },
+      askedCount: true,
+      teams: { select: { token: true, isPaper: true } },
     },
   });
   if (!session) return false;
 
-  // A team's own token, or the key that drives the desk. Both are compared in
-  // constant time, for the same reason src/lib/host-auth.ts does: these are
-  // bearer secrets and a length-or-prefix oracle is free to whoever asks.
-  const teamToken = params.get(MEDIA_TEAM_TOKEN_PARAM);
-  const admitted =
-    session.teams.some((team) => tokensMatch(team.token, teamToken)) ||
-    tokensMatch(session.hostToken, params.get(MEDIA_HOST_TOKEN_PARAM));
-  if (!admitted) return false;
+  // The TV (RM5) holds no credential — its link is the join code the whole
+  // room knows — so it gets exactly what the room has already been shown: a
+  // question that has been asked in this game, earlier rounds included. Never
+  // one still to come, and never one from another pack.
+  const asDisplay = params.get(MEDIA_DISPLAY_PARAM) === "1";
+
+  // Otherwise a team's own token, or the key that drives the desk. Both are
+  // compared in constant time, for the same reason src/lib/host-auth.ts does:
+  // these are bearer secrets and a length-or-prefix oracle is free to whoever
+  // asks.
+  if (!asDisplay) {
+    const teamToken = params.get(MEDIA_TEAM_TOKEN_PARAM);
+    const admitted =
+      session.teams.some((team) => !team.isPaper && tokensMatch(team.token, teamToken)) ||
+      tokensMatch(session.hostToken, params.get(MEDIA_HOST_TOKEN_PARAM));
+    if (!admitted) return false;
+  }
 
   const pack = (await db.quizPack.findUnique({
     where: { id: session.packId },
     ...packWithRoundsArgs,
   })) as PackWithRounds | null;
   if (!pack) return false;
+
+  if (session.mode === SESSION_MODE.ROUND) {
+    if (session.status === SESSION_STATUS.LOBBY) return false;
+    // A phone sees the questions asked so far in the current round, so those
+    // are the pictures it may load; the TV may also load earlier rounds'.
+    const firstRound = asDisplay ? 0 : session.currentRoundIndex;
+    for (let r = firstRound; r <= session.currentRoundIndex; r++) {
+      const asked = r < session.currentRoundIndex ? Infinity : session.askedCount;
+      const index = pack.rounds[r]?.questions.findIndex((q) => q.id === questionId) ?? -1;
+      if (index >= 0 && index < asked) return true;
+    }
+    return false;
+  }
+  if (asDisplay) return false;
 
   const current = getCurrentQuestion(pack, session.currentRoundIndex, session.currentQuestionIndex);
   return current?.id === questionId;

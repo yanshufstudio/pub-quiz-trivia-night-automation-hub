@@ -94,7 +94,7 @@ describe("POST /api/packs/generate — failure mapping", () => {
     const data = await res.json();
 
     expect(res.status).toBe(503);
-    expect(data.error).toMatch(/busy/i);
+    expect(data.error).toMatch(/AI service we use is having problems/i);
   });
 
   it("503s when the upstream model API rate-limits us", async () => {

@@ -27,6 +27,8 @@ async function lobbyDesk(page: Page, api: import("@playwright/test").APIRequestC
 }
 
 async function pressEndGame(page: Page) {
+  // In a round-mode game End game lives in the desk's menu (RM7).
+  await page.getByRole("button", { name: "Menu" }).click();
   const endGame = page.getByRole("button", { name: "End game", exact: true });
   await endGame.scrollIntoViewIfNeeded();
   const box = (await endGame.boundingBox())!;
