@@ -130,13 +130,27 @@ const ENTRIES: Entry[] = [
     ),
   },
   {
+    id: "phone-connection",
+    question: "What if a team's phone loses its connection?",
+    answer: (
+      <>
+        It reconnects by itself. The phone checks in with the game every few seconds, so once it
+        is unlocked and back on Wi-Fi or data it catches up on its own, usually within a few
+        seconds. If it does not, reload the page: the phone rejoins as the same team and keeps
+        every saved answer and point. An answer typed but not yet saved may need typing again. Do
+        not tap Leave to fix it: once a team has answered, leaving means it cannot rejoin as the
+        same team.
+      </>
+    ),
+  },
+  {
     id: "screen",
     question: "Do I need a screen for the room?",
     answer: (
       <>
-        No. Each question goes up on every team&apos;s phone as well as on your own screen, and
-        the scores update there as you reveal answers. A screen for the room is a nice extra,
-        not a requirement.
+        No. Each question goes up on every team&apos;s phone as well as on your own screen. Each
+        team sees its own marks as you reveal the answers, and the standings whenever you show
+        the scoreboard. A screen for the room is a nice extra, not a requirement.
       </>
     ),
   },
@@ -163,9 +177,10 @@ const ENTRIES: Entry[] = [
         accents, punctuation and a leading &ldquo;the&rdquo; do not count against a team, and
         any alternative answers you gave the question in the pack editor count as right too.
         The software does not guess at spelling, though, so &ldquo;Canbera&rdquo; is marked
-        wrong. After each reveal, every team&apos;s answer is listed with <em>Correct</em> and{" "}
-        <em>Wrong</em> next to it, and you can override any mark; the scores follow. You are
-        the quizmaster; the software is not.
+        wrong. When you close a round, every phone team&apos;s answers are marked and listed on
+        your screen before you reveal anything, and you can override any mark; the scores follow.
+        Each team sees its own marks on its phone as you reveal the answers. You are the
+        quizmaster; the software is not.
       </>
     ),
   },
@@ -205,8 +220,9 @@ const ENTRIES: Entry[] = [
     question: "Who owns the packs, and what happens to my data?",
     answer: (
       <>
-        The packs are yours, on your account, on any device you sign in from. We run no
-        analytics and no advertising, and what we store and for how long is set out in the{" "}
+        The packs are yours, on your account, on any device you sign in from. The only analytics
+        we run is Vercel Web Analytics, which counts page views, and we run no advertising. What
+        we store and for how long is set out in the{" "}
         <Link className={link} href="/privacy">
           privacy policy
         </Link>
