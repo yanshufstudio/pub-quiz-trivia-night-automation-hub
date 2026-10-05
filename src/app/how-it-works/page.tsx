@@ -141,9 +141,10 @@ const STEPS: Step[] = [
     title: "Add paper teams, if some tables play on paper",
     body: (
       <>
-        A table writing on the printed answer sheets can still be on the scoreboard. While
-        teams are joining, <em>Add paper team</em> and type the table&apos;s name. You type its
-        total for each round when you check the marks.
+        A table writing on the printed answer sheets can still be on the scoreboard. Before you
+        press <em>Start quiz</em>, use <em>Add paper team</em> and type the table&apos;s name: the
+        button is only there while teams are joining. You type its total for each round when you
+        check the marks.
       </>
     ),
   },
@@ -177,7 +178,8 @@ const STEPS: Step[] = [
       <>
         Read each question out. <em>Ask next question</em> puts the next one up on the TV and on
         every team&apos;s phone. A team&apos;s phone keeps every question asked so far in the
-        round, and the team can change its answers until you close the round. Your screen shows
+        round, and the team can change its answers, up to five times a question, until you close
+        the round. Your screen shows
         how many phone teams have answered the current question. If you want a time limit,{" "}
         <em>Start countdown</em> offers 1, 2, 3 or 5 minutes. It is a reminder only: answers stay
         open until you close the round, and the countdown stops when you ask the next question.
@@ -211,9 +213,11 @@ const STEPS: Step[] = [
     body: (
       <>
         <em>Reveal next answer</em> shows one answer at a time on the TV and on the phones, where
-        each team sees its own mark. <em>Reveal all</em> shows the rest of the round at once. If
-        a paper team has no total for the round, <em>Reveal all</em> says so first. A round
-        counts on the scoreboard once every answer in it is revealed.
+        each team sees its own mark. <em>Reveal all</em> shows the rest of the round at once.
+        Type every paper team&apos;s total before you move on: <em>Reveal all</em> and{" "}
+        <em>Finish quiz…</em> remind you if one is missing, <em>Reveal next answer</em> does not,
+        and a round&apos;s totals cannot be changed from your screen once you press{" "}
+        <em>Next round</em>. A round counts on the scoreboard once every answer in it is revealed.
       </>
     ),
   },
@@ -222,8 +226,9 @@ const STEPS: Step[] = [
     body: (
       <>
         <em>Show scoreboard</em> puts the standings on the TV and on the phones, and{" "}
-        <em>Hide scoreboard</em> takes them down. <em>Next round</em> opens the next round with
-        its first question, and you ask, close, mark and reveal it the same way.
+        <em>Hide scoreboard</em> takes them down. <em>Next round</em> takes the scoreboard down
+        too and opens the next round with its first question, and you ask, close, mark and reveal
+        it the same way.
       </>
     ),
   },

@@ -148,9 +148,9 @@ const ENTRIES: Entry[] = [
     question: "Do I need a screen for the room?",
     answer: (
       <>
-        No. Each question goes up on every team&apos;s phone as well as on your own screen, and
-        the scores update there as you reveal answers. A screen for the room is a nice extra,
-        not a requirement.
+        No. Each question goes up on every team&apos;s phone as well as on your own screen. Each
+        team sees its own marks as you reveal the answers, and the standings whenever you show
+        the scoreboard. A screen for the room is a nice extra, not a requirement.
       </>
     ),
   },

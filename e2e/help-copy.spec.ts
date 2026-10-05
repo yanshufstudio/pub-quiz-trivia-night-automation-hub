@@ -61,7 +61,41 @@ test("/how-it-works walks through a round-mode night with the desk's own labels"
 
 test("the guide and the FAQ add no em dash in the copy they changed", async ({ page }) => {
   await page.goto("/faq");
-  for (const id of ["phone-connection", "ownership", "marking"]) {
+  for (const id of ["phone-connection", "ownership", "marking", "screen"]) {
     expect(await page.locator(`#${id}`).innerText(), id).not.toContain("—");
   }
+
+  // The steps HELP1 wrote or rewrote, by title; and the sentence it added to step 7.
+  await page.goto("/how-it-works");
+  const steps = page.locator("main ol > li");
+  for (const title of [
+    "Add paper teams, if some tables play on paper",
+    "Put the game on a TV, if the room has one",
+    "Start the quiz",
+    "Ask the round's questions",
+    "Close the round",
+    "Check the marks",
+    "Reveal the answers",
+    "Show the scoreboard, then the next round",
+    "Finish on the scoreboard",
+  ]) {
+    const step = steps.filter({ has: page.getByRole("heading", { name: title, exact: true }) });
+    await expect(step, title).toHaveCount(1);
+    expect(await step.innerText(), title).not.toContain("—");
+  }
+  const join = await steps.filter({ hasText: "Teams join from their own phones" }).innerText();
+  expect(join.slice(join.indexOf("If a phone drops off"))).not.toContain("—");
+});
+
+test("the guide says paper teams are added before the start, and the FAQ does not promise standings on every reveal", async ({ page }) => {
+  await page.goto("/how-it-works");
+  const paper = page
+    .locator("main ol > li")
+    .filter({ has: page.getByRole("heading", { name: "Add paper teams, if some tables play on paper" }) });
+  await expect(paper).toContainText("Before you press Start quiz");
+
+  await page.goto("/faq");
+  const screen = page.locator("#screen");
+  await expect(screen).not.toContainText("scores update there as you reveal answers");
+  await expect(screen).toContainText("the standings whenever you show the scoreboard");
 });
