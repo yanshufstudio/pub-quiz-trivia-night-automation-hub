@@ -36,7 +36,7 @@ const COUNTDOWN_CHOICES = [
   { seconds: 300, label: "5 min" },
 ];
 
-type Confirming = "close" | "finish" | "end" | "reveal_all" | null;
+type Confirming = "close" | "finish" | "end" | "reveal_all" | "reveal_last" | "next_round" | null;
 
 /** "A", "A and B", "A, B and C" — for a sentence, unlike the trophy's "&". */
 function listNames(names: string[]): string {
@@ -104,7 +104,8 @@ export function RoundHostDesk({
 
   let primary: { label: string; onPress: () => void; disabled?: boolean } | null = null;
   // Paper teams with no total typed for this round score 0 for it. Said
-  // before "Reveal all" and "Finish", which used to go ahead without a word.
+  // before "Reveal all", the last "Reveal next answer", "Next round" and
+  // "Finish", which used to go ahead without a word.
   const missingTotals = (state.marks ?? []).filter((row) => row.isPaper && row.typed === null).map((row) => row.name);
   const missingTotalsNote =
     missingTotals.length > 0
@@ -123,12 +124,17 @@ export function RoundHostDesk({
         ? { label: "Ask next question", onPress: () => void advance("ask_next") }
         : { label: "Close round…", onPress: () => setConfirming("close") };
   } else if (state.status === "ROUND_MARKING" || state.status === "ROUND_REVEAL") {
+    const warn = missingTotals.length > 0;
     if (state.revealedCount < total) {
-      primary = { label: "Reveal next answer", onPress: () => void advance("reveal_next") };
+      const last = state.revealedCount === total - 1;
+      primary = {
+        label: "Reveal next answer",
+        onPress: () => (last && warn ? setConfirming("reveal_last") : void advance("reveal_next")),
+      };
     } else if (isLastRound) {
       primary = { label: "Finish quiz…", onPress: () => setConfirming("finish") };
     } else {
-      primary = { label: "Next round", onPress: () => void advance("next_round") };
+      primary = { label: "Next round", onPress: () => (warn ? setConfirming("next_round") : void advance("next_round")) };
     }
   }
 
@@ -309,7 +315,12 @@ export function RoundHostDesk({
         {state.status === "ENDED" ? <Ended state={state} /> : null}
       </main>
 
-      {primary || confirming === "close" || confirming === "finish" || confirming === "reveal_all" ? (
+      {primary ||
+      confirming === "close" ||
+      confirming === "finish" ||
+      confirming === "reveal_all" ||
+      confirming === "reveal_last" ||
+      confirming === "next_round" ? (
         <div
           data-testid="primary-action"
           className="fixed inset-x-0 bottom-0 z-10 border-t border-white/10 bg-stage/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur"
@@ -352,6 +363,32 @@ export function RoundHostDesk({
                 onConfirm={() => {
                   setConfirming(null);
                   void advance("reveal_all");
+                }}
+              />
+            ) : confirming === "reveal_last" ? (
+              <ConfirmPanel
+                title="Reveal the last answer?"
+                body={missingTotalsNote}
+                confirmLabel="Yes, reveal it"
+                keepLabel="Keep marking"
+                busy={busy}
+                onKeep={() => setConfirming(null)}
+                onConfirm={() => {
+                  setConfirming(null);
+                  void advance("reveal_next");
+                }}
+              />
+            ) : confirming === "next_round" ? (
+              <ConfirmPanel
+                title={`Go to round ${state.roundNumber + 1}?`}
+                body={missingTotalsNote}
+                confirmLabel="Yes, next round"
+                keepLabel="Not yet"
+                busy={busy}
+                onKeep={() => setConfirming(null)}
+                onConfirm={() => {
+                  setConfirming(null);
+                  void advance("next_round");
                 }}
               />
             ) : primary ? (
