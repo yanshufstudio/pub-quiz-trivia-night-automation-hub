@@ -8,7 +8,10 @@ import { newAnonContext, signedInContext } from "./sign-in-helper";
  * /play?code=<new code>, showed the OLD game's ended screen; refreshing never
  * changed it; and after "Leave" the join form came back filled in with the
  * old code and the old team name. The URL's code is what the team is trying
- * to join, and a game that is over is not a place to keep.
+ * to join, so a different code always wins. With no code or the same code, a
+ * game that is over shows its final scores and the team's place (a phone
+ * reloaded after Finish used to drop to the join form), with "Join another
+ * quiz" as the way out.
  */
 
 async function newGame(api: APIRequestContext) {
@@ -36,6 +39,14 @@ async function expectJoinForm(phone: Page, code: string) {
   await expect(phone.getByLabel("Team name")).toHaveValue("");
 }
 
+/** What a phone shows after Finish, reloaded or not: the end, the team's place, the board. */
+async function expectEndedScreen(phone: Page, teamName: string) {
+  await expect(phone.getByText(/This quiz is over\./)).toBeVisible({ timeout: 10_000 });
+  await expect(phone.getByText(`${teamName} finished 1st with 0 points.`)).toBeVisible();
+  await expect(phone.getByRole("heading", { name: "Final scores" })).toBeVisible();
+  await expect(phone.getByRole("button", { name: "Join session" })).toHaveCount(0);
+}
+
 test.describe("a phone that remembers a team", () => {
   test("a different code in the URL shows the join form for that code", async ({ browser, baseURL }) => {
     const { context: host, api } = await signedInContext(browser, baseURL!);
@@ -44,7 +55,11 @@ test.describe("a phone that remembers a team", () => {
     const { context, phone } = await phoneIn(browser, baseURL!, old.code, "Old Owls");
     await old.advance("start");
     await old.advance("end");
+    // Reloaded with no code, the phone still shows the ended game...
+    await phone.goto("/play");
+    await expectEndedScreen(phone, "Old Owls");
 
+    // ...but a join link for another game is where the team is going.
     await phone.goto(`/play?code=${next.code}`);
     await expectJoinForm(phone, next.code);
     await expect(phone.getByText("Old Owls")).toHaveCount(0);
@@ -71,7 +86,10 @@ test.describe("a phone that remembers a team", () => {
     await host.close();
   });
 
-  test("the same code, once the game has ended, shows the join form", async ({ browser, baseURL }) => {
+  test("the same code, once the game has ended, shows the final scores and the team's place", async ({
+    browser,
+    baseURL,
+  }) => {
     const { context: host, api } = await signedInContext(browser, baseURL!);
     const game = await newGame(api);
     const { context, phone } = await phoneIn(browser, baseURL!, game.code, "Ended Eels");
@@ -79,13 +97,21 @@ test.describe("a phone that remembers a team", () => {
     await game.advance("end");
 
     await phone.goto(`/play?code=${game.code}`);
-    await expectJoinForm(phone, game.code);
+    await expectEndedScreen(phone, "Ended Eels");
+
+    // "Join another quiz" is the way out: an empty join form, nothing remembered.
+    await phone.getByRole("button", { name: "Join another quiz" }).click();
+    await expectJoinForm(phone, "");
+    expect(await phone.evaluate(() => Object.keys(localStorage))).toEqual([]);
 
     await context.close();
     await host.close();
   });
 
-  test("no code in the URL: a live game is kept, an ended one is forgotten", async ({ browser, baseURL }) => {
+  test("no code in the URL: a live game is kept, an ended one shows its final scores", async ({
+    browser,
+    baseURL,
+  }) => {
     const { context: host, api } = await signedInContext(browser, baseURL!);
     const game = await newGame(api);
     const { context, phone } = await phoneIn(browser, baseURL!, game.code, "Codeless Cods");
@@ -97,7 +123,7 @@ test.describe("a phone that remembers a team", () => {
 
     await game.advance("end");
     await phone.goto("/play");
-    await expectJoinForm(phone, "");
+    await expectEndedScreen(phone, "Codeless Cods");
 
     await context.close();
     await host.close();

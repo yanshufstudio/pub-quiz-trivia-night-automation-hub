@@ -60,9 +60,10 @@ export function TeamPortal() {
   // by whatever the server holds for the new question (usually nothing), so a
   // team can never submit the previous question's text by accident.
   const answerQuestionId = useRef<string | null>(null);
-  // True from loading a remembered team until its first poll answers. A
-  // game found already over at that point is forgotten; one that ends while
-  // the phone is open still shows its final scores.
+  // True from loading a remembered team until its first poll answers, so a
+  // game that has gone (404) shows the join form without first flashing the
+  // team's screen. A game that is over stays: a phone reloaded after Finish
+  // shows the final scores and its place, not the join form.
   const [checking, setChecking] = useState(false);
   const checkingRef = useRef(false);
 
@@ -124,10 +125,6 @@ export function TeamPortal() {
         }
         if (res.status === 401) forgetTeam();
         setError(data.error ?? "Could not load session");
-        return;
-      }
-      if (firstCheck && data.status === "ENDED") {
-        forgetTeam();
         return;
       }
       setError(null);
@@ -219,6 +216,10 @@ export function TeamPortal() {
         keepalive: true,
       }).catch(() => {});
     }
+    backToJoinForm();
+  }
+
+  function backToJoinForm() {
     forgetTeam();
     // Not the code just left, even when it is the one in the URL.
     if (stored && readJoinCode(window.location.search) === stored.code) setCode("");
@@ -368,7 +369,12 @@ export function TeamPortal() {
         {/* The same ending in both modes: the champions treatment, the
             place, the final scores. */}
         {state?.status === "ENDED" && state.scoreboard ? (
-          <EndedPanel scoreboard={state.scoreboard} teamName={state.teamName} />
+          <EndedPanel
+            scoreboard={state.scoreboard}
+            teamName={state.teamName}
+            teamId={stored.teamId}
+            onJoinAnother={backToJoinForm}
+          />
         ) : null}
       </main>
     </div>
@@ -430,9 +436,20 @@ function RevealPanel({ state, team }: { state: TeamSessionState; team: StoredTea
   );
 }
 
-function EndedPanel({ scoreboard, teamName }: { scoreboard: ScoreboardRow[]; teamName: string }) {
+function EndedPanel({
+  scoreboard,
+  teamName,
+  teamId,
+  onJoinAnother,
+}: {
+  scoreboard: ScoreboardRow[];
+  teamName: string;
+  teamId: string;
+  onJoinAnother: () => void;
+}) {
   const state = { scoreboard, teamName };
-  const mine = state.scoreboard.find((row) => row.name === state.teamName);
+  // By id; by name only for a team remembered without one (readStoredTeam does not require it).
+  const mine = state.scoreboard.find((row) => (teamId ? row.teamId === teamId : row.name === state.teamName));
   const place = mine ? rankOf(state.scoreboard, mine.teamId) : null;
   const { winners } = topScorers(state.scoreboard);
   const isWinner = mine != null && winners.some((row) => row.teamId === mine.teamId);
@@ -447,9 +464,10 @@ function EndedPanel({ scoreboard, teamName }: { scoreboard: ScoreboardRow[]; tea
           <h2 className="mt-2 font-serif text-3xl font-semibold">Champions, {state.teamName}!</h2>
         </>
       ) : (
-        <h2 className="font-serif text-3xl font-semibold">Quiz over</h2>
+        <h2 className="font-serif text-3xl font-semibold">This quiz is over.</h2>
       )}
       <p className="mt-3 text-lg text-stage-muted">
+        {isWinner ? "This quiz is over. " : ""}
         {place && mine
           ? `${state.teamName} finished ${ordinal(place)} with ${mine.score} ${mine.score === 1 ? "point" : "points"}.`
           : "Thanks for playing."}
@@ -458,6 +476,13 @@ function EndedPanel({ scoreboard, teamName }: { scoreboard: ScoreboardRow[]; tea
         <h3 className="mb-3 font-semibold">Final scores</h3>
         <Scoreboard rows={state.scoreboard} highlightName={state.teamName} dark />
       </section>
+      <button
+        type="button"
+        onClick={onJoinAnother}
+        className="mt-6 h-12 min-h-12 rounded-xl border border-white/20 px-4 text-base font-semibold"
+      >
+        Join another quiz
+      </button>
     </div>
   );
 }
