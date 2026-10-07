@@ -245,7 +245,10 @@ function QuestionCard({
 
       {open ? (
         <p className="mt-2 text-sm text-stage-muted" aria-live="polite">
-          {unsaved ? "Not saved yet" : saved ? "Saved" : "Not answered yet"}
+          {/* While saving, say so: a poll can bring the saved answer back
+              before the save itself answers, and the line said "Saved"
+              beside a button still saying "Saving…". */}
+          {saving ? "Saving…" : unsaved ? "Not saved yet" : saved ? "Saved" : "Not answered yet"}
         </p>
       ) : null}
 
