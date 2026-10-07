@@ -14,6 +14,7 @@ import {
   type StoredTeam,
 } from "@/lib/team-session";
 import { readJoinCode } from "@/lib/join-url";
+import { countOf } from "@/lib/plural";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import type { RoundTeamState, ScoreboardRow, SessionQuestion, TeamSessionState } from "@/lib/api-types";
 import { RoundTeamPlay } from "./RoundTeamPlay";
@@ -379,7 +380,7 @@ function RoundKicker({ state }: { state: TeamSessionState }) {
     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
       Round {state.roundNumber}
       {state.round ? ` · ${state.round.title}` : ""} · Q{state.questionNumber}
-      {state.question ? ` · ${state.question.points} pt` : ""}
+      {state.question ? ` · ${countOf(state.question.points, "pt")}` : ""}
     </p>
   );
 }

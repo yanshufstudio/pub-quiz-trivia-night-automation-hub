@@ -340,7 +340,7 @@ export function HostDashboard({ code }: { code: string }) {
               </p>
               <p className="mt-1 text-sm text-stage-muted">
                 Question {state.questionNumber} of {state.totalQuestionsInRound}
-                {state.question ? ` · ${state.question.points} pt` : ""}
+                {state.question ? ` · ${countOf(state.question.points, "pt")}` : ""}
               </p>
               <h2 className="mt-4 font-serif text-2xl font-semibold leading-snug sm:text-3xl">
                 {state.question?.text ?? "No question loaded"}

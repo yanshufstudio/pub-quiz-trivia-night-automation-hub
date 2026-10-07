@@ -642,7 +642,7 @@ function RoundTotalRow({
           {row.name}
         </span>
         <span className="text-sm tabular-nums text-stage-muted">
-          {row.typed !== null ? `${row.total} pts` : row.sitsOut ? "No answers this round" : `${row.auto} pts auto`}
+          {row.typed !== null ? countOf(row.total, "pt") : row.sitsOut ? "No answers this round" : countOf(row.auto, "pt")}
         </span>
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-2">

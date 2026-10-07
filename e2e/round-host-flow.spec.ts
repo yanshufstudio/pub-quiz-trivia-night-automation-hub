@@ -91,6 +91,9 @@ test("a host runs a whole round-mode game from a phone", async ({ browser, baseU
   await page.getByLabel("Round 1 total for The Pencils").fill("2");
   await page.getByRole("button", { name: "Save total for The Pencils" }).click();
   await expect(page.getByText("Entered by hand")).toBeVisible();
+  // One point is "1 pt", more are "pts", typed or marked.
+  await expect(page.locator("li", { hasText: "Phone Team" }).getByText("1 pt", { exact: true })).toBeVisible();
+  await expect(page.locator("li", { hasText: "The Pencils" }).getByText("2 pts", { exact: true })).toBeVisible();
   await expectNoSidewaysScroll(page);
 
   // Reveal one at a time, then the rest.
