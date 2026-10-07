@@ -64,11 +64,19 @@ export function TeamPortal() {
   // the phone is open still shows its final scores.
   const [checking, setChecking] = useState(false);
   const checkingRef = useRef(false);
+  // A poll failed and none has answered since: a calm badge, not an error.
+  const [reconnecting, setReconnecting] = useState(false);
+  // Polls are numbered as they start. Coming back from a locked screen sends
+  // one at once beside the 3 s tick, so two can be in flight; an older one
+  // answering last must not put the game back where it was.
+  const pollsStarted = useRef(0);
+  const newestApplied = useRef(0);
 
   // Back to the join form, for the game in the URL if there is one, with no
   // team name carried over from the game being left.
   const forgetTeam = useCallback(() => {
     clearStoredTeam();
+    setReconnecting(false);
     setStored(null);
     setState(null);
     setName("");
@@ -110,9 +118,13 @@ export function TeamPortal() {
   }, []);
 
   const refresh = useCallback(async (team: StoredTeam) => {
+    const poll = ++pollsStarted.current;
     try {
       const res = await fetch(`/api/sessions/${team.code}?token=${encodeURIComponent(team.token)}`);
       const data = await res.json();
+      if (poll < newestApplied.current) return;
+      newestApplied.current = poll;
+      setReconnecting(false);
       const firstCheck = checkingRef.current;
       checkingRef.current = false;
       setChecking(false);
@@ -139,9 +151,12 @@ export function TeamPortal() {
         setAnswer(data.myAnswer.text);
       }
     } catch {
+      if (poll < newestApplied.current) return;
+      newestApplied.current = poll;
       checkingRef.current = false;
       setChecking(false);
-      setError("Lost connection to the session. Retrying…");
+      // The next good poll clears it; what the phone was showing stays.
+      setReconnecting(true);
     }
   }, [forgetTeam]);
 
@@ -152,7 +167,18 @@ export function TeamPortal() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void refresh(stored);
     const id = window.setInterval(() => void refresh(stored), 3000);
-    return () => window.clearInterval(id);
+    // Back from a locked screen or a dropped network: ask now, not at the next tick.
+    const pollNow = () => void refresh(stored);
+    const onVisible = () => {
+      if (document.visibilityState === "visible") pollNow();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("online", pollNow);
+    return () => {
+      window.clearInterval(id);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("online", pollNow);
+    };
   }, [stored, refresh]);
 
   async function join(event: React.FormEvent) {
@@ -294,6 +320,14 @@ export function TeamPortal() {
       </header>
 
       <main className="mx-auto mt-6 flex w-full max-w-md flex-1 flex-col">
+        {reconnecting ? (
+          <p
+            role="status"
+            className="fixed left-1/2 top-3 z-20 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-sm font-semibold text-stage-fg"
+          >
+            Reconnecting…
+          </p>
+        ) : null}
         {error ? <p className="mb-4 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
 
         {/* Every game started since round mode shipped (RM8); the panels

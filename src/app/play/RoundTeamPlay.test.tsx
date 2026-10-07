@@ -1,0 +1,82 @@
+// @vitest-environment happy-dom
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import type { RoundTeamState } from "@/lib/api-types";
+import { fixtureTeam, roundTeamState } from "@/test/round-team-fixture";
+import { RoundTeamPlay } from "./RoundTeamPlay";
+
+const team = fixtureTeam;
+const roundState = (asked: number, myAnswers: RoundTeamState["myAnswers"] = []) => roundTeamState(asked, myAnswers);
+
+const folded = (container: HTMLElement) => container.querySelector("details summary")?.textContent ?? "";
+
+afterEach(() => {
+  cleanup();
+  vi.unstubAllGlobals();
+});
+
+describe("saving with no connection", () => {
+  it("says the answer was not saved, not the browser's own error", async () => {
+    // Safari's words for a fetch that never reached the server; Chrome says "Failed to fetch".
+    vi.stubGlobal("fetch", vi.fn(async () => Promise.reject(new TypeError("Load failed"))));
+    render(<RoundTeamPlay state={roundState(1)} team={team} onChanged={async () => {}} />);
+
+    fireEvent.change(screen.getByLabelText("Answer to Round 1 · Q1"), { target: { value: "Canberra" } });
+    fireEvent.submit(screen.getByRole("button", { name: "Save" }));
+
+    expect(await screen.findByText("No connection, your answer was not saved")).toBeTruthy();
+    expect(screen.queryByText("Load failed")).toBeNull();
+    // The typed answer is still there to save again.
+    expect((screen.getByLabelText("Answer to Round 1 · Q1") as HTMLInputElement).value).toBe("Canberra");
+  });
+
+  it("still shows the server's reason when the server did answer", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(JSON.stringify({ error: "The round is closed" }), { status: 409 }))
+    );
+    render(<RoundTeamPlay state={roundState(1)} team={team} onChanged={async () => {}} />);
+
+    fireEvent.change(screen.getByLabelText("Answer to Round 1 · Q1"), { target: { value: "Canberra" } });
+    fireEvent.submit(screen.getByRole("button", { name: "Save" }));
+
+    expect(await screen.findByText("The round is closed")).toBeTruthy();
+  });
+});
+
+describe("a folded question", () => {
+  it("says Not saved yet when its box holds an unsaved answer", async () => {
+    const { container, rerender } = render(
+      <RoundTeamPlay state={roundState(1)} team={team} onChanged={async () => {}} />
+    );
+    fireEvent.change(screen.getByLabelText("Answer to Round 1 · Q1"), { target: { value: "Canberra" } });
+
+    // The host asks Q2: Q1 folds with the answer still in its box.
+    rerender(<RoundTeamPlay state={roundState(2)} team={team} onChanged={async () => {}} />);
+    await waitFor(() => expect(folded(container)).toContain("Not saved yet"));
+    expect(folded(container)).not.toContain("Not answered yet");
+  });
+
+  it("says Not saved yet over a saved answer that has been changed", async () => {
+    const saved = [{ questionIndex: 0, text: "Sydney", isCorrect: null, pointsAwarded: null }];
+    const { container, rerender } = render(
+      <RoundTeamPlay state={roundState(1, saved)} team={team} onChanged={async () => {}} />
+    );
+    fireEvent.change(screen.getByLabelText("Answer to Round 1 · Q1"), { target: { value: "Canberra" } });
+
+    rerender(<RoundTeamPlay state={roundState(2, saved)} team={team} onChanged={async () => {}} />);
+    await waitFor(() => expect(folded(container)).toContain("Not saved yet"));
+    expect(folded(container)).not.toContain("Saved");
+  });
+
+  it("still says Saved and Not answered yet when there is no draft", () => {
+    const saved = [{ questionIndex: 0, text: "Canberra", isCorrect: null, pointsAwarded: null }];
+    const { container, rerender } = render(
+      <RoundTeamPlay state={roundState(2, saved)} team={team} onChanged={async () => {}} />
+    );
+    expect(folded(container)).toContain("Saved");
+
+    rerender(<RoundTeamPlay state={roundState(2)} team={team} onChanged={async () => {}} />);
+    expect(folded(container)).toContain("Not answered yet");
+  });
+});
