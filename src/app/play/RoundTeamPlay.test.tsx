@@ -71,3 +71,40 @@ describe("saving with no connection", () => {
     expect(await screen.findByText("The round is closed")).toBeTruthy();
   });
 });
+
+describe("a folded question", () => {
+  it("says Not saved yet when its box holds an unsaved answer", async () => {
+    const { container, rerender } = render(
+      <RoundTeamPlay state={roundState(1)} team={team} onChanged={async () => {}} />
+    );
+    fireEvent.change(screen.getByLabelText("Answer to Round 1 · Q1"), { target: { value: "Canberra" } });
+
+    // The host asks Q2: Q1 folds with the answer still in its box.
+    rerender(<RoundTeamPlay state={roundState(2)} team={team} onChanged={async () => {}} />);
+    await waitFor(() => expect(folded(container)).toContain("Not saved yet"));
+    expect(folded(container)).not.toContain("Not answered yet");
+  });
+
+  it("says Not saved yet over a saved answer that has been changed", async () => {
+    const saved = [{ questionIndex: 0, text: "Sydney", isCorrect: null, pointsAwarded: null }];
+    const { container, rerender } = render(
+      <RoundTeamPlay state={roundState(1, saved)} team={team} onChanged={async () => {}} />
+    );
+    fireEvent.change(screen.getByLabelText("Answer to Round 1 · Q1"), { target: { value: "Canberra" } });
+
+    rerender(<RoundTeamPlay state={roundState(2, saved)} team={team} onChanged={async () => {}} />);
+    await waitFor(() => expect(folded(container)).toContain("Not saved yet"));
+    expect(folded(container)).not.toContain("Saved");
+  });
+
+  it("still says Saved and Not answered yet when there is no draft", () => {
+    const saved = [{ questionIndex: 0, text: "Canberra", isCorrect: null, pointsAwarded: null }];
+    const { container, rerender } = render(
+      <RoundTeamPlay state={roundState(2, saved)} team={team} onChanged={async () => {}} />
+    );
+    expect(folded(container)).toContain("Saved");
+
+    rerender(<RoundTeamPlay state={roundState(2)} team={team} onChanged={async () => {}} />);
+    expect(folded(container)).toContain("Not answered yet");
+  });
+});

@@ -61,3 +61,21 @@ test("a save with no connection says so, keeps the answer, and saves once back o
 
   await close();
 });
+
+test("a folded question with an unsaved answer says Not saved yet", async ({ browser, baseURL }) => {
+  const { advance, phone, close } = await gameWithPhone(browser, baseURL!, "Folding Foxes");
+  await advance("start");
+  const q1 = phone.getByLabel("Answer to Round 1 · Q1");
+  await expect(q1).toBeVisible({ timeout: 10_000 });
+  await q1.fill("Canberra");
+
+  // The host asks Q2 before Q1 was saved: Q1 folds, its answer still in the box.
+  await advance("ask_next");
+  await expect(phone.getByLabel("Answer to Round 1 · Q2")).toBeVisible({ timeout: 10_000 });
+  const folded = phone.locator("details summary");
+  await expect(folded).toContainText("Round 1 · Q1");
+  await expect(folded).toContainText("Not saved yet");
+  await expect(folded).not.toContainText("Not answered yet");
+
+  await close();
+});

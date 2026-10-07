@@ -297,7 +297,9 @@ function QuestionCard({
     <details className="rounded-2xl bg-white/5 p-4">
       <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-2 text-sm font-semibold">
         <span className="text-gold">{label}</span>
-        <span className="text-stage-muted">{saved ? "Saved" : open ? "Not answered yet" : ""}</span>
+        <span className="text-stage-muted">
+          {unsaved ? "Not saved yet" : saved ? "Saved" : open ? "Not answered yet" : ""}
+        </span>
       </summary>
       {body}
     </details>
