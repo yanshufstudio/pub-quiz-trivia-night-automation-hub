@@ -66,11 +66,16 @@ export function TeamPortal() {
   // shows the final scores and its place, not the join form.
   const [checking, setChecking] = useState(false);
   const checkingRef = useRef(false);
+  // The token of the team this phone is in right now. A poll already on its
+  // way when the team left answers for a team that is gone; its "Invalid team
+  // token" used to land on the empty join form after Leave.
+  const liveToken = useRef<string | null>(null);
 
   // Back to the join form, for the game in the URL if there is one, with no
   // team name carried over from the game being left.
   const forgetTeam = useCallback(() => {
     clearStoredTeam();
+    liveToken.current = null;
     setStored(null);
     setState(null);
     setName("");
@@ -94,6 +99,7 @@ export function TeamPortal() {
       clearStoredTeam();
       existing = null;
     }
+    liveToken.current = existing?.token ?? null;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setStored(existing);
     if (existing) {
@@ -115,6 +121,7 @@ export function TeamPortal() {
     try {
       const res = await fetch(`/api/sessions/${team.code}?token=${encodeURIComponent(team.token)}`);
       const data = await res.json();
+      if (liveToken.current !== team.token) return;
       const firstCheck = checkingRef.current;
       checkingRef.current = false;
       setChecking(false);
@@ -137,6 +144,7 @@ export function TeamPortal() {
         setAnswer(data.myAnswer.text);
       }
     } catch {
+      if (liveToken.current !== team.token) return;
       checkingRef.current = false;
       setChecking(false);
       setError("Lost connection to the session. Retrying…");
@@ -173,6 +181,7 @@ export function TeamPortal() {
         teamName: data.teamName,
       };
       writeStoredTeam(team);
+      liveToken.current = team.token;
       setStored(team);
       answerQuestionId.current = null;
       setAnswer("");

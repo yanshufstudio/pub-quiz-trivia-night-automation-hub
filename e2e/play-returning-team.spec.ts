@@ -142,4 +142,44 @@ test.describe("a phone that remembers a team", () => {
     await context.close();
     await host.close();
   });
+
+  test("a poll still on its way when the team leaves does not put an error on the join form", async ({
+    browser,
+    baseURL,
+  }) => {
+    const { context: host, api } = await signedInContext(browser, baseURL!);
+    const game = await newGame(api);
+    const { context, phone } = await phoneIn(browser, baseURL!, game.code, "Racing Rats");
+
+    // Hold the next poll until the team has left; the server then answers it
+    // for a team that no longer exists ("Invalid team token").
+    let release!: () => void;
+    const held = new Promise<void>((resolve) => (release = resolve));
+    let caught!: () => void;
+    const inFlight = new Promise<void>((resolve) => (caught = resolve));
+    await phone.route(
+      (url) => url.pathname === `/api/sessions/${game.code}` && url.searchParams.has("token"),
+      async (route) => {
+        caught();
+        await held;
+        await route.continue();
+      }
+    );
+    await inFlight;
+    const left = phone.waitForResponse((res) => new URL(res.url()).pathname === `/api/sessions/${game.code}/leave`);
+    await phone.getByRole("button", { name: "Leave" }).click();
+    expect((await left).ok()).toBe(true);
+    await expect(phone.getByRole("button", { name: "Join session" })).toBeVisible();
+    const answered = phone.waitForResponse((res) => new URL(res.url()).pathname === `/api/sessions/${game.code}`);
+    release();
+    expect((await answered).status()).toBe(401);
+
+    // Give the page a moment to handle that answer; nothing else polls now.
+    await phone.waitForTimeout(500);
+    await expect(phone.getByText("Invalid team token")).toHaveCount(0);
+    await expect(phone.getByRole("button", { name: "Join session" })).toBeVisible();
+
+    await context.close();
+    await host.close();
+  });
 });
