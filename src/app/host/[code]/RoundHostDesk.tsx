@@ -77,10 +77,10 @@ export function RoundHostDesk({
         body: JSON.stringify({ ...body, hostToken }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error ?? "That didn't work — try again");
+      if (!res.ok) throw new Error(data.error ?? "That didn't work. Try again.");
       onError(null);
     } catch (err) {
-      onError(err instanceof Error ? err.message : "That didn't work — try again");
+      onError(err instanceof Error ? err.message : "That didn't work. Try again.");
     } finally {
       await refresh();
       setBusy(false);
@@ -108,7 +108,7 @@ export function RoundHostDesk({
   const missingTotals = (state.marks ?? []).filter((row) => row.isPaper && row.typed === null).map((row) => row.name);
   const missingTotalsNote =
     missingTotals.length > 0
-      ? `No round ${state.roundNumber} total for ${listNames(missingTotals)} — they score 0 for it unless you type one.`
+      ? `No round ${state.roundNumber} total for ${listNames(missingTotals)}. They score 0 for it unless you type one.`
       : "";
 
   if (state.status === "LOBBY") {
@@ -524,7 +524,7 @@ function Marking({
       <div className="rounded-2xl bg-white/5 p-4 sm:p-6">
         <h2 className="font-serif text-2xl font-semibold">Round {n}: check the marks</h2>
         <p className="mt-1 text-sm text-stage-muted">
-          {state.revealedCount} of {state.totalQuestionsInRound} answers revealed. Marked automatically — tap a
+          {state.revealedCount} of {state.totalQuestionsInRound} answers revealed. Marked automatically. Tap a
           mark to change it. The room sees nothing here.
         </p>
 
@@ -556,7 +556,7 @@ function Marking({
                   </th>
                   {row.isPaper ? (
                     <td colSpan={state.questions.length} className="px-2 text-stage-muted">
-                      On paper — type the round total below
+                      On paper: type the round total below
                     </td>
                   ) : (
                     state.questions.map((q) => {
@@ -564,7 +564,8 @@ function Marking({
                       if (!answer) {
                         return (
                           <td key={q.id} className="px-2 text-stage-muted">
-                            —
+                            <span aria-hidden="true">·</span>
+                            <span className="sr-only">No answer</span>
                           </td>
                         );
                       }
@@ -573,7 +574,7 @@ function Marking({
                           <button
                             type="button"
                             disabled={busy}
-                            aria-label={`${row.name}, Q${q.index + 1}: ${answer.text} — marked ${answer.isCorrect ? "right" : "wrong"}. Tap to mark ${answer.isCorrect ? "wrong" : "right"}.`}
+                            aria-label={`${row.name}, Q${q.index + 1}: ${answer.text}, marked ${answer.isCorrect ? "right" : "wrong"}. Tap to mark ${answer.isCorrect ? "wrong" : "right"}.`}
                             onClick={() => void onOverride(answer.id, !answer.isCorrect, q.points)}
                             className={`flex min-h-11 w-full min-w-24 items-center justify-between gap-2 rounded-lg px-2 text-left ${
                               answer.isCorrect ? "bg-emerald-500/20 text-emerald-100" : "bg-red-500/15 text-red-100"

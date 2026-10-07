@@ -50,7 +50,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const teamCount = await db.team.count({ where: { sessionId: session.id } });
   if (teamCount >= MAX_TEAMS_PER_SESSION) {
     return NextResponse.json(
-      { error: "This quiz is full — it has reached the maximum number of teams." },
+      { error: "This quiz is full. It has reached the maximum number of teams." },
       { status: 409 }
     );
   }

@@ -106,7 +106,7 @@ export function RoundTeamPlay({
           <span dir="auto">You’re in, {state.teamName}.</span>{" "}
           {state.roundNumber < state.totalRounds
             ? `You’ll play from round ${state.roundNumber + 1}.`
-            : "That was the last round — the final scores are on their way."}
+            : "That was the last round. The final scores are on their way."}
         </p>
       ) : state.status === "ROUND_MARKING" ? (
         <p className="mt-4 rounded-2xl bg-white/5 px-4 py-4 text-lg font-semibold">

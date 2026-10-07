@@ -237,7 +237,7 @@ async function advanceRound(
       body.at.askedCount !== session.askedCount ||
       body.at.revealedCount !== session.revealedCount)
   ) {
-    return NextResponse.json({ error: "The game moved on — refresh and try again" }, { status: 409 });
+    return NextResponse.json({ error: "The game moved on. Refresh and try again." }, { status: 409 });
   }
   const plan = planRoundAction(
     session,
@@ -253,7 +253,7 @@ async function advanceRound(
   // "end" is idempotent (see the QUESTION-mode branch): ending an ended game is
   // not a lost race. Every other action that matched nothing lost one.
   if (count === 0 && body.action !== "end") {
-    return NextResponse.json({ error: "The game moved on — refresh and try again" }, { status: 409 });
+    return NextResponse.json({ error: "The game moved on. Refresh and try again." }, { status: 409 });
   }
   forgetDisplay(session.code);
   if (body.action === "close_round") {
