@@ -408,6 +408,11 @@ function HostQuestion({ question, code, hostToken }: { question: RoundQuestionVi
   );
 }
 
+/** The room's screen, in a new tab: from the lobby next to the QR code, and from the menu. */
+function openTv(code: string) {
+  window.open(`${window.location.origin}/tv/${code}`, "_blank", "noopener");
+}
+
 function Lobby({
   code,
   state,
@@ -428,6 +433,15 @@ function Lobby({
         Teams join on their phones with the code. Tables playing on paper: add them by name.
       </p>
       <JoinQr code={code} />
+      <div className="mt-4 flex justify-center sm:justify-start">
+        <button
+          type="button"
+          onClick={() => openTv(code)}
+          className="h-12 min-h-12 rounded-xl bg-gold px-4 text-sm font-semibold text-stage"
+        >
+          Open TV display
+        </button>
+      </div>
 
       <div className="mt-6 flex items-center justify-between gap-3">
         <h3 className="font-semibold">Teams ({state.teams.length})</h3>
@@ -705,7 +719,7 @@ function DeskMenu({
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={() => window.open(tvUrl, "_blank", "noopener")}
+            onClick={() => openTv(code)}
             className="h-12 min-h-12 rounded-xl bg-gold px-4 text-sm font-semibold text-stage"
           >
             Open TV display

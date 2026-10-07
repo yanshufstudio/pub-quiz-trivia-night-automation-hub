@@ -138,9 +138,27 @@ test("the host desk's menu opens the TV display and warns about mirroring", asyn
   await page.getByRole("button", { name: "Menu" }).click();
   await expect(page.getByText(`/tv/${session.code}`)).toBeVisible();
   await expect(page.getByText(/use Extend, not Mirror/)).toBeVisible();
+  const menu = page.locator("section", { has: page.getByRole("heading", { name: "TV display" }) });
   const [tv] = await Promise.all([
     context.waitForEvent("page"),
-    page.getByRole("button", { name: "Open TV display" }).click(),
+    menu.getByRole("button", { name: "Open TV display" }).click(),
+  ]);
+  await expect(tv).toHaveURL(new RegExp(`/tv/${session.code}$`));
+  await context.close();
+});
+
+test("the lobby opens the TV display from next to the QR code", async ({ browser, baseURL }) => {
+  const { context, api } = await signedInContext(browser, baseURL!);
+  const { pack } = await (await api.post("/api/packs/seed")).json();
+  const { session } = await (await api.post("/api/sessions", { data: { packId: pack.id } })).json();
+  const page = await context.newPage();
+  await page.setViewportSize(PHONE);
+  await page.goto(`/host/${session.code}`);
+  const lobby = page.locator("section", { has: page.getByRole("heading", { name: "Waiting for teams" }) });
+  await expect(lobby.getByRole("img", { name: "Scan to join" })).toBeVisible();
+  const [tv] = await Promise.all([
+    context.waitForEvent("page"),
+    lobby.getByRole("button", { name: "Open TV display" }).click(),
   ]);
   await expect(tv).toHaveURL(new RegExp(`/tv/${session.code}$`));
   await context.close();
