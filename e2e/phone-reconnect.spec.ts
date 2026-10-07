@@ -95,3 +95,19 @@ test("visible again or online again, the phone polls at once", async ({ browser,
 
   await close();
 });
+
+test("offline, the phone says Reconnecting… calmly and recovers when back online", async ({ browser, baseURL }) => {
+  const { phone, teamContext, close } = await gameWithPhone(browser, baseURL!, "Offline Otters");
+
+  await teamContext.setOffline(true);
+  await expect(phone.getByRole("status")).toHaveText("Reconnecting…", { timeout: 10_000 });
+  await expect(phone.getByText(/Lost connection/)).toHaveCount(0);
+  // What the phone was showing stays underneath.
+  await expect(phone.getByText("Waiting for the host to start the quiz.")).toBeVisible();
+
+  await teamContext.setOffline(false);
+  await expect(phone.getByRole("status")).toHaveCount(0, { timeout: 10_000 });
+  await expect(phone.getByText("Waiting for the host to start the quiz.")).toBeVisible();
+
+  await close();
+});

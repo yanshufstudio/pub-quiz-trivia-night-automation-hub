@@ -64,6 +64,8 @@ export function TeamPortal() {
   // the phone is open still shows its final scores.
   const [checking, setChecking] = useState(false);
   const checkingRef = useRef(false);
+  // A poll failed and none has answered since: a calm badge, not an error.
+  const [reconnecting, setReconnecting] = useState(false);
   // Polls are numbered as they start. Coming back from a locked screen sends
   // one at once beside the 3 s tick, so two can be in flight; an older one
   // answering last must not put the game back where it was.
@@ -74,6 +76,7 @@ export function TeamPortal() {
   // team name carried over from the game being left.
   const forgetTeam = useCallback(() => {
     clearStoredTeam();
+    setReconnecting(false);
     setStored(null);
     setState(null);
     setName("");
@@ -121,6 +124,7 @@ export function TeamPortal() {
       const data = await res.json();
       if (poll < newestApplied.current) return;
       newestApplied.current = poll;
+      setReconnecting(false);
       const firstCheck = checkingRef.current;
       checkingRef.current = false;
       setChecking(false);
@@ -151,7 +155,8 @@ export function TeamPortal() {
       newestApplied.current = poll;
       checkingRef.current = false;
       setChecking(false);
-      setError("Lost connection to the session. Retrying…");
+      // The next good poll clears it; what the phone was showing stays.
+      setReconnecting(true);
     }
   }, [forgetTeam]);
 
@@ -315,6 +320,14 @@ export function TeamPortal() {
       </header>
 
       <main className="mx-auto mt-6 flex w-full max-w-md flex-1 flex-col">
+        {reconnecting ? (
+          <p
+            role="status"
+            className="fixed left-1/2 top-3 z-20 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-sm font-semibold text-stage-fg"
+          >
+            Reconnecting…
+          </p>
+        ) : null}
         {error ? <p className="mb-4 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
 
         {/* Every game started since round mode shipped (RM8); the panels

@@ -106,3 +106,21 @@ describe("polling at once", () => {
     expect(screen.getByLabelText("Answer to Round 1 · Q1")).toBeTruthy();
   });
 });
+
+describe("a poll that fails", () => {
+  it("shows a calm Reconnecting… badge, not the red error line, and clears it on the next good poll", async () => {
+    const fetchMock = vi.fn(async () => ok(roundTeamState(0)));
+    await renderInLobby(fetchMock);
+
+    fetchMock.mockImplementation(async () => Promise.reject(new TypeError("Failed to fetch")));
+    act(() => void window.dispatchEvent(new Event("online")));
+    expect((await screen.findByRole("status")).textContent).toBe("Reconnecting…");
+    expect(screen.queryByText(/Lost connection/)).toBeNull();
+    // What the phone was showing stays on screen underneath.
+    expect(screen.getByText("Waiting for the host to start the quiz.")).toBeTruthy();
+
+    fetchMock.mockImplementation(async () => ok(roundTeamState(0)));
+    act(() => void window.dispatchEvent(new Event("online")));
+    await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
+  });
+});
