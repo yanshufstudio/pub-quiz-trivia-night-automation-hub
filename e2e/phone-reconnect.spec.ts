@@ -79,3 +79,19 @@ test("a folded question with an unsaved answer says Not saved yet", async ({ bro
 
   await close();
 });
+
+test("visible again or online again, the phone polls at once", async ({ browser, baseURL }) => {
+  const { code, phone, close } = await gameWithPhone(browser, baseURL!, "Prompt Pandas");
+
+  await justAfterAPoll(phone, code);
+  let asked = phone.waitForRequest((req) => isPoll(code)(req.url()), { timeout: 1_500 });
+  await phone.evaluate(() => document.dispatchEvent(new Event("visibilitychange")));
+  await asked;
+
+  await justAfterAPoll(phone, code);
+  asked = phone.waitForRequest((req) => isPoll(code)(req.url()), { timeout: 1_500 });
+  await phone.evaluate(() => window.dispatchEvent(new Event("online")));
+  await asked;
+
+  await close();
+});

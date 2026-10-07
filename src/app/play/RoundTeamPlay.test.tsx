@@ -1,40 +1,12 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import type { RoundQuestionView, RoundTeamState } from "@/lib/api-types";
+import type { RoundTeamState } from "@/lib/api-types";
+import { fixtureTeam, roundTeamState } from "@/test/round-team-fixture";
 import { RoundTeamPlay } from "./RoundTeamPlay";
 
-const team = { code: "ABCDE", token: "t0ken", teamId: "team-1", teamName: "Quizzly Bears" };
-
-function question(index: number): RoundQuestionView {
-  return { index, id: `q${index}`, text: `Question ${index + 1}?`, points: 1, type: "TEXT", options: [], hasMedia: false, answer: null };
-}
-
-function roundState(asked: number, myAnswers: RoundTeamState["myAnswers"] = []): RoundTeamState {
-  return {
-    mode: "ROUND",
-    code: team.code,
-    status: "ROUND_OPEN",
-    packTitle: "Pack",
-    roundNumber: 1,
-    totalRounds: 2,
-    totalQuestionsInRound: 3,
-    askedCount: asked,
-    revealedCount: 0,
-    round: { title: "General", category: "General" },
-    scoreboardShown: false,
-    countedRounds: 0,
-    tvShowsAll: false,
-    countdown: null,
-    serverNow: new Date().toISOString(),
-    questions: Array.from({ length: asked }, (_, i) => question(i)),
-    scoreboard: null,
-    teamName: team.teamName,
-    sitsOutRound: false,
-    myAnswers,
-    myRoundTotal: null,
-  };
-}
+const team = fixtureTeam;
+const roundState = (asked: number, myAnswers: RoundTeamState["myAnswers"] = []) => roundTeamState(asked, myAnswers);
 
 const folded = (container: HTMLElement) => container.querySelector("details summary")?.textContent ?? "";
 
