@@ -10,6 +10,8 @@ import { questionMediaUrl } from "@/lib/question-media-url";
 import { NO_SCORES_YET, noScoresYet } from "@/lib/scoreboard-summary";
 import type { StoredTeam } from "@/lib/team-session";
 
+const NO_CONNECTION = "No connection, your answer was not saved";
+
 /**
  * A team's phone in a round-mode game (RM8).
  *
@@ -57,7 +59,12 @@ export function RoundTeamPlay({
         return next;
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not save your answer");
+      // A fetch that never reached the server rejects with a TypeError whose
+      // text is the browser's own ("Failed to fetch", "Load failed").
+      const offline = err instanceof TypeError || (typeof navigator !== "undefined" && navigator.onLine === false);
+      setError(
+        offline ? NO_CONNECTION : err instanceof Error ? err.message : "Could not save your answer"
+      );
     } finally {
       setSaving(null);
     }
