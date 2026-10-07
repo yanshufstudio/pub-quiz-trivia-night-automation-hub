@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { throttleIfAsked, waitForHydration } from "./hydration";
 import { newAnonContext, signedInContext } from "./sign-in-helper";
 
 /**
@@ -15,16 +16,34 @@ test("a team's phone holds the team token and nothing else, and forgets it on le
   browser,
   baseURL,
 }) => {
+  // Room for E2E_CPU_THROTTLE=20, where this test alone takes about 40 s.
+  test.setTimeout(90_000);
   const { context: hostContext, api } = await signedInContext(browser, baseURL!);
   const { pack } = await (await api.post("/api/packs/seed")).json();
   const { session } = await (await api.post("/api/sessions", { data: { packId: pack.id } })).json();
 
   const teamContext = await newAnonContext(browser, baseURL);
   const team = await teamContext.newPage();
+  await throttleIfAsked(team);
   await team.goto(`/play?code=${session.code}`);
+  await waitForHydration(team);
   await team.getByLabel("Team name").fill("Storage Check");
+  // Wait for what the screen is waiting for: the join, then the first poll.
+  // This used to wait for "Sit tight.", the placeholder shown only between
+  // the two, which the first poll replaces; on a slow runner it was gone (or
+  // not yet drawn) inside the 5 s, and master's CI went red on f6d4ae8.
+  const poll = () =>
+    team.waitForResponse(
+      (res) => res.request().method() === "GET" && new URL(res.url()).pathname === `/api/sessions/${session.code}`
+    );
+  const joined = team.waitForResponse(
+    (res) => res.request().method() === "POST" && new URL(res.url()).pathname === `/api/sessions/${session.code}/join`
+  );
+  const firstPoll = poll();
   await team.getByRole("button", { name: "Join session" }).click();
-  await expect(team.getByText("Sit tight.")).toBeVisible();
+  expect((await joined).ok()).toBe(true);
+  expect((await firstPoll).ok()).toBe(true);
+  await expect(team.getByText("Waiting for the host to start the quiz.")).toBeVisible();
 
   const stored = await team.evaluate(() => ({
     local: Object.keys(localStorage),
@@ -38,6 +57,8 @@ test("a team's phone holds the team token and nothing else, and forgets it on le
   expect(typeof stored.team?.token).toBe("string");
   expect(await teamContext.cookies()).toEqual([]);
 
+  // Leave just after a poll has answered, not while one is on its way.
+  await poll();
   await team.getByRole("button", { name: "Leave" }).click();
   await expect.poll(() => team.evaluate(() => Object.keys(localStorage))).toEqual([]);
 

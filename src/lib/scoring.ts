@@ -30,6 +30,49 @@ export function normalizeAnswer(raw: string): string {
   );
 }
 
+const UNITS = [
+  "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+  "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+];
+const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+/** English number words from zero to a hundred, each with its digits. */
+const NUMBER_WORDS = new Map<string, string>();
+UNITS.forEach((word, n) => NUMBER_WORDS.set(word, String(n)));
+TENS.forEach((tens, t) => {
+  if (!tens) return;
+  NUMBER_WORDS.set(tens, String(t * 10));
+  // "twenty-one" reaches here as "twentyone": the hyphen went with the punctuation.
+  for (let u = 1; u <= 9; u++) NUMBER_WORDS.set(tens + UNITS[u], String(t * 10 + u));
+});
+NUMBER_WORDS.set("hundred", "100");
+
+/**
+ * A normalized answer with its English number words, zero to a hundred, as
+ * digits, so "Seven Wonders" and "7 Wonders" compare equal. "twenty one" is
+ * read as one number, and so are "one hundred" and "a hundred". Ordinals
+ * ("seventh") and larger numbers are left as they are.
+ */
+function withDigits(normalized: string): string {
+  const words = normalized.split(" ");
+  const out: string[] = [];
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    const next = words[i + 1];
+    const unit = next === undefined ? -1 : UNITS.indexOf(next);
+    if ((word === "one" || word === "a") && next === "hundred") {
+      out.push("100");
+      i++;
+    } else if (word !== "" && TENS.includes(word) && unit >= 1 && unit <= 9) {
+      out.push(NUMBER_WORDS.get(word + next)!);
+      i++;
+    } else {
+      out.push(NUMBER_WORDS.get(word) ?? word);
+    }
+  }
+  return out.join(" ");
+}
+
 /** True when `submitted` normalizes to match `correct`, or any of the
  * question's host-approved `acceptableAnswers` — alternate spellings,
  * nicknames, or partial names ("7" for "Seven", "Leo" for "Leonardo
@@ -41,6 +84,7 @@ export function isLikelyCorrect(submitted: string, correct: string, acceptableAn
   // Latin alphabet — used to match every other such answer, which is how a
   // Hebrew quiz scored an empty answer box correct.
   if (normalizedSubmitted === "") return false;
-  if (normalizedSubmitted === normalizeAnswer(correct)) return true;
-  return acceptableAnswers.some((answer) => normalizeAnswer(answer) === normalizedSubmitted);
+  const submittedDigits = withDigits(normalizedSubmitted);
+  if (submittedDigits === withDigits(normalizeAnswer(correct))) return true;
+  return acceptableAnswers.some((answer) => withDigits(normalizeAnswer(answer)) === submittedDigits);
 }

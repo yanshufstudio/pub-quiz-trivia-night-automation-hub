@@ -142,7 +142,7 @@ function ScriptLayout({ pack }: { pack: Pack }) {
                     {question.text}
                   </p>
                   <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-muted">
-                    {question.points} pt
+                    {countOf(question.points, "pt")}
                   </span>
                 </div>
                 <OptionsLine question={question} />
@@ -225,7 +225,7 @@ function QuestionLayout({ pack }: { pack: Pack }) {
                     {question.text}
                   </p>
                   <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-muted">
-                    {question.points} pt
+                    {countOf(question.points, "pt")}
                   </span>
                 </div>
                 <OptionsLine question={question} />
