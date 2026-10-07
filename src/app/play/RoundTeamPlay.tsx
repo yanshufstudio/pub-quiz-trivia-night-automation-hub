@@ -232,15 +232,14 @@ function QuestionCard({
             </button>
           </form>
         )
-      ) : (
+      ) : saved ? (
         <p className="mt-3 text-lg">
-          {saved ? (
-            <>
-              You said: <span dir="auto">{saved.text}</span>
-            </>
-          ) : (
-            <span className="text-stage-muted">No answer</span>
-          )}
+          You said: <span dir="auto">{saved.text}</span>
+        </p>
+      ) : revealed ? null : (
+        // Once revealed, the verdict below says "No answer"; saying it here too doubled it.
+        <p className="mt-3 text-lg">
+          <span className="text-stage-muted">No answer</span>
         </p>
       )}
 

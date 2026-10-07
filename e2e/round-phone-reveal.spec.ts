@@ -65,6 +65,10 @@ test("during the reveal the phone puts the latest answer and the scoreboard on t
   expect(await cardLabels(phone)).toEqual(["Round 1 · Q2", "Round 1 · Q1", "Round 1 · Q3"]);
   await expect(phone.locator("ol > li").first().getByText("Just revealed")).toBeVisible();
   await expect(phone.getByText("Just revealed")).toHaveCount(1);
+  // Q2 was not answered: revealed, it says "No answer" once, in the verdict.
+  // Q3, not revealed yet, says it once too.
+  await expect(phone.locator("ol > li").first().getByText("No answer", { exact: true })).toHaveCount(1);
+  await expect(phone.locator("ol > li").last().getByText("No answer", { exact: true })).toHaveCount(1);
 
   await advance("reveal_all");
   const total = phone.getByText("Round 1 total: 1 point");
