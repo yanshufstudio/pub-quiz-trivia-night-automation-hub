@@ -26,7 +26,8 @@ test("the desk shows only who has answered until the round closes", async ({ bro
   await hostPage.waitForURL(/\/host\//);
   const code = hostPage.url().split("/host/")[1];
 
-  const teamPage = await (await newAnonContext(browser)).newPage();
+  const teamContext = await newAnonContext(browser);
+  const teamPage = await teamContext.newPage();
   await teamPage.goto("/play");
   await teamPage.getByLabel(/code/i).fill(code);
   await teamPage.getByLabel(/team name/i).fill("Alpha");
@@ -60,4 +61,5 @@ test("the desk shows only who has answered until the round closes", async ({ bro
   await expect(hostPage.getByTestId("marks-grid").getByText("Canberra")).toBeVisible();
 
   await hostContext.close();
+  await teamContext.close();
 });
