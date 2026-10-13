@@ -34,15 +34,20 @@ export const HOME_DESCRIPTION =
  * `path` is relative to `metadataBase` (set in the root layout), so `/pricing`
  * resolves to https://triviafoundry.com/pricing for both og:url and the
  * canonical link.
+ *
+ * `image` is the page's own share picture, for the pages that have one (the
+ * quiz pages under /quizzes). Left out, the page shares the site card.
  */
 export function pageMetadata({
   path,
   title,
   description,
+  image = OG_IMAGE,
 }: {
   path: string;
   title: string;
   description: string;
+  image?: { url: string; width: number; height: number; alt: string };
 }): Metadata {
   return {
     title,
@@ -54,7 +59,7 @@ export function pageMetadata({
       url: path,
       title,
       description,
-      images: [OG_IMAGE],
+      images: [image],
     },
     // Same reason as openGraph: without its own object a page inherits the
     // homepage's twitter:title and twitter:description.
@@ -62,7 +67,7 @@ export function pageMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [{ url: OG_IMAGE.url, alt: OG_IMAGE.alt }],
+      images: [{ url: image.url, alt: image.alt }],
     },
   };
 }
