@@ -36,7 +36,7 @@ const COUNTDOWN_CHOICES = [
   { seconds: 300, label: "5 min" },
 ];
 
-type Confirming = "close" | "finish" | "end" | "reveal_all" | null;
+type Confirming = "close" | "finish" | "end" | "reveal_all" | "reveal_last" | "next_round" | null;
 
 /** "A", "A and B", "A, B and C" — for a sentence, unlike the trophy's "&". */
 function listNames(names: string[]): string {
@@ -77,10 +77,10 @@ export function RoundHostDesk({
         body: JSON.stringify({ ...body, hostToken }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error ?? "That didn't work — try again");
+      if (!res.ok) throw new Error(data.error ?? "That didn't work. Try again.");
       onError(null);
     } catch (err) {
-      onError(err instanceof Error ? err.message : "That didn't work — try again");
+      onError(err instanceof Error ? err.message : "That didn't work. Try again.");
     } finally {
       await refresh();
       setBusy(false);
@@ -104,11 +104,12 @@ export function RoundHostDesk({
 
   let primary: { label: string; onPress: () => void; disabled?: boolean } | null = null;
   // Paper teams with no total typed for this round score 0 for it. Said
-  // before "Reveal all" and "Finish", which used to go ahead without a word.
+  // before "Reveal all", the last "Reveal next answer", "Next round" and
+  // "Finish", which used to go ahead without a word.
   const missingTotals = (state.marks ?? []).filter((row) => row.isPaper && row.typed === null).map((row) => row.name);
   const missingTotalsNote =
     missingTotals.length > 0
-      ? `No round ${state.roundNumber} total for ${listNames(missingTotals)} — they score 0 for it unless you type one.`
+      ? `No round ${state.roundNumber} total for ${listNames(missingTotals)}. They score 0 for it unless you type one.`
       : "";
 
   if (state.status === "LOBBY") {
@@ -123,12 +124,17 @@ export function RoundHostDesk({
         ? { label: "Ask next question", onPress: () => void advance("ask_next") }
         : { label: "Close round…", onPress: () => setConfirming("close") };
   } else if (state.status === "ROUND_MARKING" || state.status === "ROUND_REVEAL") {
+    const warn = missingTotals.length > 0;
     if (state.revealedCount < total) {
-      primary = { label: "Reveal next answer", onPress: () => void advance("reveal_next") };
+      const last = state.revealedCount === total - 1;
+      primary = {
+        label: "Reveal next answer",
+        onPress: () => (last && warn ? setConfirming("reveal_last") : void advance("reveal_next")),
+      };
     } else if (isLastRound) {
       primary = { label: "Finish quiz…", onPress: () => setConfirming("finish") };
     } else {
-      primary = { label: "Next round", onPress: () => void advance("next_round") };
+      primary = { label: "Next round", onPress: () => (warn ? setConfirming("next_round") : void advance("next_round")) };
     }
   }
 
@@ -309,7 +315,12 @@ export function RoundHostDesk({
         {state.status === "ENDED" ? <Ended state={state} /> : null}
       </main>
 
-      {primary || confirming === "close" || confirming === "finish" || confirming === "reveal_all" ? (
+      {primary ||
+      confirming === "close" ||
+      confirming === "finish" ||
+      confirming === "reveal_all" ||
+      confirming === "reveal_last" ||
+      confirming === "next_round" ? (
         <div
           data-testid="primary-action"
           className="fixed inset-x-0 bottom-0 z-10 border-t border-white/10 bg-stage/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur"
@@ -352,6 +363,32 @@ export function RoundHostDesk({
                 onConfirm={() => {
                   setConfirming(null);
                   void advance("reveal_all");
+                }}
+              />
+            ) : confirming === "reveal_last" ? (
+              <ConfirmPanel
+                title="Reveal the last answer?"
+                body={missingTotalsNote}
+                confirmLabel="Yes, reveal it"
+                keepLabel="Keep marking"
+                busy={busy}
+                onKeep={() => setConfirming(null)}
+                onConfirm={() => {
+                  setConfirming(null);
+                  void advance("reveal_next");
+                }}
+              />
+            ) : confirming === "next_round" ? (
+              <ConfirmPanel
+                title={`Go to round ${state.roundNumber + 1}?`}
+                body={missingTotalsNote}
+                confirmLabel="Yes, next round"
+                keepLabel="Not yet"
+                busy={busy}
+                onKeep={() => setConfirming(null)}
+                onConfirm={() => {
+                  setConfirming(null);
+                  void advance("next_round");
                 }}
               />
             ) : primary ? (
@@ -408,6 +445,11 @@ function HostQuestion({ question, code, hostToken }: { question: RoundQuestionVi
   );
 }
 
+/** The room's screen, in a new tab: from the lobby next to the QR code, and from the menu. */
+function openTv(code: string) {
+  window.open(`${window.location.origin}/tv/${code}`, "_blank", "noopener");
+}
+
 function Lobby({
   code,
   state,
@@ -428,6 +470,15 @@ function Lobby({
         Teams join on their phones with the code. Tables playing on paper: add them by name.
       </p>
       <JoinQr code={code} />
+      <div className="mt-4 flex justify-center sm:justify-start">
+        <button
+          type="button"
+          onClick={() => openTv(code)}
+          className="h-12 min-h-12 rounded-xl bg-gold px-4 text-sm font-semibold text-stage"
+        >
+          Open TV display
+        </button>
+      </div>
 
       <div className="mt-6 flex items-center justify-between gap-3">
         <h3 className="font-semibold">Teams ({state.teams.length})</h3>
@@ -510,7 +561,7 @@ function Marking({
       <div className="rounded-2xl bg-white/5 p-4 sm:p-6">
         <h2 className="font-serif text-2xl font-semibold">Round {n}: check the marks</h2>
         <p className="mt-1 text-sm text-stage-muted">
-          {state.revealedCount} of {state.totalQuestionsInRound} answers revealed. Marked automatically — tap a
+          {state.revealedCount} of {state.totalQuestionsInRound} answers revealed. Marked automatically. Tap a
           mark to change it. The room sees nothing here.
         </p>
 
@@ -542,7 +593,7 @@ function Marking({
                   </th>
                   {row.isPaper ? (
                     <td colSpan={state.questions.length} className="px-2 text-stage-muted">
-                      On paper — type the round total below
+                      On paper: type the round total below
                     </td>
                   ) : (
                     state.questions.map((q) => {
@@ -550,7 +601,8 @@ function Marking({
                       if (!answer) {
                         return (
                           <td key={q.id} className="px-2 text-stage-muted">
-                            —
+                            <span aria-hidden="true">·</span>
+                            <span className="sr-only">No answer</span>
                           </td>
                         );
                       }
@@ -559,7 +611,7 @@ function Marking({
                           <button
                             type="button"
                             disabled={busy}
-                            aria-label={`${row.name}, Q${q.index + 1}: ${answer.text} — marked ${answer.isCorrect ? "right" : "wrong"}. Tap to mark ${answer.isCorrect ? "wrong" : "right"}.`}
+                            aria-label={`${row.name}, Q${q.index + 1}: ${answer.text}, marked ${answer.isCorrect ? "right" : "wrong"}. Tap to mark ${answer.isCorrect ? "wrong" : "right"}.`}
                             onClick={() => void onOverride(answer.id, !answer.isCorrect, q.points)}
                             className={`flex min-h-11 w-full min-w-24 items-center justify-between gap-2 rounded-lg px-2 text-left ${
                               answer.isCorrect ? "bg-emerald-500/20 text-emerald-100" : "bg-red-500/15 text-red-100"
@@ -628,7 +680,7 @@ function RoundTotalRow({
           {row.name}
         </span>
         <span className="text-sm tabular-nums text-stage-muted">
-          {row.typed !== null ? `${row.total} pts` : row.sitsOut ? "No answers this round" : `${row.auto} pts auto`}
+          {row.typed !== null ? countOf(row.total, "pt") : row.sitsOut ? "No answers this round" : countOf(row.auto, "pt")}
         </span>
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -705,7 +757,7 @@ function DeskMenu({
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={() => window.open(tvUrl, "_blank", "noopener")}
+            onClick={() => openTv(code)}
             className="h-12 min-h-12 rounded-xl bg-gold px-4 text-sm font-semibold text-stage"
           >
             Open TV display

@@ -4,6 +4,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import QRCode from "react-qr-code";
 import { QuestionText } from "@/components/QuestionText";
 import { RoundCountdown } from "@/components/RoundCountdown";
+import { Wordmark } from "@/components/Wordmark";
 import type { RoundDisplayState, RoundQuestionView, ScoreboardRow } from "@/lib/api-types";
 import { buildJoinUrl } from "@/lib/join-url";
 import { questionLabel } from "@/lib/question-number";
@@ -366,7 +367,11 @@ function ScoreboardScreen({ state, rows }: { state: RoundDisplayState; rows: Sco
           ))}
         </ol>
       )}
-      {ended ? <p className="mt-8 text-center text-[32px] text-stage-muted">Made with TriviaFoundry</p> : null}
+      {ended ? (
+        <p className="mt-8 flex items-center justify-center gap-[0.35em] text-[32px] text-stage-muted">
+          Made with <Wordmark />
+        </p>
+      ) : null}
     </div>
   );
 }

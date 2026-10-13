@@ -133,7 +133,7 @@ export function QuestionSheetDocument({ pack }: { pack: PackWithMedia }) {
                 <View style={styles.questionRow}>
                   <Text style={styles.questionNumber}>{q.index + 1}.</Text>
                   <Text style={styles.questionText}>{q.text}</Text>
-                  <Text style={styles.points}>{q.points} pt</Text>
+                  <Text style={styles.points}>{countOf(q.points, "pt")}</Text>
                 </View>
                 <OptionsLine question={q} />
                 <QuestionImage question={q} />
@@ -206,7 +206,7 @@ export function PresenterScriptDocument({ pack }: { pack: PackWithMedia }) {
                 <View style={styles.questionRow}>
                   <Text style={styles.questionNumber}>{q.index + 1}.</Text>
                   <Text style={styles.questionText}>{q.text}</Text>
-                  <Text style={styles.points}>{q.points} pt</Text>
+                  <Text style={styles.points}>{countOf(q.points, "pt")}</Text>
                 </View>
                 <OptionsLine question={q} />
                 <QuestionImage question={q} />

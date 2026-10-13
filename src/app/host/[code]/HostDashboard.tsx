@@ -303,7 +303,7 @@ export function HostDashboard({ code }: { code: string }) {
             <>
               <h2 className="font-serif text-2xl font-semibold">Waiting for teams</h2>
               <p className="mt-2 text-stage-muted">
-                Share the code. Start when everyone is in — late joiners can still arrive during the lobby.
+                Share the code. Start when everyone is in. Late joiners can still arrive during the lobby.
               </p>
               {/* Still worth saying in the lobby rather than in front of a
                   room — but no longer a dead end. The key lives in this
@@ -313,7 +313,7 @@ export function HostDashboard({ code }: { code: string }) {
                   who is not this account still needs the key pasted. */}
               <p className="mt-2 text-sm text-stage-muted">
                 Best to keep this browser open. If you do move devices, sign in there and open the
-                host link below — anyone else will be asked for this session&apos;s host key.
+                host link below. Anyone else will be asked for this session&apos;s host key.
               </p>
               <JoinQr code={state.code} />
               <button
@@ -340,7 +340,7 @@ export function HostDashboard({ code }: { code: string }) {
               </p>
               <p className="mt-1 text-sm text-stage-muted">
                 Question {state.questionNumber} of {state.totalQuestionsInRound}
-                {state.question ? ` · ${state.question.points} pt` : ""}
+                {state.question ? ` · ${countOf(state.question.points, "pt")}` : ""}
               </p>
               <h2 className="mt-4 font-serif text-2xl font-semibold leading-snug sm:text-3xl">
                 {state.question?.text ?? "No question loaded"}
@@ -406,7 +406,7 @@ export function HostDashboard({ code }: { code: string }) {
                 </p>
               ) : null}
               <p className="mt-6 text-sm text-stage-muted">
-                That’s the night. Final standings are on the right — thanks for hosting.
+                That’s the night. Final standings are on the right. Thanks for hosting.
               </p>
             </div>
           ) : null}

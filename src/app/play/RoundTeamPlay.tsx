@@ -106,7 +106,7 @@ export function RoundTeamPlay({
           <span dir="auto">You’re in, {state.teamName}.</span>{" "}
           {state.roundNumber < state.totalRounds
             ? `You’ll play from round ${state.roundNumber + 1}.`
-            : "That was the last round — the final scores are on their way."}
+            : "That was the last round. The final scores are on their way."}
         </p>
       ) : state.status === "ROUND_MARKING" ? (
         <p className="mt-4 rounded-2xl bg-white/5 px-4 py-4 text-lg font-semibold">
@@ -232,21 +232,23 @@ function QuestionCard({
             </button>
           </form>
         )
-      ) : (
+      ) : saved ? (
         <p className="mt-3 text-lg">
-          {saved ? (
-            <>
-              You said: <span dir="auto">{saved.text}</span>
-            </>
-          ) : (
-            <span className="text-stage-muted">No answer</span>
-          )}
+          You said: <span dir="auto">{saved.text}</span>
+        </p>
+      ) : revealed ? null : (
+        // Once revealed, the verdict below says "No answer"; saying it here too doubled it.
+        <p className="mt-3 text-lg">
+          <span className="text-stage-muted">No answer</span>
         </p>
       )}
 
       {open ? (
         <p className="mt-2 text-sm text-stage-muted" aria-live="polite">
-          {unsaved ? "Not saved yet" : saved ? "Saved" : "Not answered yet"}
+          {/* While saving, say so: a poll can bring the saved answer back
+              before the save itself answers, and the line said "Saved"
+              beside a button still saying "Saving…". */}
+          {saving ? "Saving…" : unsaved ? "Not saved yet" : saved ? "Saved" : "Not answered yet"}
         </p>
       ) : null}
 
