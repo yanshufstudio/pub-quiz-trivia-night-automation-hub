@@ -64,3 +64,4 @@ next-env.d.ts
 
 # accuracy harness output (scripts/eval-accuracy.ts)
 /eval-results/
+.claude-review-context.md
