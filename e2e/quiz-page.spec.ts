@@ -16,7 +16,7 @@ const PATH = "/quizzes/halloween";
 
 const TITLE = "Halloween quiz questions and answers: 20 free questions for your quiz night";
 const DESCRIPTION =
-  "20 free Halloween quiz questions with answers, in two rounds of ten: traditions and history, and horror films and books. Print them or use them as they are.";
+  "Two ready-made Halloween quiz rounds with answers: traditions and history, then horror films and books. Free to use. Or make your own Halloween quiz in minutes.";
 const INTRO =
   "Two rounds of ten for a Halloween quiz night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.";
 const CTA_HEADING = "Want a Halloween round built for your crowd?";
