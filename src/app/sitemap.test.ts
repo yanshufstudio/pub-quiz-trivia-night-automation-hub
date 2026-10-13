@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
@@ -10,6 +10,22 @@ const LEGAL_PATHS = ["/terms", "/privacy", "/refunds"];
 /** "/pricing" from "https://triviafoundry.com/pricing"; "/" from the bare origin. */
 function pathnameOf(url: string | URL): string {
   return new URL(url).pathname;
+}
+
+/**
+ * Whether `dir` holds a page.tsx for the remaining path segments. A segment
+ * may be matched by a dynamic `[param]` directory, which is how
+ * /quizzes/halloween is served (src/app/quizzes/[slug]). Which slugs exist is
+ * the quiz list's business, and src/content/quizzes/quizzes.test.ts checks it.
+ */
+function hasPage(dir: string, segments: string[]): boolean {
+  if (segments.length === 0) return existsSync(path.join(dir, "page.tsx"));
+  const [head, ...rest] = segments;
+  const exact = path.join(dir, head);
+  if (existsSync(exact) && hasPage(exact, rest)) return true;
+  return readdirSync(dir, { withFileTypes: true }).some(
+    (item) => item.isDirectory() && /^\[[^\].]+\]$/.test(item.name) && hasPage(path.join(dir, item.name), rest),
+  );
 }
 
 describe("sitemap.xml", () => {
@@ -32,9 +48,8 @@ describe("sitemap.xml", () => {
   it("points only at pages that exist in the app directory", () => {
     for (const entry of entries) {
       const pathname = pathnameOf(entry.url);
-      const dir = pathname === "/" ? "" : pathname.slice(1);
-      const page = path.resolve(__dirname, dir, "page.tsx");
-      expect(existsSync(page), `${pathname} has no page.tsx`).toBe(true);
+      const segments = pathname === "/" ? [] : pathname.slice(1).split("/");
+      expect(hasPage(__dirname, segments), `${pathname} has no page.tsx`).toBe(true);
     }
   });
 

@@ -304,3 +304,28 @@ html:has(.tv-surface) body {
     max-width: none;
   }
 }
+
+/* Public quiz pages (src/app/quizzes/[slug]). Printing one gives the heading,
+   the round headings, the questions and the answers: the header, pictures,
+   intro, call to action and Print button are `print-chrome` in the markup. The
+   footer is rendered by the root layout, outside the page's own markup, so it
+   is hidden here by what the page contains. A question stays on one page; a
+   heading never ends one. Both spellings, because older print engines read
+   only page-break-*. */
+@media print {
+  body:has(.quiz-sheet) > footer {
+    display: none !important;
+  }
+
+  .quiz-sheet li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .quiz-sheet h1,
+  .quiz-sheet h2,
+  .quiz-sheet h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+}

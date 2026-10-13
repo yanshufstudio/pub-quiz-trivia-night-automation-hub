@@ -3,6 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
+import { QUIZZES } from "@/content/quizzes";
 import { SITE_URL } from "@/lib/site";
 
 const result = robots();
@@ -34,8 +35,15 @@ function pageRoutes(dir = __dirname, prefix = ""): string[] {
     if (item.isFile() && item.name === "page.tsx") found.push(prefix || "/");
     if (!item.isDirectory() || item.name.startsWith("_") || item.name === "api") continue;
     // [id] and [code] stand for a real cuid or room code; any value crawls the same.
-    const segment = item.name.startsWith("[") ? "sample" : item.name;
-    found.push(...pageRoutes(path.join(dir, item.name), `${prefix}/${segment}`));
+    // /quizzes/[slug] is the exception: its slugs are the quiz list, so every
+    // real one is checked, and a slug the list does not hold is a 404 anyway.
+    const segments =
+      prefix === "/quizzes" && item.name === "[slug]"
+        ? QUIZZES.map((quiz) => quiz.slug)
+        : [item.name.startsWith("[") ? "sample" : item.name];
+    for (const segment of segments) {
+      found.push(...pageRoutes(path.join(dir, item.name), `${prefix}/${segment}`));
+    }
   }
   return found;
 }
