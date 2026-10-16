@@ -69,6 +69,10 @@ export const metadata: Metadata = {
   // worker on purpose: the live session is polling, so an "offline" shell
   // would only look alive while being dead. manifest.ts carries the rest.
   appleWebApp: { capable: true, title: "TriviaFoundry", statusBarStyle: "black-translucent" },
+  // Pinterest's domain claim. A public value, not a secret, and a literal on
+  // purpose: the tag has to be in the prerendered HTML of "/" whatever the
+  // environment holds. pageMetadata() sets no `other`, so every page inherits it.
+  other: { "p:domain_verify": "ef96d33147c907989bd2042961c0d28d" },
 };
 
 export const viewport: Viewport = {
