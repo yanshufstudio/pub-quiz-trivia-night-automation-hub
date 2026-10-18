@@ -76,12 +76,20 @@ test.describe("/quizzes/bonfire-night, signed out", () => {
   });
 
   test("the share picture is the real 1200x630 file", async ({ request }) => {
-    const res = await request.get("/quizzes/bonfire-night.png");
-    expect(res.status()).toBe(200);
-    expect(res.headers()["content-type"]).toBe("image/png");
-    const png = await res.body();
-    expect(png.readUInt32BE(16)).toBe(1200);
-    expect(png.readUInt32BE(20)).toBe(630);
+    // This spec is the first in the suite to open /quizzes/[slug], so this is
+    // the first request after the dev server compiled that route. On CI it
+    // twice came back with `read ECONNRESET` (run 39118188789, attempts 1 and
+    // 4) while the page test before it and every test after it passed. The
+    // request is retried until the answer is right; the assertions are not
+    // loosened, so a wrong status, type or size still fails.
+    await expect(async () => {
+      const res = await request.get("/quizzes/bonfire-night.png");
+      expect(res.status()).toBe(200);
+      expect(res.headers()["content-type"]).toBe("image/png");
+      const png = await res.body();
+      expect(png.readUInt32BE(16)).toBe(1200);
+      expect(png.readUInt32BE(20)).toBe(630);
+    }).toPass({ timeout: 15_000 });
   });
 
   test("shows the heading, two rounds, 20 questions and 20 answers", async ({ page }) => {
