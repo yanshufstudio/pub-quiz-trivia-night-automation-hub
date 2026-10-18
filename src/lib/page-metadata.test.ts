@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { OG_IMAGE, pageMetadata } from "./page-metadata";
+import { HOME_TITLE, OG_IMAGE, pageMetadata } from "./page-metadata";
 
 const base = { path: "/pricing", title: "A title", description: "A description." };
+
+describe("HOME_TITLE", () => {
+  it("is exactly the home page's title", () => {
+    expect(HOME_TITLE).toBe("TriviaFoundry: pub quiz packs, written and run live");
+  });
+});
 
 describe("pageMetadata", () => {
   it("shares the site card when a page gives no picture of its own", () => {

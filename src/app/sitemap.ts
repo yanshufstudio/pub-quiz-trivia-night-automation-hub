@@ -35,6 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // guide, above all whether the wizard makes pictures.
     { url: `${SITE_URL}/faq` },
     { url: `${SITE_URL}/pricing` },
+    // The page that lists the quiz pages.
+    { url: `${SITE_URL}/quizzes` },
     // One entry per public quiz page, read from the same list the route builds
     // its pages from. No `lastModified`: no page here keeps a real edit date.
     ...QUIZZES.map((quiz) => ({ url: `${SITE_URL}${quizPath(quiz)}` })),

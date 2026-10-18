@@ -29,6 +29,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/how-it-works", label: "How it works" },
   { href: "/faq", label: "FAQ" },
+  { href: "/quizzes", label: "Free quiz questions" },
   { href: "/pricing", label: "Pricing" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },

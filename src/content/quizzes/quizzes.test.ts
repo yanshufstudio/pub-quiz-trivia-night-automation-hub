@@ -9,6 +9,7 @@ import {
   ANSWERS_HEADING,
   PRINT_BUTTON_LABEL,
   PRINTED_SHEETS_IMAGE,
+  QUIZZES_HUB,
   answersLabel,
   questionsLabel,
   roundHeading,
@@ -34,7 +35,14 @@ describe("the quiz list", () => {
 
   it("finds a quiz by slug and returns nothing for an unknown one", () => {
     expect(getQuiz("halloween")?.slug).toBe("halloween");
+    expect(getQuiz("bonfire-night")?.slug).toBe("bonfire-night");
     expect(getQuiz("not-a-quiz")).toBeUndefined();
+  });
+
+  it("lists Bonfire Night after Halloween, which is the order the quizzes page shows", () => {
+    const slugs = QUIZZES.map((quiz) => quiz.slug);
+    expect(slugs.indexOf("halloween")).toBeGreaterThanOrEqual(0);
+    expect(slugs.indexOf("bonfire-night")).toBeGreaterThan(slugs.indexOf("halloween"));
   });
 
   it("has a non-empty question and answer everywhere", () => {
@@ -82,6 +90,30 @@ describe("the Halloween quiz", () => {
   });
 });
 
+describe("the Bonfire Night quiz", () => {
+  const bonfire = getQuiz("bonfire-night");
+
+  it("has two rounds of ten questions, each with an answer", () => {
+    expect(bonfire).toBeDefined();
+    expect(bonfire!.rounds).toHaveLength(2);
+    for (const round of bonfire!.rounds) {
+      expect(round.questions).toHaveLength(10);
+      for (const item of round.questions) {
+        expect(item.question.trim().length).toBeGreaterThan(0);
+        expect(item.answer.trim().length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("carries the exact title the page is published under", () => {
+    expect(bonfire!.title).toBe("Bonfire Night quiz questions and answers: 20 free questions for your quiz night");
+  });
+
+  it("is shared with its own 1200x630 picture", () => {
+    expect(bonfire!.image).toMatchObject({ url: "/quizzes/bonfire-night.png", width: 1200, height: 630 });
+  });
+});
+
 describe("what a quiz page says", () => {
   it("has no em dash in any quiz string or in the page's own copy", () => {
     const copy = [
@@ -91,6 +123,7 @@ describe("what a quiz page says", () => {
       questionsLabel(1),
       answersLabel(1),
       ...allStrings(PRINTED_SHEETS_IMAGE),
+      ...allStrings(QUIZZES_HUB),
     ];
     const strings = [...allStrings(QUIZZES), ...copy];
     expect(strings.length).toBeGreaterThan(40);
@@ -117,6 +150,13 @@ describe("the sitemap and robots.txt for the quiz pages", () => {
       expect(entry?.lastModified).toBeUndefined();
     }
     expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/halloween`)).toBe(true);
+    expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/bonfire-night`)).toBe(true);
+  });
+
+  it("lists the quizzes page, with no lastModified", () => {
+    const entry = sitemap().find((e) => e.url === `${SITE_URL}/quizzes`);
+    expect(entry, "/quizzes missing from the sitemap").toBeDefined();
+    expect(entry?.lastModified).toBeUndefined();
   });
 
   it("leaves /quizzes crawlable", () => {
