@@ -21,8 +21,7 @@ const TITLE = "Free quiz questions and answers: ready-made rounds for your quiz 
 const DESCRIPTION =
   "Ready-made quiz rounds with answers for seasonal quiz nights. Free to use and to print. Or make your own quiz in minutes.";
 const HEADING = "Free quiz questions and answers";
-const INTRO =
-  "Ready-made rounds for seasonal quiz nights, with the answers under each round. Use them as they are, print them, or swap in your own.";
+const INTRO = "Ready-made rounds for seasonal quiz nights, free to use and to print.";
 const FOOTER_LABEL = "Free quiz questions";
 
 /** In the order the page lists them. */
@@ -109,6 +108,25 @@ test.describe("/quizzes, signed out", () => {
       await expect(page.getByRole("heading", { level: 1, name: entry.heading })).toBeVisible();
     }
   });
+
+  test("the intro is that one line and nothing more", async ({ page }) => {
+    await page.goto(PATH);
+    // The one paragraph directly under <main>; the entries' own intros are inside the list.
+    await expect(page.locator("main > p")).toHaveText(INTRO);
+  });
+
+  // Same 48px floor as the footer and header targets (footer-targets.spec.ts).
+  for (const width of [320, 375, 1280]) {
+    test(`each entry's link is at least 48px tall at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(PATH, { waitUntil: "networkidle" });
+      for (const entry of ENTRIES) {
+        const link = page.getByRole("main").getByRole("link", { name: entry.heading });
+        const box = (await link.boundingBox())!;
+        expect(Math.round(box.height), `"${entry.heading}" link is ${box.height}px tall at ${width}px`).toBeGreaterThanOrEqual(48);
+      }
+    });
+  }
 
   test("ends with the button to /create", async ({ page }) => {
     await page.goto(PATH);

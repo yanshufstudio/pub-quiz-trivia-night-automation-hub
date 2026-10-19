@@ -30,8 +30,7 @@ export const QUIZZES_HUB = {
   description:
     "Ready-made quiz rounds with answers for seasonal quiz nights. Free to use and to print. Or make your own quiz in minutes.",
   heading: "Free quiz questions and answers",
-  intro:
-    "Ready-made rounds for seasonal quiz nights, with the answers under each round. Use them as they are, print them, or swap in your own.",
+  intro: "Ready-made rounds for seasonal quiz nights, free to use and to print.",
   button: "Make your own quiz",
 } as const;
 

@@ -30,7 +30,10 @@ export default function QuizzesPage() {
           {QUIZZES.map((quiz) => (
             <li key={quiz.slug}>
               <h2 className="font-serif text-xl font-semibold tracking-tight">
-                <Link href={quizPath(quiz)} className="-my-2 inline-block py-2 hover:text-amber hover:underline">
+                {/* A 48px target, like the footer's and the header's: 28px of
+                    text-xl line plus py-2.5. -my-2.5 gives the padding back,
+                    so the spacing around the heading is what it was. */}
+                <Link href={quizPath(quiz)} className="-my-2.5 inline-block py-2.5 hover:text-amber hover:underline">
                   {quiz.heading}
                 </Link>
               </h2>
