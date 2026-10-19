@@ -84,6 +84,66 @@ function jackOLantern(cx: number, cy: number): string {
 </svg>`;
 }
 
+/** A flame tongue: pointed at the top, flat at the bottom (the logs hide it), `w` either side of `cx`, `h` tall from `baseY`. */
+function tongue(cx: number, baseY: number, w: number, h: number): string {
+  const tip = baseY - h;
+  return `M ${cx - w} ${baseY} C ${cx - w} ${baseY - h * 0.45}, ${cx - w * 0.2} ${baseY - h * 0.6}, ${cx} ${tip} C ${cx + w * 0.2} ${baseY - h * 0.6}, ${cx + w} ${baseY - h * 0.45}, ${cx + w} ${baseY} Z`;
+}
+
+/** One firework burst: rays out from (cx, cy), long and short in turn, each tipped with a dot. */
+function burst(cx: number, cy: number, inner: number, outer: number, rays: number, color: string): string {
+  const lines: string[] = [];
+  const dots: string[] = [];
+  for (let i = 0; i < rays; i++) {
+    const a = (i / rays) * Math.PI * 2 - Math.PI / 2;
+    const reach = i % 2 === 0 ? outer : outer * 0.78;
+    const [cos, sin] = [Math.cos(a), Math.sin(a)];
+    const x = (r: number) => (cx + cos * r).toFixed(1);
+    const y = (r: number) => (cy + sin * r).toFixed(1);
+    lines.push(`<line x1="${x(inner)}" y1="${y(inner)}" x2="${x(reach)}" y2="${y(reach)}"/>`);
+    dots.push(`<circle cx="${x(reach + 16)}" cy="${y(reach + 16)}" r="${i % 2 === 0 ? 6 : 4.5}"/>`);
+  }
+  return `<g stroke="${color}" stroke-width="6" stroke-linecap="round">${lines.join("")}</g><g fill="${color}">${dots.join("")}<circle cx="${cx}" cy="${cy}" r="7"/></g>`;
+}
+
+/** A bonfire from plain shapes, standing on `groundY` at `cx`, with three firework bursts above it. */
+function bonfire(cx: number, groundY: number): string {
+  const log = `fill="${T.brass}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4"`;
+  const bursts = [
+    burst(cx - 70, 125, 20, 80, 12, T.gold),
+    burst(cx + 110, 95, 14, 58, 10, T.gold),
+    burst(cx + 105, 240, 12, 44, 8, T.fg),
+  ].join("");
+  return `<svg width="1200" height="630" viewBox="0 0 1200 630" style="position:absolute;left:0;top:0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="halo" cx="${cx}" cy="${groundY - 90}" r="330" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="${T.gold}" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="${T.gold}" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lit" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+  <circle cx="${cx}" cy="${groundY - 90}" r="330" fill="url(#halo)"/>
+  <g filter="url(#lit)" opacity="0.7">${bursts}</g>
+  ${bursts}
+  <path d="${tongue(cx - 72, groundY - 20, 56, 175)}" fill="${T.amber}"/>
+  <path d="${tongue(cx + 70, groundY - 20, 52, 150)}" fill="${T.amber}"/>
+  <path d="${tongue(cx, groundY - 20, 96, 235)}" fill="${T.amber}"/>
+  <path d="${tongue(cx, groundY - 20, 64, 175)}" fill="${T.gold}"/>
+  <path d="${tongue(cx, groundY - 20, 30, 95)}" fill="${T.fg}"/>
+  <g fill="${T.gold}">
+    <circle cx="${cx - 100}" cy="${groundY - 215}" r="5"/>
+    <circle cx="${cx + 92}" cy="${groundY - 235}" r="4"/>
+    <circle cx="${cx + 40}" cy="${groundY - 290}" r="6"/>
+    <circle cx="${cx - 44}" cy="${groundY - 275}" r="3.5"/>
+  </g>
+  <rect x="${cx - 150}" y="${groundY - 34}" width="300" height="42" rx="21" transform="rotate(-14 ${cx} ${groundY - 13})" ${log}/>
+  <rect x="${cx - 150}" y="${groundY - 34}" width="300" height="42" rx="21" transform="rotate(14 ${cx} ${groundY - 13})" ${log}/>
+  <rect x="${cx - 165}" y="${groundY - 6}" width="330" height="40" rx="20" ${log}/>
+</svg>`;
+}
+
 type Scene = {
   /** The words on the card, one per line; the last is the accent line. */
   lines: [string, string];
@@ -92,6 +152,7 @@ type Scene = {
 
 const SCENES: Record<string, Scene> = {
   halloween: { lines: ["Halloween", "quiz"], art: () => jackOLantern(918, 345) },
+  "bonfire-night": { lines: ["Bonfire Night", "quiz"], art: () => bonfire(990, 520) },
 };
 
 function buildHtml(scene: Scene, width: number, height: number): string {

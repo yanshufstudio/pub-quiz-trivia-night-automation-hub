@@ -21,6 +21,20 @@ export function answersLabel(roundNumber: number): string {
   return `Round ${roundNumber} answers`;
 }
 
+/**
+ * The /quizzes page (src/app/quizzes/page.tsx). Draft wording: marketing reads
+ * it on the preview before it is final.
+ */
+export const QUIZZES_HUB = {
+  title: "Free quiz questions and answers: ready-made rounds for your quiz night",
+  description:
+    "Ready-made quiz rounds with answers for seasonal quiz nights. Free to use and to print. Or make your own quiz in minutes.",
+  heading: "Free quiz questions and answers",
+  intro:
+    "Ready-made rounds for seasonal quiz nights, with the answers under each round. Use them as they are, print them, or swap in your own.",
+  button: "Make your own quiz",
+} as const;
+
 /** public/quizzes/printed-sheets.webp, shown beside the call to action. */
 export const PRINTED_SHEETS_IMAGE = {
   src: "/quizzes/printed-sheets.webp",

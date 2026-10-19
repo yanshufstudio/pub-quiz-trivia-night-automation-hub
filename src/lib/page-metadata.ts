@@ -25,7 +25,7 @@ export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: OG_IMAG
 
 export const SITE_NAME = "TriviaFoundry";
 
-export const HOME_TITLE = "TriviaFoundry — pub quiz and trivia night packs, written and run live";
+export const HOME_TITLE = "TriviaFoundry: pub quiz packs, written and run live";
 
 export const HOME_DESCRIPTION =
   "Writes your pub quiz or trivia night, then runs it live. Describe the rounds you want; get a full pack, a presenter script and printed answer sheets, then run it with teams on their phones.";
