@@ -66,3 +66,14 @@ for (const signedIn of [false, true]) {
     await context.close();
   });
 }
+
+// The landmark's name is what a screen reader announces for the row, so it is
+// asserted whole: it has to name everything the row links to (draft wording,
+// marketing checks it against the visible links).
+test("the footer's navigation landmark is named for everything it links to", async ({ page }) => {
+  await page.goto("/");
+  const label = "How it works, FAQ, free quiz questions, pricing and legal";
+  const nav = page.getByRole("contentinfo").getByRole("navigation", { name: label, exact: true });
+  await expect(nav).toHaveCount(1);
+  await expect(nav).toHaveAttribute("aria-label", label);
+});
