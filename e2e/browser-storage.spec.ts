@@ -24,7 +24,11 @@ test("a team's phone holds the team token and nothing else, and forgets it on le
   await team.goto(`/play?code=${session.code}`);
   await team.getByLabel("Team name").fill("Storage Check");
   await team.getByRole("button", { name: "Join session" }).click();
-  await expect(team.getByText("Sit tight.")).toBeVisible();
+  // The heading, not the line under it: until the first state poll lands the
+  // team sees the question-mode lobby ("Sit tight."), after it the round
+  // lobby ("Waiting for the host…"), so that line is gone by the time a slow
+  // check looks. Both lobbies carry this heading.
+  await expect(team.getByRole("heading", { name: "You’re in, Storage Check." })).toBeVisible();
 
   const stored = await team.evaluate(() => ({
     local: Object.keys(localStorage),
