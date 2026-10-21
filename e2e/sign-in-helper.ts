@@ -76,9 +76,29 @@ export function randomEmail(prefix = "host") {
 
 export type SentSignInEmail = { email: string; code: string; url: string };
 
+/**
+ * Send a request, and send it again, up to twice and a second apart, only if
+ * the dev server resets the connection. It does that now and then to the first
+ * request of a test (CI: create-waiting, 64 to 90ms in). A response with any
+ * status, and any other error, comes back or throws at once.
+ *
+ * Playwright's own `maxRetries` also retries only ECONNRESET, but waits 250ms
+ * and then 500ms; this waits a second.
+ */
+async function retryOnReset<T>(send: () => Promise<T>): Promise<T> {
+  for (let retries = 0; ; retries++) {
+    try {
+      return await send();
+    } catch (error) {
+      if (retries === 2 || !String(error).includes("ECONNRESET")) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
+}
+
 /** The most recent email the server "sent" to `email`. */
 export async function lastSignInEmailFor(api: APIRequestContext, email: string): Promise<SentSignInEmail> {
-  const res = await api.get("/api/test/sign-in-emails");
+  const res = await retryOnReset(() => api.get("/api/test/sign-in-emails"));
   expect(res.status(), "the test-only inbox should be open in the e2e environment").toBe(200);
   const { emails } = (await res.json()) as { emails: SentSignInEmail[] };
   const mine = emails.filter((sent) => sent.email === email);
@@ -88,10 +108,12 @@ export async function lastSignInEmailFor(api: APIRequestContext, email: string):
 
 /** Ask for a code without using it. Returns the code and the confirm link. */
 export async function requestSignInEmail(api: APIRequestContext, email: string): Promise<SentSignInEmail> {
-  const res = await api.post("/api/auth/email-otp/send-verification-otp", {
-    data: { email, type: "sign-in" },
-    headers: { "x-forwarded-for": signInIp() },
-  });
+  const res = await retryOnReset(() =>
+    api.post("/api/auth/email-otp/send-verification-otp", {
+      data: { email, type: "sign-in" },
+      headers: { "x-forwarded-for": signInIp() },
+    }),
+  );
   expect(res.ok(), `sign-in request failed: ${res.status()}`).toBeTruthy();
   return lastSignInEmailFor(api, email);
 }
@@ -101,11 +123,13 @@ export async function requestSignInEmail(api: APIRequestContext, email: string):
  * spec can assert on a failed submission too.
  */
 export function submitSignInCode(api: APIRequestContext, email: string, code: string) {
-  return api.post("/api/auth/sign-in/email-otp", {
-    data: { email, otp: code },
-    headers: { "x-forwarded-for": signInIp() },
-    failOnStatusCode: false,
-  });
+  return retryOnReset(() =>
+    api.post("/api/auth/sign-in/email-otp", {
+      data: { email, otp: code },
+      headers: { "x-forwarded-for": signInIp() },
+      failOnStatusCode: false,
+    }),
+  );
 }
 
 /**
