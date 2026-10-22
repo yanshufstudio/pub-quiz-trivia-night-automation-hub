@@ -294,14 +294,37 @@ function BigQuestion({ code, question }: { code: string; question: RoundQuestion
         ) : null}
       </div>
       {question.hasMedia ? (
-        // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
-        <img
-          src={questionMediaUrl(question.id, { code, display: true })}
-          alt=""
-          className="max-h-[720px] max-w-[760px] shrink-0 self-start rounded-3xl bg-white object-contain"
-        />
+        <StagePicture key={question.id} src={questionMediaUrl(question.id, { code, display: true })} />
       ) : null}
     </div>
+  );
+}
+
+const PICTURE_W = 760;
+const PICTURE_H = 720;
+
+/**
+ * A question's picture at the largest size the picture area holds, scaled up
+ * or down with its shape kept, so a small phone photo fills the area's height
+ * instead of a quarter of it. CSS alone can shrink a picture to fit but not
+ * grow one without stretching it or letterboxing its box, so the size comes
+ * from the picture's own pixels once it loads; it stays hidden until then.
+ */
+function StagePicture({ src }: { src: string }) {
+  const [size, setSize] = useState<{ width: number; height: number } | null>(null);
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
+    <img
+      src={src}
+      alt=""
+      onLoad={(e) => {
+        const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
+        const scale = Math.min(PICTURE_W / w, PICTURE_H / h);
+        setSize({ width: w * scale, height: h * scale });
+      }}
+      style={size ?? { visibility: "hidden" }}
+      className="max-h-[720px] max-w-[760px] shrink-0 self-start rounded-3xl"
+    />
   );
 }
 

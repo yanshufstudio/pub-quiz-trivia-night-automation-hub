@@ -9,7 +9,10 @@ import { realPngBytes } from "@/test/image-fixtures";
  *
  * The host desk and the team phone used to put every picture in a full-width
  * white box, so a tall one sat between two white bands; the border and the
- * rounded corners now sit on the picture itself, centred in its column.
+ * rounded corners now sit on the picture itself, centred in its column. The
+ * TV used to show a picture at its own pixel size, so a small one filled a
+ * quarter of the screen's height; it now scales every picture, up or down, to
+ * the largest size its 760 x 720 picture area holds.
  */
 
 const TALL = { text: "Whose portrait is this?", width: 174, height: 290 };
@@ -127,6 +130,44 @@ test("round mode: desk and phone draw the picture at its own shape", async ({ br
   }
 
   await teamContext.close();
+  await host.context.close();
+});
+
+test("the TV scales a small picture up and a large one down to fill its picture area", async ({ browser, baseURL }) => {
+  test.setTimeout(120_000);
+  const host = await signedInContext(browser, baseURL!);
+  const { code, advance, tallId, wideId } = await pictureGame(host.api);
+
+  const tvContext = await newAnonContext(browser, baseURL);
+  const tv = await tvContext.newPage();
+  await tv.setViewportSize({ width: 1920, height: 1080 });
+  await tv.goto(`/tv/${code}`);
+  await expect(tv.getByText(code, { exact: true })).toBeVisible();
+
+  // At 1920 x 1080 the stage is drawn at scale 1, so these are stage pixels.
+  await advance("start");
+  const tvTall = tv.locator(pictureOf(tallId));
+  await expect.poll(async () => (await measure(tvTall)).height, { timeout: 10_000 }).toBeCloseTo(720, 0);
+  const tall = await measure(tvTall);
+  expect(tall.width / tall.height, "shape kept").toBeCloseTo(tall.naturalRatio, 2);
+  expect(tall.width).toBeLessThanOrEqual(760);
+  expect(tall.background, "no white fill").toBe("rgba(0, 0, 0, 0)");
+  const insideStage = await tvTall.evaluate((el) => {
+    const s = document.querySelector('[data-testid="tv-stage"]')!.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    return r.left >= s.left && r.right <= s.right && r.top >= s.top && r.bottom <= s.bottom;
+  });
+  expect(insideStage, "the full-height picture stays on the stage").toBe(true);
+
+  await advance("ask_next");
+  const tvWide = tv.locator(pictureOf(wideId));
+  await expect.poll(async () => (await measure(tvWide)).width, { timeout: 10_000 }).toBeCloseTo(760, 0);
+  const wide = await measure(tvWide);
+  expect(wide.width / wide.height, "shape kept").toBeCloseTo(wide.naturalRatio, 2);
+  expect(wide.height).toBeLessThanOrEqual(720);
+  expect(wide.background, "no white fill").toBe("rgba(0, 0, 0, 0)");
+
+  await tvContext.close();
   await host.context.close();
 });
 
