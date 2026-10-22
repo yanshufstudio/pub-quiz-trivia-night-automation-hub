@@ -428,7 +428,7 @@ function HostQuestion({ question, code, hostToken }: { question: RoundQuestionVi
         <img
           src={questionMediaUrl(question.id, { code, hostToken })}
           alt=""
-          className="mt-4 max-h-72 w-full rounded-xl border border-white/10 bg-white object-contain"
+          className="mx-auto mt-4 max-h-72 rounded-xl border border-white/10"
         />
       ) : null}
       {question.type === "MULTIPLE_CHOICE" && question.options.length > 0 ? (

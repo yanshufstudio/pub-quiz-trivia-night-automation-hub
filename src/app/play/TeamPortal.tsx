@@ -41,7 +41,7 @@ function QuestionImage({
     <img
       src={questionMediaUrl(question.id, { code: team.code, token: team.token })}
       alt=""
-      className="mt-4 max-h-64 w-full rounded-xl border border-white/15 bg-white object-contain"
+      className="mx-auto mt-4 max-h-64 rounded-xl border border-white/15"
     />
   );
 }
