@@ -50,7 +50,7 @@ const steps = [
     href: "/create",
     icon: QuillIcon,
     title: "Write it",
-    body: `Describe the rounds and topics you want — 90s pop, local history, the town's past — and the pack is written for you, in words. Add your own pictures to any question, up to ${formatBytes(MAX_MEDIA_BYTES)} each, for a picture round.`,
+    body: `Describe the rounds and topics you want (90s pop, local history, the town's past) and the pack is written for you, in words. Add your own pictures to any question, up to ${formatBytes(MAX_MEDIA_BYTES)} each, for a picture round.`,
     cta: "Open the wizard",
   },
   {
@@ -115,9 +115,9 @@ export default function Home() {
             Tonight&apos;s quiz, <span className="sign-glow text-gold">forged</span> while you pour.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-stage-muted">
-            Describe the rounds you want. TriviaFoundry writes the whole pub quiz or trivia night
-            — a full pack, a presenter script and printed answer sheets — then runs it live while
-            every team&apos;s phone lights up with the question.
+            Describe the rounds you want. TriviaFoundry writes the whole pub quiz or trivia night:
+            a full pack, a presenter script and answer sheets to print. Then it runs the night
+            live, while every team&apos;s phone lights up with the question.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
