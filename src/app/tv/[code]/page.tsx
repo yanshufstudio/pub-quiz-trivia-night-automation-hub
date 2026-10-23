@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TvDisplay } from "./TvDisplay";
 
 export const metadata: Metadata = {
-  title: "TV display — TriviaFoundry",
+  title: "TV display · TriviaFoundry",
   robots: { index: false, follow: false },
 };
 

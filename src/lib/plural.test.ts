@@ -26,9 +26,10 @@ describe("no page re-invents the s", () => {
    * The bug was four independent hard-coded plurals, so the guard is that none
    * of them comes back. It matches an interpolated count immediately followed by
    * a bare plural noun — `{n} rounds`, `{count} questions` — which is exactly
-   * the shape that was wrong.
+   * the shape that was wrong. The short form counts too: `{n} pt` said "2 pt"
+   * and `{n} pts` said "1 pts", so either unit after a count is an offender.
    */
-  const HARD_CODED = /\{[^{}]*\}\s+(rounds|questions|points|teams|packs)\b/;
+  const HARD_CODED = /\{[^{}]*\}\s+(rounds|questions|points|teams|packs|pts?)\b/;
 
   function tsxFiles(dir: string, found: string[] = []): string[] {
     for (const entry of readdirSync(dir)) {
