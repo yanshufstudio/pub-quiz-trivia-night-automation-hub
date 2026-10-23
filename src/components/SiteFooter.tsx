@@ -29,6 +29,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/how-it-works", label: "How it works" },
   { href: "/faq", label: "FAQ" },
+  { href: "/quizzes", label: "Free quiz questions" },
   { href: "/pricing", label: "Pricing" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
@@ -79,7 +80,7 @@ export function SiteFooter() {
             it — no overlap, and the footer keeps its height there too.
             gap-y-0, not gap-y-1: if the links themselves ever wrap, two
             48px lines meet without a seam. */}
-        <nav aria-label="Guide, FAQ, pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
+        <nav aria-label="How it works, FAQ, free quiz questions, pricing and legal" className="-my-2.5 flex flex-wrap items-center gap-x-1 gap-y-0">
           {links.map((link) => (
             <Link
               key={link.href}

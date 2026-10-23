@@ -15,6 +15,7 @@
     "screenshots": "tsx scripts/capture-screenshots.ts",
     "icons": "tsx scripts/render-icons.ts",
     "og": "tsx scripts/render-og.ts",
+    "og:quiz": "tsx scripts/render-quiz-og.ts",
     "eval:accuracy": "tsx scripts/eval-accuracy.ts"
   },
   "prisma": {
@@ -32,12 +33,12 @@
     "@vercel/analytics": "^2.0.1",
     "better-auth": "^1.7.5",
     "nanoid": "^6.0.1",
-    "next": "16.3.8",
+    "next": "16.4.2",
     "prisma": "6.19.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-qr-code": "^2.2.0",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "zod": "^4.5.4"
   },
   "devDependencies": {

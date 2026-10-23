@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
+
+// Only the tab title: Next adds the noindex itself for a 404, and the share
+// tags stay the layout's.
+export const metadata: Metadata = { title: "Page not found · TriviaFoundry" };
 
 // Next's default 404 is an unstyled white card with no way back. This keeps
 // the site chrome and offers the two places a lost visitor is likely to
