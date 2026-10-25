@@ -3,6 +3,7 @@ import type { PackWithRoundsAndMedia } from "@/lib/session-state";
 import { parseOptions, QUESTION_TYPE } from "@/lib/question-types";
 import { toDataUri } from "@/lib/media";
 import { countOf } from "@/lib/plural";
+import { PRINT_SHEETS, type PrintSheet } from "@/lib/print-sheets";
 
 type PackWithMedia = PackWithRoundsAndMedia;
 type PdfQuestion = PackWithMedia["rounds"][number]["questions"][number];
@@ -54,7 +55,6 @@ const styles = StyleSheet.create({
   colQuestion: { flex: 1.3, paddingRight: 8, color: "#5c5348" },
   colAnswer: { flex: 1, color: "#14532d", fontFamily: "Times-Bold" },
   footer: { position: "absolute", bottom: 24, left: 44, right: 44, fontSize: 9, color: "#5c5348", textAlign: "center" },
-  teamLine: { marginBottom: 12, fontSize: 11 },
   // Fixed box regardless of the source photo's aspect ratio, so a very tall
   // or very wide upload can never push a question's block taller than the
   // page allows for — `objectFit: "contain"` letterboxes rather than crops
@@ -71,13 +71,17 @@ function QuestionImage({ question }: { question: PdfQuestion }) {
   return <Image style={styles.questionImage} src={toDataUri(question.media)} />;
 }
 
-function Header({ pack, kicker }: { pack: PackWithMedia; kicker: string }) {
+function Header({ pack, sheet }: { pack: PackWithMedia; sheet: PrintSheet }) {
   return (
     <View style={styles.headerRule}>
-      <Text style={styles.kicker}>{kicker}</Text>
+      <Text style={styles.kicker}>{PRINT_SHEETS[sheet]}</Text>
       <Text style={styles.title}>{pack.title}</Text>
       <Text style={styles.subtitle}>
-        {countOf(pack.rounds.length, "round")} · keep this copy at the lectern
+        {sheet === "questions" ? (
+          "Team name: _______________________________"
+        ) : (
+          <>{countOf(pack.rounds.length, "round")} · keep this copy at the lectern</>
+        )}
       </Text>
     </View>
   );
@@ -120,8 +124,7 @@ export function QuestionSheetDocument({ pack }: { pack: PackWithMedia }) {
   return (
     <Document title={`${pack.title} - Questions`}>
       <Page size="A4" style={styles.page} wrap>
-        <Header pack={pack} kicker="Team question sheet" />
-        <Text style={styles.teamLine}>Team name: _______________________________</Text>
+        <Header pack={pack} sheet="questions" />
         {pack.rounds.map((round) => (
           <View key={round.id} minPresenceAhead={90}>
             <Text style={styles.roundHeading}>
@@ -152,7 +155,7 @@ export function AnswerSheetDocument({ pack }: { pack: PackWithMedia }) {
   return (
     <Document title={`${pack.title} - Answers`}>
       <Page size="A4" style={styles.page} wrap>
-        <Header pack={pack} kicker="Host answer key" />
+        <Header pack={pack} sheet="answers" />
         {pack.rounds.map((round) => (
           <View key={round.id} minPresenceAhead={90}>
             <Text style={styles.roundHeading}>
@@ -188,7 +191,7 @@ export function PresenterScriptDocument({ pack }: { pack: PackWithMedia }) {
   return (
     <Document title={`${pack.title} - Presenter Script`}>
       <Page size="A4" style={styles.page} wrap>
-        <Header pack={pack} kicker="Presenter script" />
+        <Header pack={pack} sheet="script" />
         <Text style={styles.cue}>
           [Welcome everyone, introduce tonight’s quiz, and remind teams how scoring works.]
         </Text>

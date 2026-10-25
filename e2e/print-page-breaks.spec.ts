@@ -41,8 +41,8 @@ const FULL_SIZE_PACK = {
 // The three tabs, and the element that holds one question in each of them.
 const TABS = [
   { label: "Presenter script", question: "li" },
-  { label: "Answer sheet", question: "tbody tr" },
-  { label: "Question sheet", question: "li" },
+  { label: "Host answer key", question: "tbody tr" },
+  { label: "Team answer sheet", question: "li" },
 ] as const;
 
 async function breakInside(page: import("@playwright/test").Page, selector: string) {
