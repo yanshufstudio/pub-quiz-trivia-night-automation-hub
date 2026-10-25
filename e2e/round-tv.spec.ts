@@ -105,7 +105,12 @@ for (const viewport of [
     await expect(tv.getByText("Scoreboard", { exact: true })).toBeVisible({ timeout: 10_000 });
 
     await advance("end");
-    await expect(tv.getByText("Made with TriviaFoundry")).toBeVisible({ timeout: 10_000 });
+    // The name is the brand wordmark, not plain text: serif, "Foundry" in gold.
+    const madeWith = tv.locator("p", { hasText: "Made with" });
+    // The brand mark's "?" sits between the words; it is aria-hidden.
+    await expect(madeWith).toHaveText(/^Made with\s*\?\s*TriviaFoundry$/, { timeout: 10_000 });
+    await expect(madeWith.locator(".font-serif", { hasText: "Trivia" })).toBeVisible();
+    await expect(madeWith.locator(".text-gold", { hasText: "Foundry" })).toBeVisible();
     await expectFitsTheScreen(tv);
 
     await phone.dispose();

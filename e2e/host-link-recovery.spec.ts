@@ -86,4 +86,8 @@ test("the host desk shows its own link, and the owner reopens it on another devi
   // ...and sees no live game of their own on /packs.
   await strangerPage.goto("/packs");
   await expect(strangerPage.getByRole("heading", { name: "Your live games" })).toHaveCount(0);
+
+  await context.close();
+  await secondDevice.close();
+  await strangerContext.close();
 });

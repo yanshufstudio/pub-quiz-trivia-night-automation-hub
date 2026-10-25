@@ -125,7 +125,7 @@ export function planRoundAction(
       if (status !== ROUND_REVEAL || revealedCount < length) {
         return refuse("Reveal every answer in this round before moving on");
       }
-      if (isLastRound) return refuse("That was the last round — finish the quiz instead");
+      if (isLastRound) return refuse("That was the last round. Finish the quiz instead.");
       return {
         ok: true,
         pin: exact,

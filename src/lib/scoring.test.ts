@@ -45,7 +45,8 @@ describe("isLikelyCorrect", () => {
   });
 
   it("defaults to no acceptable answers when the argument is omitted", () => {
-    expect(isLikelyCorrect("7", "Seven")).toBe(false);
+    // Was "7" for "Seven", which now matches on its own (see the numbers block).
+    expect(isLikelyCorrect("Leo", "Leonardo DiCaprio")).toBe(false);
   });
 });
 
@@ -128,6 +129,51 @@ describe("isLikelyCorrect across scripts", () => {
     // An acceptable answer that normalizes to nothing must not become a
     // wildcard that every punctuation-only submission matches.
     expect(isLikelyCorrect("!!!", "Mars", ["???"])).toBe(false);
+  });
+});
+
+describe("numbers written as digits or words (English, zero to a hundred)", () => {
+  it("matches a digit to its word, both ways", () => {
+    expect(isLikelyCorrect("7", "Seven")).toBe(true);
+    expect(isLikelyCorrect("seven", "7")).toBe(true);
+    expect(isLikelyCorrect("0", "zero")).toBe(true);
+    expect(isLikelyCorrect("Thirteen", "13")).toBe(true);
+    expect(isLikelyCorrect("90", "Ninety")).toBe(true);
+  });
+
+  it("reads the tens with a unit, hyphenated, spaced or run together", () => {
+    expect(isLikelyCorrect("21", "twenty-one")).toBe(true);
+    expect(isLikelyCorrect("Twenty One", "21")).toBe(true);
+    expect(isLikelyCorrect("twentyone", "21")).toBe(true);
+    expect(isLikelyCorrect("ninety-nine", "99")).toBe(true);
+  });
+
+  it("reads a hundred, one hundred and plain hundred as 100", () => {
+    expect(isLikelyCorrect("100", "one hundred")).toBe(true);
+    expect(isLikelyCorrect("a hundred", "100")).toBe(true);
+    expect(isLikelyCorrect("100", "Hundred")).toBe(true);
+  });
+
+  it("matches a number inside a longer answer", () => {
+    expect(isLikelyCorrect("7 Wonders", "Seven Wonders")).toBe(true);
+    expect(isLikelyCorrect("formula 1", "Formula One")).toBe(true);
+  });
+
+  it("applies to the acceptable answers too", () => {
+    expect(isLikelyCorrect("seven", "Snow White", ["7"])).toBe(true);
+  });
+
+  it("does not stretch past that", () => {
+    expect(isLikelyCorrect("8", "seven")).toBe(false);
+    expect(isLikelyCorrect("twenty", "21")).toBe(false);
+    // Ordinals and numbers above a hundred are not read.
+    expect(isLikelyCorrect("seventh", "7")).toBe(false);
+    expect(isLikelyCorrect("7th", "seven")).toBe(false);
+    expect(isLikelyCorrect("one hundred and one", "101")).toBe(false);
+  });
+
+  it("leaves normalizeAnswer itself alone", () => {
+    expect(normalizeAnswer("Seven")).toBe("seven");
   });
 });
 

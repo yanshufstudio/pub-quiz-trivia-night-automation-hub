@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { throttleIfAsked, waitForHydration } from "./hydration";
 import { newAnonContext, signedInContext } from "./sign-in-helper";
 
 /**
@@ -15,13 +16,17 @@ test("a team's phone holds the team token and nothing else, and forgets it on le
   browser,
   baseURL,
 }) => {
+  // Room for E2E_CPU_THROTTLE=20, where this test alone takes about 40 s.
+  test.setTimeout(90_000);
   const { context: hostContext, api } = await signedInContext(browser, baseURL!);
   const { pack } = await (await api.post("/api/packs/seed")).json();
   const { session } = await (await api.post("/api/sessions", { data: { packId: pack.id } })).json();
 
   const teamContext = await newAnonContext(browser, baseURL);
   const team = await teamContext.newPage();
+  await throttleIfAsked(team);
   await team.goto(`/play?code=${session.code}`);
+  await waitForHydration(team);
   await team.getByLabel("Team name").fill("Storage Check");
   await team.getByRole("button", { name: "Join session" }).click();
   // The heading, not the line under it: until the first state poll lands the
@@ -42,6 +47,10 @@ test("a team's phone holds the team token and nothing else, and forgets it on le
   expect(typeof stored.team?.token).toBe("string");
   expect(await teamContext.cookies()).toEqual([]);
 
+  // Leave just after a poll has answered, not while one is on its way.
+  await team.waitForResponse(
+    (res) => res.request().method() === "GET" && new URL(res.url()).pathname === `/api/sessions/${session.code}`
+  );
   await team.getByRole("button", { name: "Leave" }).click();
   await expect.poll(() => team.evaluate(() => Object.keys(localStorage))).toEqual([]);
 
