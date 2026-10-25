@@ -40,7 +40,7 @@ test("the homepage no longer sells a picture round without saying whose pictures
   await page.goto("/");
   // The "Write it" card sits in the section below the hero's <main>, so this
   // reads the whole page rather than the main landmark.
-  await expect(page.getByText(/Add your own pictures to any question, up to \d+ MB each, for a picture round/)).toBeVisible();
+  await expect(page.getByText(/Add your own pictures to any question, up to \d+\xa0MB each, for a picture round/)).toBeVisible();
   await expect(page.getByText(/a picture round — and the pack is drafted for you/)).toHaveCount(0);
 });
 
@@ -66,7 +66,7 @@ test("the sitemap advertises the FAQ, and robots.txt does not block it", async (
 // page stating a different number than the server refuses at fails here.
 test("every place that describes images states the real upload limit (L23)", async ({ page }) => {
   const limit = formatBytes(MAX_MEDIA_BYTES);
-  expect(limit).toBe("2 MB");
+  expect(limit).toBe("2\xa0MB");
 
   await page.goto("/faq");
   await expect(page.locator("#pictures")).toContainText(`a JPEG or PNG of up to ${limit}`);

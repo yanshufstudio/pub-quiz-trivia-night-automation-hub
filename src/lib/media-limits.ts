@@ -9,7 +9,9 @@
  */
 export const MAX_MEDIA_BYTES = 2 * 1024 * 1024;
 
+// A non-breaking space, so a narrow screen never puts the number and the unit
+// on two lines.
 export function formatBytes(byteCount: number): string {
-  if (byteCount >= 1024 * 1024) return `${Math.round(byteCount / (1024 * 1024))} MB`;
-  return `${Math.round(byteCount / 1024)} KB`;
+  if (byteCount >= 1024 * 1024) return `${Math.round(byteCount / (1024 * 1024))}\xa0MB`;
+  return `${Math.round(byteCount / 1024)}\xa0KB`;
 }
