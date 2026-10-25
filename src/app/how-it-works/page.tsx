@@ -91,13 +91,15 @@ const STEPS: Step[] = [
     title: "Print the sheets",
     body: (
       <>
-        <em>Print preview</em> in the pack editor gives you three things to print: the
-        presenter script to read from, answer sheets for the teams, and a question sheet.
-        Print them before the night — this is the part that needs a printer, not a phone.
-        The printed sheets can only print Western European letters for now: English, French,
-        German, Spanish and the like. Other letters — a Polish ł or a Czech ř — and other
-        alphabets, such as Greek or Cyrillic, do not print correctly yet, although they show
-        properly on your screen and on the teams&apos; phones.
+        <em>Print preview</em> in the pack editor has three sheets: the presenter script to
+        read from, the host answer key, and the team answer sheet your teams write on. Pick a
+        sheet and press <em>Print this sheet</em>, or save it as a PDF from the print window.
+        Print them before the night: this is the part that needs a printer, not a phone.
+        Hebrew prints too, laid out left to right with English headings and labels, and
+        punctuation in lines that mix Hebrew and English can land in the wrong place.
+        Polish, Greek and Cyrillic letters print as well.
+        The Download PDF button draws Western European letters only: English, French,
+        German, Spanish and the like.
       </>
     ),
   },
