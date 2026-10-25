@@ -39,5 +39,5 @@ export const PRINTED_SHEETS_IMAGE = {
   src: "/quizzes/printed-sheets.webp",
   width: 1920,
   height: 1080,
-  alt: "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team question sheet.",
+  alt: "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.",
 } as const;
