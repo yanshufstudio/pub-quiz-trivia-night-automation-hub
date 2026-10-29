@@ -176,6 +176,7 @@ export function roundDisplayView(session: LoadedSession, pack: PackWithRounds, n
     ...roundBase(session, pack, now),
     questions,
     teams: session.teams.map((t) => ({ name: t.name })),
+    paperOnly: session.teams.length > 0 && session.teams.every((t) => t.isPaper),
     scoreboard: scoreboardVisible(session) ? roundScoreboard(session, pack) : null,
   };
 }
