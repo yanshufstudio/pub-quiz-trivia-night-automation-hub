@@ -2,20 +2,17 @@ import { test, expect, type BrowserContext } from "@playwright/test";
 import { signedInContext } from "./sign-in-helper";
 
 /**
- * The browser print page (/packs/<id>/print) is the twin of the PDF
- * documents, and it kept the page-break policy the PDF renderer was fixed
- * out of in `a763086`: every round carried `break-inside-avoid`, so a round
- * taller than a sheet — which is what the wizard's own default brief
- * produces, ten questions to a round — was a block the browser could not fit
- * anywhere and therefore broke wherever it happened to land, mid-question
- * included. A quizmaster printing that walks into the room with questions cut
- * in half across the fold.
+ * The browser print page (/packs/<id>/print) used to give every round
+ * `break-inside-avoid`, so a round taller than a sheet — which is what the
+ * wizard's own default brief produces, ten questions to a round — was a block
+ * the browser could not fit anywhere and therefore broke wherever it happened
+ * to land, mid-question included. A quizmaster printing that walks into the
+ * room with questions cut in half across the fold.
  *
- * `src/test/pdf-layout.integration.test.ts` guards the same policy on the PDF
- * side by counting react-pdf's overflow warnings. There is no equivalent
- * warning from a browser, so this reads the policy back off the computed
- * styles under print emulation: the round must be breakable, the question
- * must not be. That is the rule that was wrong, stated directly.
+ * This is the only page-break guard. A browser gives no overflow warning, so
+ * this reads the policy back off the computed styles under print emulation:
+ * the round must be breakable, the question must not be. That is the rule
+ * that was wrong, stated directly.
  */
 
 const FULL_SIZE_PACK = {

@@ -81,10 +81,7 @@ model Question {
 // An image uploaded by the pack's owner for one question. The bytes live
 // here rather than at a remote URL on purpose: every surface that renders a
 // question image reads them from this row, so no render path ever makes a
-// network request. That is what keeps @react-pdf/renderer's server-side
-// <Image src> resolution (a bare `fetch`, no scheme/host/size/timeout
-// limits) from becoming an SSRF hole reachable through the unauthenticated
-// PDF route. See the "Media support" section of HANDOFF.md.
+// network request.
 model QuestionMedia {
   id         String   @id @default(cuid())
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)

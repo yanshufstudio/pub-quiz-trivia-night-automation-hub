@@ -1,7 +1,7 @@
 # TriviaFoundry
 
 **Writes your pub quiz or trivia night, then runs it live.** Describe the rounds
-you want and get a complete pack, a presenter script and printed PDF
+you want and get a complete pack, a presenter script and printable
 question/answer sheets — then run the night live with teams submitting answers
 from their phones.
 
@@ -36,7 +36,7 @@ throwaway DB and dev server, so it never touches `prisma/dev.db`).
 - Prisma + SQLite/libSQL (local file for dev, Turso for a real deploy — same
   code either way, see Deployment below)
 - Anthropic (Claude) API for quiz generation (structured tool-use output)
-- `@react-pdf/renderer` for PDF export
+- Browser printing (`window.print`) for the sheets, which also saves a PDF
 - Vitest for unit tests
 - Live team portal via polling (no websockets)
 - Installable as a PWA (`src/app/manifest.ts` + the icon set in `public/`);
@@ -84,9 +84,9 @@ breaking config change.
 - **Function timeout**: a four-round generation takes 20–30s end to end,
   well past the 10s default a serverless host gives a function.
   `src/app/api/packs/generate/route.ts` exports `maxDuration = 300` for
-  that reason, and the PDF and export routes under `src/app/api/packs/[id]/`
-  do the same (a large pack's PDF measured 231s). 300 is the Vercel Pro
-  default; Hobby caps at 60, so on Hobby the platform clamps these down. If
+  that reason, and the export route under `src/app/api/packs/[id]/` does the
+  same. 300 is the Vercel Pro default; Hobby caps at 60, so on Hobby the
+  platform clamps these down. If
   your host caps functions lower than the request needs (or you raise the
   default pack size), the request dies as a gateway 504 before the pack is
   saved. The `/create` page shows that as a plain "server returned status
@@ -107,7 +107,7 @@ breaking config change.
   immediate cancel of the subscription, which is what switches Pro off.
 
 No API key yet? `POST /api/packs/seed` creates a small static demo pack so you
-can exercise the editor, PDF export, and live session flow without calling
+can exercise the editor, Print preview, and live session flow without calling
 Claude. There's also a CLI seed script: `npm run db:seed`.
 
 ## Core flow
@@ -130,8 +130,8 @@ Claude. There's also a CLI seed script: `npm run db:seed`.
 2. **Edit** — `/packs/[id]` lists rounds/questions for inline editing
    (`PATCH /api/questions/[id]`), optionally with an image per question
    (`POST`/`GET`/`DELETE /api/questions/[id]/media` — see Security notes),
-   and links to PDF exports
-   (`GET /api/packs/[id]/pdf?type=questions|answers|script`). A pack can
+   and links to Print preview (`/packs/[id]/print`: presenter script, host
+   answer key and team answer sheet, printed from the browser). A pack can
    also be exported as a portable JSON file (`GET /api/packs/[id]/export`,
    format `pub-quiz-pack` v1, ids stripped, host-approved alternate answers
    kept) and re-imported from the packs list (`POST /api/packs/import`) —
@@ -222,7 +222,7 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   without a session and 403 when the session's creator is not the pack's.
   Shared packs are read-only for everyone; Export JSON then Import gives a
   host their own editable copy. **Reading a pack is owner-only too** — the
-  editor, the print sheet, the PDFs, `GET /api/packs/[id]/export`, `GET
+  editor, the print sheet, `GET /api/packs/[id]/export`, `GET
   /api/packs/[id]` and starting a session on it all answer somebody else's
   pack exactly as they answer a pack that does not exist, so an id cannot be
   probed. The ownerless demo stays readable by any signed-in host.
@@ -244,15 +244,7 @@ a retried request on flaky venue wifi — can't both apply; the loser gets a
   question may carry one image, uploaded by the pack's owner to
   `POST /api/questions/[id]/media` and served back from the same path. The
   bytes are stored in the database and no surface ever renders an image from
-  a URL. That is a security property, not a storage preference:
-  `@react-pdf/renderer` resolves `<Image src>` server-side during render
-  with a bare `fetch` — no scheme restriction, host allowlist, timeout or
-  size limit, redirects followed — and `GET /api/packs/[id]/pdf` is
-  deliberately unauthenticated, so a question image held as a URL would let
-  any visitor make the server fetch an address of their choosing and read
-  the result out of the returned PDF. The PDF path is handed `data:` URIs,
-  which are decoded in-process. `src/test/pdf-media-offline.integration.test.ts`
-  renders with `fetch` stubbed and fails if a render reaches the network.
+  a URL, so no render path makes a network request.
   Uploads are validated on their bytes, never on the request's
   `Content-Type` or a filename: JPEG and PNG only (SVG is refused — it can
   reference external resources and is a parser attack surface), 2 MB and

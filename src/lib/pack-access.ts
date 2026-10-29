@@ -16,8 +16,7 @@ import { db } from "@/lib/db";
  * open on the theory that a cuid is unlisted, which made `GET
  * /api/packs/[id]` hand the whole pack — every question, every answer — to
  * anyone holding an id and no account at all, and left the editor, the print
- * sheets, the PDFs and the export readable by any *other* signed-in host who
- * had one. A quizmaster's unrun pack is the one thing in this product that
+ * sheets and the export readable by any *other* signed-in host who had one. A quizmaster's unrun pack is the one thing in this product that
  * is worth stealing.
  *
  * Someone else's pack answers exactly as a pack that does not exist does —
@@ -59,7 +58,7 @@ export function canEditPack(pack: { creatorId: string | null }, creatorId: strin
 
 /**
  * May this host read the pack at all — the editor, the print sheets, the
- * PDFs, the export, `GET /api/packs/[id]`, and starting a session on it.
+ * export, `GET /api/packs/[id]`, and starting a session on it.
  *
  * The same rule `visiblePacksWhere` applies to the list, said for one row,
  * and the two are asserted to agree in src/lib/pack-access.test.ts: a pack

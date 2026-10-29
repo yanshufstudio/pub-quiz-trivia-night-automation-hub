@@ -28,7 +28,6 @@
     "@paddle/paddle-node-sdk": "^3.10.0",
     "@prisma/adapter-libsql": "^6.19.3",
     "@prisma/client": "6.19.3",
-    "@react-pdf/renderer": "^4.9.0",
     "@upstash/redis": "^1.38.4",
     "@vercel/analytics": "^2.0.1",
     "better-auth": "^1.7.5",

@@ -32,8 +32,8 @@ export default function TermsPage() {
 
       <LegalSection id="the-service" title="What the service does">
         <LegalText>
-          TriviaFoundry generates pub quiz and trivia night packs with AI, turns them into printable PDFs, and runs a
-          live portal where teams submit their answers from their own phones.
+          TriviaFoundry generates pub quiz and trivia night packs with AI, turns them into sheets you can print or save
+          as a PDF, and runs a live portal where teams submit their answers from their own phones.
         </LegalText>
         <LegalList>
           <li>Free accounts can generate {countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days.</li>

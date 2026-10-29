@@ -76,14 +76,15 @@ test("every place that describes images states the real upload limit (L23)", asy
   await expect(page.getByText(`up to ${limit} each, for a picture round`)).toBeVisible();
 });
 
-// L23. The PDF sheets are set in the PDF standard Times fonts, whose
-// encoding covers Western European letters only (see pdf-fonts.test.ts).
-// Print preview prints from the browser, so that limit is the PDF's alone.
-test("the FAQ and the guide say what the Download PDF button cannot print (L23)", async ({ page }) => {
+// L23. The Download PDF button, and the Western European letters limit that
+// was its alone, are gone; Print preview prints from the browser.
+test("the FAQ and the guide no longer mention a Download PDF button (L23)", async ({ page }) => {
   for (const path of ["/faq", "/how-it-works"]) {
     await page.goto(path);
     const main = page.getByRole("main");
-    await expect(main, path).toContainText("The Download PDF button draws Western European letters only");
+    await expect(main, path).toContainText("Polish, Greek and Cyrillic letters print as well.");
+    await expect(main, path).not.toContainText("Download PDF");
+    await expect(main, path).not.toContainText("Western European letters");
     await expect(main, path).not.toContainText("do not print correctly yet");
   }
 });

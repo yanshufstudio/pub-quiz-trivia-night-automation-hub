@@ -16,11 +16,9 @@ function OptionsLine({ question }: { question: Question }) {
   );
 }
 
-/** Same-origin `<img>` at the question's own media route, matching the PDF
- * documents (src/lib/pdf/documents.tsx) — this is a browser print preview,
- * not the PDF renderer, so there's no SSRF surface here, but it's still the
- * one bytes-in-the-DB route every surface shares. Renders nothing for a
- * question with no attached image. */
+/** Same-origin `<img>` at the question's own media route, the one
+ * bytes-in-the-DB route every surface shares. Renders nothing for a question
+ * with no attached image. */
 function PrintQuestionImage({ question }: { question: Question }) {
   if (!question.hasMedia) return null;
   return (
@@ -65,12 +63,6 @@ export function PrintPreview({ pack }: { pack: Pack }) {
           >
             Print this sheet
           </button>
-          <a
-            href={`/api/packs/${pack.id}/pdf?type=${tab}`}
-            className="inline-flex h-11 items-center rounded-xl border border-amber px-4 text-sm font-semibold text-amber hover:bg-amber/10"
-          >
-            Download PDF
-          </a>
         </div>
       </div>
 
@@ -119,8 +111,7 @@ function Cue({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Page-break policy for the three layouts below, the same one the PDF
- * documents follow (src/lib/pdf/documents.tsx): a round flows across pages
+ * Page-break policy for the three layouts below: a round flows across pages
  * when it has to, no single question or answer row is ever split down the
  * middle, and a round heading is never left stranded at the foot of a page
  * with nothing under it.
@@ -131,10 +122,6 @@ function Cue({ children }: { children: React.ReactNode }) {
  * a block that cannot fit on any page is one the browser breaks wherever it
  * happens to land, mid-question included. Declaring the *question* unbreakable
  * and letting the round flow is what actually keeps a question whole.
- *
- * This is the browser-print twin of the bug fixed in the PDF renderer in
- * `a763086`; the two surfaces print the same pack and had the same policy
- * written two different ways, so only one of them got fixed.
  */
 function ScriptLayout({ pack }: { pack: Pack }) {
   return (

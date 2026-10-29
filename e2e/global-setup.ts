@@ -60,7 +60,6 @@ const WARM_UP = [
   "/api/packs/seed",
   `/api/packs/${ID}`,
   `/api/packs/${ID}/export`,
-  `/api/packs/${ID}/pdf`,
   "/api/questions",
   `/api/questions/${ID}`,
   `/api/questions/${ID}/media`,

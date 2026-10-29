@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, POSTAL_ADDRESS } from "@/lib/site";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED_LABEL, POSTAL_ADDRESS } from "@/lib/site";
 
 /**
  * The shared shell for /terms, /privacy and /refunds.
@@ -21,7 +21,7 @@ export function LegalPage({ title, children }: { title: string; children: ReactN
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-10">
         <h1 className="font-serif text-3xl font-semibold tracking-tight">{title}</h1>
-        <p className="mt-2 text-sm text-muted">Last updated: {LEGAL_LAST_UPDATED}</p>
+        <p className="mt-2 text-sm text-muted">Last updated: {LEGAL_LAST_UPDATED_LABEL}</p>
         <div className="mt-8 space-y-8">{children}</div>
       </main>
     </>

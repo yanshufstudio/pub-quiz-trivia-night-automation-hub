@@ -98,8 +98,6 @@ const STEPS: Step[] = [
         Hebrew prints too, laid out left to right with English headings and labels, and
         punctuation in lines that mix Hebrew and English can land in the wrong place.
         Polish, Greek and Cyrillic letters print as well.
-        The Download PDF button draws Western European letters only: English, French,
-        German, Spanish and the like.
       </>
     ),
   },
