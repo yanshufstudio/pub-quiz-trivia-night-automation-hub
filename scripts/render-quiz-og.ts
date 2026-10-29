@@ -170,6 +170,8 @@ function leaf(cx: number, cy: number, len: number, deg: number, color: string): 
 function pumpkinPie(cx: number, cy: number): string {
   const cut: [number, number] = [-70, -25];
   const crustR = 168;
+  // Pumpkin orange: the one colour here that is not a site token.
+  const pumpkin = "#d96f1c";
   const scallops: string[] = [];
   for (let deg = cut[1] + 8; deg <= cut[0] + 360 - 8; deg += 15) {
     const [x, y] = polar(cx, cy, crustR - 6, deg).split(",");
@@ -181,16 +183,22 @@ function pumpkinPie(cx: number, cy: number): string {
       <stop offset="0" stop-color="${T.gold}" stop-opacity="0.32"/>
       <stop offset="1" stop-color="${T.gold}" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="baked" cx="${cx - 30}" cy="${cy + 20}" r="160" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="${T.gold}" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="${T.gold}" stop-opacity="0"/>
+    <radialGradient id="baked" cx="${cx - 20}" cy="${cy + 10}" r="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="${T.gold}" stop-opacity="0.35"/>
+      <stop offset="0.7" stop-color="${T.gold}" stop-opacity="0"/>
+      <stop offset="1" stop-color="${T.amber}" stop-opacity="0.6"/>
     </radialGradient>
   </defs>
   <circle cx="${cx}" cy="${cy}" r="340" fill="url(#halo)"/>
   <path d="${pieShape(cx, cy, crustR, cut)}" fill="${T.brass}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
   <g fill="${T.brass}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4">${scallops.join("")}</g>
-  <path d="${pieShape(cx, cy, crustR - 30, cut)}" fill="${T.amber}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
+  <path d="${pieShape(cx, cy, crustR - 30, cut)}" fill="${pumpkin}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
   <path d="${pieShape(cx, cy, crustR - 30, cut)}" fill="url(#baked)"/>
+  <g fill="${T.fg}" stroke="${T.deep}" stroke-opacity="0.35" stroke-width="3">
+    <circle cx="${cx - 30}" cy="${cy + 25}" r="34"/>
+    <circle cx="${cx - 30}" cy="${cy + 8}" r="22"/>
+    <circle cx="${cx - 30}" cy="${cy - 6}" r="11"/>
+  </g>
   ${leaf(cx - 150, 95, 74, -35, T.gold)}
   ${leaf(cx + 150, 70, 62, 55, T.brass)}
   ${leaf(cx - 160, 540, 66, 30, T.brass)}
