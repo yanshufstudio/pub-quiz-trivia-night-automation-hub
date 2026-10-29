@@ -1,18 +1,20 @@
+import { countOf } from "@/lib/plural";
+import { FREE_PACK_ALLOWANCE } from "@/lib/pricing";
 import type { Quiz } from "./types";
 
 export const halloween: Quiz = {
   slug: "halloween",
-  title: "Halloween quiz questions and answers: 20 free questions for your quiz night",
+  title: "Halloween trivia questions and answers: 20 free questions for your trivia night",
   description:
-    "Two ready-made Halloween quiz rounds with answers: traditions and history, then horror films and books. Free to use. Or make your own Halloween quiz in minutes.",
-  heading: "Halloween quiz questions and answers",
+    "Two Halloween trivia rounds with answers: traditions and history, then horror films and books. Free to use. Or make your own Halloween trivia night in minutes.",
+  heading: "Halloween trivia questions and answers",
   intro:
-    "Two rounds of ten for a Halloween quiz night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.",
+    "Two rounds of ten for a Halloween trivia night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.",
   image: {
     url: "/quizzes/halloween.png",
     width: 1200,
     height: 630,
-    alt: "A carved jack-o'-lantern glowing on a dark green background, with the words Halloween quiz.",
+    alt: "A carved jack-o'-lantern glowing on a dark green background, with the words Halloween trivia.",
   },
   rounds: [
     {
@@ -122,8 +124,9 @@ export const halloween: Quiz = {
     paragraphs: [
       "Tell TriviaFoundry who's playing and what they like, and it writes the rounds in minutes: a scary-films round for film buffs, Halloween for kids, or a costume round for your regulars. You get the full pack, a presenter script and answer sheets to print. On the night, teams answer on their phones (no app to download), tables that prefer paper play in the same game, and you run it round by round with the scores up on the TV.",
       "AI can slip on a fact. Every question is yours to edit, so give the pack a read before the night.",
-      "A free account gets 2 quiz packs every 30 days, no card needed.",
+      // Follows /pricing.
+      `A free account gets ${countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days, no card needed.`,
     ],
-    button: "Make your own quiz",
+    button: "Make your own trivia night",
   },
 };
