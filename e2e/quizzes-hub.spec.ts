@@ -27,10 +27,10 @@ const FOOTER_LABEL = "Free quiz questions";
 /** In the order the page lists them. */
 const ENTRIES = [
   {
-    heading: "Halloween quiz questions and answers",
+    heading: "Halloween trivia questions and answers",
     href: "/quizzes/halloween",
     intro:
-      "Two rounds of ten for a Halloween quiz night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.",
+      "Two rounds of ten for a Halloween trivia night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.",
   },
   {
     heading: "Bonfire Night quiz questions and answers",
