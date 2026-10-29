@@ -323,6 +323,12 @@ test("/terms states the Pro limits without a number, and the minimum ages (M12, 
   await expect(page.getByText(/at least 16 to create an account/i)).toBeVisible();
   await expect(page.getByText(/at least 18 to buy Pro/i)).toBeVisible();
   await expect(page.getByText(/no age requirement/i)).toHaveCount(0);
+
+  // What the service does: sheets printed from the browser, not server-made PDFs.
+  await expect(page.locator("#the-service")).toContainText(
+    "TriviaFoundry generates pub quiz and trivia night packs with AI, turns them into sheets you can print or save as a PDF, and runs a live portal where teams submit their answers from their own phones."
+  );
+  await expect(page.getByText(/printable PDFs/i)).toHaveCount(0);
 });
 
 test("/pricing, /faq and /refunds describe the free trial and its first charge (PRC11)", async ({ page }) => {
