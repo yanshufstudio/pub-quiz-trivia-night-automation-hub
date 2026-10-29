@@ -144,6 +144,60 @@ function bonfire(cx: number, groundY: number): string {
 </svg>`;
 }
 
+/** A point `r` from (cx, cy) at `deg` degrees clockwise from 3 o'clock. */
+function polar(cx: number, cy: number, r: number, deg: number): string {
+  const a = (deg * Math.PI) / 180;
+  return `${(cx + Math.cos(a) * r).toFixed(1)},${(cy + Math.sin(a) * r).toFixed(1)}`;
+}
+
+/** A pie of radius `r` with the slice from `cut[0]` to `cut[1]` degrees missing. */
+function pieShape(cx: number, cy: number, r: number, cut: [number, number]): string {
+  return `M ${cx} ${cy} L ${polar(cx, cy, r, cut[1])} A ${r} ${r} 0 1 1 ${polar(cx, cy, r, cut[0] + 360)} Z`;
+}
+
+/** One falling leaf: a pointed oval with a stem and a vein, `len` long, turned `deg` degrees. */
+function leaf(cx: number, cy: number, len: number, deg: number, color: string): string {
+  const h = len / 2;
+  const w = len * 0.3;
+  return `<g transform="translate(${cx} ${cy}) rotate(${deg})">
+    <path d="M 0 ${-h} C ${w} ${-h * 0.5}, ${w} ${h * 0.5}, 0 ${h} C ${-w} ${h * 0.5}, ${-w} ${-h * 0.5}, 0 ${-h} Z"
+          fill="${color}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M 0 ${-h * 0.8} L 0 ${h + len * 0.16}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
+  </g>`;
+}
+
+/** A pumpkin pie from plain shapes, seen from above with one slice cut out, centred on (cx, cy), and leaves falling beside it. */
+function pumpkinPie(cx: number, cy: number): string {
+  const cut: [number, number] = [-70, -25];
+  const crustR = 168;
+  const scallops: string[] = [];
+  for (let deg = cut[1] + 8; deg <= cut[0] + 360 - 8; deg += 15) {
+    const [x, y] = polar(cx, cy, crustR - 6, deg).split(",");
+    scallops.push(`<circle cx="${x}" cy="${y}" r="15"/>`);
+  }
+  return `<svg width="1200" height="630" viewBox="0 0 1200 630" style="position:absolute;left:0;top:0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="halo" cx="${cx}" cy="${cy}" r="340" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="${T.gold}" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="${T.gold}" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="baked" cx="${cx - 30}" cy="${cy + 20}" r="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="${T.gold}" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="${T.gold}" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="${cx}" cy="${cy}" r="340" fill="url(#halo)"/>
+  <path d="${pieShape(cx, cy, crustR, cut)}" fill="${T.brass}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="${T.brass}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4">${scallops.join("")}</g>
+  <path d="${pieShape(cx, cy, crustR - 30, cut)}" fill="${T.amber}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
+  <path d="${pieShape(cx, cy, crustR - 30, cut)}" fill="url(#baked)"/>
+  ${leaf(cx - 150, 95, 74, -35, T.gold)}
+  ${leaf(cx + 150, 70, 62, 55, T.brass)}
+  ${leaf(cx - 160, 540, 66, 30, T.brass)}
+  ${leaf(cx + 160, 545, 70, -20, T.gold)}
+</svg>`;
+}
+
 type Scene = {
   /** The words on the card, one per line; the last is the accent line. */
   lines: [string, string];
@@ -153,6 +207,7 @@ type Scene = {
 const SCENES: Record<string, Scene> = {
   halloween: { lines: ["Halloween", "quiz"], art: () => jackOLantern(918, 345) },
   "bonfire-night": { lines: ["Bonfire Night", "quiz"], art: () => bonfire(990, 520) },
+  thanksgiving: { lines: ["Thanksgiving", "trivia"], art: () => pumpkinPie(990, 315) },
 };
 
 function buildHtml(scene: Scene, width: number, height: number): string {

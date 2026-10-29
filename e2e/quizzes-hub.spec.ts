@@ -9,7 +9,7 @@ import { QUIZZES } from "@/content/quizzes";
  * cookies, and the page is meant to be found by someone who has never signed
  * up. The title, description, heading and intro are typed out here on purpose:
  * a test that read them back from the page's own copy could not notice them
- * changing. The quiz entries are checked both ways: the two that exist today
+ * changing. The quiz entries are checked both ways: the ones that exist today
  * by name, and the count against the list the page reads, so a new quiz page
  * has to show up here without anyone editing the hub.
  */
@@ -37,6 +37,12 @@ const ENTRIES = [
     href: "/quizzes/bonfire-night",
     intro:
       "Two rounds of ten for a Bonfire Night quiz: one on the Gunpowder Plot, one on bonfires, fireworks and food. Answers are under each round. Use them as they are, print them, or swap in your own.",
+  },
+  {
+    heading: "Thanksgiving trivia questions and answers",
+    href: "/quizzes/thanksgiving",
+    intro:
+      "Two rounds of ten for a Thanksgiving trivia night: one on the history and traditions, one on food, football and the parade. Answers are under each round. They're free to use as they are, to print, or to mix with your own.",
   },
 ];
 
@@ -162,7 +168,7 @@ test.describe("/quizzes, signed out", () => {
 
   test("is in the served sitemap, alongside the quiz pages, and robots.txt does not block it", async ({ request }) => {
     const sitemap = await (await request.get("/sitemap.xml")).text();
-    for (const url of [`${SITE}/quizzes`, `${SITE}/quizzes/halloween`, `${SITE}/quizzes/bonfire-night`]) {
+    for (const url of [`${SITE}/quizzes`, `${SITE}/quizzes/halloween`, `${SITE}/quizzes/bonfire-night`, `${SITE}/quizzes/thanksgiving`]) {
       expect(sitemap, `${url} missing from /sitemap.xml`).toContain(`<loc>${url}</loc>`);
     }
     const robots = await (await request.get("/robots.txt")).text();
