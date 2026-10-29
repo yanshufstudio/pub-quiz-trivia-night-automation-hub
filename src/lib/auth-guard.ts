@@ -21,15 +21,15 @@ import { creatorForUser } from "@/lib/creator-claim";
  *   GATED (host)    /create, /packs, /packs/[id], /packs/[id]/print,
  *                   /host/[code]; POST /api/packs/generate, GET /api/packs,
  *                   GET /api/packs/[id], POST /api/packs/import, POST
- *                   /api/packs/seed, DELETE /api/packs/[id], the PDF and
- *                   export routes, GET /api/creator/status, every
+ *                   /api/packs/seed, DELETE /api/packs/[id], the export
+ *                   route, GET /api/creator/status, every
  *                   /api/questions and /api/rounds write, POST
  *                   /api/sessions, the host's advance and score-override
  *                   routes.
  *
- *                   Six of those are also OWNER-only, not merely
+ *                   Five of those are also OWNER-only, not merely
  *                   account-only: /packs/[id], /packs/[id]/print, GET
- *                   /api/packs/[id], the PDF and export routes, and POST
+ *                   /api/packs/[id], the export route, and POST
  *                   /api/sessions. A signed-in host holding somebody else's
  *                   pack id gets the same 404 a made-up id gets. See
  *                   src/lib/pack-access.ts.

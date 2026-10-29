@@ -58,9 +58,8 @@ const packWithRounds = {
 export type PackWithRounds = Prisma.QuizPackGetPayload<typeof packWithRounds>;
 export const packWithRoundsArgs = packWithRounds;
 
-// The PDF and pack-export routes are the two places that legitimately need
-// the actual bytes (to inline as a data: URI — see src/lib/media.ts and the
-// SSRF note there for why it's never a URL). This is intentionally a
+// The pack-export route is the one place that legitimately needs the actual
+// bytes (to inline in the pack file). This is intentionally a
 // *separate* query shape from packWithRoundsArgs above, rather than the
 // default everywhere: a live session poll has no reason to pull image bytes
 // on every request.

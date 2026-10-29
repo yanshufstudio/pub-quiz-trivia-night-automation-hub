@@ -14,7 +14,7 @@ recommendation for which AI tool is the better fit for each task.
 
 Stack locked in: Next.js (TypeScript, App Router, Tailwind), Prisma +
 SQLite, Anthropic (Claude) API for question generation, simple polling
-for the live team portal, `@react-pdf/renderer` for PDF export.
+for the live team portal, browser printing for the sheets.
 
 ---
 
@@ -25,7 +25,7 @@ for the live team portal, `@react-pdf/renderer` for PDF export.
 | Design the Prisma schema for quiz packs, rounds, questions, sessions, teams, and answers, with scoring support | Claude Code | Cross-cutting data model, needs whole-repo context |
 | Define the exact JSON schema the AI wizard must return for a generated quiz pack, and a zod validator for it | Claude Code | Schema design feeds directly into typed backend code |
 | Sketch the session state machine (LOBBY → QUESTION_ACTIVE → REVEAL → ENDED) and what triggers each transition | Claude Code | Logic/architecture reasoning, not visual |
-| Wireframe the presenter script and PDF answer-sheet layout | Cursor | Layout/typography is easier to judge by looking at rendered output as you iterate |
+| Wireframe the presenter script and answer-sheet print layout | Cursor | Layout/typography is easier to judge by looking at rendered output as you iterate |
 | Decide scoring & tie-break rules (exact match vs host judgement, partial credit) | Claude Code | Product logic decision, affects DB + API design |
 | Pick a deployment target (Vercel + Turso/hosted SQLite vs self-hosted) | Claude Code | Infra decision tied to the Prisma setup |
 
@@ -36,7 +36,7 @@ for the live team portal, `@react-pdf/renderer` for PDF export.
 | Run `npx prisma migrate dev` and generate the client, wire up a Prisma singleton in `src/lib/db.ts` | Claude Code | Shell + codegen, agentic |
 | Build `POST /api/packs/generate`: call the Claude API with the wizard prompt, validate the JSON response with zod, persist to Prisma | Claude Code | Backend integration, error handling, multi-file |
 | Build the pack editor page — list rounds/questions, inline edit text/answer/points | Cursor | Form-heavy UI you'll want to see and adjust live |
-| Generate presenter-script and question/answer PDFs with `@react-pdf/renderer` | Claude Code | Library plumbing + data shaping, not primarily visual |
+| Build Print preview: presenter script and question/answer sheets, printed from the browser | Claude Code | Data shaping + print CSS, checked under print emulation |
 | Build the host dashboard: create session, advance question, view live submissions | Split | Claude Code for the API/state logic, then Cursor for a visual polish pass |
 | Build the team join + answer-submission portal, mobile-first | Cursor | Mobile responsive feel is best judged live in-editor/browser |
 | Implement polling: team portal polls session state every 3s, host dashboard polls submissions | Claude Code | Networking/data-flow logic |
@@ -50,7 +50,7 @@ for the live team portal, `@react-pdf/renderer` for PDF export.
 | Stress-test the wizard's zod schema against malformed/truncated AI responses and add retry/repair logic | Claude Code | Backend robustness |
 | Review a batch of AI-generated quiz packs for duplicate/low-quality questions and tune the generation prompt | Claude Code | Needs to read generated content + edit the prompt template |
 | Check the team portal's touch targets, contrast, and layout on a real phone-sized viewport | Cursor (or a browser-driving Claude Code session) | Visual/interactive check |
-| Verify PDFs render correctly (page breaks, long questions, special characters) | Claude Code | Can generate and open the PDF to check directly |
+| Verify the printed sheets render correctly (page breaks, long questions, special characters) | Claude Code | Can emulate print media and check directly |
 
 ## 4. Testing
 

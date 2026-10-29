@@ -215,16 +215,6 @@ export function validateImageBytes(bytes: Uint8Array): MediaValidation {
   return { ok: true, info: { mime, width: dimensions.width, height: dimensions.height, byteSize: bytes.length } };
 }
 
-/**
- * A `data:` URI for the bytes — how the PDF renderer is given an image.
- * @react-pdf/renderer decodes these locally (`@react-pdf/image` handles the
- * `data:` case before it ever reaches its `fetch` path), so a document built
- * this way cannot make a network request no matter what is in the database.
- */
-export function toDataUri(media: { mime: string; bytes: Uint8Array }): string {
-  return `data:${media.mime};base64,${Buffer.from(media.bytes).toString("base64")}`;
-}
-
 export type ProcessedImage = {
   mime: MediaMime;
   bytes: Buffer;

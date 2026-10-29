@@ -26,10 +26,10 @@ export const PACK_FILE_VERSION = 2;
 /**
  * Size ceilings for an imported file. Import is unauthenticated and there
  * was no ceiling at all: the 2026-09-17 stress run imported a 3,000-question
- * pack in a second, and rendering its PDF then held the server for 231
- * seconds. These are generous for any real night (a long one is 8 rounds of
- * 15) and small enough that the PDF and the editor stay usable. Text limits
- * mirror what the editor can show and what fits on a printed sheet.
+ * pack in a second. These are generous for any real night (a long one is 8
+ * rounds of 15) and small enough that the editor and the print sheets stay
+ * usable. Text limits mirror what the editor can show and what fits on a
+ * printed sheet.
  */
 export const PACK_LIMITS = {
   rounds: 40,

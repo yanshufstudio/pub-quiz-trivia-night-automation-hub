@@ -2,7 +2,6 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
 import { GET as getPack } from "@/app/api/packs/[id]/route";
-import { GET as getPdf } from "@/app/api/packs/[id]/pdf/route";
 import { GET as exportPack } from "@/app/api/packs/[id]/export/route";
 import { POST as createSession } from "@/app/api/sessions/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
@@ -63,10 +62,6 @@ const READ_SURFACES: { name: string; run: (host: TestHost | null, packId: string
   {
     name: "GET /api/packs/[id]",
     run: (host, id) => getPack(as(host, `/api/packs/${id}`), idParams(id)),
-  },
-  {
-    name: "GET /api/packs/[id]/pdf?type=answers",
-    run: (host, id) => getPdf(as(host, `/api/packs/${id}/pdf?type=answers`), idParams(id)),
   },
   {
     name: "GET /api/packs/[id]/export",

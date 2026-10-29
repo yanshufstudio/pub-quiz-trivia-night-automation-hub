@@ -5,7 +5,6 @@ import { GET as listPacks } from "@/app/api/packs/route";
 import { DELETE as deletePack } from "@/app/api/packs/[id]/route";
 import { GET as getPack } from "@/app/api/packs/[id]/route";
 import { GET as exportPack } from "@/app/api/packs/[id]/export/route";
-import { GET as getPdf } from "@/app/api/packs/[id]/pdf/route";
 import { POST as generatePack } from "@/app/api/packs/generate/route";
 import { POST as importPack } from "@/app/api/packs/import/route";
 import { POST as seedPack } from "@/app/api/packs/seed/route";
@@ -103,7 +102,6 @@ const HOST_ROUTES: Case[] = [
   { name: "POST /api/packs/seed", run: () => seedPack(anon("/api/packs/seed", "POST")) },
   { name: "DELETE /api/packs/[id]", run: () => deletePack(anon(`/api/packs/${pack.id}`, "DELETE"), idParams(pack.id)) },
   { name: "GET /api/packs/[id]", run: () => getPack(anon(`/api/packs/${pack.id}`), idParams(pack.id)) },
-  { name: "GET /api/packs/[id]/pdf", run: () => getPdf(anon(`/api/packs/${pack.id}/pdf?type=answers`), idParams(pack.id)) },
   { name: "GET /api/packs/[id]/export", run: () => exportPack(anon(`/api/packs/${pack.id}/export`), idParams(pack.id)) },
   { name: "GET /api/creator/status", run: () => creatorStatus(anon("/api/creator/status")) },
   { name: "POST /api/questions", run: () => createQuestion(anon("/api/questions", "POST", { roundId })) },

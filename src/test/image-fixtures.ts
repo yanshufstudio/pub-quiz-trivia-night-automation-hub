@@ -61,9 +61,8 @@ export const GIF_BYTES = new Uint8Array([0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x0
 
 /**
  * A real, decodable 1x1 PNG — the fixtures above are headers, which is all
- * src/lib/media.ts reads, but @react-pdf/renderer actually decodes what it
- * is handed. Any test that puts an image through the PDF renderer needs
- * this one.
+ * src/lib/media.ts reads. Any test that stores an image something will
+ * actually decode needs this one.
  */
 export const REAL_PNG_1X1 = new Uint8Array(
   Buffer.from(
