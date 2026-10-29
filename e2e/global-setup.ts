@@ -39,6 +39,8 @@ const WARM_UP = [
   "/quizzes/halloween.png",
   "/quizzes/bonfire-night",
   "/quizzes/bonfire-night.png",
+  "/quizzes/thanksgiving",
+  "/quizzes/thanksgiving.png",
   "/og.png",
   "/sitemap.xml",
   "/robots.txt",
