@@ -159,12 +159,15 @@ const ENTRIES: Entry[] = [
     question: "Can I print it?",
     answer: (
       <>
-        Yes. <em>Print preview</em> in the pack editor gives you a presenter script to read
-        from, a question sheet, and answer sheets for teams who would rather write than tap.
-        Pictures you have added print with their questions. The printed sheets can only print Western European letters for now: English, French,
-        German, Spanish and the like. Other letters — a Polish ł or a Czech ř — and other
-        alphabets, such as Greek or Cyrillic, do not print correctly yet, although they show
-        properly on your screen and on the teams&apos; phones.
+        Yes. <em>Print preview</em> in the pack editor has a presenter script to read from, a
+        host answer key, and a team answer sheet for teams who would rather write than tap.
+        Pick a sheet and press <em>Print this sheet</em>, or save it as a PDF from the print
+        window. Pictures you have added print with their questions. Hebrew prints too, laid
+        out left to right with English headings and labels, and punctuation in lines that mix
+        Hebrew and English can land in the wrong place.
+        Polish, Greek and Cyrillic letters print as well.
+        The Download PDF button draws Western European letters only: English, French,
+        German, Spanish and the like.
       </>
     ),
   },

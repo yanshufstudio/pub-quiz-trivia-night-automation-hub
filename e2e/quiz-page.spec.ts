@@ -22,7 +22,7 @@ const INTRO =
 const CTA_HEADING = "Want a Halloween round built for your crowd?";
 const HERO_ALT = "A carved jack-o'-lantern glowing on a dark green background, with the words Halloween quiz.";
 const SHEETS_ALT =
-  "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team question sheet.";
+  "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.";
 const ROUND_HEADINGS = [
   "Round 1: Halloween traditions and history",
   "Round 2: Horror on screen and on the page",

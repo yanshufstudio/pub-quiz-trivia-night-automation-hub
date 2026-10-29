@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@/components/icons";
 import type { Pack, Question } from "@/lib/api-types";
 import { countOf } from "@/lib/plural";
+import { PRINT_SHEETS, printPageTitle, type PrintSheet } from "@/lib/print-sheets";
 
 function OptionsLine({ question }: { question: Question }) {
   if (question.type !== "MULTIPLE_CHOICE" || question.options.length === 0) return null;
@@ -32,14 +33,16 @@ function PrintQuestionImage({ question }: { question: Question }) {
   );
 }
 
-const TABS = [
-  { id: "script", label: "Presenter script", type: "script" },
-  { id: "answers", label: "Answer sheet", type: "answers" },
-  { id: "questions", label: "Question sheet", type: "questions" },
-] as const;
+const TABS = Object.keys(PRINT_SHEETS) as PrintSheet[];
 
 export function PrintPreview({ pack }: { pack: Pack }) {
-  const [tab, setTab] = useState<(typeof TABS)[number]["id"]>("script");
+  const [tab, setTab] = useState<PrintSheet>("script");
+
+  // The server renders the first sheet's title; this keeps it on the sheet on
+  // screen, so a PDF saved from the print window is named after it.
+  useEffect(() => {
+    document.title = printPageTitle(pack.title, tab);
+  }, [pack.title, tab]);
 
   return (
     <div className="min-h-full bg-[#ecdfbc] pb-16">
@@ -54,37 +57,48 @@ export function PrintPreview({ pack }: { pack: Pack }) {
           </Link>
           <h1 className="mt-1 font-serif text-2xl font-semibold tracking-tight">Print layout</h1>
         </div>
-        <a
-          href={`/api/packs/${pack.id}/pdf?type=${TABS.find((item) => item.id === tab)?.type}`}
-          className="inline-flex h-11 items-center rounded-xl bg-amber px-4 text-sm font-semibold text-white hover:bg-amber-hover"
-        >
-          Download PDF
-        </a>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="inline-flex h-11 items-center rounded-xl bg-amber px-4 text-sm font-semibold text-white hover:bg-amber-hover"
+          >
+            Print this sheet
+          </button>
+          <a
+            href={`/api/packs/${pack.id}/pdf?type=${tab}`}
+            className="inline-flex h-11 items-center rounded-xl border border-amber px-4 text-sm font-semibold text-amber hover:bg-amber/10"
+          >
+            Download PDF
+          </a>
+        </div>
       </div>
 
-      <div className="print-chrome mx-auto mb-6 flex w-full max-w-3xl gap-2 px-5">
-        {TABS.map((item) => (
+      <div className="print-chrome mx-auto mb-6 flex w-full max-w-3xl flex-wrap gap-2 px-5">
+        {TABS.map((sheet) => (
           <button
-            key={item.id}
+            key={sheet}
             type="button"
-            onClick={() => setTab(item.id)}
+            onClick={() => setTab(sheet)}
             className={`h-11 rounded-xl px-4 text-sm font-semibold ${
-              tab === item.id ? "bg-foreground text-background" : "bg-white/70 text-muted"
+              tab === sheet ? "bg-foreground text-background" : "bg-white/70 text-muted"
             }`}
           >
-            {item.label}
+            {PRINT_SHEETS[sheet]}
           </button>
         ))}
       </div>
 
       <article className="paper-sheet mx-auto min-h-[1100px] w-[min(100%-1.5rem,794px)] px-10 py-12 sm:px-14">
         <header className="border-b-2 border-foreground pb-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber">
-            {tab === "script" ? "Presenter script" : tab === "answers" ? "Host answer key" : "Team question sheet"}
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber">{PRINT_SHEETS[tab]}</p>
           <h2 className="mt-2 font-serif text-3xl font-bold tracking-tight">{pack.title}</h2>
           <p className="mt-1 text-sm text-muted">
-            {countOf(pack.rounds.length, "round")} · keep this copy at the lectern
+            {tab === "questions" ? (
+              "Team name: _______________________________"
+            ) : (
+              <>{countOf(pack.rounds.length, "round")} · keep this copy at the lectern</>
+            )}
           </p>
         </header>
 
@@ -209,7 +223,6 @@ function AnswerLayout({ pack }: { pack: Pack }) {
 function QuestionLayout({ pack }: { pack: Pack }) {
   return (
     <div className="mt-6 space-y-8">
-      <p className="text-sm text-muted">Team name: _______________________________</p>
       {pack.rounds.map((round) => (
         <section key={round.id}>
           <h3 className="break-after-avoid font-serif text-xl font-bold">

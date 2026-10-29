@@ -24,7 +24,7 @@ const INTRO =
 const CTA_HEADING = "Want a Bonfire Night round built for your crowd?";
 const HERO_ALT = "A bonfire with fireworks bursting above it on a dark green background, with the words Bonfire Night quiz.";
 const SHEETS_ALT =
-  "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team question sheet.";
+  "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.";
 const ROUND_HEADINGS = ["Round 1: Remember, remember: the Gunpowder Plot", "Round 2: Bonfires, fireworks and food"];
 
 async function head(page: Page) {

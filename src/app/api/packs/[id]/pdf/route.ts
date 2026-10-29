@@ -12,8 +12,8 @@ import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { canReadPack, packNotFound } from "@/lib/pack-access";
 
 const DOCUMENTS = {
-  questions: { Component: QuestionSheetDocument, suffix: "questions" },
-  answers: { Component: AnswerSheetDocument, suffix: "answers" },
+  questions: { Component: QuestionSheetDocument, suffix: "team-answer-sheet" },
+  answers: { Component: AnswerSheetDocument, suffix: "host-answer-key" },
   script: { Component: PresenterScriptDocument, suffix: "presenter-script" },
 } as const;
 

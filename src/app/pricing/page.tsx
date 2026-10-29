@@ -40,7 +40,7 @@ const FREE_FEATURES = [
   `${FREE_PACK_ALLOWANCE} quiz packs every 30 days`,
   "Rounds, questions, answers and points, written for you",
   "A presenter script to read from",
-  "Printable question and answer sheets",
+  "Printable team answer sheets and a host answer key",
   "The live game: teams join from their phones, scores update as you go",
 ];
 
