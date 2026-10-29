@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { signedInContext } from "./sign-in-helper";
-import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, POSTAL_ADDRESS } from "@/lib/site";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED_LABEL, POSTAL_ADDRESS } from "@/lib/site";
 import { FREE_PACK_ALLOWANCE } from "@/lib/pricing";
 
 // Paddle's website review requires the three policy pages to be publicly
@@ -28,7 +28,7 @@ for (const { path, heading } of PAGES) {
 
     await page.goto(path);
     await expect(page.getByRole("heading", { level: 1, name: heading })).toBeVisible();
-    await expect(page.getByText(`Last updated: ${LEGAL_LAST_UPDATED}`)).toBeVisible();
+    await expect(page.getByText(`Last updated: ${LEGAL_LAST_UPDATED_LABEL}`)).toBeVisible();
 
     // Paddle's review also wants a way to contact the seller from these
     // pages, and /refunds names this address as the alternative to Paddle's
