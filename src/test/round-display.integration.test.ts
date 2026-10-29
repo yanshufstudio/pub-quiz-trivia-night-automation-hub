@@ -79,6 +79,17 @@ describe("the TV view (RM5)", () => {
     expectNoSecrets(body, hostToken, await allTokens(code));
   });
 
+  it("paperOnly: true once every team so far plays on paper, false while the lobby is empty or a phone has joined", async () => {
+    const { code, hostToken } = await game.create();
+    expect((await displayBody(code)).paperOnly).toBe(false);
+    await addTeam(game.request(`/api/sessions/${code}/teams`, "POST", { hostToken, name: "Paper Team" }), {
+      params: Promise.resolve({ code }),
+    });
+    expect((await displayBody(code)).paperOnly).toBe(true);
+    await game.join(code, "Phone Team");
+    expect((await displayBody(code)).paperOnly).toBe(false);
+  });
+
   it("while the round is open: the current question only, unless the host switches to all asked", async () => {
     const { code, hostToken, team } = await setup();
     await game.advance(code, hostToken, "start");

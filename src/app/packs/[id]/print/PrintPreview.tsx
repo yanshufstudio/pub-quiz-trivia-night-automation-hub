@@ -45,7 +45,7 @@ export function PrintPreview({ pack }: { pack: Pack }) {
   }, [pack.title, tab]);
 
   return (
-    <div className="min-h-full bg-[#ecdfbc] pb-16">
+    <div className="min-h-full bg-[#ecdfbc] pb-16 print:pb-0">
       <div className="print-chrome mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-3 px-5 py-5">
         <div>
           <Link
@@ -89,7 +89,7 @@ export function PrintPreview({ pack }: { pack: Pack }) {
         ))}
       </div>
 
-      <article className="paper-sheet mx-auto min-h-[1100px] w-[min(100%-1.5rem,794px)] px-10 py-12 sm:px-14">
+      <article className="paper-sheet mx-auto min-h-[1100px] w-[min(100%-1.5rem,794px)] px-10 py-12 sm:px-14 print:min-h-0 print:py-0">
         <header className="border-b-2 border-foreground pb-4">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber">{PRINT_SHEETS[tab]}</p>
           <h2 className="mt-2 font-serif text-3xl font-bold tracking-tight">{pack.title}</h2>
@@ -186,7 +186,7 @@ function AnswerLayout({ pack }: { pack: Pack }) {
           <p className="break-after-avoid mb-3 text-sm italic text-muted">{round.category}</p>
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b border-foreground text-left text-xs uppercase tracking-wide text-muted">
+              <tr className="border-b border-foreground text-left text-xs uppercase tracking-wide whitespace-nowrap text-muted">
                 <th className="w-10 py-2">#</th>
                 <th className="py-2">Question</th>
                 <th className="py-2">Answer</th>

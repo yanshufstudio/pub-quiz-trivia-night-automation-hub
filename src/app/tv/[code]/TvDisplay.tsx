@@ -198,6 +198,14 @@ function Screen({ state }: { state: RoundDisplayState }) {
 }
 
 function Lobby({ state }: { state: RoundDisplayState }) {
+  if (state.paperOnly) {
+    return (
+      <div className="flex h-full flex-col justify-center px-28">
+        <p className="text-[40px] text-stage-muted">Tonight’s teams</p>
+        <TeamNames teams={state.teams} />
+      </div>
+    );
+  }
   // Client component: window is defined by the time this renders.
   const joinUrl = buildJoinUrl(window.location.origin, state.code);
   const host = `${window.location.host}/play`;
@@ -208,18 +216,24 @@ function Lobby({ state }: { state: RoundDisplayState }) {
         <p className="text-[64px] font-semibold">{host}</p>
         <p className="mt-10 text-[40px] text-stage-muted">with the code</p>
         <p className="font-mono text-[200px] font-bold leading-none tracking-[0.12em] text-gold">{state.code}</p>
-        <ul className="mt-12 flex max-h-[220px] flex-wrap gap-4 overflow-hidden">
-          {state.teams.map((team) => (
-            <li key={team.name} dir="auto" className="rounded-full bg-white/10 px-6 py-2 text-[32px]">
-              {team.name}
-            </li>
-          ))}
-        </ul>
+        <TeamNames teams={state.teams} />
       </div>
       <div className="shrink-0 rounded-3xl bg-white p-8">
         <QRCode value={joinUrl} size={420} role="img" aria-label="Scan to join" />
       </div>
     </div>
+  );
+}
+
+function TeamNames({ teams }: { teams: RoundDisplayState["teams"] }) {
+  return (
+    <ul className="mt-12 flex max-h-[220px] flex-wrap gap-4 overflow-hidden">
+      {teams.map((team) => (
+        <li key={team.name} dir="auto" className="rounded-full bg-white/10 px-6 py-2 text-[32px]">
+          {team.name}
+        </li>
+      ))}
+    </ul>
   );
 }
 
