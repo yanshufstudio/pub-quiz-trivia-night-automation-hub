@@ -117,6 +117,8 @@ export type RoundTeamState = RoundBase & {
 /** GET /api/sessions/[code]/display — the TV. */
 export type RoundDisplayState = RoundBase & {
   teams: { name: string }[];
+  /** Every team so far plays on paper: the TV lobby shows no way to join. */
+  paperOnly: boolean;
   /** Null unless the host is showing it (or the quiz has ended). */
   scoreboard: ScoreboardRow[] | null;
 };
