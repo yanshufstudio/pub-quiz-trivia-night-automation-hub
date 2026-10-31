@@ -181,6 +181,7 @@ export function RoundHostDesk({
               void advance("end");
             }}
             onTvMode={(showAll) => void advance("set_tv_mode", { showAll })}
+            onAddPaper={(name) => send(`/api/sessions/${code}/teams`, "POST", { name })}
           />
         ) : null}
 
@@ -200,7 +201,7 @@ export function RoundHostDesk({
               </p>
             ) : null}
             {current ? <HostQuestion question={current} code={code} hostToken={hostToken} /> : null}
-            {current ? (
+            {current && phoneTeams(state) > 0 ? (
               <p className="mt-4 text-sm text-stage-muted">
                 {answeredCount(state, current.index)} of {phoneTeams(state)} phone teams have answered this one.
               </p>
@@ -248,9 +249,11 @@ export function RoundHostDesk({
                     <li key={q.id} className="rounded-lg bg-white/5 px-3 py-2 text-sm">
                       <span className="text-gold">Q{q.index + 1}</span>{" "}
                       <QuestionText as="span" text={q.text} />
-                      <span className="block text-xs text-stage-muted">
-                        {answeredCount(state, q.index)} of {phoneTeams(state)} answered
-                      </span>
+                      {phoneTeams(state) > 0 ? (
+                        <span className="block text-xs text-stage-muted">
+                          {answeredCount(state, q.index)} of {phoneTeams(state)} answered
+                        </span>
+                      ) : null}
                     </li>
                   ))}
                 </ol>
@@ -461,8 +464,6 @@ function Lobby({
   busy: boolean;
   onAddPaper: (name: string) => Promise<void>;
 }) {
-  const [adding, setAdding] = useState(false);
-  const [name, setName] = useState("");
   return (
     <section className="rounded-2xl bg-white/5 p-4 sm:p-6">
       <h2 className="font-serif text-2xl font-semibold">Waiting for teams</h2>
@@ -480,8 +481,30 @@ function Lobby({
         </button>
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-3">
-        <h3 className="font-semibold">Teams ({state.teams.length})</h3>
+      <div className="mt-6">
+        <AddPaperTeam heading={`Teams (${state.teams.length})`} busy={busy} onAddPaper={onAddPaper} />
+      </div>
+      <TeamList state={state} />
+    </section>
+  );
+}
+
+/** In the lobby, and in the menu once the quiz has started: a table can arrive late. */
+function AddPaperTeam({
+  heading,
+  busy,
+  onAddPaper,
+}: {
+  heading: string;
+  busy: boolean;
+  onAddPaper: (name: string) => Promise<void>;
+}) {
+  const [adding, setAdding] = useState(false);
+  const [name, setName] = useState("");
+  return (
+    <>
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="font-semibold">{heading}</h3>
         <button type="button" aria-expanded={adding} onClick={() => setAdding((a) => !a)} className={secondary}>
           Add paper team
         </button>
@@ -516,8 +539,7 @@ function Lobby({
           </button>
         </form>
       ) : null}
-      <TeamList state={state} />
-    </section>
+    </>
   );
 }
 
@@ -554,7 +576,10 @@ function Marking({
 }) {
   const marks = state.marks ?? [];
   // A phone team that sat the round out (joined late) has nothing to mark.
-  const marked = marks.filter((row) => !row.sitsOut);
+  // Paper teams are named under the grid, not in it, so no row runs off the
+  // screen at phone width.
+  const marked = marks.filter((row) => !row.sitsOut && !row.isPaper);
+  const onPaper = marks.filter((row) => row.isPaper).map((row) => row.name);
   const n = state.roundNumber;
   return (
     <section className="space-y-5">
@@ -573,30 +598,30 @@ function Marking({
           ))}
         </ol>
 
-        <div data-testid="marks-grid" className="mt-4 overflow-x-auto">
-          <table className="w-full min-w-max border-separate border-spacing-1 text-sm">
-            <thead>
-              <tr className="text-left text-stage-muted">
-                <th className="px-2 font-semibold">Team</th>
-                {state.questions.map((q) => (
-                  <th key={q.id} className="px-2 font-semibold">
-                    Q{q.index + 1}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {marked.map((row) => (
-                <tr key={row.teamId}>
-                  <th scope="row" className="max-w-40 truncate px-2 text-left font-medium" dir="auto">
-                    {row.name}
-                  </th>
-                  {row.isPaper ? (
-                    <td colSpan={state.questions.length} className="px-2 text-stage-muted">
-                      On paper: type the round total below
-                    </td>
-                  ) : (
-                    state.questions.map((q) => {
+        {marked.length > 0 ? (
+          <div data-testid="marks-grid" className="mt-4 overflow-x-auto">
+            <table className="w-full min-w-max border-separate border-spacing-1 text-sm">
+              <thead>
+                <tr className="text-left text-stage-muted">
+                  <th className="sticky left-0 z-[1] bg-stage-panel px-2 font-semibold">Team</th>
+                  {state.questions.map((q) => (
+                    <th key={q.id} className="px-2 font-semibold">
+                      Q{q.index + 1}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {marked.map((row) => (
+                  <tr key={row.teamId}>
+                    <th
+                      scope="row"
+                      className="sticky left-0 z-[1] max-w-28 truncate bg-stage-panel px-2 text-left font-medium sm:max-w-40"
+                      dir="auto"
+                    >
+                      {row.name}
+                    </th>
+                    {state.questions.map((q) => {
                       const answer = row.answers.find((a) => a.questionIndex === q.index);
                       if (!answer) {
                         return (
@@ -626,13 +651,18 @@ function Marking({
                           </button>
                         </td>
                       );
-                    })
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+        {onPaper.length > 0 ? (
+          <p className="mt-4 text-sm text-stage-muted">
+            On paper: <span dir="auto">{listNames(onPaper)}</span>. Type their round totals below.
+          </p>
+        ) : null}
       </div>
 
       <div className="rounded-2xl bg-white/5 p-4 sm:p-6">
@@ -734,6 +764,7 @@ function DeskMenu({
   onKeepPlaying,
   onEndConfirmed,
   onTvMode,
+  onAddPaper,
 }: {
   code: string;
   state: RoundHostState;
@@ -743,6 +774,7 @@ function DeskMenu({
   onKeepPlaying: () => void;
   onEndConfirmed: () => void;
   onTvMode: (showAll: boolean) => void;
+  onAddPaper: (name: string) => Promise<void>;
 }) {
   // Client component: window is defined by the time this renders.
   const tvUrl = `${window.location.origin}/tv/${code}`;
@@ -792,6 +824,14 @@ function DeskMenu({
           </div>
         ) : null}
       </div>
+
+      {state.status !== "LOBBY" && state.status !== "ENDED" ? (
+        <div>
+          <AddPaperTeam heading={`Teams (${state.teams.length})`} busy={busy} onAddPaper={onAddPaper} />
+          <p className="mt-2 text-sm text-stage-muted">A table added now scores 0 for rounds already closed.</p>
+          <TeamList state={state} />
+        </div>
+      ) : null}
 
       <div>
         <h2 className="font-semibold">Host link</h2>
