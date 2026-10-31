@@ -17,12 +17,12 @@ import { QUIZZES } from "@/content/quizzes";
 const SITE = "https://triviafoundry.com";
 const PATH = "/quizzes";
 
-const TITLE = "Free quiz questions and answers: ready-made rounds for your quiz night";
+const TITLE = "Free trivia questions and answers: ready-made rounds for your trivia night";
 const DESCRIPTION =
-  "Ready-made quiz rounds with answers for seasonal quiz nights. Free to use and to print. Or make your own quiz in minutes.";
-const HEADING = "Free quiz questions and answers";
-const INTRO = "Ready-made rounds for seasonal quiz nights, free to use and to print.";
-const FOOTER_LABEL = "Free quiz questions";
+  "Ready-made trivia rounds with answers for seasonal trivia nights. Free to use and to print. Or make your own trivia night in minutes.";
+const HEADING = "Free trivia questions and answers";
+const INTRO = "Ready-made rounds for seasonal trivia nights, free to use and to print.";
+const FOOTER_LABEL = "Free trivia questions";
 
 /** In the order the page lists them. */
 const ENTRIES = [
@@ -130,7 +130,7 @@ test.describe("/quizzes, signed out", () => {
 
   test("ends with the button to /create", async ({ page }) => {
     await page.goto(PATH);
-    const button = page.getByRole("main").getByRole("link", { name: "Make your own quiz" });
+    const button = page.getByRole("main").getByRole("link", { name: "Make your own trivia night" });
     await expect(button).toBeVisible();
     await expect(button).toHaveAttribute("href", "/create");
     // Under the list, not above it.
