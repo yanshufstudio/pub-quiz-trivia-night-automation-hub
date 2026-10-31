@@ -39,8 +39,8 @@ import {
  *    route just hands over the bytes that flag promised.
  * 2. **A host who may read the pack.** A signed-in account whose Creator owns
  *    the pack, or any signed-in host when the pack is the ownerless demo —
- *    `canReadPack`, the same predicate the editor, the print sheet, the PDFs
- *    and the export now use.
+ *    `canReadPack`, the same predicate the editor, the print sheet and the
+ *    export now use.
  *
  * Deliberately the *current* question and not "any question in the session's
  * pack": a team that could walk the whole pack could read round four's

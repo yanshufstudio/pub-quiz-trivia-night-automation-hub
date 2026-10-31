@@ -5,7 +5,6 @@ import {
   MAX_MEDIA_DIMENSION,
   MEDIA_MIME,
   prepareImageForStorage,
-  toDataUri,
   validateImageBytes,
 } from "@/lib/media";
 import { GIF_BYTES, jpegBytes, pngBytes, realJpegBytes, realJpegWithExif, realPngBytes } from "@/test/image-fixtures";
@@ -124,13 +123,6 @@ describe("validateImageBytes", () => {
 
   it("rejects a JPEG claiming zero dimensions", () => {
     expect(validateImageBytes(jpegBytes(0, 0))).toMatchObject({ ok: false, status: 400 });
-  });
-});
-
-describe("toDataUri", () => {
-  it("inlines the bytes, so nothing downstream has a URL to fetch", () => {
-    const bytes = new Uint8Array([1, 2, 3, 4]);
-    expect(toDataUri({ mime: MEDIA_MIME.PNG, bytes })).toBe("data:image/png;base64,AQIDBA==");
   });
 });
 

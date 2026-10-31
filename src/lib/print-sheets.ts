@@ -1,8 +1,7 @@
 /**
  * The three printed sheets, in Print preview's tab order. Each sheet has one
- * name, used wherever it is shown: its tab and heading in Print preview, the
- * print page's title, and the kicker on its PDF. The keys are the PDF
- * route's `?type=` values.
+ * name, used wherever it is shown: its tab and heading in Print preview, and
+ * the print page's title.
  */
 export const PRINT_SHEETS = {
   script: "Presenter script",

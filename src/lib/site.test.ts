@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, POSTAL_ADDRESS, SITE_URL } from "@/lib/site";
+import { CONTACT_EMAIL, LEGAL_LAST_UPDATED, LEGAL_LAST_UPDATED_LABEL, POSTAL_ADDRESS, SITE_URL } from "@/lib/site";
 
 const APP_DIR = path.resolve(__dirname, "../app");
 const SRC_DIR = path.resolve(__dirname, "..");
@@ -44,6 +44,12 @@ describe("site constants", () => {
   it("dates the legal pages in ISO order so the sitemap can publish it verbatim", () => {
     expect(LEGAL_LAST_UPDATED).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(Number.isNaN(Date.parse(LEGAL_LAST_UPDATED))).toBe(false);
+  });
+
+  it("shows that date with the month spelt out, so no reader can take it the wrong way round", () => {
+    const [year, month, day] = LEGAL_LAST_UPDATED.split("-").map(Number);
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    expect(LEGAL_LAST_UPDATED_LABEL).toBe(`${day} ${months[month - 1]} ${year}`);
   });
 });
 

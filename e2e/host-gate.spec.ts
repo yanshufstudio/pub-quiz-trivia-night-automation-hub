@@ -123,7 +123,7 @@ test("one host cannot open another host's pack, and cannot tell it from a missin
   expect(madeUp?.status()).toBe(404);
 
   // The answer sheets are refused through the API too, not just the page.
-  for (const url of [`/api/packs/${pack.id}`, `/api/packs/${pack.id}/export`, `/api/packs/${pack.id}/pdf?type=answers`]) {
+  for (const url of [`/api/packs/${pack.id}`, `/api/packs/${pack.id}/export`]) {
     const res = await bob.api.get(url, { failOnStatusCode: false });
     expect(res.status(), url).toBe(404);
   }

@@ -12,10 +12,10 @@ const NBSP = "\xa0";
 const EM_DASH = String.fromCharCode(0x2014);
 
 const HOW_IT_WORKS_PRINT =
-  "Print preview in the pack editor has three sheets: the presenter script to read from, the host answer key, and the team answer sheet your teams write on. Pick a sheet and press Print this sheet, or save it as a PDF from the print window. Print them before the night: this is the part that needs a printer, not a phone. Hebrew prints too, laid out left to right with English headings and labels, and punctuation in lines that mix Hebrew and English can land in the wrong place. Polish, Greek and Cyrillic letters print as well. The Download PDF button draws Western European letters only: English, French, German, Spanish and the like.";
+  "Print preview in the pack editor has three sheets: the presenter script to read from, the host answer key, and the team answer sheet your teams write on. Pick a sheet and press Print this sheet, or save it as a PDF from the print window. Print them before the night: this is the part that needs a printer, not a phone. Hebrew prints too, laid out left to right with English headings and labels, and punctuation in lines that mix Hebrew and English can land in the wrong place. Polish, Greek and Cyrillic letters print as well.";
 
 const FAQ_PRINTING =
-  "Yes. Print preview in the pack editor has a presenter script to read from, a host answer key, and a team answer sheet for teams who would rather write than tap. Pick a sheet and press Print this sheet, or save it as a PDF from the print window. Pictures you have added print with their questions. Hebrew prints too, laid out left to right with English headings and labels, and punctuation in lines that mix Hebrew and English can land in the wrong place. Polish, Greek and Cyrillic letters print as well. The Download PDF button draws Western European letters only: English, French, German, Spanish and the like.";
+  "Yes. Print preview in the pack editor has a presenter script to read from, a host answer key, and a team answer sheet for teams who would rather write than tap. Pick a sheet and press Print this sheet, or save it as a PDF from the print window. Pictures you have added print with their questions. Hebrew prints too, laid out left to right with English headings and labels, and punctuation in lines that mix Hebrew and English can land in the wrong place. Polish, Greek and Cyrillic letters print as well.";
 
 const PRICING_PRINT_LINE = "Printable team answer sheets and a host answer key";
 
@@ -26,6 +26,7 @@ test("/how-it-works: the Print the sheets step", async ({ page }) => {
   expect(await body.textContent()).toBe(HOW_IT_WORKS_PRINT);
   await expect(body.locator("em")).toHaveText(["Print preview", "Print this sheet"]);
   expect(HOW_IT_WORKS_PRINT).not.toContain(EM_DASH);
+  expect(await page.getByRole("main").textContent()).not.toContain("Download PDF");
 });
 
 test('/faq: the answer to "Can I print it?"', async ({ page }) => {
@@ -36,6 +37,7 @@ test('/faq: the answer to "Can I print it?"', async ({ page }) => {
   expect(await answer.textContent()).toBe(FAQ_PRINTING);
   await expect(answer.locator("em")).toHaveText(["Print preview", "Print this sheet"]);
   expect(FAQ_PRINTING).not.toContain(EM_DASH);
+  expect(await page.getByRole("main").textContent()).not.toContain("Download PDF");
 });
 
 test("/pricing: the free plan's printing line", async ({ page }) => {

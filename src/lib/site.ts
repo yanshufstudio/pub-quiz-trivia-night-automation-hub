@@ -52,4 +52,13 @@ export const POSTAL_ADDRESS: readonly string[] = ["Yanshuf Studio", "PO Box 1214
  * truth. It lives here rather than in `LegalPage.tsx` so `sitemap.ts` can
  * read it without importing a React component for a string.
  */
-export const LEGAL_LAST_UPDATED = "2026-10-05";
+export const LEGAL_LAST_UPDATED = "2026-11-01";
+
+/** The same date as the pages show it, month spelt out ("1 November 2026"),
+ * which reads one way only whichever order a visitor writes dates in. */
+export const LEGAL_LAST_UPDATED_LABEL = new Date(`${LEGAL_LAST_UPDATED}T00:00:00Z`).toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
