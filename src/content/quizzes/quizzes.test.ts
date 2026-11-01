@@ -91,7 +91,22 @@ describe("the Halloween quiz", () => {
   });
 
   it("carries the exact title the page is published under", () => {
-    expect(halloween!.title).toBe("Halloween quiz questions and answers: 20 free questions for your quiz night");
+    expect(halloween!.title).toBe("Halloween trivia questions and answers: 20 free questions for your trivia night");
+  });
+
+  it("says trivia, not quiz, in the copy marketing switched", () => {
+    expect(halloween!.description).toBe(
+      "Two Halloween trivia rounds with answers: traditions and history, then horror films and books. Free to use. Or make your own Halloween trivia night in minutes.",
+    );
+    expect(halloween!.heading).toBe("Halloween trivia questions and answers");
+    expect(halloween!.intro).toBe(
+      "Two rounds of ten for a Halloween trivia night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.",
+    );
+    expect(halloween!.image.alt).toBe(
+      "A carved jack-o'-lantern glowing on a dark green background, with the words Halloween trivia.",
+    );
+    expect(halloween!.cta.paragraphs[2]).toBe("A free account gets 2 packs every 30 days, no card needed.");
+    expect(halloween!.cta.button).toBe("Make your own trivia night");
   });
 
   it("is shared with its own 1200x630 picture", () => {

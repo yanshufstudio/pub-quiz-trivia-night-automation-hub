@@ -22,16 +22,16 @@ export function answersLabel(roundNumber: number): string {
 }
 
 /**
- * The /quizzes page (src/app/quizzes/page.tsx). Draft wording: marketing reads
- * it on the preview before it is final.
+ * The /quizzes page (src/app/quizzes/page.tsx). Marketing's "trivia" wording,
+ * 31 Oct 2026.
  */
 export const QUIZZES_HUB = {
-  title: "Free quiz questions and answers: ready-made rounds for your quiz night",
+  title: "Free trivia questions and answers: ready-made rounds for your trivia night",
   description:
-    "Ready-made quiz rounds with answers for seasonal quiz nights. Free to use and to print. Or make your own quiz in minutes.",
-  heading: "Free quiz questions and answers",
-  intro: "Ready-made rounds for seasonal quiz nights, free to use and to print.",
-  button: "Make your own quiz",
+    "Ready-made trivia rounds with answers for seasonal trivia nights. Free to use and to print. Or make your own trivia night in minutes.",
+  heading: "Free trivia questions and answers",
+  intro: "Ready-made rounds for seasonal trivia nights, free to use and to print.",
+  button: "Make your own trivia night",
 } as const;
 
 /** public/quizzes/printed-sheets.webp, shown beside the call to action. */

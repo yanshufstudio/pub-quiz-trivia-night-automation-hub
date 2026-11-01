@@ -14,13 +14,16 @@ import { test, expect, type Page } from "@playwright/test";
 const SITE = "https://triviafoundry.com";
 const PATH = "/quizzes/halloween";
 
-const TITLE = "Halloween quiz questions and answers: 20 free questions for your quiz night";
+const TITLE = "Halloween trivia questions and answers: 20 free questions for your trivia night";
 const DESCRIPTION =
-  "Two ready-made Halloween quiz rounds with answers: traditions and history, then horror films and books. Free to use. Or make your own Halloween quiz in minutes.";
+  "Two Halloween trivia rounds with answers: traditions and history, then horror films and books. Free to use. Or make your own Halloween trivia night in minutes.";
 const INTRO =
-  "Two rounds of ten for a Halloween quiz night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.";
+  "Two rounds of ten for a Halloween trivia night: one on where the traditions came from, one on horror films and books. Answers are under each round. Use them as they are, print them, or swap in your own.";
 const CTA_HEADING = "Want a Halloween round built for your crowd?";
-const HERO_ALT = "A carved jack-o'-lantern glowing on a dark green background, with the words Halloween quiz.";
+const HERO_ALT = "A carved jack-o'-lantern glowing on a dark green background, with the words Halloween trivia.";
+const HEADING = "Halloween trivia questions and answers";
+const BUTTON = "Make your own trivia night";
+const ALLOWANCE = "A free account gets 2 packs every 30 days, no card needed.";
 const SHEETS_ALT =
   "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.";
 const ROUND_HEADINGS = [
@@ -88,7 +91,7 @@ test.describe("/quizzes/halloween, signed out", () => {
   test("shows the heading, two rounds, 20 questions and 20 answers", async ({ page }) => {
     await page.goto(PATH);
 
-    await expect(page.getByRole("heading", { level: 1, name: "Halloween quiz questions and answers" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: HEADING })).toBeVisible();
     await expect(page.getByText(INTRO)).toBeVisible();
     for (const heading of ROUND_HEADINGS) {
       await expect(page.getByRole("heading", { level: 2, name: heading })).toBeVisible();
@@ -121,7 +124,8 @@ test.describe("/quizzes/halloween, signed out", () => {
     await page.goto(PATH);
     const cta = page.getByRole("region", { name: CTA_HEADING });
     await expect(cta).toBeVisible();
-    await expect(cta.getByRole("link", { name: "Make your own quiz" })).toHaveAttribute("href", "/create");
+    await expect(cta.getByText(ALLOWANCE)).toBeVisible();
+    await expect(cta.getByRole("link", { name: BUTTON })).toHaveAttribute("href", "/create");
 
     await expect(page.getByRole("img", { name: HERO_ALT })).toBeVisible();
     await expect(cta.getByRole("img", { name: SHEETS_ALT })).toBeVisible();
@@ -185,11 +189,11 @@ test.describe("/quizzes/halloween, printed", () => {
     await expect(page.getByRole("img", { name: SHEETS_ALT })).toBeHidden();
     await expect(page.getByText(INTRO)).toBeHidden();
     await expect(page.getByRole("heading", { name: CTA_HEADING })).toBeHidden();
-    await expect(page.getByRole("link", { name: "Make your own quiz" })).toBeHidden();
+    await expect(page.getByRole("link", { name: BUTTON })).toBeHidden();
     await expect(page.getByRole("button", { name: "Print these rounds" })).toBeHidden();
 
     // The quiz.
-    await expect(page.getByRole("heading", { level: 1, name: "Halloween quiz questions and answers" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: HEADING })).toBeVisible();
     for (const heading of ROUND_HEADINGS) {
       await expect(page.getByRole("heading", { level: 2, name: heading })).toBeVisible();
     }
@@ -220,7 +224,7 @@ test.describe("/quizzes/halloween, printed", () => {
     const lines = printed.split("\n").map((l) => l.trim()).filter(Boolean);
     // H1, two round headings, two "Answers" labels, 20 questions, 20 answers.
     expect(lines).toHaveLength(1 + 2 + 2 + 20 + 20);
-    for (const absent of ["Make your own quiz", "Print these rounds", "How it works", "Yanshuf Studio", "Two rounds of ten"]) {
+    for (const absent of [BUTTON, "Print these rounds", "How it works", "Yanshuf Studio", "Two rounds of ten"]) {
       expect(printed).not.toContain(absent);
     }
   });

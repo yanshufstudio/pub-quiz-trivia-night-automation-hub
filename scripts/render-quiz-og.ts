@@ -213,7 +213,7 @@ type Scene = {
 };
 
 const SCENES: Record<string, Scene> = {
-  halloween: { lines: ["Halloween", "quiz"], art: () => jackOLantern(918, 345) },
+  halloween: { lines: ["Halloween", "trivia"], art: () => jackOLantern(918, 345) },
   "bonfire-night": { lines: ["Bonfire Night", "quiz"], art: () => bonfire(990, 520) },
   thanksgiving: { lines: ["Thanksgiving", "trivia"], art: () => pumpkinPie(990, 315) },
 };
