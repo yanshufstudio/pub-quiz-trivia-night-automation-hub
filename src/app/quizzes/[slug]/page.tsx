@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { QuizScene } from "@/components/QuizScene";
 import { SiteHeader } from "@/components/SiteHeader";
 import { QUIZZES, getQuiz, quizPath } from "@/content/quizzes";
 import {
@@ -12,6 +13,7 @@ import {
   questionsLabel,
   roundHeading,
 } from "@/content/quizzes/page-copy";
+import { animatedScene } from "@/content/quizzes/scenes";
 import { pageMetadata } from "@/lib/page-metadata";
 import { PrintButton } from "./PrintButton";
 
@@ -60,15 +62,20 @@ export default async function QuizPage({ params }: PageProps<"/quizzes/[slug]">)
       </div>
       <main className="quiz-sheet mx-auto w-full max-w-3xl flex-1 px-5 py-10">
         <div className="print-chrome">
-          <Image
-            src={quiz.image.url}
-            width={quiz.image.width}
-            height={quiz.image.height}
-            alt={quiz.image.alt}
-            priority
-            sizes="(min-width: 768px) 728px, 100vw"
-            className="h-auto w-full rounded-2xl border border-line"
-          />
+          {/* A quiz with a moving scene shows it inline; its PNG (the same scene, still) is still the og:image. */}
+          {animatedScene(quiz.slug) ? (
+            <QuizScene slug={quiz.slug} alt={quiz.image.alt} />
+          ) : (
+            <Image
+              src={quiz.image.url}
+              width={quiz.image.width}
+              height={quiz.image.height}
+              alt={quiz.image.alt}
+              priority
+              sizes="(min-width: 768px) 728px, 100vw"
+              className="h-auto w-full rounded-2xl border border-line"
+            />
+          )}
         </div>
 
         <h1 className="mt-8 font-serif text-3xl font-semibold tracking-tight">{quiz.heading}</h1>
