@@ -1,9 +1,10 @@
 import type { AnimatedScene } from "./index";
 
 /**
- * Thanksgiving: three turkeys trotting along the bottom, leaves drifting down,
- * the pumpkin pie with its dollop of cream, and the words in decorated letters
- * (a leaf garland under "Thanksgiving", a hop running through "trivia").
+ * Thanksgiving: three wild turkeys trotting along the bottom, maple leaves
+ * drifting down, the pumpkin pie with its ring of piped cream, and the words in
+ * decorated letters (a leaf garland under "Thanksgiving", a hop running
+ * through "trivia").
  *
  * Coordinates are in the 1200x630 viewBox. Each moving shape is drawn at its
  * still-frame position and every animation starts from there, after
@@ -41,9 +42,13 @@ const PAINT = {
   "c-fg": "fill: var(--stage-fg)",
   "c-deep": "fill: var(--stage-deep)",
   "c-panel": "fill: var(--stage-panel); fill-opacity: 0.7",
-  // Pumpkin orange and wattle red: the two colours here that are not site tokens.
+  // Not site tokens: pumpkin orange, and a wild turkey's red head, dark
+  // bronze body and feathers, and the blue round its eye.
   "c-pumpkin": "fill: #d96f1c",
   "c-red": "fill: #c8402a",
+  "c-dark": "fill: #3b2a1e",
+  "c-bronze": "fill: #80592f",
+  "c-blue": "fill: #a9c1d6",
 };
 type Paint = keyof typeof PAINT;
 
@@ -72,17 +77,26 @@ function pie(cx: number, cy: number, r: number): string {
     const [x, y] = polar(cx, cy, r - 6 * k, deg);
     scallops.push(`<circle cx="${x}" cy="${y}" r="${f(15 * k)}"/>`);
   }
-  const dollop = (dy: number, rr: number) => `<circle cx="${f(cx - 30 * k)}" cy="${f(cy + dy * k)}" r="${f(rr * k)}"/>`;
+  // Piped cream: small drops in a ring round the filling, none on the cut slice.
+  const drops: string[] = [];
+  for (let deg = cut[1] + 22; deg <= cut[0] + 360 - 10; deg += 30) {
+    const [x, y] = polar(cx, cy, (r - 30 * k) * 0.72, deg);
+    drops.push(`<g transform="translate(${x} ${y}) scale(${f(k * 1.1)})"><path d="M 0 -14 C 4 -6, 12 -2, 12 5 C 12 11, 6 14, 0 14 C -6 14, -12 11, -12 5 C -12 -2, -4 -6, 0 -14 Z" class="c-fg ink-soft"/><path d="M -6 6 Q 0 2 6 6" class="crease"/></g>`);
+  }
   return `<circle cx="${cx}" cy="${cy}" r="${f(340 * k)}" fill="url(#tg-halo)"/>
   <path d="${pieShape(cx, cy, r, cut)}" class="c-brass ink"/>
   <g class="c-brass ink">${scallops.join("")}</g>
   <path d="${pieShape(cx, cy, f(r - 30 * k), cut)}" class="c-pumpkin ink"/>
   <path d="${pieShape(cx, cy, f(r - 30 * k), cut)}" fill="url(#tg-baked)"/>
-  <g class="c-fg ink-soft">${dollop(25, 34)}${dollop(8, 22)}${dollop(-6, 11)}</g>`;
+  ${drops.join("")}`;
 }
 
-/** One leaf, 40 long, centred on the origin with its stem sticking out at the top; drawn once and reused. */
-const LEAF = `<g id="tg-leaf"><path d="M 0 -20 C 12 -10, 12 10, 0 20 C -12 10, -12 -10, 0 -20 Z" ${paint("ink")}/><path d="M 0 -26.4 L 0 16" ${paint("ink", "stem")}/></g>`;
+/**
+ * One maple leaf, about 40 across, centred on the origin with its stem sticking
+ * out at the top (drawn stem-down, then turned); drawn once and reused. Maple,
+ * not a plain oval, so it never reads as one of the turkeys' feathers.
+ */
+const LEAF = `<g id="tg-leaf" transform="rotate(180) scale(1.05)"><path d="M 0 12 L 4 11 L 13 14 L 10 7 L 20 3 L 16 0 L 19 -9 L 12 -7 L 10 -12 L 6 -9 L 5 -15 L 0 -21 L -5 -15 L -6 -9 L -10 -12 L -12 -7 L -19 -9 L -16 0 L -20 3 L -10 7 L -13 14 L -4 11 Z" ${paint("ink")}/><path d="M 0 22 L 0 -15 M 0 6 L 15 -6 M 0 6 L -15 -6 M 0 9 L 15 3 M 0 9 L -15 3" ${paint("ink", "stem")}/></g>`;
 
 /** The leaf, `len` long, in `color` (a c-* class). */
 function leaf(len: number, color: Paint): string {
@@ -131,26 +145,33 @@ function words(): string {
   ${letters.join("")}`;
 }
 
-/** A turkey from plain shapes, facing right, without its legs, feet at the origin; drawn once and reused. */
+/** A wild turkey from plain shapes, facing right, without its legs, feet at the origin; drawn once and reused. */
 function turkeyBody(): string {
-  const feathers = (rx: number, ry: number, colors: Paint[], from: number, to: number) => {
-    const n = colors.length;
-    return colors
+  // Tail feathers: cream underneath shows as a tip band, with a dark bar across each.
+  const tail = (rx: number, ry: number, colors: Paint[], from: number, to: number) =>
+    colors
       .map((c, i) => {
-        const deg = f(from + ((to - from) * i) / (n - 1));
+        const deg = f(from + ((to - from) * i) / (colors.length - 1));
+        return `<g transform="rotate(${deg})"><ellipse cx="0" cy="${-ry}" rx="${rx}" ry="${ry}" ${paint("c-fg", "ink")}/><ellipse cx="0" cy="${-ry + 9}" rx="${rx - 1}" ry="${ry - 9}" ${paint(c)}/><ellipse cx="0" cy="${f(-ry * 1.55)}" rx="${f(rx * 0.75)}" ry="3" ${paint("c-dark")}/></g>`;
+      })
+      .join("");
+  const inner = (rx: number, ry: number, colors: Paint[], from: number, to: number) =>
+    colors
+      .map((c, i) => {
+        const deg = f(from + ((to - from) * i) / (colors.length - 1));
         return `<ellipse cx="0" cy="${-ry}" rx="${rx}" ry="${ry}" transform="rotate(${deg})" ${paint(c, "ink")}/>`;
       })
       .join("");
-  };
   return `<g id="tg-turkey">
       <g transform="translate(-14 -60)">
-        ${feathers(15, 50, ["c-pumpkin", "c-gold", "c-brass", "c-pumpkin", "c-gold", "c-brass", "c-pumpkin"], -78, 50)}
-        ${feathers(12, 34, ["c-brass", "c-red", "c-gold", "c-red", "c-brass"], -66, 38)}
+        ${tail(15, 50, ["c-bronze", "c-dark", "c-bronze", "c-dark", "c-bronze", "c-dark", "c-bronze"], -78, 50)}
+        ${inner(12, 34, ["c-dark", "c-bronze", "c-dark", "c-bronze", "c-dark"], -66, 38)}
       </g>
-      <ellipse cx="6" cy="-52" rx="40" ry="33" ${paint("c-amber", "ink")}/>
-      <ellipse cx="-2" cy="-50" rx="24" ry="15" transform="rotate(-14 -2 -50)" ${paint("c-brass", "ink")}/>
-      <path d="M 22 -68 C 30 -80, 34 -92, 38 -104 L 52 -100 C 47 -88, 45 -76, 42 -62 Z" ${paint("c-amber", "ink")}/>
-      <circle cx="46" cy="-106" r="14" ${paint("c-brass", "ink")}/>
+      <ellipse cx="6" cy="-52" rx="40" ry="33" ${paint("c-dark", "ink")}/>
+      <ellipse cx="-2" cy="-50" rx="24" ry="15" transform="rotate(-14 -2 -50)" ${paint("c-bronze", "ink")}/>
+      <path d="M 22 -68 C 30 -80, 34 -92, 38 -104 L 52 -100 C 47 -88, 45 -76, 42 -62 Z" ${paint("c-red", "ink")}/>
+      <circle cx="46" cy="-106" r="14" ${paint("c-red", "ink")}/>
+      <circle cx="50" cy="-110" r="7" ${paint("c-blue")}/>
       <path d="M 58 -110 L 72 -104 L 58 -99 Z" ${paint("c-gold", "ink-soft")}/>
       <path d="M 57 -100 C 64 -96, 64 -85, 57 -80 C 52 -85, 52 -95, 57 -100 Z" ${paint("c-red", "ink-soft")}/>
       <circle cx="50" cy="-110" r="3.5" ${paint("c-deep")}/>
@@ -158,6 +179,7 @@ function turkeyBody(): string {
     </g>
     <path id="tg-leg" d="M 0 0 L 0 24 M -4 25 L 11 25" ${paint("leg-line")}/>`;
 }
+
 
 /**
  * A turkey with its legs, feet on the ground at x. `step` is how long one
@@ -256,6 +278,7 @@ const css = `
 ${Object.entries(PAINT)
   .map(([name, rules]) => `${ROOT} .${name} { ${rules}; }`)
   .join("\n")}
+${ROOT} .crease { fill: none; stroke: var(--stage-deep); stroke-opacity: 0.3; stroke-width: 2; }
 ${ROOT} .vine { fill: none; stroke: var(--brass); stroke-width: 6; stroke-linecap: round; }
 ${ROOT} .word { font-family: var(--font-display), "Rockwell Extra Bold", Georgia, serif; font-size: 96px; }
 
