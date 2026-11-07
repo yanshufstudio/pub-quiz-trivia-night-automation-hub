@@ -44,6 +44,18 @@ const ENTRIES = [
     intro:
       "Two rounds of ten for a Thanksgiving trivia night: one on the history and traditions, one on food, football and the parade. Answers are under each round. They're free to use as they are, to print, or to mix with your own.",
   },
+  {
+    heading: "Christmas trivia questions and answers",
+    href: "/quizzes/christmas",
+    intro:
+      "Two rounds of ten for a Christmas trivia night: one on traditions around the world, one on Christmas films, songs and food. Answers are under each round. They're free to use as they are, to print, or to mix with your own.",
+  },
+  {
+    heading: "Holiday trivia questions and answers",
+    href: "/quizzes/holiday-trivia",
+    intro:
+      "Two rounds of ten for a holiday party where people celebrate different festivals: one on festivals of light around the world, one on holiday food and customs. Answers are under each round. They're free to use as they are, to print, or to mix with your own.",
+  },
 ];
 
 async function head(page: Page) {
@@ -168,7 +180,14 @@ test.describe("/quizzes, signed out", () => {
 
   test("is in the served sitemap, alongside the quiz pages, and robots.txt does not block it", async ({ request }) => {
     const sitemap = await (await request.get("/sitemap.xml")).text();
-    for (const url of [`${SITE}/quizzes`, `${SITE}/quizzes/halloween`, `${SITE}/quizzes/bonfire-night`, `${SITE}/quizzes/thanksgiving`]) {
+    for (const url of [
+      `${SITE}/quizzes`,
+      `${SITE}/quizzes/halloween`,
+      `${SITE}/quizzes/bonfire-night`,
+      `${SITE}/quizzes/thanksgiving`,
+      `${SITE}/quizzes/christmas`,
+      `${SITE}/quizzes/holiday-trivia`,
+    ]) {
       expect(sitemap, `${url} missing from /sitemap.xml`).toContain(`<loc>${url}</loc>`);
     }
     const robots = await (await request.get("/robots.txt")).text();

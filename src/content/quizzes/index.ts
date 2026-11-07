@@ -1,5 +1,7 @@
 import { bonfireNight } from "./bonfire-night";
+import { christmas } from "./christmas";
 import { halloween } from "./halloween";
+import { holidayTrivia } from "./holiday-trivia";
 import { thanksgiving } from "./thanksgiving";
 import type { Quiz } from "./types";
 
@@ -12,7 +14,7 @@ export type { Quiz, QuizImage, QuizQuestion, QuizRound } from "./types";
  * one module in this folder, one line here and the picture under
  * public/quizzes.
  */
-export const QUIZZES: readonly Quiz[] = [halloween, bonfireNight, thanksgiving];
+export const QUIZZES: readonly Quiz[] = [halloween, bonfireNight, thanksgiving, christmas, holidayTrivia];
 
 export function getQuiz(slug: string): Quiz | undefined {
   return QUIZZES.find((quiz) => quiz.slug === slug);

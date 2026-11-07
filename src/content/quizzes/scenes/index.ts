@@ -1,3 +1,5 @@
+import { christmasScene } from "./christmas";
+import { holidayTriviaScene } from "./holiday-trivia";
 import { thanksgivingScene } from "./thanksgiving";
 
 /**
@@ -34,6 +36,8 @@ export type AnimatedScene = {
 
 const ANIMATED_SCENES: Record<string, AnimatedScene> = {
   thanksgiving: thanksgivingScene,
+  christmas: christmasScene,
+  "holiday-trivia": holidayTriviaScene,
 };
 
 export function animatedScene(slug: string): AnimatedScene | undefined {
