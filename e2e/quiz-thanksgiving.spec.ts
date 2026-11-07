@@ -26,7 +26,7 @@ const CTA_PARAGRAPHS = [
   "A free account gets 2 packs every 30 days, no card needed.",
 ];
 const BUTTON = "Make your own trivia night";
-const HERO_ALT = "Turkeys, maple leaves and a pumpkin pie on a dark green background, with the words Thanksgiving trivia.";
+const HERO_ALT = "Turkeys, maple leaves and a pumpkin pie, with the words Thanksgiving trivia.";
 const SHEETS_ALT =
   "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.";
 const ROUND_HEADINGS = ["Round 1: History and traditions", "Round 2: Food, football and the parade"];
