@@ -26,7 +26,7 @@ const CTA_PARAGRAPHS = [
   "A free account gets 2 packs every 30 days, no card needed.",
 ];
 const BUTTON = "Make your own trivia night";
-const HERO_ALT = "A pumpkin pie and autumn leaves on a dark green background, with the words Thanksgiving trivia.";
+const HERO_ALT = "Turkeys, maple leaves and a pumpkin pie, with the words Thanksgiving trivia.";
 const SHEETS_ALT =
   "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.";
 const ROUND_HEADINGS = ["Round 1: History and traditions", "Round 2: Food, football and the parade"];
@@ -231,6 +231,71 @@ test.describe("/quizzes/thanksgiving, signed out", () => {
       expect(overflow).toBe(0);
     });
   }
+});
+
+/** The animations running (or waiting to start) anywhere inside the top picture, by name. */
+async function sceneAnimations(page: Page) {
+  // By class, not role: printed, the picture is hidden and has no role to find.
+  return page
+    .locator(".quiz-scene-thanksgiving")
+    .evaluate((el) =>
+      el
+        .getAnimations({ subtree: true })
+        .filter((a) => a.playState === "running")
+        .map((a) => (a as CSSAnimation).animationName)
+        .sort(),
+    );
+}
+
+/** Where the turkeys are: the parade group's computed transform. */
+async function paradeTransform(page: Page) {
+  return page.locator(".quiz-scene-thanksgiving .parade").evaluate((el) => getComputedStyle(el).transform);
+}
+
+test.describe("/quizzes/thanksgiving, the moving picture", () => {
+  test("is an inline 1200x630 scene that moves: turkeys, leaves, garland and letters", async ({ page }) => {
+    await page.goto(PATH);
+    const hero = page.getByRole("img", { name: HERO_ALT });
+    await expect(hero).toBeVisible();
+    // Drawn inline: a still layer and a moving layer, no picture file.
+    await expect(hero.locator("svg")).toHaveCount(2);
+    await expect(hero.locator("img")).toHaveCount(0);
+
+    const box = (await hero.boundingBox())!;
+    expect(Math.abs(box.height - (box.width * 630) / 1200)).toBeLessThanOrEqual(1);
+    // The shape comes from the markup's own CSS, not a loaded file, so nothing below it shifts.
+    expect(await hero.evaluate((el) => getComputedStyle(el).aspectRatio)).toBe("1200 / 630");
+
+    // The parade, 6 turkeys (two legs and a bob each), 7 falling leaves (a
+    // fall and a sway each, plus a first drop that ends), 11 garland leaves
+    // and 6 letters.
+    const names = await sceneAnimations(page);
+    const count = (name: string) => names.filter((n) => n === name).length;
+    expect(count("tg-parade")).toBe(1);
+    expect(count("tg-step")).toBe(12);
+    expect(count("tg-bob")).toBe(6);
+    expect(count("tg-fall")).toBe(7);
+    expect(count("tg-sway")).toBe(7);
+    expect(count("tg-dangle")).toBe(11);
+    expect(count("tg-hop")).toBe(6);
+    const before = await paradeTransform(page);
+    await expect.poll(() => paradeTransform(page)).not.toBe(before);
+  });
+
+  test("with reduced motion, nothing moves and the still frame shows", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(PATH);
+    await expect(page.getByRole("img", { name: HERO_ALT })).toBeVisible();
+    expect(await sceneAnimations(page)).toEqual([]);
+    expect(await paradeTransform(page)).toBe("none");
+  });
+
+  test("nothing moves when printed", async ({ page }) => {
+    await page.goto(PATH);
+    await page.emulateMedia({ media: "print" });
+    expect(await sceneAnimations(page)).toEqual([]);
+    expect(await paradeTransform(page)).toBe("none");
+  });
 });
 
 test.describe("/quizzes/thanksgiving, printed", () => {

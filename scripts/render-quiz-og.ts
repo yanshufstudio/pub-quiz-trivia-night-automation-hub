@@ -6,8 +6,10 @@
  *
  * The output path and size come from the quiz's own `image` in
  * src/content/quizzes, so the file the page asks for is the file this writes.
- * Each quiz needs a scene below: the words and the drawing. Original shapes
- * only; no photos, film stills, posters or characters.
+ * A quiz with a moving scene (src/content/quizzes/scenes) is rendered from
+ * that scene's own markup with reduced motion on, so the PNG is the page's
+ * still frame. Every other quiz needs a still scene below: the words and the
+ * drawing. Original shapes only; no photos, film stills, posters or characters.
  *
  * Not a test; run it by hand after a change to a scene or to the brand:
  *   npm run og:quiz -- halloween
@@ -18,6 +20,7 @@ import { chromium } from "@playwright/test";
 import { mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { QUIZZES } from "../src/content/quizzes";
+import { animatedScene, sceneMarkup } from "../src/content/quizzes/scenes";
 
 const ROOT = path.resolve(__dirname, "..");
 const css = readFileSync(path.resolve(ROOT, "src/app/globals.css"), "utf8");
@@ -144,68 +147,6 @@ function bonfire(cx: number, groundY: number): string {
 </svg>`;
 }
 
-/** A point `r` from (cx, cy) at `deg` degrees clockwise from 3 o'clock. */
-function polar(cx: number, cy: number, r: number, deg: number): string {
-  const a = (deg * Math.PI) / 180;
-  return `${(cx + Math.cos(a) * r).toFixed(1)},${(cy + Math.sin(a) * r).toFixed(1)}`;
-}
-
-/** A pie of radius `r` with the slice from `cut[0]` to `cut[1]` degrees missing. */
-function pieShape(cx: number, cy: number, r: number, cut: [number, number]): string {
-  return `M ${cx} ${cy} L ${polar(cx, cy, r, cut[1])} A ${r} ${r} 0 1 1 ${polar(cx, cy, r, cut[0] + 360)} Z`;
-}
-
-/** One falling leaf: a pointed oval with a stem and a vein, `len` long, turned `deg` degrees. */
-function leaf(cx: number, cy: number, len: number, deg: number, color: string): string {
-  const h = len / 2;
-  const w = len * 0.3;
-  return `<g transform="translate(${cx} ${cy}) rotate(${deg})">
-    <path d="M 0 ${-h} C ${w} ${-h * 0.5}, ${w} ${h * 0.5}, 0 ${h} C ${-w} ${h * 0.5}, ${-w} ${-h * 0.5}, 0 ${-h} Z"
-          fill="${color}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M 0 ${-h * 0.8} L 0 ${h + len * 0.16}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
-  </g>`;
-}
-
-/** A pumpkin pie from plain shapes, seen from above with one slice cut out, centred on (cx, cy), and leaves falling beside it. */
-function pumpkinPie(cx: number, cy: number): string {
-  const cut: [number, number] = [-70, -25];
-  const crustR = 168;
-  // Pumpkin orange: the one colour here that is not a site token.
-  const pumpkin = "#d96f1c";
-  const scallops: string[] = [];
-  for (let deg = cut[1] + 8; deg <= cut[0] + 360 - 8; deg += 15) {
-    const [x, y] = polar(cx, cy, crustR - 6, deg).split(",");
-    scallops.push(`<circle cx="${x}" cy="${y}" r="15"/>`);
-  }
-  return `<svg width="1200" height="630" viewBox="0 0 1200 630" style="position:absolute;left:0;top:0" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="halo" cx="${cx}" cy="${cy}" r="340" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="${T.gold}" stop-opacity="0.32"/>
-      <stop offset="1" stop-color="${T.gold}" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="baked" cx="${cx - 20}" cy="${cy + 10}" r="140" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="${T.gold}" stop-opacity="0.35"/>
-      <stop offset="0.7" stop-color="${T.gold}" stop-opacity="0"/>
-      <stop offset="1" stop-color="${T.amber}" stop-opacity="0.6"/>
-    </radialGradient>
-  </defs>
-  <circle cx="${cx}" cy="${cy}" r="340" fill="url(#halo)"/>
-  <path d="${pieShape(cx, cy, crustR, cut)}" fill="${T.brass}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
-  <g fill="${T.brass}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4">${scallops.join("")}</g>
-  <path d="${pieShape(cx, cy, crustR - 30, cut)}" fill="${pumpkin}" stroke="${T.deep}" stroke-opacity="0.55" stroke-width="4" stroke-linejoin="round"/>
-  <path d="${pieShape(cx, cy, crustR - 30, cut)}" fill="url(#baked)"/>
-  <g fill="${T.fg}" stroke="${T.deep}" stroke-opacity="0.35" stroke-width="3">
-    <circle cx="${cx - 30}" cy="${cy + 25}" r="34"/>
-    <circle cx="${cx - 30}" cy="${cy + 8}" r="22"/>
-    <circle cx="${cx - 30}" cy="${cy - 6}" r="11"/>
-  </g>
-  ${leaf(cx - 150, 95, 74, -35, T.gold)}
-  ${leaf(cx + 150, 70, 62, 55, T.brass)}
-  ${leaf(cx - 160, 540, 66, 30, T.brass)}
-  ${leaf(cx + 160, 545, 70, -20, T.gold)}
-</svg>`;
-}
-
 type Scene = {
   /** The words on the card, one per line; the last is the accent line. */
   lines: [string, string];
@@ -215,7 +156,6 @@ type Scene = {
 const SCENES: Record<string, Scene> = {
   halloween: { lines: ["Halloween", "trivia"], art: () => jackOLantern(918, 345) },
   "bonfire-night": { lines: ["Bonfire Night", "quiz"], art: () => bonfire(990, 520) },
-  thanksgiving: { lines: ["Thanksgiving", "trivia"], art: () => pumpkinPie(990, 315) },
 };
 
 function buildHtml(scene: Scene, width: number, height: number): string {
@@ -240,20 +180,41 @@ html, body { margin: 0; }
 </div></body></html>`;
 }
 
+/** The site's colour tokens and display face, for a scene that reads them as var(--name). */
+function animatedHtml(markup: string, width: number): string {
+  const tokens = [...css.matchAll(/(--[a-z-]+): *(#[0-9a-fA-F]{6});/g)].map((m) => `${m[1]}: ${m[2]};`).join(" ");
+  return `<!doctype html><html><head><style>
+@font-face { font-family: Slab; src: url(data:font/woff2;base64,${font("alfa-slab-one-latin-400-normal.woff2")}) format("woff2"); }
+:root { ${tokens} --font-display: Slab; }
+html, body { margin: 0; }
+.card { width: ${width}px; }
+</style></head><body><div class="card">${markup}</div></body></html>`;
+}
+
 async function main() {
   const slug = process.argv[2];
   const quiz = QUIZZES.find((q) => q.slug === slug);
   if (!quiz) {
     throw new Error(`usage: npm run og:quiz -- <slug>   (slugs: ${QUIZZES.map((q) => q.slug).join(", ")})`);
   }
-  const scene = SCENES[quiz.slug];
-  if (!scene) throw new Error(`no scene for "${quiz.slug}" in scripts/render-quiz-og.ts`);
+  const moving = animatedScene(quiz.slug);
+  const still = SCENES[quiz.slug];
+  if (!moving && !still) {
+    throw new Error(`no scene for "${quiz.slug}" in scripts/render-quiz-og.ts or src/content/quizzes/scenes`);
+  }
   const { width, height, url } = quiz.image;
 
   const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM_PATH || undefined });
   const page = await browser.newPage({ viewport: { width, height } });
-  await page.setContent(buildHtml(scene, width, height));
+  if (moving) {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setContent(animatedHtml(sceneMarkup(quiz.slug, moving, quiz.image.alt), width));
+  } else {
+    await page.setContent(buildHtml(still!, width, height));
+  }
   await page.evaluate(() => document.fonts.ready);
+  const running = await page.evaluate(() => document.getAnimations().length);
+  if (running !== 0) throw new Error(`${running} animations still running with reduced motion on; the PNG would not be the still frame`);
   const out = path.resolve(ROOT, `public${url}`);
   mkdirSync(path.dirname(out), { recursive: true });
   await page.screenshot({ path: out, clip: { x: 0, y: 0, width, height } });

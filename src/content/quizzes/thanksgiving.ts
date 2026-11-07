@@ -14,7 +14,7 @@ export const thanksgiving: Quiz = {
     url: "/quizzes/thanksgiving.png",
     width: 1200,
     height: 630,
-    alt: "A pumpkin pie and autumn leaves on a dark green background, with the words Thanksgiving trivia.",
+    alt: "Turkeys, maple leaves and a pumpkin pie, with the words Thanksgiving trivia.",
   },
   rounds: [
     {
