@@ -266,11 +266,11 @@ test.describe("/quizzes/holiday-trivia, the moving picture", () => {
     expect(await hero.evaluate((el) => getComputedStyle(el).aspectRatio)).toBe("1200 / 630");
 
     // 16 bulbs on the string across the top, nine menorah flames and the
-    // diya's, the lantern, and 6 letters.
+    // three diyas', the lantern, and 6 letters.
     const names = await sceneAnimations(page);
     const count = (name: string) => names.filter((n) => n === name).length;
     expect(count("hd-twinkle")).toBe(16);
-    expect(count("hd-flicker")).toBe(10);
+    expect(count("hd-flicker")).toBe(12);
     expect(count("hd-swing")).toBe(1);
     expect(count("hd-hop")).toBe(6);
     const before = await lanternTransform(page);
