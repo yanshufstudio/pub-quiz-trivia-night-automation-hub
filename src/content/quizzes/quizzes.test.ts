@@ -314,7 +314,7 @@ describe("the holiday trivia quiz", () => {
       url: "/quizzes/holiday-trivia.png",
       width: 1200,
       height: 630,
-      alt: "A lit Hanukkah menorah, a glowing diya lamp and a red paper lantern under a string of lights, with the words Holiday trivia.",
+      alt: "A lit Hanukkah menorah, glowing diya lamps and a red paper lantern under a string of lights, with the words Holiday trivia.",
     });
   });
 

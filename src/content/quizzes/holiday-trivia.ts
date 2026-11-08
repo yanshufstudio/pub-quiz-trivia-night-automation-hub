@@ -15,7 +15,7 @@ export const holidayTrivia: Quiz = {
     width: 1200,
     height: 630,
     alt:
-      "A lit Hanukkah menorah, a glowing diya lamp and a red paper lantern under a string of lights, with the words Holiday trivia.",
+      "A lit Hanukkah menorah, glowing diya lamps and a red paper lantern under a string of lights, with the words Holiday trivia.",
   },
   rounds: [
     {

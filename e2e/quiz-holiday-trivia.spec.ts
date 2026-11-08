@@ -26,7 +26,7 @@ const CTA_PARAGRAPHS = [
   "A free account gets 2 packs every 30 days, no card needed.",
 ];
 const BUTTON = "Make your own trivia night";
-const HERO_ALT = "A lit Hanukkah menorah, a glowing diya lamp and a red paper lantern under a string of lights, with the words Holiday trivia.";
+const HERO_ALT = "A lit Hanukkah menorah, glowing diya lamps and a red paper lantern under a string of lights, with the words Holiday trivia.";
 const SHEETS_ALT =
   "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.";
 const ROUND_HEADINGS = ["Round 1: Festivals of light around the world", "Round 2: Holiday food and customs"];
