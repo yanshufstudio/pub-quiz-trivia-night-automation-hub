@@ -2,9 +2,10 @@ import type { AnimatedScene } from "./index";
 
 /**
  * Holiday trivia: a lit Hanukkah menorah (a hanukkiah: eight candles in a row
- * and the shamash, the helper candle, standing higher in the middle), a clay
- * diya oil lamp, a red paper lantern hanging from a string of lights across
- * the top, and a hop running through "trivia". The flames flicker, the lantern
+ * and the shamash, the helper candle, standing higher in the middle), a row of
+ * three painted diyas on a rangoli for Diwali, set apart from the menorah so
+ * they read as their own festival, a red paper lantern hanging from a string
+ * of lights across the top, and a hop running through "trivia". The flames flicker, the lantern
  * sways gently and the lights twinkle. No figures, no symbols beyond the lamps.
  *
  * Coordinates are in the 1200x630 viewBox. Each moving shape is drawn at its
@@ -15,7 +16,7 @@ import type { AnimatedScene } from "./index";
 
 const ROOT = ".quiz-scene-holiday-trivia";
 
-/** Where the menorah and the diya stand. */
+/** Where the menorah and the diyas stand. */
 const GROUND = 590;
 
 /** "Holiday trivia" in the display face at 96px: where each line starts, and where each letter of "trivia" starts, then where the word ends (measured in Chromium with src/fonts/alfa-slab-one). */
@@ -25,15 +26,15 @@ const LINE_2_Y = 395;
 const TRIVIA_ADVANCES = [0, 43.3, 93.9, 127.1, 189.6, 222.8, 281.9];
 
 /** The menorah: its middle, the height of the eight cups, how far apart the candles are, and how much higher the shamash's cup is. */
-const MENORAH_X = 760;
-const CUP_Y = 384;
-const SPACING = 36;
-const SHAMASH_RISE = 44;
-const CANDLE_H = 50;
+const MENORAH_X = 720;
+const CUP_Y = 432;
+const SPACING = 26;
+const SHAMASH_RISE = 32;
+const CANDLE_H = 38;
 
-/** The diya: the middle of its bowl on the ground, and the tip of its spout, where the wick burns. */
-const DIYA_X = 1064;
-const SPOUT: [number, number] = [-100, -47];
+/** The rangoli's middle on the ground, and where the three diyas stand on it. */
+const RANGOLI_X = 1040;
+const DIYAS_X = [950, 1040, 1130];
 
 /** The string of lights: where it is hooked up, and how low each swag hangs (the control point's y). */
 const HOOKS = [-20, 400, 800, 1220];
@@ -55,11 +56,13 @@ const PAINT = {
   "c-mint": "fill: var(--mint)",
   "c-deep": "fill: var(--stage-deep)",
   "c-panel": "fill: var(--stage-panel); fill-opacity: 0.7",
-  // Not site tokens: the lantern's red paper, the diya's fired clay, and the
-  // blue and red of the bulbs.
+  // Not site tokens: the lantern's red paper, the diyas' fired clay, the
+  // rangoli's magenta and orange, and the blue and red of the bulbs.
   "c-red": "fill: #d4473a",
   "c-clay": "fill: #b8592c",
   "c-clay-dark": "fill: #7d3a1c",
+  "c-magenta": "fill: #c8367c",
+  "c-orange": "fill: #ec7d2a",
   "c-blue": "fill: #5d9ad8",
 };
 type Paint = keyof typeof PAINT;
@@ -134,20 +137,20 @@ function menorah(): string {
       return `M ${MENORAH_X - r} ${CUP_Y} A ${r} ${r} 0 0 0 ${MENORAH_X + r} ${CUP_Y}`;
     })
     .join(" ");
-  const stem = `M ${MENORAH_X} ${CUP_Y - SHAMASH_RISE} L ${MENORAH_X} ${GROUND - 30}`;
+  const stem = `M ${MENORAH_X} ${CUP_Y - SHAMASH_RISE} L ${MENORAH_X} ${GROUND - 26}`;
   const cups = candleSpots()
-    .map(([x, y]) => `<rect x="${x - 13}" y="${y - 10}" width="26" height="12" rx="3" class="c-gold ink-soft"/>`)
+    .map(([x, y]) => `<rect x="${x - 10}" y="${y - 8}" width="20" height="10" rx="3" class="c-gold ink-soft"/>`)
     .join("");
   const candles = candleSpots()
     .map(
       ([x, y]) =>
-        `<rect x="${x - 6}" y="${y - 10 - CANDLE_H}" width="12" height="${CANDLE_H}" rx="2" class="candle c-fg ink-soft"/><path d="M ${x} ${y - 10 - CANDLE_H} L ${x} ${y - 16 - CANDLE_H}" class="wick"/>`,
+        `<rect x="${x - 5}" y="${y - 8 - CANDLE_H}" width="10" height="${CANDLE_H}" rx="2" class="candle c-fg ink-soft"/><path d="M ${x} ${y - 8 - CANDLE_H} L ${x} ${y - 13 - CANDLE_H}" class="wick"/>`,
     )
     .join("");
-  return `<circle cx="${MENORAH_X}" cy="${CUP_Y - 20}" r="270" fill="url(#hd-halo)"/>
+  return `<circle cx="${MENORAH_X}" cy="${CUP_Y - 10}" r="200" fill="url(#hd-halo)"/>
   <path d="${arms} ${stem}" class="metal-edge"/>
   <path d="${arms} ${stem}" class="metal"/>
-  <path d="M ${MENORAH_X - 58} ${GROUND} L ${MENORAH_X - 30} ${GROUND - 34} L ${MENORAH_X + 30} ${GROUND - 34} L ${MENORAH_X + 58} ${GROUND} Z" class="c-brass ink"/>
+  <path d="M ${MENORAH_X - 46} ${GROUND} L ${MENORAH_X - 24} ${GROUND - 28} L ${MENORAH_X + 24} ${GROUND - 28} L ${MENORAH_X + 46} ${GROUND} Z" class="c-brass ink"/>
   ${cups}
   ${candles}`;
 }
@@ -157,28 +160,58 @@ function menorahFlames(): string {
   return candleSpots()
     .map(
       ([x, y], i) =>
-        `<g transform="translate(${x} ${y - 14 - CANDLE_H})"><g class="flicker menorah-flame" style="--dur:${f(1.1 + ((i * 0.37) % 0.6))}s;--delay:${f((i * 0.23) % 1)}s">${flame(0.8)}</g></g>`,
+        `<g transform="translate(${x} ${y - 11 - CANDLE_H})"><g class="flicker menorah-flame" style="--dur:${f(1.1 + ((i * 0.37) % 0.6))}s;--delay:${f((i * 0.23) % 1)}s">${flame(0.65)}</g></g>`,
     )
     .join("");
 }
 
-/** The diya, without its flame: a clay bowl with a pinched spout, oil inside, a painted band and a little foot. */
-function diya(): string {
-  const dots = [-42, -28, -14, 0, 14, 28, 42].map((x) => `<circle cx="${x}" cy="-25" r="3.5" class="c-gold"/>`).join("");
-  return `<g transform="translate(${DIYA_X} ${GROUND})">
-    <circle cx="${SPOUT[0]}" cy="${SPOUT[1] - 20}" r="120" fill="url(#hd-halo)"/>
-    <path d="M -26 0 L -18 -12 L 18 -12 L 26 0 Z" class="c-clay-dark ink-soft"/>
-    <path d="M ${SPOUT[0]} ${SPOUT[1]} C -88 -44, -76 -36, -62 -18 C -48 -4, 48 -4, 62 -18 C 70 -28, 72 -38, 70 -44 C 30 -38, -40 -38, -70 -45 C -80 -48, -90 -49, ${SPOUT[0]} ${SPOUT[1]} Z" class="c-clay ink"/>
-    <ellipse cx="0" cy="-44" rx="66" ry="9" class="c-clay-dark ink-soft"/>
-    <ellipse cx="2" cy="-44" rx="54" ry="5" class="c-gold" opacity="0.45"/>
-    ${dots}
-    <path d="M ${SPOUT[0] + 4} ${SPOUT[1] + 1} L ${SPOUT[0] + 1} ${SPOUT[1] - 6}" class="wick"/>
+/**
+ * The rangoli: a ring of magenta petals, a ring of orange dots and a gold
+ * middle, drawn round and then flattened onto the ground.
+ */
+function rangoli(): string {
+  const petals = Array.from({ length: 16 }, (_, i) => {
+    const deg = i * 22.5;
+    return `<ellipse cx="0" cy="-96" rx="13" ry="24" transform="rotate(${deg})" class="c-magenta"/>`;
+  }).join("");
+  const dots = Array.from({ length: 12 }, (_, i) => {
+    const a = (i * 30 * Math.PI) / 180;
+    return `<circle cx="${f(Math.cos(a) * 62)}" cy="${f(Math.sin(a) * 62)}" r="11" class="c-orange"/>`;
+  }).join("");
+  return `<g transform="translate(${RANGOLI_X} ${GROUND + 4}) scale(1.25 0.25)">
+    <circle r="124" class="c-fg" opacity="0.18"/>
+    ${petals}${dots}
+    <circle r="40" class="c-gold"/>
+    <circle r="16" class="c-mint"/>
   </g>`;
 }
 
-/** The diya's flame, at the tip of its spout. */
-function diyaFlame(): string {
-  return `<g transform="translate(${DIYA_X + SPOUT[0] + 1} ${GROUND + SPOUT[1] - 5})"><g class="flicker diya-flame" style="--dur:1.4s;--delay:0.2s">${flame(1.05)}</g></g>`;
+/** One diya without its flame, standing at x: a clay bowl with its lip pinched up in front, oil inside, and a painted band. */
+function diya(x: number): string {
+  const dots = [-18, -6, 6, 18].map((dx) => `<circle cx="${dx}" cy="-12" r="2.6" class="c-gold"/>`).join("");
+  return `<g transform="translate(${x} ${GROUND}) scale(1.2)">
+    <path d="M -36 -24 C -32 -2, 32 -2, 36 -24 Z" class="c-clay ink"/>
+    <path d="M -33 -16 C -20 -10, 20 -10, 33 -16" class="paint"/>
+    ${dots}
+    <ellipse cx="0" cy="-24" rx="36" ry="7" class="c-clay-dark ink-soft"/>
+    <path d="M -9 -25 Q 0 -27 0 -36 Q 0 -27 9 -25 Z" class="c-clay ink-soft"/>
+    <path d="M 0 -35 L 0 -40" class="wick"/>
+  </g>`;
+}
+
+/** The diyas, on their rangoli, with the glow they cast. */
+function diyas(): string {
+  return `<ellipse cx="${RANGOLI_X}" cy="${GROUND - 40}" rx="200" ry="110" fill="url(#hd-halo)"/>
+  ${rangoli()}
+  ${DIYAS_X.map(diya).join("")}`;
+}
+
+/** The three diyas' flames, one at each lip. */
+function diyaFlames(): string {
+  return DIYAS_X.map(
+    (x, i) =>
+      `<g transform="translate(${x} ${GROUND - 48})"><g class="flicker diya-flame" style="--dur:${f(1.3 + i * 0.17)}s;--delay:${f(0.2 + i * 0.31)}s">${flame(0.9)}</g></g>`,
+  ).join("");
 }
 
 /** The red paper lantern on its cord, hanging from the string; it sways from the point where it hangs. */
@@ -213,7 +246,7 @@ function words(): string {
   ${letters.join("")}`;
 }
 
-/** The still layer: the room, the ground, the menorah, the diya and the glow. Nothing here moves. */
+/** The still layer: the room, the ground, the menorah, the diyas and the glow. Nothing here moves. */
 const back = `<defs>
   <linearGradient id="hd-sky" x1="0" y1="0" x2="0" y2="1">
     <stop offset="0" style="stop-color:var(--stage)"/>
@@ -239,7 +272,7 @@ const back = `<defs>
 <rect width="1200" height="630" fill="url(#hd-dots)"/>
 <path d="M 0 588 Q 300 566 600 586 T 1200 580 L 1200 630 L 0 630 Z" class="c-panel"/>
 ${menorah()}
-${diya()}
+${diyas()}
 ${triviaGlow()}
 <rect y="620" width="1200" height="10" class="c-brass"/>`;
 
@@ -259,7 +292,7 @@ const front = `<defs>
 ${lantern()}
 ${lights()}
 ${menorahFlames()}
-${diyaFlame()}
+${diyaFlames()}
 ${words()}`;
 
 const css = `
@@ -270,9 +303,10 @@ ${ROOT} .wire { fill: none; stroke: var(--stage-deep); stroke-width: 4; stroke-l
 ${ROOT} .cord { fill: none; stroke: var(--brass); stroke-width: 3; }
 ${ROOT} .rib { fill: none; stroke: #8f2a20; stroke-opacity: 0.7; stroke-width: 3; }
 ${ROOT} .tassel { fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; }
+${ROOT} .paint { fill: none; stroke: #c8367c; stroke-width: 4; stroke-linecap: round; }
 ${ROOT} .wick { fill: none; stroke: var(--stage-deep); stroke-width: 2.5; stroke-linecap: round; }
-${ROOT} .metal { fill: none; stroke: var(--brass); stroke-width: 9; stroke-linecap: round; }
-${ROOT} .metal-edge { fill: none; stroke: var(--stage-deep); stroke-opacity: 0.55; stroke-width: 15; stroke-linecap: round; }
+${ROOT} .metal { fill: none; stroke: var(--brass); stroke-width: 7; stroke-linecap: round; }
+${ROOT} .metal-edge { fill: none; stroke: var(--stage-deep); stroke-opacity: 0.55; stroke-width: 12; stroke-linecap: round; }
 ${ROOT} .word { font-family: var(--font-display), "Rockwell Extra Bold", Georgia, serif; font-size: 96px; }
 
 ${ROOT} .twinkle { animation: hd-twinkle 2.8s ease-in-out calc(var(--start) + var(--delay)) infinite; }

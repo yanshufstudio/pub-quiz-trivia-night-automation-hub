@@ -26,7 +26,7 @@ const CTA_PARAGRAPHS = [
   "A free account gets 2 packs every 30 days, no card needed.",
 ];
 const BUTTON = "Make your own trivia night";
-const HERO_ALT = "A lit Hanukkah menorah, a glowing diya lamp and a red paper lantern under a string of lights, with the words Holiday trivia.";
+const HERO_ALT = "A lit Hanukkah menorah, glowing diya lamps and a red paper lantern under a string of lights, with the words Holiday trivia.";
 const SHEETS_ALT =
   "Three printed sheets from a TriviaFoundry pack: the presenter script, the host answer key and a team answer sheet.";
 const ROUND_HEADINGS = ["Round 1: Festivals of light around the world", "Round 2: Holiday food and customs"];
@@ -266,11 +266,11 @@ test.describe("/quizzes/holiday-trivia, the moving picture", () => {
     expect(await hero.evaluate((el) => getComputedStyle(el).aspectRatio)).toBe("1200 / 630");
 
     // 16 bulbs on the string across the top, nine menorah flames and the
-    // diya's, the lantern, and 6 letters.
+    // three diyas', the lantern, and 6 letters.
     const names = await sceneAnimations(page);
     const count = (name: string) => names.filter((n) => n === name).length;
     expect(count("hd-twinkle")).toBe(16);
-    expect(count("hd-flicker")).toBe(10);
+    expect(count("hd-flicker")).toBe(12);
     expect(count("hd-swing")).toBe(1);
     expect(count("hd-hop")).toBe(6);
     const before = await lanternTransform(page);
