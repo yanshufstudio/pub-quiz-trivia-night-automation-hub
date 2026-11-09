@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import {
   DAILY_LIMIT_ENV,
   PER_ADDRESS_HOURLY_ENV,
-  PER_IP_DAILY_ENV,
+  PER_IP_HOURLY_ENV,
   __resetSignInLimitCounters,
 } from "@/lib/sign-in-limits";
 import {
@@ -36,7 +36,7 @@ import { capturedSignInEmails, clearCapturedSignInEmails } from "@/lib/sign-in-e
  */
 
 const savedEnv: Record<string, string | undefined> = {};
-const KEYS = [PER_ADDRESS_HOURLY_ENV, PER_IP_DAILY_ENV, DAILY_LIMIT_ENV];
+const KEYS = [PER_ADDRESS_HOURLY_ENV, PER_IP_HOURLY_ENV, DAILY_LIMIT_ENV];
 
 // A distinct caller address per request: Better Auth's own per-IP rule
 // (5 per 60s on this path) sits in front of these caps and would refuse first.
@@ -121,7 +121,7 @@ describe("asking for a sign-in code too often", () => {
     // never fires, and this used to run on until the day's shared total was
     // gone and every host got the paused message. (The cap is lowered so the
     // test stays under Better Auth's own 5-a-minute rule for one IP.)
-    process.env[PER_IP_DAILY_ENV] = "2";
+    process.env[PER_IP_HOURLY_ENV] = "2";
     process.env[DAILY_LIMIT_ENV] = "3";
     const flooder = "203.0.113.99";
     expect((await send(address("flood"), "sign-in", flooder)).status).toBe(200);

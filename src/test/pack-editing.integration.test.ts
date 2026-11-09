@@ -124,6 +124,30 @@ describe("PATCH /api/questions/[id]: how long a question and answer may be (M4)"
   });
 });
 
+describe("PATCH /api/questions/[id]: a question that is already over the limit", () => {
+  const patch = (id: string, body: unknown) =>
+    patchQuestion(jsonRequest(`${BASE}/api/questions/${id}`, "PATCH", body), { params: Promise.resolve({ id }) });
+
+  it("still saves when the long text and answer are sent back unchanged, as the editor does", async () => {
+    // Generation and the old editor had no limit, so such questions exist.
+    const question = (await freshPack()).rounds[0].questions[0];
+    const text = "x".repeat(PACK_LIMITS.questionText + 50);
+    const answer = "y".repeat(PACK_LIMITS.answer + 50);
+    await db.question.update({ where: { id: question.id }, data: { text, answer } });
+
+    expect((await patch(question.id, { text, answer, points: 3 })).status).toBe(200);
+    const stored = await db.question.findUniqueOrThrow({ where: { id: question.id } });
+    expect(stored.points).toBe(3);
+    expect(stored.text).toBe(text);
+
+    // Changing it is held to the limit like any other edit, and shortening works.
+    const longer = await patch(question.id, { text: `${text}!` });
+    expect(longer.status).toBe(400);
+    expect((await longer.json()).error).toMatch(/at most 2000 characters/);
+    expect((await patch(question.id, { text: "Short now?" })).status).toBe(200);
+  });
+});
+
 describe("DELETE /api/questions/[id]", () => {
   afterAll(async () => {
     await db.$disconnect();

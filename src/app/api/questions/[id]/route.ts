@@ -9,10 +9,9 @@ import { refuseIfLiveGameFor } from "@/lib/live-game-guard";
 import type { Prisma } from "@prisma/client";
 
 const updateSchema = z.object({
-  // Capped like every other field here: these were the one write with no bound,
-  // and a million characters saved and then went out on every 3 s poll (M4).
-  text: z.string().min(1).max(PACK_LIMITS.questionText).optional(),
-  answer: z.string().min(1).max(PACK_LIMITS.answer).optional(),
+  // Their length is checked below, against the stored question, not here.
+  text: z.string().min(1).optional(),
+  answer: z.string().min(1).optional(),
   points: z.number().int().min(1).max(10).optional(),
   type: z.enum([QUESTION_TYPE.TEXT, QUESTION_TYPE.MULTIPLE_CHOICE]).optional(),
   // Both of these take their bounds from PACK_LIMITS so that what the editor will
@@ -48,6 +47,21 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   }
   const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
+
+  // These were the one write with no bound: a million characters saved and then
+  // went out on every 3 s poll (M4). Only a value that is changing is measured,
+  // because the editor sends both fields with every save and older or generated
+  // questions can already be longer; those must stay saveable as they are.
+  const { text, answer } = parsed.data;
+  if (text !== undefined && text !== existing.text && text.length > PACK_LIMITS.questionText) {
+    return NextResponse.json(
+      { error: `Question text can be at most ${PACK_LIMITS.questionText} characters` },
+      { status: 400 }
+    );
+  }
+  if (answer !== undefined && answer !== existing.answer && answer.length > PACK_LIMITS.answer) {
+    return NextResponse.json({ error: `An answer can be at most ${PACK_LIMITS.answer} characters` }, { status: 400 });
+  }
 
   const { type, options: rawOptions, acceptableAnswers: rawAcceptableAnswers, ...rest } = parsed.data;
   const effectiveType = type ?? existing.type;

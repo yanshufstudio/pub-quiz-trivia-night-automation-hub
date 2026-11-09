@@ -85,6 +85,16 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     throw error;
   }
 
+  // The index is exact, so "Quiz Pigs" and "quiz pigs" at the same moment both
+  // get past it. Writes land one at a time, so of two teams sharing a name key
+  // the later row always sees the earlier one here, and stands down.
+  const rows = await db.$queryRaw<{ id: string; name: string }[]>`
+    SELECT "id", "name" FROM "Team" WHERE "sessionId" = ${session.id} ORDER BY rowid`;
+  if (rows.find((row) => teamNameKey(row.name) === key)?.id !== team.id) {
+    await db.team.deleteMany({ where: { id: team.id } });
+    return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+  }
+
   // The cap, in one statement so it cannot be raced: a team that finds the game
   // over the limit removes itself, and whichever join runs this last sees every
   // other team. Six joins at 58 teams used to leave 64.

@@ -114,6 +114,17 @@ describe("joins that arrive at the same moment (M3)", () => {
     expect(await db.team.count({ where: { session: { code } } })).toBe(1);
   });
 
+  it("lets only one in when the two spell the name in different case", async () => {
+    // The unique index is exact, so it does not catch this pair; the route does.
+    const { code } = await newSession();
+    const results = await Promise.all([join(code, "Quiz Pigs"), join(code, "quiz pigs"), join(code, "QUIZ  PIGS")]);
+    expect(results.map((res) => res.status).sort()).toEqual([201, 409, 409]);
+    for (const res of results.filter((r) => r.status === 409)) {
+      expect((await res.json()).error).toMatch(/already taken/);
+    }
+    expect(await db.team.count({ where: { session: { code } } })).toBe(1);
+  });
+
   it("never lets a rush of joins take the game past the team cap", async () => {
     // Six at once with two places left. All six used to read "58 teams" and
     // get in, leaving 64.

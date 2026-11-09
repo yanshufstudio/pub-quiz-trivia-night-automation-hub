@@ -443,8 +443,12 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(await res.blob());
       link.download = /filename="([^"]+)"/.exec(res.headers.get("Content-Disposition") ?? "")?.[1] ?? "quiz-pack.json";
+      // In the page for the click and released later, not at once: Safari
+      // cancels a download whose link is detached or whose URL is already gone.
+      document.body.appendChild(link);
       link.click();
-      URL.revokeObjectURL(link.href);
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(link.href), 10_000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not export this pack.");
     }

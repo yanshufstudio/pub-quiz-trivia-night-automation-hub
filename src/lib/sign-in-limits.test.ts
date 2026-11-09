@@ -3,15 +3,16 @@ import {
   DAILY_LIMIT_ENV,
   DEFAULT_DAILY_LIMIT,
   DEFAULT_PER_ADDRESS_HOURLY,
-  DEFAULT_PER_IP_DAILY,
+  DEFAULT_PER_IP_HOURLY,
   PER_ADDRESS_HOURLY_ENV,
-  PER_IP_DAILY_ENV,
+  PER_IP_HOURLY_ENV,
   dailyCodeLimit,
   isEmailTooLong,
   perAddressHourlyLimit,
-  perIpDailyLimit,
+  perIpHourlyLimit,
   reserveSignInCode,
   signInCodeKeyFor,
+  signInIpKeyFor,
   __resetSignInLimitCounters,
 } from "@/lib/sign-in-limits";
 import {
@@ -52,29 +53,31 @@ afterEach(() => {
 });
 
 describe("the three limits", () => {
-  it("defaults to 3 an hour per address, 10 a day per caller, and a far higher backstop", () => {
+  it("defaults to 3 an hour per address, 10 an hour per caller, and 80 a day overall", () => {
     expect(perAddressHourlyLimit()).toBe(DEFAULT_PER_ADDRESS_HOURLY);
-    expect(perIpDailyLimit()).toBe(DEFAULT_PER_IP_DAILY);
+    expect(perIpHourlyLimit()).toBe(DEFAULT_PER_IP_HOURLY);
     expect(dailyCodeLimit()).toBe(DEFAULT_DAILY_LIMIT);
     expect(DEFAULT_PER_ADDRESS_HOURLY).toBe(3);
-    expect(DEFAULT_PER_IP_DAILY).toBe(10);
-    // A backstop: it takes dozens of callers at their own cap to reach it.
-    expect(DEFAULT_DAILY_LIMIT).toBe(500);
+    expect(DEFAULT_PER_IP_HOURLY).toBe(10);
+    // Short of Resend's 100, on purpose: the rest is left for the other
+    // product on the account.
+    expect(DEFAULT_DAILY_LIMIT).toBe(80);
+    expect(DEFAULT_DAILY_LIMIT).toBeLessThan(100);
   });
 
   it("takes the owner's numbers, and ignores a typo rather than propagating it", () => {
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "5");
-    vi.stubEnv(PER_IP_DAILY_ENV, "7");
+    vi.stubEnv(PER_IP_HOURLY_ENV, "7");
     vi.stubEnv(DAILY_LIMIT_ENV, "80");
     expect(perAddressHourlyLimit()).toBe(5);
-    expect(perIpDailyLimit()).toBe(7);
+    expect(perIpHourlyLimit()).toBe(7);
     expect(dailyCodeLimit()).toBe(80);
 
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "three");
-    vi.stubEnv(PER_IP_DAILY_ENV, "-1");
+    vi.stubEnv(PER_IP_HOURLY_ENV, "-1");
     vi.stubEnv(DAILY_LIMIT_ENV, "");
     expect(perAddressHourlyLimit()).toBe(DEFAULT_PER_ADDRESS_HOURLY);
-    expect(perIpDailyLimit()).toBe(DEFAULT_PER_IP_DAILY);
+    expect(perIpHourlyLimit()).toBe(DEFAULT_PER_IP_HOURLY);
     expect(dailyCodeLimit()).toBe(DEFAULT_DAILY_LIMIT);
   });
 });
@@ -82,10 +85,10 @@ describe("the three limits", () => {
 describe("one caller cannot spend everybody's allowance (H1)", () => {
   const stranger = (i: number) => `stranger-${i}@example.test`;
 
-  it("refuses a caller at its own daily cap, and nobody else notices", async () => {
+  it("refuses a caller at its own hourly cap, and nobody else notices", async () => {
     // The lockout: a different address every time, so the per-address cap never
-    // fires. It used to run until the day's shared 60 were gone.
-    for (let i = 0; i < DEFAULT_PER_IP_DAILY; i++) {
+    // fires. It used to run until the day's shared total was gone.
+    for (let i = 0; i < DEFAULT_PER_IP_HOURLY; i++) {
       expect((await reserveSignInCode(stranger(i), "198.51.100.7")).allowed).toBe(true);
     }
     for (let i = 0; i < 100; i++) {
@@ -95,15 +98,33 @@ describe("one caller cannot spend everybody's allowance (H1)", () => {
 
     // A host on another network still gets a code — and the hundred refusals
     // spent nothing of the day's total, which has exactly its ten gone.
-    vi.stubEnv(DAILY_LIMIT_ENV, String(DEFAULT_PER_IP_DAILY + 1));
+    vi.stubEnv(DAILY_LIMIT_ENV, String(DEFAULT_PER_IP_HOURLY + 1));
     expect((await reserveSignInCode("host@example.test", "192.0.2.44")).allowed).toBe(true);
     const full = await reserveSignInCode("late@example.test", "192.0.2.45");
     expect(full.allowed === false && full.reason).toBe("global");
   });
 
+  it("counts an IPv6 caller by its /64, however it writes or changes its address", async () => {
+    expect(signInIpKeyFor("2001:db8:12:3400:aaaa:bbbb:cccc:dddd")).toBe("2001:db8:12:3400::/64");
+    expect(signInIpKeyFor("2001:0DB8:0012:3400::1")).toBe("2001:db8:12:3400::/64");
+    expect(signInIpKeyFor("2001:db8::1")).toBe("2001:db8:0:0::/64");
+    expect(signInIpKeyFor("2001:db8:12:3401::1")).not.toBe(signInIpKeyFor("2001:db8:12:3400::1"));
+    // IPv4 is one caller per address, also when written the IPv6 way.
+    expect(signInIpKeyFor("203.0.113.5")).toBe("203.0.113.5");
+    expect(signInIpKeyFor("::ffff:203.0.113.5")).toBe("203.0.113.5");
+
+    // One connection choosing a fresh address in its own block each time.
+    vi.stubEnv(PER_IP_HOURLY_ENV, "2");
+    expect((await reserveSignInCode(stranger(1), "2001:db8:12:3400::1")).allowed).toBe(true);
+    expect((await reserveSignInCode(stranger(2), "2001:db8:12:3400:ffff::2")).allowed).toBe(true);
+    const refused = await reserveSignInCode(stranger(3), "2001:db8:12:3400:1:2:3:4");
+    expect(refused.allowed === false && refused.reason).toBe("ip");
+    expect((await reserveSignInCode(stranger(4), "2001:db8:12:3401::1")).allowed).toBe(true);
+  });
+
   it("gives the address's unit back when the caller's cap refuses", async () => {
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "1");
-    vi.stubEnv(PER_IP_DAILY_ENV, "1");
+    vi.stubEnv(PER_IP_HOURLY_ENV, "1");
     await reserveSignInCode("first@example.test", "198.51.100.7");
     const refused = await reserveSignInCode("host@example.test", "198.51.100.7");
     expect(refused.allowed === false && refused.reason).toBe("ip");
@@ -112,27 +133,31 @@ describe("one caller cannot spend everybody's allowance (H1)", () => {
     expect((await reserveSignInCode("host@example.test", "192.0.2.44")).allowed).toBe(true);
   });
 
-  it("starts each caller afresh the next UTC day", async () => {
-    vi.stubEnv(PER_IP_DAILY_ENV, "1");
-    const tonight = new Date("2026-11-09T23:59:00.000Z");
-    const tomorrow = new Date("2026-11-10T00:01:00.000Z");
-    expect((await reserveSignInCode("x@example.test", "198.51.100.7", tonight)).allowed).toBe(true);
-    expect((await reserveSignInCode("y@example.test", "198.51.100.7", tonight)).allowed).toBe(false);
-    expect((await reserveSignInCode("y@example.test", "198.51.100.7", tomorrow)).allowed).toBe(true);
+  it("lets the caller back in an hour later, not at midnight", async () => {
+    // A shared network (an office, a carrier) must not be shut out for the day.
+    vi.stubEnv(PER_IP_HOURLY_ENV, "1");
+    const now = new Date("2026-11-09T10:00:00.000Z");
+    const soon = new Date("2026-11-09T10:59:00.000Z");
+    const later = new Date("2026-11-09T11:01:00.000Z");
+    expect((await reserveSignInCode("x@example.test", "198.51.100.7", now)).allowed).toBe(true);
+    expect((await reserveSignInCode("y@example.test", "198.51.100.7", soon)).allowed).toBe(false);
+    expect((await reserveSignInCode("y@example.test", "198.51.100.7", later)).allowed).toBe(true);
   });
 
   it("gives all three units back when the email did not go out", async () => {
-    vi.stubEnv(PER_IP_DAILY_ENV, "1");
+    vi.stubEnv(PER_IP_HOURLY_ENV, "1");
     const permission = await reserve("failed@example.test");
     if (permission.allowed) await permission.release();
     expect((await reserve("again@example.test")).allowed).toBe(true);
   });
 
-  it("names the network and the day, not the address or a minute", () => {
+  it("names the network and the hour, not the address, a minute or tomorrow", () => {
     expect(signInSendError({ status: 429, code: TOO_MANY_CODES_FROM_HERE_CODE })).toBe(
       TOO_MANY_CODES_FROM_HERE_MESSAGE
     );
-    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toMatch(/tomorrow/);
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toMatch(/network/);
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toMatch(/an hour/);
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).not.toMatch(/tomorrow|today/);
     expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toContain("Google");
     expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).not.toMatch(/account|registered|exists|unknown/i);
   });

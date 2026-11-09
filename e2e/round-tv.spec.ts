@@ -159,3 +159,30 @@ test("a refused poll shows Reconnecting…, and the screen recovers", async ({ b
   await tvContext.close();
   await context.close();
 });
+
+// A TV left on after the quiz used to ask about the finished game every 3 s
+// all night. Seven seconds is two ticks, so "no requests" is not a lucky gap.
+test("the TV stops polling once the game has ended", async ({ browser, baseURL }) => {
+  const { context, api } = await signedInContext(browser, baseURL!);
+  const { code, advance } = await game(api);
+  const tvContext = await newAnonContext(browser, baseURL);
+  const tv = await tvContext.newPage();
+  await tv.goto(`/tv/${code}`);
+  const isPoll = (url: string) => new URL(url).pathname === `/api/sessions/${code}/display`;
+
+  // Still polling while the game is on.
+  await tv.waitForRequest((req) => isPoll(req.url()));
+  await tv.waitForRequest((req) => isPoll(req.url()));
+
+  await advance("end");
+  await expect(tv.getByText("Final scores")).toBeVisible({ timeout: 10_000 });
+  let polls = 0;
+  tv.on("request", (req) => {
+    if (isPoll(req.url())) polls += 1;
+  });
+  await tv.waitForTimeout(7000);
+  expect(polls).toBe(0);
+
+  await tvContext.close();
+  await context.close();
+});

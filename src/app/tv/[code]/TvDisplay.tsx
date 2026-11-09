@@ -64,6 +64,7 @@ export function TvDisplay({ code }: { code: string }) {
     let cancelled = false;
     let timer: number | undefined;
     let failures = 0;
+    let ended = false;
 
     async function poll() {
       let wait = POLL_MS;
@@ -79,6 +80,7 @@ export function TvDisplay({ code }: { code: string }) {
         } else {
           const body = (await res.json()) as RoundDisplayState;
           failures = 0;
+          ended = body.status === "ENDED";
           if (!cancelled) {
             setState(body);
             setFailing(false);
@@ -90,7 +92,8 @@ export function TvDisplay({ code }: { code: string }) {
         wait = Math.min(POLL_MS * 2 ** failures, MAX_BACKOFF_MS);
         if (!cancelled) setFailing(true);
       }
-      if (!cancelled) timer = window.setTimeout(poll, wait);
+      // A finished game is not asked about again: a TV left on used to poll all night.
+      if (!cancelled && !ended) timer = window.setTimeout(poll, wait);
     }
 
     void poll();

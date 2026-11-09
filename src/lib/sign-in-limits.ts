@@ -30,7 +30,7 @@ export {
  * Better Auth's own rate limiting cannot express these caps. It keys on the
  * caller's IP and the path (`customRules` in src/lib/auth.ts) over a minute, so
  * it says nothing about one *mailbox* being hammered from a hundred IPs, about
- * one caller's total for the day, or about the day's total across everybody.
+ * one caller's total for the hour, or about the day's total across everybody.
  *
  * All three caps fail **open**, which is the lesson of 27 Sep written down: a bad
  * Upstash token made every Redis call throw and sign-in went down for everyone
@@ -45,29 +45,47 @@ export const PER_ADDRESS_HOURLY_ENV = "SIGNIN_CODE_PER_ADDRESS_HOURLY";
 export const DEFAULT_PER_ADDRESS_HOURLY = 3;
 
 /**
- * One caller's codes for the day, whatever addresses they ask for. This is what
- * stops one person spending everybody's allowance: the day's total used to be
- * the only cap a caller changing address each time ever met, and it was 60, so
- * twelve minutes of requests paused email sign-in for every host until midnight.
+ * One caller's codes for the hour, whatever addresses they ask for. This is what
+ * stops one person spending everybody's allowance in minutes: the day's total
+ * used to be the only cap a caller changing address each time ever met. An hour,
+ * not a day, because an office, a campus or a mobile carrier is one address, and
+ * a refusal there should not last until midnight.
  */
-export const PER_IP_DAILY_ENV = "SIGNIN_CODE_PER_IP_DAILY";
-export const DEFAULT_PER_IP_DAILY = 10;
+export const PER_IP_HOURLY_ENV = "SIGNIN_CODE_PER_IP_HOURLY";
+export const DEFAULT_PER_IP_HOURLY = 10;
 
 export const DAILY_LIMIT_ENV = "SIGNIN_CODE_DAILY_LIMIT";
 /**
- * A backstop, not the working limit: the per-address and per-IP caps are what a
- * caller meets. It is far above Resend's free plan (100 a day, shared), so a
- * flood spread over many networks is stopped by Resend first; set this env var
- * lower to hold some of that allowance back.
+ * 80, not 100. The rest of Resend's free-plan allowance is left for the other
+ * product sharing the account. Past this the form says codes are paused and
+ * points at Google, which is better than Resend silently sending nothing.
  */
-export const DEFAULT_DAILY_LIMIT = 500;
+export const DEFAULT_DAILY_LIMIT = 80;
 
 export function perAddressHourlyLimit(): number {
   return parseCeiling(process.env[PER_ADDRESS_HOURLY_ENV], DEFAULT_PER_ADDRESS_HOURLY);
 }
 
-export function perIpDailyLimit(): number {
-  return parseCeiling(process.env[PER_IP_DAILY_ENV], DEFAULT_PER_IP_DAILY);
+export function perIpHourlyLimit(): number {
+  return parseCeiling(process.env[PER_IP_HOURLY_ENV], DEFAULT_PER_IP_HOURLY);
+}
+
+/**
+ * The caller as a counting key. An IPv4 address is itself. An IPv6 caller is its
+ * /64, the first four groups, because that whole block belongs to one connection
+ * and a device can pick a new address inside it for every request.
+ */
+export function signInIpKeyFor(ip: string): string {
+  const address = ip.trim().toLowerCase();
+  if (!address.includes(":")) return address;
+  // IPv4 written as IPv6 (::ffff:203.0.113.5) is still that IPv4 caller.
+  const mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(address);
+  if (mapped) return mapped[1];
+  const [head, tail] = address.split("::");
+  const left = head ? head.split(":") : [];
+  const right = tail ? tail.split(":") : [];
+  const groups = tail === undefined ? left : [...left, ...Array(Math.max(8 - left.length - right.length, 0)).fill("0"), ...right];
+  return `${groups.slice(0, 4).map((group) => group.replace(/^0+(?=.)/, "")).join(":")}::/64`;
 }
 
 export function dailyCodeLimit(): number {
@@ -139,7 +157,7 @@ export async function reserveSignInCode(
       windowMs: HOUR_MS,
       limit: perAddressHourlyLimit(),
     },
-    { reason: "ip", key: `signin:code:ip:${ip}:${day}`, windowMs: dayWindowMs, limit: perIpDailyLimit() },
+    { reason: "ip", key: `signin:code:ip:${signInIpKeyFor(ip)}`, windowMs: HOUR_MS, limit: perIpHourlyLimit() },
     { reason: "global", key: `signin:code:global:${day}`, windowMs: dayWindowMs, limit: dailyCodeLimit() },
   ] as const;
 
