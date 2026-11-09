@@ -54,6 +54,15 @@ export const DEFAULT_PER_ADDRESS_HOURLY = 3;
 export const PER_IP_HOURLY_ENV = "SIGNIN_CODE_PER_IP_HOURLY";
 export const DEFAULT_PER_IP_HOURLY = 10;
 
+/**
+ * And for the day. At 10 an hour alone, one address could still use up the
+ * day's total by the afternoon; at 20 a day it takes several. A flood from many
+ * networks can still reach the total, which only a mail plan that is not the
+ * shared free one would change.
+ */
+export const PER_IP_DAILY_ENV = "SIGNIN_CODE_PER_IP_DAILY";
+export const DEFAULT_PER_IP_DAILY = 20;
+
 export const DAILY_LIMIT_ENV = "SIGNIN_CODE_DAILY_LIMIT";
 /**
  * 80, not 100. The rest of Resend's free-plan allowance is left for the other
@@ -64,6 +73,10 @@ export const DEFAULT_DAILY_LIMIT = 80;
 
 export function perAddressHourlyLimit(): number {
   return parseCeiling(process.env[PER_ADDRESS_HOURLY_ENV], DEFAULT_PER_ADDRESS_HOURLY);
+}
+
+export function perIpDailyLimit(): number {
+  return parseCeiling(process.env[PER_IP_DAILY_ENV], DEFAULT_PER_IP_DAILY);
 }
 
 export function perIpHourlyLimit(): number {
@@ -158,6 +171,12 @@ export async function reserveSignInCode(
       limit: perAddressHourlyLimit(),
     },
     { reason: "ip", key: `signin:code:ip:${signInIpKeyFor(ip)}`, windowMs: HOUR_MS, limit: perIpHourlyLimit() },
+    {
+      reason: "ip",
+      key: `signin:code:ip:${signInIpKeyFor(ip)}:${day}`,
+      windowMs: dayWindowMs,
+      limit: perIpDailyLimit(),
+    },
     { reason: "global", key: `signin:code:global:${day}`, windowMs: dayWindowMs, limit: dailyCodeLimit() },
   ] as const;
 

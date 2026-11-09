@@ -36,7 +36,7 @@ import { capturedSignInEmails, clearCapturedSignInEmails } from "@/lib/sign-in-e
  */
 
 const savedEnv: Record<string, string | undefined> = {};
-const KEYS = [PER_ADDRESS_HOURLY_ENV, PER_IP_HOURLY_ENV, DAILY_LIMIT_ENV];
+const KEYS = [PER_ADDRESS_HOURLY_ENV, PER_IP_HOURLY_ENV, "SIGNIN_CODE_PER_IP_DAILY", DAILY_LIMIT_ENV];
 
 // A distinct caller address per request: Better Auth's own per-IP rule
 // (5 per 60s on this path) sits in front of these caps and would refuse first.

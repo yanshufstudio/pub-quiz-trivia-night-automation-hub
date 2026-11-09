@@ -3,12 +3,15 @@ import {
   DAILY_LIMIT_ENV,
   DEFAULT_DAILY_LIMIT,
   DEFAULT_PER_ADDRESS_HOURLY,
+  DEFAULT_PER_IP_DAILY,
   DEFAULT_PER_IP_HOURLY,
   PER_ADDRESS_HOURLY_ENV,
+  PER_IP_DAILY_ENV,
   PER_IP_HOURLY_ENV,
   dailyCodeLimit,
   isEmailTooLong,
   perAddressHourlyLimit,
+  perIpDailyLimit,
   perIpHourlyLimit,
   reserveSignInCode,
   signInCodeKeyFor,
@@ -59,6 +62,8 @@ describe("the three limits", () => {
     expect(dailyCodeLimit()).toBe(DEFAULT_DAILY_LIMIT);
     expect(DEFAULT_PER_ADDRESS_HOURLY).toBe(3);
     expect(DEFAULT_PER_IP_HOURLY).toBe(10);
+    expect(perIpDailyLimit()).toBe(DEFAULT_PER_IP_DAILY);
+    expect(DEFAULT_PER_IP_DAILY).toBe(20);
     // Short of Resend's 100, on purpose: the rest is left for the other
     // product on the account.
     expect(DEFAULT_DAILY_LIMIT).toBe(80);
@@ -144,6 +149,39 @@ describe("one caller cannot spend everybody's allowance (H1)", () => {
     expect((await reserveSignInCode("y@example.test", "198.51.100.7", later)).allowed).toBe(true);
   });
 
+  it("stops one caller for the day long before it could use up everybody's total", async () => {
+    // Ten an hour alone would let one address reach the day's 80 in eight
+    // hours and pause email sign-in for every host.
+    expect(DEFAULT_PER_IP_DAILY).toBeLessThan(DEFAULT_DAILY_LIMIT / 2);
+    let sent = 0;
+    for (let hour = 0; hour < 24; hour++) {
+      const at = new Date(Date.UTC(2026, 10, 9, hour, 30));
+      for (let i = 0; i < DEFAULT_PER_IP_HOURLY; i++) {
+        const decision = await reserveSignInCode(stranger(hour * 100 + i), "198.51.100.7", at);
+        if (decision.allowed) sent += 1;
+        else expect(decision.reason).toBe("ip");
+      }
+    }
+    expect(sent).toBe(DEFAULT_PER_IP_DAILY);
+
+    // Everyone else still has the rest of the day's total, and the caller
+    // itself is let back in the next UTC day.
+    const evening = new Date(Date.UTC(2026, 10, 9, 23, 45));
+    expect((await reserveSignInCode("host@example.test", "192.0.2.44", evening)).allowed).toBe(true);
+    const nextDay = new Date(Date.UTC(2026, 10, 10, 0, 50));
+    expect((await reserveSignInCode(stranger(9999), "198.51.100.7", nextDay)).allowed).toBe(true);
+  });
+
+  it("reads the daily per-caller cap from its own variable", async () => {
+    vi.stubEnv(PER_IP_DAILY_ENV, "1");
+    expect(perIpDailyLimit()).toBe(1);
+    expect((await reserveSignInCode(stranger(1), "198.51.100.7")).allowed).toBe(true);
+    const refused = await reserveSignInCode(stranger(2), "198.51.100.7");
+    expect(refused.allowed === false && refused.reason).toBe("ip");
+    vi.stubEnv(PER_IP_DAILY_ENV, "twenty");
+    expect(perIpDailyLimit()).toBe(DEFAULT_PER_IP_DAILY);
+  });
+
   it("gives all three units back when the email did not go out", async () => {
     vi.stubEnv(PER_IP_HOURLY_ENV, "1");
     const permission = await reserve("failed@example.test");
@@ -151,13 +189,13 @@ describe("one caller cannot spend everybody's allowance (H1)", () => {
     expect((await reserve("again@example.test")).allowed).toBe(true);
   });
 
-  it("names the network and the hour, not the address, a minute or tomorrow", () => {
+  it("names the network, and no wait that could be wrong for either of its two caps", () => {
     expect(signInSendError({ status: 429, code: TOO_MANY_CODES_FROM_HERE_CODE })).toBe(
       TOO_MANY_CODES_FROM_HERE_MESSAGE
     );
     expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toMatch(/network/);
-    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toMatch(/an hour/);
-    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).not.toMatch(/tomorrow|today/);
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toMatch(/later/);
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).not.toMatch(/minute|hour|tomorrow|today/);
     expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toContain("Google");
     expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).not.toMatch(/account|registered|exists|unknown/i);
   });
