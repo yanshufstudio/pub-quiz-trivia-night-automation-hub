@@ -30,7 +30,7 @@
     "@prisma/client": "6.19.3",
     "@upstash/redis": "^1.38.4",
     "@vercel/analytics": "^2.0.1",
-    "better-auth": "^1.7.5",
+    "better-auth": "^1.7.18",
     "nanoid": "^6.0.1",
     "next": "16.4.2",
     "prisma": "6.19.3",
@@ -38,7 +38,7 @@
     "react-dom": "19.2.8",
     "react-qr-code": "^2.2.0",
     "sharp": "^0.35.5",
-    "zod": "^4.5.4"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

@@ -2,12 +2,13 @@ import { afterAll, describe, expect, it } from "vitest";
 import { NextRequest } from "next/server";
 
 import { POST as createQuestion } from "@/app/api/questions/route";
-import { DELETE as deleteQuestion } from "@/app/api/questions/[id]/route";
+import { DELETE as deleteQuestion, PATCH as patchQuestion } from "@/app/api/questions/[id]/route";
 import { DELETE as deleteRound } from "@/app/api/rounds/[id]/route";
 import { POST as moveRound } from "@/app/api/rounds/[id]/move/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { DEMO_PACK_PROMPT } from "@/lib/demo-pack";
 import { db } from "@/lib/db";
+import { PACK_LIMITS } from "@/lib/pack-file";
 import { testOwner } from "./owner-fixture";
 
 const BASE = "http://localhost:3000";
@@ -93,6 +94,33 @@ describe("POST /api/questions", () => {
   it("404s for a round that doesn't exist", async () => {
     const res = await createQuestion(jsonRequest(`${BASE}/api/questions`, "POST", { roundId: "not-a-real-round" }));
     expect(res.status).toBe(404);
+  });
+});
+
+describe("PATCH /api/questions/[id]: how long a question and answer may be (M4)", () => {
+  const patch = (id: string, body: unknown) =>
+    patchQuestion(jsonRequest(`${BASE}/api/questions/${id}`, "PATCH", body), { params: Promise.resolve({ id }) });
+
+  it("refuses text or an answer longer than a pack file may carry, and stores nothing", async () => {
+    // These two were the only fields with no bound: a million characters saved.
+    const question = (await freshPack()).rounds[0].questions[0];
+    const tooLongText = await patch(question.id, { text: "x".repeat(PACK_LIMITS.questionText + 1) });
+    const tooLongAnswer = await patch(question.id, { answer: "x".repeat(PACK_LIMITS.answer + 1) });
+    expect(tooLongText.status).toBe(400);
+    expect(tooLongAnswer.status).toBe(400);
+    const stored = await db.question.findUniqueOrThrow({ where: { id: question.id } });
+    expect(stored.text).toBe("A1?");
+    expect(stored.answer).toBe("a1");
+  });
+
+  it("takes both at exactly the limit, the same limit an import has", async () => {
+    const question = (await freshPack()).rounds[0].questions[0];
+    const text = "x".repeat(PACK_LIMITS.questionText);
+    const answer = "y".repeat(PACK_LIMITS.answer);
+    expect((await patch(question.id, { text, answer })).status).toBe(200);
+    const stored = await db.question.findUniqueOrThrow({ where: { id: question.id } });
+    expect(stored.text).toBe(text);
+    expect(stored.answer).toBe(answer);
   });
 });
 

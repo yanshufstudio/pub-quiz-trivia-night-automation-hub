@@ -1,5 +1,6 @@
 import { toNextJsHandler } from "better-auth/next-js";
 import { assertAuthConfigured, auth } from "@/lib/auth";
+import { clientIp } from "@/lib/rate-limit";
 import { isEmailTooLong, reserveSignInCode } from "@/lib/sign-in-limits";
 import {
   EMAIL_TOO_LONG_CODE,
@@ -8,6 +9,8 @@ import {
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
   TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
+  TOO_MANY_CODES_FROM_HERE_CODE,
+  TOO_MANY_CODES_FROM_HERE_MESSAGE,
 } from "@/lib/sign-in-limit-messages";
 
 /**
@@ -120,20 +123,15 @@ function signInAddressFrom(rawBody: string): string | null {
   return email;
 }
 
-/** 429 for both, because both are throttles that reset — but with different
- * sentences and a code the form can branch on without matching prose. The body
+/** 429 for all three, because each is a throttle that resets — but with its own
+ * sentence and a code the form can branch on without matching prose. The body
  * is shaped like Better Auth's own errors so the client surfaces it the same
  * way. */
-function floodRefusal(reason: "address" | "global"): Response {
-  const global = reason === "global";
-  return Response.json(
-    {
-      code: global ? SIGN_IN_CODES_PAUSED_CODE : TOO_MANY_CODES_FOR_ADDRESS_CODE,
-      message: global ? SIGN_IN_CODES_PAUSED_MESSAGE : TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
-    },
-    { status: 429 }
-  );
-}
+const FLOOD_REFUSALS = {
+  address: { code: TOO_MANY_CODES_FOR_ADDRESS_CODE, message: TOO_MANY_CODES_FOR_ADDRESS_MESSAGE },
+  ip: { code: TOO_MANY_CODES_FROM_HERE_CODE, message: TOO_MANY_CODES_FROM_HERE_MESSAGE },
+  global: { code: SIGN_IN_CODES_PAUSED_CODE, message: SIGN_IN_CODES_PAUSED_MESSAGE },
+};
 
 export async function GET(req: Request) {
   assertAuthConfigured();
@@ -187,8 +185,8 @@ export async function POST(req: Request) {
     return Response.json({ code: EMAIL_TOO_LONG_CODE, message: EMAIL_TOO_LONG_MESSAGE }, { status: 400 });
   }
 
-  const permission = await reserveSignInCode(address);
-  if (!permission.allowed) return floodRefusal(permission.reason);
+  const permission = await reserveSignInCode(address, clientIp(req));
+  if (!permission.allowed) return Response.json(FLOOD_REFUSALS[permission.reason], { status: 429 });
 
   const res = await handlers.POST(forwarded());
 

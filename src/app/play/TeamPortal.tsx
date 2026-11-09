@@ -75,6 +75,8 @@ export function TeamPortal() {
   // Polls are numbered as they start. Coming back from a locked screen sends
   // one at once beside the 3 s tick, so two can be in flight; an older one
   // answering last must not put the game back where it was.
+  // Read by the poll timer, which must not restart every time the state changes.
+  const endedRef = useRef(false);
   const pollsStarted = useRef(0);
   const newestApplied = useRef(0);
 
@@ -148,6 +150,7 @@ export function TeamPortal() {
       }
       setError(null);
       setState(data);
+      endedRef.current = data.status === "ENDED";
       const questionId: string | null = data.question?.id ?? null;
       if (questionId !== answerQuestionId.current) {
         answerQuestionId.current = questionId;
@@ -168,11 +171,17 @@ export function TeamPortal() {
 
   useEffect(() => {
     if (!stored) return;
+    endedRef.current = false;
     // Standard fetch-on-mount-and-interval polling: refresh() sets state
     // asynchronously after its own await, not synchronously in this body.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void refresh(stored);
-    const id = window.setInterval(() => void refresh(stored), 3000);
+    // No ticks for a game that has ended or a tab nobody is looking at: a phone
+    // left open in a pocket used to reload the finished game every 3 s for good.
+    const id = window.setInterval(() => {
+      if (document.visibilityState !== "visible" || endedRef.current) return;
+      void refresh(stored);
+    }, 3000);
     // Back from a locked screen or a dropped network: ask now, not at the next tick.
     const pollNow = () => void refresh(stored);
     const onVisible = () => {

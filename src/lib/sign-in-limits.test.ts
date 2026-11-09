@@ -3,10 +3,13 @@ import {
   DAILY_LIMIT_ENV,
   DEFAULT_DAILY_LIMIT,
   DEFAULT_PER_ADDRESS_HOURLY,
+  DEFAULT_PER_IP_DAILY,
   PER_ADDRESS_HOURLY_ENV,
+  PER_IP_DAILY_ENV,
   dailyCodeLimit,
   isEmailTooLong,
   perAddressHourlyLimit,
+  perIpDailyLimit,
   reserveSignInCode,
   signInCodeKeyFor,
   __resetSignInLimitCounters,
@@ -19,6 +22,8 @@ import {
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
   TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
+  TOO_MANY_CODES_FROM_HERE_CODE,
+  TOO_MANY_CODES_FROM_HERE_MESSAGE,
 } from "@/lib/sign-in-limit-messages";
 import { signInSendError, RATE_LIMITED_MESSAGE } from "@/lib/sign-in-errors";
 import { __resetRateLimitWarnThrottle } from "@/lib/rate-limit";
@@ -31,6 +36,10 @@ import { __resetRateLimitWarnThrottle } from "@/lib/rate-limit";
  * a flood exhausts a quota something else depends on.
  */
 
+// One caller for the tests that are not about the per-IP cap.
+const HERE = "203.0.113.1";
+const reserve = (address: string, now?: Date) => reserveSignInCode(address, HERE, now);
+
 beforeEach(() => {
   __resetSignInLimitCounters();
   __resetRateLimitWarnThrottle();
@@ -42,27 +51,90 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe("the two limits", () => {
-  it("defaults to 3 an hour per address and 60 a day overall", () => {
+describe("the three limits", () => {
+  it("defaults to 3 an hour per address, 10 a day per caller, and a far higher backstop", () => {
     expect(perAddressHourlyLimit()).toBe(DEFAULT_PER_ADDRESS_HOURLY);
+    expect(perIpDailyLimit()).toBe(DEFAULT_PER_IP_DAILY);
     expect(dailyCodeLimit()).toBe(DEFAULT_DAILY_LIMIT);
     expect(DEFAULT_PER_ADDRESS_HOURLY).toBe(3);
-    // Short of Resend's 100, on purpose: the rest is left for the other
-    // product on the account and for genuine resends.
-    expect(DEFAULT_DAILY_LIMIT).toBe(60);
-    expect(DEFAULT_DAILY_LIMIT).toBeLessThan(100);
+    expect(DEFAULT_PER_IP_DAILY).toBe(10);
+    // A backstop: it takes dozens of callers at their own cap to reach it.
+    expect(DEFAULT_DAILY_LIMIT).toBe(500);
   });
 
   it("takes the owner's numbers, and ignores a typo rather than propagating it", () => {
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "5");
+    vi.stubEnv(PER_IP_DAILY_ENV, "7");
     vi.stubEnv(DAILY_LIMIT_ENV, "80");
     expect(perAddressHourlyLimit()).toBe(5);
+    expect(perIpDailyLimit()).toBe(7);
     expect(dailyCodeLimit()).toBe(80);
 
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "three");
+    vi.stubEnv(PER_IP_DAILY_ENV, "-1");
     vi.stubEnv(DAILY_LIMIT_ENV, "");
     expect(perAddressHourlyLimit()).toBe(DEFAULT_PER_ADDRESS_HOURLY);
+    expect(perIpDailyLimit()).toBe(DEFAULT_PER_IP_DAILY);
     expect(dailyCodeLimit()).toBe(DEFAULT_DAILY_LIMIT);
+  });
+});
+
+describe("one caller cannot spend everybody's allowance (H1)", () => {
+  const stranger = (i: number) => `stranger-${i}@example.test`;
+
+  it("refuses a caller at its own daily cap, and nobody else notices", async () => {
+    // The lockout: a different address every time, so the per-address cap never
+    // fires. It used to run until the day's shared 60 were gone.
+    for (let i = 0; i < DEFAULT_PER_IP_DAILY; i++) {
+      expect((await reserveSignInCode(stranger(i), "198.51.100.7")).allowed).toBe(true);
+    }
+    for (let i = 0; i < 100; i++) {
+      const refused = await reserveSignInCode(stranger(1000 + i), "198.51.100.7");
+      expect(refused.allowed === false && refused.reason).toBe("ip");
+    }
+
+    // A host on another network still gets a code — and the hundred refusals
+    // spent nothing of the day's total, which has exactly its ten gone.
+    vi.stubEnv(DAILY_LIMIT_ENV, String(DEFAULT_PER_IP_DAILY + 1));
+    expect((await reserveSignInCode("host@example.test", "192.0.2.44")).allowed).toBe(true);
+    const full = await reserveSignInCode("late@example.test", "192.0.2.45");
+    expect(full.allowed === false && full.reason).toBe("global");
+  });
+
+  it("gives the address's unit back when the caller's cap refuses", async () => {
+    vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "1");
+    vi.stubEnv(PER_IP_DAILY_ENV, "1");
+    await reserveSignInCode("first@example.test", "198.51.100.7");
+    const refused = await reserveSignInCode("host@example.test", "198.51.100.7");
+    expect(refused.allowed === false && refused.reason).toBe("ip");
+
+    // The real owner of that mailbox, from their own network, is not one down.
+    expect((await reserveSignInCode("host@example.test", "192.0.2.44")).allowed).toBe(true);
+  });
+
+  it("starts each caller afresh the next UTC day", async () => {
+    vi.stubEnv(PER_IP_DAILY_ENV, "1");
+    const tonight = new Date("2026-11-09T23:59:00.000Z");
+    const tomorrow = new Date("2026-11-10T00:01:00.000Z");
+    expect((await reserveSignInCode("x@example.test", "198.51.100.7", tonight)).allowed).toBe(true);
+    expect((await reserveSignInCode("y@example.test", "198.51.100.7", tonight)).allowed).toBe(false);
+    expect((await reserveSignInCode("y@example.test", "198.51.100.7", tomorrow)).allowed).toBe(true);
+  });
+
+  it("gives all three units back when the email did not go out", async () => {
+    vi.stubEnv(PER_IP_DAILY_ENV, "1");
+    const permission = await reserve("failed@example.test");
+    if (permission.allowed) await permission.release();
+    expect((await reserve("again@example.test")).allowed).toBe(true);
+  });
+
+  it("names the network and the day, not the address or a minute", () => {
+    expect(signInSendError({ status: 429, code: TOO_MANY_CODES_FROM_HERE_CODE })).toBe(
+      TOO_MANY_CODES_FROM_HERE_MESSAGE
+    );
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toMatch(/tomorrow/);
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).toContain("Google");
+    expect(TOO_MANY_CODES_FROM_HERE_MESSAGE).not.toMatch(/account|registered|exists|unknown/i);
   });
 });
 
@@ -85,17 +157,17 @@ describe("reserving permission to send one code", () => {
   it("allows the address its hourly allowance, then refuses that address", async () => {
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "2");
     for (let i = 0; i < 2; i++) {
-      expect((await reserveSignInCode("one@example.test")).allowed).toBe(true);
+      expect((await reserve("one@example.test")).allowed).toBe(true);
     }
-    const refused = await reserveSignInCode("one@example.test");
+    const refused = await reserve("one@example.test");
     expect(refused.allowed).toBe(false);
     expect(refused.allowed === false && refused.reason).toBe("address");
   });
 
   it("counts a differently-capitalised address as the same mailbox", async () => {
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "1");
-    expect((await reserveSignInCode("Same@Example.test")).allowed).toBe(true);
-    expect((await reserveSignInCode("same@example.TEST")).allowed).toBe(false);
+    expect((await reserve("Same@Example.test")).allowed).toBe(true);
+    expect((await reserve("same@example.TEST")).allowed).toBe(false);
   });
 
   it("does not spend a unit of the day's allowance on an address it refuses", async () => {
@@ -103,19 +175,19 @@ describe("reserving permission to send one code", () => {
     // consume the shared quota on the way to being told to stop.
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "1");
     vi.stubEnv(DAILY_LIMIT_ENV, "3");
-    await reserveSignInCode("greedy@example.test");
-    for (let i = 0; i < 10; i++) await reserveSignInCode("greedy@example.test");
+    await reserve("greedy@example.test");
+    for (let i = 0; i < 10; i++) await reserve("greedy@example.test");
 
     // The day still has two left for everybody else.
-    expect((await reserveSignInCode("a@example.test")).allowed).toBe(true);
-    expect((await reserveSignInCode("b@example.test")).allowed).toBe(true);
-    expect((await reserveSignInCode("c@example.test")).allowed).toBe(false);
+    expect((await reserve("a@example.test")).allowed).toBe(true);
+    expect((await reserve("b@example.test")).allowed).toBe(true);
+    expect((await reserve("c@example.test")).allowed).toBe(false);
   });
 
   it("refuses with reason \"global\" once the day's allowance is gone", async () => {
     vi.stubEnv(DAILY_LIMIT_ENV, "1");
-    expect((await reserveSignInCode("first@example.test")).allowed).toBe(true);
-    const refused = await reserveSignInCode("second@example.test");
+    expect((await reserve("first@example.test")).allowed).toBe(true);
+    const refused = await reserve("second@example.test");
     expect(refused.allowed).toBe(false);
     expect(refused.allowed === false && refused.reason).toBe("global");
   });
@@ -124,42 +196,42 @@ describe("reserving permission to send one code", () => {
     // They did nothing wrong, and tomorrow their three should still be three.
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "2");
     vi.stubEnv(DAILY_LIMIT_ENV, "1");
-    await reserveSignInCode("used@example.test");
+    await reserve("used@example.test");
 
-    const refused = await reserveSignInCode("innocent@example.test");
+    const refused = await reserve("innocent@example.test");
     expect(refused.allowed).toBe(false);
 
     // The day rolls; their address counter must not already be one down.
     vi.stubEnv(DAILY_LIMIT_ENV, "10");
-    expect((await reserveSignInCode("innocent@example.test")).allowed).toBe(true);
-    expect((await reserveSignInCode("innocent@example.test")).allowed).toBe(true);
-    expect((await reserveSignInCode("innocent@example.test")).allowed).toBe(false);
+    expect((await reserve("innocent@example.test")).allowed).toBe(true);
+    expect((await reserve("innocent@example.test")).allowed).toBe(true);
+    expect((await reserve("innocent@example.test")).allowed).toBe(false);
   });
 
   it("counts each UTC day separately", async () => {
     vi.stubEnv(DAILY_LIMIT_ENV, "1");
     const tonight = new Date("2026-09-27T23:59:00.000Z");
     const tomorrow = new Date("2026-09-28T00:01:00.000Z");
-    expect((await reserveSignInCode("x@example.test", tonight)).allowed).toBe(true);
-    expect((await reserveSignInCode("y@example.test", tonight)).allowed).toBe(false);
-    expect((await reserveSignInCode("y@example.test", tomorrow)).allowed).toBe(true);
+    expect((await reserve("x@example.test", tonight)).allowed).toBe(true);
+    expect((await reserve("y@example.test", tonight)).allowed).toBe(false);
+    expect((await reserve("y@example.test", tomorrow)).allowed).toBe(true);
   });
 
   it("gives both units back when the email did not actually go out", async () => {
     vi.stubEnv(PER_ADDRESS_HOURLY_ENV, "1");
     vi.stubEnv(DAILY_LIMIT_ENV, "1");
-    const permission = await reserveSignInCode("failed@example.test");
+    const permission = await reserve("failed@example.test");
     expect(permission.allowed).toBe(true);
     if (permission.allowed) await permission.release();
 
     // Both counters are back where they were, so a send failure costs nobody
     // anything.
-    expect((await reserveSignInCode("failed@example.test")).allowed).toBe(true);
+    expect((await reserve("failed@example.test")).allowed).toBe(true);
   });
 
   it("treats an explicit zero as a deliberate off switch for email codes", async () => {
     vi.stubEnv(DAILY_LIMIT_ENV, "0");
-    const refused = await reserveSignInCode("anyone@example.test");
+    const refused = await reserve("anyone@example.test");
     expect(refused.allowed).toBe(false);
     expect(refused.allowed === false && refused.reason).toBe("global");
   });
@@ -191,7 +263,7 @@ describe("failing open when the counter is unreachable", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const limits = await import("@/lib/sign-in-limits");
 
-    const decision = await limits.reserveSignInCode("outage@example.test");
+    const decision = await limits.reserveSignInCode("outage@example.test", HERE);
     expect(decision.allowed).toBe(true);
     expect(warn.mock.calls.flat().join(" ")).toContain("ratelimit-redis-error");
 

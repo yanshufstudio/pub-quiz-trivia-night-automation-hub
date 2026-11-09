@@ -8,6 +8,7 @@ import { POST as advance } from "@/app/api/sessions/[code]/advance/route";
 import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
 import { createPackFromGenerated } from "@/lib/create-pack";
 import { db } from "@/lib/db";
+import { MAX_TEAMS_PER_SESSION } from "@/lib/team-name";
 import { signInTestHost } from "./auth-fixture";
 import { switchToQuestionMode } from "./question-mode-fixture";
 
@@ -97,6 +98,47 @@ describe("team names", () => {
       const res = await join(code, name);
       expect(res.status).toBe(201);
       expect((await res.json()).teamName).toBe(name);
+    }
+  });
+});
+
+describe("joins that arrive at the same moment (M3)", () => {
+  it("gives one of two tables the name and tells the other it is taken, not a 500", async () => {
+    // Both pass the "is it taken?" read; the unique index refuses the second
+    // insert, which used to escape the route as an unhandled error.
+    const { code } = await newSession();
+    const results = await Promise.all([join(code, "Quiz Pigs"), join(code, "Quiz Pigs")]);
+    expect(results.map((res) => res.status).sort()).toEqual([201, 409]);
+    const refused = results.find((res) => res.status === 409)!;
+    expect((await refused.json()).error).toMatch(/already taken/);
+    expect(await db.team.count({ where: { session: { code } } })).toBe(1);
+  });
+
+  it("never lets a rush of joins take the game past the team cap", async () => {
+    // Six at once with two places left. All six used to read "58 teams" and
+    // get in, leaving 64.
+    const { code } = await newSession();
+    const session = await db.session.findUniqueOrThrow({ where: { code } });
+    await db.team.createMany({
+      data: Array.from({ length: MAX_TEAMS_PER_SESSION - 2 }, (_, i) => ({
+        sessionId: session.id,
+        name: `Seeded ${i}`,
+        token: `seeded-${code}-${i}`,
+      })),
+    });
+
+    const results = await Promise.all(Array.from({ length: 6 }, (_, i) => join(code, `Late ${i}`)));
+    const statuses = results.map((res) => res.status).sort();
+    expect(statuses).toEqual([201, 201, 409, 409, 409, 409]);
+    for (const res of results.filter((r) => r.status === 409)) {
+      expect((await res.json()).error).toMatch(/full/);
+    }
+    expect(await db.team.count({ where: { sessionId: session.id } })).toBe(MAX_TEAMS_PER_SESSION);
+
+    // The two that got in are really in: their tokens are the ones stored.
+    for (const res of results.filter((r) => r.status === 201)) {
+      const { token } = await res.json();
+      expect(await db.team.count({ where: { token } })).toBe(1);
     }
   });
 });

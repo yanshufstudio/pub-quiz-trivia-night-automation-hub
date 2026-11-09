@@ -2,6 +2,7 @@ import { z } from "zod";
 import { degradeInvalidMultipleChoice, generatedQuestionFields, generatedRoundSchema } from "@/lib/quiz-schema";
 import type { Pack, Question, Round } from "@/lib/api-types";
 import { MEDIA_MIME } from "@/lib/media";
+import { ANSWER_MAX, QUESTION_TEXT_MAX } from "@/lib/pack-file-limits";
 import { QUESTION_TYPE } from "@/lib/question-types";
 
 /**
@@ -38,8 +39,8 @@ export const PACK_LIMITS = {
   title: 200,
   roundTitle: 200,
   category: 120,
-  questionText: 2000,
-  answer: 500,
+  questionText: QUESTION_TEXT_MAX,
+  answer: ANSWER_MAX,
   option: 300,
   acceptableAnswer: 200,
   /**

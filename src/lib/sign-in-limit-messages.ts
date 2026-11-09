@@ -16,6 +16,12 @@ export const TOO_MANY_CODES_FOR_ADDRESS_CODE = "TOO_MANY_CODES_FOR_ADDRESS";
 export const TOO_MANY_CODES_FOR_ADDRESS_MESSAGE =
   "Too many codes sent to that address. Wait an hour, or use Google sign-in.";
 
+/** One caller's daily cap (per IP), whatever addresses they asked for. "This
+ * network" because a venue or office shares one address. */
+export const TOO_MANY_CODES_FROM_HERE_CODE = "TOO_MANY_CODES_FROM_HERE";
+export const TOO_MANY_CODES_FROM_HERE_MESSAGE =
+  "Too many codes requested from this network today. Try again tomorrow, or use Google sign-in.";
+
 /**
  * The longest address we will take, and why it is 254 rather than a round number.
  *

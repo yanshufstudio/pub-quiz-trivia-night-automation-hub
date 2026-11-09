@@ -8,6 +8,11 @@ import { DEMO_PACK, DEMO_PACK_PROMPT } from "@/lib/demo-pack";
 import { db } from "@/lib/db";
 import { MAX_MEDIA_PER_PACK } from "@/lib/media";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION } from "@/lib/pack-file";
+import {
+  MAX_PACK_FILE_BYTES,
+  PACK_TOO_BIG_TO_EXPORT_MESSAGE,
+  PACK_TOO_BIG_TO_IMPORT_MESSAGE,
+} from "@/lib/pack-file-limits";
 import { parseOptions } from "@/lib/question-types";
 import { REAL_PNG_1X1, realPngBytes } from "@/test/image-fixtures";
 import { signInTestHost } from "./auth-fixture";
@@ -158,6 +163,69 @@ describe("pack export / import", () => {
       })
     );
     expect(res.status).toBe(400);
+  });
+
+  describe("a pack too big for one file (H2)", () => {
+    // Vercel refuses any body over 4.5 MB with its own error page, so the app
+    // has to refuse first, in words, on both routes.
+    it("stays under the platform's 4.5 MB with room to spare", () => {
+      expect(MAX_PACK_FILE_BYTES).toBeLessThan(4.5 * 1024 * 1024);
+    });
+
+    it("refuses to export it, and says what to do", async () => {
+      // Two pictures at the 2 MB upload cap: 5.3 MB once base64'd.
+      const pack = await createPackFromGenerated(packWithMediaInput(2), "big export test");
+      for (const question of pack.rounds[0].questions) {
+        const bytes = new Uint8Array(2 * 1024 * 1024).fill(7);
+        await db.questionMedia.create({
+          data: { questionId: question.id, mime: "image/png", bytes, byteSize: bytes.length, width: 1, height: 1 },
+        });
+      }
+
+      const res = await exportPack(new NextRequest(`${BASE}/api/packs/${pack.id}/export`, { headers: host.cookieHeader }), {
+        params: Promise.resolve({ id: pack.id }),
+      });
+      expect(res.status).toBe(413);
+      expect(res.headers.get("Content-Disposition")).toBeNull();
+      const { error } = await res.json();
+      expect(error).toBe(PACK_TOO_BIG_TO_EXPORT_MESSAGE);
+      expect(error).toMatch(/too big to export in one file/);
+      expect(error).toMatch(/fewer pictures/);
+    });
+
+    it("still exports a pack with one full-size picture", async () => {
+      const pack = await createPackFromGenerated(packWithMediaInput(1), "one picture export test");
+      const bytes = new Uint8Array(2 * 1024 * 1024).fill(7);
+      await db.questionMedia.create({
+        data: { questionId: pack.rounds[0].questions[0].id, mime: "image/png", bytes, byteSize: bytes.length, width: 1, height: 1 },
+      });
+      const res = await exportPack(new NextRequest(`${BASE}/api/packs/${pack.id}/export`, { headers: host.cookieHeader }), {
+        params: Promise.resolve({ id: pack.id }),
+      });
+      expect(res.status).toBe(200);
+      expect(Buffer.byteLength(await res.text())).toBeLessThanOrEqual(MAX_PACK_FILE_BYTES);
+    });
+
+    it("refuses to import it before reading it, and says what to do", async () => {
+      const before = await db.quizPack.count();
+      const res = await importPack(
+        new NextRequest(`${BASE}/api/packs/import`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Content-Length": String(MAX_PACK_FILE_BYTES + 1),
+            ...host.cookieHeader,
+          },
+          body: "{}",
+        })
+      );
+      expect(res.status).toBe(413);
+      const { error } = await res.json();
+      expect(error).toBe(PACK_TOO_BIG_TO_IMPORT_MESSAGE);
+      expect(error).toMatch(/too big to import in one file/);
+      expect(error).toMatch(/fewer pictures/);
+      expect(await db.quizPack.count()).toBe(before);
+    });
   });
 
   describe("version 2: embedded images", () => {

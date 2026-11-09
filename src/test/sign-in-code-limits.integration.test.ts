@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import {
   DAILY_LIMIT_ENV,
   PER_ADDRESS_HOURLY_ENV,
+  PER_IP_DAILY_ENV,
   __resetSignInLimitCounters,
 } from "@/lib/sign-in-limits";
 import {
@@ -14,6 +15,8 @@ import {
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
   TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
+  TOO_MANY_CODES_FROM_HERE_CODE,
+  TOO_MANY_CODES_FROM_HERE_MESSAGE,
 } from "@/lib/sign-in-limit-messages";
 import { capturedSignInEmails, clearCapturedSignInEmails } from "@/lib/sign-in-email";
 
@@ -33,24 +36,24 @@ import { capturedSignInEmails, clearCapturedSignInEmails } from "@/lib/sign-in-e
  */
 
 const savedEnv: Record<string, string | undefined> = {};
-const KEYS = [PER_ADDRESS_HOURLY_ENV, DAILY_LIMIT_ENV];
+const KEYS = [PER_ADDRESS_HOURLY_ENV, PER_IP_DAILY_ENV, DAILY_LIMIT_ENV];
 
 // A distinct caller address per request: Better Auth's own per-IP rule
 // (5 per 60s on this path) sits in front of these caps and would refuse first.
 let ip = 0;
-function headers() {
+function headers(from?: string) {
   ip += 1;
   return new Headers({
     "content-type": "application/json",
-    "x-forwarded-for": `198.19.0.${(ip % 250) + 1}`,
+    "x-forwarded-for": from ?? `198.19.0.${(ip % 250) + 1}`,
   });
 }
 
-function send(email: string, type = "sign-in") {
+function send(email: string, type = "sign-in", from?: string) {
   return authRoute(
     new Request("http://localhost:3000/api/auth/email-otp/send-verification-otp", {
       method: "POST",
-      headers: headers(),
+      headers: headers(from),
       body: JSON.stringify({ email, type }),
     })
   );
@@ -111,6 +114,33 @@ describe("asking for a sign-in code too often", () => {
     expect(body.message).toBe(SIGN_IN_CODES_PAUSED_MESSAGE);
     // It points at the sign-in that still works.
     expect(body.message).toContain("Google");
+  });
+
+  it("stops one caller at its own cap without pausing sign-in for anyone else (H1)", async () => {
+    // A different address each time, all from one network: the per-address cap
+    // never fires, and this used to run on until the day's shared total was
+    // gone and every host got the paused message. (The cap is lowered so the
+    // test stays under Better Auth's own 5-a-minute rule for one IP.)
+    process.env[PER_IP_DAILY_ENV] = "2";
+    process.env[DAILY_LIMIT_ENV] = "3";
+    const flooder = "203.0.113.99";
+    expect((await send(address("flood"), "sign-in", flooder)).status).toBe(200);
+    expect((await send(address("flood"), "sign-in", flooder)).status).toBe(200);
+
+    const victim = address("flood");
+    for (let i = 0; i < 2; i++) {
+      const refused = await send(victim, "sign-in", flooder);
+      expect(refused.status).toBe(429);
+      const body = await refused.json();
+      expect(body.code).toBe(TOO_MANY_CODES_FROM_HERE_CODE);
+      expect(body.message).toBe(TOO_MANY_CODES_FROM_HERE_MESSAGE);
+    }
+    expect(capturedSignInEmails().filter((sent) => sent.email === victim)).toHaveLength(0);
+
+    // Everyone else is untouched: the day's third unit is still there, and it is
+    // only after a real send takes it that the day says paused.
+    expect((await send(address("host"))).status).toBe(200);
+    expect((await (await send(address("late"))).json()).code).toBe(SIGN_IN_CODES_PAUSED_CODE);
   });
 
   it("does not mint a code it is not going to email", async () => {

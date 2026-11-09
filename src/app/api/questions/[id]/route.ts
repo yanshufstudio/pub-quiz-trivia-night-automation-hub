@@ -9,8 +9,10 @@ import { refuseIfLiveGameFor } from "@/lib/live-game-guard";
 import type { Prisma } from "@prisma/client";
 
 const updateSchema = z.object({
-  text: z.string().min(1).optional(),
-  answer: z.string().min(1).optional(),
+  // Capped like every other field here: these were the one write with no bound,
+  // and a million characters saved and then went out on every 3 s poll (M4).
+  text: z.string().min(1).max(PACK_LIMITS.questionText).optional(),
+  answer: z.string().min(1).max(PACK_LIMITS.answer).optional(),
   points: z.number().int().min(1).max(10).optional(),
   type: z.enum([QUESTION_TYPE.TEXT, QUESTION_TYPE.MULTIPLE_CHOICE]).optional(),
   // Both of these take their bounds from PACK_LIMITS so that what the editor will
