@@ -15,7 +15,7 @@ const counter = createFixedWindowCounter();
  * generation cap in src/lib/free-allowance.ts — attributes a request to the same
  * address this one does. Two ideas of "who is calling" would be two different
  * caps wearing one name. */
-export function clientIp(req: NextRequest): string {
+export function clientIp(req: Pick<NextRequest, "headers">): string {
   return (
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     req.headers.get("x-real-ip") ||

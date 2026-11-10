@@ -56,6 +56,8 @@ export function HostDashboard({ code }: { code: string }) {
   // arrives without one (synthesised, programmatic, or the tail of a press
   // that began somewhere else) does nothing. See endGameConfirmed below.
   const endArmedRef = useRef(false);
+  // Read by the poll timer, which must not restart every time the state changes.
+  const endedRef = useRef(false);
   const keepPlayingRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -114,6 +116,7 @@ export function HostDashboard({ code }: { code: string }) {
       }
       setError(null);
       setState(data);
+      endedRef.current = data.status === "ENDED";
     } catch {
       setError("Lost connection to the session. Retrying…");
     }
@@ -125,8 +128,21 @@ export function HostDashboard({ code }: { code: string }) {
     // asynchronously after its own await, not synchronously in this body.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void refresh();
-    const id = window.setInterval(() => void refresh(), 3000);
-    return () => window.clearInterval(id);
+    // No ticks for a game that has ended or a tab nobody is looking at. The
+    // desk's own actions still call refresh() themselves.
+    const id = window.setInterval(() => {
+      if (document.visibilityState !== "visible" || endedRef.current) return;
+      void refresh();
+    }, 3000);
+    // Back to the tab: ask now, not at the next tick.
+    const onVisible = () => {
+      if (document.visibilityState === "visible") void refresh();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.clearInterval(id);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, [refresh, hostToken]);
 
   async function advance(action: "start" | "reveal" | "next" | "end") {

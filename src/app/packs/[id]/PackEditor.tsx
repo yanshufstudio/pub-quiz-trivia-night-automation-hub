@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { Pack, Question, QuestionType, Round } from "@/lib/api-types";
 import { writeHostToken } from "@/lib/host-session";
 import { formatBytes, MAX_MEDIA_BYTES } from "@/lib/media-limits";
+import { ANSWER_MAX, QUESTION_TEXT_MAX } from "@/lib/pack-file-limits";
 import { SITE_URL } from "@/lib/site";
 import { countOf } from "@/lib/plural";
 import { UncheckedPackBanner } from "./UncheckedPackBanner";
@@ -429,6 +430,30 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
     });
   }
 
+  // Fetched rather than linked, so a pack too big to export says so on the page
+  // instead of downloading an error.
+  async function exportPack() {
+    setError(null);
+    try {
+      const res = await fetch(`/api/packs/${pack.id}/export`);
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error ?? "Could not export this pack.");
+      }
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(await res.blob());
+      link.download = /filename="([^"]+)"/.exec(res.headers.get("Content-Disposition") ?? "")?.[1] ?? "quiz-pack.json";
+      // In the page for the click and released later, not at once: Safari
+      // cancels a download whose link is detached or whose URL is already gone.
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(link.href), 10_000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not export this pack.");
+    }
+  }
+
   async function startSession() {
     setStarting(true);
     setError(null);
@@ -466,13 +491,13 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           <p className="mt-1 text-xs text-muted">{AI_DISCLAIMER}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <a
-            href={`/api/packs/${pack.id}/export`}
-            download
+          <button
+            type="button"
+            onClick={exportPack}
             className="inline-flex h-11 items-center rounded-xl border border-line bg-white px-4 text-sm font-semibold"
           >
             Export JSON
-          </a>
+          </button>
           <Link
             href={`/packs/${pack.id}/print`}
             className="inline-flex h-11 items-center rounded-xl border border-line bg-white px-4 text-sm font-semibold"
@@ -647,6 +672,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                       <span className="sr-only">Question text</span>
                       <textarea
                         value={draft.text}
+                        maxLength={QUESTION_TEXT_MAX}
                         onChange={(e) => updateDraft(question.id, { text: e.target.value })}
                         onBlur={() => saveQuestion(question.id)}
                         readOnly={!canEdit}
@@ -716,6 +742,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                           </span>
                           <input
                             value={draft.answer}
+                            maxLength={ANSWER_MAX}
                             onChange={(e) => updateDraft(question.id, { answer: e.target.value })}
                             onBlur={() => saveQuestion(question.id)}
                             readOnly={!canEdit}

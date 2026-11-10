@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { generateTeamToken } from "@/lib/codes";
 import { rateLimit } from "@/lib/rate-limit";
@@ -68,9 +69,44 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     );
   }
 
-  const team = await db.team.create({
-    data: { sessionId: session.id, name, token: generateTeamToken() },
-  });
+  // The checks above are the ordinary answers. Two joins at the same moment
+  // both pass them, so the database has the last word on each (M3).
+  let team;
+  try {
+    team = await db.team.create({
+      data: { sessionId: session.id, name, token: generateTeamToken() },
+    });
+  } catch (error) {
+    // Two tables picked the same name at once: the unique index refused the
+    // second, and that used to reach the phone as a 500.
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+      return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+    }
+    throw error;
+  }
+
+  // The index is exact, so "Quiz Pigs" and "quiz pigs" at the same moment both
+  // get past it. Writes land one at a time, so of two teams sharing a name key
+  // the later row always sees the earlier one here, and stands down.
+  const rows = await db.$queryRaw<{ id: string; name: string }[]>`
+    SELECT "id", "name" FROM "Team" WHERE "sessionId" = ${session.id} ORDER BY rowid`;
+  if (rows.find((row) => teamNameKey(row.name) === key)?.id !== team.id) {
+    await db.team.deleteMany({ where: { id: team.id } });
+    return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+  }
+
+  // The cap, in one statement so it cannot be raced: a team that finds the game
+  // over the limit removes itself, and whichever join runs this last sees every
+  // other team. Six joins at 58 teams used to leave 64.
+  const removed = await db.$executeRaw`
+    DELETE FROM "Team" WHERE "id" = ${team.id}
+      AND (SELECT COUNT(*) FROM "Team" WHERE "sessionId" = ${session.id}) > ${MAX_TEAMS_PER_SESSION}`;
+  if (removed > 0) {
+    return NextResponse.json(
+      { error: "This quiz is full. It has reached the maximum number of teams." },
+      { status: 409 }
+    );
+  }
 
   // The TV's lobby lists teams as they join.
   forgetDisplay(session.code);

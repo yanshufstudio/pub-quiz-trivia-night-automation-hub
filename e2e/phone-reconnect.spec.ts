@@ -111,3 +111,71 @@ test("offline, the phone says Reconnecting… calmly and recovers when back onli
 
   await close();
 });
+
+/**
+ * Nobody is watching a finished game or a hidden tab, so neither is polled
+ * (M1). Both the phone and the host desk used to ask every 3 s for good. Seven
+ * seconds is two ticks, so "no requests" here is not a lucky gap.
+ */
+test("the phone and the host desk stop polling once the game has ended", async ({ browser, baseURL }) => {
+  const { context, api } = await signedInContext(browser, baseURL!);
+  const { pack } = await (await api.post("/api/packs/seed")).json();
+  const { session, hostToken } = await (await api.post("/api/sessions", { data: { packId: pack.id } })).json();
+  const code = session.code as string;
+  const isStatePoll = (url: string) => new URL(url).pathname === `/api/sessions/${code}`;
+
+  const desk = await context.newPage();
+  await desk.goto(`/host/${code}`);
+  const teamContext = await newAnonContext(browser, baseURL!);
+  const phone = await teamContext.newPage();
+  await phone.goto(`/play?code=${code}`);
+  await phone.getByLabel("Team name").fill("Finished Finches");
+  await phone.getByRole("button", { name: "Join session" }).click();
+  await expect(phone.getByText("You’re in, Finished Finches.")).toBeVisible();
+
+  // Still polling while the game is on: each page asks again within a tick or two.
+  await Promise.all([
+    phone.waitForRequest((req) => isStatePoll(req.url())),
+    desk.waitForRequest((req) => isStatePoll(req.url())),
+  ]);
+
+  await api.post(`/api/sessions/${code}/advance`, { data: { action: "end", hostToken } });
+  await expect(phone.getByText("Final scores")).toBeVisible({ timeout: 10_000 });
+  await expect(desk.getByText(/Tonight’s champions?/)).toBeVisible({ timeout: 10_000 });
+
+  let polls = 0;
+  const count = (req: { url(): string }) => {
+    if (isStatePoll(req.url())) polls += 1;
+  };
+  phone.on("request", count);
+  desk.on("request", count);
+  await phone.waitForTimeout(7000);
+  expect(polls).toBe(0);
+
+  await teamContext.close();
+  await context.close();
+});
+
+test("a hidden tab does not poll, and asks at once when it is shown again", async ({ browser, baseURL }) => {
+  const { code, phone, close } = await gameWithPhone(browser, baseURL!, "Hidden Herons");
+  const setVisibility = (state: "hidden" | "visible") =>
+    phone.evaluate((s) => {
+      Object.defineProperty(document, "visibilityState", { configurable: true, get: () => s });
+      document.dispatchEvent(new Event("visibilitychange"));
+    }, state);
+
+  await justAfterAPoll(phone, code);
+  await setVisibility("hidden");
+  let polls = 0;
+  phone.on("request", (req) => {
+    if (isPoll(code)(req.url())) polls += 1;
+  });
+  await phone.waitForTimeout(7000);
+  expect(polls).toBe(0);
+
+  const back = phone.waitForRequest((req) => isPoll(code)(req.url()), { timeout: 2000 });
+  await setVisibility("visible");
+  await back;
+
+  await close();
+});

@@ -4,9 +4,8 @@ import { createPackFromGenerated } from "@/lib/create-pack";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION, packFileSchema, type PackFile } from "@/lib/pack-file";
+import { MAX_PACK_FILE_BYTES, PACK_TOO_BIG_TO_IMPORT_MESSAGE } from "@/lib/pack-file-limits";
 import { rateLimit } from "@/lib/rate-limit";
-
-const MAX_IMPORT_BYTES = 120 * 1024 * 1024;
 
 /**
  * Attaches each question's embedded `image` (a v2 file only — v1 has none)
@@ -83,12 +82,12 @@ export async function POST(req: NextRequest) {
   const host = await hostSessionForRequest(req);
   if (!host) return unauthorized();
 
-  // Cheap first line against a multi-megabyte body: the biggest legitimate
-  // file (500 questions, 40 images at the 2 MB cap, base64) is well under
-  // this, and JSON.parse on anything larger is work spent on nothing.
+  // Before the body is read. On Vercel a request this big never arrives, which
+  // is why the import button checks the file first; this is the same answer for
+  // anything that reaches the route another way.
   const declared = Number(req.headers.get("content-length") ?? 0);
-  if (declared > MAX_IMPORT_BYTES) {
-    return NextResponse.json({ error: "That pack file is too large to import." }, { status: 413 });
+  if (declared > MAX_PACK_FILE_BYTES) {
+    return NextResponse.json({ error: PACK_TOO_BIG_TO_IMPORT_MESSAGE }, { status: 413 });
   }
 
   const body = await req.json().catch(() => null);

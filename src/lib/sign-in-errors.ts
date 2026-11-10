@@ -24,6 +24,8 @@ import {
   SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
   TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
+  TOO_MANY_CODES_FROM_HERE_CODE,
+  TOO_MANY_CODES_FROM_HERE_MESSAGE,
 } from "@/lib/sign-in-limit-messages";
 
 /** The shape every Better Auth client call reports a failure in. */
@@ -61,6 +63,7 @@ export function signInSendError(err: SignInFailure): string {
   if (err?.code === EMAIL_TOO_LONG_CODE) return EMAIL_TOO_LONG_MESSAGE;
   if (err?.code === SIGN_IN_CODES_PAUSED_CODE) return SIGN_IN_CODES_PAUSED_MESSAGE;
   if (err?.code === TOO_MANY_CODES_FOR_ADDRESS_CODE) return TOO_MANY_CODES_FOR_ADDRESS_MESSAGE;
+  if (err?.code === TOO_MANY_CODES_FROM_HERE_CODE) return TOO_MANY_CODES_FROM_HERE_MESSAGE;
   if (isRateLimited(err)) return RATE_LIMITED_MESSAGE;
   return "Couldn't send that code. Check the address and try again.";
 }

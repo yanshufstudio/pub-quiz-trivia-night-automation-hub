@@ -107,6 +107,49 @@ describe("polling at once", () => {
   });
 });
 
+describe("not polling when there is nothing to see (M1)", () => {
+  // Only the interval is faked, so findByText and waitFor keep their real clocks.
+  beforeEach(() => void vi.useFakeTimers({ toFake: ["setInterval", "clearInterval"] }));
+  afterEach(() => void vi.useRealTimers());
+
+  const ticks = (n: number) => act(() => vi.advanceTimersByTimeAsync(n * 3000));
+
+  it("keeps polling every 3 s while the game is on", async () => {
+    const fetchMock = vi.fn(async () => ok(roundTeamState(0)));
+    await renderInLobby(fetchMock);
+    await ticks(3);
+    expect(polls(fetchMock)).toBe(4);
+  });
+
+  it("stops once the game has ended", async () => {
+    const fetchMock = vi.fn(async () => ok(roundTeamState(0)));
+    await renderInLobby(fetchMock);
+
+    fetchMock.mockImplementation(async () => ok(roundTeamState(3, [], "ENDED")));
+    await ticks(1);
+    expect(polls(fetchMock)).toBe(2);
+
+    await ticks(20);
+    expect(polls(fetchMock)).toBe(2);
+  });
+
+  it("pauses while the tab is hidden and picks up again on return", async () => {
+    const fetchMock = vi.fn(async () => ok(roundTeamState(0)));
+    await renderInLobby(fetchMock);
+
+    setVisibility("hidden");
+    act(() => void document.dispatchEvent(new Event("visibilitychange")));
+    await ticks(20);
+    expect(polls(fetchMock)).toBe(1);
+
+    setVisibility("visible");
+    act(() => void document.dispatchEvent(new Event("visibilitychange")));
+    await waitFor(() => expect(polls(fetchMock)).toBe(2));
+    await ticks(2);
+    expect(polls(fetchMock)).toBe(4);
+  });
+});
+
 describe("a poll that fails", () => {
   it("shows a calm Reconnecting… badge, not the red error line, and clears it on the next good poll", async () => {
     const fetchMock = vi.fn(async () => ok(roundTeamState(0)));

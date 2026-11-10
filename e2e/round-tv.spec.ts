@@ -159,3 +159,46 @@ test("a refused poll shows Reconnecting…, and the screen recovers", async ({ b
   await tvContext.close();
   await context.close();
 });
+
+// A TV left on after the quiz used to ask about the finished game every 3 s
+// all night. It now asks about every 30 s, which is still enough for a score
+// the host corrects after the end to reach the screen.
+test("the TV slows right down once the game has ended, and does not poll while hidden", async ({ browser, baseURL }) => {
+  test.setTimeout(90_000);
+  const { context, api } = await signedInContext(browser, baseURL!);
+  const { code, advance } = await game(api);
+  const tvContext = await newAnonContext(browser, baseURL);
+  const tv = await tvContext.newPage();
+  await tv.goto(`/tv/${code}`);
+  const isPoll = (url: string) => new URL(url).pathname === `/api/sessions/${code}/display`;
+  let polls = 0;
+  tv.on("request", (req) => {
+    if (isPoll(req.url())) polls += 1;
+  });
+  const setVisibility = (state: "hidden" | "visible") =>
+    tv.evaluate((s) => {
+      Object.defineProperty(document, "visibilityState", { configurable: true, get: () => s });
+    }, state);
+
+  // Hidden: two ticks' worth of time and nothing asked. Shown again: it asks.
+  await tv.waitForRequest((req) => isPoll(req.url()));
+  await setVisibility("hidden");
+  await tv.waitForTimeout(3500);
+  polls = 0;
+  await tv.waitForTimeout(7000);
+  expect(polls).toBe(0);
+  await setVisibility("visible");
+  await tv.waitForRequest((req) => isPoll(req.url()), { timeout: 5000 });
+
+  // Ended: seven seconds is two of the old ticks, so no requests is not a lucky
+  // gap, and the next one does come, inside 30 s or so.
+  await advance("end");
+  await expect(tv.getByText("Final scores")).toBeVisible({ timeout: 10_000 });
+  polls = 0;
+  await tv.waitForTimeout(7000);
+  expect(polls).toBe(0);
+  await tv.waitForRequest((req) => isPoll(req.url()), { timeout: 30_000 });
+
+  await tvContext.close();
+  await context.close();
+});

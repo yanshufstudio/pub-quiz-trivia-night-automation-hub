@@ -25,6 +25,7 @@ import { NO_SCORES_YET, noScoresYet, rankOf } from "@/lib/scoreboard-summary";
 const STAGE_W = 1920;
 const STAGE_H = 1080;
 const POLL_MS = 3000;
+const ENDED_POLL_MS = 30_000;
 const MAX_BACKOFF_MS = 30_000;
 
 function subscribeResize(onChange: () => void) {
@@ -67,6 +68,11 @@ export function TvDisplay({ code }: { code: string }) {
 
     async function poll() {
       let wait = POLL_MS;
+      // Nobody is watching a hidden tab: skip the request and look again shortly.
+      if (document.visibilityState !== "visible") {
+        timer = window.setTimeout(poll, wait);
+        return;
+      }
       try {
         const res = await fetch(`/api/sessions/${code}/display`, { cache: "no-store" });
         if (res.status === 404) {
@@ -79,6 +85,9 @@ export function TvDisplay({ code }: { code: string }) {
         } else {
           const body = (await res.json()) as RoundDisplayState;
           failures = 0;
+          // A finished game changes only if the host corrects a score, so it is
+          // asked about rarely: a TV left on used to poll every 3 s all night.
+          if (body.status === "ENDED") wait = ENDED_POLL_MS;
           if (!cancelled) {
             setState(body);
             setFailing(false);

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { toPackFile } from "@/lib/pack-file";
+import { MAX_PACK_FILE_BYTES, PACK_TOO_BIG_TO_EXPORT_MESSAGE } from "@/lib/pack-file-limits";
 import { toQuestionView } from "@/lib/question-types";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
@@ -46,7 +47,12 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     })),
   });
 
-  return new NextResponse(JSON.stringify(file, null, 2), {
+  const json = JSON.stringify(file, null, 2);
+  if (Buffer.byteLength(json) > MAX_PACK_FILE_BYTES) {
+    return NextResponse.json({ error: PACK_TOO_BIG_TO_EXPORT_MESSAGE }, { status: 413 });
+  }
+
+  return new NextResponse(json, {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Content-Disposition": `attachment; filename="${filenameFor(pack.title)}"`,

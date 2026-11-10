@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { MAX_PACK_FILE_BYTES, PACK_TOO_BIG_TO_IMPORT_MESSAGE } from "@/lib/pack-file-limits";
 
 /** "Import pack" for /packs: picks a JSON file exported from a pack editor's
  * "Export JSON", posts it to /api/packs/import, and opens the new pack. */
@@ -19,6 +20,7 @@ export function ImportPackButton() {
     setBusy(true);
     setError(null);
     try {
+      if (file.size > MAX_PACK_FILE_BYTES) throw new Error(PACK_TOO_BIG_TO_IMPORT_MESSAGE);
       const text = await file.text();
       let body: unknown;
       try {

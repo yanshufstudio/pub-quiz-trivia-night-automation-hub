@@ -12,6 +12,8 @@ export {
   MAX_EMAIL_LENGTH,
   SIGN_IN_CODES_PAUSED_CODE,
   SIGN_IN_CODES_PAUSED_MESSAGE,
+  TOO_MANY_CODES_FROM_HERE_CODE,
+  TOO_MANY_CODES_FROM_HERE_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
   TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
 } from "@/lib/sign-in-limit-messages";
@@ -25,12 +27,12 @@ export {
  * quota that something else depends on, and when it is gone every later sign-in
  * email silently fails to send for both.
  *
- * Better Auth's own rate limiting cannot express either cap. It keys on the
- * caller's IP and the path (`customRules` in src/lib/auth.ts), so it bounds one
- * address's requests and says nothing about one *mailbox* being hammered from a
- * hundred IPs, or about the day's total across everybody.
+ * Better Auth's own rate limiting cannot express these caps. It keys on the
+ * caller's IP and the path (`customRules` in src/lib/auth.ts) over a minute, so
+ * it says nothing about one *mailbox* being hammered from a hundred IPs, about
+ * one caller's total for the hour, or about the day's total across everybody.
  *
- * Both caps fail **open**, which is the lesson of 27 Sep written down: a bad
+ * All three caps fail **open**, which is the lesson of 27 Sep written down: a bad
  * Upstash token made every Redis call throw and sign-in went down for everyone
  * because the throttle was broken. A throttle that cannot count must not become
  * an outage. The exposure while the store is away is bounded by Better Auth's
@@ -42,16 +44,61 @@ export {
 export const PER_ADDRESS_HOURLY_ENV = "SIGNIN_CODE_PER_ADDRESS_HOURLY";
 export const DEFAULT_PER_ADDRESS_HOURLY = 3;
 
+/**
+ * One caller's codes for the hour, whatever addresses they ask for. This is what
+ * stops one person spending everybody's allowance in minutes: the day's total
+ * used to be the only cap a caller changing address each time ever met. An hour,
+ * not a day, because an office, a campus or a mobile carrier is one address, and
+ * a refusal there should not last until midnight.
+ */
+export const PER_IP_HOURLY_ENV = "SIGNIN_CODE_PER_IP_HOURLY";
+export const DEFAULT_PER_IP_HOURLY = 10;
+
+/**
+ * And for the day. At 10 an hour alone, one address could still use up the
+ * day's total by the afternoon; at 20 a day it takes several. A flood from many
+ * networks can still reach the total, which only a mail plan that is not the
+ * shared free one would change.
+ */
+export const PER_IP_DAILY_ENV = "SIGNIN_CODE_PER_IP_DAILY";
+export const DEFAULT_PER_IP_DAILY = 20;
+
 export const DAILY_LIMIT_ENV = "SIGNIN_CODE_DAILY_LIMIT";
 /**
- * 60, not 100. The rest of Resend's free-plan allowance is deliberately left
- * for the other product sharing the account, and for the genuine resends a real
- * person asks for after a cap has already stopped a flood.
+ * 80, not 100. The rest of Resend's free-plan allowance is left for the other
+ * product sharing the account. Past this the form says codes are paused and
+ * points at Google, which is better than Resend silently sending nothing.
  */
-export const DEFAULT_DAILY_LIMIT = 60;
+export const DEFAULT_DAILY_LIMIT = 80;
 
 export function perAddressHourlyLimit(): number {
   return parseCeiling(process.env[PER_ADDRESS_HOURLY_ENV], DEFAULT_PER_ADDRESS_HOURLY);
+}
+
+export function perIpDailyLimit(): number {
+  return parseCeiling(process.env[PER_IP_DAILY_ENV], DEFAULT_PER_IP_DAILY);
+}
+
+export function perIpHourlyLimit(): number {
+  return parseCeiling(process.env[PER_IP_HOURLY_ENV], DEFAULT_PER_IP_HOURLY);
+}
+
+/**
+ * The caller as a counting key. An IPv4 address is itself. An IPv6 caller is its
+ * /64, the first four groups, because that whole block belongs to one connection
+ * and a device can pick a new address inside it for every request.
+ */
+export function signInIpKeyFor(ip: string): string {
+  const address = ip.trim().toLowerCase();
+  if (!address.includes(":")) return address;
+  // IPv4 written as IPv6 (::ffff:203.0.113.5) is still that IPv4 caller.
+  const mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(address);
+  if (mapped) return mapped[1];
+  const [head, tail] = address.split("::");
+  const left = head ? head.split(":") : [];
+  const right = tail ? tail.split(":") : [];
+  const groups = tail === undefined ? left : [...left, ...Array(Math.max(8 - left.length - right.length, 0)).fill("0"), ...right];
+  return `${groups.slice(0, 4).map((group) => group.replace(/^0+(?=.)/, "")).join(":")}::/64`;
 }
 
 export function dailyCodeLimit(): number {
@@ -98,95 +145,70 @@ export function __resetSignInLimitCounters() {
 
 export type SignInCodeDecision =
   | { allowed: true; release: () => Promise<void> }
-  | { allowed: false; reason: "address" | "global" };
+  | { allowed: false; reason: "address" | "ip" | "global" };
 
 const HOUR_MS = 60 * 60 * 1000;
 
 /**
  * Take permission to email one sign-in code.
  *
- * The per-address cap is checked first, so one person asking repeatedly is told
- * about their own address rather than being told the service is paused — and,
- * more importantly, does not consume a unit of the day's shared allowance on the
- * way to being refused.
+ * Narrowest cap first — address, then caller, then the day — so a refused
+ * request is told about its own limit and never spends a unit of a wider one:
+ * whatever it had already taken is given back before it is refused.
  */
 export async function reserveSignInCode(
   address: string,
+  ip: string,
   now: Date = new Date()
 ): Promise<SignInCodeDecision> {
-  const addressLimit = perAddressHourlyLimit();
-  const addressKey = `signin:code:address:${signInCodeKeyFor(address)}`;
-
-  if (addressLimit === 0) return { allowed: false, reason: "address" };
-
-  let addressCount: number;
-  try {
-    addressCount = await counter.hit(addressKey, HOUR_MS, now.getTime());
-  } catch (error) {
-    if (!isCounterUnavailable(error)) throw error;
-    warnCounterUnavailable(addressKey, error, now.getTime());
-    return { allowed: true, release: async () => {} };
-  }
-
-  if (addressCount > addressLimit) {
-    try {
-      await counter.release(addressKey, HOUR_MS);
-    } catch (error) {
-      if (!isCounterUnavailable(error)) throw error;
-    }
-    return { allowed: false, reason: "address" };
-  }
-
-  const dayLimit = dailyCodeLimit();
-  const dayKey = `signin:code:global:${utcDay(now)}`;
+  const day = utcDay(now);
   const dayWindowMs = secondsUntilUtcMidnight(now) * 1000;
+  const caps = [
+    {
+      reason: "address",
+      key: `signin:code:address:${signInCodeKeyFor(address)}`,
+      windowMs: HOUR_MS,
+      limit: perAddressHourlyLimit(),
+    },
+    { reason: "ip", key: `signin:code:ip:${signInIpKeyFor(ip)}`, windowMs: HOUR_MS, limit: perIpHourlyLimit() },
+    {
+      reason: "ip",
+      key: `signin:code:ip:${signInIpKeyFor(ip)}:${day}`,
+      windowMs: dayWindowMs,
+      limit: perIpDailyLimit(),
+    },
+    { reason: "global", key: `signin:code:global:${day}`, windowMs: dayWindowMs, limit: dailyCodeLimit() },
+  ] as const;
 
-  const giveBackAddress = async () => {
-    try {
-      await counter.release(addressKey, HOUR_MS);
-    } catch (error) {
-      if (!isCounterUnavailable(error)) throw error;
-    }
-  };
-
-  if (dayLimit === 0) {
-    await giveBackAddress();
-    return { allowed: false, reason: "global" };
-  }
-
-  let dayCount: number;
-  try {
-    dayCount = await counter.hit(dayKey, dayWindowMs, now.getTime());
-  } catch (error) {
-    if (!isCounterUnavailable(error)) throw error;
-    warnCounterUnavailable(dayKey, error, now.getTime());
-    return { allowed: true, release: giveBackAddress };
-  }
-
-  if (dayCount > dayLimit) {
-    try {
-      await counter.release(dayKey, dayWindowMs);
-    } catch (error) {
-      if (!isCounterUnavailable(error)) throw error;
-    }
-    // The address unit goes back too: this person did nothing wrong, and their
-    // own hourly allowance should be intact when the day rolls over.
-    await giveBackAddress();
-    return { allowed: false, reason: "global" };
-  }
-
-  let released = false;
-  return {
-    allowed: true,
-    release: async () => {
-      if (released) return;
-      released = true;
-      await giveBackAddress();
+  // Idempotent: each unit is given back once, however often this is called.
+  const taken: { key: string; windowMs: number }[] = [];
+  const release = async () => {
+    for (const { key, windowMs } of taken.splice(0)) {
       try {
-        await counter.release(dayKey, dayWindowMs);
+        await counter.release(key, windowMs);
       } catch (error) {
         if (!isCounterUnavailable(error)) throw error;
       }
-    },
+    }
   };
+
+  for (const cap of caps) {
+    let count = Infinity; // an explicit 0 is the off switch, refused without counting
+    if (cap.limit > 0) {
+      try {
+        count = await counter.hit(cap.key, cap.windowMs, now.getTime());
+      } catch (error) {
+        if (!isCounterUnavailable(error)) throw error;
+        warnCounterUnavailable(cap.key, error, now.getTime());
+        return { allowed: true, release };
+      }
+      taken.push(cap);
+    }
+    if (count > cap.limit) {
+      await release();
+      return { allowed: false, reason: cap.reason };
+    }
+  }
+
+  return { allowed: true, release };
 }

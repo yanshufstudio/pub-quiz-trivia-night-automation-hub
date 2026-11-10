@@ -32,13 +32,14 @@ export default defineConfig({
       SIGN_IN_EMAIL_CAPTURE: "1",
       RESEND_API_KEY: "",
       // The suite signs in dozens of times over a run, and every one of those
-      // goes over HTTP through the real route — so they count against M2's
-      // per-day cap on sign-in codes (default 60). At 143 tests the run is under
-      // it, but not by much, and the failure mode is nasty: the cap is global for
-      // the day, so the tests that tripped it would fail with a 429 about email
-      // volume and nothing pointing at the real cause. Raised here rather than
-      // lowering the real default, which is a production number chosen against
-      // Resend's shared allowance.
+      // goes over HTTP through the real route — so they count against the caps
+      // on sign-in codes: 80 a day in total, and 10 an hour and 20 a day per caller. Past
+      // either, tests would fail with a 429 about email volume and nothing
+      // pointing at the real cause. Raised here rather than changing the real
+      // defaults, which are production numbers chosen against Resend's shared
+      // allowance.
+      SIGNIN_CODE_PER_IP_HOURLY: "100000",
+      SIGNIN_CODE_PER_IP_DAILY: "100000",
       SIGNIN_CODE_DAILY_LIMIT: "100000",
       // PRC4: one comped mailbox, for pro-upgrade.spec.ts's owner-comp test.
       PRO_COMP_EMAILS: "comp-owner@example.test",
