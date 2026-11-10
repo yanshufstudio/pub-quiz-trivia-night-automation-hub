@@ -22,7 +22,9 @@ model QuizPack {
   createdAt DateTime  @default(now())
   rounds    Round[]
   sessions  Session[]
-  creator   Creator?  @relation(fields: [creatorId], references: [id])
+  // Cascade, not SetNull: a pack with no owner is readable by every signed-in
+  // host, so an account's packs go with it (M5).
+  creator   Creator?  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String?
   /// ACC2: "checked" or "not_checked" for a generated pack; null for packs
   /// that were never generated through the review (older packs, imports,
