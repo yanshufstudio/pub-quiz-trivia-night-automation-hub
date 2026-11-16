@@ -4,8 +4,9 @@ import { createPackFromGenerated } from "@/lib/create-pack";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
 import { PACK_FILE_FORMAT, PACK_FILE_VERSION, packFileSchema, type PackFile } from "@/lib/pack-file";
-import { MAX_PACK_FILE_BYTES, PACK_TOO_BIG_TO_IMPORT_MESSAGE } from "@/lib/pack-file-limits";
+import { MAX_PACK_FILE_BYTES } from "@/lib/pack-file-limits";
 import { rateLimit } from "@/lib/rate-limit";
+import { apiError } from "@/lib/api-error";
 
 /**
  * Attaches each question's embedded `image` (a v2 file only — v1 has none)
@@ -102,7 +103,7 @@ export async function POST(req: NextRequest) {
   const limited = await rateLimit(req, "packs:import", { limit: 20, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
-      { error: "Too many packs imported recently. Please wait a bit and try again." },
+      apiError("tooManyImports"),
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
@@ -116,14 +117,14 @@ export async function POST(req: NextRequest) {
   // anything that reaches the route another way.
   const declared = Number(req.headers.get("content-length") ?? 0);
   if (declared > MAX_PACK_FILE_BYTES) {
-    return NextResponse.json({ error: PACK_TOO_BIG_TO_IMPORT_MESSAGE }, { status: 413 });
+    return NextResponse.json(apiError("packTooBigToImport"), { status: 413 });
   }
 
   // The declared size can be missing or wrong, so the bytes are counted too
   // as they arrive, and reading stops at the limit.
   const text = await readBodyUpTo(req, MAX_PACK_FILE_BYTES);
   if (text === TOO_BIG) {
-    return NextResponse.json({ error: PACK_TOO_BIG_TO_IMPORT_MESSAGE }, { status: 413 });
+    return NextResponse.json(apiError("packTooBigToImport"), { status: 413 });
   }
   let body: unknown = null;
   try {
@@ -132,7 +133,7 @@ export async function POST(req: NextRequest) {
     body = null;
   }
   if (body === null || typeof body !== "object") {
-    return NextResponse.json({ error: "That isn't a JSON pack file." }, { status: 400 });
+    return NextResponse.json(apiError("notAPackFile"), { status: 400 });
   }
 
   const parsed = packFileSchema.safeParse(body);

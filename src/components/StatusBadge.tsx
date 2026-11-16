@@ -1,14 +1,7 @@
-import type { RoundStatus, SessionStatus } from "@/lib/api-types";
+"use client";
 
-const LABELS: Record<SessionStatus | RoundStatus, string> = {
-  LOBBY: "Lobby",
-  QUESTION_ACTIVE: "Question live",
-  REVEAL: "Reveal",
-  ROUND_OPEN: "Round open",
-  ROUND_MARKING: "Answers in",
-  ROUND_REVEAL: "Reveal",
-  ENDED: "Ended",
-};
+import { useT } from "@/i18n/react";
+import type { RoundStatus, SessionStatus } from "@/lib/api-types";
 
 export function StatusBadge({
   status,
@@ -17,6 +10,7 @@ export function StatusBadge({
   status: SessionStatus | RoundStatus;
   dark?: boolean;
 }) {
+  const t = useT();
   const tone =
     status === "QUESTION_ACTIVE" || status === "ROUND_OPEN"
       ? "bg-mint text-stage"
@@ -32,7 +26,7 @@ export function StatusBadge({
 
   return (
     <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${tone}`}>
-      {LABELS[status]}
+      {t(`status.${status}`)}
     </span>
   );
 }

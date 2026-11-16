@@ -1,3 +1,5 @@
+import { getT } from "@/i18n";
+
 /**
  * Is this an app's embedded browser rather than a real one?
  *
@@ -33,6 +35,6 @@ export function isInAppBrowser(userAgent: string | null | undefined): boolean {
   return IN_APP_TOKENS.some((token) => userAgent.includes(token));
 }
 
-export const IN_APP_BROWSER_NOTICE =
-  "You're in an in-app browser. Google may block sign-in here — use the email code below, " +
-  "or open this page in your browser.";
+/** The words live in the message files (signIn.inAppNotice, L1); this is
+ * the English copy, for the tests that pin it. */
+export const IN_APP_BROWSER_NOTICE = getT("en")("signIn.inAppNotice");

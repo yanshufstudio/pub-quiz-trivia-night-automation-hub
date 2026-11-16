@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { rankOf, topScorers, winningNames } from "@/lib/scoreboard-summary";
+import { getT } from "@/i18n";
+import { rankOf, topScorers, winningNames as names } from "@/lib/scoreboard-summary";
+
+const winningNames = (rows: Parameters<typeof names>[1]) => names(getT("en"), rows);
 
 function row(teamId: string, name: string, score: number) {
   return { teamId, name, score };

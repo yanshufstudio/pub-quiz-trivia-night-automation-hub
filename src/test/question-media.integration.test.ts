@@ -370,7 +370,7 @@ describe("question media", () => {
         params(questionId)
       );
       expect(res.status).toBe(404);
-      expect(await res.json()).toEqual({ error: "No image for this question" });
+      expect(await res.json()).toEqual({ error: "No image for this question", code: "noImage" });
     });
 
     it("revalidates with an ETag instead of going stale", async () => {

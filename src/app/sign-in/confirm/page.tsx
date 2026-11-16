@@ -2,19 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ConfirmSignIn } from "./ConfirmSignIn";
+import { getT } from "@/i18n";
+import { pageLanguage } from "@/i18n/page-language";
 
-export const metadata: Metadata = {
-  title: "Confirm sign-in · TriviaFoundry",
-  description: "Finish signing in to TriviaFoundry.",
-  // A URL carrying a live sign-in code is the last thing that should be in
-  // an index, and /sign-in* is disallowed in robots.txt as well.
-  robots: { index: false, follow: false },
-  // The code is in this page's URL, so the URL is a credential for the next
-  // fifteen minutes. Browsers default to `strict-origin-when-cross-origin`,
-  // which already strips the query off a cross-origin Referer — this says it
-  // rather than inheriting it, and covers same-origin navigations too.
-  referrer: "no-referrer",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = getT(await pageLanguage());
+  return {
+    title: t("signIn.confirm.pageTitle"),
+    description: t("signIn.confirm.description"),
+    // A URL carrying a live sign-in code is the last thing that should be in
+    // an index, and /sign-in* is disallowed in robots.txt as well.
+    robots: { index: false, follow: false },
+    // The code is in this page's URL, so the URL is a credential for the next
+    // fifteen minutes. Browsers default to `strict-origin-when-cross-origin`,
+    // which already strips the query off a cross-origin Referer — this says it
+    // rather than inheriting it, and covers same-origin navigations too.
+    referrer: "no-referrer",
+  };
+}
 
 // Reads the code out of the query string, so it can never be prerendered.
 export const dynamic = "force-dynamic";
@@ -60,25 +65,25 @@ export default async function ConfirmSignInPage({
   // "looks like an email address, and is short" is what stops the page being
   // a way to render someone else's words on our domain.
   const usable = looksLikeAnAddress(email) && /^\d{4,8}$/.test(code ?? "");
+  const t = getT(await pageLanguage());
 
   return (
     <>
       <SiteHeader />
       <main className="mx-auto w-full max-w-md flex-1 px-5 py-10">
-        <h1 className="font-serif text-3xl font-semibold tracking-tight">Confirm sign-in</h1>
+        <h1 className="font-serif text-3xl font-semibold tracking-tight">{t("signIn.confirm.heading")}</h1>
         {usable ? (
           <ConfirmSignIn email={email} code={code as string} />
         ) : (
           <div className="paper-sheet mt-8 rounded-xl border border-line px-6 py-8">
             <p role="alert" className="text-muted">
-              That link is missing the part that signs you in — some mail clients cut long links in
-              half. Type the six-digit code from the same email instead.
+              {t("signIn.confirm.linkBroken")}
             </p>
             <Link
               href="/sign-in"
               className="mt-5 inline-flex h-11 items-center justify-center rounded-xl bg-amber px-5 text-sm font-semibold text-white transition-colors hover:bg-amber-hover"
             >
-              Back to sign in
+              {t("signIn.confirm.backToSignIn")}
             </Link>
           </div>
         )}

@@ -4,6 +4,9 @@ import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HOME_DESCRIPTION, HOME_TITLE, OG_IMAGE, SITE_NAME } from "@/lib/page-metadata";
 import { SITE_URL } from "@/lib/site";
+import { getT } from "@/i18n";
+import { pageLanguage } from "@/i18n/page-language";
+import { LanguageProvider } from "@/i18n/react";
 import manifest from "./manifest";
 import "./globals.css";
 
@@ -85,14 +88,18 @@ export const viewport: Viewport = {
   themeColor: manifest().theme_color,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  // The page's language; a game screen switches <html lang dir> to the game's
+  // while it is open (LanguageProvider).
+  const t = getT(await pageLanguage());
   return (
     <html
-      lang="en"
+      lang={t.lang}
+      dir={t.dir}
       className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        {children}
+        <LanguageProvider lang={t.lang}>{children}</LanguageProvider>
         {/* Rendered here rather than per page so the legal links Paddle's
             website review looks for are reachable from everywhere by
             default. It removes itself on the live-night and print surfaces —

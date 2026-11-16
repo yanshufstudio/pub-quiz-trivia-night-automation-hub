@@ -5,6 +5,7 @@ import { PaddleConfigError, publicPaddleConfig } from "@/lib/paddle/config";
 import { CheckoutSigningError, signCreatorId } from "@/lib/paddle/checkout-token";
 import { TRIAL_PRICE_ENV } from "@/lib/paddle/prices";
 import { trialEligible } from "@/lib/trial";
+import { apiError } from "@/lib/api-error";
 
 export const dynamic = "force-dynamic";
 
@@ -40,13 +41,13 @@ export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as { interval?: unknown } | null;
   const interval = body?.interval;
   if (interval !== "month" && interval !== "year") {
-    return NextResponse.json({ error: "interval must be \"month\" or \"year\"" }, { status: 400 });
+    return NextResponse.json(apiError("badInterval"), { status: 400 });
   }
 
   // effectivePlan: a row carrying a sandbox grant is FREE here, and must be able
   // to buy the real thing rather than being told it already has it (C1).
   if (effectivePlan(host.creator, host.user.email) === "PRO") {
-    return NextResponse.json({ error: "You are already on Pro.", alreadyPro: true }, { status: 409 });
+    return NextResponse.json({ ...apiError("alreadyPro"), alreadyPro: true }, { status: 409 });
   }
 
   let config: ReturnType<typeof publicPaddleConfig>;
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     if (err instanceof PaddleConfigError || err instanceof CheckoutSigningError) {
       return NextResponse.json(
-        { error: "Checkout is not switched on for this deployment.", notConfigured: true },
+        { ...apiError("checkoutOff"), notConfigured: true },
         { status: 503 }
       );
     }
@@ -75,7 +76,7 @@ export async function POST(req: NextRequest) {
       // trial, so a deployment without the trial prices must say it is broken.
       console.error(`paddle-trial-price-missing: ${TRIAL_PRICE_ENV[interval]} is empty on this deployment`);
       return NextResponse.json(
-        { error: "Checkout is not switched on for this deployment.", notConfigured: true },
+        { ...apiError("checkoutOff"), notConfigured: true },
         { status: 503 }
       );
     }

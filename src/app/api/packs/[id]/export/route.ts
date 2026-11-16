@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { toPackFile } from "@/lib/pack-file";
-import { MAX_PACK_FILE_BYTES, PACK_TOO_BIG_TO_EXPORT_MESSAGE } from "@/lib/pack-file-limits";
+import { MAX_PACK_FILE_BYTES } from "@/lib/pack-file-limits";
+import { apiError } from "@/lib/api-error";
 import { toQuestionView } from "@/lib/question-types";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
@@ -38,7 +39,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     _sum: { byteSize: true },
   });
   if (Math.ceil((pictures._sum.byteSize ?? 0) / 3) * 4 > MAX_PACK_FILE_BYTES) {
-    return NextResponse.json({ error: PACK_TOO_BIG_TO_EXPORT_MESSAGE }, { status: 413 });
+    return NextResponse.json(apiError("packTooBigToExport"), { status: 413 });
   }
 
   // The full media rows, not the lightweight `hasMedia` shape most reads
@@ -63,7 +64,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   // Still checked on the finished file: text and indentation count too.
   const json = JSON.stringify(file, null, 2);
   if (Buffer.byteLength(json) > MAX_PACK_FILE_BYTES) {
-    return NextResponse.json({ error: PACK_TOO_BIG_TO_EXPORT_MESSAGE }, { status: 413 });
+    return NextResponse.json(apiError("packTooBigToExport"), { status: 413 });
   }
 
   return new NextResponse(json, {

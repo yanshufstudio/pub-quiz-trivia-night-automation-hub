@@ -16,6 +16,7 @@ export function roundTeamState(
   return {
     mode: "ROUND",
     code: fixtureTeam.code,
+    language: "en",
     status,
     packTitle: "Pack",
     roundNumber: 1,

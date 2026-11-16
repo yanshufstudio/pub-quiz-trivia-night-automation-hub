@@ -13,6 +13,7 @@ import { computeScoreboard } from "@/lib/scoreboard";
 import { isValidHostToken } from "@/lib/host-auth";
 import { autoRevealIfExpired } from "@/lib/session-timer";
 import { parseOptions, type QuestionType } from "@/lib/question-types";
+import { apiError } from "@/lib/api-error";
 
 async function loadSession(code: string) {
   const session = await db.session.findUnique({
@@ -38,7 +39,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   const { code } = await params;
   const loaded = await loadSession(code);
   if (!loaded) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
   const { session, pack } = loaded;
 
@@ -50,20 +51,20 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   if (asHost) {
     const hostToken = url.searchParams.get("hostToken");
     if (!isValidHostToken(session.hostToken, hostToken)) {
-      return NextResponse.json({ error: "Invalid host key" }, { status: 401 });
+      return NextResponse.json(apiError("badHostKey"), { status: 401 });
     }
   } else {
     if (!token) {
-      return NextResponse.json({ error: "Missing team token" }, { status: 401 });
+      return NextResponse.json(apiError("missingTeamToken"), { status: 401 });
     }
     team = session.teams.find((t) => t.token === token) ?? null;
     if (!team) {
-      return NextResponse.json({ error: "Invalid team token" }, { status: 401 });
+      return NextResponse.json(apiError("badTeamToken"), { status: 401 });
     }
     // A paper team's token never leaves the server; if one ever did, it
     // still opens nothing (RM3).
     if (team.isPaper) {
-      return NextResponse.json({ error: "This team plays on paper" }, { status: 403 });
+      return NextResponse.json(apiError("paperTeam"), { status: 403 });
     }
   }
 
@@ -100,6 +101,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   const base = {
     mode: "QUESTION" as const,
     code: session.code,
+    language: session.language,
     status: session.status,
     packTitle: pack.title,
     roundNumber: session.currentRoundIndex + 1,

@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@/components/icons";
 import type { Pack, Question } from "@/lib/api-types";
-import { countOf } from "@/lib/plural";
 import { PRINT_SHEETS, printPageTitle, type PrintSheet } from "@/lib/print-sheets";
+import { toLanguage } from "@/i18n";
+import { LanguageProvider, useT } from "@/i18n/react";
 
 function OptionsLine({ question }: { question: Question }) {
   if (question.type !== "MULTIPLE_CHOICE" || question.options.length === 0) return null;
   return (
-    <p className="mt-1 ml-6 text-sm text-muted">
+    <p className="mt-1 ms-6 text-sm text-muted">
       {question.options.map((o, i) => `${String.fromCharCode(65 + i)}) ${o}`).join("   ")}
     </p>
   );
@@ -26,21 +27,29 @@ function PrintQuestionImage({ question }: { question: Question }) {
     <img
       src={`/api/questions/${question.id}/media`}
       alt=""
-      className="mt-2 ml-6 max-h-40 max-w-[min(20rem,calc(100%-1.5rem))] rounded-md border border-line object-contain print:max-h-32"
+      className="mt-2 ms-6 max-h-40 max-w-[min(20rem,calc(100%-1.5rem))] rounded-md border border-line object-contain print:max-h-32"
     />
   );
 }
 
-const TABS = Object.keys(PRINT_SHEETS) as PrintSheet[];
-
+/** The sheets print in the pack's language, whatever the editor around them is in. */
 export function PrintPreview({ pack }: { pack: Pack }) {
+  return (
+    <LanguageProvider lang={toLanguage(pack.language)} document>
+      <Sheets pack={pack} />
+    </LanguageProvider>
+  );
+}
+
+function Sheets({ pack }: { pack: Pack }) {
+  const t = useT();
   const [tab, setTab] = useState<PrintSheet>("script");
 
   // The server renders the first sheet's title; this keeps it on the sheet on
   // screen, so a PDF saved from the print window is named after it.
   useEffect(() => {
-    document.title = printPageTitle(pack.title, tab);
-  }, [pack.title, tab]);
+    document.title = printPageTitle(t, pack.title, tab);
+  }, [t, pack.title, tab]);
 
   return (
     <div className="min-h-full bg-[#ecdfbc] pb-16 print:pb-0">
@@ -51,9 +60,9 @@ export function PrintPreview({ pack }: { pack: Pack }) {
             className="group inline-flex min-h-11 items-center gap-1.5 text-sm text-foreground/75 hover:text-foreground"
           >
             <ArrowLeftIcon className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
-            Back to editor
+            {t("print.backToEditor")}
           </Link>
-          <h1 className="mt-1 font-serif text-2xl font-semibold tracking-tight">Print layout</h1>
+          <h1 className="mt-1 font-serif text-2xl font-semibold tracking-tight">{t("print.title")}</h1>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
@@ -61,13 +70,13 @@ export function PrintPreview({ pack }: { pack: Pack }) {
             onClick={() => window.print()}
             className="inline-flex h-11 items-center rounded-xl bg-amber px-4 text-sm font-semibold text-white hover:bg-amber-hover"
           >
-            Print this sheet
+            {t("print.printSheet")}
           </button>
         </div>
       </div>
 
       <div className="print-chrome mx-auto mb-6 flex w-full max-w-3xl flex-wrap gap-2 px-5">
-        {TABS.map((sheet) => (
+        {PRINT_SHEETS.map((sheet) => (
           <button
             key={sheet}
             type="button"
@@ -76,21 +85,19 @@ export function PrintPreview({ pack }: { pack: Pack }) {
               tab === sheet ? "bg-foreground text-background" : "bg-white/70 text-muted"
             }`}
           >
-            {PRINT_SHEETS[sheet]}
+            {t(`print.sheets.${sheet}`)}
           </button>
         ))}
       </div>
 
       <article className="paper-sheet mx-auto min-h-[1100px] w-[min(100%-1.5rem,794px)] px-10 py-12 sm:px-14 print:min-h-0 print:py-0">
         <header className="border-b-2 border-foreground pb-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber">{PRINT_SHEETS[tab]}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber">{t(`print.sheets.${tab}`)}</p>
           <h2 className="mt-2 font-serif text-3xl font-bold tracking-tight">{pack.title}</h2>
           <p className="mt-1 text-sm text-muted">
-            {tab === "questions" ? (
-              "Team name: _______________________________"
-            ) : (
-              <>{countOf(pack.rounds.length, "round")} · keep this copy at the lectern</>
-            )}
+            {tab === "questions"
+              ? t("print.teamNameLine")
+              : t("print.lectern", { rounds: t("common.rounds", { count: pack.rounds.length }) })}
           </p>
         </header>
 
@@ -124,67 +131,69 @@ function Cue({ children }: { children: React.ReactNode }) {
  * and letting the round flow is what actually keeps a question whole.
  */
 function ScriptLayout({ pack }: { pack: Pack }) {
+  const t = useT();
   return (
     <div className="mt-6">
-      <Cue>Welcome everyone, introduce tonight’s quiz, and remind teams how scoring works.</Cue>
+      <Cue>{t("print.cueWelcome")}</Cue>
       {pack.rounds.map((round) => (
         <section key={round.id} className="mt-8">
           <h3 className="break-after-avoid font-serif text-2xl font-bold">
-            Round {round.index + 1}: {round.title}
+            {t("print.roundTitle", { round: round.index + 1, title: round.title })}
           </h3>
           <p className="break-after-avoid text-sm italic text-muted">{round.category}</p>
-          <Cue>Announce the round title and category. Give teams a moment to ready their sheets.</Cue>
+          <Cue>{t("print.cueRound")}</Cue>
           <ol className="mt-4 space-y-5">
             {round.questions.map((question) => (
               <li key={question.id} className="break-inside-avoid">
                 <div className="flex items-start justify-between gap-4">
                   <p>
-                    <span className="mr-2 font-bold">{question.index + 1}.</span>
+                    <span className="me-2 font-bold">{question.index + 1}.</span>
                     {question.text}
                   </p>
                   <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-muted">
-                    {countOf(question.points, "pt")}
+                    {t("common.pts", { count: question.points })}
                   </span>
                 </div>
                 <OptionsLine question={question} />
                 <PrintQuestionImage question={question} />
-                <p className="mt-2 ml-6 rounded-md bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-900">
-                  Answer: {question.answer}
+                <p className="mt-2 ms-6 rounded-md bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-900">
+                  {t("print.answer", { answer: question.answer })}
                 </p>
               </li>
             ))}
           </ol>
-          <Cue>Read the answers, then confirm scores on the host dashboard before moving on.</Cue>
+          <Cue>{t("print.cueAnswers")}</Cue>
         </section>
       ))}
-      <Cue>Announce final scores and thank everyone for playing.</Cue>
+      <Cue>{t("print.cueFinal")}</Cue>
     </div>
   );
 }
 
 function AnswerLayout({ pack }: { pack: Pack }) {
+  const t = useT();
   return (
     <div className="mt-6 space-y-8">
       {pack.rounds.map((round) => (
         <section key={round.id}>
           <h3 className="break-after-avoid font-serif text-xl font-bold">
-            Round {round.index + 1}: {round.title}
+            {t("print.roundTitle", { round: round.index + 1, title: round.title })}
           </h3>
           <p className="break-after-avoid mb-3 text-sm italic text-muted">{round.category}</p>
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b border-foreground text-left text-xs uppercase tracking-wide whitespace-nowrap text-muted">
+              <tr className="border-b border-foreground text-start text-xs uppercase tracking-wide whitespace-nowrap text-muted">
                 <th className="w-10 py-2">#</th>
-                <th className="py-2">Question</th>
-                <th className="py-2">Answer</th>
-                <th className="w-14 py-2 text-right">Pts</th>
+                <th className="py-2">{t("print.question")}</th>
+                <th className="py-2">{t("print.answerColumn")}</th>
+                <th className="w-14 py-2 text-end">{t("print.pointsColumn")}</th>
               </tr>
             </thead>
             <tbody>
               {round.questions.map((question) => (
                 <tr key={question.id} className="break-inside-avoid border-b border-line align-top">
                   <td className="py-2.5 font-semibold">{question.index + 1}</td>
-                  <td className="py-2.5 pr-4 text-muted">
+                  <td className="py-2.5 pe-4 text-muted">
                     {question.text}
                     {question.hasMedia ? (
                       // eslint-disable-next-line @next/next/no-img-element -- our own API route, not a next/image-optimizable asset
@@ -196,7 +205,7 @@ function AnswerLayout({ pack }: { pack: Pack }) {
                     ) : null}
                   </td>
                   <td className="py-2.5 font-semibold text-emerald-800">{question.answer}</td>
-                  <td className="py-2.5 text-right tabular-nums">{question.points}</td>
+                  <td className="py-2.5 text-end tabular-nums">{question.points}</td>
                 </tr>
               ))}
             </tbody>
@@ -208,12 +217,13 @@ function AnswerLayout({ pack }: { pack: Pack }) {
 }
 
 function QuestionLayout({ pack }: { pack: Pack }) {
+  const t = useT();
   return (
     <div className="mt-6 space-y-8">
       {pack.rounds.map((round) => (
         <section key={round.id}>
           <h3 className="break-after-avoid font-serif text-xl font-bold">
-            Round {round.index + 1}: {round.title}
+            {t("print.roundTitle", { round: round.index + 1, title: round.title })}
           </h3>
           <p className="break-after-avoid mb-3 text-sm italic text-muted">{round.category}</p>
           <ol className="space-y-5">
@@ -221,16 +231,16 @@ function QuestionLayout({ pack }: { pack: Pack }) {
               <li key={question.id} className="break-inside-avoid">
                 <div className="flex items-start justify-between gap-4">
                   <p>
-                    <span className="mr-2 font-bold">{question.index + 1}.</span>
+                    <span className="me-2 font-bold">{question.index + 1}.</span>
                     {question.text}
                   </p>
                   <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-muted">
-                    {countOf(question.points, "pt")}
+                    {t("common.pts", { count: question.points })}
                   </span>
                 </div>
                 <OptionsLine question={question} />
                 <PrintQuestionImage question={question} />
-                <div className="mt-2 ml-6 h-8 border-b border-line" />
+                <div className="mt-2 ms-6 h-8 border-b border-line" />
               </li>
             ))}
           </ol>

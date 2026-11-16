@@ -110,7 +110,7 @@ type ExportableQuestion = Question & {
   media?: { mime: string; bytes: Uint8Array } | null;
 };
 
-export function toPackFile(pack: Omit<Pack, "rounds"> & { rounds: (Omit<Round, "questions"> & { questions: ExportableQuestion[] })[] }): PackFile {
+export function toPackFile(pack: Omit<Pack, "rounds" | "language"> & { rounds: (Omit<Round, "questions"> & { questions: ExportableQuestion[] })[] }): PackFile {
   return {
     format: PACK_FILE_FORMAT,
     version: PACK_FILE_VERSION,

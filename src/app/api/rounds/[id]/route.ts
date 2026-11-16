@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
 import { refuseIfLiveGame } from "@/lib/live-game-guard";
+import { apiError } from "@/lib/api-error";
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const host = await hostSessionForRequest(req);
@@ -10,7 +11,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   const { id } = await params;
   const existing = await db.round.findUnique({ where: { id } });
   if (!existing) {
-    return NextResponse.json({ error: "Round not found" }, { status: 404 });
+    return NextResponse.json(apiError("roundNotFound"), { status: 404 });
   }
   const forbidden = await requirePackOwner(host.creator.id, { packId: existing.packId });
   if (forbidden) return forbidden;
@@ -22,7 +23,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
   const siblingCount = await db.round.count({ where: { packId: existing.packId } });
   if (siblingCount <= 1) {
-    return NextResponse.json({ error: "A pack needs at least one round" }, { status: 400 });
+    return NextResponse.json(apiError("packNeedsRound"), { status: 400 });
   }
 
   // Same contiguous-index-shift transaction as deleting a question (see the

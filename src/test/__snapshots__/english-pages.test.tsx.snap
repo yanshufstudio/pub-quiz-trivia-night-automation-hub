@@ -1,0 +1,403 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`create wizard > free, at the limit 1`] = `
+"Generate a quiz pack
+Tell the wizard what kind of night you are running. It will draft rounds, questions, answers, and points you can edit next.
+3/3 free packs used in the last 30 days
+BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+Free limit reached
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night.
+Upgrade to Pro to lift the 2-pack limit, or use the demo pack."
+`;
+
+exports[`create wizard > free, with allowance left 1`] = `
+"[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricingSign in
+Generate a quiz pack
+Tell the wizard what kind of night you are running. It will draft rounds, questions, answers, and points you can edit next.
+1/3 free packs used in the last 30 days
+BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+Generate pack
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night."
+`;
+
+exports[`create wizard > pro, and just upgraded 1`] = `
+"Generate a quiz pack
+Tell the wizard what kind of night you are running. It will draft rounds, questions, answers, and points you can edit next.
+You are on Pro: the 2-pack limit is lifted. Manage subscription
+BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+Generate pack
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night.
+---
+Generate a quiz pack
+Tell the wizard what kind of night you are running. It will draft rounds, questions, answers, and points you can edit next.
+0/3 free packs used in the last 30 days
+Payment received. Switching Pro on…
+BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+Generate pack
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night."
+`;
+
+exports[`create wizard > while generating, and when generation fails 1`] = `
+"BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+Generating…
+Writing and fact-checking your pack. This usually takes up to about a minute. Keep this tab open.
+Writing questions…0:00
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night.
+---
+BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+Generation is not set up here.
+Use the demo pack instead
+Generate pack
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night.
+---
+BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+The question generator wouldn’t write this brief.
+That brief asks for something we can't write.
+Edit the brief above and generate again.
+Generate pack
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night.
+---
+BriefTips for a good brief
+A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.
+Generation failed (server returned status 502). Please try again.
+Generate pack
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night."
+`;
+
+exports[`not-found and the site header > signed in 1`] = `
+"[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricing
+[title] paul@example.test
+Signed in as paul@example.testPaul
+[aria-label] Sign out of paul@example.test
+Sign out
+404
+That page isn't on the board.
+The link may be old, or the session it pointed at has finished. Join codes are five characters and are entered on the join page, not typed into the address bar.
+Join a quizGo to the start"
+`;
+
+exports[`not-found and the site header > signed out 1`] = `
+"[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricingSign in
+404
+That page isn't on the board.
+The link may be old, or the session it pointed at has finished. Join codes are five characters and are entered on the join page, not typed into the address bar.
+Join a quizGo to the start"
+`;
+
+exports[`pack editor > a save that fails because the host was signed out, or the network dropped 1`] = `
+"You've been signed out — sign in again in another tab, then save this edit once more. Your text is still here.
+---
+Couldn’t save
+---
+Couldn't reach the server to save that. Check your connection — your text is still here."
+`;
+
+exports[`pack editor > a shared, read-only pack 1`] = `
+"Packs/Editor
+Friday Quiz
+2 rounds · 3 questions
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night.
+Export JSON
+Print preview
+Start live session
+Start live session opens your host screen with a five-character code teams enter at triviafoundry.com/play. How to run a quiz night
+This is a shared pack, so it's read-only here. Export JSON, then import it from the packs list to get your own editable copy.
+Round 1
+General
+General knowledge
+Q1Free text
+Question text
+Capital of Australia?
+Answer
+Points
+Alternate answers (comma-separated)
+[placeholder] e.g. Leo, Leonardo
+Also scored correct alongside the answer above — nicknames, alternate spellings, etc.
+Image
+JPEG or PNG, up to 2 MB.
+Q2Multiple choice
+Question text
+Pick one
+Options — mark the correct one
+[aria-label] Option 1 is correct
+[placeholder] Option 1
+[aria-label] Option 2 is correct
+[placeholder] Option 2
+Points
+Image
+JPEG or PNG, up to 2 MB.
+Round 2
+Closer
+Music
+Q1Free text
+Question text
+Who sang it?
+Answer
+Points
+Alternate answers (comma-separated)
+[placeholder] e.g. Leo, Leonardo
+Also scored correct alongside the answer above — nicknames, alternate spellings, etc.
+Image
+JPEG or PNG, up to 2 MB."
+`;
+
+exports[`pack editor > an editable pack, with the unchecked banner 1`] = `
+"Packs/Editor
+Friday Quiz
+2 rounds · 3 questions
+AI can slip on a fact. Every question is yours to edit — give the pack a read before the night.
+Export JSON
+Print preview
+Start live session
+Start live session opens your host screen with a five-character code teams enter at triviafoundry.com/play. How to run a quiz night
+This pack wasn't checked — give it an extra careful read before the night.
+Dismiss
+Round 1
+General
+General knowledge
+[aria-label] Move round up
+↑
+[aria-label] Move round down
+↓
+Delete round
+Q1
+Free text
+Multiple choice
+Edits save on blur
+Delete
+Question text
+Capital of Australia?
+Answer
+Points
+Alternate answers (comma-separated)
+[placeholder] e.g. Leo, Leonardo
+Also scored correct alongside the answer above — nicknames, alternate spellings, etc.
+Image
+No image attached
+Add image
+JPEG or PNG, up to 2 MB.
+Q2
+Free text
+Multiple choice
+Edits save on blur
+Delete
+Question text
+Pick one
+Options — mark the correct one
+[aria-label] Option 1 is correct
+[placeholder] Option 1
+[aria-label] Remove option 1
+×
+[aria-label] Option 2 is correct
+[placeholder] Option 2
+[aria-label] Remove option 2
+×
++ Add option
+Points
+Image
+Replace image
+Remove
+JPEG or PNG, up to 2 MB.
++ Add question
+Round 2
+Closer
+Music
+[aria-label] Move round up
+↑
+[aria-label] Move round down
+↓
+Delete round
+Q1
+Free text
+Multiple choice
+Edits save on blur
+[title] A round needs at least one question
+Delete
+Question text
+Who sang it?
+Answer
+Points
+Alternate answers (comma-separated)
+[placeholder] e.g. Leo, Leonardo
+Also scored correct alongside the answer above — nicknames, alternate spellings, etc.
+Image
+No image attached
+Add image
+JPEG or PNG, up to 2 MB.
++ Add question"
+`;
+
+exports[`pack editor > delete confirmations and failures 1`] = `
+"Round 1
+General
+General knowledge
+[aria-label] Move round up
+↑
+[aria-label] Move round down
+↓
+Delete round
+Q1
+Free text
+Multiple choice
+Edits save on blur
+Confirm?
+Cancel
+Question text
+Capital of Australia?
+Answer
+Points
+Alternate answers (comma-separated)
+[placeholder] e.g. Leo, Leonardo
+Also scored correct alongside the answer above — nicknames, alternate spellings, etc.
+Image
+No image attached
+Add image
+JPEG or PNG, up to 2 MB.
+Q2
+Free text
+Multiple choice
+Edits save on blur
+Delete
+Question text
+Pick one
+Options — mark the correct one
+[aria-label] Option 1 is correct
+[placeholder] Option 1
+[aria-label] Remove option 1
+×
+[aria-label] Option 2 is correct
+[placeholder] Option 2
+[aria-label] Remove option 2
+×
++ Add option
+Points
+Image
+Replace image
+Remove
+JPEG or PNG, up to 2 MB.
++ Add question
+---
+Could not delete question
+---
+Could not start session
+---
+Could not export this pack."
+`;
+
+exports[`packs list > an import that fails 1`] = `"pack.json isn't valid JSON."`;
+
+exports[`packs list > empty 1`] = `
+"[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricingSign in
+Quiz packs
+Edit questions, preview print sheets, then start a live session.
+[aria-label] Pack file
+Import pack
+New pack
+No packs yet.
+Generate one from a brief, or seed the demo pack.
+Open the wizard"
+`;
+
+exports[`packs list > with packs and live games 1`] = `
+"[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricingSign in
+Quiz packs
+Edit questions, preview print sheets, then start a live session.
+[aria-label] Pack file
+Import pack
+New pack
+Your live games
+Open the host desk on this device — you don't need the host key for a game you started. A game still running here also stops its pack being restructured.
+ABCDEFriday QuizIn the lobby
+FGHJKOne RoundIn progress
+Friday Quiz
+2 rounds · 3 questions
+<date>
+One Round
+1 round · 1 question
+<date>"
+`;
+
+exports[`sign-in > an unknown error code from Google 1`] = `"That sign-in didn't complete. Try again below."`;
+
+exports[`sign-in > the code step, and a wrong code 1`] = `
+"Check your inbox
+A six-digit code is on its way to host@example.test. Type it in below — or open the link in the same email and press the button there. Either works once, and both expire in 15 minutes.
+That code didn't match. Check the six digits and try again.
+Sign-in code
+[placeholder] 123456
+Sign in
+Nothing after a minute or two? Check spam, then
+try a different address
+."
+`;
+
+exports[`sign-in > the confirm page, usable and not 1`] = `
+"[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricingSign in
+Confirm sign-in
+Sign in as host@example.test?
+That sign-in link no longer works. Links work once and last 15 minutes — ask for a fresh one.
+Sign in
+Not you? Close this page — nothing has happened yet. Need a fresh code? Start again.
+---
+[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricingSign in
+Confirm sign-in
+That link is missing the part that signs you in — some mail clients cut long links in half. Type the six-digit code from the same email instead.
+Back to sign in"
+`;
+
+exports[`sign-in > the page, with Google and an error from it 1`] = `
+"[aria-label] TriviaFoundry home
+?TriviaFoundry
+CreatePacksJoinPricingSign in
+Sign in
+Your packs, your plan and your free allowance live on your account — not in this browser. Signing in on any device brings all three with you.
+That Google sign-in didn't complete. Please try again.
+Continue with Google
+Opened this from LinkedIn or another app? If Google won't let you in, use the email code below.
+or
+Email address
+[placeholder] you@example.com
+Email me a sign-in code
+No password to remember, and none for us to lose.
+Running a quiz as a team? You don't need an account — just the join code from your host."
+`;
+
+exports[`the sign-in email > subject, text and HTML 1`] = `
+"123456 is your TriviaFoundry sign-in code
+---
+Your TriviaFoundry sign-in code is 123456
+
+Type it into the sign-in page you started on — that works even if you
+are reading this on a different device.
+
+Or open this link and press the button there to sign in:
+
+https://example.test/sign-in/confirm
+
+The code works once and expires in 15 minutes.
+If you didn't ask to sign in, you can ignore this email — nobody can
+sign in as you without the code above.
+---
+<p>Your TriviaFoundry sign-in code is:</p><p style="font-size:28px;letter-spacing:6px;font-weight:600">123456</p><p>Type it into the sign-in page you started on — that works even if you are reading this on a different device.</p><p>Or open this link and press the button there to sign in:</p><p><a href="https://example.test/sign-in/confirm">https://example.test/sign-in/confirm</a></p><p>The code works once and expires in 15 minutes.</p><p>If you didn't ask to sign in, you can ignore this email — nobody can sign in as you without the code above.</p>"
+`;

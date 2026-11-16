@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
 import { refuseIfLiveGame } from "@/lib/live-game-guard";
+import { apiError } from "@/lib/api-error";
 
 const moveSchema = z.object({ direction: z.enum(["up", "down"]) });
 
@@ -14,12 +15,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   const body = await req.json().catch(() => null);
   const parsed = moveSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    return NextResponse.json(apiError("invalidRequest"), { status: 400 });
   }
 
   const round = await db.round.findUnique({ where: { id } });
   if (!round) {
-    return NextResponse.json({ error: "Round not found" }, { status: 404 });
+    return NextResponse.json(apiError("roundNotFound"), { status: 404 });
   }
   const forbidden = await requirePackOwner(host.creator.id, { packId: round.packId });
   if (forbidden) return forbidden;

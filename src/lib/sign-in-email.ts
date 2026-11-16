@@ -14,6 +14,7 @@
  */
 
 import { CONTACT_EMAIL } from "@/lib/site";
+import { getT, type Language, type Translator } from "@/i18n";
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
@@ -94,8 +95,8 @@ export class SignInEmailSendError extends Error {
  * into a single conversation and showed the spent one above the new one; a
  * subject that differs per code gets each email a thread of its own.
  */
-function subject(code: string) {
-  return `${code} is your TriviaFoundry sign-in code`;
+function subject(t: Translator, code: string) {
+  return t("email.subject", { code });
 }
 
 /**
@@ -106,35 +107,31 @@ function subject(code: string) {
  * the half that still works if something between us and the reader has
  * already opened the link.
  */
-function textBody({ code, url }: { code: string; url: string }) {
-  return [
-    `Your TriviaFoundry sign-in code is ${code}`,
-    "",
-    "Type it into the sign-in page you started on — that works even if you",
-    "are reading this on a different device.",
-    "",
-    "Or open this link and press the button there to sign in:",
-    "",
-    url,
-    "",
-    "The code works once and expires in 15 minutes.",
-    "If you didn't ask to sign in, you can ignore this email — nobody can",
-    "sign in as you without the code above.",
-  ].join("\n");
+function textBody(t: Translator, { code, url }: { code: string; url: string }) {
+  return t("email.text", { code, url });
 }
 
-function htmlBody({ code, url }: { code: string; url: string }) {
+/** Message text into HTML: a translation may hold "&" or "<". Quotes are
+ * left alone (text, not attributes), so English stays byte for byte. */
+function html(text: string) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function htmlBody(t: Translator, { code, url }: { code: string; url: string }) {
   // Deliberately plain. An email client is not our design system, and a
   // sign-in email that renders as bare, obviously-readable text is easier to
-  // trust than one hidden behind a styled button.
+  // trust than one hidden behind a styled button. Wrapped in the language's
+  // lang and dir, so a right-to-left language reads right in a mail client.
   return [
-    `<p>Your TriviaFoundry sign-in code is:</p>`,
+    `<div lang="${t.lang}" dir="${t.dir}">`,
+    `<p>${html(t("email.codeIs"))}</p>`,
     `<p style="font-size:28px;letter-spacing:6px;font-weight:600">${code}</p>`,
-    `<p>Type it into the sign-in page you started on — that works even if you are reading this on a different device.</p>`,
-    `<p>Or open this link and press the button there to sign in:</p>`,
+    `<p>${html(t("email.typeIt"))}</p>`,
+    `<p>${html(t("email.orOpen"))}</p>`,
     `<p><a href="${url}">${url}</a></p>`,
-    `<p>The code works once and expires in 15 minutes.</p>`,
-    `<p>If you didn't ask to sign in, you can ignore this email — nobody can sign in as you without the code above.</p>`,
+    `<p>${html(t("email.expires"))}</p>`,
+    `<p>${html(t("email.ignore"))}</p>`,
+    `</div>`,
   ].join("");
 }
 
@@ -147,16 +144,22 @@ function htmlBody({ code, url }: { code: string; url: string }) {
  * symptom is people quietly failing to sign in. Outside production the code
  * goes to the server console instead, which is what makes `npm run dev` work
  * with no mail provider at all.
+ *
+ * `language` is the email's language (L1). Nothing passes one yet: the email
+ * is sent before anyone is signed in, so it is in the page language.
  */
 export async function sendSignInEmail({
   email,
   code,
   url,
+  language,
 }: {
   email: string;
   code: string;
   url: string;
+  language?: Language;
 }): Promise<void> {
+  const t = getT(language);
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
 
@@ -191,9 +194,9 @@ export async function sendSignInEmail({
       // Resend's REST field is snake_case `reply_to`; `replyTo` is the SDK's
       // spelling and is silently ignored here.
       reply_to: CONTACT_EMAIL,
-      subject: subject(code),
-      text: textBody({ code, url }),
-      html: htmlBody({ code, url }),
+      subject: subject(t, code),
+      text: textBody(t, { code, url }),
+      html: htmlBody(t, { code, url }),
     }),
   });
 

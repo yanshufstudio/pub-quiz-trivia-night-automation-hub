@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { IN_APP_BROWSER_NOTICE } from "@/lib/in-app-browser";
 
 /**
  * The in-app-browser line on /sign-in.
@@ -16,21 +17,23 @@ import { describe, expect, it } from "vitest";
  */
 
 const SOURCE = readFileSync(path.join("src", "app", "sign-in", "SignInForm.tsx"), "utf8");
+// Since L1 the words are in the message file and the form names them by key,
+// so the order checks below look for the keys.
+const EN = JSON.parse(readFileSync(path.join("src", "i18n", "messages", "en.json"), "utf8"));
+const HINT = 't("signIn.googleRefusesHint")';
 
 describe("/sign-in tells people what to do when Google refuses", () => {
   it("carries the sentence, unbroken by formatting", () => {
-    // Collapsed because the JSX wraps it across lines and an apostrophe is
-    // escaped.
-    const flat = SOURCE.replace(/\s+/g, " ").replace(/&apos;/g, "'");
-    expect(flat).toContain(
+    expect(EN.signIn.googleRefusesHint).toBe(
       "Opened this from LinkedIn or another app? If Google won't let you in, use the email code below."
     );
+    expect(SOURCE).toContain(HINT);
   });
 
   it("sits inside the Google block, under the button", () => {
     const googleBlock = SOURCE.indexOf("googleEnabled ? (");
-    const button = SOURCE.indexOf("Continue with Google");
-    const line = SOURCE.indexOf("Opened this from LinkedIn");
+    const button = SOURCE.indexOf('t("signIn.continueGoogle")');
+    const line = SOURCE.indexOf(HINT);
     const blockEnd = SOURCE.indexOf(") : null}", googleBlock);
 
     expect(googleBlock).toBeGreaterThan(-1);
@@ -42,7 +45,7 @@ describe("/sign-in tells people what to do when Google refuses", () => {
     // N3 adds a narrower, UA-detected notice. This one is unconditional because
     // it is true whether or not that guess is right, and a person whose app we
     // failed to recognise is exactly the person who needs it.
-    const line = SOURCE.indexOf("Opened this from LinkedIn");
+    const line = SOURCE.indexOf(HINT);
     const surrounding = SOURCE.slice(Math.max(0, line - 400), line);
     expect(surrounding).not.toMatch(/userAgent|navigator|LinkedInApp|FBAN|Instagram/);
   });
@@ -58,8 +61,10 @@ describe("/sign-in tells people what to do when Google refuses", () => {
  * src/lib/in-app-browser.test.ts.
  */
 describe("/sign-in names an in-app browser when it can tell (N3)", () => {
-  it("renders the shared notice constant rather than a second copy of the words", () => {
-    expect(SOURCE).toContain("IN_APP_BROWSER_NOTICE");
+  it("renders the shared notice rather than a second copy of the words", () => {
+    // One copy, in the message file: IN_APP_BROWSER_NOTICE is read from it.
+    expect(SOURCE).toContain('t("signIn.inAppNotice")');
+    expect(EN.signIn.inAppNotice).toBe(IN_APP_BROWSER_NOTICE);
     // The string itself must not be retyped here — two copies drift.
     expect(SOURCE).not.toContain("You&apos;re in an in-app browser");
     expect(SOURCE).not.toContain("You're in an in-app browser");
@@ -82,7 +87,7 @@ describe("/sign-in names an in-app browser when it can tell (N3)", () => {
     // "You are in one" and "if you are in one" next to each other reads like the
     // page is unsure which.
     const guard = SOURCE.indexOf("inAppBrowser ?");
-    const fallback = SOURCE.indexOf("Opened this from LinkedIn", guard);
+    const fallback = SOURCE.indexOf(HINT, guard);
     expect(fallback).toBeGreaterThan(guard);
     // ...on the `else` side of the same ternary.
     expect(SOURCE.slice(guard, fallback)).toContain(") : (");

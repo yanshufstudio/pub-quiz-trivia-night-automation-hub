@@ -7,6 +7,7 @@ import { requirePackOwner } from "@/lib/pack-access";
 import { PACK_LIMITS } from "@/lib/pack-file";
 import { refuseIfLiveGameFor } from "@/lib/live-game-guard";
 import type { Prisma } from "@prisma/client";
+import { apiError } from "@/lib/api-error";
 
 const updateSchema = z.object({
   // Their length is checked below, against the stored question, not here.
@@ -38,12 +39,12 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const body = await req.json().catch(() => null);
   const parsed = updateSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid update" }, { status: 400 });
+    return NextResponse.json(apiError("invalidUpdate"), { status: 400 });
   }
 
   const existing = await db.question.findUnique({ where: { id } });
   if (!existing) {
-    return NextResponse.json({ error: "Question not found" }, { status: 404 });
+    return NextResponse.json(apiError("questionNotFound"), { status: 404 });
   }
   const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
@@ -55,12 +56,12 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const { text, answer } = parsed.data;
   if (text !== undefined && text !== existing.text && text.length > PACK_LIMITS.questionText) {
     return NextResponse.json(
-      { error: `Question text can be at most ${PACK_LIMITS.questionText} characters` },
+      apiError("questionTooLong", { count: String(PACK_LIMITS.questionText) }),
       { status: 400 }
     );
   }
   if (answer !== undefined && answer !== existing.answer && answer.length > PACK_LIMITS.answer) {
-    return NextResponse.json({ error: `An answer can be at most ${PACK_LIMITS.answer} characters` }, { status: 400 });
+    return NextResponse.json(apiError("answerTooLong", { count: String(PACK_LIMITS.answer) }), { status: 400 });
   }
 
   const { type, options: rawOptions, acceptableAnswers: rawAcceptableAnswers, ...rest } = parsed.data;
@@ -78,7 +79,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (effectiveType === QUESTION_TYPE.MULTIPLE_CHOICE) {
     if (!isValidOptionSet(effectiveOptions, effectiveAnswer)) {
       return NextResponse.json(
-        { error: "Multiple-choice questions need at least 2 distinct options, including the answer" },
+        apiError("choicesNeeded"),
         { status: 400 }
       );
     }
@@ -104,7 +105,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
   const question = await db.question.update({ where: { id }, data }).catch(() => null);
   if (!question) {
-    return NextResponse.json({ error: "Question not found" }, { status: 404 });
+    return NextResponse.json(apiError("questionNotFound"), { status: 404 });
   }
   return NextResponse.json({
     question: {
@@ -121,7 +122,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   const { id } = await params;
   const existing = await db.question.findUnique({ where: { id } });
   if (!existing) {
-    return NextResponse.json({ error: "Question not found" }, { status: 404 });
+    return NextResponse.json(apiError("questionNotFound"), { status: 404 });
   }
   const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
@@ -133,7 +134,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
   const siblingCount = await db.question.count({ where: { roundId: existing.roundId } });
   if (siblingCount <= 1) {
-    return NextResponse.json({ error: "A round needs at least one question" }, { status: 400 });
+    return NextResponse.json(apiError("roundNeedsQuestion"), { status: 400 });
   }
 
   // Question.index must stay a contiguous 0..n-1 run within its round (the

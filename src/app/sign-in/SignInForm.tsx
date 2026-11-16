@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { emailOtp, signIn } from "@/lib/auth-client";
 import { googleSignInError, signInCodeError, signInSendError } from "@/lib/sign-in-errors";
-import { IN_APP_BROWSER_NOTICE, isInAppBrowser } from "@/lib/in-app-browser";
+import { isInAppBrowser } from "@/lib/in-app-browser";
+import { useT } from "@/i18n/react";
 
 /**
  * Two ways in, no passwords: Google, or a code mailed to the address.
@@ -26,6 +27,7 @@ export function SignInForm({
   googleEnabled: boolean;
   initialError: string | null;
 }) {
+  const t = useT();
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState<"google" | "email" | "code" | null>(null);
@@ -51,7 +53,7 @@ export function SignInForm({
     });
     if (err) {
       setBusy(null);
-      setError(googleSignInError(err));
+      setError(googleSignInError(err, t));
     }
     // On success the browser is already navigating away, so `busy` stays set
     // deliberately: re-enabling the button would only invite a second click
@@ -72,7 +74,7 @@ export function SignInForm({
       // Deliberately the same message whatever went wrong, with one
       // exception: being throttled is named, because a 429 cannot leak
       // whether an address has an account. See src/lib/sign-in-errors.ts.
-      setError(signInSendError(err));
+      setError(signInSendError(err, t));
       return;
     }
     setCode("");
@@ -90,7 +92,7 @@ export function SignInForm({
 
     if (err) {
       setBusy(null);
-      setError(signInCodeError(err));
+      setError(signInCodeError(err, {}, t));
       return;
     }
 
@@ -115,12 +117,11 @@ export function SignInForm({
   if (sentTo) {
     return (
       <div className="paper-sheet mt-8 rounded-xl border border-line px-6 py-8">
-        <h2 className="font-serif text-xl font-semibold">Check your inbox</h2>
+        <h2 className="font-serif text-xl font-semibold">{t("signIn.checkInbox")}</h2>
         <p className="mt-3 text-muted">
-          A six-digit code is on its way to{" "}
-          <span className="font-medium text-foreground">{sentTo}</span>. Type it in below — or open
-          the link in the same email and press the button there. Either works once, and both expire
-          in 15 minutes.
+          {t.rich("signIn.codeOnItsWay", {
+            email: <span className="font-medium text-foreground">{sentTo}</span>,
+          })}
         </p>
 
         {error ? (
@@ -134,7 +135,7 @@ export function SignInForm({
 
         <form onSubmit={onCode} className="mt-5 space-y-3">
           <label htmlFor="sign-in-code" className="block text-sm font-semibold">
-            Sign-in code
+            {t("signIn.codeLabel")}
           </label>
           <input
             id="sign-in-code"
@@ -150,7 +151,7 @@ export function SignInForm({
             maxLength={6}
             value={code}
             onChange={(event) => setCode(event.target.value.replace(/\D/g, "").slice(0, 6))}
-            placeholder="123456"
+            placeholder={t("signIn.codePlaceholder")}
             className="h-11 w-full rounded-xl border border-line bg-white px-4 font-mono text-lg tracking-[0.4em] outline-none focus:border-amber"
           />
           <button
@@ -158,12 +159,12 @@ export function SignInForm({
             disabled={busy !== null || code.length < 6}
             className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-amber px-4 text-sm font-semibold text-white transition-colors hover:bg-amber-hover disabled:opacity-60"
           >
-            {busy === "code" ? "Signing in…" : "Sign in"}
+            {busy === "code" ? t("signIn.signingIn") : t("signIn.signIn")}
           </button>
         </form>
 
         <p className="mt-4 text-sm text-muted">
-          Nothing after a minute or two? Check spam, then{" "}
+          {t.rich("signIn.nothingYet", { retry: (
           <button
             type="button"
             onClick={() => {
@@ -173,9 +174,9 @@ export function SignInForm({
             }}
             className="font-semibold text-amber hover:underline"
           >
-            try a different address
+            {t("signIn.tryDifferent")}
           </button>
-          .
+          ) })}
         </p>
       </div>
     );
@@ -198,7 +199,7 @@ export function SignInForm({
             className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-line bg-white px-4 text-sm font-semibold transition-colors hover:border-amber/50 disabled:opacity-60"
           >
             <GoogleMark className="h-4 w-4" />
-            {busy === "google" ? "Opening Google…" : "Continue with Google"}
+            {busy === "google" ? t("signIn.openingGoogle") : t("signIn.continueGoogle")}
           </button>
 
           {/* Said to everyone, without sniffing anything.
@@ -214,17 +215,14 @@ export function SignInForm({
                replaces the unconditional line rather than stacking with it —
                "you are in one" and "if you are in one" next to each other reads
                like the page is unsure. */
-            <p className="text-sm font-medium text-foreground">{IN_APP_BROWSER_NOTICE}</p>
+            <p className="text-sm font-medium text-foreground">{t("signIn.inAppNotice")}</p>
           ) : (
-            <p className="text-sm text-muted">
-              Opened this from LinkedIn or another app? If Google won&apos;t let you in, use the email
-              code below.
-            </p>
+            <p className="text-sm text-muted">{t("signIn.googleRefusesHint")}</p>
           )}
 
           <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-muted">
             <span className="h-px flex-1 bg-line" />
-            or
+            {t("signIn.or")}
             <span className="h-px flex-1 bg-line" />
           </div>
         </>
@@ -232,7 +230,7 @@ export function SignInForm({
 
       <form onSubmit={onEmail} className="space-y-3">
         <label htmlFor="sign-in-email" className="block text-sm font-semibold">
-          Email address
+          {t("signIn.emailLabel")}
         </label>
         <input
           id="sign-in-email"
@@ -241,7 +239,7 @@ export function SignInForm({
           autoComplete="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          placeholder="you@example.com"
+          placeholder={t("signIn.emailPlaceholder")}
           className="h-11 w-full rounded-xl border border-line bg-white px-4 text-base outline-none focus:border-amber"
         />
         <button
@@ -249,11 +247,9 @@ export function SignInForm({
           disabled={busy !== null}
           className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-amber px-4 text-sm font-semibold text-white transition-colors hover:bg-amber-hover disabled:opacity-60"
         >
-          {busy === "email" ? "Sending…" : "Email me a sign-in code"}
+          {busy === "email" ? t("signIn.sending") : t("signIn.emailMe")}
         </button>
-        <p className="text-sm text-muted">
-          No password to remember, and none for us to lose.
-        </p>
+        <p className="text-sm text-muted">{t("signIn.noPassword")}</p>
       </form>
     </div>
   );

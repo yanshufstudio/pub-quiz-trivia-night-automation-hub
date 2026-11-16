@@ -5,7 +5,8 @@ import { visiblePacksWhere } from "@/lib/pack-access";
 import { liveSessionWhere } from "@/lib/live-game-guard";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
-import { countOf } from "@/lib/plural";
+import { getT } from "@/i18n";
+import { pageLanguage } from "@/i18n/page-language";
 import { ImportPackButton } from "./ImportPackButton";
 
 export const dynamic = "force-dynamic";
@@ -36,6 +37,7 @@ export default async function PacksPage() {
     take: 20,
     select: { code: true, status: true, createdAt: true, pack: { select: { title: true } } },
   });
+  const t = getT(await pageLanguage());
 
   return (
     <>
@@ -43,8 +45,8 @@ export default async function PacksPage() {
       <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-serif text-3xl font-semibold tracking-tight">Quiz packs</h1>
-            <p className="mt-2 text-muted">Edit questions, preview print sheets, then start a live session.</p>
+            <h1 className="font-serif text-3xl font-semibold tracking-tight">{t("packs.heading")}</h1>
+            <p className="mt-2 text-muted">{t("packs.intro")}</p>
           </div>
           <div className="flex flex-wrap items-start gap-2">
             <ImportPackButton />
@@ -52,18 +54,15 @@ export default async function PacksPage() {
               href="/create"
               className="inline-flex h-11 items-center rounded-xl bg-amber px-4 text-sm font-semibold text-white hover:bg-amber-hover"
             >
-              New pack
+              {t("packs.newPack")}
             </Link>
           </div>
         </div>
 
         {liveGames.length > 0 ? (
           <section className="mt-8 rounded-xl border border-amber/40 bg-amber/5 px-5 py-4">
-            <h2 className="font-serif text-lg font-semibold">Your live games</h2>
-            <p className="mt-1 text-sm text-muted">
-              Open the host desk on this device — you don&apos;t need the host key for a game you
-              started. A game still running here also stops its pack being restructured.
-            </p>
+            <h2 className="font-serif text-lg font-semibold">{t("packs.liveGames")}</h2>
+            <p className="mt-1 text-sm text-muted">{t("packs.liveGamesNote")}</p>
             <ul className="mt-3 flex flex-col gap-2">
               {liveGames.map((game) => (
                 <li key={game.code}>
@@ -74,7 +73,7 @@ export default async function PacksPage() {
                     <span className="font-mono text-base tracking-[0.2em]">{game.code}</span>
                     <span className="font-medium text-muted">{game.pack.title}</span>
                     <span className="text-xs font-medium uppercase tracking-wider text-muted">
-                      {game.status === "LOBBY" ? "In the lobby" : "In progress"}
+                      {game.status === "LOBBY" ? t("packs.inLobby") : t("packs.inProgress")}
                     </span>
                     <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -86,10 +85,10 @@ export default async function PacksPage() {
 
         {packs.length === 0 ? (
           <div className="paper-sheet mt-10 rounded-xl border border-line px-6 py-12 text-center">
-            <p className="font-medium">No packs yet.</p>
-            <p className="mt-2 text-sm text-muted">Generate one from a brief, or seed the demo pack.</p>
+            <p className="font-medium">{t("packs.none")}</p>
+            <p className="mt-2 text-sm text-muted">{t("packs.noneHint")}</p>
             <Link href="/create" className="group mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-amber">
-              Open the wizard
+              {t("packs.openWizard")}
               <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -105,9 +104,11 @@ export default async function PacksPage() {
                   >
                     <h2 className="font-serif text-lg font-semibold">{pack.title}</h2>
                     <p className="mt-2 text-sm text-muted">
-                      {countOf(pack.rounds.length, "round")} · {countOf(questionCount, "question")}
+                      {t("common.rounds", { count: pack.rounds.length })} · {t("common.questions", { count: questionCount })}
                     </p>
                     <p className="mt-1 text-xs text-muted">
+                      {/* Left in the server's own locale, as it was: through the
+                          translator it would read 01/11/2026 instead of 11/1/2026. */}
                       {new Date(pack.createdAt).toLocaleDateString()}
                     </p>
                   </Link>

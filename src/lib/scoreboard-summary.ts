@@ -1,9 +1,9 @@
+import type { Translator } from "@/i18n";
 import type { ScoreboardRow } from "@/lib/api-types";
 
-/** Shown instead of a round-mode scoreboard until a round counts, when every
- *  team would be tied 1st on 0. The final scores are always a ranking. */
-export const NO_SCORES_YET = "Scores appear after the first round is revealed.";
-
+/** Whether to show common.noScoresYet instead of a round-mode scoreboard: until
+ *  a round counts, every team would be tied 1st on 0. The final scores are
+ *  always a ranking. */
 export function noScoresYet(state: { countedRounds: number; status: string }): boolean {
   return state.countedRounds === 0 && state.status !== "ENDED";
 }
@@ -30,10 +30,10 @@ export function rankOf(scoreboard: ScoreboardRow[], teamId: string): number | nu
 
 /** "Quiz Pigs" / "Quiz Pigs & The Underdogs" / "A, B & C" — never an
  *  Oxford-comma-less run-on, never a bare list. */
-export function winningNames(winners: ScoreboardRow[]): string {
+export function winningNames(t: Translator, winners: ScoreboardRow[]): string {
   const names = winners.map((row) => row.name);
-  if (names.length === 0) return "No teams played";
+  if (names.length === 0) return t("common.noTeamsPlayed");
   if (names.length === 1) return names[0];
-  if (names.length === 2) return `${names[0]} & ${names[1]}`;
-  return `${names.slice(0, -1).join(", ")} & ${names[names.length - 1]}`;
+  if (names.length === 2) return t("common.twoNames", { first: names[0], second: names[1] });
+  return t("common.manyNames", { rest: names.slice(0, -1).join(t("common.nameSeparator")), last: names[names.length - 1] });
 }

@@ -40,6 +40,8 @@ export type Pack = {
   prompt: string;
   createdAt: string;
   rounds: Round[];
+  /** The pack's language (L1): a game run on it speaks this language. */
+  language: string;
   /** ACC2: "not_checked" is the only value the editor acts on. */
   reviewStatus?: string | null;
 };
@@ -73,6 +75,8 @@ export type CountdownInfo = { startedAt: string; durationSeconds: number } | nul
 type RoundBase = {
   mode: "ROUND";
   code: string;
+  /** The game's language (L1): every screen of the game speaks it. */
+  language: string;
   status: RoundStatus;
   packTitle: string;
   roundNumber: number;
@@ -194,6 +198,7 @@ export type HostTeam = {
 export type HostSessionState = {
   mode: "QUESTION";
   code: string;
+  language: string;
   status: SessionStatus;
   packTitle: string;
   roundNumber: number;
@@ -210,6 +215,7 @@ export type HostSessionState = {
 export type TeamSessionState = {
   mode: "QUESTION";
   code: string;
+  language: string;
   status: SessionStatus;
   packTitle: string;
   roundNumber: number;

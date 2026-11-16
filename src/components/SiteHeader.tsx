@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { AccountNav } from "@/components/AccountNav";
+import { NavLinks } from "@/components/NavLinks";
 import { Wordmark } from "@/components/Wordmark";
 
 /**
@@ -12,17 +12,19 @@ import { Wordmark } from "@/components/Wordmark";
  * Pricing was added here and the homepage — the page Paddle's reviewer lands
  * on first — silently kept three links. Importing beats remembering.
  */
+// `label` is the homepage's (marketing, English for now); `key` is the
+// message the app's own header shows (L1).
 export const NAV_LINKS = [
-  { href: "/create", label: "Create" },
-  { href: "/packs", label: "Packs" },
-  { href: "/play", label: "Join" },
+  { href: "/create", label: "Create", key: "nav.create" },
+  { href: "/packs", label: "Packs", key: "nav.packs" },
+  { href: "/play", label: "Join", key: "nav.join" },
   // Fourth item, added 2026-09-18 with the pricing page. Paddle's reviewer
   // should not have to scroll to the footer to find what the thing costs.
   // The row already wraps to its own line on a narrow phone (see the comment
   // on the flex container below), and e2e/narrow-viewport.spec.ts checks a
   // four-item nav at 320-430px rather than trusting that.
-  { href: "/pricing", label: "Pricing" },
-];
+  { href: "/pricing", label: "Pricing", key: "nav.pricing" },
+] as const;
 
 /**
  * The account corner sits AFTER the four links, in the same nav row, rather
@@ -84,15 +86,7 @@ export function SiteHeader() {
             pending placeholder to the same 48px, so the row does not move
             when the session lands. */}
         <nav className="-my-1.5 flex flex-wrap items-center gap-x-1 gap-y-0 max-md:w-full max-md:justify-center">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-md px-3 text-sm font-semibold text-stage-muted transition-colors hover:text-gold"
-            >
-              {link.label}
-            </Link>
-          ))}
+          <NavLinks links={NAV_LINKS} />
           <AccountNav />
         </nav>
       </div>

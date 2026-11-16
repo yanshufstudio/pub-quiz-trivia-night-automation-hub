@@ -86,6 +86,7 @@ describe("unauthorized", () => {
   it("is a 401 carrying a marker the client can branch on", async () => {
     const res = unauthorized();
     expect(res.status).toBe(401);
-    expect(await res.json()).toEqual({ error: UNAUTHORIZED_MESSAGE, signInRequired: true });
+    // `code` names the message in the message files (L1).
+    expect(await res.json()).toEqual({ error: UNAUTHORIZED_MESSAGE, code: "signInRequired", signInRequired: true });
   });
 });

@@ -4,6 +4,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { cachedDisplay, rememberDisplay } from "@/lib/display-cache";
 import { roundDisplayView } from "@/lib/round-views";
 import { SESSION_MODE, packWithRoundsArgs, type PackWithRounds } from "@/lib/session-state";
+import { apiError } from "@/lib/api-error";
 
 /**
  * Ten screens polling every three seconds for ten minutes. Keyed on the IP, and
@@ -29,7 +30,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   });
   if (!limited.allowed) {
     return NextResponse.json(
-      { error: "Too many requests" },
+      apiError("tooManyRequests"),
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
@@ -45,14 +46,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   });
   // A one-question-at-a-time game has no TV view; its host screen is the TV.
   if (!session || session.mode !== SESSION_MODE.ROUND) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
   const pack = (await db.quizPack.findUnique({
     where: { id: session.packId },
     ...packWithRoundsArgs,
   })) as PackWithRounds | null;
   if (!pack) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
 
   const body = roundDisplayView(session, pack, now);

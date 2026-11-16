@@ -35,6 +35,9 @@ model QuizPack {
   /// For support and logs, never shown to the host: which questions the
   /// review fixed or dropped and why, or why the review did not run (JSON).
   reviewNotes   String?
+  /// The pack's language (L1), a code from src/i18n/messages. A game started
+  /// on the pack copies it, and every screen of that game speaks it.
+  language      String    @default("en")
 
   @@index([creatorId])
 }
@@ -151,6 +154,9 @@ model Session {
   // agrees. Reaching zero changes nothing — it only says "Time's up!".
   countdownStartedAt      DateTime?
   countdownSeconds        Int?
+  // The game's language (L1), copied from the pack when the game starts, so
+  // a pack changed mid-night does not switch the room's language.
+  language                String    @default("en")
   roundScores             RoundScore[]
 
   @@index([creatorId])

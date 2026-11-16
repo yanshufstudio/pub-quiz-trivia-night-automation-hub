@@ -1,3 +1,6 @@
+"use client";
+
+import { useT } from "@/i18n/react";
 import type { ScoreboardRow } from "@/lib/api-types";
 import { rankOf } from "@/lib/scoreboard-summary";
 
@@ -10,10 +13,11 @@ export function Scoreboard({
   highlightName?: string;
   dark?: boolean;
 }) {
+  const t = useT();
   if (rows.length === 0) {
     return (
       <p className={dark ? "text-sm text-stage-muted" : "text-sm text-muted"}>
-        No teams on the board yet.
+        {t("common.noTeamsOnBoard")}
       </p>
     );
   }

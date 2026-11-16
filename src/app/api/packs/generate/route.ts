@@ -15,7 +15,6 @@ import {
   MissingApiKeyError,
   isAnthropicCreditExhausted,
   CREDIT_EXHAUSTED_LOG,
-  GENERATION_PAUSED_MESSAGE,
 } from "@/lib/anthropic";
 import {
   canGenerate,
@@ -25,24 +24,19 @@ import {
   FREE_LIMIT,
 } from "@/lib/creator";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
-import {
-  reserveDailyGeneration,
-  CEILING_UNAVAILABLE_MESSAGE,
-} from "@/lib/daily-ceiling";
+import { reserveDailyGeneration } from "@/lib/daily-ceiling";
 import {
   reserveFreeIpDaily,
-  FREE_IP_LIMIT_MESSAGE,
   reserveFreeFailedGeneration,
-  FREE_FAILED_LIMIT_MESSAGE,
   reserveMailboxGeneration,
-  MAILBOX_LIMIT_MESSAGE,
 } from "@/lib/free-allowance";
 import {
   reserveProDailyGeneration,
-  proDailyLimitMessage,
+  proDailyLimitError,
   countProGenerationInPeriod,
   reserveProFairUse,
 } from "@/lib/pro-limits";
+import { apiError } from "@/lib/api-error";
 
 // Default wizard brief (four rounds) exceeds the platform's default function
 // timeout; see docs/portfolio-readiness.md "Reopened 2026-09-08" for the
@@ -137,14 +131,15 @@ function failureBody(err: unknown): {
   // Ahead of everything else: an exhausted account is a 400 from the SDK, so the
   // rate-limit branch below would not catch it and the generic 502 message would.
   if (isAnthropicCreditExhausted(err)) {
-    return { error: GENERATION_PAUSED_MESSAGE, generationPaused: true };
+    return { ...apiError("generationPaused"), generationPaused: true };
   }
   // The model's own explanation, verbatim — it is the only thing that tells
   // the user what to change. `declined` is what stops /create offering a
   // retry that cannot succeed.
   if (err instanceof ModelDeclinedError) {
     return {
-      error: err.reason || "The question generator declined this brief. Try describing a different quiz.",
+      // The model's own reason is in its words, so it carries no code.
+      ...(err.reason ? { error: err.reason } : apiError("declined")),
       declined: true,
     };
   }
@@ -154,16 +149,12 @@ function failureBody(err: unknown): {
     return { error: err.hostMessage };
   }
   if (err instanceof UnusableModelOutputError && err.truncated) {
-    return {
-      error:
-        "That brief asked for a bigger pack than can be generated in one go. " +
-        "Try fewer rounds, or fewer questions per round, and generate again.",
-    };
+    return apiError("packTooBigToGenerate");
   }
   if (err instanceof Anthropic.APIError && (err.status === 429 || (err.status ?? 0) >= 500)) {
-    return { error: "The AI service we use is having problems. Please try again in a few minutes." };
+    return apiError("aiServiceDown");
   }
-  return { error: "Couldn't generate a quiz pack right now. Please try again." };
+  return apiError("generationFailed");
 }
 
 export async function POST(req: NextRequest) {
@@ -173,7 +164,7 @@ export async function POST(req: NextRequest) {
   const limited = await rateLimit(req, "packs:generate", { limit: 5, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
-      { error: "Too many quiz packs generated recently. Please wait a bit and try again." },
+      apiError("tooManyGenerations"),
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
@@ -190,7 +181,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const parsed = wizardRequestSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid request", details: parsed.error.flatten() }, { status: 400 });
+    return NextResponse.json({ ...apiError("invalidRequest"), details: parsed.error.flatten() }, { status: 400 });
   }
 
   // Identity, and the row that carries the allowance. A signed-out caller
@@ -218,7 +209,7 @@ export async function POST(req: NextRequest) {
   if (!canGenerate(existing, host.user.email)) {
     return NextResponse.json(
       {
-        error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
+        ...apiError("freePacksUsed"),
         packsGeneratedInPeriod: withRolledPeriod(existing).packsGeneratedInPeriod,
         limit: FREE_LIMIT,
       },
@@ -242,7 +233,7 @@ export async function POST(req: NextRequest) {
   const failed = plan === "PRO" ? null : await reserveFreeFailedGeneration(existing.id);
   if (failed && !failed.allowed) {
     return NextResponse.json(
-      { error: FREE_FAILED_LIMIT_MESSAGE, failedGenerationLimitReached: true, limit: failed.limit },
+      { ...apiError("freeFailedLimit"), failedGenerationLimitReached: true, limit: failed.limit },
       { status: 429, headers: { "Retry-After": String(failed.retryAfterSeconds) } }
     );
   }
@@ -252,7 +243,7 @@ export async function POST(req: NextRequest) {
   if (freeIp && !freeIp.allowed) {
     await failed?.release();
     return NextResponse.json(
-      { error: FREE_IP_LIMIT_MESSAGE, freeIpLimitReached: true, limit: freeIp.limit },
+      { ...apiError("freeIpLimit"), freeIpLimitReached: true, limit: freeIp.limit },
       { status: 429, headers: { "Retry-After": String(freeIp.retryAfterSeconds) } }
     );
   }
@@ -271,7 +262,7 @@ export async function POST(req: NextRequest) {
     // not read like it: no limit, no allowance, no mention of the plan, and a
     // Retry-After measured in seconds rather than until midnight.
     return NextResponse.json(
-      { error: CEILING_UNAVAILABLE_MESSAGE, generationPaused: true },
+      { ...apiError("ceilingUnavailable"), generationPaused: true },
       { status: 503, headers: { "Retry-After": String(daily.retryAfterSeconds) } }
     );
   }
@@ -314,7 +305,7 @@ export async function POST(req: NextRequest) {
     await daily.release();
     if (proDaily.unavailable) {
       return NextResponse.json(
-        { error: CEILING_UNAVAILABLE_MESSAGE, generationPaused: true },
+        { ...apiError("ceilingUnavailable"), generationPaused: true },
         { status: 503, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
       );
     }
@@ -324,7 +315,7 @@ export async function POST(req: NextRequest) {
       // than 429 and the short Retry-After — a 429 with eleven hours on it would
       // contradict a message that says "try again later" and blames us.
       return NextResponse.json(
-        { error: proDailyLimitMessage(proDaily.limit), generationPaused: true },
+        { ...proDailyLimitError(proDaily.limit), generationPaused: true },
         { status: 503, headers: { "Retry-After": String(proDaily.retryAfterSeconds) } }
       );
     }
@@ -332,7 +323,7 @@ export async function POST(req: NextRequest) {
     // subscription does not allow this", which is the opposite of true.
     return NextResponse.json(
       {
-        error: proDailyLimitMessage(proDaily.limit),
+        ...proDailyLimitError(proDaily.limit),
         proDailyLimitReached: true,
         limit: proDaily.limit,
       },
@@ -347,7 +338,7 @@ export async function POST(req: NextRequest) {
     await proDaily?.release();
     await daily.release();
     return NextResponse.json(
-      { error: fairUse.message, proFairUseLimitReached: true },
+      { ...fairUse.refusal, proFairUseLimitReached: true },
       { status: 429, headers: { "Retry-After": String(fairUse.retryAfterSeconds) } }
     );
   }
@@ -362,7 +353,7 @@ export async function POST(req: NextRequest) {
     await failed?.release();
     const res = NextResponse.json(
       {
-        error: "You've used your free packs for this period. Upgrade to Pro to lift the limit.",
+        ...apiError("freePacksUsed"),
         packsGeneratedInPeriod: reservation.used,
         limit: FREE_LIMIT,
       },
@@ -399,7 +390,7 @@ export async function POST(req: NextRequest) {
     await failed?.release();
     return NextResponse.json(
       {
-        error: MAILBOX_LIMIT_MESSAGE,
+        ...apiError("freePacksUsed"),
         packsGeneratedInPeriod: mailbox.used,
         limit: mailbox.limit,
       },
@@ -469,9 +460,7 @@ export async function POST(req: NextRequest) {
       // would be actively misleading here since retrying can't help.
       const res = NextResponse.json(
         {
-          error:
-            "AI generation isn't configured on this server yet — set ANTHROPIC_API_KEY " +
-            "in .env and restart, or use the demo pack (POST /api/packs/seed) instead.",
+          ...apiError("notConfigured"),
           // Three different conditions answer 503 — this one, the daily
           // ceiling, and an upstream model outage — so the client cannot tell
           // them apart from the status. Only this one means "generation is
@@ -545,7 +534,7 @@ export async function POST(req: NextRequest) {
       console.error("Failed to release a generation reservation:", releaseErr);
     }
     const res = NextResponse.json(
-      { error: "The quiz pack was generated but could not be saved. Please try again." },
+      apiError("generatedNotSaved"),
       { status: 500 }
     );
     return res;

@@ -19,6 +19,7 @@ import { isValidHostToken } from "@/lib/host-auth";
 import { rescoreCurrentQuestion, rescoreRound } from "@/lib/rescore";
 import { forgetDisplay } from "@/lib/display-cache";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { apiError } from "@/lib/api-error";
 
 const QUESTION_ACTIONS = ["start", "reveal", "next", "end"] as const;
 
@@ -78,15 +79,15 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const body = await req.json().catch(() => null);
   const parsed = advanceSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+    return NextResponse.json(apiError("invalidAction"), { status: 400 });
   }
 
   const session = await db.session.findUnique({ where: { code: code.toUpperCase() } });
   if (!session) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
   if (!isValidHostToken(session.hostToken, parsed.data.hostToken)) {
-    return NextResponse.json({ error: "Invalid host key" }, { status: 401 });
+    return NextResponse.json(apiError("badHostKey"), { status: 401 });
   }
 
   const pack = (await db.quizPack.findUnique({
@@ -94,7 +95,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     ...packWithRoundsArgs,
   })) as PackWithRounds | null;
   if (!pack) {
-    return NextResponse.json({ error: "Pack not found" }, { status: 404 });
+    return NextResponse.json(apiError("packNotFound"), { status: 404 });
   }
 
   const { action } = parsed.data;
@@ -104,7 +105,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   }
 
   if (!(QUESTION_ACTIONS as readonly string[]).includes(action)) {
-    return NextResponse.json({ error: "This game runs one question at a time" }, { status: 409 });
+    return NextResponse.json(apiError("questionModeGame"), { status: 409 });
   }
 
   if (action === "end") {
@@ -135,7 +136,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
 
   if (action === "start") {
     if (session.status !== SESSION_STATUS.LOBBY) {
-      return NextResponse.json({ error: "Quiz already started" }, { status: 409 });
+      return NextResponse.json(apiError("alreadyStarted"), { status: 409 });
     }
     const { count } = await db.session.updateMany({
       where: { id: session.id, status: SESSION_STATUS.LOBBY },
@@ -147,14 +148,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
       },
     });
     if (count === 0) {
-      return NextResponse.json({ error: "Quiz already started" }, { status: 409 });
+      return NextResponse.json(apiError("alreadyStarted"), { status: 409 });
     }
     return NextResponse.json({ session: await db.session.findUniqueOrThrow({ where: { id: session.id }, select: publicSessionSelect }) });
   }
 
   if (action === "reveal") {
     if (session.status !== SESSION_STATUS.QUESTION_ACTIVE) {
-      return NextResponse.json({ error: "No active question to reveal" }, { status: 409 });
+      return NextResponse.json(apiError("nothingToReveal"), { status: 409 });
     }
     const { count } = await db.session.updateMany({
       where: {
@@ -166,7 +167,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
       data: { status: SESSION_STATUS.REVEAL },
     });
     if (count === 0) {
-      return NextResponse.json({ error: "No active question to reveal" }, { status: 409 });
+      return NextResponse.json(apiError("nothingToReveal"), { status: 409 });
     }
     // The answer key may have been edited while the question was open — that is
     // allowed, it moves no index — so the marks are recomputed here, at the moment
@@ -177,7 +178,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
 
   // action === "next"
   if (session.status !== SESSION_STATUS.REVEAL) {
-    return NextResponse.json({ error: "Reveal the current answer before advancing" }, { status: 409 });
+    return NextResponse.json(apiError("revealFirst"), { status: 409 });
   }
   const next = computeNextPosition(pack, session.currentRoundIndex, session.currentQuestionIndex);
   const { count } = await db.session.updateMany({
@@ -197,7 +198,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
       : { status: SESSION_STATUS.ENDED },
   });
   if (count === 0) {
-    return NextResponse.json({ error: "Reveal the current answer before advancing" }, { status: 409 });
+    return NextResponse.json(apiError("revealFirst"), { status: 409 });
   }
   return NextResponse.json({ session: await db.session.findUniqueOrThrow({ where: { id: session.id }, select: publicSessionSelect }) });
 }
@@ -225,7 +226,7 @@ async function advanceRound(
   }
 ) {
   if (!(ROUND_ACTIONS as readonly string[]).includes(body.action)) {
-    return NextResponse.json({ error: "This game runs round by round" }, { status: 409 });
+    return NextResponse.json(apiError("roundModeGame"), { status: 409 });
   }
   // Only the presses that move the game forward; a flag set twice, or "end"
   // pressed on a screen a poll behind, is harmless.
@@ -237,7 +238,7 @@ async function advanceRound(
       body.at.askedCount !== session.askedCount ||
       body.at.revealedCount !== session.revealedCount)
   ) {
-    return NextResponse.json({ error: "The game moved on. Refresh and try again." }, { status: 409 });
+    return NextResponse.json(apiError("gameMovedOn"), { status: 409 });
   }
   const plan = planRoundAction(
     session,
@@ -253,7 +254,7 @@ async function advanceRound(
   // "end" is idempotent (see the QUESTION-mode branch): ending an ended game is
   // not a lost race. Every other action that matched nothing lost one.
   if (count === 0 && body.action !== "end") {
-    return NextResponse.json({ error: "The game moved on. Refresh and try again." }, { status: 409 });
+    return NextResponse.json(apiError("gameMovedOn"), { status: 409 });
   }
   forgetDisplay(session.code);
   if (body.action === "close_round") {

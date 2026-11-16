@@ -4,14 +4,19 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { hostSessionForPage, safeNextPath } from "@/lib/auth-guard";
 import { isGoogleSignInConfigured } from "@/lib/auth";
 import { SignInForm } from "./SignInForm";
+import { getT, type MessageKey, type Translator } from "@/i18n";
+import { pageLanguage } from "@/i18n/page-language";
 
-export const metadata: Metadata = {
-  title: "Sign in · TriviaFoundry",
-  description: "Sign in to write, print and run your quiz packs.",
-  // Nothing here is worth indexing, and a sign-in page in search results is
-  // only ever a phishing lookalike's opportunity.
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = getT(await pageLanguage());
+  return {
+    title: t("signIn.pageTitle"),
+    description: t("signIn.description"),
+    // Nothing here is worth indexing, and a sign-in page in search results is
+    // only ever a phishing lookalike's opportunity.
+    robots: { index: false, follow: false },
+  };
+}
 
 // Reads the session and the incoming `?next=`, so it cannot be prerendered.
 export const dynamic = "force-dynamic";
@@ -24,14 +29,11 @@ export const dynamic = "force-dynamic";
  * read rather than as a redirect — see src/lib/sign-in-errors.ts, which both
  * of those share.
  */
-const ERROR_MESSAGES: Record<string, string> = {
-  unable_to_create_user: "Something went wrong setting up your account. Please try again.",
-  state_mismatch: "That Google sign-in didn't complete. Please try again.",
-};
+const ERROR_CODES = new Set(["unable_to_create_user", "state_mismatch"]);
 
-function messageFor(code: string | undefined): string | null {
+function messageFor(t: Translator, code: string | undefined): string | null {
   if (!code) return null;
-  return ERROR_MESSAGES[code] ?? "That sign-in didn't complete. Try again below.";
+  return t(ERROR_CODES.has(code) ? (`signIn.googleErrors.${code}` as MessageKey) : "signIn.googleErrors.fallback");
 }
 
 export default async function SignInPage({
@@ -48,25 +50,20 @@ export default async function SignInPage({
   // Already signed in and no error to read: there is nothing to do here.
   const host = await hostSessionForPage();
   if (host && !error) redirect(target);
+  const t = getT(await pageLanguage());
 
   return (
     <>
       <SiteHeader />
       <main className="mx-auto w-full max-w-md flex-1 px-5 py-10">
-        <h1 className="font-serif text-3xl font-semibold tracking-tight">Sign in</h1>
-        <p className="mt-2 text-muted">
-          Your packs, your plan and your free allowance live on your account — not in this
-          browser. Signing in on any device brings all three with you.
-        </p>
+        <h1 className="font-serif text-3xl font-semibold tracking-tight">{t("signIn.heading")}</h1>
+        <p className="mt-2 text-muted">{t("signIn.intro")}</p>
         <SignInForm
           next={target}
           googleEnabled={isGoogleSignInConfigured()}
-          initialError={messageFor(error)}
+          initialError={messageFor(t, error)}
         />
-        <p className="mt-8 text-sm text-muted">
-          Running a quiz as a team? You don&apos;t need an account — just the join code from your
-          host.
-        </p>
+        <p className="mt-8 text-sm text-muted">{t("signIn.teamsNote")}</p>
       </main>
     </>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/i18n/react";
 
 const storageKey = (packId: string) => `triviafoundry:unchecked-banner-dismissed:${packId}`;
 
@@ -17,6 +18,7 @@ export function UncheckedPackBanner({ packId }: { packId: string }) {
   // Hidden until the stored choice is read, so a dismissed banner does not
   // flash on every visit.
   const [dismissed, setDismissed] = useState(true);
+  const t = useT();
 
   useEffect(() => {
     let stored = false;
@@ -47,13 +49,13 @@ export function UncheckedPackBanner({ packId }: { packId: string }) {
       role="status"
       className="mt-4 flex items-start justify-between gap-3 rounded-lg border border-amber/40 bg-amber/10 px-3 py-2 text-sm text-foreground"
     >
-      <p>This pack wasn&apos;t checked — give it an extra careful read before the night.</p>
+      <p>{t("editor.unchecked")}</p>
       <button
         type="button"
         onClick={dismiss}
         className="-my-1 inline-flex h-8 shrink-0 items-center rounded-md px-2 text-sm font-medium text-muted hover:text-foreground"
       >
-        Dismiss
+        {t("editor.dismiss")}
       </button>
     </div>
   );

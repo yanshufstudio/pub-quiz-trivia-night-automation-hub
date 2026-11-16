@@ -8,13 +8,14 @@ import { Scoreboard } from "@/components/Scoreboard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { TrophyIcon } from "@/components/icons";
 import { topScorers, winningNames } from "@/lib/scoreboard-summary";
-import { readHostToken, writeHostToken } from "@/lib/host-session";
+import { readDeskLanguage, readHostToken, writeDeskLanguage, writeHostToken } from "@/lib/host-session";
 import { CopyButton } from "@/components/CopyButton";
 import { buildHostUrl } from "@/lib/join-url";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import type { HostSessionState, HostTeam, RoundHostState, SessionQuestion } from "@/lib/api-types";
 import { RoundHostDesk } from "./RoundHostDesk";
-import { countOf } from "@/lib/plural";
+import { errorText, getT, isLanguage, LANGUAGES, toLanguage, type Language } from "@/i18n";
+import { LanguageProvider, useT } from "@/i18n/react";
 
 /** Same-origin `<img>` at the question's own media route — never a URL held
  * anywhere but our own DB-backed bytes (see src/lib/media.ts). Renders
@@ -40,6 +41,9 @@ function QuestionImage({
 }
 
 export function HostDashboard({ code }: { code: string }) {
+  const pageT = useT();
+  // The host's own pick for this desk (L1), else the game's language.
+  const [deskLanguage, setDeskLanguage] = useState<Language | null>(null);
   const [hostToken, setHostToken] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [pastedToken, setPastedToken] = useState("");
@@ -59,6 +63,15 @@ export function HostDashboard({ code }: { code: string }) {
   // Read by the poll timer, which must not restart every time the state changes.
   const endedRef = useRef(false);
   const keepPlayingRef = useRef<HTMLButtonElement>(null);
+  const t = getT(deskLanguage ?? (state ? toLanguage(state.language) : pageT.lang));
+  const tRef = useRef(t);
+  useEffect(() => {
+    tRef.current = t;
+  }, [t]);
+  const chooseDeskLanguage = (lang: Language) => {
+    setDeskLanguage(lang);
+    writeDeskLanguage(code, lang);
+  };
 
   useEffect(() => {
     // localStorage isn't available during SSR, so the real value can only be
@@ -66,9 +79,11 @@ export function HostDashboard({ code }: { code: string }) {
     // would make the client's first render diverge from the server-rendered
     // HTML (a hydration mismatch). Deferring to an effect, gated by
     // `hydrated`, keeps the first paint identical on server and client.
+    const picked = readDeskLanguage(code);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (isLanguage(picked)) setDeskLanguage(picked);
     const stored = readHostToken(code);
     if (stored) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHostToken(stored);
       setHydrated(true);
       return;
@@ -107,18 +122,18 @@ export function HostDashboard({ code }: { code: string }) {
       const data = await res.json();
       if (!res.ok) {
         if (res.status === 401) {
-          setError("This browser's host key was rejected for this session.");
+          setError(tRef.current("desk.keyRejected"));
           setHostToken(null);
           return;
         }
-        setError(data.error ?? "Could not load session");
+        setError(errorText(tRef.current, data, "common.couldNotLoadSession"));
         return;
       }
       setError(null);
       setState(data);
       endedRef.current = data.status === "ENDED";
     } catch {
-      setError("Lost connection to the session. Retrying…");
+      setError(tRef.current("desk.lostConnection"));
     }
   }, [code, hostToken]);
 
@@ -126,7 +141,7 @@ export function HostDashboard({ code }: { code: string }) {
     if (!hostToken) return;
     // Standard fetch-on-mount-and-interval polling: refresh() sets state
     // asynchronously after its own await, not synchronously in this body.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     void refresh();
     // No ticks for a game that has ended or a tab nobody is looking at. The
     // desk's own actions still call refresh() themselves.
@@ -155,10 +170,10 @@ export function HostDashboard({ code }: { code: string }) {
         body: JSON.stringify({ action, hostToken }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not advance");
+      if (!res.ok) throw new Error(errorText(t, data, "desk.couldNotAdvance"));
       await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not advance");
+      setError(err instanceof Error ? err.message : t("desk.couldNotAdvance"));
     } finally {
       setBusy(false);
     }
@@ -215,27 +230,29 @@ export function HostDashboard({ code }: { code: string }) {
     if (confirmingEnd) keepPlayingRef.current?.focus();
   }, [confirmingEnd]);
 
+  const desk = (node: React.ReactNode) => (
+    <LanguageProvider lang={t.lang} document>
+      {node}
+    </LanguageProvider>
+  );
+
   if (!hydrated) {
     return <div className="stage-surface min-h-dvh bg-stage" />;
   }
 
   if (!hostToken) {
-    return (
+    return desk(
       <div className="flex stage-surface min-h-dvh items-center justify-center bg-stage px-5 text-stage-fg">
         <div className="w-full max-w-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Host desk</p>
-          <h1 className="mt-2 font-serif text-2xl font-semibold">Host key needed</h1>
-          <p className="mt-2 text-stage-muted">
-            This browser doesn&apos;t have host access for session {code}. If you started this
-            session here, try reopening it from the pack editor. Otherwise paste the host key
-            you were given when the session was created.
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">{t("desk.hostDesk")}</p>
+          <h1 className="mt-2 font-serif text-2xl font-semibold">{t("desk.keyNeeded")}</h1>
+          <p className="mt-2 text-stage-muted">{t("desk.keyNeededHelp", { code })}</p>
           {error ? <p className="mt-3 text-sm text-red-300">{error}</p> : null}
           <form onSubmit={submitPastedToken} className="mt-6 flex gap-2">
             <input
               value={pastedToken}
               onChange={(e) => setPastedToken(e.target.value)}
-              placeholder="Host key"
+              placeholder={t("desk.hostKey")}
               className="h-12 flex-1 rounded-xl border border-white/15 bg-white px-3 text-sm text-stage outline-none focus:ring-2 focus:ring-gold"
             />
             <button
@@ -243,7 +260,7 @@ export function HostDashboard({ code }: { code: string }) {
               className="h-12 rounded-xl bg-gold px-4 text-sm font-semibold text-stage disabled:opacity-40"
               disabled={!pastedToken.trim()}
             >
-              Use key
+              {t("desk.useKey")}
             </button>
           </form>
         </div>
@@ -252,9 +269,9 @@ export function HostDashboard({ code }: { code: string }) {
   }
 
   if (!state) {
-    return (
+    return desk(
       <div className="flex stage-surface min-h-dvh items-center justify-center bg-stage text-stage-muted">
-        {error ?? "Loading host desk…"}
+        {error ?? t("desk.loading")}
       </div>
     );
   }
@@ -262,7 +279,18 @@ export function HostDashboard({ code }: { code: string }) {
   // Every game started since round mode shipped (RM7). Everything below this
   // line is the one-question-at-a-time desk, kept for games already running.
   if (state.mode === "ROUND") {
-    return <RoundHostDesk code={code} hostToken={hostToken} state={state} error={error} onError={setError} refresh={refresh} />;
+    return desk(
+      <RoundHostDesk
+        code={code}
+        hostToken={hostToken}
+        state={state}
+        error={error}
+        onError={setError}
+        refresh={refresh}
+        languages={LANGUAGES}
+        onLanguage={chooseDeskLanguage}
+      />
+    );
   }
 
   const submitted = state.teams.filter((team) => team.currentAnswer).length;
@@ -279,27 +307,27 @@ export function HostDashboard({ code }: { code: string }) {
   const revealed = state.status === "REVEAL" || state.status === "ENDED";
   const nextLabel =
     state.roundNumber >= state.totalRounds && state.questionNumber >= state.totalQuestionsInRound
-      ? "End quiz"
-      : "Next question";
+      ? t("desk.endQuiz")
+      : t("desk.nextQuestion");
   const { winners, topScore } = topScorers(state.scoreboard);
   // Client component, so window is defined by the time this renders — the same
   // reason JoinQr reads the origin this way.
   const hostUrl = buildHostUrl(window.location.origin, state.code);
   const submissionsLabel =
-    state.status === "QUESTION_ACTIVE" || state.status === "REVEAL" ? "Live submissions" : "Teams";
+    state.status === "QUESTION_ACTIVE" || state.status === "REVEAL" ? t("desk.liveSubmissions") : t("desk.teams");
 
-  return (
+  return desk(
     <div className="stage-surface min-h-dvh bg-stage text-stage-fg">
       <header className="border-b border-white/10 px-5 py-4 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-gold">Host desk</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-gold">{t("desk.hostDesk")}</p>
             <h1 className="mt-1 font-serif text-xl font-semibold">{state.packTitle}</h1>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={state.status} dark />
             <div className="rounded-xl bg-gold px-4 py-2 text-stage">
-              <p className="text-[11px] font-semibold uppercase tracking-wider">Team code</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wider">{t("desk.teamCode")}</p>
               <p className="font-mono text-2xl font-bold tracking-[0.2em]">{state.code}</p>
             </div>
           </div>
@@ -317,20 +345,15 @@ export function HostDashboard({ code }: { code: string }) {
         <section className="rounded-2xl bg-white/5 p-5 sm:p-6">
           {state.status === "LOBBY" ? (
             <>
-              <h2 className="font-serif text-2xl font-semibold">Waiting for teams</h2>
-              <p className="mt-2 text-stage-muted">
-                Share the code. Start when everyone is in. Late joiners can still arrive during the lobby.
-              </p>
+              <h2 className="font-serif text-2xl font-semibold">{t("desk.waitingForTeams")}</h2>
+              <p className="mt-2 text-stage-muted">{t("desk.shareCode")}</p>
               {/* Still worth saying in the lobby rather than in front of a
                   room — but no longer a dead end. The key lives in this
                   browser's local storage (src/lib/host-session.ts), and since
                   H4 the account that started the game can ask the server for
                   it back, so signing in on the new device is enough. Someone
                   who is not this account still needs the key pasted. */}
-              <p className="mt-2 text-sm text-stage-muted">
-                Best to keep this browser open. If you do move devices, sign in there and open the
-                host link below. Anyone else will be asked for this session&apos;s host key.
-              </p>
+              <p className="mt-2 text-sm text-stage-muted">{t("desk.moveDevices")}</p>
               <JoinQr code={state.code} />
               <button
                 type="button"
@@ -338,7 +361,7 @@ export function HostDashboard({ code }: { code: string }) {
                 disabled={busy || state.teams.length === 0}
                 className="mt-6 h-14 w-full rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40"
               >
-                {state.teams.length === 0 ? "Waiting for the first team" : "Start quiz"}
+                {state.teams.length === 0 ? t("desk.waitingFirstTeam") : t("desk.startQuiz")}
               </button>
             </>
           ) : null}
@@ -351,15 +374,20 @@ export function HostDashboard({ code }: { code: string }) {
                 </div>
               ) : null}
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-                Round {state.roundNumber} of {state.totalRounds}
-                {state.round ? ` · ${state.round.title}` : ""}
+                {[t("desk.roundOf", { round: state.roundNumber, total: state.totalRounds }), state.round?.title]
+                  .filter((part) => part != null)
+                  .join(t("common.partsSeparator"))}
               </p>
               <p className="mt-1 text-sm text-stage-muted">
-                Question {state.questionNumber} of {state.totalQuestionsInRound}
-                {state.question ? ` · ${countOf(state.question.points, "pt")}` : ""}
+                {[
+                  t("desk.questionOf", { question: state.questionNumber, total: state.totalQuestionsInRound }),
+                  state.question ? t("common.pts", { count: state.question.points }) : null,
+                ]
+                  .filter((part) => part != null)
+                  .join(t("common.partsSeparator"))}
               </p>
               <h2 className="mt-4 font-serif text-2xl font-semibold leading-snug sm:text-3xl">
-                {state.question?.text ?? "No question loaded"}
+                {state.question?.text ?? t("desk.noQuestion")}
               </h2>
               <QuestionImage question={state.question} code={code} hostToken={hostToken} />
               {state.question?.type === "MULTIPLE_CHOICE" && state.question.options.length > 0 ? (
@@ -380,10 +408,10 @@ export function HostDashboard({ code }: { code: string }) {
               ) : null}
               {state.question?.answer ? (
                 <p className="mt-4 rounded-xl bg-emerald-500/15 px-4 py-3 font-semibold text-emerald-200">
-                  Answer: {state.question.answer}
+                  {t("desk.answer", { answer: state.question.answer })}
                 </p>
               ) : (
-                <p className="mt-4 text-sm text-stage-muted">Answer stays hidden until you reveal.</p>
+                <p className="mt-4 text-sm text-stage-muted">{t("desk.answerHidden")}</p>
               )}
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 {state.status === "QUESTION_ACTIVE" ? (
@@ -393,7 +421,7 @@ export function HostDashboard({ code }: { code: string }) {
                     disabled={busy}
                     className="h-14 flex-1 rounded-xl bg-gold text-base font-semibold text-stage disabled:opacity-40"
                   >
-                    Reveal answer
+                    {t("desk.revealAnswer")}
                   </button>
                 ) : (
                   <button
@@ -413,17 +441,15 @@ export function HostDashboard({ code }: { code: string }) {
             <div className="motion-safe:animate-reveal">
               <TrophyIcon className="h-9 w-9 text-gold" />
               <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                {winners.length > 1 ? "Tonight’s champions" : "Tonight’s champion"}
+                {winners.length > 1 ? t("desk.champions") : t("desk.champion")}
               </p>
-              <h2 className="mt-2 font-serif text-4xl font-semibold leading-tight">{winningNames(winners)}</h2>
+              <h2 className="mt-2 font-serif text-4xl font-semibold leading-tight">{winningNames(t, winners)}</h2>
               {winners.length > 0 ? (
                 <p className="mt-2 text-stage-muted">
-                  {countOf(topScore, "point")} · {countOf(state.totalRounds, "round")}
+                  {t("common.points", { count: topScore })} · {t("common.rounds", { count: state.totalRounds })}
                 </p>
               ) : null}
-              <p className="mt-6 text-sm text-stage-muted">
-                That’s the night. Final standings are on the right. Thanks for hosting.
-              </p>
+              <p className="mt-6 text-sm text-stage-muted">{t("desk.thatsTheNight")}</p>
             </div>
           ) : null}
         </section>
@@ -439,7 +465,7 @@ export function HostDashboard({ code }: { code: string }) {
             {state.status === "LOBBY" || state.status === "ENDED" ? (
               <ul className="mt-4 space-y-2">
                 {state.teams.length === 0 ? (
-                  <li className="text-sm text-stage-muted">No teams yet.</li>
+                  <li className="text-sm text-stage-muted">{t("desk.noTeams")}</li>
                 ) : (
                   state.teams.map((team) => (
                     <li key={team.id} className="rounded-lg bg-white/5 px-3 py-2.5">
@@ -457,10 +483,10 @@ export function HostDashboard({ code }: { code: string }) {
                         <p className="font-medium">{team.name}</p>
                         <p className="mt-1 truncate text-sm text-stage-muted">
                           {revealed
-                            ? (team.currentAnswer?.text ?? "Waiting…")
+                            ? (team.currentAnswer?.text ?? t("desk.waiting"))
                             : team.currentAnswer
-                              ? "Answered"
-                              : "Waiting…"}
+                              ? t("desk.answered")
+                              : t("desk.waiting")}
                         </p>
                       </div>
                       {revealed && team.currentAnswer ? (
@@ -480,14 +506,14 @@ export function HostDashboard({ code }: { code: string }) {
                           onClick={() => overrideAnswer(team, true)}
                           className="h-10 rounded-lg bg-emerald-700 text-sm font-semibold"
                         >
-                          Correct
+                          {t("desk.correct")}
                         </button>
                         <button
                           type="button"
                           onClick={() => overrideAnswer(team, false)}
                           className="h-10 rounded-lg bg-red-600/70 text-sm font-semibold"
                         >
-                          Wrong
+                          {t("desk.wrong")}
                         </button>
                       </div>
                     ) : null}
@@ -498,7 +524,7 @@ export function HostDashboard({ code }: { code: string }) {
           </section>
 
           <section className="rounded-2xl bg-white/5 p-5">
-            <h3 className="mb-3 font-semibold">Scoreboard</h3>
+            <h3 className="mb-3 font-semibold">{t("common.scoreboard")}</h3>
             <Scoreboard rows={state.scoreboard} dark />
           </section>
         </aside>
@@ -512,16 +538,14 @@ export function HostDashboard({ code }: { code: string }) {
             back from the server, and a URL is the worst place to keep a
             credential. */}
         <section className="lg:col-span-2 rounded-2xl border border-white/10 p-5">
-          <h3 className="font-semibold">Host link</h3>
+          <h3 className="font-semibold">{t("desk.hostLink")}</h3>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <code className="min-w-0 flex-1 break-all rounded-xl bg-black/30 px-3 py-2 font-mono text-sm">
               {hostUrl}
             </code>
             <CopyButton value={hostUrl} className="bg-gold text-stage" />
           </div>
-          <p className="mt-2 text-sm text-stage-muted">
-            Keep this link to reopen the host desk on another device.
-          </p>
+          <p className="mt-2 text-sm text-stage-muted">{t("desk.hostLinkHelp")}</p>
         </section>
 
         {/* The host's way out of a game, and the reason the pack's editor can
@@ -534,14 +558,11 @@ export function HostDashboard({ code }: { code: string }) {
           <section className="lg:col-span-2 rounded-2xl border border-white/10 p-5">
             {confirmingEnd ? (
               <>
-                <h3 className="font-semibold">End this game for everyone?</h3>
-                <p className="mt-1 text-sm text-stage-muted">
-                  Teams stop being able to answer and the scoreboard becomes final. The pack can be
-                  edited again afterwards. This cannot be undone.
-                </p>
-                {/* "End game" always sits at the right edge (ml-auto below), so
-                    "Keep playing" takes that spot and "Yes" is kept to the left
-                    of it at every width — never under a pointer that has just
+                <h3 className="font-semibold">{t("desk.endTitle")}</h3>
+                <p className="mt-1 text-sm text-stage-muted">{t("desk.endBody")}</p>
+                {/* "End game" always sits at the end edge (ms-auto below), so
+                    "Keep playing" takes that spot and "Yes" is kept before it
+                    at every width — never under a pointer that has just
                     pressed "End game". */}
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-end">
                   <button
@@ -556,7 +577,7 @@ export function HostDashboard({ code }: { code: string }) {
                     disabled={busy}
                     className="h-12 min-h-12 self-start rounded-xl bg-red-500/90 px-5 text-sm font-semibold text-white disabled:opacity-40 sm:self-auto"
                   >
-                    Yes, end the game
+                    {t("desk.endYes")}
                   </button>
                   <button
                     ref={keepPlayingRef}
@@ -564,22 +585,19 @@ export function HostDashboard({ code }: { code: string }) {
                     onClick={() => setConfirmingEnd(false)}
                     className="h-12 min-h-12 self-end rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg sm:self-auto"
                   >
-                    Keep playing
+                    {t("desk.keepPlaying")}
                   </button>
                 </div>
               </>
             ) : (
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-sm text-stage-muted">
-                  Finished early, or opened this session by mistake? Ending the game unlocks the pack
-                  for editing.
-                </p>
+                <p className="text-sm text-stage-muted">{t("desk.finishedEarlyOrMistake")}</p>
                 <button
                   type="button"
                   onClick={openEndConfirmation}
-                  className="ml-auto h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
+                  className="ms-auto h-12 min-h-12 rounded-xl border border-white/20 px-5 text-sm font-semibold text-stage-fg"
                 >
-                  End game
+                  {t("desk.endGame")}
                 </button>
               </div>
             )}
@@ -587,10 +605,13 @@ export function HostDashboard({ code }: { code: string }) {
         ) : null}
 
         <p className="lg:col-span-2 text-center text-sm text-stage-muted">
-          Teams join at{" "}
-          <Link href="/play" className="text-gold underline underline-offset-2">
-            /play
-          </Link>
+          {t.rich("desk.teamsJoinAt", {
+            link: (
+              <Link href="/play" className="text-gold underline underline-offset-2">
+                /play
+              </Link>
+            ),
+          })}
         </p>
       </main>
     </div>

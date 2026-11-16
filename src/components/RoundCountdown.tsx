@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useT } from "@/i18n/react";
 import type { CountdownInfo } from "@/lib/api-types";
 
 function format(seconds: number) {
@@ -27,6 +28,7 @@ export function RoundCountdown({
   serverNow: string;
   className?: string;
 }) {
+  const t = useT();
   const latest = useRef({ countdown, serverNow, receivedAt: 0 });
   const [remaining, setRemaining] = useState<number | null>(null);
 
@@ -57,7 +59,7 @@ export function RoundCountdown({
         urgent ? "bg-red-500/90 text-white" : "bg-white/10 text-stage-fg"
       } ${className}`}
     >
-      {remaining > 0 ? format(remaining) : "Time's up!"}
+      {remaining > 0 ? format(remaining) : t("common.timesUp")}
     </span>
   );
 }

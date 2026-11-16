@@ -37,6 +37,7 @@ const pack: PackWithRounds = {
   reviewFixed: null,
   reviewDropped: null,
   reviewNotes: null,
+  language: "en",
   rounds: [round(0, 2), round(1, 1)],
 };
 

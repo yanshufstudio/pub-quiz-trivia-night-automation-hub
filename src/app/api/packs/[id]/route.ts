@@ -4,6 +4,7 @@ import { refuseIfLiveGame } from "@/lib/live-game-guard";
 import { isAdminTokenConfigured, isAuthorizedAdmin } from "@/lib/admin-auth";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { canEditPack, canReadPack, packNotFound, packOwnership } from "@/lib/pack-access";
+import { apiError } from "@/lib/api-error";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   // A pack read is every question and every answer, so it needs an account
@@ -64,7 +65,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     // "wrong admin token" — a probe must not be able to tell an id it does
     // not own from one that does not exist.
     if (!host || !ownership || !canEditPack(ownership, host.creator.id)) {
-      return NextResponse.json({ error: "Invalid admin token" }, { status: 401 });
+      return NextResponse.json(apiError("badAdminToken"), { status: 401 });
     }
   }
   // Deleting the pack cascades its sessions, teams and answers away with it.

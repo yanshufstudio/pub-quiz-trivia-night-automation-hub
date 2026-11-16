@@ -2,6 +2,8 @@ import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-wind
 import { parseCeiling, secondsUntilUtcMidnight, utcDay } from "@/lib/daily-ceiling";
 import type { Creator } from "@prisma/client";
 import { db } from "@/lib/db";
+import { apiError, errorMessage } from "@/lib/api-error";
+import { getT } from "@/i18n";
 
 /**
  * What one Pro subscriber may generate, and what they have generated.
@@ -51,9 +53,7 @@ export function proUserDailyLimit(): number {
  * particular time, because there is no particular time — only the owner
  * changing the value back.
  */
-export const PRO_GENERATION_OFF_MESSAGE =
-  "Pro pack generation is paused right now. Sorry — this is on us, not your subscription. " +
-  "Please try again later, or email us if it stays this way.";
+export const PRO_GENERATION_OFF_MESSAGE = errorMessage("proGenerationOff");
 
 /**
  * What a capped subscriber is told.
@@ -68,8 +68,15 @@ export const PRO_GENERATION_OFF_MESSAGE =
  * the sentence above instead.
  */
 export function proDailyLimitMessage(limit: number): string {
-  if (limit <= 0) return PRO_GENERATION_OFF_MESSAGE;
-  return `You've made ${limit} packs today — the limit resets at 00:00 UTC.`;
+  return proDailyLimitError(limit).error;
+}
+
+/** The same refusal, by code (L1). */
+export function proDailyLimitError(limit: number) {
+  if (limit <= 0) return apiError("proGenerationOff");
+  // The count goes in as text so English keeps "1000", not "1,000"; the
+  // plural form is still chosen by it.
+  return apiError("proDailyLimit", { count: String(limit) });
 }
 
 /** How long a caller turned away by the kill switch is told to wait. Short, and
@@ -251,21 +258,21 @@ export function proWindowExpired(startedAt: Date | null, now: Date): boolean {
 }
 
 export function proFairUseLimitMessage(resetsAt: Date): string {
-  const date = resetsAt.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-  return `You've reached Pro's fair-use limit for now. It resets on ${date}.`;
+  return proFairUseLimitError(resetsAt).error;
 }
 
-export const PRO_TRIAL_LIMIT_MESSAGE =
-  "You've reached the trial's limit. Pro continues when your subscription starts.";
+/** The same refusal, by code (L1). The date goes in written out in English, so
+ * another language's message shows it as English writes it (a follow-up). */
+function proFairUseLimitError(resetsAt: Date) {
+  const date = getT("en").date(resetsAt, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  return apiError("proFairUseLimit", { date });
+}
+
+export const PRO_TRIAL_LIMIT_MESSAGE = errorMessage("proTrialLimit");
 
 export type ProFairUseReservation =
   | { allowed: true; release: () => Promise<void> }
-  | { allowed: false; message: string; retryAfterSeconds: number };
+  | { allowed: false; message: string; refusal: ReturnType<typeof apiError>; retryAfterSeconds: number };
 
 /**
  * Take one pack from this account's window before the model runs.
@@ -301,12 +308,12 @@ export async function reserveProFairUse(
   if (claimed.count === 0) {
     const current = await db.creator.findUnique({ where: { id: creator.id } });
     const resetsAt = new Date((current?.proWindowStartedAt ?? windowStart).getTime() + WINDOW_MS);
+    const refusal =
+      creator.subscriptionStatus === "trialing" ? apiError("proTrialLimit") : proFairUseLimitError(resetsAt);
     return {
       allowed: false,
-      message:
-        creator.subscriptionStatus === "trialing"
-          ? PRO_TRIAL_LIMIT_MESSAGE
-          : proFairUseLimitMessage(resetsAt),
+      message: refusal.error,
+      refusal,
       retryAfterSeconds: Math.max(1, Math.ceil((resetsAt.getTime() - now.getTime()) / 1000)),
     };
   }

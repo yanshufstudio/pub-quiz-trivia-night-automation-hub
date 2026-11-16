@@ -7,6 +7,10 @@
  *
  * English-only and deliberately so: this is not an i18n layer, it is the `s`.
  * The plural is passed explicitly when it is not just a suffix.
+ *
+ * Since L1 the app's screens count through the message files instead (a plural
+ * message picked by Intl.PluralRules, see src/i18n). This stays for what is
+ * still English-only: the marketing and legal pages, and log lines.
  */
 export function countOf(count: number, singular: string, plural = `${singular}s`): string {
   return `${count} ${count === 1 ? singular : plural}`;

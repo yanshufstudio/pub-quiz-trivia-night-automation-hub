@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { apiError } from "@/lib/api-error";
 
 /**
  * Hand a creator back the host key for a game they started (H4).
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   // One answer for "no such session", "started before this column existed"
   // and "someone else's game".
   if (!session || session.creatorId === null || session.creatorId !== host.creator.id) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
 
   return NextResponse.json({ hostToken: session.hostToken });

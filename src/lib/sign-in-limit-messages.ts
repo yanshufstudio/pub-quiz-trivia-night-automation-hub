@@ -6,22 +6,27 @@
  * (src/lib/sign-in-errors.ts, imported by a client component). Putting them in
  * sign-in-limits.ts would pull that module's Upstash client into the browser
  * bundle for the sake of four strings.
+ *
+ * The words are in the message files (signIn.errors.*, L1): the server's
+ * English copies below are what it throws, and the form shows the message
+ * for the code in the page's language.
  */
 
+import { getT } from "@/i18n";
+
+const en = getT("en");
+
 export const SIGN_IN_CODES_PAUSED_CODE = "SIGN_IN_CODES_PAUSED";
-export const SIGN_IN_CODES_PAUSED_MESSAGE =
-  "Email codes are paused until tomorrow — please use Google sign-in.";
+export const SIGN_IN_CODES_PAUSED_MESSAGE = en("signIn.errors.codesPaused");
 
 export const TOO_MANY_CODES_FOR_ADDRESS_CODE = "TOO_MANY_CODES_FOR_ADDRESS";
-export const TOO_MANY_CODES_FOR_ADDRESS_MESSAGE =
-  "Too many codes sent to that address. Wait an hour, or use Google sign-in.";
+export const TOO_MANY_CODES_FOR_ADDRESS_MESSAGE = en("signIn.errors.tooManyForAddress");
 
 /** One caller's hourly or daily cap (per IP), whatever addresses they asked
  * for. "This network" because a venue or office shares one address, and "later"
  * because the two caps reset at different times. */
 export const TOO_MANY_CODES_FROM_HERE_CODE = "TOO_MANY_CODES_FROM_HERE";
-export const TOO_MANY_CODES_FROM_HERE_MESSAGE =
-  "Too many codes requested from this network. Try again later, or use Google sign-in.";
+export const TOO_MANY_CODES_FROM_HERE_MESSAGE = en("signIn.errors.tooManyFromHere");
 
 /**
  * The longest address we will take, and why it is 254 rather than a round number.
@@ -43,5 +48,4 @@ export const TOO_MANY_CODES_FROM_HERE_MESSAGE =
 export const MAX_EMAIL_LENGTH = 254;
 
 export const EMAIL_TOO_LONG_CODE = "EMAIL_TOO_LONG";
-export const EMAIL_TOO_LONG_MESSAGE =
-  "That email address is too long — addresses can be at most 254 characters. Check it and try again.";
+export const EMAIL_TOO_LONG_MESSAGE = en("signIn.errors.emailTooLong");
