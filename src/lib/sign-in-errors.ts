@@ -17,15 +17,12 @@
  * not tell a stranger.
  */
 
+import { getT, type MessageKey, type Translator } from "@/i18n";
 import {
   EMAIL_TOO_LONG_CODE,
-  EMAIL_TOO_LONG_MESSAGE,
   SIGN_IN_CODES_PAUSED_CODE,
-  SIGN_IN_CODES_PAUSED_MESSAGE,
   TOO_MANY_CODES_FOR_ADDRESS_CODE,
-  TOO_MANY_CODES_FOR_ADDRESS_MESSAGE,
   TOO_MANY_CODES_FROM_HERE_CODE,
-  TOO_MANY_CODES_FROM_HERE_MESSAGE,
 } from "@/lib/sign-in-limit-messages";
 
 /** The shape every Better Auth client call reports a failure in. */
@@ -46,58 +43,49 @@ export type SignInFailure = { status?: number; code?: string } | null | undefine
  * an `X-Retry-After`, but the client surfaces the parsed body rather than
  * the headers, so a precise number here would be a guess dressed up as one.
  */
-export const RATE_LIMITED_MESSAGE = "Too many attempts. Wait a minute and try again.";
+export const RATE_LIMITED_MESSAGE = getT("en")("signIn.errors.rateLimited");
 
 export function isRateLimited(err: SignInFailure): boolean {
   return err?.status === 429;
 }
 
-/** Asking for a code. */
-export function signInSendError(err: SignInFailure): string {
+/** Asking for a code. Worded in `t`'s language (L1). */
+export function signInSendError(err: SignInFailure, t: Translator = getT()): string {
   // Ahead of the generic 429 wording, because both of these *are* 429s and
   // "wait a minute and try again" would be false for either: one resets in an
   // hour and the other tomorrow, and both have a working alternative sitting
   // above the form (M2).
   // Not a throttle at all: a 400 that no amount of waiting fixes, so it is
   // ahead of everything and says what to change.
-  if (err?.code === EMAIL_TOO_LONG_CODE) return EMAIL_TOO_LONG_MESSAGE;
-  if (err?.code === SIGN_IN_CODES_PAUSED_CODE) return SIGN_IN_CODES_PAUSED_MESSAGE;
-  if (err?.code === TOO_MANY_CODES_FOR_ADDRESS_CODE) return TOO_MANY_CODES_FOR_ADDRESS_MESSAGE;
-  if (err?.code === TOO_MANY_CODES_FROM_HERE_CODE) return TOO_MANY_CODES_FROM_HERE_MESSAGE;
-  if (isRateLimited(err)) return RATE_LIMITED_MESSAGE;
-  return "Couldn't send that code. Check the address and try again.";
+  if (err?.code === EMAIL_TOO_LONG_CODE) return t("signIn.errors.emailTooLong");
+  if (err?.code === SIGN_IN_CODES_PAUSED_CODE) return t("signIn.errors.codesPaused");
+  if (err?.code === TOO_MANY_CODES_FOR_ADDRESS_CODE) return t("signIn.errors.tooManyForAddress");
+  if (err?.code === TOO_MANY_CODES_FROM_HERE_CODE) return t("signIn.errors.tooManyFromHere");
+  if (isRateLimited(err)) return t("signIn.errors.rateLimited");
+  return t("signIn.errors.sendFailed");
 }
 
 /** Starting the Google redirect. */
-export function googleSignInError(err: SignInFailure): string {
-  if (isRateLimited(err)) return RATE_LIMITED_MESSAGE;
-  return "Couldn't start Google sign-in. Please try again, or use the email code below.";
+export function googleSignInError(err: SignInFailure, t: Translator = getT()): string {
+  if (isRateLimited(err)) return t("signIn.errors.rateLimited");
+  return t("signIn.errors.googleFailed");
 }
 
-const TYPED: Record<string, string> = {
-  INVALID_OTP: "That code didn't match. Check the six digits and try again.",
-  OTP_EXPIRED: "That code has expired. Codes last 15 minutes — ask for a fresh one.",
-  TOO_MANY_ATTEMPTS: "Too many wrong codes for that one. Ask for a fresh one.",
-};
-
-const FROM_LINK: Record<string, string> = {
-  INVALID_OTP:
-    "That sign-in link no longer works. Links work once and last 15 minutes — ask for a fresh one.",
-  OTP_EXPIRED: "That sign-in link has expired. Links last 15 minutes — ask for a fresh one.",
-  TOO_MANY_ATTEMPTS: "Too many wrong codes for that one. Ask for a fresh one.",
-};
-
-const FALLBACK = "Couldn't sign you in with that. Ask for a fresh one and try again.";
+/** The Better Auth codes with a message of their own, typed or from the link. */
+const CODES = new Set(["INVALID_OTP", "OTP_EXPIRED", "TOO_MANY_ATTEMPTS"]);
 
 /** Submitting a code, typed or carried by the emailed link. */
-export function signInCodeError(err: SignInFailure, { fromLink = false } = {}): string {
+export function signInCodeError(
+  err: SignInFailure,
+  { fromLink = false } = {},
+  t: Translator = getT()
+): string {
   // Ahead of the code table, because a throttled request never reaches the
   // endpoint that would produce one of those codes — `err.code` is undefined
   // on a 429 and this would otherwise fall through to the generic fallback,
   // which tells someone to ask for a fresh code they are about to be
   // throttled out of asking for.
-  if (isRateLimited(err)) return RATE_LIMITED_MESSAGE;
-  const table = fromLink ? FROM_LINK : TYPED;
-  if (!err?.code) return FALLBACK;
-  return table[err.code] ?? FALLBACK;
+  if (isRateLimited(err)) return t("signIn.errors.rateLimited");
+  if (!err?.code || !CODES.has(err.code)) return t("signIn.errors.fallback");
+  return t(`signIn.errors.${fromLink ? "fromLink" : "typed"}.${err.code}` as MessageKey);
 }

@@ -6,6 +6,7 @@ import { hostSessionRequest } from "@/lib/host-route";
 import { forgetDisplay } from "@/lib/display-cache";
 import { SESSION_STATUS } from "@/lib/session-state";
 import { MAX_TEAMS_PER_SESSION, TEAM_NAME_MAX, normalizeTeamName, teamNameKey } from "@/lib/team-name";
+import { apiError } from "@/lib/api-error";
 
 const addPaperTeamSchema = z.object({
   hostToken: z.string().min(1),
@@ -29,15 +30,15 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const { session, body } = checked;
 
   if (session.status === SESSION_STATUS.ENDED) {
-    return NextResponse.json({ error: "This quiz has already ended" }, { status: 409 });
+    return NextResponse.json(apiError("quizEnded"), { status: 409 });
   }
 
   const names = await db.team.findMany({ where: { sessionId: session.id }, select: { name: true } });
   if (names.length >= MAX_TEAMS_PER_SESSION) {
-    return NextResponse.json({ error: "This quiz has reached the maximum number of teams." }, { status: 409 });
+    return NextResponse.json(apiError("tooManyTeams"), { status: 409 });
   }
   if (names.some((t) => teamNameKey(t.name) === teamNameKey(body.name))) {
-    return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+    return NextResponse.json(apiError("teamNameTaken"), { status: 409 });
   }
 
   const team = await db.team.create({

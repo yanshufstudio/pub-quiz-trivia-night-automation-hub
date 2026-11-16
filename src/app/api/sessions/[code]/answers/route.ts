@@ -15,6 +15,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { autoRevealIfExpired } from "@/lib/session-timer";
 import { isLikelyCorrect } from "@/lib/scoring";
 import { parseOptions, QUESTION_TYPE } from "@/lib/question-types";
+import { apiError } from "@/lib/api-error";
 
 const submitSchema = z.object({
   token: z.string().min(1),
@@ -31,12 +32,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const body = await req.json().catch(() => null);
   const parsed = submitSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid answer" }, { status: 400 });
+    return NextResponse.json(apiError("invalidAnswer"), { status: 400 });
   }
 
   let session = await db.session.findUnique({ where: { code: code.toUpperCase() } });
   if (!session) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
   // A submission racing the timer's expiry should lose: check (and, if
   // needed, apply) the auto-reveal first so a request that arrives just past
@@ -46,12 +47,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     return submitRoundAnswer(req, session, parsed.data);
   }
   if (session.status !== SESSION_STATUS.QUESTION_ACTIVE) {
-    return NextResponse.json({ error: "This question is no longer accepting answers" }, { status: 409 });
+    return NextResponse.json(apiError("questionClosed"), { status: 409 });
   }
 
   const team = await db.team.findUnique({ where: { token: parsed.data.token } });
   if (!team || team.sessionId !== session.id) {
-    return NextResponse.json({ error: "Invalid team token" }, { status: 401 });
+    return NextResponse.json(apiError("badTeamToken"), { status: 401 });
   }
 
   const pack = (await db.quizPack.findUnique({
@@ -62,7 +63,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     ? getCurrentQuestion(pack, session.currentRoundIndex, session.currentQuestionIndex)
     : null;
   if (!question) {
-    return NextResponse.json({ error: "No active question" }, { status: 409 });
+    return NextResponse.json(apiError("noActiveQuestion"), { status: 409 });
   }
 
   // Counted against the team, not the caller's IP: every team in the room is
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   );
   if (!submissions.allowed) {
     return NextResponse.json(
-      { error: `You can change your answer up to ${ANSWER_SUBMISSIONS_PER_QUESTION} times for a question.` },
+      apiError("changeLimit", { limit: String(ANSWER_SUBMISSIONS_PER_QUESTION) }),
       { status: 429, headers: { "Retry-After": String(submissions.retryAfterSeconds) } }
     );
   }
@@ -94,7 +95,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   if (question.type === QUESTION_TYPE.MULTIPLE_CHOICE) {
     const options = parseOptions(question.options);
     if (!options.includes(text)) {
-      return NextResponse.json({ error: "Answer must be one of the question's options" }, { status: 400 });
+      return NextResponse.json(apiError("notAnOption"), { status: 400 });
     }
   }
 
@@ -171,13 +172,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   if (!written) {
     // The same answer the top of the route gives, because it is the same fact:
     // this question stopped accepting answers. It just stopped a moment later.
-    return NextResponse.json({ error: "This question is no longer accepting answers" }, { status: 409 });
+    return NextResponse.json(apiError("questionClosed"), { status: 409 });
   }
 
   return NextResponse.json({ answer: { id: written.id, text: written.text } }, { status: 201 });
 }
 
-const ROUND_CLOSED = "This round is no longer accepting answers";
 
 /**
  * An answer in a round-mode game (RM2).
@@ -201,24 +201,24 @@ async function submitRoundAnswer(
 ) {
   const questionIndex = body.questionIndex;
   if (questionIndex === undefined) {
-    return NextResponse.json({ error: "Which question is this answer for?" }, { status: 400 });
+    return NextResponse.json(apiError("whichQuestion"), { status: 400 });
   }
   if (session.status !== SESSION_STATUS.ROUND_OPEN) {
-    return NextResponse.json({ error: ROUND_CLOSED }, { status: 409 });
+    return NextResponse.json(apiError("roundClosed"), { status: 409 });
   }
 
   const team = await db.team.findUnique({ where: { token: body.token } });
   if (!team || team.sessionId !== session.id) {
-    return NextResponse.json({ error: "Invalid team token" }, { status: 401 });
+    return NextResponse.json(apiError("badTeamToken"), { status: 401 });
   }
   if (team.isPaper) {
     // A paper team's token is never handed out, so this is not a path a real
     // phone takes — but a paper team's score is the host's typed total, and a
     // stray write must not start counting beside it.
-    return NextResponse.json({ error: "This team plays on paper" }, { status: 403 });
+    return NextResponse.json(apiError("paperTeam"), { status: 403 });
   }
   if (questionIndex >= session.askedCount) {
-    return NextResponse.json({ error: "That question hasn't been asked yet" }, { status: 409 });
+    return NextResponse.json(apiError("notAskedYet"), { status: 409 });
   }
 
   const roundIndex = session.currentRoundIndex;
@@ -228,7 +228,7 @@ async function submitRoundAnswer(
   })) as PackWithRounds | null;
   const question = pack ? getCurrentQuestion(pack, roundIndex, questionIndex) : null;
   if (!question) {
-    return NextResponse.json({ error: "No such question" }, { status: 409 });
+    return NextResponse.json(apiError("noSuchQuestion"), { status: 409 });
   }
 
   const submissions = await rateLimit(req, `answers:${roundIndex}:${questionIndex}`, {
@@ -238,14 +238,14 @@ async function submitRoundAnswer(
   });
   if (!submissions.allowed) {
     return NextResponse.json(
-      { error: `You can change your answer up to ${ANSWER_SUBMISSIONS_PER_QUESTION} times for a question.` },
+      apiError("changeLimit", { limit: String(ANSWER_SUBMISSIONS_PER_QUESTION) }),
       { status: 429, headers: { "Retry-After": String(submissions.retryAfterSeconds) } }
     );
   }
 
   const text = body.text;
   if (question.type === QUESTION_TYPE.MULTIPLE_CHOICE && !parseOptions(question.options).includes(text)) {
-    return NextResponse.json({ error: "Answer must be one of the question's options" }, { status: 400 });
+    return NextResponse.json(apiError("notAnOption"), { status: 400 });
   }
 
   // Marked now against the key as it stands, and marked again when the round
@@ -278,7 +278,7 @@ async function submitRoundAnswer(
   });
 
   if (!written) {
-    return NextResponse.json({ error: ROUND_CLOSED }, { status: 409 });
+    return NextResponse.json(apiError("roundClosed"), { status: 409 });
   }
   return NextResponse.json({ answer: { id: written.id, text: written.text } }, { status: 201 });
 }

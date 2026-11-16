@@ -63,15 +63,20 @@ describe("the migration, run over a database that already has packs in it", () =
   const sqlOf = (name: string) => readFileSync(path.join(migrations, name, "migration.sql"), "utf8");
   const mine = names.find((name) => name.endsWith("_add_pack_creator_fk"))!;
 
-  it("is the newest migration, so everything before it is what production has", () => {
-    expect(names.at(-1)).toBe(mine);
+  // What production had when it ran: every migration before this one. Later
+  // ones (L1's add_language) come after it there too, so they are not replayed.
+  const before = names.slice(0, names.indexOf(mine));
+
+  it("replays exactly the migrations that came before it", () => {
+    expect(before.length).toBeGreaterThan(0);
+    expect(before.every((name) => name < mine)).toBe(true);
   });
 
   it("keeps every pack, round and owner, and hides rather than deletes or publishes an orphan", async () => {
     const dir = mkdtempSync(path.join(tmpdir(), "pack-fk-"));
     const old = createClient({ url: `file:${path.join(dir, "old.db")}` });
     try {
-      for (const name of names.filter((name) => name !== mine)) await old.executeMultiple(sqlOf(name));
+      for (const name of before) await old.executeMultiple(sqlOf(name));
       // The state being fixed: no foreign key at all.
       expect((await old.execute(`PRAGMA foreign_key_list("QuizPack")`)).rows).toHaveLength(0);
 

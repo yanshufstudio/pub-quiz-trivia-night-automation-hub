@@ -6,6 +6,7 @@ import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { canReadPack, packNotFound } from "@/lib/pack-access";
 import { z } from "zod";
 import { SESSION_MODE } from "@/lib/session-state";
+import { apiError } from "@/lib/api-error";
 
 const createSessionSchema = z.object({
   packId: z.string().min(1),
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
   const limited = await rateLimit(req, "sessions:create", { limit: 30, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
-      { error: "Too many sessions created recently. Please wait a bit and try again." },
+      apiError("tooManySessions"),
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const parsed = createSessionSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    return NextResponse.json(apiError("invalidRequest"), { status: 400 });
   }
 
   // The sixth read surface, and the least obvious one: running a session on
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest) {
     }
   }
   if (!code) {
-    return NextResponse.json({ error: "Could not allocate a session code" }, { status: 500 });
+    return NextResponse.json(apiError("noSessionCode"), { status: 500 });
   }
 
   const hostToken = generateHostToken();

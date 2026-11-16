@@ -5,6 +5,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { assertAuthConfigured, auth } from "@/lib/auth";
 import { COOKIE_NAME } from "@/lib/creator";
 import { creatorForUser } from "@/lib/creator-claim";
+import { apiError, errorMessage } from "@/lib/api-error";
 
 /**
  * The one place a host-side surface asks "who is this?".
@@ -64,11 +65,11 @@ export type HostSession = {
   creator: Creator;
 };
 
-export const UNAUTHORIZED_MESSAGE = "Sign in to do that";
+export const UNAUTHORIZED_MESSAGE = errorMessage("signInRequired");
 
 /** The 401 every gated API answers with. One shape, one message. */
 export function unauthorized(): NextResponse {
-  return NextResponse.json({ error: UNAUTHORIZED_MESSAGE, signInRequired: true }, { status: 401 });
+  return NextResponse.json({ ...apiError("signInRequired"), signInRequired: true }, { status: 401 });
 }
 
 /**

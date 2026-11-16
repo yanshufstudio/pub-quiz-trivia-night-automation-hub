@@ -5,6 +5,7 @@ import { parseCeiling, secondsUntilUtcMidnight, utcDay } from "@/lib/daily-ceili
 import { FREE_LIMIT } from "@/lib/creator";
 import { normaliseMailbox } from "@/lib/email-normalise";
 import { db } from "@/lib/db";
+import { errorMessage } from "@/lib/api-error";
 
 /**
  * Two ways the free tier was free for the taking, and neither needed a cookie.
@@ -52,8 +53,7 @@ export const FREE_IP_DAILY_LIMIT_ENV = "FREE_IP_DAILY_LIMIT";
  */
 export const DEFAULT_FREE_IP_DAILY_LIMIT = 5;
 
-export const FREE_IP_LIMIT_MESSAGE =
-  "This network has used its free packs for today. Try again tomorrow, or upgrade to Pro.";
+export const FREE_IP_LIMIT_MESSAGE = errorMessage("freeIpLimit");
 
 export function freeIpDailyLimit(): number {
   return parseCeiling(process.env[FREE_IP_DAILY_LIMIT_ENV], DEFAULT_FREE_IP_DAILY_LIMIT);
@@ -180,9 +180,7 @@ export const FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV = "FREE_FAILED_GENERATIONS_
  */
 export const DEFAULT_FREE_FAILED_GENERATIONS_DAILY_LIMIT = 3;
 
-export const FREE_FAILED_LIMIT_MESSAGE =
-  "Too many of today's generations on this account have failed, so generation is paused for it " +
-  "until tomorrow (UTC). Try a shorter or simpler brief then, or email us if this keeps happening.";
+export const FREE_FAILED_LIMIT_MESSAGE = errorMessage("freeFailedLimit");
 
 export function freeFailedGenerationsDailyLimit(): number {
   return parseCeiling(process.env[FREE_FAILED_GENERATIONS_DAILY_LIMIT_ENV], DEFAULT_FREE_FAILED_GENERATIONS_DAILY_LIMIT);
@@ -244,8 +242,7 @@ export const MAILBOX_PERIOD_MS = 30 * 24 * 60 * 60 * 1000;
  * something they did not knowingly do. "Upgrade to Pro" is the honest way out
  * either way, and it is the same one.
  */
-export const MAILBOX_LIMIT_MESSAGE =
-  "You've used your free packs for this period. Upgrade to Pro to lift the limit.";
+export const MAILBOX_LIMIT_MESSAGE = errorMessage("freePacksUsed");
 
 export type MailboxReservation = {
   reserved: boolean;

@@ -54,7 +54,7 @@ describe("a throttled attempt is named, wherever it happens", () => {
 describe("everything else stays indistinguishable", () => {
   it("says the same thing for a send failure however it failed", () => {
     const messages = new Set(
-      [{ status: 400 }, { status: 500 }, { status: 503 }, {}, null, { code: "WHATEVER" }].map(signInSendError)
+      [{ status: 400 }, { status: 500 }, { status: 503 }, {}, null, { code: "WHATEVER" }].map((err) => signInSendError(err))
     );
     expect(messages.size).toBe(1);
     expect([...messages][0]).not.toMatch(/exist|account|unknown|found/i);

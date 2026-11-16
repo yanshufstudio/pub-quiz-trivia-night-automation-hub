@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "@/lib/auth-client";
 import { signInCodeError } from "@/lib/sign-in-errors";
+import { useT } from "@/i18n/react";
 
 /**
  * The button — and nothing but the button — that spends the code.
@@ -22,6 +23,7 @@ import { signInCodeError } from "@/lib/sign-in-errors";
  * see `SignInForm`.
  */
 export function ConfirmSignIn({ email, code }: { email: string; code: string }) {
+  const t = useT();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,7 +33,7 @@ export function ConfirmSignIn({ email, code }: { email: string; code: string }) 
     const { error: err } = await signIn.emailOtp({ email, otp: code });
     if (err) {
       setBusy(false);
-      setError(signInCodeError(err, { fromLink: true }));
+      setError(signInCodeError(err, { fromLink: true }, t));
       return;
     }
     // A full page load, not `router.push`: the header's Packs link was
@@ -45,7 +47,7 @@ export function ConfirmSignIn({ email, code }: { email: string; code: string }) 
   return (
     <div className="paper-sheet mt-8 rounded-xl border border-line px-6 py-8">
       <p className="text-muted">
-        Sign in as <span className="font-medium text-foreground">{email}</span>?
+        {t.rich("signIn.confirm.signInAs", { email: <span className="font-medium text-foreground">{email}</span> })}
       </p>
 
       {error ? (
@@ -63,15 +65,17 @@ export function ConfirmSignIn({ email, code }: { email: string; code: string }) 
         disabled={busy}
         className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-xl bg-amber px-4 text-sm font-semibold text-white transition-colors hover:bg-amber-hover disabled:opacity-60"
       >
-        {busy ? "Signing in…" : "Sign in"}
+        {busy ? t("signIn.signingIn") : t("signIn.signIn")}
       </button>
 
       <p className="mt-4 text-sm text-muted">
-        Not you? Close this page — nothing has happened yet. Need a fresh code?{" "}
-        <Link href="/sign-in" className="font-semibold text-amber hover:underline">
-          Start again
-        </Link>
-        .
+        {t.rich("signIn.confirm.notYou", {
+          startAgain: (
+            <Link href="/sign-in" className="font-semibold text-amber hover:underline">
+              {t("signIn.confirm.startAgain")}
+            </Link>
+          ),
+        })}
       </p>
     </div>
   );

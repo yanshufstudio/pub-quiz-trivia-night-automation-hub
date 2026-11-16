@@ -5,6 +5,7 @@ import { parseOptions } from "@/lib/question-types";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { requirePackOwner } from "@/lib/pack-access";
 import { refuseIfLiveGame } from "@/lib/live-game-guard";
+import { apiError } from "@/lib/api-error";
 
 const createSchema = z.object({
   roundId: z.string().min(1),
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const parsed = createSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    return NextResponse.json(apiError("invalidRequest"), { status: 400 });
   }
 
   const round = await db.round.findUnique({
@@ -27,7 +28,7 @@ export async function POST(req: NextRequest) {
     include: { questions: true },
   });
   if (!round) {
-    return NextResponse.json({ error: "Round not found" }, { status: 404 });
+    return NextResponse.json(apiError("roundNotFound"), { status: 404 });
   }
   const forbidden = await requirePackOwner(host.creator.id, { roundId: round.id });
   if (forbidden) return forbidden;

@@ -2,12 +2,15 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { MAX_PACK_FILE_BYTES, PACK_TOO_BIG_TO_IMPORT_MESSAGE } from "@/lib/pack-file-limits";
+import { MAX_PACK_FILE_BYTES } from "@/lib/pack-file-limits";
+import { errorText } from "@/i18n";
+import { useT } from "@/i18n/react";
 
 /** "Import pack" for /packs: picks a JSON file exported from a pack editor's
  * "Export JSON", posts it to /api/packs/import, and opens the new pack. */
 export function ImportPackButton() {
   const router = useRouter();
+  const t = useT();
   const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,13 +23,13 @@ export function ImportPackButton() {
     setBusy(true);
     setError(null);
     try {
-      if (file.size > MAX_PACK_FILE_BYTES) throw new Error(PACK_TOO_BIG_TO_IMPORT_MESSAGE);
+      if (file.size > MAX_PACK_FILE_BYTES) throw new Error(t("errors.packTooBigToImport"));
       const text = await file.text();
       let body: unknown;
       try {
         body = JSON.parse(text);
       } catch {
-        throw new Error(`${file.name} isn't valid JSON.`);
+        throw new Error(t("packs.notJson", { file: file.name }));
       }
       const res = await fetch("/api/packs/import", {
         method: "POST",
@@ -34,10 +37,10 @@ export function ImportPackButton() {
         body: JSON.stringify(body),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not import that pack.");
+      if (!res.ok) throw new Error(errorText(t, data, "packs.couldNotImport"));
       router.push(`/packs/${data.pack.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not import that pack.");
+      setError(err instanceof Error ? err.message : t("packs.couldNotImport"));
       setBusy(false);
     }
   }
@@ -50,7 +53,7 @@ export function ImportPackButton() {
         accept="application/json,.json"
         onChange={onFile}
         className="sr-only"
-        aria-label="Pack file"
+        aria-label={t("packs.fileLabel")}
       />
       <button
         type="button"
@@ -58,10 +61,10 @@ export function ImportPackButton() {
         disabled={busy}
         className="inline-flex h-11 items-center rounded-xl border border-line bg-white px-4 text-sm font-semibold disabled:opacity-50"
       >
-        {busy ? "Importing…" : "Import pack"}
+        {busy ? t("packs.importing") : t("packs.import")}
       </button>
       {error ? (
-        <p role="alert" className="max-w-xs text-right text-sm text-red-700">
+        <p role="alert" className="max-w-xs text-end text-sm text-red-700">
           {error}
         </p>
       ) : null}

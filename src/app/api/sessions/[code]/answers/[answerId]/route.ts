@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { isValidHostToken } from "@/lib/host-auth";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { apiError } from "@/lib/api-error";
 
 const overrideSchema = z.object({
   isCorrect: z.boolean(),
@@ -24,20 +25,20 @@ export async function PATCH(
   const body = await req.json().catch(() => null);
   const parsed = overrideSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid override" }, { status: 400 });
+    return NextResponse.json(apiError("invalidOverride"), { status: 400 });
   }
 
   const session = await db.session.findUnique({ where: { code: code.toUpperCase() } });
   if (!session) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
   if (!isValidHostToken(session.hostToken, parsed.data.hostToken)) {
-    return NextResponse.json({ error: "Invalid host key" }, { status: 401 });
+    return NextResponse.json(apiError("badHostKey"), { status: 401 });
   }
 
   const answer = await db.answer.findUnique({ where: { id: answerId } });
   if (!answer || answer.sessionId !== session.id) {
-    return NextResponse.json({ error: "Answer not found" }, { status: 404 });
+    return NextResponse.json(apiError("answerNotFound"), { status: 404 });
   }
 
   const updated = await db.answer.update({

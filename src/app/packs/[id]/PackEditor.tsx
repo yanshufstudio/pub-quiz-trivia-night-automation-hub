@@ -8,19 +8,19 @@ import { writeHostToken } from "@/lib/host-session";
 import { formatBytes, MAX_MEDIA_BYTES } from "@/lib/media-limits";
 import { ANSWER_MAX, QUESTION_TEXT_MAX } from "@/lib/pack-file-limits";
 import { SITE_URL } from "@/lib/site";
-import { countOf } from "@/lib/plural";
 import { UncheckedPackBanner } from "./UncheckedPackBanner";
-import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
+import { errorText, getT } from "@/i18n";
+import { useT } from "@/i18n/react";
 
 /**
  * What an expired session is told while editing (M5).
  *
  * A 401 used to show the same "Couldn't save" as a validation error, so the one
  * thing that fixes it — signing in again — was the one thing the message did not
- * mention. Exported so the test asserts the exact words rather than a fragment.
+ * mention. Exported so the test asserts the exact words rather than a fragment:
+ * the English copy of editor.signedOut, which is what the editor shows (L1).
  */
-export const SIGNED_OUT_MESSAGE =
-  "You've been signed out — sign in again in another tab, then save this edit once more. Your text is still here.";
+export const SIGNED_OUT_MESSAGE = getT("en")("editor.signedOut");
 
 type Draft = Pick<Question, "text" | "answer" | "points" | "type" | "options"> & {
   // Kept as the raw comma-separated text the host is typing, not a parsed
@@ -78,6 +78,7 @@ function omitKey<T>(record: Record<string, T>, key: string): Record<string, T> {
  * honest about it. Export, print and starting a session stay available. */
 export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) {
   const router = useRouter();
+  const t = useT();
   // The pack's own structure (which rounds, which questions, in what order)
   // lives in state, separate from `drafts` below (which only tracks each
   // existing question's in-progress field edits) — add/delete/reorder change
@@ -132,13 +133,13 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setMediaError((current) => ({ ...current, [questionId]: data.error ?? "Could not upload image" }));
+        setMediaError((current) => ({ ...current, [questionId]: errorText(t, data, "editor.couldNotUpload") }));
         return;
       }
       setQuestionHasMedia(roundId, questionId, true);
       setMediaVersion((current) => ({ ...current, [questionId]: (current[questionId] ?? 0) + 1 }));
     } catch {
-      setMediaError((current) => ({ ...current, [questionId]: "Could not upload image" }));
+      setMediaError((current) => ({ ...current, [questionId]: t("editor.couldNotUpload") }));
     } finally {
       setMediaBusy((current) => ({ ...current, [questionId]: false }));
     }
@@ -151,12 +152,12 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       const res = await fetch(`/api/questions/${questionId}/media`, { method: "DELETE" });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setMediaError((current) => ({ ...current, [questionId]: data.error ?? "Could not remove image" }));
+        setMediaError((current) => ({ ...current, [questionId]: errorText(t, data, "editor.couldNotRemove") }));
         return;
       }
       setQuestionHasMedia(roundId, questionId, false);
     } catch {
-      setMediaError((current) => ({ ...current, [questionId]: "Could not remove image" }));
+      setMediaError((current) => ({ ...current, [questionId]: t("editor.couldNotRemove") }));
     } finally {
       setMediaBusy((current) => ({ ...current, [questionId]: false }));
     }
@@ -268,12 +269,12 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
 
     if (!res) {
       setStatus((current) => ({ ...current, [id]: "error" }));
-      setError("Couldn't reach the server to save that. Check your connection — your text is still here.");
+      setError(t("editor.unreachable"));
       return;
     }
     if (res.status === 401) {
       setStatus((current) => ({ ...current, [id]: "error" }));
-      setError(SIGNED_OUT_MESSAGE);
+      setError(t("editor.signedOut"));
       return;
     }
     if (!res.ok) {
@@ -341,7 +342,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      setError(data.error ?? "Could not add question");
+      setError(errorText(t, data, "editor.couldNotAdd"));
       return;
     }
     const question: Question = data.question;
@@ -365,7 +366,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
     const res = await fetch(`/api/questions/${questionId}`, { method: "DELETE" });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      setError(data.error ?? "Could not delete question");
+      setError(errorText(t, data, "editor.couldNotDeleteQuestion"));
       setConfirmingDelete(null);
       return;
     }
@@ -395,7 +396,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
     const res = await fetch(`/api/rounds/${roundId}`, { method: "DELETE" });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      setError(data.error ?? "Could not delete round");
+      setError(errorText(t, data, "editor.couldNotDeleteRound"));
       setConfirmingDelete(null);
       return;
     }
@@ -416,7 +417,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      setError(data.error ?? "Could not reorder round");
+      setError(errorText(t, data, "editor.couldNotReorder"));
       return;
     }
     if (!data.moved) return;
@@ -438,7 +439,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       const res = await fetch(`/api/packs/${pack.id}/export`);
       if (!res.ok) {
         const data = await res.json().catch(() => null);
-        throw new Error(data?.error ?? "Could not export this pack.");
+        throw new Error(errorText(t, data, "editor.couldNotExport"));
       }
       const link = document.createElement("a");
       link.href = URL.createObjectURL(await res.blob());
@@ -450,7 +451,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       link.remove();
       window.setTimeout(() => URL.revokeObjectURL(link.href), 10_000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not export this pack.");
+      setError(err instanceof Error ? err.message : t("editor.couldNotExport"));
     }
   }
 
@@ -464,11 +465,11 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
         body: JSON.stringify({ packId: pack.id }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not start session");
+      if (!res.ok) throw new Error(errorText(t, data, "editor.couldNotStart"));
       writeHostToken(data.session.code, data.hostToken);
       router.push(`/host/${data.session.code}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not start session");
+      setError(err instanceof Error ? err.message : t("editor.couldNotStart"));
       setStarting(false);
     }
   }
@@ -479,16 +480,16 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
         <div>
           <p className="text-sm text-muted">
             <Link href="/packs" className="hover:text-foreground">
-              Packs
+              {t("editor.packs")}
             </Link>
             <span className="px-2">/</span>
-            Editor
+            {t("editor.editor")}
           </p>
           <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight">{pack.title}</h1>
           <p className="mt-2 text-sm text-muted">
-            {countOf(pack.rounds.length, "round")} · {countOf(questionCount, "question")}
+            {t("common.rounds", { count: pack.rounds.length })} · {t("common.questions", { count: questionCount })}
           </p>
-          <p className="mt-1 text-xs text-muted">{AI_DISCLAIMER}</p>
+          <p className="mt-1 text-xs text-muted">{t("common.aiDisclaimer")}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -496,13 +497,13 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
             onClick={exportPack}
             className="inline-flex h-11 items-center rounded-xl border border-line bg-white px-4 text-sm font-semibold"
           >
-            Export JSON
+            {t("editor.exportJson")}
           </button>
           <Link
             href={`/packs/${pack.id}/print`}
             className="inline-flex h-11 items-center rounded-xl border border-line bg-white px-4 text-sm font-semibold"
           >
-            Print preview
+            {t("editor.printPreview")}
           </Link>
           <button
             type="button"
@@ -510,7 +511,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
             disabled={starting}
             className="inline-flex h-11 items-center rounded-xl bg-amber px-4 text-sm font-semibold text-white hover:bg-amber-hover disabled:opacity-50"
           >
-            {starting ? "Starting…" : "Start live session"}
+            {starting ? t("editor.starting") : t("editor.startLive")}
           </button>
         </div>
       </div>
@@ -520,12 +521,15 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           screen and the team phones are two different surfaces, so the first
           time most hosts found out was during a quiz night. */}
       <p className="mt-3 text-sm text-muted">
-        <strong className="font-semibold text-foreground">Start live session</strong> opens your host
-        screen with a five-character code teams enter at{" "}
-        <span className="font-semibold">{SITE_URL.replace(/^https:\/\//, "")}/play</span>.{" "}
-        <Link className="font-medium text-amber hover:underline" href="/how-it-works">
-          How to run a quiz night
-        </Link>
+        {t.rich("editor.startExplainer", {
+          start: <strong className="font-semibold text-foreground">{t("editor.startLive")}</strong>,
+          url: <span className="font-semibold">{SITE_URL.replace(/^https:\/\//, "")}/play</span>,
+          howTo: (
+            <Link className="font-medium text-amber hover:underline" href="/how-it-works">
+              {t("editor.howTo")}
+            </Link>
+          ),
+        })}
       </p>
 
       {error ? <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800">{error}</p> : null}
@@ -534,8 +538,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
 
       {!canEdit ? (
         <p className="mt-4 rounded-lg border border-line bg-white px-3 py-2 text-sm text-muted" role="note">
-          This is a shared pack, so it&apos;s read-only here. Export JSON, then import it from the packs list to get your
-          own editable copy.
+          {t("editor.readOnly")}
         </p>
       ) : null}
 
@@ -545,7 +548,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
             <div className="flex items-start justify-between gap-4 border-b border-line pb-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber">
-                  Round {round.index + 1}
+                  {t("common.roundN", { round: round.index + 1 })}
                 </p>
                 <h2 className="mt-1 text-xl font-semibold">{round.title}</h2>
                 <p className="text-sm text-muted">{round.category}</p>
@@ -556,7 +559,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                   type="button"
                   onClick={() => moveRound(round.id, "up")}
                   disabled={roundIndex === 0}
-                  aria-label="Move round up"
+                  aria-label={t("editor.moveUp")}
                   className="h-9 w-9 rounded-lg border border-line text-muted disabled:opacity-30"
                 >
                   ↑
@@ -565,7 +568,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                   type="button"
                   onClick={() => moveRound(round.id, "down")}
                   disabled={roundIndex === rounds.length - 1}
-                  aria-label="Move round down"
+                  aria-label={t("editor.moveDown")}
                   className="h-9 w-9 rounded-lg border border-line text-muted disabled:opacity-30"
                 >
                   ↓
@@ -579,9 +582,9 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                       ? "border-red-300 bg-red-50 text-red-700"
                       : "border-line text-muted"
                   }`}
-                  title={rounds.length <= 1 ? "A pack needs at least one round" : undefined}
+                  title={rounds.length <= 1 ? t("editor.needOneRound") : undefined}
                 >
-                  {confirmingDelete === `r:${round.id}` ? "Confirm delete round?" : "Delete round"}
+                  {confirmingDelete === `r:${round.id}` ? t("editor.confirmDeleteRound") : t("editor.deleteRound")}
                 </button>
                 {confirmingDelete === `r:${round.id}` ? (
                   <button
@@ -589,7 +592,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                     onClick={() => setConfirmingDelete(null)}
                     className="h-9 rounded-lg px-2 text-xs font-semibold text-muted"
                   >
-                    Cancel
+                    {t("common.cancel")}
                   </button>
                 ) : null}
               </div>
@@ -604,7 +607,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                   <li key={question.id} className="grid gap-3">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <span className="text-sm font-semibold">Q{question.index + 1}</span>
+                        <span className="text-sm font-semibold">{t("common.questionShort", { question: question.index + 1 })}</span>
                         {canEdit ? (
                         <div className="flex rounded-lg border border-line bg-white p-0.5 text-xs font-medium">
                           <button
@@ -614,7 +617,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                               draft.type === "TEXT" ? "bg-foreground text-background" : "text-muted"
                             }`}
                           >
-                            Free text
+                            {t("editor.freeText")}
                           </button>
                           <button
                             type="button"
@@ -623,12 +626,12 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                               draft.type === "MULTIPLE_CHOICE" ? "bg-foreground text-background" : "text-muted"
                             }`}
                           >
-                            Multiple choice
+                            {t("editor.multipleChoice")}
                           </button>
                         </div>
                         ) : (
                           <span className="text-xs text-muted">
-                            {draft.type === "MULTIPLE_CHOICE" ? "Multiple choice" : "Free text"}
+                            {draft.type === "MULTIPLE_CHOICE" ? t("editor.multipleChoice") : t("editor.freeText")}
                           </span>
                         )}
                       </div>
@@ -636,12 +639,12 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                       <div className="flex items-center gap-3">
                         <span className="text-xs text-muted">
                           {saveState === "saving"
-                            ? "Saving…"
+                            ? t("editor.saving")
                             : saveState === "saved"
-                              ? "Saved"
+                              ? t("editor.saved")
                               : saveState === "error"
-                                ? "Couldn’t save"
-                                : "Edits save on blur"}
+                                ? t("editor.couldNotSave")
+                                : t("editor.savesOnBlur")}
                         </span>
                         <button
                           type="button"
@@ -652,9 +655,9 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                               ? "border-red-300 bg-red-50 text-red-700"
                               : "border-line text-muted"
                           }`}
-                          title={round.questions.length <= 1 ? "A round needs at least one question" : undefined}
+                          title={round.questions.length <= 1 ? t("editor.needOneQuestion") : undefined}
                         >
-                          {confirmingDelete === `q:${question.id}` ? "Confirm?" : "Delete"}
+                          {confirmingDelete === `q:${question.id}` ? t("editor.confirmDelete") : t("editor.delete")}
                         </button>
                         {confirmingDelete === `q:${question.id}` ? (
                           <button
@@ -662,14 +665,14 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                             onClick={() => setConfirmingDelete(null)}
                             className="text-xs font-semibold text-muted"
                           >
-                            Cancel
+                            {t("common.cancel")}
                           </button>
                         ) : null}
                       </div>
                       ) : null}
                     </div>
                     <label className="block">
-                      <span className="sr-only">Question text</span>
+                      <span className="sr-only">{t("editor.questionText")}</span>
                       <textarea
                         value={draft.text}
                         maxLength={QUESTION_TEXT_MAX}
@@ -684,7 +687,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                     {draft.type === "MULTIPLE_CHOICE" ? (
                       <div className="grid gap-2">
                         <span className="text-xs font-medium uppercase tracking-wide text-muted">
-                          Options — mark the correct one
+                          {t("editor.options")}
                         </span>
                         {draft.options.map((option, i) => (
                           <div key={i} className="flex items-center gap-2">
@@ -697,7 +700,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                                 onChange={() => markOptionCorrect(question.id, i)}
                                 disabled={!canEdit || !option.trim()}
                                 className="h-5 w-5 accent-amber"
-                                aria-label={`Option ${i + 1} is correct`}
+                                aria-label={t("editor.optionCorrect", { n: i + 1 })}
                               />
                             </label>
                             <input
@@ -705,7 +708,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                               onChange={(e) => updateOption(question.id, i, e.target.value)}
                               onBlur={() => saveQuestion(question.id)}
                               readOnly={!canEdit}
-                              placeholder={`Option ${i + 1}`}
+                              placeholder={t("editor.option", { n: i + 1 })}
                               className="h-10 w-full rounded-lg border border-line bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-amber"
                             />
                             {canEdit ? (
@@ -714,7 +717,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                               onClick={() => removeOption(question.id, i)}
                               disabled={draft.options.length <= 2}
                               className="h-10 w-10 shrink-0 rounded-lg border border-line text-muted disabled:opacity-30"
-                              aria-label={`Remove option ${i + 1}`}
+                              aria-label={t("editor.removeOption", { n: i + 1 })}
                             >
                               ×
                             </button>
@@ -728,7 +731,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                           disabled={draft.options.length >= 6}
                           className="mt-1 h-9 w-fit rounded-lg border border-dashed border-line px-3 text-xs font-semibold text-muted disabled:opacity-40"
                         >
-                          + Add option
+                          {t("editor.addOption")}
                         </button>
                         ) : null}
                       </div>
@@ -738,7 +741,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                       {draft.type === "TEXT" ? (
                         <label className="block">
                           <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-muted">
-                            Answer
+                            {t("editor.answer")}
                           </span>
                           <input
                             value={draft.answer}
@@ -754,7 +757,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                       )}
                       <label className="block">
                         <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-muted">
-                          Points
+                          {t("editor.points")}
                         </span>
                         <input
                           type="number"
@@ -774,24 +777,24 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                     {draft.type === "TEXT" ? (
                       <label className="block">
                         <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-muted">
-                          Alternate answers (comma-separated)
+                          {t("editor.alternates")}
                         </span>
                         <input
                           value={draft.acceptableAnswersText}
                           onChange={(e) => updateDraft(question.id, { acceptableAnswersText: e.target.value })}
                           onBlur={() => saveQuestion(question.id)}
                           readOnly={!canEdit}
-                          placeholder="e.g. Leo, Leonardo"
+                          placeholder={t("editor.alternatesPlaceholder")}
                           className="h-11 w-full rounded-lg border border-line bg-white px-3 text-base outline-none focus:ring-2 focus:ring-amber"
                         />
                         <span className="mt-1 block text-xs text-muted">
-                          Also scored correct alongside the answer above — nicknames, alternate spellings, etc.
+                          {t("editor.alternatesHint")}
                         </span>
                       </label>
                     ) : null}
 
                     <div className="grid gap-2">
-                      <span className="text-xs font-medium uppercase tracking-wide text-muted">Image</span>
+                      <span className="text-xs font-medium uppercase tracking-wide text-muted">{t("editor.image")}</span>
                       <div className="flex flex-wrap items-center gap-3">
                         {question.hasMedia ? (
                           // eslint-disable-next-line @next/next/no-img-element -- served from our own API route, not next/image-optimizable
@@ -801,7 +804,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                             className="h-20 w-28 rounded-lg border border-line object-contain bg-white"
                           />
                         ) : canEdit ? (
-                          <span className="text-xs text-muted">No image attached</span>
+                          <span className="text-xs text-muted">{t("editor.noImage")}</span>
                         ) : null}
                         {canEdit ? (
                           <>
@@ -810,7 +813,11 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                                 mediaBusy[question.id] ? "opacity-50" : ""
                               }`}
                             >
-                              {mediaBusy[question.id] ? "Uploading…" : question.hasMedia ? "Replace image" : "Add image"}
+                              {mediaBusy[question.id]
+                                ? t("editor.uploading")
+                                : question.hasMedia
+                                  ? t("editor.replaceImage")
+                                  : t("editor.addImage")}
                               <input
                                 type="file"
                                 accept="image/png,image/jpeg"
@@ -830,7 +837,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                                 disabled={mediaBusy[question.id]}
                                 className="h-9 rounded-lg border border-line px-3 text-xs font-semibold text-muted disabled:opacity-50"
                               >
-                                Remove
+                                {t("editor.remove")}
                               </button>
                             ) : null}
                           </>
@@ -839,7 +846,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
                       {mediaError[question.id] ? (
                         <p className="text-xs text-red-700">{mediaError[question.id]}</p>
                       ) : null}
-                      <span className="text-xs text-muted">JPEG or PNG, up to {formatBytes(MAX_MEDIA_BYTES)}.</span>
+                      <span className="text-xs text-muted">{t("editor.imageHint", { size: formatBytes(MAX_MEDIA_BYTES) })}</span>
                     </div>
                   </li>
                 );
@@ -851,7 +858,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
               onClick={() => addQuestion(round.id)}
               className="mt-5 h-10 w-fit rounded-lg border border-dashed border-line px-4 text-sm font-semibold text-muted"
             >
-              + Add question
+              {t("editor.addQuestion")}
             </button>
             ) : null}
           </section>

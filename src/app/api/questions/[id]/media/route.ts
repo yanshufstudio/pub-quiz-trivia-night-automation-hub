@@ -5,6 +5,7 @@ import { requirePackOwner } from "@/lib/pack-access";
 import { mayReadQuestionMedia } from "@/lib/question-media-access";
 import { rateLimit } from "@/lib/rate-limit";
 import { formatBytes, MAX_MEDIA_BYTES, MAX_MEDIA_PER_PACK, prepareImageForStorage } from "@/lib/media";
+import { apiError } from "@/lib/api-error";
 
 /**
  * The image attached to one question.
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   const limited = await rateLimit(req, "questions:media", { limit: 40, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
-      { error: "Too many uploads recently. Please wait a bit and try again." },
+      apiError("tooManyUploads"),
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   const declaredLength = Number(req.headers.get("content-length"));
   if (Number.isFinite(declaredLength) && declaredLength > MAX_MEDIA_BYTES) {
     return NextResponse.json(
-      { error: `Images must be ${formatBytes(MAX_MEDIA_BYTES)} or smaller` },
+      apiError("imageTooBig", { size: formatBytes(MAX_MEDIA_BYTES) }),
       { status: 413 }
     );
   }
@@ -65,7 +66,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     select: { id: true, round: { select: { packId: true } } },
   });
   if (!question) {
-    return NextResponse.json({ error: "Question not found" }, { status: 404 });
+    return NextResponse.json(apiError("questionNotFound"), { status: 404 });
   }
   const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;
@@ -81,7 +82,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     });
     if (packMediaCount >= MAX_MEDIA_PER_PACK) {
       return NextResponse.json(
-        { error: `This pack already has the maximum of ${MAX_MEDIA_PER_PACK} images.` },
+        apiError("tooManyImages", { max: String(MAX_MEDIA_PER_PACK) }),
         { status: 409 }
       );
     }
@@ -89,7 +90,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
   const body = await req.arrayBuffer().catch(() => null);
   if (!body) {
-    return NextResponse.json({ error: "Could not read the uploaded file" }, { status: 400 });
+    return NextResponse.json(apiError("unreadableUpload"), { status: 400 });
   }
   const bytes = new Uint8Array(body);
 
@@ -123,7 +124,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 /** The one 404 this route answers with: "no image" and "not yours" are the
  * same answer, deliberately. */
 function noImage() {
-  return NextResponse.json({ error: "No image for this question" }, { status: 404 });
+  return NextResponse.json(apiError("noImage"), { status: 404 });
 }
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -170,7 +171,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   const { id } = await params;
   const existing = await db.questionMedia.findUnique({ where: { questionId: id }, select: { id: true } });
   if (!existing) {
-    return NextResponse.json({ error: "No image for this question" }, { status: 404 });
+    return NextResponse.json(apiError("noImage"), { status: 404 });
   }
   const forbidden = await requirePackOwner(host.creator.id, { questionId: id });
   if (forbidden) return forbidden;

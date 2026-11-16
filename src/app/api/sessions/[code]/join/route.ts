@@ -7,6 +7,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { SESSION_STATUS } from "@/lib/session-state";
 import { forgetDisplay } from "@/lib/display-cache";
 import { MAX_TEAMS_PER_SESSION, TEAM_NAME_MAX, normalizeTeamName, teamNameKey } from "@/lib/team-name";
+import { apiError } from "@/lib/api-error";
 
 const joinSchema = z.object({
   // Normalised before the length check so a name made of control
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const limited = await rateLimit(req, "sessions:join", { limit: 150, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
-      { error: "Too many teams joined from here recently. Please wait a bit and try again." },
+      apiError("tooManyJoins"),
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }
@@ -37,21 +38,21 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const body = await req.json().catch(() => null);
   const parsed = joinSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Team name is required" }, { status: 400 });
+    return NextResponse.json(apiError("teamNameRequired"), { status: 400 });
   }
 
   const session = await db.session.findUnique({ where: { code: code.toUpperCase() } });
   if (!session) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
   if (session.status === SESSION_STATUS.ENDED) {
-    return NextResponse.json({ error: "This quiz has already ended" }, { status: 409 });
+    return NextResponse.json(apiError("quizEnded"), { status: 409 });
   }
 
   const teamCount = await db.team.count({ where: { sessionId: session.id } });
   if (teamCount >= MAX_TEAMS_PER_SESSION) {
     return NextResponse.json(
-      { error: "This quiz is full. It has reached the maximum number of teams." },
+      apiError("quizFull"),
       { status: 409 }
     );
   }
@@ -64,7 +65,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const existing = names.find((t) => teamNameKey(t.name) === key);
   if (existing) {
     return NextResponse.json(
-      { error: "That team name is already taken in this session" },
+      apiError("teamNameTaken"),
       { status: 409 }
     );
   }
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     // Two tables picked the same name at once: the unique index refused the
     // second, and that used to reach the phone as a 500.
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
-      return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+      return NextResponse.json(apiError("teamNameTaken"), { status: 409 });
     }
     throw error;
   }
@@ -92,7 +93,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     SELECT "id", "name" FROM "Team" WHERE "sessionId" = ${session.id} ORDER BY rowid`;
   if (rows.find((row) => teamNameKey(row.name) === key)?.id !== team.id) {
     await db.team.deleteMany({ where: { id: team.id } });
-    return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+    return NextResponse.json(apiError("teamNameTaken"), { status: 409 });
   }
 
   // The cap, in one statement so it cannot be raced: a team that finds the game
@@ -103,7 +104,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
       AND (SELECT COUNT(*) FROM "Team" WHERE "sessionId" = ${session.id}) > ${MAX_TEAMS_PER_SESSION}`;
   if (removed > 0) {
     return NextResponse.json(
-      { error: "This quiz is full. It has reached the maximum number of teams." },
+      apiError("quizFull"),
       { status: 409 }
     );
   }

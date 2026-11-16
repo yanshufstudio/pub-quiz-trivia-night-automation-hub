@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { hostSessionRequest } from "@/lib/host-route";
 import { forgetDisplay } from "@/lib/display-cache";
 import { SESSION_MODE, SESSION_STATUS } from "@/lib/session-state";
+import { apiError } from "@/lib/api-error";
 
 /**
  * Round score entry (RM3): the host types a team's total for a round.
@@ -30,7 +31,7 @@ type Params = { params: Promise<{ code: string }> };
 
 async function checkTarget(session: Session, teamId: string, roundIndex: number) {
   if (session.mode !== SESSION_MODE.ROUND) {
-    return NextResponse.json({ error: "This game runs one question at a time" }, { status: 409 });
+    return NextResponse.json(apiError("questionModeGame"), { status: 409 });
   }
   const closed =
     roundIndex < session.currentRoundIndex ||
@@ -39,11 +40,11 @@ async function checkTarget(session: Session, teamId: string, roundIndex: number)
         session.status === SESSION_STATUS.ROUND_REVEAL ||
         session.status === SESSION_STATUS.ENDED));
   if (!closed) {
-    return NextResponse.json({ error: "Close the round before entering its scores" }, { status: 409 });
+    return NextResponse.json(apiError("closeRoundFirst"), { status: 409 });
   }
   const team = await db.team.findUnique({ where: { id: teamId }, select: { sessionId: true } });
   if (!team || team.sessionId !== session.id) {
-    return NextResponse.json({ error: "Team not found" }, { status: 404 });
+    return NextResponse.json(apiError("teamNotFound"), { status: 404 });
   }
   return null;
 }

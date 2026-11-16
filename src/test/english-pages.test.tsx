@@ -87,14 +87,14 @@ afterEach(() => {
 });
 
 describe("not-found and the site header", () => {
-  it("signed out", () => {
-    const { container } = render(<NotFound />);
+  it("signed out", async () => {
+    const { container } = render(await NotFound());
     expect(readable(container)).toMatchSnapshot();
   });
 
-  it("signed in", () => {
+  it("signed in", async () => {
     session.data = { user: { name: "Paul Host", email: "paul@example.test" } };
-    const { container } = render(<NotFound />);
+    const { container } = render(await NotFound());
     expect(readable(container)).toMatchSnapshot();
   });
 });
@@ -157,6 +157,7 @@ describe("the sign-in email", () => {
     // which changes nothing a reader sees; the words inside are what is frozen.
     const html = (body.html as string).replace(/^<div lang="en" dir="ltr">([\s\S]*)<\/div>$/, "$1");
     expect([body.subject, body.text, html].join("\n---\n")).toMatchSnapshot();
+    expect(body.html).toMatch(/^<div lang="en" dir="ltr">/);
   });
 });
 

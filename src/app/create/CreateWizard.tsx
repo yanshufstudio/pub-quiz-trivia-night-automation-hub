@@ -6,15 +6,14 @@ import { useRouter } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRightIcon } from "@/components/icons";
 import { FREE_PACK_ALLOWANCE } from "@/lib/pricing";
-import { AI_DISCLAIMER } from "@/lib/ai-disclaimer";
+import { errorText, type Translator } from "@/i18n";
+import { useT } from "@/i18n/react";
 
 // The brief every visitor generates from unless they retype it, so it has to
 // ask only for what the app can actually put in front of players: question
 // text and nothing else. It used to end on a "picture-round-style" closer,
 // which invited exactly the pack the app cannot show — a round whose
-// questions need an image that never arrives.
-const EXAMPLE =
-  "A Friday-night pub quiz: four rounds covering 90s music, UK geography, movie quotes, and a general knowledge closer. Keep answers short and pub-friendly.";
+// questions need an image that never arrives. (wizard.example)
 
 // Paddle's checkout returns the host here with ?upgraded=1, often a few
 // seconds before its webhook has switched Pro on. So poll the status until
@@ -26,14 +25,11 @@ const ACTIVATION_MAX_ATTEMPTS = 30;
 // while busy the page says what is happening and for how long. The phases
 // follow the clock, not the server — there is no progress to report, so
 // there is no percentage either.
-const WAITING_LINE =
-  "Writing and fact-checking your pack. This usually takes up to about a minute. Keep this tab open.";
-
-function waitingStatus(seconds: number): string {
-  if (seconds >= 180) return "Still working, taking longer than usual.";
-  if (seconds >= 50) return "Almost done…";
-  if (seconds >= 25) return "Checking facts…";
-  return "Writing questions…";
+function waitingStatus(t: Translator, seconds: number): string {
+  if (seconds >= 180) return t("wizard.stillWorking");
+  if (seconds >= 50) return t("wizard.almostDone");
+  if (seconds >= 25) return t("wizard.checking");
+  return t("wizard.writing");
 }
 
 function minutesSeconds(seconds: number): string {
@@ -42,7 +38,8 @@ function minutesSeconds(seconds: number): string {
 
 export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
   const router = useRouter();
-  const [prompt, setPrompt] = useState(EXAMPLE);
+  const t = useT();
+  const [prompt, setPrompt] = useState(() => t("wizard.example"));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notConfigured, setNotConfigured] = useState(false);
@@ -131,12 +128,14 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
           setUsage({ used: data.packsGeneratedInPeriod, limit: data.limit, plan: "FREE" });
         }
         throw new Error(
-          data?.error ?? `Generation failed (server returned status ${res.status}). Please try again.`
+          data?.error || data?.code
+            ? errorText(t, data, "wizard.failed")
+            : t("wizard.failedStatus", { status: res.status })
         );
       }
       router.push(`/packs/${data.pack.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Generation failed");
+      setError(err instanceof Error ? err.message : t("wizard.failed"));
       setBusy(false);
       setStartedAt(null);
     }
@@ -148,10 +147,10 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
     try {
       const res = await fetch("/api/packs/seed", { method: "POST" });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not create the demo pack");
+      if (!res.ok) throw new Error(errorText(t, data, "wizard.demoFailed"));
       router.push(`/packs/${data.pack.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not create the demo pack");
+      setError(err instanceof Error ? err.message : t("wizard.demoFailed"));
       setBusy(false);
     }
   }
@@ -160,37 +159,34 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
     <>
       <SiteHeader />
       <main className="mx-auto w-full max-w-2xl flex-1 px-5 py-10">
-        <h1 className="font-serif text-3xl font-semibold tracking-tight">Generate a quiz pack</h1>
-        <p className="mt-2 text-muted">
-          Tell the wizard what kind of night you are running. It will draft rounds, questions,
-          answers, and points you can edit next.
-        </p>
+        <h1 className="font-serif text-3xl font-semibold tracking-tight">{t("wizard.heading")}</h1>
+        <p className="mt-2 text-muted">{t("wizard.intro")}</p>
         {usage && usage.plan === "PRO" ? (
           <p className="mt-2 text-sm text-muted">
-            You are on Pro: the {FREE_PACK_ALLOWANCE}-pack limit is lifted.{" "}
-            <Link href="/pricing" className="font-semibold underline underline-offset-2">
-              Manage subscription
-            </Link>
+            {t.rich("wizard.proLifted", {
+              limit: FREE_PACK_ALLOWANCE,
+              manage: (
+                <Link href="/pricing" className="font-semibold underline underline-offset-2">
+                  {t("wizard.manage")}
+                </Link>
+              ),
+            })}
           </p>
         ) : usage ? (
-          <p className="mt-2 text-sm text-muted">
-            {usage.used}/{usage.limit} free packs used in the last 30 days
-          </p>
+          <p className="mt-2 text-sm text-muted">{t("wizard.freeUsed", { used: usage.used, limit: usage.limit })}</p>
         ) : null}
         {upgraded && usage?.plan !== "PRO" ? (
           <p role="status" className="mt-2 text-sm text-muted">
-            {activationSlow
-              ? "Payment received. Switching Pro on is taking longer than usual; reload this page in a minute."
-              : "Payment received. Switching Pro on…"}
+            {activationSlow ? t("wizard.paymentSlow") : t("wizard.paymentPending")}
           </p>
         ) : null}
 
         <form onSubmit={onSubmit} className="mt-8 space-y-5">
           <label className="block">
             <span className="flex items-baseline justify-between gap-3">
-              <span className="text-sm font-medium">Brief</span>
+              <span className="text-sm font-medium">{t("wizard.brief")}</span>
               <Link href="/how-it-works#brief-tips" className="text-sm font-medium text-amber hover:underline">
-                Tips for a good brief
+                {t("wizard.tips")}
               </Link>
             </span>
             <textarea
@@ -211,9 +207,9 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
             >
               {declined ? (
                 <>
-                  <p className="font-semibold">The question generator wouldn&rsquo;t write this brief.</p>
+                  <p className="font-semibold">{t("wizard.declined")}</p>
                   <p className="mt-1">{error}</p>
-                  <p className="mt-1">Edit the brief above and generate again.</p>
+                  <p className="mt-1">{t("wizard.declinedHint")}</p>
                 </>
               ) : (
                 <p>{error}</p>
@@ -225,7 +221,7 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
                   disabled={busy}
                   className="group mt-2 inline-flex items-center gap-1.5 font-semibold underline underline-offset-2 disabled:opacity-50"
                 >
-                  Use the demo pack instead
+                  {t("wizard.useDemo")}
                   <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </button>
               ) : null}
@@ -240,14 +236,14 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
                 disabled={busy || prompt.trim().length === 0 || atCap}
                 className="h-12 w-full rounded-xl bg-amber text-base font-semibold text-white hover:bg-amber-hover disabled:opacity-50 sm:w-auto sm:px-6"
               >
-                {busy ? "Generating…" : atCap ? "Free limit reached" : "Generate pack"}
+                {busy ? t("wizard.generating") : atCap ? t("wizard.limitReached") : t("wizard.generate")}
               </button>
             );
           })()}
 
           {busy && startedAt !== null ? (
             <div className="space-y-1 text-sm">
-              <p className="text-muted">{WAITING_LINE}</p>
+              <p className="text-muted">{t("wizard.waitingLine")}</p>
               <p className="flex items-center gap-2 font-medium">
                 <span
                   data-testid="generate-pulse"
@@ -255,7 +251,7 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
                   className="h-2 w-2 rounded-full bg-amber motion-safe:animate-pulse"
                 />
                 <span role="status" aria-live="polite">
-                  {waitingStatus(elapsed)}
+                  {waitingStatus(t, elapsed)}
                 </span>
                 <span data-testid="generate-elapsed" aria-hidden="true" className="tabular-nums text-muted">
                   {minutesSeconds(elapsed)}
@@ -264,14 +260,18 @@ export function CreateWizard({ upgraded = false }: { upgraded?: boolean }) {
             </div>
           ) : null}
 
-          <p className="text-sm text-muted">{AI_DISCLAIMER}</p>
+          <p className="text-sm text-muted">{t("common.aiDisclaimer")}</p>
 
           {usage && usage.plan !== "PRO" && usage.used >= usage.limit ? (
             <p className="text-sm text-muted">
-              <Link href="/pricing" className="font-semibold underline underline-offset-2">
-                Upgrade to Pro
-              </Link>{" "}
-              to lift the {FREE_PACK_ALLOWANCE}-pack limit, or use the demo pack.
+              {t.rich("wizard.upgradeLine", {
+                limit: FREE_PACK_ALLOWANCE,
+                upgrade: (
+                  <Link href="/pricing" className="font-semibold underline underline-offset-2">
+                    {t("wizard.upgrade")}
+                  </Link>
+                ),
+              })}
             </p>
           ) : null}
         </form>

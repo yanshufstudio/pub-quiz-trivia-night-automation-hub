@@ -4,6 +4,7 @@ import { createPackFromGenerated } from "@/lib/create-pack";
 import { DEMO_PACK, DEMO_PACK_PROMPT } from "@/lib/demo-pack";
 import { rateLimit } from "@/lib/rate-limit";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
+import { apiError } from "@/lib/api-error";
 
 export async function POST(req: NextRequest) {
   // Cheap to call (no AI, no external cost) but it writes to the DB, so it
@@ -11,7 +12,7 @@ export async function POST(req: NextRequest) {
   const limited = await rateLimit(req, "packs:seed", { limit: 20, windowMs: 10 * 60 * 1000 });
   if (!limited.allowed) {
     return NextResponse.json(
-      { error: "Too many demo packs created recently. Please wait a bit and try again." },
+      apiError("tooManyDemoPacks"),
       { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds) } }
     );
   }

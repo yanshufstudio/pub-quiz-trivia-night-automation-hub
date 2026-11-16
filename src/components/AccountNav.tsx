@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { signOut, useSession } from "@/lib/auth-client";
 import { accountDisplayName } from "@/lib/account-name";
+import { useT } from "@/i18n/react";
 
 /**
  * The account corner of the site chrome: "Sign in" when signed out, the
@@ -73,6 +74,7 @@ export function AccountNav({ className = "" }: { className?: string }) {
   const { data, isPending } = useSession();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const t = useT();
 
   if (isPending) {
     // Height as well as line, so the row is the right size before the answer
@@ -87,7 +89,7 @@ export function AccountNav({ className = "" }: { className?: string }) {
           href="/sign-in"
           className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-gold transition-colors hover:text-stage-fg"
         >
-          Sign in
+          {t("account.signIn")}
         </Link>
       </span>
     );
@@ -121,7 +123,7 @@ export function AccountNav({ className = "" }: { className?: string }) {
           what is printed cannot move the header in any case, because SLOT is
           the same width whatever lands in it. */}
       <span className="max-w-[9rem] truncate text-sm text-stage-muted" title={email}>
-        <span className="sr-only">Signed in as {email}</span>
+        <span className="sr-only">{t("account.signedInAs", { email })}</span>
         <span aria-hidden="true">{accountDisplayName({ name: data.user.name, email })}</span>
       </span>
       <button
@@ -131,10 +133,10 @@ export function AccountNav({ className = "" }: { className?: string }) {
         // "Sign out" alone is ambiguous once the visible label is a first
         // name: on a shared machine the one thing you want confirmed before
         // pressing it is *which* account it ends.
-        aria-label={`Sign out of ${email}`}
+        aria-label={t("account.signOutOf", { email })}
         className="rounded-md px-2 py-2 text-sm font-semibold text-gold transition-colors hover:text-stage-fg disabled:opacity-60"
       >
-        {busy ? "Signing out…" : "Sign out"}
+        {busy ? t("account.signingOut") : t("account.signOut")}
       </button>
     </span>
   );

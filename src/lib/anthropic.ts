@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { errorMessage } from "@/lib/api-error";
 
 let client: Anthropic | undefined;
 
@@ -76,4 +77,4 @@ export const CREDIT_EXHAUSTED_LOG = "anthropic-credit-exhausted";
 
 /** What a host is told. It does not say "try again" in the next breath, because
  * retrying is exactly what cannot help. */
-export const GENERATION_PAUSED_MESSAGE = "Pack generation is paused — please try again later.";
+export const GENERATION_PAUSED_MESSAGE = errorMessage("generationPaused");

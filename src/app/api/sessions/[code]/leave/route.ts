@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { apiError } from "@/lib/api-error";
 
 const leaveSchema = z.object({ token: z.string().min(1) });
 
@@ -21,16 +22,16 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   const body = await req.json().catch(() => null);
   const parsed = leaveSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    return NextResponse.json(apiError("invalidRequest"), { status: 400 });
   }
 
   const session = await db.session.findUnique({ where: { code: code.toUpperCase() } });
   if (!session) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    return NextResponse.json(apiError("sessionNotFound"), { status: 404 });
   }
   const team = await db.team.findUnique({ where: { token: parsed.data.token } });
   if (!team || team.sessionId !== session.id) {
-    return NextResponse.json({ error: "Invalid team token" }, { status: 401 });
+    return NextResponse.json(apiError("badTeamToken"), { status: 401 });
   }
 
   // Conditional delete: `answers: { none: {} }` in the where clause means a

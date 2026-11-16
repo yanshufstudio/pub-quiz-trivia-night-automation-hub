@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
 import { getPaddle } from "@/lib/paddle/client";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { apiError } from "@/lib/api-error";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
 
   const { paddleCustomerId, paddleSubscriptionId } = host.creator;
   if (!paddleCustomerId) {
-    return NextResponse.json({ error: "This account has no subscription to manage." }, { status: 409 });
+    return NextResponse.json(apiError("noSubscription"), { status: 409 });
   }
 
   // Paddle's API can be down, rate-limit us, or refuse a customer id it no
@@ -43,9 +44,7 @@ export async function POST(req: NextRequest) {
     console.error("paddle portal: could not create a customer portal session", err);
     return NextResponse.json(
       {
-        error:
-          "We couldn't open the billing portal just now. Please try again in a moment — " +
-          `or manage your subscription directly at paddle.net, or email ${CONTACT_EMAIL}.`,
+        ...apiError("portalUnavailable", { email: CONTACT_EMAIL }),
       },
       { status: 502 }
     );

@@ -1,4 +1,5 @@
 import { createFixedWindowCounter, isCounterUnavailable } from "@/lib/fixed-window-counter";
+import { errorMessage } from "@/lib/api-error";
 
 /**
  * A hard ceiling on how many packs the whole deployment will generate in a
@@ -47,8 +48,7 @@ export const PRO_CEILING_ENV = "PRO_DAILY_PACK_CEILING";
  * — and it deliberately does not mention limits, quotas or accounts, none of
  * which are the reason.
  */
-export const CEILING_UNAVAILABLE_MESSAGE =
-  "Pack generation is paused for a moment — please try again shortly.";
+export const CEILING_UNAVAILABLE_MESSAGE = errorMessage("ceilingUnavailable");
 
 /**
  * How long a refused-because-unavailable caller is told to wait. Not the time
