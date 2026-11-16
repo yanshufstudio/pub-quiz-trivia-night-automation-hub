@@ -111,3 +111,34 @@ test("a pack too big to export says so on the page instead of downloading", asyn
   expect(downloads).toBe(0);
   await context.close();
 });
+
+test("Export JSON shows it is busy and cannot be pressed twice (review low 10)", async ({ browser, baseURL }) => {
+  const { context, api } = await signedInContext(browser, baseURL!);
+  const page = await context.newPage();
+  const { pack } = (await (await api.post("/api/packs/seed")).json()) as { pack: { id: string } };
+  // The export is held until the test lets it go, the way a big pack takes a
+  // few seconds to build.
+  let exports = 0;
+  let release!: () => void;
+  const released = new Promise<void>((resolve) => (release = resolve));
+  await page.route(`**/api/packs/${pack.id}/export`, async (route) => {
+    exports += 1;
+    await released;
+    await route.continue();
+  });
+  await page.goto(`/packs/${pack.id}`);
+  const button = page.getByRole("button", { name: "Export JSON" });
+  await button.click();
+
+  const busy = page.getByRole("button", { name: "Exporting…" });
+  await expect(busy).toBeDisabled();
+  await expect.poll(() => exports).toBe(1);
+  await busy.click({ force: true });
+
+  const downloadPromise = page.waitForEvent("download");
+  release();
+  await downloadPromise;
+  await expect(button).toBeEnabled();
+  expect(exports).toBe(1);
+  await context.close();
+});

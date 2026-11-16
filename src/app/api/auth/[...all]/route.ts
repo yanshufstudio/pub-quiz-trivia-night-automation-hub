@@ -81,10 +81,8 @@ function refuseIfPasswordAuthDisabled(req: Request): Response | null {
 /**
  * How many sign-in codes we will email, enforced here rather than deeper (M2).
  *
- * Resend's free plan allows 100 emails a day and that allowance is **shared
- * with another product on the same account**, so this is an external number
- * rather than politeness: once it is gone, every later sign-in email silently
- * fails to send, for both products.
+ * Every code is a Resend email, so these caps bound what the internet can make
+ * us send (the account is on Resend's Pro plan; see src/lib/sign-in-limits.ts).
  *
  * It has to be at this boundary. The obvious home is the `sendVerificationOTP`
  * callback in src/lib/auth.ts, but Better Auth swallows whatever that callback

@@ -35,9 +35,9 @@ import { __resetRateLimitWarnThrottle } from "@/lib/rate-limit";
 /**
  * How many sign-in codes this app will email (M2).
  *
- * The number is not a matter of taste: Resend's free plan allows 100 emails a
- * day and that allowance is shared with another product on the same account, so
- * a flood exhausts a quota something else depends on.
+ * Every code is an email, so a flood spends the Resend account's allowance and
+ * lands in strangers' inboxes. The account is on Resend's Pro plan; production
+ * runs with a daily total of 1000.
  */
 
 // One caller for the tests that are not about the per-IP cap.
@@ -56,7 +56,7 @@ afterEach(() => {
 });
 
 describe("the three limits", () => {
-  it("defaults to 3 an hour per address, 10 an hour per caller, and 80 a day overall", () => {
+  it("defaults to 3 an hour per address, 10 an hour per caller, and 1000 a day overall", () => {
     expect(perAddressHourlyLimit()).toBe(DEFAULT_PER_ADDRESS_HOURLY);
     expect(perIpHourlyLimit()).toBe(DEFAULT_PER_IP_HOURLY);
     expect(dailyCodeLimit()).toBe(DEFAULT_DAILY_LIMIT);
@@ -64,10 +64,8 @@ describe("the three limits", () => {
     expect(DEFAULT_PER_IP_HOURLY).toBe(10);
     expect(perIpDailyLimit()).toBe(DEFAULT_PER_IP_DAILY);
     expect(DEFAULT_PER_IP_DAILY).toBe(20);
-    // Short of Resend's 100, on purpose: the rest is left for the other
-    // product on the account.
-    expect(DEFAULT_DAILY_LIMIT).toBe(80);
-    expect(DEFAULT_DAILY_LIMIT).toBeLessThan(100);
+    // The number production sets (SIGNIN_CODE_DAILY_LIMIT=1000).
+    expect(DEFAULT_DAILY_LIMIT).toBe(1000);
   });
 
   it("takes the owner's numbers, and ignores a typo rather than propagating it", () => {
@@ -150,9 +148,9 @@ describe("one caller cannot spend everybody's allowance (H1)", () => {
   });
 
   it("stops one caller for the day long before it could use up everybody's total", async () => {
-    // Ten an hour alone would let one address reach the day's 80 in eight
-    // hours and pause email sign-in for every host.
-    expect(DEFAULT_PER_IP_DAILY).toBeLessThan(DEFAULT_DAILY_LIMIT / 2);
+    // Ten an hour alone would give one address 240 codes a day, a quarter of
+    // everybody's total. At 20 a day it takes fifty addresses to use it up.
+    expect(DEFAULT_DAILY_LIMIT / DEFAULT_PER_IP_DAILY).toBeGreaterThanOrEqual(50);
     let sent = 0;
     for (let hour = 0; hour < 24; hour++) {
       const at = new Date(Date.UTC(2026, 10, 9, hour, 30));

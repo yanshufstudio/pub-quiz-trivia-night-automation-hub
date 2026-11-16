@@ -376,6 +376,7 @@
     "packs": "Packs",
     "editor": "Editor",
     "exportJson": "Export JSON",
+    "exporting": "Exporting…",
     "printPreview": "Print preview",
     "starting": "Starting…",
     "startLive": "Start live session",

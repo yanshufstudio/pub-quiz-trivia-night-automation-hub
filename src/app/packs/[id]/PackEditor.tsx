@@ -90,6 +90,7 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
   const [saved, setSaved] = useState<Record<string, Draft>>(() => ({ ...drafts }));
   const [status, setStatus] = useState<Record<string, "idle" | "saving" | "saved" | "error">>({});
   const [starting, setStarting] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // Two-step confirm for destructive actions (delete question/round): the
   // first click arms it (stores a "q:<id>" or "r:<id>" tag here), a second
@@ -434,6 +435,9 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
   // Fetched rather than linked, so a pack too big to export says so on the page
   // instead of downloading an error.
   async function exportPack() {
+    // A big pack takes a few seconds to build; a second click would build it again.
+    if (exporting) return;
+    setExporting(true);
     setError(null);
     try {
       const res = await fetch(`/api/packs/${pack.id}/export`);
@@ -452,6 +456,8 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
       window.setTimeout(() => URL.revokeObjectURL(link.href), 10_000);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("editor.couldNotExport"));
+    } finally {
+      setExporting(false);
     }
   }
 
@@ -495,9 +501,11 @@ export function PackEditor({ pack, canEdit }: { pack: Pack; canEdit: boolean }) 
           <button
             type="button"
             onClick={exportPack}
-            className="inline-flex h-11 items-center rounded-xl border border-line bg-white px-4 text-sm font-semibold"
+            disabled={exporting}
+            aria-busy={exporting}
+            className="inline-flex h-11 items-center rounded-xl border border-line bg-white px-4 text-sm font-semibold disabled:opacity-60"
           >
-            {t("editor.exportJson")}
+            {exporting ? t("editor.exporting") : t("editor.exportJson")}
           </button>
           <Link
             href={`/packs/${pack.id}/print`}
