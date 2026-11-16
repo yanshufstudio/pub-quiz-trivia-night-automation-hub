@@ -1,0 +1,1320 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TV > every screen 1`] = `
+"No game with the code ABCDE
+Check the code on the host desk.
+---
+Join at
+localhost:3000/play
+with the code
+ABCDE
+Quizzly Bears
+The Underdogs
+[aria-label] Scan to join
+---
+Tonight’s teams
+Quizzly Bears
+The Underdogs
+---
+Round 1 · Q2 of 3
+[aria-label] 2 of 3 asked
+Question 2?
+AFive
+BSeven
+---
+Round 1 · Q2 of 3
+[aria-label] 2 of 3 asked
+Q1Question 1?
+Q2Question 2?
+---
+Round 1
+Answers are in
+---
+Round 1 · Q1 of 3
+Question 1?
+Canberra
+---
+Round 1: the answers
+Q1Question 1?Canberra
+Q2Question 2?Seven
+Q3Question 3?Mars
+---
+Scoreboard
+Scores appear after the first round is revealed.
+---
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+---
+Final scores
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Made with ?TriviaFoundry"
+`;
+
+exports[`TV > reconnecting 1`] = `
+"Connecting…
+Reconnecting…"
+`;
+
+exports[`print preview > a pack with one round 1`] = `
+"Presenter script
+Friday Quiz
+1 round · keep this copy at the lectern"
+`;
+
+exports[`print preview > every sheet, with its page title 1`] = `
+"title: Friday Quiz · Presenter script
+---
+Back to editor
+Print layout
+Print this sheet
+Presenter script
+Host answer key
+Team answer sheet
+Presenter script
+Friday Quiz
+1 round · keep this copy at the lectern
+Welcome everyone, introduce tonight’s quiz, and remind teams how scoring works.
+Round 1: General
+General knowledge
+Announce the round title and category. Give teams a moment to ready their sheets.
+1.Capital of Australia?
+1 pt
+Answer: Canberra
+2.Pick one
+2 pts
+A) Red B) Blue
+Answer: Blue
+Read the answers, then confirm scores on the host dashboard before moving on.
+Announce final scores and thank everyone for playing.
+---
+title: Friday Quiz · Host answer key
+---
+Back to editor
+Print layout
+Print this sheet
+Presenter script
+Host answer key
+Team answer sheet
+Host answer key
+Friday Quiz
+1 round · keep this copy at the lectern
+Round 1: General
+General knowledge
+#
+Question
+Answer
+Pts
+1
+Capital of Australia?
+Canberra
+1
+2
+Pick one
+Blue
+2
+---
+title: Friday Quiz · Team answer sheet
+---
+Back to editor
+Print layout
+Print this sheet
+Presenter script
+Host answer key
+Team answer sheet
+Team answer sheet
+Friday Quiz
+Team name: _______________________________
+Round 1: General
+General knowledge
+1.Capital of Australia?
+1 pt
+2.Pick one
+2 pts
+A) Red B) Blue"
+`;
+
+exports[`question-mode host desk > host key needed 1`] = `
+"Host desk
+Host key needed
+This browser doesn't have host access for session ABCDE. If you started this session here, try reopening it from the pack editor. Otherwise paste the host key you were given when the session was created.
+[placeholder] Host key
+Use key"
+`;
+
+exports[`question-mode host desk > lobby, live, reveal, last question, end confirmation, ended 1`] = `
+"Host desk
+Friday Quiz
+Lobby
+Team code
+ABCDE
+Waiting for teams
+Share the code. Start when everyone is in. Late joiners can still arrive during the lobby.
+Best to keep this browser open. If you do move devices, sign in there and open the host link below. Anyone else will be asked for this session's host key.
+[aria-label] Scan to join
+Scan to joinhttp://localhost:3000/play?code=ABCDE
+Waiting for the first team
+Teams
+0/0
+No teams yet.
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Finished early, or opened this session by mistake? Ending the game unlocks the pack for editing.
+End game
+Teams join at /play
+---
+Host desk
+Friday Quiz
+Lobby
+Team code
+ABCDE
+Waiting for teams
+Share the code. Start when everyone is in. Late joiners can still arrive during the lobby.
+Best to keep this browser open. If you do move devices, sign in there and open the host link below. Anyone else will be asked for this session's host key.
+[aria-label] Scan to join
+Scan to joinhttp://localhost:3000/play?code=ABCDE
+Start quiz
+Teams
+1/2
+Quizzly Bears
+The Underdogs
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Finished early, or opened this session by mistake? Ending the game unlocks the pack for editing.
+End game
+Teams join at /play
+---
+Host desk
+Friday Quiz
+Question live
+Team code
+ABCDE
+Round 2 of 2 · Music
+Question 5 of 5 · 2 pts
+Pick one
+A) Red
+B) Blue
+Answer stays hidden until you reveal.
+Reveal answer
+Live submissions
+1/2
+Quizzly Bears
+Answered
+The Underdogs
+Waiting…
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Finished early, or opened this session by mistake? Ending the game unlocks the pack for editing.
+End game
+Teams join at /play
+---
+Host desk
+Friday Quiz
+Reveal
+Team code
+ABCDE
+Round 2 of 2 · Music
+Question 2 of 5 · 2 pts
+Pick one
+A) Red
+B) Blue
+Answer: Blue
+Next question
+Live submissions
+1/2
+Quizzly Bears
+Blue
++2
+Correct
+Wrong
+The Underdogs
+Waiting…
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Finished early, or opened this session by mistake? Ending the game unlocks the pack for editing.
+End game
+Teams join at /play
+---
+Host desk
+Friday Quiz
+Reveal
+Team code
+ABCDE
+Round 2 of 2 · Music
+Question 5 of 5 · 2 pts
+Pick one
+A) Red
+B) Blue
+Answer: Blue
+End quiz
+Live submissions
+1/2
+Quizzly Bears
+Blue
++2
+Correct
+Wrong
+The Underdogs
+Waiting…
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Finished early, or opened this session by mistake? Ending the game unlocks the pack for editing.
+End game
+Teams join at /play
+---
+Host desk
+Friday Quiz
+Question live
+Team code
+ABCDE
+Round 2 of 2 · Music
+Question 5 of 5 · 2 pts
+Pick one
+A) Red
+B) Blue
+Answer stays hidden until you reveal.
+Reveal answer
+Live submissions
+1/2
+Quizzly Bears
+Answered
+The Underdogs
+Waiting…
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+End this game for everyone?
+Teams stop being able to answer and the scoreboard becomes final. The pack can be edited again afterwards. This cannot be undone.
+Yes, end the game
+Keep playing
+Teams join at /play
+---
+Host desk
+Friday Quiz
+Ended
+Team code
+ABCDE
+Tonight’s champions
+Quizzly Bears & The Underdogs
+7 points · 2 rounds
+That’s the night. Final standings are on the right. Thanks for hosting.
+Teams
+1/2
+Quizzly Bears
+The Underdogs
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Teams join at /play"
+`;
+
+exports[`round host desk > ended, one champion and tied champions 1`] = `
+"Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Tonight’s champion
+Quizzly Bears
+7 points · 2 rounds
+1Quizzly Bears7
+2Paper Tigers1
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Tonight’s champions
+Quizzly Bears & The Underdogs
+7 points · 2 rounds
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1"
+`;
+
+exports[`round host desk > lobby, with no teams and with teams, the paper-team form and the menu 1`] = `
+"Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Waiting for teams
+Teams join on their phones with the code. Tables playing on paper: add them by name.
+[aria-label] Scan to join
+Scan to joinhttp://localhost:3000/play?code=ABCDE
+Open TV display
+Teams (0)
+Add paper team
+No teams yet.
+Waiting for the first team
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+The game moved on. Refresh and try again.
+Waiting for teams
+Teams join on their phones with the code. Tables playing on paper: add them by name.
+[aria-label] Scan to join
+Scan to joinhttp://localhost:3000/play?code=ABCDE
+Open TV display
+Teams (2)
+Add paper team
+Quizzly Bears
+Paper TigersPaper
+Start quiz
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+The game moved on. Refresh and try again.
+Waiting for teams
+Teams join on their phones with the code. Tables playing on paper: add them by name.
+[aria-label] Scan to join
+Scan to joinhttp://localhost:3000/play?code=ABCDE
+Open TV display
+Teams (2)
+Add paper team
+[aria-label] Paper team name
+Add
+Quizzly Bears
+Paper TigersPaper
+Start quiz
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+The game moved on. Refresh and try again.
+TV display
+What the room should see, and nothing more: no answers until you reveal them.
+Open TV display
+http://localhost:3000/tv/ABCDE
+Copy
+On a laptop, use Extend, not Mirror. Cast a tab, not your screen, or the room will see the answers.
+TV shows
+[aria-label] TV shows
+Current question
+All questions so far
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Finished early? Ending the game unlocks the pack for editing.
+End game
+Waiting for teams
+Teams join on their phones with the code. Tables playing on paper: add them by name.
+[aria-label] Scan to join
+Scan to joinhttp://localhost:3000/play?code=ABCDE
+Open TV display
+Teams (2)
+Add paper team
+[aria-label] Paper team name
+Add
+Quizzly Bears
+Paper TigersPaper
+Start quiz"
+`;
+
+exports[`round host desk > marking, the menu mid-game, and every confirmation 1`] = `
+"Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1: check the marks
+0 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 1 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 1 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 1 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 1 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 1 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Reveal all
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Reveal next answer
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+TV display
+What the room should see, and nothing more: no answers until you reveal them.
+Open TV display
+http://localhost:3000/tv/ABCDE
+Copy
+On a laptop, use Extend, not Mirror. Cast a tab, not your screen, or the room will see the answers.
+TV shows
+[aria-label] TV shows
+Current question
+All questions so far
+Teams (2)
+Add paper team
+A table added now scores 0 for rounds already closed.
+Quizzly Bears
+Paper TigersPaper
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+Finished early? Ending the game unlocks the pack for editing.
+End game
+Round 1: check the marks
+0 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 1 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 1 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 1 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 1 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 1 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Reveal all
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Reveal next answer
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+TV display
+What the room should see, and nothing more: no answers until you reveal them.
+Open TV display
+http://localhost:3000/tv/ABCDE
+Copy
+On a laptop, use Extend, not Mirror. Cast a tab, not your screen, or the room will see the answers.
+TV shows
+[aria-label] TV shows
+Current question
+All questions so far
+Teams (2)
+Add paper team
+A table added now scores 0 for rounds already closed.
+Quizzly Bears
+Paper TigersPaper
+Host link
+http://localhost:3000/host/ABCDE
+Copy
+Keep this link to reopen the host desk on another device.
+End this game for everyone?
+Teams stop being able to answer and the scoreboard becomes final. The pack can be edited again afterwards. This cannot be undone.
+Yes, end the game
+Keep playing
+Round 1: check the marks
+0 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 1 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 1 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 1 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 1 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 1 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Reveal all
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Reveal next answer
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1: check the marks
+0 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 1 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 1 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 1 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 1 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 1 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Reveal all
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Reveal all answers?
+No round 1 total for Paper Tigers. They score 0 for it unless you type one.
+Yes, reveal all
+Keep marking
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1: check the marks
+2 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 1 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 1 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 1 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 1 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 1 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Reveal all
+Hide scoreboard
+Scoreboard
+Showing on the TV and the phones. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Reveal the last answer?
+No round 1 total for Paper Tigers. They score 0 for it unless you type one.
+Yes, reveal it
+Keep marking
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1: check the marks
+3 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 1 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 1 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 1 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 1 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 1 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Next round
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1: check the marks
+3 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 1 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 1 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 1 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 1 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 1 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Go to round 2?
+No round 1 total for Paper Tigers. They score 0 for it unless you type one.
+Yes, next round
+Not yet
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 2: check the marks
+3 of 3 answers revealed. Marked automatically. Tap a mark to change it. The room sees nothing here.
+Q1 Canberra
+Q2 Seven
+Q3 Mars
+Team
+Q1
+Q2
+Q3
+Quizzly Bears
+[aria-label] Quizzly Bears, Q1: Canberra, marked right. Tap to mark wrong.
+Canberra✓
+[aria-label] Quizzly Bears, Q2: Six, marked wrong. Tap to mark right.
+Six✗
+·No answer
+Typed Team
+·No answer
+·No answer
+·No answer
+On paper: Paper Tigers. Type their round totals below.
+Round 2 totals
+Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team's.
+Quizzly Bears1 pt
+[aria-label] Round 2 total for Quizzly Bears
+[aria-label] Save total for Quizzly Bears
+Save
+LatecomersNo answers this round
+[aria-label] Round 2 total for Latecomers
+[aria-label] Save total for Latecomers
+Save
+Typed Team4 pts
+[aria-label] Round 2 total for Typed Team
+[aria-label] Save total for Typed Team
+Save
+[aria-label] Clear total for Typed Team
+Clear
+Entered by hand
+Paper Tigers0 pts
+[aria-label] Round 2 total for Paper Tigers
+[aria-label] Save total for Paper Tigers
+Save
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Finish the quiz?
+No round 2 total for Paper Tigers. They score 0 for it unless you type one. The final scoreboard goes up on every screen. This cannot be undone.
+Yes, finish the quiz
+Not yet"
+`;
+
+exports[`round host desk > open round: question, countdown choices, asked so far, close confirmation 1`] = `
+"Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1 · Q2 of 3
+General
+Question 2?
+A) Five
+B) Seven
+1 point
+0 of 1 phone teams have answered this one.
+Start countdown
+Asked so far (2)
+Q1 Question 1?1 of 1 answered
+Q2 Question 2?0 of 1 answered
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Ask next question
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1 · Q2 of 3
+General
+Question 2?
+A) Five
+B) Seven
+1 point
+0 of 1 phone teams have answered this one.
+Start countdown
+1 min
+2 min
+3 min
+5 min
+Asked so far (2)
+Q1 Question 1?1 of 1 answered
+Q2 Question 2?0 of 1 answered
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Ask next question
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1 · Q3 of 3
+General
+Question 3?
+2 points
+0 of 1 phone teams have answered this one.
+Start countdown
+Asked so far (3)
+Q1 Question 1?1 of 1 answered
+Q2 Question 2?0 of 1 answered
+Q3 Question 3?0 of 1 answered
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Close round 1?
+Teams can't change their answers after this. You check the marks next.
+Yes, close the round
+Keep the round open
+---
+Host desk
+Friday Quiz
+Team code
+ABCDE
+Menu
+Round 1 · Q2 of 3
+Time's up!
+General
+Question 2?
+A) Five
+B) Seven
+1 point
+0 of 1 phone teams have answered this one.
+Stop countdown
+Asked so far (2)
+Q1 Question 1?1 of 1 answered
+Q2 Question 2?0 of 1 answered
+Show scoreboard
+Scoreboard
+Only you can see this until you show it. Rounds count once every answer in them is revealed.
+Scores appear after the first round is revealed.
+Ask next question"
+`;
+
+exports[`team phone > errors: a join that fails, a save that cannot reach the server 1`] = `
+"?TriviaFoundry
+Team portal
+Join tonight’s quiz
+Ask the host for the 5-character code, then pick a team name.
+Session code
+[placeholder] AB3K7
+Team name
+[placeholder] Quizards of Oz
+That team name is already taken in this session
+Join session
+---
+Round 1 · General
+No connection, your answer was not saved
+Round 1 · Q1
+Question 1?
+[aria-label] Answer to Round 1 · Q1
+Save
+Not saved yet"
+`;
+
+exports[`team phone > join form 1`] = `
+"?TriviaFoundry
+Team portal
+Join tonight’s quiz
+Ask the host for the 5-character code, then pick a team name.
+Session code
+[placeholder] AB3K7
+Team name
+[placeholder] Quizards of Oz
+Join session"
+`;
+
+exports[`team phone > question mode: lobby, live question, answered, reveal 1`] = `
+"Quizzly Bears
+ABCDE
+Lobby
+Leave
+You’re in, Quizzly Bears.
+Sit tight. The host will start the first question from the desk.
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+---
+Quizzly Bears
+ABCDE
+Question live
+Leave
+Round 1 · General · Q2 · 2 pts
+Capital of Australia?
+Your answer
+Submit answer
+---
+Quizzly Bears
+ABCDE
+Question live
+Leave
+Round 1 · General · Q2 · 2 pts
+Capital of Australia?
+Your answer
+Sydney
+Update answer
+In: “Sydney”. You can change it until the host reveals.
+---
+Quizzly Bears
+ABCDE
+Question live
+Leave
+Round 1 · General · Q2 · 1 pt
+Pick one
+Your answer
+Red
+Blue
+Submit answer
+---
+Quizzly Bears
+ABCDE
+Reveal
+Leave
+Round 1 · General · Q2 · 2 pts
+Capital of Australia?
+Correct · +2
+You said: Canberra
+Answer: Canberra
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+---
+Quizzly Bears
+ABCDE
+Reveal
+Leave
+Round 1 · General · Q2 · 2 pts
+Capital of Australia?
+Not this time
+You said: Sydney
+Answer: Canberra
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+---
+Quizzly Bears
+ABCDE
+Reveal
+Leave
+Round 1 · General · Q2 · 2 pts
+Capital of Australia?
+No answer submitted
+Answer: Canberra
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1"
+`;
+
+exports[`team phone > round mode: answers in 1`] = `
+"Quizzly Bears
+ABCDE
+Answers in
+Leave
+Round 1 · General
+Answers are in. The host is checking them.
+Round 1 · Q3
+Question 3?
+No answer
+Round 1 · Q2
+Question 2?
+No answer
+Round 1 · Q1
+Question 1?
+No answer"
+`;
+
+exports[`team phone > round mode: ended, not the winner 1`] = `
+"Quizzly Bears
+ABCDE
+Ended
+Leave
+This quiz is over.
+Quizzly Bears finished 2nd with 1 point.
+Final scores
+1The Underdogs7
+2Quizzly Bears1
+Join another quiz"
+`;
+
+exports[`team phone > round mode: ended, winner tied 1`] = `
+"Quizzly Bears
+ABCDE
+Ended
+Leave
+You tied for the win!
+Champions, Quizzly Bears!
+This quiz is over. Quizzly Bears finished 1st with 7 points.
+Final scores
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Join another quiz"
+`;
+
+exports[`team phone > round mode: lobby 1`] = `
+"Quizzly Bears
+ABCDE
+Lobby
+Leave
+You’re in, Quizzly Bears.
+Waiting for the host to start the quiz."
+`;
+
+exports[`team phone > round mode: open round, saved and unanswered questions, multiple choice 1`] = `
+"Quizzly Bears
+ABCDE
+Round open
+Leave
+Round 1 · General
+Round 1 · Q3
+Question 3?
+[aria-label] Answer to Round 1 · Q3
+Save
+Not answered yet
+Round 1 · Q2Not answered yet
+Question 2?
+[aria-label] Round 1 · Q2 options
+Five
+Seven
+Not answered yet
+Round 1 · Q1Saved
+Question 1?
+[aria-label] Answer to Round 1 · Q1
+Save
+Saved"
+`;
+
+exports[`team phone > round mode: reveal with a total and the scoreboard 1`] = `
+"Quizzly Bears
+ABCDE
+Reveal
+Leave
+Round 1 · General
+Round 1 total: 1 point
+Scoreboard
+1Quizzly Bears7
+1The Underdogs7
+3Paper Tigers1
+Round 1 · Q3Just revealed
+Question 3?
+No answer
+Answer: Mars
+Round 1 · Q2
+Question 2?
+You said: Six
+Not this time
+Answer: Seven
+Round 1 · Q1
+Question 1?
+You said: Canberra
+Correct · +1
+Answer: Canberra"
+`;
+
+exports[`team phone > round mode: scoreboard before any round counts 1`] = `
+"Quizzly Bears
+ABCDE
+Round open
+Leave
+Round 1 · General
+Round 1 · Q1
+Question 1?
+[aria-label] Answer to Round 1 · Q1
+Save
+Not answered yet
+Scoreboard
+Scores appear after the first round is revealed."
+`;
+
+exports[`team phone > round mode: sits out a closed round, and the last round 1`] = `
+"Quizzly Bears
+ABCDE
+Answers in
+Leave
+Round 1 · General
+You’re in, Quizzly Bears. You’ll play from round 2.
+Round 1 · Q3
+Question 3?
+No answer
+Round 1 · Q2
+Question 2?
+No answer
+Round 1 · Q1
+Question 1?
+No answer
+---
+Quizzly Bears
+ABCDE
+Answers in
+Leave
+Round 2 · General
+You’re in, Quizzly Bears. That was the last round. The final scores are on their way.
+Round 2 · Q3
+Question 3?
+No answer
+Round 2 · Q2
+Question 2?
+No answer
+Round 2 · Q1
+Question 1?
+No answer"
+`;
