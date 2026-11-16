@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/i18n/react";
 
 /**
  * Copy a short string, and say that it worked.
@@ -12,13 +13,14 @@ import { useEffect, useState } from "react";
  */
 export function CopyButton({
   value,
-  label = "Copy",
+  label,
   className = "",
 }: {
   value: string;
   label?: string;
   className?: string;
 }) {
+  const t = useT();
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export function CopyButton({
       className={`inline-flex h-12 min-h-12 min-w-12 items-center justify-center rounded-xl px-4 text-sm font-semibold ${className}`}
       aria-live="polite"
     >
-      {state === "copied" ? "Copied" : state === "failed" ? "Select and copy" : label}
+      {state === "copied" ? t("common.copied") : state === "failed" ? t("common.selectAndCopy") : (label ?? t("common.copy"))}
     </button>
   );
 }

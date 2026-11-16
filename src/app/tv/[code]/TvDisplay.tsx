@@ -9,7 +9,9 @@ import type { RoundDisplayState, RoundQuestionView, ScoreboardRow } from "@/lib/
 import { buildJoinUrl } from "@/lib/join-url";
 import { questionLabel } from "@/lib/question-number";
 import { questionMediaUrl } from "@/lib/question-media-url";
-import { NO_SCORES_YET, noScoresYet, rankOf } from "@/lib/scoreboard-summary";
+import { noScoresYet, rankOf } from "@/lib/scoreboard-summary";
+import { getT, toLanguage } from "@/i18n";
+import { LanguageProvider, useT } from "@/i18n/react";
 
 /**
  * The pub's TV (RM9).
@@ -40,6 +42,7 @@ function subscribeFullscreen(onChange: () => void) {
 }
 
 export function TvDisplay({ code }: { code: string }) {
+  const pageT = useT();
   const [state, setState] = useState<RoundDisplayState | null>(null);
   const [failing, setFailing] = useState(false);
   const [missing, setMissing] = useState(false);
@@ -132,7 +135,10 @@ export function TvDisplay({ code }: { code: string }) {
     };
   }, []);
 
+  const t = state ? getT(toLanguage(state.language)) : pageT;
+
   return (
+    <LanguageProvider lang={t.lang} document>
     <div className="stage-surface tv-surface fixed inset-0 overflow-hidden bg-stage-deep text-stage-fg">
       <div
         data-testid="tv-stage"
@@ -145,23 +151,23 @@ export function TvDisplay({ code }: { code: string }) {
       >
         {missing ? (
           <Centered>
-            <p className="text-[64px] font-semibold">No game with the code {code}</p>
-            <p className="mt-6 text-[36px] text-stage-muted">Check the code on the host desk.</p>
+            <p className="text-[64px] font-semibold">{t("tv.noGame", { code })}</p>
+            <p className="mt-6 text-[36px] text-stage-muted">{t("tv.checkCode")}</p>
           </Centered>
         ) : state ? (
           <Screen state={state} />
         ) : (
           <Centered>
-            <p className="text-[48px] text-stage-muted">Connecting…</p>
+            <p className="text-[48px] text-stage-muted">{t("tv.connecting")}</p>
           </Centered>
         )}
 
         {failing ? (
           <p
             role="status"
-            className="absolute right-10 top-8 rounded-full bg-black/50 px-6 py-2 text-[28px] font-semibold text-stage-fg"
+            className="absolute end-10 top-8 rounded-full bg-black/50 px-6 py-2 text-[28px] font-semibold text-stage-fg"
           >
-            Reconnecting…
+            {t("common.reconnecting")}
           </p>
         ) : null}
       </div>
@@ -170,12 +176,13 @@ export function TvDisplay({ code }: { code: string }) {
         <button
           type="button"
           onClick={() => void document.documentElement.requestFullscreen().catch(() => {})}
-          className="absolute bottom-4 right-4 z-10 min-h-11 rounded-xl bg-white/10 px-4 text-sm font-semibold"
+          className="absolute bottom-4 end-4 z-10 min-h-11 rounded-xl bg-white/10 px-4 text-sm font-semibold"
         >
-          Full screen
+          {t("tv.fullScreen")}
         </button>
       ) : null}
     </div>
+    </LanguageProvider>
   );
 }
 
@@ -184,6 +191,7 @@ function Centered({ children }: { children: React.ReactNode }) {
 }
 
 function Screen({ state }: { state: RoundDisplayState }) {
+  const t = useT();
   if (state.scoreboard && (state.scoreboardShown || state.status === "ENDED")) {
     return <ScoreboardScreen state={state} rows={state.scoreboard} />;
   }
@@ -195,8 +203,10 @@ function Screen({ state }: { state: RoundDisplayState }) {
     case "ROUND_MARKING":
       return (
         <Centered>
-          <p className="text-[40px] font-semibold uppercase tracking-[0.2em] text-gold">Round {state.roundNumber}</p>
-          <p className="mt-6 font-serif text-[120px] leading-none">Answers are in</p>
+          <p className="text-[40px] font-semibold uppercase tracking-[0.2em] text-gold">
+            {t("common.roundN", { round: state.roundNumber })}
+          </p>
+          <p className="mt-6 font-serif text-[120px] leading-none">{t("tv.answersIn")}</p>
         </Centered>
       );
     case "ROUND_REVEAL":
@@ -207,10 +217,11 @@ function Screen({ state }: { state: RoundDisplayState }) {
 }
 
 function Lobby({ state }: { state: RoundDisplayState }) {
+  const t = useT();
   if (state.paperOnly) {
     return (
       <div className="flex h-full flex-col justify-center px-28">
-        <p className="text-[40px] text-stage-muted">Tonight’s teams</p>
+        <p className="text-[40px] text-stage-muted">{t("tv.tonightsTeams")}</p>
         <TeamNames teams={state.teams} />
       </div>
     );
@@ -221,14 +232,14 @@ function Lobby({ state }: { state: RoundDisplayState }) {
   return (
     <div className="flex h-full items-center gap-24 px-28">
       <div className="min-w-0 flex-1">
-        <p className="text-[40px] text-stage-muted">Join at</p>
+        <p className="text-[40px] text-stage-muted">{t("tv.joinAt")}</p>
         <p className="text-[64px] font-semibold">{host}</p>
-        <p className="mt-10 text-[40px] text-stage-muted">with the code</p>
+        <p className="mt-10 text-[40px] text-stage-muted">{t("tv.withCode")}</p>
         <p className="font-mono text-[200px] font-bold leading-none tracking-[0.12em] text-gold">{state.code}</p>
         <TeamNames teams={state.teams} />
       </div>
       <div className="shrink-0 rounded-3xl bg-white p-8">
-        <QRCode value={joinUrl} size={420} role="img" aria-label="Scan to join" />
+        <QRCode value={joinUrl} size={420} role="img" aria-label={t("common.scanToJoin")} />
       </div>
     </div>
   );
@@ -254,12 +265,13 @@ function questionSize(text: string) {
 }
 
 function OpenRound({ state }: { state: RoundDisplayState }) {
+  const t = useT();
   const total = state.totalQuestionsInRound;
   return (
     <div className="flex h-full flex-col px-24 py-16">
       <div className="flex items-center justify-between gap-8">
         <p className="text-[44px] font-semibold text-gold">
-          {questionLabel(state.roundNumber, state.askedCount, total)}
+          {questionLabel(t, state.roundNumber, state.askedCount, total)}
         </p>
         <RoundCountdown countdown={state.countdown} serverNow={state.serverNow} className="text-[56px]" />
       </div>
@@ -268,7 +280,7 @@ function OpenRound({ state }: { state: RoundDisplayState }) {
         <ol className="mt-10 min-h-0 flex-1 space-y-6 overflow-hidden">
           {state.questions.map((q) => (
             <li key={q.id} className="flex gap-6 text-[40px] leading-tight">
-              <span className="shrink-0 font-semibold text-gold">Q{q.index + 1}</span>
+              <span className="shrink-0 font-semibold text-gold">{t("common.questionShort", { question: q.index + 1 })}</span>
               <QuestionText as="span" text={q.text} className="min-w-0 text-start" />
             </li>
           ))}
@@ -281,8 +293,9 @@ function OpenRound({ state }: { state: RoundDisplayState }) {
 }
 
 function Dots({ asked, total }: { asked: number; total: number }) {
+  const t = useT();
   return (
-    <div className="mt-6 flex gap-4" aria-label={`${asked} of ${total} asked`}>
+    <div className="mt-6 flex gap-4" aria-label={t("tv.asked", { asked, total })}>
       {Array.from({ length: total }, (_, i) => (
         <span
           key={i}
@@ -352,16 +365,17 @@ function StagePicture({ src }: { src: string }) {
 }
 
 function Reveal({ state }: { state: RoundDisplayState }) {
+  const t = useT();
   const total = state.totalQuestionsInRound;
   const all = state.revealedCount >= total;
   if (all) {
     return (
       <div className="flex h-full flex-col px-24 py-16">
-        <p className="text-[44px] font-semibold text-gold">Round {state.roundNumber}: the answers</p>
+        <p className="text-[44px] font-semibold text-gold">{t("tv.theAnswers", { round: state.roundNumber })}</p>
         <ol className="mt-10 min-h-0 flex-1 space-y-5 overflow-hidden">
           {state.questions.map((q) => (
             <li key={q.id} className="flex gap-6 text-[36px] leading-tight">
-              <span className="shrink-0 font-semibold text-gold">Q{q.index + 1}</span>
+              <span className="shrink-0 font-semibold text-gold">{t("common.questionShort", { question: q.index + 1 })}</span>
               <span className="min-w-0 flex-1">
                 <QuestionText as="span" text={q.text} className="block text-start text-stage-muted" />
                 <span dir="auto" className="block font-semibold">
@@ -379,7 +393,7 @@ function Reveal({ state }: { state: RoundDisplayState }) {
   return (
     <div className="flex h-full flex-col px-24 py-16">
       <p className="text-[44px] font-semibold text-gold">
-        {questionLabel(state.roundNumber, question.index + 1, total)}
+        {questionLabel(t, state.roundNumber, question.index + 1, total)}
       </p>
       <QuestionText
         text={question.text}
@@ -394,12 +408,13 @@ function Reveal({ state }: { state: RoundDisplayState }) {
 }
 
 function ScoreboardScreen({ state, rows }: { state: RoundDisplayState; rows: ScoreboardRow[] }) {
+  const t = useT();
   const ended = state.status === "ENDED";
   return (
     <div className="flex h-full flex-col px-24 py-16">
-      <p className="text-[56px] font-semibold text-gold">{ended ? "Final scores" : "Scoreboard"}</p>
+      <p className="text-[56px] font-semibold text-gold">{ended ? t("common.finalScores") : t("common.scoreboard")}</p>
       {noScoresYet(state) ? (
-        <p className="mt-10 font-serif text-[72px] leading-[1.1] text-stage-muted">{NO_SCORES_YET}</p>
+        <p className="mt-10 font-serif text-[72px] leading-[1.1] text-stage-muted">{t("common.noScoresYet")}</p>
       ) : (
         <ol className="mt-10 grid min-h-0 flex-1 grid-flow-col grid-rows-8 gap-x-12 gap-y-4 overflow-hidden">
           {rows.map((row) => (
@@ -415,7 +430,7 @@ function ScoreboardScreen({ state, rows }: { state: RoundDisplayState; rows: Sco
       )}
       {ended ? (
         <p className="mt-8 flex items-center justify-center gap-[0.35em] text-[32px] text-stage-muted">
-          Made with <Wordmark />
+          {t.rich("tv.madeWith", { brand: <Wordmark /> })}
         </p>
       ) : null}
     </div>

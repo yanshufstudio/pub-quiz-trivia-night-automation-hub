@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/i18n/react";
 import type { TimerInfo } from "@/lib/api-types";
 
 function secondsLeft(timer: NonNullable<TimerInfo>): number {
@@ -23,6 +24,7 @@ export function Countdown({ timer, dark = false }: { timer: TimerInfo; dark?: bo
 }
 
 function Ticking({ timer, dark }: { timer: NonNullable<TimerInfo>; dark: boolean }) {
+  const t = useT();
   const [remaining, setRemaining] = useState(() => secondsLeft(timer));
 
   useEffect(() => {
@@ -42,7 +44,7 @@ function Ticking({ timer, dark }: { timer: NonNullable<TimerInfo>; dark: boolean
       className={`inline-flex min-w-14 items-center justify-center rounded-full px-3 py-1 text-sm font-bold tabular-nums ${tone}`}
       aria-live="polite"
     >
-      {remaining > 0 ? `${remaining}s` : "Time's up"}
+      {remaining > 0 ? t("common.secondsLeft", { seconds: remaining }) : t("common.timesUpShort")}
     </span>
   );
 }

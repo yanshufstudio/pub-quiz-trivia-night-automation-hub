@@ -100,6 +100,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   const base = {
     mode: "QUESTION" as const,
     code: session.code,
+    language: session.language,
     status: session.status,
     packTitle: pack.title,
     roundNumber: session.currentRoundIndex + 1,

@@ -14,7 +14,8 @@ import {
   type StoredTeam,
 } from "@/lib/team-session";
 import { readJoinCode } from "@/lib/join-url";
-import { countOf } from "@/lib/plural";
+import { errorText, getT, toLanguage, type Translator } from "@/i18n";
+import { LanguageProvider, useT } from "@/i18n/react";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import type { RoundTeamState, ScoreboardRow, SessionQuestion, TeamSessionState } from "@/lib/api-types";
 import { RoundTeamPlay } from "./RoundTeamPlay";
@@ -47,6 +48,7 @@ function QuestionImage({
 }
 
 export function TeamPortal() {
+  const pageT = useT();
   const [stored, setStored] = useState<StoredTeam | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [code, setCode] = useState("");
@@ -79,6 +81,13 @@ export function TeamPortal() {
   const endedRef = useRef(false);
   const pollsStarted = useRef(0);
   const newestApplied = useRef(0);
+  // The game's language once a poll has said it; the page's until then (the
+  // join form belongs to no game yet).
+  const t = state ? getT(toLanguage(state.language)) : pageT;
+  const tRef = useRef(t);
+  useEffect(() => {
+    tRef.current = t;
+  }, [t]);
 
   // Back to the join form, for the game in the URL if there is one, with no
   // team name carried over from the game being left.
@@ -145,7 +154,7 @@ export function TeamPortal() {
           return;
         }
         if (res.status === 401) forgetTeam();
-        setError(data.error ?? "Could not load session");
+        setError(errorText(tRef.current, data, "common.couldNotLoadSession"));
         return;
       }
       setError(null);
@@ -208,7 +217,7 @@ export function TeamPortal() {
         body: JSON.stringify({ name: name.trim() }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not join");
+      if (!res.ok) throw new Error(errorText(t, data, "team.couldNotJoin"));
       const team: StoredTeam = {
         code: sessionCode,
         token: data.token,
@@ -221,7 +230,7 @@ export function TeamPortal() {
       answerQuestionId.current = null;
       setAnswer("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not join");
+      setError(err instanceof Error ? err.message : t("team.couldNotJoin"));
     } finally {
       setBusy(false);
     }
@@ -239,10 +248,10 @@ export function TeamPortal() {
         body: JSON.stringify({ token: stored.token, text: answer.trim() }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not submit");
+      if (!res.ok) throw new Error(errorText(t, data, "team.couldNotSubmit"));
       await refresh(stored);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not submit");
+      setError(err instanceof Error ? err.message : t("team.couldNotSubmit"));
     } finally {
       setBusy(false);
     }
@@ -275,18 +284,19 @@ export function TeamPortal() {
 
   if (!stored) {
     return (
+      <LanguageProvider lang={t.lang} document>
       <div className="flex min-h-dvh flex-col bg-stage px-5 py-8 text-stage-fg">
         <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
           {/* The one place the brand appears on a team's phone: the join
               screen, before the night starts. Never during a question. */}
           <Wordmark className="mb-8 text-[1.35rem]" />
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-mint">Team portal</p>
-          <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight">Join tonight’s quiz</h1>
-          <p className="mt-2 text-stage-muted">Ask the host for the 5-character code, then pick a team name.</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-mint">{t("team.portal")}</p>
+          <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight">{t("team.joinTitle")}</h1>
+          <p className="mt-2 text-stage-muted">{t("team.joinHelp")}</p>
 
           <form onSubmit={join} className="mt-8 space-y-5">
             <label className="block">
-              <span className="text-sm font-medium">Session code</span>
+              <span className="text-sm font-medium">{t("team.sessionCode")}</span>
               <input
                 value={code}
                 onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z2-9]/g, "").slice(0, 5))}
@@ -300,12 +310,12 @@ export function TeamPortal() {
               />
             </label>
             <label className="block">
-              <span className="text-sm font-medium">Team name</span>
+              <span className="text-sm font-medium">{t("team.teamName")}</span>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={40}
-                placeholder="Quizards of Oz"
+                placeholder={t("team.namePlaceholder")}
                 className="mt-2 h-14 w-full rounded-xl border border-white/15 bg-white px-4 text-lg text-stage outline-none focus:ring-2 focus:ring-gold"
                 required
               />
@@ -316,15 +326,17 @@ export function TeamPortal() {
               disabled={busy || code.length < 5 || name.trim().length === 0}
               className="h-14 w-full rounded-xl bg-gold text-lg font-semibold text-stage disabled:opacity-40"
             >
-              {busy ? "Joining…" : "Join session"}
+              {busy ? t("team.joining") : t("team.join")}
             </button>
           </form>
         </div>
       </div>
+      </LanguageProvider>
     );
   }
 
   return (
+    <LanguageProvider lang={t.lang} document>
     <div className="flex min-h-dvh flex-col bg-stage px-5 py-6 text-stage-fg">
       <header className="mx-auto flex w-full max-w-md items-start justify-between gap-3">
         <div>
@@ -334,7 +346,7 @@ export function TeamPortal() {
         <div className="flex flex-col items-end gap-2">
           {state ? <StatusBadge status={state.status} dark /> : null}
           <button type="button" onClick={leave} className="min-h-11 px-2 text-sm text-stage-muted underline-offset-2">
-            Leave
+            {t("team.leave")}
           </button>
         </div>
       </header>
@@ -345,7 +357,7 @@ export function TeamPortal() {
             role="status"
             className="fixed left-1/2 top-3 z-20 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-sm font-semibold text-stage-fg"
           >
-            Reconnecting…
+            {t("common.reconnecting")}
           </p>
         ) : null}
         {error ? <p className="mb-4 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
@@ -358,27 +370,27 @@ export function TeamPortal() {
         ) : null}
 
         {state?.mode === "ROUND" ? null : !state || state.status === "LOBBY" ? (
-          <LobbyPanel teamName={stored.teamName} state={state} />
+          <LobbyPanel t={t} teamName={stored.teamName} state={state} />
         ) : null}
 
         {state?.status === "QUESTION_ACTIVE" ? (
           <form onSubmit={submitAnswer} className="flex flex-1 flex-col">
             <div className="flex items-start justify-between gap-3">
-              <RoundKicker state={state} />
+              <RoundKicker t={t} state={state} />
               <Countdown timer={state.timer} dark />
             </div>
             <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug">{state.question?.text}</h2>
             <QuestionImage question={state.question} team={stored} />
             {state.question?.type === "MULTIPLE_CHOICE" ? (
               <div className="mt-6 flex-1 space-y-3">
-                <span className="text-sm font-medium">Your answer</span>
+                <span className="text-sm font-medium">{t("team.yourAnswer")}</span>
                 <div className="grid gap-3">
                   {state.question.options.map((option) => (
                     <button
                       key={option}
                       type="button"
                       onClick={() => setAnswer(option)}
-                      className={`h-14 rounded-xl border px-4 text-left text-lg font-medium ${
+                      className={`h-14 rounded-xl border px-4 text-start text-lg font-medium ${
                         answer === option
                           ? "border-gold bg-gold text-stage"
                           : "border-white/15 bg-white text-stage"
@@ -391,7 +403,7 @@ export function TeamPortal() {
               </div>
             ) : (
               <label className="mt-6 block flex-1">
-                <span className="text-sm font-medium">Your answer</span>
+                <span className="text-sm font-medium">{t("team.yourAnswer")}</span>
                 <textarea
                   value={answer}
                   onChange={(e) => setAnswer(e.target.value)}
@@ -407,21 +419,22 @@ export function TeamPortal() {
               disabled={busy || answer.trim().length === 0}
               className="mt-4 h-14 w-full rounded-xl bg-gold text-lg font-semibold text-stage disabled:opacity-40"
             >
-              {busy ? "Sending…" : state.myAnswer ? "Update answer" : "Submit answer"}
+              {busy ? t("team.sending") : state.myAnswer ? t("team.updateAnswer") : t("team.submitAnswer")}
             </button>
             {state.myAnswer ? (
               <p className="mt-3 text-center text-sm text-stage-muted">
-                In: “{state.myAnswer.text}”. You can change it until the host reveals.
+                {t("team.answerIn", { answer: state.myAnswer.text })}
               </p>
             ) : null}
           </form>
         ) : null}
 
-        {state?.status === "REVEAL" ? <RevealPanel state={state} team={stored} /> : null}
+        {state?.status === "REVEAL" ? <RevealPanel t={t} state={state} team={stored} /> : null}
         {/* The same ending in both modes: the champions treatment, the
             place, the final scores. */}
         {state?.status === "ENDED" && state.scoreboard ? (
           <EndedPanel
+            t={t}
             scoreboard={state.scoreboard}
             teamName={state.teamName}
             teamId={stored.teamId}
@@ -430,37 +443,43 @@ export function TeamPortal() {
         ) : null}
       </main>
     </div>
+    </LanguageProvider>
   );
 }
 
-function RoundKicker({ state }: { state: TeamSessionState }) {
+function RoundKicker({ t, state }: { t: Translator; state: TeamSessionState }) {
   return (
     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-      Round {state.roundNumber}
-      {state.round ? ` · ${state.round.title}` : ""} · Q{state.questionNumber}
-      {state.question ? ` · ${countOf(state.question.points, "pt")}` : ""}
+      {[
+        t("common.roundN", { round: state.roundNumber }),
+        state.round?.title,
+        t("common.questionShort", { question: state.questionNumber }),
+        state.question ? t("common.pts", { count: state.question.points }) : null,
+      ]
+        .filter((part) => part != null)
+        .join(" · ")}
     </p>
   );
 }
 
-function LobbyPanel({ teamName, state }: { teamName: string; state: TeamSessionState | null }) {
+function LobbyPanel({ t, teamName, state }: { t: Translator; teamName: string; state: TeamSessionState | null }) {
   return (
     <div className="flex flex-1 flex-col">
-      <h2 className="font-serif text-3xl font-semibold">You’re in, {teamName}.</h2>
-      <p className="mt-3 text-lg text-stage-muted">Sit tight. The host will start the first question from the desk.</p>
+      <h2 className="font-serif text-3xl font-semibold">{t("team.youreIn", { team: teamName })}</h2>
+      <p className="mt-3 text-lg text-stage-muted">{t("team.sitTight")}</p>
       <section className="mt-8 rounded-2xl bg-white/5 p-4">
-        <h3 className="mb-3 font-semibold">Scoreboard</h3>
+        <h3 className="mb-3 font-semibold">{t("common.scoreboard")}</h3>
         <Scoreboard rows={state?.scoreboard ?? []} highlightName={teamName} dark />
       </section>
     </div>
   );
 }
 
-function RevealPanel({ state, team }: { state: TeamSessionState; team: StoredTeam }) {
+function RevealPanel({ t, state, team }: { t: Translator; state: TeamSessionState; team: StoredTeam }) {
   const correct = state.myAnswer?.isCorrect;
   return (
     <div className="flex flex-1 flex-col">
-      <RoundKicker state={state} />
+      <RoundKicker t={t} state={state} />
       <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug">{state.question?.text}</h2>
       <QuestionImage question={state.question} team={team} />
       <div
@@ -471,17 +490,17 @@ function RevealPanel({ state, team }: { state: TeamSessionState; team: StoredTea
         <p className="text-sm font-semibold uppercase tracking-wide">
           {state.myAnswer
             ? correct
-              ? `Correct · +${state.myAnswer.pointsAwarded ?? 0}`
-              : "Not this time"
-            : "No answer submitted"}
+              ? t("team.correctPoints", { points: state.myAnswer.pointsAwarded ?? 0 })
+              : t("team.notThisTime")
+            : t("team.noAnswerSubmitted")}
         </p>
-        {state.myAnswer ? <p className="mt-2 text-lg">You said: {state.myAnswer.text}</p> : null}
+        {state.myAnswer ? <p className="mt-2 text-lg">{t("team.youSaid", { answer: state.myAnswer.text })}</p> : null}
         {state.question?.answer ? (
-          <p className="mt-2 text-lg font-semibold">Answer: {state.question.answer}</p>
+          <p className="mt-2 text-lg font-semibold">{t("team.answer", { answer: state.question.answer })}</p>
         ) : null}
       </div>
       <section className="mt-8 rounded-2xl bg-white/5 p-4">
-        <h3 className="mb-3 font-semibold">Scoreboard</h3>
+        <h3 className="mb-3 font-semibold">{t("common.scoreboard")}</h3>
         <Scoreboard rows={state.scoreboard} highlightName={state.teamName} dark />
       </section>
     </div>
@@ -489,11 +508,13 @@ function RevealPanel({ state, team }: { state: TeamSessionState; team: StoredTea
 }
 
 function EndedPanel({
+  t,
   scoreboard,
   teamName,
   teamId,
   onJoinAnother,
 }: {
+  t: Translator;
   scoreboard: ScoreboardRow[];
   teamName: string;
   teamId: string;
@@ -511,21 +532,29 @@ function EndedPanel({
         <>
           <TrophyIcon className="h-9 w-9 text-gold" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-            {winners.length > 1 ? "You tied for the win!" : "You won!"}
+            {winners.length > 1 ? t("team.tiedWin") : t("team.won")}
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-semibold">Champions, {state.teamName}!</h2>
+          <h2 className="mt-2 font-serif text-3xl font-semibold">{t("team.champions", { team: state.teamName })}</h2>
         </>
       ) : (
-        <h2 className="font-serif text-3xl font-semibold">This quiz is over.</h2>
+        <h2 className="font-serif text-3xl font-semibold">{t("team.quizOver")}</h2>
       )}
       <p className="mt-3 text-lg text-stage-muted">
-        {isWinner ? "This quiz is over. " : ""}
-        {place && mine
-          ? `${state.teamName} finished ${ordinal(place)} with ${mine.score} ${mine.score === 1 ? "point" : "points"}.`
-          : "Thanks for playing."}
+        {[
+          isWinner ? t("team.quizOver") : null,
+          place && mine
+            ? t("team.finished", {
+                team: state.teamName,
+                place: t.ordinal(place),
+                points: t("common.points", { count: mine.score }),
+              })
+            : t("team.thanks"),
+        ]
+          .filter(Boolean)
+          .join(" ")}
       </p>
       <section className="mt-8 rounded-2xl bg-white/5 p-4">
-        <h3 className="mb-3 font-semibold">Final scores</h3>
+        <h3 className="mb-3 font-semibold">{t("common.finalScores")}</h3>
         <Scoreboard rows={state.scoreboard} highlightName={state.teamName} dark />
       </section>
       <button
@@ -533,14 +562,8 @@ function EndedPanel({
         onClick={onJoinAnother}
         className="mt-6 h-12 min-h-12 rounded-xl border border-white/20 px-4 text-base font-semibold"
       >
-        Join another quiz
+        {t("team.joinAnother")}
       </button>
     </div>
   );
-}
-
-function ordinal(n: number) {
-  const suffixes = ["th", "st", "nd", "rd"];
-  const v = n % 100;
-  return `${n}${suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]}`;
 }

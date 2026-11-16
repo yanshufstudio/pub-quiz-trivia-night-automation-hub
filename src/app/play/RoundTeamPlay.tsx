@@ -7,10 +7,10 @@ import { Scoreboard } from "@/components/Scoreboard";
 import type { RoundQuestionView, RoundTeamState } from "@/lib/api-types";
 import { questionLabel } from "@/lib/question-number";
 import { questionMediaUrl } from "@/lib/question-media-url";
-import { NO_SCORES_YET, noScoresYet } from "@/lib/scoreboard-summary";
+import { noScoresYet } from "@/lib/scoreboard-summary";
 import type { StoredTeam } from "@/lib/team-session";
-
-const NO_CONNECTION = "No connection, your answer was not saved";
+import { errorText } from "@/i18n";
+import { useT } from "@/i18n/react";
 
 /**
  * A team's phone in a round-mode game (RM8).
@@ -32,6 +32,7 @@ export function RoundTeamPlay({
   team: StoredTeam;
   onChanged: () => Promise<void>;
 }) {
+  const t = useT();
   // Unsaved edits, keyed by round and question so a new round starts clean.
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState<number | null>(null);
@@ -51,7 +52,7 @@ export function RoundTeamPlay({
         body: JSON.stringify({ token: team.token, questionIndex: qi, text: text.trim() }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error ?? "Could not save your answer");
+      if (!res.ok) throw new Error(errorText(t, data, "team.couldNotSave"));
       await onChanged();
       setDrafts((d) => {
         const next = { ...d };
@@ -63,7 +64,7 @@ export function RoundTeamPlay({
       // text is the browser's own ("Failed to fetch", "Load failed").
       const offline = err instanceof TypeError || (typeof navigator !== "undefined" && navigator.onLine === false);
       setError(
-        offline ? NO_CONNECTION : err instanceof Error ? err.message : "Could not save your answer"
+        offline ? t("team.noConnection") : err instanceof Error ? err.message : t("team.couldNotSave")
       );
     } finally {
       setSaving(null);
@@ -74,9 +75,9 @@ export function RoundTeamPlay({
     return (
       <div className="flex flex-1 flex-col">
         <h2 className="font-serif text-3xl font-semibold" dir="auto">
-          You’re in, {state.teamName}.
+          {t("team.youreIn", { team: state.teamName })}
         </h2>
-        <p className="mt-3 text-lg text-stage-muted">Waiting for the host to start the quiz.</p>
+        <p className="mt-3 text-lg text-stage-muted">{t("team.waitingForHost")}</p>
       </div>
     );
   }
@@ -95,14 +96,13 @@ export function RoundTeamPlay({
     ? [...revealed, ...state.questions.filter((q) => q.answer === null)]
     : [...state.questions].reverse();
   const justRevealedId = revealing ? (revealed[0]?.id ?? null) : null;
-  const scoreboard = state.scoreboard ? <ScoreboardPanel state={state} title="Scoreboard" /> : null;
+  const scoreboard = state.scoreboard ? <ScoreboardPanel state={state} title={t("common.scoreboard")} /> : null;
 
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex items-start justify-between gap-3">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold" dir="auto">
-          Round {state.roundNumber}
-          {state.round ? ` · ${state.round.title}` : ""}
+          {[t("common.roundN", { round: state.roundNumber }), state.round?.title].filter((part) => part != null).join(" · ")}
         </p>
         {open ? <RoundCountdown countdown={state.countdown} serverNow={state.serverNow} /> : null}
       </div>
@@ -110,19 +110,22 @@ export function RoundTeamPlay({
       {state.sitsOutRound ? (
         // Joined after the round closed: nothing of it to show, only when to play.
         <p className="mt-4 rounded-2xl bg-white/5 px-4 py-4 text-lg font-semibold">
-          <span dir="auto">You’re in, {state.teamName}.</span>{" "}
+          <span dir="auto">{t("team.youreIn", { team: state.teamName })}</span>{" "}
           {state.roundNumber < state.totalRounds
-            ? `You’ll play from round ${state.roundNumber + 1}.`
-            : "That was the last round. The final scores are on their way."}
+            ? t("team.playFromRound", { round: state.roundNumber + 1 })
+            : t("team.lastRound")}
         </p>
       ) : state.status === "ROUND_MARKING" ? (
         <p className="mt-4 rounded-2xl bg-white/5 px-4 py-4 text-lg font-semibold">
-          Answers are in. The host is checking them.
+          {t("team.answersIn")}
         </p>
       ) : null}
       {state.status === "ROUND_REVEAL" && state.myRoundTotal !== null ? (
         <p className="mt-4 rounded-2xl bg-gold/15 px-4 py-4 text-lg font-semibold">
-          Round {state.roundNumber} total: {state.myRoundTotal} {state.myRoundTotal === 1 ? "point" : "points"}
+          {t("team.roundTotal", {
+            round: state.roundNumber,
+            points: t("common.points", { count: state.myRoundTotal }),
+          })}
         </p>
       ) : null}
       {error ? <p className="mt-4 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-200">{error}</p> : null}
@@ -135,7 +138,7 @@ export function RoundTeamPlay({
           <li key={question.id}>
             <QuestionCard
               question={question}
-              label={questionLabel(state.roundNumber, question.index + 1)}
+              label={questionLabel(t, state.roundNumber, question.index + 1)}
               team={team}
               newest={i === 0}
               justRevealed={question.id === justRevealedId}
@@ -180,6 +183,7 @@ function QuestionCard({
   onDraft: (text: string) => void;
   onSave: (text: string) => void;
 }) {
+  const t = useT();
   const value = draft ?? saved?.text ?? "";
   const unsaved = draft !== undefined && draft !== (saved?.text ?? "");
   const revealed = question.answer !== null;
@@ -198,7 +202,7 @@ function QuestionCard({
 
       {open ? (
         question.type === "MULTIPLE_CHOICE" ? (
-          <div className="mt-4 grid gap-2" role="group" aria-label={`${label} options`}>
+          <div className="mt-4 grid gap-2" role="group" aria-label={t("team.options", { label })}>
             {question.options.map((option) => (
               <button
                 key={option}
@@ -206,7 +210,7 @@ function QuestionCard({
                 disabled={saving}
                 aria-pressed={saved?.text === option}
                 onClick={() => onSave(option)}
-                className={`min-h-12 rounded-xl border px-4 text-left text-lg font-medium ${
+                className={`min-h-12 rounded-xl border px-4 text-start text-lg font-medium ${
                   saved?.text === option ? "border-gold bg-gold text-stage" : "border-white/15 bg-white text-stage"
                 }`}
               >
@@ -223,7 +227,7 @@ function QuestionCard({
             }}
           >
             <input
-              aria-label={`Answer to ${label}`}
+              aria-label={t("team.answerTo", { label })}
               value={value}
               maxLength={500}
               dir="auto"
@@ -235,18 +239,16 @@ function QuestionCard({
               disabled={saving || !value.trim() || !unsaved}
               className="h-12 min-h-12 rounded-xl bg-gold px-4 text-base font-semibold text-stage disabled:opacity-40"
             >
-              {saving ? "Saving…" : "Save"}
+              {saving ? t("team.saving") : t("team.save")}
             </button>
           </form>
         )
       ) : saved ? (
-        <p className="mt-3 text-lg">
-          You said: <span dir="auto">{saved.text}</span>
-        </p>
+        <p className="mt-3 text-lg">{t.rich("team.youSaid", { answer: <span dir="auto">{saved.text}</span> })}</p>
       ) : revealed ? null : (
         // Once revealed, the verdict below says "No answer"; saying it here too doubled it.
         <p className="mt-3 text-lg">
-          <span className="text-stage-muted">No answer</span>
+          <span className="text-stage-muted">{t("team.noAnswer")}</span>
         </p>
       )}
 
@@ -255,7 +257,13 @@ function QuestionCard({
           {/* While saving, say so: a poll can bring the saved answer back
               before the save itself answers, and the line said "Saved"
               beside a button still saying "Saving…". */}
-          {saving ? "Saving…" : unsaved ? "Not saved yet" : saved ? "Saved" : "Not answered yet"}
+          {saving
+            ? t("team.saving")
+            : unsaved
+              ? t("team.notSavedYet")
+              : saved
+                ? t("team.saved")
+                : t("team.notAnsweredYet")}
         </p>
       ) : null}
 
@@ -266,10 +274,14 @@ function QuestionCard({
           }`}
         >
           <p className="text-sm font-semibold uppercase tracking-wide">
-            {saved ? (saved.isCorrect ? `Correct · +${saved.pointsAwarded ?? 0}` : "Not this time") : "No answer"}
+            {saved
+              ? saved.isCorrect
+                ? t("team.correctPoints", { points: saved.pointsAwarded ?? 0 })
+                : t("team.notThisTime")
+              : t("team.noAnswer")}
           </p>
           <p className="mt-1 text-lg font-semibold">
-            Answer: <span dir="auto">{question.answer}</span>
+            {t.rich("team.answer", { answer: <span dir="auto">{question.answer}</span> })}
           </p>
         </div>
       ) : null}
@@ -287,7 +299,7 @@ function QuestionCard({
           <span>{label}</span>
           {justRevealed ? (
             <span className="rounded-full bg-gold px-2 py-0.5 text-xs uppercase tracking-wide text-stage">
-              Just revealed
+              {t("team.justRevealed")}
             </span>
           ) : null}
         </p>
@@ -300,7 +312,7 @@ function QuestionCard({
       <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-2 text-sm font-semibold">
         <span className="text-gold">{label}</span>
         <span className="text-stage-muted">
-          {unsaved ? "Not saved yet" : saved ? "Saved" : open ? "Not answered yet" : ""}
+          {unsaved ? t("team.notSavedYet") : saved ? t("team.saved") : open ? t("team.notAnsweredYet") : ""}
         </span>
       </summary>
       {body}
@@ -309,11 +321,12 @@ function QuestionCard({
 }
 
 function ScoreboardPanel({ state, title }: { state: RoundTeamState; title: string }) {
+  const t = useT();
   return (
     <section className="mt-8 rounded-2xl bg-white/5 p-4">
       <h3 className="mb-3 font-semibold">{title}</h3>
       {noScoresYet(state) ? (
-        <p className="text-stage-muted">{NO_SCORES_YET}</p>
+        <p className="text-stage-muted">{t("common.noScoresYet")}</p>
       ) : (
         <Scoreboard rows={state.scoreboard ?? []} highlightName={state.teamName} dark />
       )}

@@ -68,6 +68,8 @@ export async function POST(req: NextRequest) {
       // — so a duration sent by an old client is ignored rather than stored.
       mode: SESSION_MODE.ROUND,
       questionDurationSeconds: null,
+      // The game speaks the pack's language on every screen (L1).
+      language: pack.language,
       // Who started it (H4). The host key below is still the authority over
       // the session; this is the weaker claim that lets this creator find
       // their own desk again from another device, where the key — which lives

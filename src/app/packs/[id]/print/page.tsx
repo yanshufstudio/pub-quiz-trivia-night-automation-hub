@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { requireHostPage } from "@/lib/auth-guard";
 import { canReadPack } from "@/lib/pack-access";
 import { printPageTitle } from "@/lib/print-sheets";
+import { getT, toLanguage } from "@/i18n";
 import { toQuestionView } from "@/lib/question-types";
 import { PrintPreview } from "./PrintPreview";
 
@@ -36,7 +37,8 @@ const printablePack = cache(async (id: string) => {
 // The first sheet's title; PrintPreview changes it as the host switches sheets.
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  return { title: printPageTitle((await printablePack(id)).title, "script") };
+  const pack = await printablePack(id);
+  return { title: printPageTitle(getT(toLanguage(pack.language)), pack.title, "script") };
 }
 
 export default async function PrintPage({ params }: { params: Promise<{ id: string }> }) {

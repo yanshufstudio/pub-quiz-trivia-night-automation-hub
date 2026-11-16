@@ -7,7 +7,6 @@ import type {
   RoundDisplayState,
   RoundHostState,
   RoundQuestionView,
-  RoundTeamState,
   TeamSessionState,
 } from "@/lib/api-types";
 import { fixtureTeam, roundTeamState } from "@/test/round-team-fixture";
@@ -135,6 +134,7 @@ function teamQuestionState(status: TeamSessionState["status"], extra: Partial<Te
   return {
     mode: "QUESTION",
     code: fixtureTeam.code,
+    language: "en",
     status,
     packTitle: "Pack",
     roundNumber: 1,
@@ -285,6 +285,7 @@ function displayState(extra: Partial<RoundDisplayState> = {}): RoundDisplayState
   return {
     mode: "ROUND",
     code: "ABCDE",
+    language: "en",
     status: "LOBBY",
     packTitle: "Pack",
     roundNumber: 1,
@@ -365,6 +366,7 @@ function hostState(extra: Partial<RoundHostState> = {}): RoundHostState {
   return {
     mode: "ROUND",
     code: "ABCDE",
+    language: "en",
     status: "LOBBY",
     packTitle: "Friday Quiz",
     roundNumber: 1,
@@ -411,7 +413,16 @@ const marks: NonNullable<RoundHostState["marks"]> = [
 function desk(state: RoundHostState, error: string | null = null) {
   vi.stubGlobal("fetch", vi.fn(async () => ok({})));
   return render(
-    <RoundHostDesk code="ABCDE" hostToken="host" state={state} error={error} onError={() => {}} refresh={async () => {}} />
+    <RoundHostDesk
+      code="ABCDE"
+      hostToken="host"
+      state={state}
+      error={error}
+      onError={() => {}}
+      refresh={async () => {}}
+      languages={["en"]}
+      onLanguage={() => {}}
+    />
   );
 }
 
@@ -509,6 +520,7 @@ function hostQuestionState(status: HostSessionState["status"], extra: Partial<Ho
   return {
     mode: "QUESTION",
     code: "ABCDE",
+    language: "en",
     status,
     packTitle: "Friday Quiz",
     roundNumber: 2,
@@ -591,6 +603,7 @@ const pack: Pack = {
   title: "Friday Quiz",
   prompt: "general knowledge",
   createdAt: "2026-11-01T00:00:00.000Z",
+  language: "en",
   rounds: [
     {
       id: "r1",

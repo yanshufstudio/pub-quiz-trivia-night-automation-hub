@@ -90,6 +90,7 @@ export function roundBase(session: Session, pack: PackWithRounds, now: Date) {
   return {
     mode: "ROUND" as const,
     code: session.code,
+    language: session.language,
     status: session.status as RoundTeamState["status"],
     packTitle: pack.title,
     roundNumber: session.currentRoundIndex + 1,

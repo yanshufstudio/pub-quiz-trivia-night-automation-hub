@@ -152,7 +152,7 @@ html:has(.tv-surface) body {
 .rule-brass::after {
   content: "";
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   bottom: 0;
   width: 3.25rem;
   height: 5px;

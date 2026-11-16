@@ -3,12 +3,13 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { QuestionText } from "@/components/QuestionText";
 import { Scoreboard } from "@/components/Scoreboard";
+import { getT } from "@/i18n";
 import { questionLabel } from "@/lib/question-number";
 
 describe("one numbering helper for every screen (RM6)", () => {
   it("names a question by round and number", () => {
-    expect(questionLabel(2, 5)).toBe("Round 2 · Q5");
-    expect(questionLabel(2, 5, 10)).toBe("Round 2 · Q5 of 10");
+    expect(questionLabel(getT("en"), 2, 5)).toBe("Round 2 · Q5");
+    expect(questionLabel(getT("en"), 2, 5, 10)).toBe("Round 2 · Q5 of 10");
   });
 });
 

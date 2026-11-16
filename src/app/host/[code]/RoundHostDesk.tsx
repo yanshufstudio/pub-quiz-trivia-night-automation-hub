@@ -10,10 +10,11 @@ import { Scoreboard } from "@/components/Scoreboard";
 import { TrophyIcon } from "@/components/icons";
 import type { RoundHostState, RoundQuestionView } from "@/lib/api-types";
 import { buildHostUrl } from "@/lib/join-url";
-import { countOf } from "@/lib/plural";
 import { questionMediaUrl } from "@/lib/question-media-url";
 import { questionLabel } from "@/lib/question-number";
-import { NO_SCORES_YET, noScoresYet, topScorers, winningNames } from "@/lib/scoreboard-summary";
+import { noScoresYet, topScorers, winningNames } from "@/lib/scoreboard-summary";
+import { errorText, languageMeta, type Language } from "@/i18n";
+import { useT } from "@/i18n/react";
 
 /**
  * The host desk for a round-mode game (RM7).
@@ -29,20 +30,9 @@ import { NO_SCORES_YET, noScoresYet, topScorers, winningNames } from "@/lib/scor
  * ends up mirrored on the pub's screen must not publish the answers.
  */
 
-const COUNTDOWN_CHOICES = [
-  { seconds: 60, label: "1 min" },
-  { seconds: 120, label: "2 min" },
-  { seconds: 180, label: "3 min" },
-  { seconds: 300, label: "5 min" },
-];
+const COUNTDOWN_MINUTES = [1, 2, 3, 5];
 
 type Confirming = "close" | "finish" | "end" | "reveal_all" | "reveal_last" | "next_round" | null;
-
-/** "A", "A and B", "A, B and C" — for a sentence, unlike the trophy's "&". */
-function listNames(names: string[]): string {
-  if (names.length <= 1) return names.join("");
-  return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
-}
 
 export function RoundHostDesk({
   code,
@@ -51,6 +41,8 @@ export function RoundHostDesk({
   error,
   onError,
   refresh,
+  languages,
+  onLanguage,
 }: {
   code: string;
   hostToken: string;
@@ -58,7 +50,11 @@ export function RoundHostDesk({
   error: string | null;
   onError: (message: string | null) => void;
   refresh: () => Promise<void>;
+  /** The desk languages on offer. The switch only shows when there is a choice. */
+  languages: Language[];
+  onLanguage: (lang: Language) => void;
 }) {
+  const t = useT();
   const [busy, setBusy] = useState(false);
   const [confirming, setConfirming] = useState<Confirming>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -77,10 +73,10 @@ export function RoundHostDesk({
         body: JSON.stringify({ ...body, hostToken }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error ?? "That didn't work. Try again.");
+      if (!res.ok) throw new Error(errorText(t, data, "common.tryAgain"));
       onError(null);
     } catch (err) {
-      onError(err instanceof Error ? err.message : "That didn't work. Try again.");
+      onError(err instanceof Error ? err.message : t("common.tryAgain"));
     } finally {
       await refresh();
       setBusy(false);
@@ -109,32 +105,32 @@ export function RoundHostDesk({
   const missingTotals = (state.marks ?? []).filter((row) => row.isPaper && row.typed === null).map((row) => row.name);
   const missingTotalsNote =
     missingTotals.length > 0
-      ? `No round ${state.roundNumber} total for ${listNames(missingTotals)}. They score 0 for it unless you type one.`
+      ? t("desk.missingTotals", { round: state.roundNumber, names: t.list(missingTotals) })
       : "";
 
   if (state.status === "LOBBY") {
     primary = {
-      label: state.teams.length === 0 ? "Waiting for the first team" : "Start quiz",
+      label: state.teams.length === 0 ? t("desk.waitingFirstTeam") : t("desk.startQuiz"),
       onPress: () => void advance("start"),
       disabled: state.teams.length === 0,
     };
   } else if (state.status === "ROUND_OPEN") {
     primary =
       state.askedCount < total
-        ? { label: "Ask next question", onPress: () => void advance("ask_next") }
-        : { label: "Close round…", onPress: () => setConfirming("close") };
+        ? { label: t("desk.askNext"), onPress: () => void advance("ask_next") }
+        : { label: t("desk.closeRound"), onPress: () => setConfirming("close") };
   } else if (state.status === "ROUND_MARKING" || state.status === "ROUND_REVEAL") {
     const warn = missingTotals.length > 0;
     if (state.revealedCount < total) {
       const last = state.revealedCount === total - 1;
       primary = {
-        label: "Reveal next answer",
+        label: t("desk.revealNext"),
         onPress: () => (last && warn ? setConfirming("reveal_last") : void advance("reveal_next")),
       };
     } else if (isLastRound) {
-      primary = { label: "Finish quiz…", onPress: () => setConfirming("finish") };
+      primary = { label: t("desk.finishQuiz"), onPress: () => setConfirming("finish") };
     } else {
-      primary = { label: "Next round", onPress: () => (warn ? setConfirming("next_round") : void advance("next_round")) };
+      primary = { label: t("desk.nextRound"), onPress: () => (warn ? setConfirming("next_round") : void advance("next_round")) };
     }
   }
 
@@ -143,14 +139,14 @@ export function RoundHostDesk({
       <header className="border-b border-white/10 px-4 py-3 sm:px-8">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-xs uppercase tracking-[0.18em] text-gold">Host desk</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-gold">{t("desk.hostDesk")}</p>
             <h1 className="truncate font-serif text-lg font-semibold" dir="auto">
               {state.packTitle}
             </h1>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             <div className="rounded-xl bg-gold px-3 py-1.5 text-stage">
-              <p className="text-[10px] font-semibold uppercase tracking-wider">Team code</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider">{t("desk.teamCode")}</p>
               <p className="font-mono text-xl font-bold tracking-[0.18em]">{state.code}</p>
             </div>
             <button
@@ -159,7 +155,7 @@ export function RoundHostDesk({
               onClick={() => setMenuOpen((open) => !open)}
               className="h-12 min-h-12 rounded-xl border border-white/20 px-4 text-sm font-semibold"
             >
-              Menu
+              {t("desk.menu")}
             </button>
           </div>
         </div>
@@ -182,6 +178,8 @@ export function RoundHostDesk({
             }}
             onTvMode={(showAll) => void advance("set_tv_mode", { showAll })}
             onAddPaper={(name) => send(`/api/sessions/${code}/teams`, "POST", { name })}
+            languages={languages}
+            onLanguage={onLanguage}
           />
         ) : null}
 
@@ -192,7 +190,7 @@ export function RoundHostDesk({
         {state.status === "ROUND_OPEN" ? (
           <section className="rounded-2xl bg-white/5 p-4 sm:p-6">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-sm font-semibold text-gold">{questionLabel(state.roundNumber, state.askedCount, total)}</p>
+              <p className="text-sm font-semibold text-gold">{questionLabel(t, state.roundNumber, state.askedCount, total)}</p>
               <RoundCountdown countdown={state.countdown} serverNow={state.serverNow} className="text-lg" />
             </div>
             {state.round ? (
@@ -203,14 +201,14 @@ export function RoundHostDesk({
             {current ? <HostQuestion question={current} code={code} hostToken={hostToken} /> : null}
             {current && phoneTeams(state) > 0 ? (
               <p className="mt-4 text-sm text-stage-muted">
-                {answeredCount(state, current.index)} of {phoneTeams(state)} phone teams have answered this one.
+                {t("desk.phoneTeamsAnswered", { answered: answeredCount(state, current.index), total: phoneTeams(state) })}
               </p>
             ) : null}
 
             <div className="mt-5 flex flex-wrap gap-2">
               {state.countdown ? (
                 <button type="button" onClick={() => void advance("clear_countdown")} className={secondary}>
-                  Stop countdown
+                  {t("desk.stopCountdown")}
                 </button>
               ) : (
                 <button
@@ -219,21 +217,21 @@ export function RoundHostDesk({
                   onClick={() => setChoosingCountdown((open) => !open)}
                   className={secondary}
                 >
-                  Start countdown
+                  {t("desk.startCountdown")}
                 </button>
               )}
               {choosingCountdown && !state.countdown
-                ? COUNTDOWN_CHOICES.map((choice) => (
+                ? COUNTDOWN_MINUTES.map((minutes) => (
                     <button
-                      key={choice.seconds}
+                      key={minutes}
                       type="button"
                       onClick={() => {
                         setChoosingCountdown(false);
-                        void advance("start_countdown", { seconds: choice.seconds });
+                        void advance("start_countdown", { seconds: minutes * 60 });
                       }}
                       className={secondary}
                     >
-                      {choice.label}
+                      {t("desk.minutes", { count: minutes })}
                     </button>
                   ))
                 : null}
@@ -242,16 +240,16 @@ export function RoundHostDesk({
             {state.askedCount > 1 ? (
               <details className="mt-5">
                 <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold text-stage-muted">
-                  Asked so far ({state.askedCount})
+                  {t("desk.askedSoFar", { count: state.askedCount })}
                 </summary>
                 <ol className="mt-2 space-y-2">
                   {state.questions.map((q) => (
                     <li key={q.id} className="rounded-lg bg-white/5 px-3 py-2 text-sm">
-                      <span className="text-gold">Q{q.index + 1}</span>{" "}
+                      <span className="text-gold">{t("common.questionShort", { question: q.index + 1 })}</span>{" "}
                       <QuestionText as="span" text={q.text} />
                       {phoneTeams(state) > 0 ? (
                         <span className="block text-xs text-stage-muted">
-                          {answeredCount(state, q.index)} of {phoneTeams(state)} answered
+                          {t("desk.answeredOf", { answered: answeredCount(state, q.index), total: phoneTeams(state) })}
                         </span>
                       ) : null}
                     </li>
@@ -288,7 +286,7 @@ export function RoundHostDesk({
                   onClick={() => (missingTotals.length > 0 ? setConfirming("reveal_all") : void advance("reveal_all"))}
                   className={secondary}
                 >
-                  Reveal all
+                  {t("desk.revealAll")}
                 </button>
               ) : null}
               <button
@@ -297,17 +295,17 @@ export function RoundHostDesk({
                 onClick={() => void advance(state.scoreboardShown ? "hide_scoreboard" : "show_scoreboard")}
                 className={secondary}
               >
-                {state.scoreboardShown ? "Hide scoreboard" : "Show scoreboard"}
+                {state.scoreboardShown ? t("desk.hideScoreboard") : t("desk.showScoreboard")}
               </button>
             </div>
-            <h3 className="mt-5 font-semibold">Scoreboard</h3>
+            <h3 className="mt-5 font-semibold">{t("common.scoreboard")}</h3>
             <p className="mt-1 text-sm text-stage-muted">
-              {state.scoreboardShown ? "Showing on the TV and the phones." : "Only you can see this until you show it."}{" "}
-              Rounds count once every answer in them is revealed.
+              {state.scoreboardShown ? t("desk.scoreboardShowing") : t("desk.scoreboardPrivate")}{" "}
+              {t("desk.roundsCount")}
             </p>
             <div className="mt-3">
               {noScoresYet(state) ? (
-                <p className="text-stage-muted">{NO_SCORES_YET}</p>
+                <p className="text-stage-muted">{t("common.noScoresYet")}</p>
               ) : (
                 <Scoreboard rows={state.scoreboard} dark />
               )}
@@ -331,10 +329,10 @@ export function RoundHostDesk({
           <div className="mx-auto max-w-5xl">
             {confirming === "close" ? (
               <ConfirmPanel
-                title={`Close round ${state.roundNumber}?`}
-                body="Teams can't change their answers after this. You check the marks next."
-                confirmLabel="Yes, close the round"
-                keepLabel="Keep the round open"
+                title={t("desk.closeTitle", { round: state.roundNumber })}
+                body={t("desk.closeBody")}
+                confirmLabel={t("desk.closeYes")}
+                keepLabel={t("desk.closeKeep")}
                 busy={busy}
                 onKeep={() => setConfirming(null)}
                 onConfirm={() => {
@@ -344,10 +342,10 @@ export function RoundHostDesk({
               />
             ) : confirming === "finish" ? (
               <ConfirmPanel
-                title="Finish the quiz?"
-                body={`${missingTotalsNote ? `${missingTotalsNote} ` : ""}The final scoreboard goes up on every screen. This cannot be undone.`}
-                confirmLabel="Yes, finish the quiz"
-                keepLabel="Not yet"
+                title={t("desk.finishTitle")}
+                body={[missingTotalsNote, t("desk.finishBody")].filter(Boolean).join(" ")}
+                confirmLabel={t("desk.finishYes")}
+                keepLabel={t("desk.notYet")}
                 busy={busy}
                 onKeep={() => setConfirming(null)}
                 onConfirm={() => {
@@ -357,10 +355,10 @@ export function RoundHostDesk({
               />
             ) : confirming === "reveal_all" ? (
               <ConfirmPanel
-                title="Reveal all answers?"
+                title={t("desk.revealAllTitle")}
                 body={missingTotalsNote}
-                confirmLabel="Yes, reveal all"
-                keepLabel="Keep marking"
+                confirmLabel={t("desk.revealAllYes")}
+                keepLabel={t("desk.keepMarking")}
                 busy={busy}
                 onKeep={() => setConfirming(null)}
                 onConfirm={() => {
@@ -370,10 +368,10 @@ export function RoundHostDesk({
               />
             ) : confirming === "reveal_last" ? (
               <ConfirmPanel
-                title="Reveal the last answer?"
+                title={t("desk.revealLastTitle")}
                 body={missingTotalsNote}
-                confirmLabel="Yes, reveal it"
-                keepLabel="Keep marking"
+                confirmLabel={t("desk.revealLastYes")}
+                keepLabel={t("desk.keepMarking")}
                 busy={busy}
                 onKeep={() => setConfirming(null)}
                 onConfirm={() => {
@@ -383,10 +381,10 @@ export function RoundHostDesk({
               />
             ) : confirming === "next_round" ? (
               <ConfirmPanel
-                title={`Go to round ${state.roundNumber + 1}?`}
+                title={t("desk.nextRoundTitle", { round: state.roundNumber + 1 })}
                 body={missingTotalsNote}
-                confirmLabel="Yes, next round"
-                keepLabel="Not yet"
+                confirmLabel={t("desk.nextRoundYes")}
+                keepLabel={t("desk.notYet")}
                 busy={busy}
                 onKeep={() => setConfirming(null)}
                 onConfirm={() => {
@@ -423,6 +421,7 @@ function answeredCount(state: RoundHostState, questionIndex: number) {
 }
 
 function HostQuestion({ question, code, hostToken }: { question: RoundQuestionView; code: string; hostToken: string }) {
+  const t = useT();
   return (
     <>
       <QuestionText text={question.text} as="h2" className="mt-3 font-serif text-2xl font-semibold leading-snug sm:text-3xl" />
@@ -443,7 +442,7 @@ function HostQuestion({ question, code, hostToken }: { question: RoundQuestionVi
           ))}
         </ul>
       ) : null}
-      <p className="mt-2 text-sm text-stage-muted">{countOf(question.points, "point")}</p>
+      <p className="mt-2 text-sm text-stage-muted">{t("common.points", { count: question.points })}</p>
     </>
   );
 }
@@ -464,12 +463,11 @@ function Lobby({
   busy: boolean;
   onAddPaper: (name: string) => Promise<void>;
 }) {
+  const t = useT();
   return (
     <section className="rounded-2xl bg-white/5 p-4 sm:p-6">
-      <h2 className="font-serif text-2xl font-semibold">Waiting for teams</h2>
-      <p className="mt-2 text-stage-muted">
-        Teams join on their phones with the code. Tables playing on paper: add them by name.
-      </p>
+      <h2 className="font-serif text-2xl font-semibold">{t("desk.waitingForTeams")}</h2>
+      <p className="mt-2 text-stage-muted">{t("desk.lobbyHelp")}</p>
       <JoinQr code={code} />
       <div className="mt-4 flex justify-center sm:justify-start">
         <button
@@ -477,12 +475,12 @@ function Lobby({
           onClick={() => openTv(code)}
           className="h-12 min-h-12 rounded-xl bg-gold px-4 text-sm font-semibold text-stage"
         >
-          Open TV display
+          {t("desk.openTv")}
         </button>
       </div>
 
       <div className="mt-6">
-        <AddPaperTeam heading={`Teams (${state.teams.length})`} busy={busy} onAddPaper={onAddPaper} />
+        <AddPaperTeam heading={t("desk.teamsCount", { count: state.teams.length })} busy={busy} onAddPaper={onAddPaper} />
       </div>
       <TeamList state={state} />
     </section>
@@ -499,6 +497,7 @@ function AddPaperTeam({
   busy: boolean;
   onAddPaper: (name: string) => Promise<void>;
 }) {
+  const t = useT();
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState("");
   return (
@@ -506,7 +505,7 @@ function AddPaperTeam({
       <div className="flex items-center justify-between gap-3">
         <h3 className="font-semibold">{heading}</h3>
         <button type="button" aria-expanded={adding} onClick={() => setAdding((a) => !a)} className={secondary}>
-          Add paper team
+          {t("desk.addPaperTeam")}
         </button>
       </div>
       {adding ? (
@@ -523,7 +522,7 @@ function AddPaperTeam({
           }}
         >
           <input
-            aria-label="Paper team name"
+            aria-label={t("desk.paperTeamName")}
             value={name}
             maxLength={40}
             onChange={(e) => setName(e.target.value)}
@@ -535,7 +534,7 @@ function AddPaperTeam({
             disabled={busy || !name.trim()}
             className="h-12 min-h-12 rounded-xl bg-gold px-5 text-sm font-semibold text-stage disabled:opacity-40"
           >
-            Add
+            {t("desk.add")}
           </button>
         </form>
       ) : null}
@@ -544,7 +543,8 @@ function AddPaperTeam({
 }
 
 function TeamList({ state }: { state: RoundHostState }) {
-  if (state.teams.length === 0) return <p className="mt-3 text-sm text-stage-muted">No teams yet.</p>;
+  const t = useT();
+  if (state.teams.length === 0) return <p className="mt-3 text-sm text-stage-muted">{t("desk.noTeams")}</p>;
   return (
     <ul className="mt-3 space-y-2">
       {state.teams.map((team) => (
@@ -553,7 +553,7 @@ function TeamList({ state }: { state: RoundHostState }) {
             {team.name}
           </span>
           {team.isPaper ? (
-            <span className="shrink-0 rounded-full bg-white/10 px-2 py-0.5 text-xs text-stage-muted">Paper</span>
+            <span className="shrink-0 rounded-full bg-white/10 px-2 py-0.5 text-xs text-stage-muted">{t("desk.paper")}</span>
           ) : null}
         </li>
       ))}
@@ -574,6 +574,7 @@ function Marking({
   onSetTotal: (teamId: string, points: number) => Promise<void>;
   onClearTotal: (teamId: string) => Promise<void>;
 }) {
+  const t = useT();
   const marks = state.marks ?? [];
   // A phone team that sat the round out (joined late) has nothing to mark.
   // Paper teams are named under the grid, not in it, so no row runs off the
@@ -584,16 +585,16 @@ function Marking({
   return (
     <section className="space-y-5">
       <div className="rounded-2xl bg-white/5 p-4 sm:p-6">
-        <h2 className="font-serif text-2xl font-semibold">Round {n}: check the marks</h2>
+        <h2 className="font-serif text-2xl font-semibold">{t("desk.checkMarks", { round: n })}</h2>
         <p className="mt-1 text-sm text-stage-muted">
-          {state.revealedCount} of {state.totalQuestionsInRound} answers revealed. Marked automatically. Tap a
-          mark to change it. The room sees nothing here.
+          {t("desk.revealedOf", { revealed: state.revealedCount, total: state.totalQuestionsInRound })}
         </p>
 
         <ol className="mt-4 space-y-1 text-sm">
           {state.questions.map((q) => (
             <li key={q.id}>
-              <span className="text-gold">Q{q.index + 1}</span> <span dir="auto">{q.answer}</span>
+              <span className="text-gold">{t("common.questionShort", { question: q.index + 1 })}</span>{" "}
+              <span dir="auto">{q.answer}</span>
             </li>
           ))}
         </ol>
@@ -602,11 +603,11 @@ function Marking({
           <div data-testid="marks-grid" className="mt-4 overflow-x-auto">
             <table className="w-full min-w-max border-separate border-spacing-1 text-sm">
               <thead>
-                <tr className="text-left text-stage-muted">
-                  <th className="sticky left-0 z-[1] bg-stage-panel px-2 font-semibold">Team</th>
+                <tr className="text-start text-stage-muted">
+                  <th className="sticky start-0 z-[1] bg-stage-panel px-2 font-semibold">{t("desk.team")}</th>
                   {state.questions.map((q) => (
                     <th key={q.id} className="px-2 font-semibold">
-                      Q{q.index + 1}
+                      {t("common.questionShort", { question: q.index + 1 })}
                     </th>
                   ))}
                 </tr>
@@ -616,7 +617,7 @@ function Marking({
                   <tr key={row.teamId}>
                     <th
                       scope="row"
-                      className="sticky left-0 z-[1] max-w-28 truncate bg-stage-panel px-2 text-left font-medium sm:max-w-40"
+                      className="sticky start-0 z-[1] max-w-28 truncate bg-stage-panel px-2 text-start font-medium sm:max-w-40"
                       dir="auto"
                     >
                       {row.name}
@@ -627,7 +628,7 @@ function Marking({
                         return (
                           <td key={q.id} className="px-2 text-stage-muted">
                             <span aria-hidden="true">·</span>
-                            <span className="sr-only">No answer</span>
+                            <span className="sr-only">{t("desk.noAnswer")}</span>
                           </td>
                         );
                       }
@@ -636,9 +637,13 @@ function Marking({
                           <button
                             type="button"
                             disabled={busy}
-                            aria-label={`${row.name}, Q${q.index + 1}: ${answer.text}, marked ${answer.isCorrect ? "right" : "wrong"}. Tap to mark ${answer.isCorrect ? "wrong" : "right"}.`}
+                            aria-label={t(answer.isCorrect ? "desk.markedRight" : "desk.markedWrong", {
+                              team: row.name,
+                              question: t("common.questionShort", { question: q.index + 1 }),
+                              answer: answer.text,
+                            })}
                             onClick={() => void onOverride(answer.id, !answer.isCorrect, q.points)}
-                            className={`flex min-h-11 w-full min-w-24 items-center justify-between gap-2 rounded-lg px-2 text-left ${
+                            className={`flex min-h-11 w-full min-w-24 items-center justify-between gap-2 rounded-lg px-2 text-start ${
                               answer.isCorrect ? "bg-emerald-500/20 text-emerald-100" : "bg-red-500/15 text-red-100"
                             }`}
                           >
@@ -660,16 +665,14 @@ function Marking({
         ) : null}
         {onPaper.length > 0 ? (
           <p className="mt-4 text-sm text-stage-muted">
-            On paper: <span dir="auto">{listNames(onPaper)}</span>. Type their round totals below.
+            {t.rich("desk.onPaper", { names: <span dir="auto">{t.list(onPaper)}</span> })}
           </p>
         ) : null}
       </div>
 
       <div className="rounded-2xl bg-white/5 p-4 sm:p-6">
-        <h3 className="font-semibold">Round {n} totals</h3>
-        <p className="mt-1 text-sm text-stage-muted">
-          Type a total for a paper team, for sheets the tables swapped and marked, or to override a phone team&apos;s.
-        </p>
+        <h3 className="font-semibold">{t("desk.roundTotals", { round: n })}</h3>
+        <p className="mt-1 text-sm text-stage-muted">{t("desk.totalsHelp")}</p>
         <ul className="mt-3 space-y-2">
           {marks.map((row) => (
             <RoundTotalRow
@@ -700,6 +703,7 @@ function RoundTotalRow({
   onSave: (points: number) => Promise<void>;
   onClear: () => Promise<void>;
 }) {
+  const t = useT();
   const [value, setValue] = useState(row.typed === null ? "" : String(row.typed));
   const points = Number(value);
   const valid = value.trim() !== "" && Number.isInteger(points) && points >= 0 && points <= 999;
@@ -710,7 +714,11 @@ function RoundTotalRow({
           {row.name}
         </span>
         <span className="text-sm tabular-nums text-stage-muted">
-          {row.typed !== null ? countOf(row.total, "pt") : row.sitsOut ? "No answers this round" : countOf(row.auto, "pt")}
+          {row.typed !== null
+            ? t("common.pts", { count: row.total })
+            : row.sitsOut
+              ? t("desk.noAnswersThisRound")
+              : t("common.pts", { count: row.auto })}
         </span>
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -719,25 +727,25 @@ function RoundTotalRow({
           inputMode="numeric"
           min={0}
           max={999}
-          aria-label={`Round ${round} total for ${row.name}`}
+          aria-label={t("desk.totalFor", { round, team: row.name })}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className="h-11 w-24 rounded-xl border border-white/15 bg-white px-3 text-base text-stage outline-none focus:ring-2 focus:ring-gold"
         />
         <button
           type="button"
-          aria-label={`Save total for ${row.name}`}
+          aria-label={t("desk.saveTotalFor", { team: row.name })}
           disabled={busy || !valid}
           onClick={() => void onSave(points)}
           className="h-11 min-h-11 rounded-xl bg-gold px-4 text-sm font-semibold text-stage disabled:opacity-40"
         >
-          Save
+          {t("desk.save")}
         </button>
         {row.typed !== null ? (
           <>
             <button
               type="button"
-              aria-label={`Clear total for ${row.name}`}
+              aria-label={t("desk.clearTotalFor", { team: row.name })}
               disabled={busy}
               onClick={() => {
                 setValue("");
@@ -745,9 +753,9 @@ function RoundTotalRow({
               }}
               className={secondary}
             >
-              Clear
+              {t("desk.clear")}
             </button>
-            <span className="text-xs text-gold">Entered by hand</span>
+            <span className="text-xs text-gold">{t("desk.enteredByHand")}</span>
           </>
         ) : null}
       </div>
@@ -765,6 +773,8 @@ function DeskMenu({
   onEndConfirmed,
   onTvMode,
   onAddPaper,
+  languages,
+  onLanguage,
 }: {
   code: string;
   state: RoundHostState;
@@ -775,42 +785,43 @@ function DeskMenu({
   onEndConfirmed: () => void;
   onTvMode: (showAll: boolean) => void;
   onAddPaper: (name: string) => Promise<void>;
+  languages: Language[];
+  onLanguage: (lang: Language) => void;
 }) {
+  const t = useT();
   // Client component: window is defined by the time this renders.
   const tvUrl = `${window.location.origin}/tv/${code}`;
   const hostUrl = buildHostUrl(window.location.origin, code);
   return (
     <section className="space-y-5 rounded-2xl border border-white/15 p-4 sm:p-6">
       <div>
-        <h2 className="font-semibold">TV display</h2>
-        <p className="mt-1 text-sm text-stage-muted">
-          What the room should see, and nothing more: no answers until you reveal them.
-        </p>
+        <h2 className="font-semibold">{t("desk.tvDisplay")}</h2>
+        <p className="mt-1 text-sm text-stage-muted">{t("desk.tvHelp")}</p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={() => openTv(code)}
             className="h-12 min-h-12 rounded-xl bg-gold px-4 text-sm font-semibold text-stage"
           >
-            Open TV display
+            {t("desk.openTv")}
           </button>
           <code className="min-w-0 break-all rounded-xl bg-black/30 px-3 py-2 font-mono text-sm">{tvUrl}</code>
           <CopyButton value={tvUrl} className="bg-white/10 text-stage-fg" />
         </div>
         <p className="mt-3 rounded-xl bg-gold/10 px-3 py-2 text-sm text-stage-fg">
-          On a laptop, use Extend, not Mirror. Cast a tab, not your screen, or the room will see the answers.
+          {t("desk.extendNotMirror")}
         </p>
         {state.status !== "ENDED" ? (
           <div className="mt-4">
-            <p className="text-sm font-semibold">TV shows</p>
-            <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="TV shows">
+            <p className="text-sm font-semibold">{t("desk.tvShows")}</p>
+            <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label={t("desk.tvShows")}>
               <button
                 type="button"
                 aria-pressed={!state.tvShowsAll}
                 onClick={() => onTvMode(false)}
                 className={`${secondary} ${!state.tvShowsAll ? "bg-white/15" : ""}`}
               >
-                Current question
+                {t("desk.currentQuestion")}
               </button>
               <button
                 type="button"
@@ -818,7 +829,7 @@ function DeskMenu({
                 onClick={() => onTvMode(true)}
                 className={`${secondary} ${state.tvShowsAll ? "bg-white/15" : ""}`}
               >
-                All questions so far
+                {t("desk.allSoFar")}
               </button>
             </div>
           </div>
@@ -827,37 +838,54 @@ function DeskMenu({
 
       {state.status !== "LOBBY" && state.status !== "ENDED" ? (
         <div>
-          <AddPaperTeam heading={`Teams (${state.teams.length})`} busy={busy} onAddPaper={onAddPaper} />
-          <p className="mt-2 text-sm text-stage-muted">A table added now scores 0 for rounds already closed.</p>
+          <AddPaperTeam heading={t("desk.teamsCount", { count: state.teams.length })} busy={busy} onAddPaper={onAddPaper} />
+          <p className="mt-2 text-sm text-stage-muted">{t("desk.lateTable")}</p>
           <TeamList state={state} />
         </div>
       ) : null}
 
       <div>
-        <h2 className="font-semibold">Host link</h2>
+        <h2 className="font-semibold">{t("desk.hostLink")}</h2>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <code className="min-w-0 flex-1 break-all rounded-xl bg-black/30 px-3 py-2 font-mono text-sm">{hostUrl}</code>
           <CopyButton value={hostUrl} className="bg-white/10 text-stage-fg" />
         </div>
-        <p className="mt-2 text-sm text-stage-muted">Keep this link to reopen the host desk on another device.</p>
+        <p className="mt-2 text-sm text-stage-muted">{t("desk.hostLinkHelp")}</p>
       </div>
+
+      {languages.length > 1 ? (
+        <label className="block">
+          <span className="font-semibold">{t("desk.language")}</span>
+          <select
+            value={t.lang}
+            onChange={(e) => onLanguage(e.target.value as Language)}
+            className="mt-2 block h-12 rounded-xl border border-white/15 bg-white px-3 text-base text-stage"
+          >
+            {languages.map((lang) => (
+              <option key={lang} value={lang}>
+                {languageMeta(lang).name}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : null}
 
       {state.status !== "ENDED" ? (
         confirmingEnd ? (
           <ConfirmPanel
-            title="End this game for everyone?"
-            body="Teams stop being able to answer and the scoreboard becomes final. The pack can be edited again afterwards. This cannot be undone."
-            confirmLabel="Yes, end the game"
-            keepLabel="Keep playing"
+            title={t("desk.endTitle")}
+            body={t("desk.endBody")}
+            confirmLabel={t("desk.endYes")}
+            keepLabel={t("desk.keepPlaying")}
             busy={busy}
             onKeep={onKeepPlaying}
             onConfirm={onEndConfirmed}
           />
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-stage-muted">Finished early? Ending the game unlocks the pack for editing.</p>
-            <button type="button" onClick={onEnd} className={`${secondary} ml-auto h-12 min-h-12`}>
-              End game
+            <p className="text-sm text-stage-muted">{t("desk.finishedEarly")}</p>
+            <button type="button" onClick={onEnd} className={`${secondary} ms-auto h-12 min-h-12`}>
+              {t("desk.endGame")}
             </button>
           </div>
         )
@@ -867,19 +895,20 @@ function DeskMenu({
 }
 
 function Ended({ state }: { state: RoundHostState }) {
+  const t = useT();
   const { winners, topScore } = topScorers(state.scoreboard);
   return (
     <section className="rounded-2xl bg-white/5 p-4 sm:p-6">
       <TrophyIcon className="h-9 w-9 text-gold" />
       <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-        {winners.length > 1 ? "Tonight’s champions" : "Tonight’s champion"}
+        {winners.length > 1 ? t("desk.champions") : t("desk.champion")}
       </p>
       <h2 className="mt-2 font-serif text-4xl font-semibold leading-tight" dir="auto">
-        {winningNames(winners)}
+        {winningNames(t, winners)}
       </h2>
       {winners.length > 0 ? (
         <p className="mt-2 text-stage-muted">
-          {countOf(topScore, "point")} · {countOf(state.totalRounds, "round")}
+          {t("common.points", { count: topScore })} · {t("common.rounds", { count: state.totalRounds })}
         </p>
       ) : null}
       <div className="mt-6">
