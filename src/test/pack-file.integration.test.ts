@@ -226,6 +226,44 @@ describe("pack export / import", () => {
       expect(error).toMatch(/fewer pictures/);
       expect(await db.quizPack.count()).toBe(before);
     });
+
+    it("counts the bytes too, when the declared size is missing or wrong (review low 9)", async () => {
+      // Vercel blocks a body this big anyway; on any other host the route
+      // used to read it whole, because only Content-Length was checked.
+      const before = await db.quizPack.count();
+      const big = `{"pad":"${"a".repeat(MAX_PACK_FILE_BYTES)}"}`;
+      const undeclared = new NextRequest(`${BASE}/api/packs/import`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...host.cookieHeader },
+        body: big,
+      });
+      expect(undeclared.headers.get("content-length")).toBeNull();
+      const understated = new NextRequest(`${BASE}/api/packs/import`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Content-Length": "100", ...host.cookieHeader },
+        body: big,
+      });
+      for (const req of [undeclared, understated]) {
+        const res = await importPack(req);
+        expect(res.status).toBe(413);
+        expect((await res.json()).error).toBe(PACK_TOO_BIG_TO_IMPORT_MESSAGE);
+      }
+      expect(await db.quizPack.count()).toBe(before);
+    });
+
+    it("still reads a file a Windows editor saved with a byte-order mark", async () => {
+      const exported = await exportPack(new NextRequest(`${BASE}/api/packs/${packId}/export`, { headers: host.cookieHeader }), {
+        params: Promise.resolve({ id: packId }),
+      });
+      const res = await importPack(
+        new NextRequest(`${BASE}/api/packs/import`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...host.cookieHeader },
+          body: "\uFEFF" + (await exported.text()),
+        })
+      );
+      expect(res.status).toBe(201);
+    });
   });
 
   describe("version 2: embedded images", () => {

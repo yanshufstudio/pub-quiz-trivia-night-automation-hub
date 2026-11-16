@@ -21,11 +21,10 @@ export {
 /**
  * How many sign-in codes this app will email, and to whom.
  *
- * The reason is a hard external number: Resend's free plan allows 100 emails a
- * day, and that allowance is **shared with another product on the same
- * account**. So a flood here does not merely spam one inbox — it exhausts a
- * quota that something else depends on, and when it is gone every later sign-in
- * email silently fails to send for both.
+ * Every code is an email sent through Resend, so a flood here spends the
+ * account's sending allowance and can spam strangers' inboxes. The account is on
+ * Resend's Pro plan, not the free 100-a-day one these caps were first written
+ * for; production sets the daily total with SIGNIN_CODE_DAILY_LIMIT=1000.
  *
  * Better Auth's own rate limiting cannot express these caps. It keys on the
  * caller's IP and the path (`customRules` in src/lib/auth.ts) over a minute, so
@@ -55,21 +54,20 @@ export const PER_IP_HOURLY_ENV = "SIGNIN_CODE_PER_IP_HOURLY";
 export const DEFAULT_PER_IP_HOURLY = 10;
 
 /**
- * And for the day. At 10 an hour alone, one address could still use up the
- * day's total by the afternoon; at 20 a day it takes several. A flood from many
- * networks can still reach the total, which only a mail plan that is not the
- * shared free one would change.
+ * And for the day. At 10 an hour alone, one address could send 240 codes a
+ * day; at 20 a day it takes fifty addresses to reach the daily total, which is
+ * what stops a flood from many networks.
  */
 export const PER_IP_DAILY_ENV = "SIGNIN_CODE_PER_IP_DAILY";
 export const DEFAULT_PER_IP_DAILY = 20;
 
 export const DAILY_LIMIT_ENV = "SIGNIN_CODE_DAILY_LIMIT";
 /**
- * 80, not 100. The rest of Resend's free-plan allowance is left for the other
- * product sharing the account. Past this the form says codes are paused and
- * points at Google, which is better than Resend silently sending nothing.
+ * 1000, the number production runs with. A backstop against a flood from many
+ * networks at once, well inside Resend's Pro plan. Past this the form says
+ * codes are paused and points at Google.
  */
-export const DEFAULT_DAILY_LIMIT = 80;
+export const DEFAULT_DAILY_LIMIT = 1000;
 
 export function perAddressHourlyLimit(): number {
   return parseCeiling(process.env[PER_ADDRESS_HOURLY_ENV], DEFAULT_PER_ADDRESS_HOURLY);

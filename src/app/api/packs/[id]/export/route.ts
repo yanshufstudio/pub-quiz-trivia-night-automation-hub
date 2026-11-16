@@ -5,7 +5,7 @@ import { MAX_PACK_FILE_BYTES, PACK_TOO_BIG_TO_EXPORT_MESSAGE } from "@/lib/pack-
 import { toQuestionView } from "@/lib/question-types";
 import { packWithRoundsAndMediaArgs, type PackWithRoundsAndMedia } from "@/lib/session-state";
 import { hostSessionForRequest, unauthorized } from "@/lib/auth-guard";
-import { canReadPack, packNotFound } from "@/lib/pack-access";
+import { canReadPack, packNotFound, packOwnership } from "@/lib/pack-access";
 
 // A v2 export inlines every media file as base64, so it scales with the pack.
 export const maxDuration = 300;
@@ -28,6 +28,19 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   if (!host) return unauthorized();
 
   const { id } = await params;
+  const owner = await packOwnership({ packId: id });
+  if (!owner || !canReadPack(owner, host.creator.id)) return packNotFound();
+
+  // Pictures are most of a file, and base64 makes them a third bigger. If they
+  // alone are over the limit, say so before loading their bytes at all.
+  const pictures = await db.questionMedia.aggregate({
+    where: { question: { round: { packId: id } } },
+    _sum: { byteSize: true },
+  });
+  if (Math.ceil((pictures._sum.byteSize ?? 0) / 3) * 4 > MAX_PACK_FILE_BYTES) {
+    return NextResponse.json({ error: PACK_TOO_BIG_TO_EXPORT_MESSAGE }, { status: 413 });
+  }
+
   // The full media rows, not the lightweight `hasMedia` shape most reads
   // use — a v2 file embeds the actual bytes as base64 (see pack-file.ts).
   const pack = (await db.quizPack.findUnique({
@@ -47,6 +60,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     })),
   });
 
+  // Still checked on the finished file: text and indentation count too.
   const json = JSON.stringify(file, null, 2);
   if (Buffer.byteLength(json) > MAX_PACK_FILE_BYTES) {
     return NextResponse.json({ error: PACK_TOO_BIG_TO_EXPORT_MESSAGE }, { status: 413 });
