@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { generateTeamToken } from "@/lib/codes";
+import { createTeamUnderCap } from "@/lib/create-team";
 import { hostSessionRequest } from "@/lib/host-route";
 import { forgetDisplay } from "@/lib/display-cache";
 import { SESSION_STATUS } from "@/lib/session-state";
@@ -40,9 +40,16 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
     return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
   }
 
-  const team = await db.team.create({
-    data: { sessionId: session.id, name: body.name, token: generateTeamToken(), isPaper: true },
-  });
+  // The checks above are the ordinary answers. A phone joining at the same
+  // moment passes them too, so the cap and an exact duplicate are settled by the
+  // database (M3, the same as the join route); see create-team.ts.
+  const created = await createTeamUnderCap({ sessionId: session.id, name: body.name, isPaper: true });
+  if (!created.ok) {
+    return created.reason === "full"
+      ? NextResponse.json({ error: "This quiz has reached the maximum number of teams." }, { status: 409 })
+      : NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+  }
+  const team = created.team;
   forgetDisplay(session.code);
   return NextResponse.json({ team: { id: team.id, name: team.name, isPaper: true } }, { status: 201 });
 }

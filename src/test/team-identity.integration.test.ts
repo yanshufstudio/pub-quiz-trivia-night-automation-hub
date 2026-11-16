@@ -1,8 +1,9 @@
-import { afterAll, describe, expect, it } from "vitest";
+import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 
 import { POST as createSession } from "@/app/api/sessions/route";
 import { POST as joinSession } from "@/app/api/sessions/[code]/join/route";
+import { POST as addPaperTeam } from "@/app/api/sessions/[code]/teams/route";
 import { POST as leaveSession } from "@/app/api/sessions/[code]/leave/route";
 import { POST as advance } from "@/app/api/sessions/[code]/advance/route";
 import { POST as submitAnswer } from "@/app/api/sessions/[code]/answers/route";
@@ -66,6 +67,33 @@ async function newSession() {
 }
 
 const join = (code: string, name: string) => joinSession(post(`/api/sessions/${code}/join`, { name }), codeParams(code));
+const addPaper = (code: string, hostToken: string, name: string) =>
+  addPaperTeam(hostPost(`/api/sessions/${code}/teams`, { hostToken, name }), codeParams(code));
+
+/**
+ * Holds back each route's read of the team list for a moment. Locally the
+ * database answers so fast that requests sent together rarely overlap; held
+ * like this, every one reads the list before any of them writes, which is the
+ * busy start of a night these tests guard against.
+ */
+function holdTeamListReads() {
+  const findMany = db.team.findMany.bind(db.team);
+  return vi.spyOn(db.team, "findMany").mockImplementation(((args: Parameters<typeof findMany>[0]) =>
+    findMany(args).then((rows) => new Promise((resolve) => setTimeout(() => resolve(rows), 50)))) as never);
+}
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
+/** Fills a game to `count` teams without going through a route. */
+async function seedTeams(code: string, count: number) {
+  const session = await db.session.findUniqueOrThrow({ where: { code } });
+  await db.team.createMany({
+    data: Array.from({ length: count }, (_, i) => ({ sessionId: session.id, name: `Seeded ${i}`, token: `seeded-${code}-${i}` })),
+  });
+  return session;
+}
 
 describe("team names", () => {
   afterAll(async () => {
@@ -151,6 +179,70 @@ describe("joins that arrive at the same moment (M3)", () => {
       const { token } = await res.json();
       expect(await db.team.count({ where: { token } })).toBe(1);
     }
+  });
+});
+
+describe("paper teams the host adds while phones join (M3)", () => {
+  it("never takes the game past the cap, and answers a friendly 409 rather than a 500", async () => {
+    // The host's "add paper team" had the same count-then-insert gap as the
+    // join route: six at once with two places left all got in.
+    const { code, hostToken } = await newSession();
+    const session = await seedTeams(code, MAX_TEAMS_PER_SESSION - 2);
+
+    const held = holdTeamListReads();
+    const results = await Promise.all(Array.from({ length: 6 }, (_, i) => addPaper(code, hostToken, `Paper ${i}`)));
+    held.mockRestore();
+    const statuses = results.map((res) => res.status).sort();
+    expect(statuses).toEqual([201, 201, 409, 409, 409, 409]);
+    for (const res of results.filter((r) => r.status === 409)) {
+      expect((await res.json()).error).toMatch(/maximum number of teams/);
+    }
+    expect(await db.team.count({ where: { sessionId: session.id } })).toBe(MAX_TEAMS_PER_SESSION);
+  });
+
+  it("gives one name to one table when a paper team and a phone pick it at once", async () => {
+    const { code, hostToken } = await newSession();
+    const held = holdTeamListReads();
+    const results = await Promise.all([addPaper(code, hostToken, "The Pencils"), join(code, "The Pencils")]);
+    held.mockRestore();
+    expect(results.map((res) => res.status).sort()).toEqual([201, 409]);
+    const refused = results.find((res) => res.status === 409)!;
+    expect((await refused.json()).error).toMatch(/already taken/);
+    expect(await db.team.count({ where: { session: { code } } })).toBe(1);
+  });
+});
+
+describe("a team over the cap is never on the board (review low 6)", () => {
+  it("is not visible to a reader even while it is being refused", async () => {
+    // The cap used to be an insert, then a separate delete: a TV or host poll
+    // in between saw 61 teams, and the TV's two-second cache kept them.
+    const { code } = await newSession();
+    const session = await seedTeams(code, MAX_TEAMS_PER_SESSION - 1);
+
+    let done = false;
+    let most = 0;
+    const watch = (async () => {
+      while (!done) {
+        most = Math.max(most, await db.team.count({ where: { sessionId: session.id } }));
+        // A local database answers without leaving the microtask queue, so
+        // without this the joins would never get a turn.
+        await new Promise((resolve) => setTimeout(resolve, 0));
+      }
+    })();
+    const held = holdTeamListReads();
+    // And hold the name check that runs after the insert, which is where the
+    // old insert-then-delete left the extra teams standing.
+    const queryRaw = db.$queryRaw.bind(db);
+    vi.spyOn(db, "$queryRaw").mockImplementation(((...args: Parameters<typeof queryRaw>) =>
+      queryRaw(...args).then((rows) => new Promise((resolve) => setTimeout(() => resolve(rows), 50)))) as never);
+    const results = await Promise.all(Array.from({ length: 8 }, (_, i) => join(code, `Rush ${i}`)));
+    held.mockRestore();
+    done = true;
+    await watch;
+
+    expect(results.filter((res) => res.status === 201)).toHaveLength(1);
+    expect(most).toBeLessThanOrEqual(MAX_TEAMS_PER_SESSION);
+    expect(await db.team.count({ where: { sessionId: session.id } })).toBe(MAX_TEAMS_PER_SESSION);
   });
 });
 

@@ -36,6 +36,16 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   })) as PackWithRoundsAndMedia | null;
   if (!pack || !canReadPack(pack, host.creator.id)) return packNotFound();
 
+  // Pictures are most of a file, and base64 makes each a third bigger. If they
+  // alone are over the limit, say so before encoding and assembling the file.
+  const pictureBytes = pack.rounds.reduce(
+    (sum, round) => sum + round.questions.reduce((n, q) => n + (q.media?.byteSize ?? 0), 0),
+    0
+  );
+  if (Math.ceil(pictureBytes / 3) * 4 > MAX_PACK_FILE_BYTES) {
+    return NextResponse.json({ error: PACK_TOO_BIG_TO_EXPORT_MESSAGE }, { status: 413 });
+  }
+
   const file = toPackFile({
     ...pack,
     createdAt: pack.createdAt.toISOString(),
@@ -47,6 +57,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     })),
   });
 
+  // Still checked on the finished file: text and indentation count too.
   const json = JSON.stringify(file, null, 2);
   if (Buffer.byteLength(json) > MAX_PACK_FILE_BYTES) {
     return NextResponse.json({ error: PACK_TOO_BIG_TO_EXPORT_MESSAGE }, { status: 413 });

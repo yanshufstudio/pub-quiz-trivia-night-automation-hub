@@ -66,6 +66,27 @@ async function attachImportedMedia(
   }
 }
 
+const TOO_BIG = Symbol("too big");
+
+/** The request body as text, or TOO_BIG once more than `limit` bytes have come. */
+async function readBodyUpTo(req: NextRequest, limit: number): Promise<string | typeof TOO_BIG> {
+  if (!req.body) return "";
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > limit) {
+      await reader.cancel();
+      return TOO_BIG;
+    }
+    chunks.push(value);
+  }
+  return Buffer.concat(chunks).toString("utf8");
+}
+
 export async function POST(req: NextRequest) {
   // No AI call, so it doesn't count against the free-tier generation cap —
   // but it is a write that stores whatever bytes it is handed, so it keeps
@@ -90,7 +111,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: PACK_TOO_BIG_TO_IMPORT_MESSAGE }, { status: 413 });
   }
 
-  const body = await req.json().catch(() => null);
+  // The declared size can be missing or wrong, so the bytes are counted too
+  // as they arrive, and reading stops at the limit.
+  const text = await readBodyUpTo(req, MAX_PACK_FILE_BYTES);
+  if (text === TOO_BIG) {
+    return NextResponse.json({ error: PACK_TOO_BIG_TO_IMPORT_MESSAGE }, { status: 413 });
+  }
+  let body: unknown = null;
+  try {
+    body = JSON.parse(text);
+  } catch {
+    body = null;
+  }
   if (body === null || typeof body !== "object") {
     return NextResponse.json({ error: "That isn't a JSON pack file." }, { status: 400 });
   }
