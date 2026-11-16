@@ -132,8 +132,8 @@ test("Export JSON shows it is busy and cannot be pressed twice (review low 10)",
 
   const busy = page.getByRole("button", { name: "Exporting…" });
   await expect(busy).toBeDisabled();
+  await expect.poll(() => exports).toBe(1);
   await busy.click({ force: true });
-  expect(exports).toBe(1);
 
   const downloadPromise = page.waitForEvent("download");
   release();

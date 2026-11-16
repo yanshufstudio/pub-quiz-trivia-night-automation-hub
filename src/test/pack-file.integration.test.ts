@@ -250,6 +250,20 @@ describe("pack export / import", () => {
       }
       expect(await db.quizPack.count()).toBe(before);
     });
+
+    it("still reads a file a Windows editor saved with a byte-order mark", async () => {
+      const exported = await exportPack(new NextRequest(`${BASE}/api/packs/${packId}/export`, { headers: host.cookieHeader }), {
+        params: Promise.resolve({ id: packId }),
+      });
+      const res = await importPack(
+        new NextRequest(`${BASE}/api/packs/import`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...host.cookieHeader },
+          body: "\uFEFF" + (await exported.text()),
+        })
+      );
+      expect(res.status).toBe(201);
+    });
   });
 
   describe("version 2: embedded images", () => {

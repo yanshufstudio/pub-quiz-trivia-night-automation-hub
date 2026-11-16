@@ -210,6 +210,15 @@ describe("paper teams the host adds while phones join (M3)", () => {
     expect((await refused.json()).error).toMatch(/already taken/);
     expect(await db.team.count({ where: { session: { code } } })).toBe(1);
   });
+
+  it("also when the two spell it in different case", async () => {
+    const { code, hostToken } = await newSession();
+    const held = holdTeamListReads();
+    const results = await Promise.all([addPaper(code, hostToken, "The Pencils"), join(code, "the pencils")]);
+    held.mockRestore();
+    expect(results.map((res) => res.status).sort()).toEqual([201, 409]);
+    expect(await db.team.count({ where: { session: { code } } })).toBe(1);
+  });
 });
 
 describe("a team over the cap is never on the board (review low 6)", () => {

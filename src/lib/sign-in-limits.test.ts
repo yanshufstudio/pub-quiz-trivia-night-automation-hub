@@ -149,8 +149,8 @@ describe("one caller cannot spend everybody's allowance (H1)", () => {
 
   it("stops one caller for the day long before it could use up everybody's total", async () => {
     // Ten an hour alone would give one address 240 codes a day, a quarter of
-    // everybody's total.
-    expect(DEFAULT_PER_IP_DAILY).toBeLessThan(DEFAULT_DAILY_LIMIT / 2);
+    // everybody's total. At 20 a day it takes fifty addresses to use it up.
+    expect(DEFAULT_DAILY_LIMIT / DEFAULT_PER_IP_DAILY).toBeGreaterThanOrEqual(50);
     let sent = 0;
     for (let hour = 0; hour < 24; hour++) {
       const at = new Date(Date.UTC(2026, 10, 9, hour, 30));

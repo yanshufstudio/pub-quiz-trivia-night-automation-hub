@@ -69,27 +69,18 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   }
 
   // The checks above are the ordinary answers. Two joins at the same moment
-  // both pass them, so the database has the last word on the cap and on an
-  // exact duplicate name (M3); see create-team.ts.
+  // both pass them, so the cap and the name are settled again after the
+  // insert (M3); see create-team.ts.
   const created = await createTeamUnderCap({ sessionId: session.id, name });
   if (!created.ok) {
-    return created.reason === "full"
-      ? NextResponse.json({ error: "This quiz is full. It has reached the maximum number of teams." }, { status: 409 })
-      : NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
-  }
-  const team = created.team;
-
-  // The index is exact, so "Quiz Pigs" and "quiz pigs" at the same moment both
-  // get past it. Writes land one at a time, so of two teams sharing a name key
-  // the later row always sees the earlier one here, and stands down.
-  const rows = await db.$queryRaw<{ id: string; name: string }[]>`
-    SELECT "id", "name" FROM "Team" WHERE "sessionId" = ${session.id} ORDER BY rowid`;
-  if (rows.find((row) => teamNameKey(row.name) === key)?.id !== team.id) {
-    await db.team.deleteMany({ where: { id: team.id } });
-    // A TV poll in between may have cached the board with this team on it.
+    if (created.reason === "full") {
+      return NextResponse.json({ error: "This quiz is full. It has reached the maximum number of teams." }, { status: 409 });
+    }
+    // A same-name row may have stood for a moment, and a TV poll cached it.
     forgetDisplay(session.code);
     return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
   }
+  const team = created.team;
 
   // The TV's lobby lists teams as they join.
   forgetDisplay(session.code);

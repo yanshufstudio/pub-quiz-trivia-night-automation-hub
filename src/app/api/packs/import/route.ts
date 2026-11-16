@@ -68,23 +68,31 @@ async function attachImportedMedia(
 
 const TOO_BIG = Symbol("too big");
 
-/** The request body as text, or TOO_BIG once more than `limit` bytes have come. */
-async function readBodyUpTo(req: NextRequest, limit: number): Promise<string | typeof TOO_BIG> {
+/**
+ * The request body as text, TOO_BIG once more than `limit` bytes have come, or
+ * null if the upload broke off. Decoded as req.json() would: TextDecoder drops
+ * a leading byte-order mark, which Windows editors add when saving a file.
+ */
+async function readBodyUpTo(req: NextRequest, limit: number): Promise<string | null | typeof TOO_BIG> {
   if (!req.body) return "";
   const reader = req.body.getReader();
   const chunks: Uint8Array[] = [];
   let total = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    total += value.byteLength;
-    if (total > limit) {
-      await reader.cancel();
-      return TOO_BIG;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > limit) {
+        await reader.cancel().catch(() => {});
+        return TOO_BIG;
+      }
+      chunks.push(value);
     }
-    chunks.push(value);
+  } catch {
+    return null;
   }
-  return Buffer.concat(chunks).toString("utf8");
+  return new TextDecoder().decode(Buffer.concat(chunks));
 }
 
 export async function POST(req: NextRequest) {
@@ -119,7 +127,7 @@ export async function POST(req: NextRequest) {
   }
   let body: unknown = null;
   try {
-    body = JSON.parse(text);
+    body = text === null ? null : JSON.parse(text);
   } catch {
     body = null;
   }

@@ -41,13 +41,15 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   }
 
   // The checks above are the ordinary answers. A phone joining at the same
-  // moment passes them too, so the cap and an exact duplicate are settled by the
-  // database (M3, the same as the join route); see create-team.ts.
+  // moment passes them too, so the cap and the name are settled again after the
+  // insert (M3, the same as the join route); see create-team.ts.
   const created = await createTeamUnderCap({ sessionId: session.id, name: body.name, isPaper: true });
   if (!created.ok) {
-    return created.reason === "full"
-      ? NextResponse.json({ error: "This quiz has reached the maximum number of teams." }, { status: 409 })
-      : NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
+    if (created.reason === "full") {
+      return NextResponse.json({ error: "This quiz has reached the maximum number of teams." }, { status: 409 });
+    }
+    forgetDisplay(session.code);
+    return NextResponse.json({ error: "That team name is already taken in this session" }, { status: 409 });
   }
   const team = created.team;
   forgetDisplay(session.code);
