@@ -10,6 +10,7 @@ import type {
   TeamSessionState,
 } from "@/lib/api-types";
 import { fixtureTeam, roundTeamState } from "@/test/round-team-fixture";
+import { memoryStorage, readable } from "@/test/readable";
 
 /**
  * L1: every word a game screen shows, frozen as it was before the screens
@@ -37,55 +38,6 @@ const { TvDisplay } = await import("@/app/tv/[code]/TvDisplay");
 const { RoundHostDesk } = await import("@/app/host/[code]/RoundHostDesk");
 const { HostDashboard } = await import("@/app/host/[code]/HostDashboard");
 const { PrintPreview } = await import("@/app/packs/[id]/print/PrintPreview");
-
-const ATTRS = ["aria-label", "placeholder", "title", "alt"];
-// Text inside these runs on with the text around it, as a reader sees it, so
-// "Round {n} of {total}" reads the same whether React renders it as one text
-// node or five.
-const INLINE = new Set(["span", "a", "code", "strong", "em", "b", "i", "small"]);
-
-/** What a person reads: lines of text and spoken labels, in document order. */
-function readable(root: Element): string {
-  let out = "";
-  const walk = (node: Node) => {
-    if (node.nodeType === 3) {
-      out += node.textContent ?? "";
-      return;
-    }
-    if (node.nodeType !== 1) return;
-    const el = node as Element;
-    const tag = el.tagName.toLowerCase();
-    const block = !INLINE.has(tag);
-    if (block) out += "\n";
-    for (const name of ATTRS) {
-      const value = el.getAttribute(name);
-      if (value) out += `\n[${name}] ${value}\n`;
-    }
-    // A QR code's paths are not words.
-    if (tag !== "svg") el.childNodes.forEach(walk);
-    if (block) out += "\n";
-  };
-  walk(root);
-  return out
-    .split("\n")
-    .map((line) => line.replace(/\s+/g, " ").trim())
-    .filter(Boolean)
-    .join("\n");
-}
-
-function memoryStorage(): Storage {
-  const items = new Map<string, string>();
-  return {
-    get length() {
-      return items.size;
-    },
-    clear: () => items.clear(),
-    getItem: (key) => items.get(key) ?? null,
-    key: (i) => [...items.keys()][i] ?? null,
-    removeItem: (key) => void items.delete(key),
-    setItem: (key, value) => void items.set(key, String(value)),
-  };
-}
 
 const ok = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status });
 

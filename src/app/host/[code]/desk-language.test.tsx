@@ -5,6 +5,7 @@ import type { RoundHostState } from "@/lib/api-types";
 import { readDeskLanguage, writeDeskLanguage } from "@/lib/host-session";
 import { LanguageProvider } from "@/i18n/react";
 import type { Language } from "@/i18n";
+import { memoryStorage } from "@/test/readable";
 
 /**
  * L1: the host can pick the desk's own language on this device; until they
@@ -13,20 +14,6 @@ import type { Language } from "@/i18n";
  */
 
 const { RoundHostDesk } = await import("./RoundHostDesk");
-
-function memoryStorage(): Storage {
-  const items = new Map<string, string>();
-  return {
-    get length() {
-      return items.size;
-    },
-    clear: () => items.clear(),
-    getItem: (key) => items.get(key) ?? null,
-    key: (i) => [...items.keys()][i] ?? null,
-    removeItem: (key) => void items.delete(key),
-    setItem: (key, value) => void items.set(key, String(value)),
-  };
-}
 
 beforeEach(() => vi.stubGlobal("localStorage", memoryStorage()));
 afterEach(() => {
