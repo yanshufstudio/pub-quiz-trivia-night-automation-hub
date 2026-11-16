@@ -16,8 +16,11 @@ const APP_SCREENS = [
   "src/app/layout.tsx",
   "src/components/{AccountNav,ConfirmPanel,CopyButton,Countdown,JoinQr,NavLinks,QuestionText,RoundCountdown,Scoreboard,SiteHeader,StatusBadge}.tsx",
 ];
-// Looks like words (two words, or a capitalised one) and not like a class list.
-const WORDS = "/^(?!.*[-/:]).*([A-Za-z]\\s+[A-Za-z]|^[A-Z][a-z])/";
+// Looks like words, not like a class list or a message key: a capitalised
+// word anywhere, or two plain lowercase words (or a word and a number) in a
+// row. Class lists are hyphenated ("text-muted"); keys are dotted
+// ("desk.markedRight").
+const WORDS = "/^(?!\\w+(\\.\\w+)+$).*([A-Z][a-z]|(^|\\s)[a-z]{2,}\\s+([a-z]{2,}|\\d)|\\d\\s+[a-z]{2,}(\\s|$))/";
 const SAID = `:matches(Literal[value=${WORDS}], TemplateLiteral:has(TemplateElement[value.raw=${WORDS}]))`;
 const SHOWN = "JSXAttribute[name.name=/^(aria-label|placeholder|title|alt)$/]";
 const message = "Words a person reads go in the message files (src/i18n/messages), read with t().";

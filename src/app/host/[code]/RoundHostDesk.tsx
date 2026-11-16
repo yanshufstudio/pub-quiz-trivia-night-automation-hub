@@ -201,7 +201,7 @@ export function RoundHostDesk({
             {current ? <HostQuestion question={current} code={code} hostToken={hostToken} /> : null}
             {current && phoneTeams(state) > 0 ? (
               <p className="mt-4 text-sm text-stage-muted">
-                {t("desk.phoneTeamsAnswered", { answered: answeredCount(state, current.index), total: phoneTeams(state) })}
+                {t("desk.phoneTeamsAnswered", { answered: answeredCount(state, current.index), count: phoneTeams(state) })}
               </p>
             ) : null}
 
@@ -249,7 +249,7 @@ export function RoundHostDesk({
                       <QuestionText as="span" text={q.text} />
                       {phoneTeams(state) > 0 ? (
                         <span className="block text-xs text-stage-muted">
-                          {t("desk.answeredOf", { answered: answeredCount(state, q.index), total: phoneTeams(state) })}
+                          {t("desk.answeredOf", { answered: answeredCount(state, q.index), count: phoneTeams(state) })}
                         </span>
                       ) : null}
                     </li>
@@ -343,7 +343,7 @@ export function RoundHostDesk({
             ) : confirming === "finish" ? (
               <ConfirmPanel
                 title={t("desk.finishTitle")}
-                body={[missingTotalsNote, t("desk.finishBody")].filter(Boolean).join(" ")}
+                body={[missingTotalsNote, t("desk.finishBody")].filter(Boolean).join(t("common.sentenceSeparator"))}
                 confirmLabel={t("desk.finishYes")}
                 keepLabel={t("desk.notYet")}
                 busy={busy}
@@ -587,7 +587,7 @@ function Marking({
       <div className="rounded-2xl bg-white/5 p-4 sm:p-6">
         <h2 className="font-serif text-2xl font-semibold">{t("desk.checkMarks", { round: n })}</h2>
         <p className="mt-1 text-sm text-stage-muted">
-          {t("desk.revealedOf", { revealed: state.revealedCount, total: state.totalQuestionsInRound })}
+          {t("desk.revealedOf", { revealed: state.revealedCount, count: state.totalQuestionsInRound })}
         </p>
 
         <ol className="mt-4 space-y-1 text-sm">

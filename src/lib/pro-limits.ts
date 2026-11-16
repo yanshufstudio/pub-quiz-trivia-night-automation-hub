@@ -74,7 +74,9 @@ export function proDailyLimitMessage(limit: number): string {
 /** The same refusal, by code (L1). */
 export function proDailyLimitError(limit: number) {
   if (limit <= 0) return apiError("proGenerationOff");
-  return apiError("proDailyLimit", { limit: String(limit) });
+  // The count goes in as text so English keeps "1000", not "1,000"; the
+  // plural form is still chosen by it.
+  return apiError("proDailyLimit", { count: String(limit) });
 }
 
 /** How long a caller turned away by the kill switch is told to wait. Short, and

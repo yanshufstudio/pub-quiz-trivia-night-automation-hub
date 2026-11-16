@@ -102,7 +102,7 @@ export function RoundTeamPlay({
     <div className="flex flex-1 flex-col">
       <div className="flex items-start justify-between gap-3">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold" dir="auto">
-          {[t("common.roundN", { round: state.roundNumber }), state.round?.title].filter((part) => part != null).join(" · ")}
+          {[t("common.roundN", { round: state.roundNumber }), state.round?.title].filter((part) => part != null).join(t("common.partsSeparator"))}
         </p>
         {open ? <RoundCountdown countdown={state.countdown} serverNow={state.serverNow} /> : null}
       </div>

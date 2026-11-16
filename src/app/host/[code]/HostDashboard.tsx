@@ -69,8 +69,8 @@ export function HostDashboard({ code }: { code: string }) {
     tRef.current = t;
   }, [t]);
   const chooseDeskLanguage = (lang: Language) => {
-    writeDeskLanguage(code, lang);
     setDeskLanguage(lang);
+    writeDeskLanguage(code, lang);
   };
 
   useEffect(() => {
@@ -376,7 +376,7 @@ export function HostDashboard({ code }: { code: string }) {
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
                 {[t("desk.roundOf", { round: state.roundNumber, total: state.totalRounds }), state.round?.title]
                   .filter((part) => part != null)
-                  .join(" · ")}
+                  .join(t("common.partsSeparator"))}
               </p>
               <p className="mt-1 text-sm text-stage-muted">
                 {[
@@ -384,7 +384,7 @@ export function HostDashboard({ code }: { code: string }) {
                   state.question ? t("common.pts", { count: state.question.points }) : null,
                 ]
                   .filter((part) => part != null)
-                  .join(" · ")}
+                  .join(t("common.partsSeparator"))}
               </p>
               <h2 className="mt-4 font-serif text-2xl font-semibold leading-snug sm:text-3xl">
                 {state.question?.text ?? t("desk.noQuestion")}

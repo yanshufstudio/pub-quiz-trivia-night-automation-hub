@@ -457,7 +457,7 @@ function RoundKicker({ t, state }: { t: Translator; state: TeamSessionState }) {
         state.question ? t("common.pts", { count: state.question.points }) : null,
       ]
         .filter((part) => part != null)
-        .join(" · ")}
+        .join(t("common.partsSeparator"))}
     </p>
   );
 }
@@ -551,7 +551,7 @@ function EndedPanel({
             : t("team.thanks"),
         ]
           .filter(Boolean)
-          .join(" ")}
+          .join(t("common.sentenceSeparator"))}
       </p>
       <section className="mt-8 rounded-2xl bg-white/5 p-4">
         <h3 className="mb-3 font-semibold">{t("common.finalScores")}</h3>

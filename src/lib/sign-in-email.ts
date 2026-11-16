@@ -111,6 +111,12 @@ function textBody(t: Translator, { code, url }: { code: string; url: string }) {
   return t("email.text", { code, url });
 }
 
+/** Message text into HTML: a translation may hold "&" or "<". Quotes are
+ * left alone (text, not attributes), so English stays byte for byte. */
+function html(text: string) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 function htmlBody(t: Translator, { code, url }: { code: string; url: string }) {
   // Deliberately plain. An email client is not our design system, and a
   // sign-in email that renders as bare, obviously-readable text is easier to
@@ -118,13 +124,13 @@ function htmlBody(t: Translator, { code, url }: { code: string; url: string }) {
   // lang and dir, so a right-to-left language reads right in a mail client.
   return [
     `<div lang="${t.lang}" dir="${t.dir}">`,
-    `<p>${t("email.codeIs")}</p>`,
+    `<p>${html(t("email.codeIs"))}</p>`,
     `<p style="font-size:28px;letter-spacing:6px;font-weight:600">${code}</p>`,
-    `<p>${t("email.typeIt")}</p>`,
-    `<p>${t("email.orOpen")}</p>`,
+    `<p>${html(t("email.typeIt"))}</p>`,
+    `<p>${html(t("email.orOpen"))}</p>`,
     `<p><a href="${url}">${url}</a></p>`,
-    `<p>${t("email.expires")}</p>`,
-    `<p>${t("email.ignore")}</p>`,
+    `<p>${html(t("email.expires"))}</p>`,
+    `<p>${html(t("email.ignore"))}</p>`,
     `</div>`,
   ].join("");
 }

@@ -56,12 +56,12 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const { text, answer } = parsed.data;
   if (text !== undefined && text !== existing.text && text.length > PACK_LIMITS.questionText) {
     return NextResponse.json(
-      apiError("questionTooLong", { max: String(PACK_LIMITS.questionText) }),
+      apiError("questionTooLong", { count: String(PACK_LIMITS.questionText) }),
       { status: 400 }
     );
   }
   if (answer !== undefined && answer !== existing.answer && answer.length > PACK_LIMITS.answer) {
-    return NextResponse.json(apiError("answerTooLong", { max: String(PACK_LIMITS.answer) }), { status: 400 });
+    return NextResponse.json(apiError("answerTooLong", { count: String(PACK_LIMITS.answer) }), { status: 400 });
   }
 
   const { type, options: rawOptions, acceptableAnswers: rawAcceptableAnswers, ...rest } = parsed.data;

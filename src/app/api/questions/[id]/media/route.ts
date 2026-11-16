@@ -82,7 +82,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     });
     if (packMediaCount >= MAX_MEDIA_PER_PACK) {
       return NextResponse.json(
-        apiError("tooManyImages", { max: String(MAX_MEDIA_PER_PACK) }),
+        apiError("tooManyImages", { count: String(MAX_MEDIA_PER_PACK) }),
         { status: 409 }
       );
     }

@@ -81,7 +81,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cod
   );
   if (!submissions.allowed) {
     return NextResponse.json(
-      apiError("changeLimit", { limit: String(ANSWER_SUBMISSIONS_PER_QUESTION) }),
+      apiError("changeLimit", { count: String(ANSWER_SUBMISSIONS_PER_QUESTION) }),
       { status: 429, headers: { "Retry-After": String(submissions.retryAfterSeconds) } }
     );
   }
@@ -238,7 +238,7 @@ async function submitRoundAnswer(
   });
   if (!submissions.allowed) {
     return NextResponse.json(
-      apiError("changeLimit", { limit: String(ANSWER_SUBMISSIONS_PER_QUESTION) }),
+      apiError("changeLimit", { count: String(ANSWER_SUBMISSIONS_PER_QUESTION) }),
       { status: 429, headers: { "Retry-After": String(submissions.retryAfterSeconds) } }
     );
   }

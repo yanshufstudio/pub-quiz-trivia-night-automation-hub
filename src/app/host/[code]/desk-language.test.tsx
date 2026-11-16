@@ -82,6 +82,11 @@ describe("the desk language switch", () => {
     expect(readDeskLanguage("ABCDE")).toBe("en");
     expect(readDeskLanguage("OTHER")).toBeNull();
   });
+
+  it("still switches when this device's storage refuses to save", () => {
+    vi.stubGlobal("localStorage", { ...memoryStorage(), setItem: () => { throw new Error("QuotaExceededError"); } });
+    expect(() => writeDeskLanguage("abcde", "en")).not.toThrow();
+  });
 });
 
 describe("a game screen's language on <html>", () => {

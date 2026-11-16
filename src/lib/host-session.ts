@@ -2,15 +2,15 @@ const STORAGE_KEY = "quiz-hub:host-tokens";
 
 // Keyed by session code so a browser that has hosted more than one session
 // tonight (or reloads mid-quiz) still has the right key for each.
-type HostTokens = Record<string, string>;
+type ByCode = Record<string, string>;
 
-function readAll(): HostTokens {
+function readAll(key: string = STORAGE_KEY): ByCode {
   if (typeof window === "undefined") return {};
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(key);
     if (!raw) return {};
     const parsed = JSON.parse(raw) as unknown;
-    return parsed && typeof parsed === "object" ? (parsed as HostTokens) : {};
+    return parsed && typeof parsed === "object" ? (parsed as ByCode) : {};
   } catch {
     return {};
   }
@@ -33,22 +33,17 @@ const DESK_LANGUAGE_KEY = "quiz-hub:desk-language";
  * picked one (L1). Unset means the game's language, which is the default.
  */
 export function readDeskLanguage(code: string): string | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const all = JSON.parse(window.localStorage.getItem(DESK_LANGUAGE_KEY) ?? "{}") as Record<string, string>;
-    return all[code.toUpperCase()] ?? null;
-  } catch {
-    return null;
-  }
+  return readAll(DESK_LANGUAGE_KEY)[code.toUpperCase()] ?? null;
 }
 
+/** Best effort: storage that refuses (a private window, a full quota) only
+ * means the pick is not remembered, never that it is not made. */
 export function writeDeskLanguage(code: string, lang: string) {
-  let all: Record<string, string> = {};
-  try {
-    all = JSON.parse(window.localStorage.getItem(DESK_LANGUAGE_KEY) ?? "{}");
-  } catch {
-    // A damaged entry is replaced, not kept.
-  }
+  const all = readAll(DESK_LANGUAGE_KEY);
   all[code.toUpperCase()] = lang;
-  window.localStorage.setItem(DESK_LANGUAGE_KEY, JSON.stringify(all));
+  try {
+    window.localStorage.setItem(DESK_LANGUAGE_KEY, JSON.stringify(all));
+  } catch {
+    // Not remembered on this device; the desk still switches.
+  }
 }
