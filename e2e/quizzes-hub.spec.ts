@@ -45,6 +45,12 @@ const ENTRIES = [
       "Two rounds of ten for a Thanksgiving trivia night: one on the history and traditions, one on food, football and the parade. Answers are under each round. They're free to use as they are, to print, or to mix with your own.",
   },
   {
+    heading: "Chanukah trivia questions and answers",
+    href: "/quizzes/chanukah",
+    intro:
+      "Two rounds of ten for a Chanukah trivia night (you may know it as Hanukkah): one on the history behind the festival, one on its food, games and customs. Answers are under each round. They're free to use as they are, to print, or to mix with your own.",
+  },
+  {
     heading: "Christmas trivia questions and answers",
     href: "/quizzes/christmas",
     intro:
@@ -185,6 +191,7 @@ test.describe("/quizzes, signed out", () => {
       `${SITE}/quizzes/halloween`,
       `${SITE}/quizzes/bonfire-night`,
       `${SITE}/quizzes/thanksgiving`,
+      `${SITE}/quizzes/chanukah`,
       `${SITE}/quizzes/christmas`,
       `${SITE}/quizzes/holiday-trivia`,
     ]) {

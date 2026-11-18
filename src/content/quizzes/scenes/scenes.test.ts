@@ -5,14 +5,16 @@ import { SCENE_HEIGHT, SCENE_WIDTH, animatedScene, sceneMarkup } from "./index";
 /** Each moving scene, the prefix of its own shape ids, and the classes it animates. */
 const SCENES = [
   { slug: "thanksgiving", ids: "#tg-", moving: ["parade", "leg", "bob", "fall", "sway", "dangle", "hop"] },
+  { slug: "chanukah", ids: "#ch-", moving: ["flicker", "spin", "face", "turn", "hop"] },
   { slug: "christmas", ids: "#xm-", moving: ["twinkle", "star", "fall", "hop"] },
   { slug: "holiday-trivia", ids: "#hd-", moving: ["twinkle", "flicker", "swing", "hop"] },
 ];
 
 describe("the moving quiz pictures", () => {
-  it("is Thanksgiving, Christmas and holiday trivia; Halloween and Bonfire Night keep their still pictures", () => {
+  it("is Thanksgiving, Chanukah, Christmas and holiday trivia; Halloween and Bonfire Night keep their still pictures", () => {
     expect(QUIZZES.filter((quiz) => animatedScene(quiz.slug)).map((quiz) => quiz.slug)).toEqual([
       "thanksgiving",
+      "chanukah",
       "christmas",
       "holiday-trivia",
     ]);
