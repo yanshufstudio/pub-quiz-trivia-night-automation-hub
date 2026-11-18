@@ -40,16 +40,18 @@ describe("the quiz list", () => {
     expect(getQuiz("halloween")?.slug).toBe("halloween");
     expect(getQuiz("bonfire-night")?.slug).toBe("bonfire-night");
     expect(getQuiz("thanksgiving")?.slug).toBe("thanksgiving");
+    expect(getQuiz("chanukah")?.slug).toBe("chanukah");
     expect(getQuiz("christmas")?.slug).toBe("christmas");
     expect(getQuiz("holiday-trivia")?.slug).toBe("holiday-trivia");
     expect(getQuiz("not-a-quiz")).toBeUndefined();
   });
 
-  it("lists Halloween, Bonfire Night, Thanksgiving, Christmas, then holiday trivia, which is the order the quizzes page shows", () => {
+  it("lists Halloween, Bonfire Night, Thanksgiving, Chanukah, Christmas, then holiday trivia, which is the order the quizzes page shows", () => {
     expect(QUIZZES.map((quiz) => quiz.slug)).toEqual([
       "halloween",
       "bonfire-night",
       "thanksgiving",
+      "chanukah",
       "christmas",
       "holiday-trivia",
     ]);
@@ -173,6 +175,119 @@ describe("the Thanksgiving quiz", () => {
       `A free account gets ${countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days, no card needed.`,
     );
     expect(thanksgiving!.cta.button).toBe("Make your own trivia night");
+  });
+});
+
+/**
+ * Every field typed out from marketing's copy file
+ * (chanukah/chanukah-trivia-page-copy-2026-11-17.md), so a slip in the module
+ * fails here. The file's subheading and FAQ have no place on the page.
+ */
+describe("the Chanukah quiz", () => {
+  const chanukah = getQuiz("chanukah");
+
+  it("carries the approved title, description, heading, intro and picture text", () => {
+    expect(chanukah).toBeDefined();
+    expect(chanukah!.title).toBe("Chanukah trivia questions and answers: 20 free for your party");
+    expect(chanukah!.description).toBe(
+      "Two Chanukah trivia rounds with answers: the story of the Maccabees, then latkes, dreidels and gelt. Free to use, or make your own trivia night.",
+    );
+    expect(chanukah!.heading).toBe("Chanukah trivia questions and answers");
+    expect(chanukah!.intro).toBe(
+      "Two rounds of ten for a Chanukah trivia night (you may know it as Hanukkah): one on the history behind the festival, one on its food, games and customs. Answers are under each round. They're free to use as they are, to print, or to mix with your own.",
+    );
+    expect(chanukah!.image).toEqual({
+      url: "/quizzes/chanukah.png",
+      width: 1200,
+      height: 630,
+      alt: "A lit nine-branched Chanukah menorah next to a dreidel, chocolate coins and a plate of doughnuts, with the words Chanukah trivia.",
+    });
+  });
+
+  it("has both rounds word for word", () => {
+    expect(chanukah!.rounds).toEqual([
+      {
+        title: "The story of Chanukah",
+        questions: [
+          { question: "Chanukah marks the rededication of the Temple in which city?", answer: "Jerusalem" },
+          { question: "What does the Hebrew word \"Chanukah\" mean?", answer: "Dedication (of the Temple in Jerusalem)" },
+          {
+            question: "The Maccabees revolted against which Seleucid king, who had banned Jewish practice?",
+            answer: "Antiochus IV (Antiochus Epiphanes; Antiochus also accepted)",
+          },
+          {
+            question: "Who led the revolt after his father, the priest Mattathias, died?",
+            answer: "Judah Maccabee (Judah the Maccabee, Judas Maccabeus)",
+          },
+          { question: "The family of the Maccabees went on to found which ruling dynasty?", answer: "The Hasmoneans" },
+          {
+            question: "According to the Talmud, the one jar of pure oil found in the Temple should have lasted how long?",
+            answer: "One day (it lasted eight)",
+          },
+          { question: "Chanukah begins on the 25th day of which Hebrew month?", answer: "Kislev" },
+          {
+            question: "The story of the revolt is told in which books, which are not part of the Hebrew Bible?",
+            answer: "The Books of Maccabees (1 and 2 Maccabees)",
+          },
+          {
+            question: "What is the name of the extra candle on the menorah that is used to light the others?",
+            answer: "The shamash (shammes also accepted)",
+          },
+          {
+            question: "Counting the helper candle every night, how many candles do you need for all eight nights?",
+            answer: "44 (36 Chanukah candles plus 8 for the shamash)",
+          },
+        ],
+      },
+      {
+        title: "Food, games and customs",
+        questions: [
+          { question: "What are the fried potato pancakes eaten at Chanukah called?", answer: "Latkes (levivot also accepted)" },
+          { question: "Why is it a custom to eat food fried in oil at Chanukah?", answer: "To remember the miracle of the oil" },
+          {
+            question: "The four letters on a dreidel stand for the Hebrew words \"Nes gadol haya sham\". What does that mean?",
+            answer: "A great miracle happened there",
+          },
+          {
+            question:
+              "On dreidels made in Israel, one letter is different because the miracle happened \"here\". Which letter replaces shin?",
+            answer: "Pe (or peh), for \"po\", meaning here",
+          },
+          { question: "In the dreidel game, what do you win if it lands on gimel?", answer: "The whole pot" },
+          {
+            question: "What is the Yiddish word for the money, often chocolate coins today, given to children at Chanukah?",
+            answer: "Gelt (Chanukah gelt)",
+          },
+          {
+            question: "Why is the menorah traditionally placed in a window or by the front door?",
+            answer:
+              "To make the miracle known to people passing by (any answer about showing or publicizing the miracle accepted)",
+          },
+          {
+            question: "Each night, which candle is lit first?",
+            answer: "The newest one, added that night (the one furthest left also accepted)",
+          },
+          { question: "Some families eat cheese and dairy foods at Chanukah in memory of which heroine?", answer: "Judith" },
+          {
+            question:
+              "Which comedian first sang \"The Chanukah Song\", listing famous Jewish people, on \"Saturday Night Live\" in 1994?",
+            answer: "Adam Sandler",
+          },
+        ],
+      },
+    ]);
+  });
+
+  it("has the approved call to action, the allowance /pricing uses, and the trivia night button", () => {
+    expect(chanukah!.cta).toEqual({
+      heading: "Want a Chanukah round built for your crowd?",
+      paragraphs: [
+        "Tell TriviaFoundry who's playing and what they like, and it writes the rounds in minutes: an easy round for the kids after candle lighting, or a harder one for the office party. You get the full pack, a presenter script and answer sheets to print. On the night, teams answer on their phones (no app to download), tables that prefer paper play in the same game, and you run it round by round with the scores up on the TV.",
+        "AI can slip on a fact. Every question is yours to edit, so give the pack a read before the night.",
+        `A free account gets ${countOf(FREE_PACK_ALLOWANCE, "pack")} every 30 days, no card needed.`,
+      ],
+      button: "Make your own trivia night",
+    });
   });
 });
 
@@ -439,6 +554,7 @@ describe("the sitemap and robots.txt for the quiz pages", () => {
     expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/halloween`)).toBe(true);
     expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/bonfire-night`)).toBe(true);
     expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/thanksgiving`)).toBe(true);
+    expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/chanukah`)).toBe(true);
     expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/christmas`)).toBe(true);
     expect(sitemap().some((e) => e.url === `${SITE_URL}/quizzes/holiday-trivia`)).toBe(true);
   });
