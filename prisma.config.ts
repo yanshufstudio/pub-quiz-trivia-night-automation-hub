@@ -13,6 +13,9 @@ process.env.PRISMA_CLIENT_ENGINE_TYPE = "client";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
+  migrations: {
+    seed: "tsx prisma/seed.ts",
+  },
   experimental: {
     adapter: true,
   },
